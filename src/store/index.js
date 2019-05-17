@@ -25,18 +25,15 @@ const store = new Vuex.Store({
 
         SET_KEEP_ALIVE(state,setdata){
             state.includes = setdata;
-            console.log(state.includes);
         },
         SET_ITEM(state, value){
           var index = state.includes.indexOf(value);
           if(index <= -1){
             state.includes.push(value);
-            console.log(state.includes);
           }
         },
         REMOVE_ITEM(state, value){
             state.includes.remove(value);
-            console.log(state.includes);
         }
 
     },
