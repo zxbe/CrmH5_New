@@ -1,0 +1,436 @@
+/* 处理头部固定 */
+.infoheader{position:fixed;top:0;left:0;width:100%;z-index: 99;}
+
+.scroll-div {
+    /* position: fixed; */
+    /* top: 0.88rem;
+    left: 0;
+    width: 100%;
+    bottom: 0;
+    right: 0; */
+    /*height: calc(100% - 0.88rem);*/
+    /* overflow: hidden;
+    overflow-y: scroll;
+    -webkit-overflow-scrolling: touch; */
+    padding-top: 0.88rem;
+
+    background-color: #fff;
+    line-height: 0.21rem;
+    /* background-color: #FFFFFF */
+}
+.box{
+    background-color: rgb(242, 242, 242)
+}
+.CalendarList,.PrCalendarList,.MeetingList {
+    /* height: 100%; */
+    background-color: #fff;
+}
+.PrCalendarList{
+    height: 100%;
+}
+.ListCell {
+    position: relative;
+    display: flex;
+    padding: 9px 0.3rem;
+    padding-right: 0.14rem;
+    /*border-bottom: solid 1px red;*/
+    background-color: #fff;
+}
+.ListSpecialCell{
+    position: relative;
+    padding: 0.14rem 0.3rem;
+    padding-right: 0.14rem;
+    background-color: #fff;
+}
+.ListSpecialCellField{
+    display: flex;
+    width: 100%;
+}
+.ListSpecialCellContent{
+    padding: 0.1rem 0.32rem 0 0.6rem;
+    /* padding-left: 0.6rem; */
+    /* line-height: 0.32rem; */
+    font-size: 0.28rem;
+    line-height:1.2;
+    /* white-space: normal; */
+    word-break:break-all;
+    overflow:auto;
+    width: 100%;
+    box-sizing: border-box;
+}
+.ListSpecialCellLeftIcon{
+    width: 0.6rem;
+    padding: 0.2rem 0;
+}
+.ListSpecialCellFieldContent{
+    width: calc(100% - 0.92rem);
+    margin: auto 0;
+    /* margin-left: -0.1rem; */
+    font-size: 0.28rem;
+}
+.ListCell .ListCellLeftIcon {
+    width: 0.6rem;
+    /* height:30px; */
+    text-align: left;
+    padding: 0.2rem 0;
+    /* background-color: red; */
+}
+.ListCell .ListCellLeftText {
+    margin: auto 0;
+    width: 100%;
+    padding-right: 0.16rem;
+    display: flex;
+    font-size: 0.28rem;
+}
+.ListCell .ListCellContent
+{
+    margin: auto 0;
+    width: 100%;
+    padding-left: 0px;
+    display: flex;
+    font-size: 0.28rem;
+    align-items:center;
+    position: relative;
+}
+.ListCell .ListCellContent .delete-icon{
+  font-size: .4rem;
+  color: #aaa;
+}
+
+.ListCell .ListCellContentField,.ListCell .ListCellContentData{
+  width: calc(100% - 1.3rem);
+}
+
+
+.ListCell .ListCellContent .ListCellContentRight.switch
+{
+    width: 1.3rem !important;
+    height: 0.5rem;
+    /* text-align: left; */
+    margin-right: 0.16rem;
+}
+.ListCellContentRight.switch .weui-cell__ft
+{
+    text-align: right;
+    height: 0.5rem;
+    line-height: 0.5rem;
+    /* padding-left: 0.1rem; */
+
+}
+.ListCellContentRight.switch .weui-cell__ft input.weui-switch{
+    /* width: 1.04rem; */
+   height: 0.5rem;
+}
+.weui-switch-cp__box:after, .weui-switch:after
+{
+    height: 0.46rem;
+    width: 0.46rem;
+    border-radius: 50%;
+}
+.weui-switch-cp__input:checked~.weui-switch-cp__box:after, .weui-switch:checked:after
+{
+    transform: translateX(0.52rem);/*小圆水平移动的位置大小*/
+}
+.weui-switch-cp__box:before, .weui-switch:before{
+    background-color: #D7D7D7;
+    border-color:#D7D7D7;
+    height: 0.5rem;
+}
+.weui-switch-cp__input:checked~.weui-switch-cp__box, .weui-switch:checked
+{
+    border-color: #FF5A21;
+    background-color: #FF5A21;
+    height: 0.5rem;
+}
+.weui-switch, .weui-switch-cp__box
+{
+    border-radius: 0.25rem;
+    background-color: #D7D7D7;
+    border-color:#D7D7D7;
+}
+.weui-switch-cp__box:before, .weui-switch:before
+{
+    width: auto;
+    border-radius: 0.25rem;
+}
+
+
+.ListCell .ListCellContent .ListCellContentLeft
+{
+    width: calc(100% - 1.3rem);
+    margin: auto 0;
+    display:flex;
+    align-items:center;
+}
+.leftContent, .rightContent
+{
+    width:calc(50% - 0.16rem) !important;
+    position: relative;
+    height: 0.4rem;
+    margin: auto 0;
+    overflow: hidden;
+}
+.ListCellContentRight{
+    width: 1.2rem;
+    text-align: right;
+}
+.ListCellContentRightText{
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    /* text-align: right; */
+    min-height: 0.4rem;
+    line-height: 0.4rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.ListCellContentLeftText
+{
+
+   min-height: 0.4rem;
+   line-height: 0.4rem;
+   overflow: hidden;
+   text-overflow: ellipsis;
+   white-space: nowrap;
+}
+.leftContent .ListCellContentLeftText
+{
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+}
+.ListCellLeftIcon.leftIconHidden,.ListCellRightIcon.rightIconHidden,
+.ListSpecialCellLeftIcon.leftIconHidden,.ListSpecialCellRightIcon.rightIconHidden,.iconHidden
+{
+    display: block;
+    visibility: hidden;
+}
+
+.ListCell .ListCellContent .ListCellRightIcon,.ListSpecialCellRightIcon
+{
+   width:0.32rem;
+   line-height: 0.5rem;
+   text-align: right;
+}
+p.textareaP{
+    width: 100%;
+}
+textarea {
+    width: 100%;
+    outline: none;
+    background-color: transparent;
+    display: block;
+    margin-left: 0;
+    overflow: hidden;
+    position: relative;
+    /* left: -4px; */
+    border: none;
+    font-size: 0.28rem;
+    /*border: 1px solid transparent; */
+    /* height: 400px; */
+    line-height: 0.34rem;
+    /* margin: 11px 11px 8px 0; */
+    display: block;
+    height:0.5rem;
+}
+textarea::placeholder
+{
+    color: #D7D7D7;
+}
+.ListCell:after,.ListSpecialCell:after {
+    position: absolute;
+    content: '';
+    left:0.9rem;
+    right: 0.3rem;
+    bottom: 0;
+    height: 1px;
+    background-color: #F5F5DC;
+}
+.visible:after {
+    background-color: #F6E78B;
+}
+.ListCell .switch input {
+    /* outline: none; */
+    width: 80%;
+}
+
+
+.ProcessList{padding:10px 0;background:#fff;}
+
+.group-div{border-top:1px solid #e9cfae;}
+.date-div{
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  height:34px;line-height: 34px;
+  border-bottom: 1px solid #e9cfae;
+  background: #f8f2dc;
+  padding: 0 10px;
+  font-size: 12px;
+  width: 100%;
+  color: #000;
+  z-index: 89;
+}
+.occupy-div{
+  height: 34px;
+  display: none;
+}
+.group-item-list{display: none;}
+.group-item{
+  line-height: 22px;
+  padding: 5px 10px;
+}
+.item-title{
+  height: 28px;
+  line-height: 28px;
+  color: #000;
+  font-weight: 600;
+}
+
+.item-title .spot{
+  font-size: .5rem;
+  color: #3cadf9;
+  vertical-align: bottom;
+  padding-right: 5px;
+}
+.doc-block{font-weight:600;}
+
+.doc-list{color: rgb(42, 121, 200);}
+.doc-list .doc-icon{color:#ff5a21;}
+.doc-list .doc-right{color:#000;}
+
+
+
+
+.showMoreList {
+    display: block;
+}
+.updateList,.documentList{
+    margin-top: 0.2rem;
+}
+.updateList .ListCellContentRightText
+{
+    padding-right: 0.3rem;
+}
+.documentList .documentHeader{
+    width: calc(100% - 0.48rem);
+
+}
+.documentHeaderContent{
+    color: #FF5A21;
+}
+.documentAddIcon{
+    /* width: 24px;     */
+    /* height: 44px; */
+    margin: auto 0;
+   margin-left: 0.4rem;
+}
+.documentAddIcon .calcfont.calc-jia
+{
+    padding: 0.2rem;
+    color: #FF5A21 !important;
+}
+.wendangList .ListCell{padding-right:.3rem;}
+.wendangList .calc-fujian{
+    color: #FF5A21;
+    font-size: 0.32rem;
+    display:inline-block;
+    width: 0.6rem;
+}
+.wendangList .ListCellContentLeftText
+{
+    color: #2A79C8;
+}
+.wendangList .ListCellContentLeft{
+  width: 55%!important;
+}
+.wendangList .rightContent
+{
+    width: 40%!important;
+    /* padding-right: 20px; */
+}
+.wendangList .deleteDoc{
+    padding: 0.1rem;
+    padding-top: 0;
+    font-size: 0.32rem;
+    margin: auto 0;
+}y
+
+
+.updateList .leftContent,.updateList .rightContent
+{
+    width: calc(50%) !important;
+}
+.updateList .rightContent{
+    padding-right: 0.4rem;
+}
+.ListCell .ListCellRight,
+.ListCell .ListCellLeftIcon,.ListSpecialCellLeftIcon,.ListSpecialCellRightIcon{
+    /* flex: 1; */
+    margin: auto 0;
+}
+.ListCellLeftIcon.textLeftIcon{
+    margin: 0 0;
+}
+/* .ListSpecialCellRightIcon{
+    padding-left: 0.1rem;
+} */
+.ListCell .ListCellRightIcon .calcfont,.ListSpecialCellRightIcon .calcfont {
+    color: #cdcdcd;
+    margin: auto 0;
+    font-size: 0.32rem;
+}
+
+.ListCell .ListCellLeftIcon .calcfont,.ListSpecialCellLeftIcon .calcfont{
+    font-size: 0.44rem;
+    color: #8A8A8A;
+}
+
+.ListCell .time.ListCellLeftIcon .calcfont {
+    color: #FFFFFF;
+}
+.calcfont.calc-tishi
+{
+    color: #FF5A21;
+    font-size: 0.36rem;
+    margin-top: -0.1rem;
+    padding-left: 0.06rem;
+    line-height: 0.26rem;
+}
+.MoreBtn {
+    margin: 0.2rem auto;
+    /* border: solid 1px #999999; */
+    /* border-radius: 22px; */
+    height: 0.88rem;
+    width: 0.88rem;
+    line-height:0.88rem;
+    text-align: center;
+    /* color: #FF5A21; */
+}
+.MoreBtn #moreIcon
+{
+    font-size: 0.4rem;
+    color: gray;
+}
+
+/*文件上传input*/
+.fileInput{
+  visibility: hidden;
+  position: fixed;bottom:0;z-index: -1;
+}
+.ListCellContentRight.rightContent input{
+    outline: none;
+    text-align: right;
+    border: none;
+    /* height:0.5rem;
+    line-height: 0.5rem; */
+    font-size: 0.28rem;
+    width:100%;
+    overflow: hidden;  /*溢出隐藏*/
+    text-overflow: ellipsis; /*以省略号...显示*/
+    white-space: nowrap;  /*强制不换行*/
+}

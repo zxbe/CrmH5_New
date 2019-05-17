@@ -1,0 +1,129 @@
+
+.header{position:fixed;width:100%;top:0;left:0;z-index:9;}
+
+
+.search-box{
+  position:fixed;top:0.88rem;bottom:0.9rem;left:0;right:0;overflow-y: scroll;
+  -webkit-overflow-scrolling:touch;
+}
+.swiper-container {
+  width: 100%;
+  /* line-height: 28px; */
+}
+.swiper-slide .weui-cells{font-size: 0.25rem;}
+.weui-cell{border-bottom:1px solid rgba(60,173,249,0.2);box-sizing: border-box;height: 40px;line-height: 20px;}
+.weui-cells{margin-top: 0;}
+.search-input{
+  width: 100%;
+  outline: 0 none;
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+  background-color: transparent;
+  display: block;
+  margin-left: 0;
+  overflow: hidden;
+  position: relative;
+  left: -2px;
+  height: 40px;
+  line-height: 20px;
+  border: 0;
+  padding: 10px 0;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  font-size: 0.25rem;
+}
+
+
+
+
+/*
+.showContent {
+  position: relative;
+  background-color: #FFFFFF;
+  height: calc(100% - 64px);
+}
+
+.calendarListCell {
+  display: flex;
+  padding: 15px 10px;
+  padding-right: 0;
+  border-bottom: solid 1px #e5f0f4;
+}
+
+.calendarListCell .calendarListCellLeft {
+  flex: 6;
+  margin: auto 0;
+  line-height: 15px;
+}
+
+.calendarListCell .calendarListCellMiddle {
+  flex: 10;
+  margin: auto 0;
+  padding-left: 10px;
+  line-height: 20px;
+  text-align: right;
+}
+.calendarListCell .calendarListCellMiddleInput
+{
+  width: calc(100% - 10px)
+}
+.calendarListCell .calendarListCellMiddle .calendarListCellMiddleContent {
+  width: 4rem;
+  font-size: 15px;
+  height: 20px;
+  line-height: 20px;
+  float: right;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.calendarListCell .calendarListCellMiddle .calendarListCellMiddleContent:after {
+  clear: both;
+}
+
+.calendarListCell .calendarListCellMiddleInput input {
+  outline: none;
+  height: 30px;
+  line-height: 30px;
+  font-size: 15px;
+  width: 100%;
+  margin: auto 0;
+  border: none;
+  background-color: none;
+}
+
+.calendarListCell .calendarListCellRight {
+  flex: 1;
+  margin: auto 0;
+}
+
+.calendarListCell .calendarListCellRight .calc-you {
+  color: #cdcdcd !important;
+}
+
+*/
+
+
+.anniu {
+  position:fixed;
+  width: 100%;
+  height:0.9rem;
+  line-height:0.9rem;
+  bottom: 0;
+  font-size: 0.25rem;
+  left:0;
+  z-index: 3;
+  display: flex;
+}
+
+.clear-btn,
+.sure-btn {
+  flex: 1;
+  background-color: #F2F2F2;
+  color: #000000;
+  text-align: center;
+}
+.sure-btn {
+  background-color: #FF5A21;
+  color: #FFFFFF;
+}
+
