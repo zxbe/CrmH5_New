@@ -140,7 +140,6 @@ export default {
     },
 
     created: function () {
-      console.log('created');
         let _self = this;
         _self.$store.commit('SET_ITEM', 'meetingNoteinfo');
         _self.ptitle = this.$route.query.infoName || lanTool.lanContent('1001_会议记录详情');
@@ -172,32 +171,41 @@ export default {
             _self.isAddNew = false;
         }
 
-        //控制控件逻辑
-        _self.controlBusinessTypes();
+        //渲染控件
+        tool.InitiateInfoPageControl(_self, _self.id, function () {
 
-        //处理OppID
-        _self.handleOppID(_self.oppID, true,false);
-        //处理ScheduleID
-        _self.handleScheduleID(_self.scheduleID, true);
+            //控制控件逻辑
+            _self.controlBusinessTypes();
 
-        //渲染数据
-        tool.IniInfoData(fromType, _self.id, function (data) {
+            //处理OppID
+            _self.handleOppID(_self.oppID, true,false);
+            //处理ScheduleID
+            _self.handleScheduleID(_self.scheduleID, true);
 
-            _self.scheduleIDNew = data["ScheduleID"]||"";
+            //渲染数据
+            tool.IniInfoData(fromType, _self.id, function (data) {
 
-            //渲染文件列表
-            _self.iniDocList(data);
+                _self.scheduleIDNew = data["ScheduleID"]||"";
 
-            //渲染textarea
-            $("textarea").each(function (index, cur) {
-                $(cur).height('25');
-                tool.autoTextarea(cur);
+                //渲染文件列表
+                _self.iniDocList(data);
+
+                //渲染textarea
+                $("textarea").each(function (index, cur) {
+                    $(cur).height('25');
+                    tool.autoTextarea(cur);
+                });
             });
-        });
+        })
 
     },
     activated: function () {
-        console.log('activated');
+
+        //返回时更新selectlist控件的结果
+        tool.UpdateFieldValueFromBack(eventBus, function(){
+            //清空全局变量
+            eventBus.selectListData = null;
+        })
     },
     methods: {
         //控制控件逻辑
@@ -412,6 +420,7 @@ export default {
             tool.SaveOrUpdateData(fromType, _self.id, _self, function (dataTemp) {
                 // console.log(dataTemp);
                 tool.topTipSuccess(tool.getMessage(dataTemp),function(){
+                    _self.$store.commit('REMOVE_ITEM', 'meetingNoteinfo');
                     _self.$router.back(-1);
                     return;
 
