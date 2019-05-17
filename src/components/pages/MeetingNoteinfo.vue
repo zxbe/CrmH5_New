@@ -195,19 +195,47 @@ export default {
                     $(cur).height('25');
                     tool.autoTextarea(cur);
                 });
+
+                //场景：当在selectList页面按刷新按钮再回到详情页
+                _self.updateSelectlist();
+
             });
         })
 
     },
     activated: function () {
-
+        let _self = this;
+        _self.updateSelectlist();
         //返回时更新selectlist控件的结果
-        tool.UpdateFieldValueFromBack(eventBus, function(){
-            //清空全局变量
-            eventBus.selectListData = null;
-        })
+        // tool.UpdateFieldValueFromBack(eventBus, function(){
+        //     //清空全局变量
+        //     eventBus.selectListData = null;
+        // })
+
     },
     methods: {
+        //更新selectlist控件
+        updateSelectlist:function(callback){
+            let _self = this;
+            if (tool.isNullOrEmptyObject(eventBus.selectListData)) {
+                return;
+            }
+            //更新selectlist控件的结果
+            var filedName = eventBus.selectListData.field;
+            var idTemp = eventBus.selectListData.value.id || "";
+            if (filedName == "ScheduleID") {
+                _self.handleScheduleID(idTemp, false);
+            } else {
+                _self.handleOppID(idTemp, false,true);
+            }
+            //清空全局变量
+            eventBus.selectListData = null;
+
+            if (!tool.isNullOrEmptyObject(callback)) {
+                callback();
+            }
+        },
+
         //控制控件逻辑
         controlBusinessTypes: function () {
             var _self = this;
@@ -261,9 +289,7 @@ export default {
                         console.log(tool.getMessage(data));
                         return true;
                     }
-
                     data = data._OnlyOneData || [];
-
                     // console.log(data);
 
                     //1>锁定销售机会设置为不可操作
@@ -418,29 +444,26 @@ export default {
             var _self = this;
             var fromType = "MeetingNoteinfo";
             tool.SaveOrUpdateData(fromType, _self.id, _self, function (dataTemp) {
-                // console.log(dataTemp);
+
                 tool.topTipSuccess(tool.getMessage(dataTemp),function(){
+                    var autoIDTemp = dataTemp._OnlyOneData || "";
+                    //如果不是新增保存后返回上一页，新增保存就在当前页刷新
+                    if (tool.isNullOrEmptyObject(_self.id) || Number(_self.id) > 0) {
+                        _self.$store.commit('REMOVE_ITEM', 'meetingNoteinfo');
+                        _self.$router.back(-1);
+                        return;
+                    }
+                    var path = "/MeetingNoteinfo/" + autoIDTemp;
+                    var query = _self.$route.query;
                     _self.$store.commit('REMOVE_ITEM', 'meetingNoteinfo');
-                    _self.$router.back(-1);
-                    return;
-
-                    // var autoIDTemp = dataTemp._OnlyOneData || "";
-                    // if(tool.isNullOrEmptyObject(autoIDTemp)){
-                    //     _self.$router.back(-1);
-                    //     return;
-                    // }
-                    // var path = "/MeetingNoteinfo/" + autoIDTemp;
-                    // // console.log(path);
-                    // var query = _self.$route.query;
-
-                    // _self.$router.replace({
-                    //     path: path,
-                    //     query: query
-                    // });
-                    // //保证地址替换后再刷新
-                    // setTimeout(function(){
-                    //     window.location.reload();
-                    // },80);
+                    _self.$router.replace({
+                        path: path,
+                        query: query
+                    });
+                    //保证地址替换后再刷新
+                    setTimeout(function(){
+                        window.location.reload();
+                    },80);
                 });
 
             },false);

@@ -1474,7 +1474,7 @@
 	tool.UserName = function () {
 		return tool.getSessionStorageItem(tool.cache_UserName) || "";
 	};
-
+/*
 	//模板
   tool.meetingGroupTemplate =
   `<div class="list-group-div group-div">
@@ -1524,14 +1524,15 @@
       <div class="occupy-div"></div>
     </div>
 	`;
-
+*/
 	/*
 	*fromType:模块名
 	*containerObj:容器jquery对象
 	*noData:是否无数据
 	*myCallBack:回调函数
 	*groupBy:分组依据
-	*/
+  */
+  /*
 	tool.InitiateGroupList = function (fromType, containerObj, queryCondiction,myCallBack,groupBy) {
 		//清空容器内容
 		containerObj.html('');
@@ -1669,6 +1670,7 @@
 		});
 
   };
+  /*
 
   /**
    * vueObj:vue对象
@@ -1802,7 +1804,8 @@
 	*containerObj:容器jquery对象
 	*noData:是否无数据
 	*myCallBack:回调函数
-	*/
+  */
+  /*
 	tool.InitiateInnerDataList = function (fromType, groupID, containerObj,queryCondiction, myCallBack,groupBy) {
 		// console.log(fromType);
 		// console.log(groupID);
@@ -2055,7 +2058,7 @@
 			}
 		});
   };
-
+*/
 
   /**
    * vueObj:vue对象
@@ -2228,7 +2231,7 @@
   //     </div>
   //   </div>
   // </div>`;
-
+/*
   tool.OppMeetingInfoTemplate =
   `<div class="item-div-box">
         <div class="item-new-text">{MeetingSysmbol}</div>
@@ -2286,7 +2289,7 @@
 		tempStr = tempStr.ReplaceAll("{MeetingInfo}",templateTemp);
 		return tempStr;
   };
-
+*/
 	/*
 	* 清空控件数据
 	*/
@@ -3190,7 +3193,7 @@
 		};
 		//合并数据
 		jsonDatasTemp = tool.combineJObject(jsonDatasTemp,jObject);
-		console.log(jsonDatasTemp);
+		// console.log(jsonDatasTemp);
 		// return;
 		var loadingIndexClassName = tool.showLoading();
 		$.ajax({
