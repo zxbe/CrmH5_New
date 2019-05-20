@@ -27,52 +27,76 @@ export default{
             setTimeout(function () {
 
                 $(window).unbind('scroll').bind('scroll',function(){
-
-                    if ($(".group-div").length <= 0) return;
                     var scrollTop = $(document).scrollTop() || $(window).scrollTop();
 
+                    if ($(".group-div").length <= 0) return;
                     $(".group-div").each(function () {
-                        if (
-                            ($(this).offset().top - scrollTop) <= height
-                        ){
+                        if (($(this).offset().top - scrollTop) <= height){
                             if (tool.getSystem() === "ios") {
-                                $(this)
-                                    .find(".date-div")
-                                    .addClass("sticky")
-                                    .css({
-                                        top: height + "px"
-                                    });
+                                $(this).find(".date-div").addClass("sticky")
+                                        .css({
+                                            top: height + "px"
+                                        });
                                 return true;
                             } else {
-                                $(this)
-                                    .find(".date-div")
+                                $(this).find(".date-div")
                                     .css({
                                         position: "fixed",
                                         top: height + "px"
                                     });
-                                $(this)
-                                    .find(".occupy-div")
-                                    .show();
+                                $(this).children(".occupy-div").show();
                                 return true;
                             }
                         } else {
                             if (tool.getSystem() === "ios") {
-                                $(this)
-                                    .find(".date-div")
-                                    .removeClass("sticky")
+                                $(this).find(".date-div").removeClass("sticky")
                                     .css({
                                         top: "0px"
                                     });
                                 return true;
                             } else {
-                                $(this)
-                                    .find(".date-div")
+                                $(this).find(".date-div")
                                     .css({
                                         position: "static"
                                     });
-                                $(this)
-                                    .find(".occupy-div")
-                                    .hide();
+                                $(this).children(".occupy-div").hide();
+                                return true;
+                            }
+                        }
+                    });
+
+                    if ($(".company_item").length <= 0) return;
+                    let dateDivHeight = $('.date-div').innerHeight()+1;
+                    $(".company_item").each(function () {
+                        if (($(this).offset().top - scrollTop) <= (height + dateDivHeight)){
+                            if (tool.getSystem() === "ios") {
+                                $(this).find(".company_item_tit").addClass("sticky")
+                                        .css({
+                                            top: (height + dateDivHeight) + "px"
+                                        });
+                                return true;
+                            } else {
+                                $(this).find(".company_item_tit")
+                                    .css({
+                                        position: "fixed",
+                                        top: (height + dateDivHeight) + "px"
+                                    });
+                                $(this).children(".occupy-div").show();
+                                return true;
+                            }
+                        } else {
+                            if (tool.getSystem() === "ios") {
+                                $(this).find(".date-div").removeClass("sticky")
+                                    .css({
+                                        top: "0px"
+                                    });
+                                return true;
+                            } else {
+                                $(this).find(".date-div")
+                                    .css({
+                                        position: "static"
+                                    });
+                                $(this).children(".occupy-div").hide();
                                 return true;
                             }
                         }

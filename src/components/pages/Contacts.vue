@@ -76,6 +76,8 @@
                                     <div class="company_name" :data-groupid="companys.AutoID">{{companys.ShortName}}</div>
                                     <div>数量</div>
                                 </div>
+                                <div class="occupy-div"></div>
+
                                 <div v-if="companys.items.length > 0" class="contact_list">
                                       <div v-for="company in companys.items" :key="company.AutoID"
                                         :data-url="'/contactsinfo/' + company.AutoID"
