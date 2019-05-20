@@ -214,6 +214,7 @@ export default {
         let _self = this;
         lanTool.updateLanVersion();
         document.activeElement.blur();
+        $(window).scrollTop(0);
 
         let fromType = "Organizationsinfo";
 

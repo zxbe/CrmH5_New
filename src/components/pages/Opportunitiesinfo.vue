@@ -343,6 +343,7 @@ export default {
         let _self = this;
         lanTool.updateLanVersion();
         document.activeElement.blur();
+        $(window).scrollTop(0);
         _self.seeMore =lanTool.lanContent("900_查看详细");
         _self.rightPanelCloseThis();
         _self.id = _self.$route.params.id;

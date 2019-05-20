@@ -290,6 +290,7 @@ export default {
         let _self = this;
         lanTool.updateLanVersion();
         document.activeElement.blur();
+        $(window).scrollTop(0);
 
         //如果是只查看，控制元素不可以更改
         _self.controlEdit();

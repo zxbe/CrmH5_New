@@ -196,6 +196,7 @@ export default {
         let _self = this;
         lanTool.updateLanVersion();
         document.activeElement.blur();
+        $(window).scrollTop(0);
 
         _self.id = _self.$route.params.id;
         var fromType = "Meetinginfo";
