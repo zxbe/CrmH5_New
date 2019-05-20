@@ -2150,7 +2150,7 @@
                   return;
               }
               data = data._OnlyOneData.Rows || [];
-              // console.log(data);
+
               //无数据
               if (data.length <= 0) {
                   return;
@@ -2158,7 +2158,6 @@
               $.each(vueObj.groupData, function (index, item) {
                   if (item.GroupID == groupID) {
                       item.items = data;
-
                       //若是dealPipeline
                       if(fromType == "dealPipeline" || fromType == "opportunities"){
                          $.each(item.items,function(dataIndex, dataItem){
@@ -2171,6 +2170,12 @@
                             vueObj.$set(dataItem, 'className', className);
                             vueObj.$set(dataItem, 'meetingSysmbol', meetingSysmbol);
                          })
+                      }
+                      //若是organizations
+                      if(fromType == 'organizations'){
+                        $.each(item.items,function(index, companyData){
+                            vueObj.$set(companyData, 'items', []);
+                        })
                       }
                   }
               })

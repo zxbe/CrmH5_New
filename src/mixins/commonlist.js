@@ -174,6 +174,7 @@ export default{
                     var fromType = target.parents("div[data-fromtype]").attr("data-fromtype") || "";
                     var groupID = target.find("span[data-groupid]:first").attr("data-groupid") || "";
 
+
                     if (tool.isNullOrEmptyObject(groupID)) {
                         return;
                     }
@@ -206,6 +207,10 @@ export default{
                                 target.addClass("open")
                                     .siblings(".group-item-list")
                                     .slideDown(500);
+
+                                if(!tool.isNullOrEmptyObject(_self.contactsToggle)){
+                                  _self.contactsToggle();
+                                }
                             })
                         }, '', groupBy);
                     }
@@ -224,24 +229,14 @@ export default{
               return;
             }
             var num = _self.showPage;
-            var container = null;
+            // var container = null;
             var fromType = "";
-            /*
-            if (num == 0) {
-                _self.searchData = _self.dealPipelineSearch;
-                fromType = id1;
-                container = $("#"+ id1 +"List");
-            } else {
-                _self.searchData = _self.opportunitiesSearch;
-                fromType = id2;
-                container = $("#"+ id2 +"List");
-            }
-            */
+
             $.each(data, function(index, item){
                 if(num == item.moduleId){
                   _self.searchData = item.searchData;
                   fromType = item.fromType;
-                  container = item.container;
+                  // container = item.container;
                 }
             })
             //渲染数据

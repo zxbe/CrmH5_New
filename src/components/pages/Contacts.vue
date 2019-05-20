@@ -61,7 +61,7 @@
                 </router-link>
             </div>
             <!-- 列表 -->
-            <div v-show="!noData" id="contactsList" data-fromtype="contacts">
+            <div v-show="!noData" id="contactsList" data-fromtype="organizations">
                   <div v-for="group in groupData" :key="group.GroupID" class="list-group-div group-div">
                       <div class="date-div">
                           <span class="calcfont calc-gongsixinxi"></span>
@@ -71,23 +71,32 @@
                       <div class="occupy-div"></div>
 
                       <div v-if="group.items.length > 0" class="group-item-list contacts-list">
-                          <div v-for="item in group.items" :key="item.AutoID"
-                           class="group-item data-events-item f14"
-                           :data-url="'/contactsinfo/' + item.AutoID">
-                                <div class="item-user-icon calcfont calc-fuzeren1" :data-autoid="item.AutoID"></div>
-                                <div class="item-block contacts-item-block">
-                                        <div class="item-div item-first-div">{{item.EnglishName}}</div>
-                                        <div class="item-div">{{item.Title}}</div>
-                                        <div class="item-div"><span class="left-text max60">{{item.CompanyID}}</span><span class="right-text max35">{{item.CountryName}}</span></div>
-                                        <div class="item-div">
-                                          <span class="left-text">{{item.Email}}</span><span class="right-text">{{item.TelPhone}}</span>
+                              <div v-for="companys in group.items" :key="companys.AutoID" class="company_item">
+                                <div class="company_item_tit f14" >
+                                    <div class="company_name" :data-groupid="companys.AutoID">{{companys.ShortName}}</div>
+                                    <div>数量</div>
+                                </div>
+                                <div v-if="companys.items.length > 0" class="contact_list">
+                                      <div v-for="company in companys.items" :key="company.AutoID"
+                                        :data-url="'/contactsinfo/' + company.AutoID"
+                                        class="group-item data-events-item f14">
+                                              <div class="item-user-icon calcfont calc-fuzeren1" :data-autoid="company.AutoID"></div>
+                                              <div class="item-block contacts-item-block">
+                                                      <div class="item-div item-first-div">{{company.EnglishName}}</div>
+                                                      <div class="item-div">{{company.Title}}</div>
+                                                      <div class="item-div"><span class="left-text max60">{{company.CompanyID}}</span><span class="right-text max35">{{company.CountryName}}</span></div>
+                                                      <div class="item-div">
+                                                        <span class="left-text">{{company.Email}}</span><span class="right-text">{{company.TelPhone}}</span>
+                                                      </div>
+                                                      <div class="item-div">{{company.BusinessType}},{{company.DepartmentName}}</div>
+                                              </div>
                                         </div>
-                                        <div class="item-div">{{item.BusinessType}},{{item.DepartmentName}}</div>
                                 </div>
                           </div>
                       </div>
-
                   </div>
+
+
             </div>
             <nothing v-show="noData" style="padding-top:0.8rem;"></nothing>
         </div>
@@ -337,6 +346,128 @@ export default {
             _self.groupToggleHandle('organizationsList', 'contactsList');
         },
 
+        //联系人展开收起
+        contactsToggle:function(){
+            let _self = this;
+            $('#contactsList').off('click','.company_item_tit').on(
+              'click',
+              '.company_item_tit',
+              function(event){
+                  event.preventDefault();
+                  var target = $(event.target);
+                  if (!target.hasClass('company_item_tit')) {
+                      target = target.parents("div.company_item_tit:first");
+                      if (tool.isNullOrEmptyObject(target)) {
+                          return;
+                      }
+                  }
+                  var categoryID = target.closest('.contacts-list')
+                                  .siblings('div.date-div')
+                                  .find("span[data-groupid]:first")
+                                  .attr("data-groupid") || "";
+                  var fromType = "contacts";
+                  var companyID = target.find("div[data-groupid]:first").attr("data-groupid") || "";
+                  if (tool.isNullOrEmptyObject(categoryID) || tool.isNullOrEmptyObject(companyID)) {
+                        return;
+                  }
+                  //若是展开
+                    if (target.hasClass("open")) {
+                        target
+                            .removeClass("open")
+                            .siblings(".contact_list")
+                            .slideUp(500, function () {
+                                //清空items数据
+                                $.each(_self.groupData, function (index, item) {
+                                    if (item.GroupID == categoryID) {
+                                        $.each(item.items, function(i, companyData){
+                                            if(companyData.AutoID == companyID){
+                                                companyData.items = [];
+                                            }
+                                        })
+                                    }
+                                })
+                            });
+                    }else{
+                        //若是收起
+                        // var allQueryData = tool.combineArray(_self.queryCondictionData, _self.queryCondiction, "Field");
+                        _self.getContacts(categoryID, companyID, function(){
+                            _self.$nextTick(function () {
+                                target.addClass("open")
+                                    .siblings(".contact_list")
+                                    .slideDown(500);
+                            })
+                        });
+                    }
+
+
+              })
+        },
+
+        //根据公司获取联系人
+        getContacts:function(categoryID, companyID, callBack){
+            let _self = this;
+            if(tool.isNullOrEmptyObject(categoryID) || tool.isNullOrEmptyObject(companyID)){
+              return;
+            }
+            //请求地址
+            var urlTemp = tool.AjaxBaseUrl();
+            var controlName = tool.Api_ContactsHandle_GroupInnerData;
+            //传入参数
+            var jsonDatasTemp = {
+                CurrentLanguageVersion: lanTool.currentLanguageVersion,
+                UserName: tool.UserName(),
+                _ControlName: controlName,
+                GroupID: companyID,
+                _RegisterCode: tool.RegisterCode(),
+                QueryCondiction: []
+            };
+            var loadingIndexClassName = tool.showLoading();
+            $.ajax({
+                async: true,
+                type: "post",
+                url: urlTemp,
+                data: jsonDatasTemp,
+                success: function (data) {
+                    tool.hideLoading(loadingIndexClassName);
+                    data = tool.jObject(data);
+                    if (data._ReturnStatus == false) {
+                        tool.showText(tool.getMessage(data));
+                        console.log(tool.getMessage(data));
+                        _self.noData = true;
+                        return;
+                    }
+                    data = data._OnlyOneData.Rows || [];
+                    console.log(data);
+                    //无数据
+                    if (data.length <= 0) {
+                        return;
+                    }
+                    $.each(_self.groupData, function (index, item) {
+                        if (item.GroupID == categoryID) {
+                            $.each(item.items, function(i, companyData){
+                                if(companyData.AutoID == companyID){
+                                    companyData.items = data;
+                                }
+                            })
+                        }
+                    })
+                    if (!tool.isNullOrEmptyObject(callBack)) {
+                        callBack();
+                    }
+                },
+                error: function (jqXHR, type, error) {
+                    console.log(error);
+                    tool.hideLoading(loadingIndexClassName);
+                    return;
+                },
+                complete: function () {
+                    //隐藏虚拟键盘
+                    document.activeElement.blur();
+                }
+            });
+
+        },
+
         //添加/取消关注
         followToggle: function () {
             $("#organizationsList").off("click", ".item-stars-icon").on("click", ".item-stars-icon", function (e) {
@@ -375,13 +506,13 @@ export default {
                 {
                   moduleId:0,
                   fromType:'organizations',
-                  container:$("#organizations"),
+                  // container:$("#organizations"),
                   searchData:_self.OrganizationsSearch
                 },
                 {
                   moduleId:1,
-                  fromType:'contacts',
-                  container:$("#contacts"),
+                  fromType:'organizations',
+                  // container:$("#contacts"),
                   searchData:_self.ContactsSearch
                 },
             ]

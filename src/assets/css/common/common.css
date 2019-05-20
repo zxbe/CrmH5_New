@@ -449,6 +449,21 @@ top:0px;position:absolute;}
 
 /*列表页面 contacts 模块下 item style */
 .contacts-list{}
+.contacts-list .company_name_list{}
+.contacts-list .company_item{}
+.contacts-list .company_item_tit{display:flex;align-items:center;height: .7rem;
+  padding: 0 0 0 40px;background: #c666;border-bottom: 1px solid #fff;}
+.contacts-list .company_name{
+  display: inline-block;
+  width: 80%;
+  line-height: 1.5;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+
+
 .contacts-list .group-item{background:#fff;position:relative;}
 .contacts-list .item-block{padding:5px 10px 5px 0.8rem;}
 .contacts-list .group-item::after{content:'';display:block;height: 1px;background:beige;width:100%;left:0;
