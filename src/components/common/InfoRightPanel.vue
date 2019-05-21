@@ -30,18 +30,18 @@ export default {
             showPanel: false,
             classificationValue: '', //右侧分类
             dataFilter: [],
-            rightPanelFromTypeNew: "",
-            rightPanelFromIDNew: ""
+            // rightPanelFromTypeNew: "",
+            // rightPanelFromIDNew: ""
         }
     },
     props: ['isShowSend', 'isShowClose','closeThisContent', 'rightPanelFromType', 'rightPanelFromID'],
     watch: {
-        rightPanelFromType: function (newVal, oldVal) {
-            this.rightPanelFromTypeNew = newVal;
-        },
-        rightPanelFromID: function (newVal, oldVal) {
-            this.rightPanelFromIDNew = newVal;
-        }
+        // rightPanelFromType: function (newVal, oldVal) {
+        //     this.rightPanelFromTypeNew = newVal;
+        // },
+        // rightPanelFromID: function (newVal, oldVal) {
+        //     this.rightPanelFromIDNew = newVal;
+        // }
     },
     created: function () {
 
@@ -96,11 +96,9 @@ export default {
         //跳转到分享列表
         showShareList: function () {
             var _self = this;
-            // console.log(this.rightPanelFromTypeNew);
-            // console.log(this.rightPanelFromIDNew);
             var parameter = {
-                rightPanelFromType: this.rightPanelFromTypeNew, //来源类型
-                rightPanelFromID: this.rightPanelFromIDNew //来源ID
+                rightPanelFromType: this.rightPanelFromType, //来源类型
+                rightPanelFromID: this.rightPanelFromID //来源ID
             };
             _self.panelToggle();
             _self.$nextTick(function () {
