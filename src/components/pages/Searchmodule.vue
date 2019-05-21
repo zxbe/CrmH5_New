@@ -41,6 +41,7 @@ export default {
         _self.searchData = paramObj.dataModule;
         _self.queryCondictionData = paramObj.queryCondictionData;
     }
+    console.log(_self.queryCondictionData);
   },
   mounted: function() {
       let _self = this;
@@ -87,6 +88,7 @@ export default {
                   queryCondiction:queryCondictionTemp,
                   isFromConfirm:true
                 });
+                console.log(queryCondictionTemp);
                 _self.$store.commit('REMOVE_ITEM', 'searchmodule');
                 _self.$router.back(-1);
               });

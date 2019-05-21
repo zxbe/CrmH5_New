@@ -316,6 +316,8 @@ export default {
         if(!tool.isNullOrEmptyObject(eventBus.queryCondictionData)){
             _self.queryCondictionData = eventBus.queryCondictionData;
             eventBus.queryCondictionData = null;
+        }else{
+            _self.queryCondictionData = [];
         }
 
         _self.queryCondiction.push(returnObj.defaultQueryCondition);
@@ -344,6 +346,8 @@ export default {
         if(!tool.isNullOrEmptyObject(eventBus.queryCondictionData)){
             _self.queryCondictionData = eventBus.queryCondictionData;
             eventBus.queryCondictionData = null;
+        }else{
+            _self.queryCondictionData = [];
         }
 
         //获取是否是从搜索页面点击确定按钮返回来的标志
