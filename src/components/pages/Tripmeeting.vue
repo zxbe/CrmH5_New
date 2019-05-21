@@ -424,6 +424,7 @@ export default {
       if(to.name == 'index'){
           this.$store.commit('REMOVE_ITEM', 'tripmeeting');
           this.$store.commit('SET_TRIPMEETING_SHOW_MODULE', 0);
+          this.$store.commit('SET_VIEW_TYPE', 'calendarView');
       }
       next();
     },
