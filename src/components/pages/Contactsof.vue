@@ -161,8 +161,11 @@ export default {
                             var infoName = $(this).find(".item-first-div").text() || "";
                             var parameter = {
                                 onlyView: true,
-                                infoName: infoName
+                                infoName: infoName,
+                                source:'contactsof'
                             };
+
+                            _self.$store.commit('REMOVE_ITEM', 'contactsinfo');
                             _self.$router.push({
                                 path: urlTemp,
                                 query: parameter

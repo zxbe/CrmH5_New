@@ -6,14 +6,7 @@
     <div class="scroll-div">
         <div class="box">
             <div class="ContactList">
-                <!-- <div class="ListCell">
-                <div class="ListCellLeftIcon leftIconHidden"><span class="calcfont calc-shijian"></span></div>
-                <div class="ListCellContent">
-                    <div class="ListCellContentLeft leftContent">
-                        <div class="ListCellContentLeftText">photo</div>
-                    </div>
-                </div>
-          </div>-->
+
                 <div class="ListCell visible">
                     <div class="ListCellLeftIcon textLeftIcon">
                         <span class="calcfont calc-name"></span>
@@ -259,7 +252,7 @@ export default {
             id:'',
 
             isAddNew: false, //是否添加新纪录
-            operation: true, //控制详情页header按钮，ture:显示可操作，false:隐藏
+            operation: false, //控制详情页header按钮，ture:显示可操作，false:隐藏
             onlyView: false, //控制页面头部icon,true:不显示头部icon,false:显示
 
             companyID: "", //从Contactsof页面过来保存公司id
@@ -270,9 +263,12 @@ export default {
             isShowSendBtn: true, //侧滑是否显示分享给同事选项
             isShowClose: false, //侧滑是否显示关闭这个商业机会选项
 
+            source:'',//记录上一个页面是不是contactsof
+
         };
     },
     created: function () {
+      console.log('contactsinfo created');
         let _self = this;
         _self.$store.commit('SET_ITEM', 'contactsinfo');
 
@@ -280,8 +276,10 @@ export default {
         _self.ptitle = _self.$route.query.infoName || lanTool.lanContent("793_添加联系人");
         _self.companyID = _self.$route.query.companyID || '';
         _self.companyName = _self.$route.query.companyName || '';
+        _self.source = _self.$route.query.source || '';
         _self.rightPanelFromType = "6";
         _self.rightPanelFromID = _self.$route.params.id || "";
+
 
         _self.onlyView = (_self.$route.query.onlyView == "true" || _self.$route.query.onlyView == true) ? true : false;
 
@@ -298,16 +296,19 @@ export default {
         let fromType = "Contactsinfo";
 
         _self.id = _self.$route.params.id;
-
         //若是新增，则隐藏新增不需要显示的模块
         if (tool.isNullOrEmptyObject(_self.id) || Number(_self.id) <= 0) {
             _self.isAddNew = true;
             _self.operation = false;
-
         } else {
             _self.isAddNew = false;
             _self.operation = true;
         }
+
+        console.log('isAddNew:'+ _self.isAddNew);
+        console.log('operation:'+ _self.operation);
+        console.log('onlyView:'+ _self.onlyView);
+        // console.log('notDelete:'+ _self.notDelete);
 
         //渲染控件
         tool.InitiateInfoPageControl(_self, _self.id, function () {
@@ -355,8 +356,14 @@ export default {
 
             //渲染数据
             tool.IniInfoData(fromType, _self.id, function () {
-                //判断当前用户是否可以操作当前单据
-                _self.initUserAccess();
+
+                //如果页面来源是contactsof不需要判断操作权限
+                if(_self.source != 'contactsof'){
+                    //判断当前用户是否可以操作当前单据
+                    console.log('_self.source');
+                    console.log(_self.source);
+                    _self.initUserAccess();
+                }
 
                 //渲染textarea
                 $("textarea").each(function (index, cur) {
@@ -425,6 +432,7 @@ export default {
                 onlyView: true,
                 infoName: infoName
             };
+            _self.$store.commit('REMOVE_ITEM', 'organizationsinfo');
             _self.$router.push({
                 path: urlTemp,
                 query: parameter
@@ -447,28 +455,21 @@ export default {
         },
 
         deleteData: function (e) {
-
             var _self = this;
             var id = _self.$route.params.id;
             var fromType = "Contactsinfo";
             tool.DeleteData(fromType, id, _self, function () {
                 _self.$store.commit('REMOVE_ITEM', 'contacts');
             });
-
         },
 
         //只查看的情况 控制元素是否可修改
         controlEdit: function () {
             var _self = this;
-            //t为 ture 时为需要控制
-
             if (_self.onlyView) {
-
-                $('.ContactList,.accessList').addClass('disable');
-
+                $(".ContactList,.accessList").addClass('disable');
             } else {
                 $('.ContactList,.accessList').removeClass('disable');
-
             }
         },
 
@@ -477,7 +478,6 @@ export default {
             var _self = this;
             var fromType = "6";
             var fromID = _self.$route.params.id;
-
             //是否指定记录的负责人
             tool.IsHasInitiator(fromType, fromID, function (data) {
                 _self.onlyView = !data;

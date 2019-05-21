@@ -1,7 +1,7 @@
 <template>
 <div>
 
-    <Infoheader class="sticky infoheader" :isAddNew="isAddNew" :onlyView="onlyView" :operation="operation" :title="ptitle"></Infoheader>
+    <Infoheader class="sticky infoheader" :isAddNew="isAddNew" :onlyView="onlyView" :title="ptitle"></Infoheader>
 
     <div class="scroll-div">
         <div class="box">
@@ -188,7 +188,6 @@ export default {
             id:'',
 
             isAddNew: false, //是否添加新纪录
-            operation: false, //控制详情页header按钮，ture:显示可操作，false:隐藏
             onlyView: false, //控制页面头部icon,true:不显示头部icon,false:显示
             onlyMore: false,
 
@@ -204,11 +203,13 @@ export default {
         next();
     },
     created: function () {
+        console.log('oganizationsinfo created');
         let _self = this;
         _self.$store.commit('SET_ITEM', 'organizationsinfo');
         _self.ptitle = this.$route.query.infoName || lanTool.lanContent("792_添加公司");
 
         _self.onlyView = (_self.$route.query.onlyView == "true" || _self.$route.query.onlyView == true) ? true : false;
+
     },
     mounted: function () {
         let _self = this;
@@ -227,6 +228,11 @@ export default {
             $(".HideWhenNew").show();
             _self.isAddNew = false;
         }
+
+        console.log('isAddNew:'+ _self.isAddNew);
+        console.log('operation:'+ _self.operation);
+        console.log('onlyView:'+ _self.onlyView);
+        // console.log('notDelete:'+ _self.notDelete);
 
         //如果是只查看，控制元素不可以更改
         _self.controlEdit();

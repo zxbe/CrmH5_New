@@ -7,20 +7,14 @@
 
         <!-- 新增状态头部icon显示   -->
         <div v-if="isAddNew" class="leftView right">
-            <!-- <a class="calcfont calc-tijiao right" id="tijiao"></a> -->
             <a v-if="!onlyView" @click="save" class="calcfont calc-gou right" id="save"></a>
         </div>
         <!-- 编辑状态头部icon显示   -->
         <div v-else class="leftView right">
-            <!-- <a class="calcfont calc-tijiao right" id="tijiao"></a> -->
-            <!-- <a v-if="operation && !onlyView" @click="moreClick" class="calcfont calc-gengduo right" id="gengduo"></a> -->
+
             <a v-if="!onlyView && operation" @click="moreClick" class="calcfont calc-gengduo right" id="gengduo"></a>
             <a v-if="!onlyView" @click="save" class="calcfont calc-gou right" id="save"></a>
             <a v-if="!onlyView && !notDelete" @click="delClick" class="calcfont calc-shanchu right" id="delete"></a>
-
-
-            <!-- onlyMore只有Opportunitiesinfo文件用到 不传默认为fase  -->
-            <!-- <a v-if="onlyMore" @click="moreClick" class="calcfont calc-gengduo right" id="gengduo"></a> -->
 
         </div>
 
@@ -41,12 +35,23 @@ export default {
     },
     props:{
         title:String,
-        isAddNew:Boolean, //是否是新增状态, 父组件不传默认为false
-        operation:Boolean, //侧滑是否可操作, 父组件不传默认为false
-        onlyView:Boolean, //标志页面只能查看,父组件不传默认为false
-        notDelete:Boolean, //控制删除按钮是否显示,父组件不传默认为false（显示）
+        isAddNew:{ //是否是新增状态, 父组件不传默认为false
+          type:Boolean,
+          default:function(){return false}
+        },
+        operation:{ //侧滑是否可操作, 父组件不传默认为false
+          type:Boolean,
+          default:function(){return false}
+        },
+        onlyView:{  //标志页面只能查看,父组件不传默认为false
+          type:Boolean,
+          default:function(){return false}
+        },
+        notDelete:{ //控制删除按钮是否显示,父组件不传默认为false（显示）
+          type:Boolean,
+          default:function(){return false}
+        },
         // onlyMore:Boolean,   //只有Opportunitiesinfo文件用到 不传默认为fase
-
         rightPanelFromType:String,
         rightPanelFromID:String
     },
@@ -54,6 +59,8 @@ export default {
     },
     created:function(){
         var _self = this;
+
+        // console.log(_self.onlyView);
     },
     //props:['title','isAddNew','operation'],
     mounted: function () {
