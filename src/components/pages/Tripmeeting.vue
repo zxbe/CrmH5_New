@@ -89,10 +89,15 @@ export default {
         'nothing': Nothing,
         'list-right-panel': Listrightpanel,
     },
+    computed:{
+        viewType(){
+          return this.$store.state.viewType;
+        }
+    },
     data() {
         return {
             title: lanTool.lanContent('781_出差&会议'),
-            viewType: 'calendarView', //展示视图类型  calendarView, listView
+            // viewType: 'calendarView', //展示视图类型  calendarView, listView
 
             //侧滑数据模型
             rigthPanelData: [{
@@ -159,46 +164,6 @@ export default {
                     queryValue: "",
                     queryComparison: "like"
                 },
-                // {
-                //     queryfield: "BeginTime",
-                //     text: lanTool.lanContent("712_开始时间"),
-                //     fieldControlType: "dateTimePicker",
-                //     timeType:"dateTime",
-                //     queryType: "string",
-                //     queryFormat: "yyyy-MM-dd HH:mm",
-                //     queryFormat: "",
-                //     queryRelation: "and",
-                //     queryValue: "",
-                //     queryComparison: "=",
-                //     Code: "",
-                //     TypeValue: "",
-                // },
-                // {
-                //     queryfield: "EndTime",
-                //     text: lanTool.lanContent("713_结束时间"),
-                //     fieldControlType: "dateTimePicker",
-                //     timeType:"dateTime",
-                //     queryType: "string",
-                //     queryFormat: "yyyy-MM-dd HH:mm",
-                //     queryRelation: "and",
-                //     queryValue: "",
-                //     queryComparison: "=",
-                //     Code: "",
-                //     TypeValue: "",
-                // },
-                // {
-                //     queryfield: "MeetingType",
-                //     text: lanTool.lanContent("814_对内/对外"),
-                //     fieldControlType: "picker",
-                //     queryType: "string",
-                //     queryFormat: "",
-                //     queryRelation: "and",
-                //     queryValue: "",
-                //     queryComparison: "=",
-                //     Code: "DropDowList_DtbAllTypes",
-                //     TypeValue: "InternalExternaltype",
-                //     datalanid: "814_对内/对外"
-                // },
                 {
                     queryfield: "CompanyID",
                     text: lanTool.lanContent('726_公司名称'),
@@ -297,6 +262,14 @@ export default {
     created:function(){
         let _self = this;
         _self.$store.commit('SET_ITEM', 'tripmeeting');
+
+        //设置视图默认值
+        $.each(_self.rigthPanelData,function(index, item){
+            if(item.groupName == 'view'){
+              item.default = _self.viewType;
+            }
+        })
+
     },
     mounted:function(){
         let _self = this;
@@ -335,7 +308,7 @@ export default {
             _self.RefreshCurPageGroupData();
         })
         eventBus.$on('changeViewEvent', function (data) {
-            _self.viewType = data;
+            _self.$store.commit('SET_VIEW_TYPE', data);
         })
 
     },

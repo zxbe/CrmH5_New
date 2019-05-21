@@ -8,8 +8,14 @@ const store = new Vuex.Store({
         tripmeetingShowModule:0,
         contactsShowModule:0,
         businessShowModule:0,
+        viewType:'calendarView', //Tripmeeting模块视图切换
     },
     mutations: {
+        SET_VIEW_TYPE(state, val){
+          if(val != '' && val != undefined){
+            state.viewType = val;
+          }
+        },
         SET_TRIPMEETING_SHOW_MODULE(state, val){
             val = (val == '' || val == undefined) ? 0 : val;
             state.tripmeetingShowModule = val
