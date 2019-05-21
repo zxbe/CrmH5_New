@@ -269,6 +269,8 @@ export default{
                 allQueryData.push(_self.dateRangeJObject);
             }
 
+            let groupBy = _self.groupBy == undefined ? '' : _self.groupBy;
+
             tool.InitGrouplist(_self, fromType, allQueryData, function(){
                 //BusinessCategories模块
                 if(_self.$route.name && _self.$route.name == 'businessCategories'){
@@ -276,7 +278,7 @@ export default{
                     _self.ClearSearchText();
                 }
 
-            });
+            }, '', groupBy);
 
         }
 

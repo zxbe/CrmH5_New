@@ -63,7 +63,7 @@
                               <div v-for="item in group.items" :key="item.AutoID"
                               class=" group-item f14"
                               :data-url="'/opportunitiesinfo/' + item.AutoID">
-                                                  <div class="item-stars-icon calcfont calc-noshoucang" :data-autoid="item.AutoID"></div>
+                                                  <div class="item-stars-icon calcfont" :class="item.IsFollow" :data-autoid="item.AutoID"></div>
                                                   <div class="item-block">
                                                       <div class="item-div item-first-div blue-color">
                                                       {{item.TheName}}

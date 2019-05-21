@@ -545,7 +545,9 @@ export default {
             var _self = this;
             var id = _self.$route.params.id;
             var fromType = "Opportunitiesinfo";
-            tool.DeleteData(fromType, id, _self, function () {});
+            tool.DeleteData(fromType, id, _self, function () {
+                _self.$store.commit('REMOVE_ITEM', 'businessCategories');
+            });
         },
 
         //关注

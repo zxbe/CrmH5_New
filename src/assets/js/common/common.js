@@ -1746,7 +1746,6 @@
     }else{
         jsonDatasTemp.GroupBy = groupBy;
     }
-    console.log(queryCondiction);
     var loadingIndexClassName = tool.showLoading();
     $.ajax({
     async: true,
@@ -3276,7 +3275,7 @@
 	* 删除数据
 	*/
 	tool.DeleteData = function(fromType, autoID, _self,myCallBack){
-		// console.log("DeleteData");
+
 		if (tool.isNullOrEmptyObject(fromType) || tool.isNullOrEmptyObject(autoID)) {
 			return;
 		}
@@ -3302,8 +3301,6 @@
 		} else {
 			return;
 		}
-
-		console.log(controlName);
 
 		var idArr = [];
 		idArr.push(autoID);

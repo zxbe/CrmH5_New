@@ -334,7 +334,9 @@ export default {
             var _self = this;
             var id = _self.$route.params.id;
             var fromType = "Organizationsinfo";
-            tool.DeleteData(fromType, id, _self, function () {});
+            tool.DeleteData(fromType, id, _self, function () {
+                _self.$store.commit('REMOVE_ITEM', 'contacts');
+            });
         },
 
         //只查看的情况 控制元素是否可修改

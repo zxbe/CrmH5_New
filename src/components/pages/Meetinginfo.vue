@@ -271,7 +271,9 @@ export default {
             var _self = this;
             var id = _self.$route.params.id;
             var fromType = "Meetinginfo";
-            tool.DeleteData(fromType, id, _self, function () {});
+            tool.DeleteData(fromType, id, _self, function () {
+                _self.$store.commit('REMOVE_ITEM', 'tripmeeting');
+            });
         },
 
         savePageData: function (e) {

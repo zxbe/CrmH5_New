@@ -452,7 +452,7 @@ top:0px;position:absolute;}
 .contacts-list .company_name_list{}
 .contacts-list .company_item{}
 .contacts-list .company_item_tit{display:flex;align-items:center;height: .7rem;z-index:88;
-  padding: 0 0 0 40px;background: #ccc666;border-bottom: 1px solid #fff;}
+  padding: 0 0 0 40px;background: #e9b5ae;border-bottom: 1px solid #fff;}
 .contacts-list .company_name{
   display: inline-block;
   width: 80%;
