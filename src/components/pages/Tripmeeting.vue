@@ -261,6 +261,8 @@ export default {
     },
     created:function(){
         let _self = this;
+        //清空右侧筛选数据
+        eventBus.queryCondictionData = null;
         _self.$store.commit('SET_ITEM', 'tripmeeting');
 
         //设置视图默认值
@@ -285,13 +287,11 @@ export default {
             return ;
         }
 
-        //场景：在searchmodule页刷新再点确定搜索
-        if(!tool.isNullOrEmptyObject(eventBus.queryCondictionData)){
-            _self.queryCondictionData = eventBus.queryCondictionData;
-            eventBus.queryCondictionData = null;
-        }else{
-            _self.queryCondictionData = [];
-        }
+        //场景：在searchmodule页刷新再点确定搜索(暂时不考虑此场景)
+        // if(!tool.isNullOrEmptyObject(eventBus.queryCondictionData)){
+        //     _self.queryCondictionData = eventBus.queryCondictionData;
+        //     eventBus.queryCondictionData = null;
+        // }
 
         _self.queryCondiction.push(returnObj.defaultQueryCondition);
 
@@ -316,12 +316,7 @@ export default {
     activated: function () {
         var _self = this;
 
-        if(!tool.isNullOrEmptyObject(eventBus.queryCondictionData)){
-            _self.queryCondictionData = eventBus.queryCondictionData;
-            eventBus.queryCondictionData = null;
-        }else{
-            _self.queryCondictionData = [];
-        }
+        _self.queryCondictionData = eventBus.queryCondictionData;
 
         //获取是否是从搜索页面点击确定按钮返回来的标志
         var fromSearchBtn = eventBus.fromSearchBtn || false;

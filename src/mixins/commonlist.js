@@ -110,6 +110,9 @@ export default{
             var _self = this;
             var el = e.target;
             if (num === undefined) return;
+            //清空右侧筛选数据
+            eventBus.queryCondictionData = null;
+
             $(el)
                 .addClass("active-item")
                 .siblings()
@@ -178,10 +181,9 @@ export default{
          * 列表展开收起
          *  id1 , id2 :只模块id
          */
-        groupToggleHandle:function(id1, id2, groupBy){
+        groupToggleHandle:function(id1, id2){
 
             var _self = this;
-            groupBy = (groupBy == '' || groupBy == undefined) ? '' : groupBy;
 
             $("#"+ id1 +",#"+id2).off("click", "div.date-div").on(
                 "click",
@@ -225,6 +227,8 @@ export default{
                         if(allQueryData && !tool.isNullOrEmptyObject(_self.dateRangeJObject)){
                             allQueryData.push(_self.dateRangeJObject);
                         }
+
+                        let groupBy = _self.groupBy == undefined ? '' : _self.groupBy;
 
                         tool.InitInnerDataList(_self, fromType, groupID, allQueryData, function(){
                             _self.$nextTick(function () {
@@ -272,6 +276,7 @@ export default{
             let groupBy = _self.groupBy == undefined ? '' : _self.groupBy;
 
             tool.InitGrouplist(_self, fromType, allQueryData, function(){
+
                 //BusinessCategories模块
                 if(_self.$route.name && _self.$route.name == 'businessCategories'){
                     _self.search();

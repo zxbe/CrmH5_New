@@ -112,7 +112,7 @@
                                   <div v-for="item in group.items" :key="item.AutoID"
                                    class=" group-item f14"
                                    :data-url="'/opportunitiesinfo/' + item.AutoID">
-                                            <div class="item-stars-icon calcfont calc-noshoucang" :data-autoid="item.AutoID"></div>
+                                            <div class="item-stars-icon calcfont" :class="item.IsFollow" :data-autoid="item.AutoID"></div>
                                             <div class="item-block">
                                                 <div class="item-div item-first-div blue-color">
                                                   {{item.TheName}}
@@ -353,6 +353,8 @@ export default {
     },
     created:function(){
         let _self = this;
+        //清空右侧筛选数据
+        eventBus.queryCondictionData = null;
         _self.$store.commit('SET_ITEM', 'businessCategories');
     },
     mounted:function(){
@@ -369,13 +371,11 @@ export default {
             return;
         }
 
-        //场景：在searchmodule页刷新再点确定搜索
-        if(!tool.isNullOrEmptyObject(eventBus.queryCondictionData)){
-            _self.queryCondictionData = eventBus.queryCondictionData;
-            eventBus.queryCondictionData = null;
-        }else{
-            _self.queryCondictionData = [];
-        }
+        //场景：在searchmodule页刷新再点确定搜索(暂时不考虑此场景)
+        // if(!tool.isNullOrEmptyObject(eventBus.queryCondictionData)){
+        //     _self.queryCondictionData = eventBus.queryCondictionData;
+        //     eventBus.queryCondictionData = null;
+        // }
 
         _self.queryCondiction.push(returnObj.defaultQueryCondition);
         _self.groupBy = returnObj.defaultGroupBy || "";
@@ -393,12 +393,7 @@ export default {
     activated: function () {
         var _self = this;
 
-        if(!tool.isNullOrEmptyObject(eventBus.queryCondictionData)){
-            _self.queryCondictionData = eventBus.queryCondictionData;
-            eventBus.queryCondictionData = null;
-        }else{
-            _self.queryCondictionData = [];
-        }
+        _self.queryCondictionData = eventBus.queryCondictionData;
 
         //获取是否是从搜索页面点击确定按钮返回来的标志
         var fromSearchBtn = eventBus.fromSearchBtn || false;
@@ -599,7 +594,7 @@ export default {
         //列表展开收起
         groupToggle: function () {
             var _self = this;
-            _self.groupToggleHandle('dealpipelineList', 'opportunitiesList', _self.groupBy);
+            _self.groupToggleHandle('dealpipelineList', 'opportunitiesList');
         },
 
         //清除查询内容
