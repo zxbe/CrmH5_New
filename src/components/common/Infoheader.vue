@@ -82,8 +82,9 @@ export default {
             _self.$parent.deleteData();
         },
         moreClick: function () {
-            //触发gengduo事件
-            eventBus.$emit('gengduoEvent');
+            let _self = this;
+            //调用同级组件的方法
+            _self.$parent.$refs.rightPanel.panelToggle();
         },
         back: function () {
           let _self = this;
