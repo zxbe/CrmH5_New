@@ -98,44 +98,49 @@ export default {
       selectType:"",
       filter:"",
       isShowAdd:"",
-      fromType:""
+      fromType:"",
+      addID:'',//新增记录后返回来的id
     };
   },
-  watch: {
-    // dealPipelineValue: function(newValue, oldValue) {
-    //   console.log(newValue);
-    // },
-    // opportunitiesValue: function(newValue, oldValue) {
-    //   console.log(newValue);
-    // }
-  },
   created: function() {
-      this.field = this.$route.query.field;
-      this.code = this.$route.query.code;
-      this.typeValue = this.$route.query.typeValue;
-      this.title = this.$route.query.title;
-      this.value = this.$route.query.value;
-      this.selectType = this.$route.query.selectType;
-      this.filter = this.$route.query.filter;
-      this.isShowAdd = this.$route.query.isShowAdd;
-      this.fromType = tool.isNullOrEmptyObject(this.$route.query.fromType)?"false":this.$route.query.fromType;
+      let _self = this;
+      _self.field = _self.$route.query.field;
+      _self.code = _self.$route.query.code;
+      _self.typeValue = _self.$route.query.typeValue;
+      _self.title = _self.$route.query.title;
+      _self.value = _self.$route.query.value;
+      _self.selectType = _self.$route.query.selectType;
+      _self.filter = _self.$route.query.filter;
+      _self.isShowAdd = _self.$route.query.isShowAdd;
+      _self.fromType = tool.isNullOrEmptyObject(_self.$route.query.fromType)?"false":_self.$route.query.fromType;
+
+      _self.showPage = _self.$store.state.linkePageShow;
+      //获取新增记录返回来的id
+      _self.addID = _self.$store.state.addID || '';
+      if(!tool.isNullOrEmptyObject(_self.addID)){
+          _self.value = _self.addID.toString();
+      }
   },
   mounted: function() {
+    let _self = this;
     lanTool.updateLanVersion();
     //清空输入框
     $("#dealInput,#oppInput").val("").trigger("change");
     //根据是否多选来设置列表滚动的区域高度
-      if (this.selectType === 'checkbox') {
-          $(".selectList-scroll").css("padding-bottom", "50px");
-      }
+    if (this.selectType === 'checkbox') {
+        $(".selectList-scroll").css("padding-bottom", "50px");
+    }
     //监听搜索
     this.search();
     this.changePos();
 
     //默认触发第一个选项卡
-    setTimeout(function() {
-      $("#dealPipelineNav").trigger("click");
-    }, 0);
+    if(_self.showPage == 0){
+        $("#dealPipelineNav").trigger("click");
+    }else{
+        $("#opportunitiesNav").trigger("click");
+    }
+
   },
   methods: {
     //切换页面
@@ -150,8 +155,7 @@ export default {
         .removeClass("active-item");
       _self.changePos();
       _self.showPage = num;
-
-      // console.log(_self.showPage);
+      _self.$store.commit('SET_LINKE_PAGE_SHOW', num);
 
       this.getData(_self.showPage);
     },
@@ -169,7 +173,9 @@ export default {
     },
     //返回上一页
     backHandler: function() {
-      this.$router.back(-1);
+      let _self = this;
+      _self.$store.commit('SET_LINKE_PAGE_SHOW', 0);
+      _self.$router.back(-1);
     },
     //新增
     addHandler: function () {
@@ -185,7 +191,8 @@ export default {
         var addUrlTemp = "";
         //参数对象
         var paramTemp = {
-          "showPage":curPageNum
+          "showPage":curPageNum,
+          'source':'linkedpage'
         };
         if(_self.fromType == "9"){
           addUrlTemp = "/opportunitiesinfo/-1";
@@ -209,7 +216,6 @@ export default {
           field: _self.field,
           value: {}
       };
-
       //radio
       if(_self.selectType === 'radio'){
           var selectedVal = "";
@@ -368,7 +374,6 @@ export default {
         if(tool.isNullOrEmptyObject(_self.value)){
             return;
         }
-        // console.log(_self.value);
         var valArrTemp = _self.value.split(",");
         _self.$nextTick(function(){
             var toTopH = [];
@@ -401,6 +406,12 @@ export default {
                 }
             }
             _self.scrollTo(toTopH);
+
+            //触发确认操作
+            if(!tool.isNullOrEmptyObject(_self.addID)){
+                // _self.$store.commit('SET_LINKE_PAGE_SHOW', 0);
+                _self.saveHandler();
+            }
         })
     },
     //筛选
@@ -447,8 +458,15 @@ export default {
             }
             $(window).scrollTop(scrollToH - headerH);
         })
-    },
+    }
+  },
+  beforeRouteLeave:function(to, from, next){
+      let _self = this;
+      _self.$store.commit('SET_ADD_ID', '');
+      next();
   }
+
+
 };
 </script>
 

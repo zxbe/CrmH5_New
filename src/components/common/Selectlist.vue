@@ -212,6 +212,7 @@ export default {
                     paramTemp["companyName"] = _self.linkNameField;
                 }
             }
+            paramTemp['source'] = 'selectlist';
 
             //跳转到新增页面
             _self.$router.push({

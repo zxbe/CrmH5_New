@@ -3212,7 +3212,12 @@
 					return true;
         }
 
-        _self.$store.commit('SET_ADD_ID', data._OnlyOneData);
+        //根据页面来源判断是否需要把新增的记录id保存到store中
+        let source = _self.$route.query.source || '';
+        if(!tool.isNullOrEmptyObject(source)){
+          _self.$store.commit('SET_ADD_ID', data._OnlyOneData);
+        }
+
 				if (!tool.isNullOrEmptyObject(myCallBack)) {
 					myCallBack(data);
         }
