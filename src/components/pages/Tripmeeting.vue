@@ -308,6 +308,7 @@ export default {
             _self.RefreshCurPageGroupData();
         })
         eventBus.$on('changeViewEvent', function (data) {
+            $(window).scrollTop(0);
             _self.$store.commit('SET_VIEW_TYPE', data);
         })
 
