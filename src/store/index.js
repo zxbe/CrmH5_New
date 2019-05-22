@@ -9,8 +9,14 @@ const store = new Vuex.Store({
         contactsShowModule:0,
         businessShowModule:0,
         viewType:'calendarView', //Tripmeeting模块视图切换
+        addID:'' //用于记录新增记录的id
     },
     mutations: {
+        SET_ADD_ID(state,val){
+          if(val != undefined){
+            state.addID = val;
+          }
+        },
         SET_VIEW_TYPE(state, val){
           if(val != '' && val != undefined){
             state.viewType = val;

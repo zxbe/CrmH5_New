@@ -353,8 +353,6 @@ export default {
                 //如果页面来源是contactsof不需要判断操作权限
                 if(_self.source != 'contactsof'){
                     //判断当前用户是否可以操作当前单据
-                    console.log('_self.source');
-                    console.log(_self.source);
                     _self.initUserAccess();
                 }
 
@@ -438,7 +436,7 @@ export default {
             var id = _self.$route.params.id;
             var fromType = "Contactsinfo";
 
-            tool.SaveOrUpdateData(fromType, id, _self, function () {
+            tool.SaveOrUpdateData(fromType, id, _self, function (data) {
 
                   _self.$store.commit('REMOVE_ITEM', 'contacts');
                   _self.$store.commit('REMOVE_ITEM', 'contactsinfo');

@@ -3047,7 +3047,6 @@
 	tool.SaveOrUpdateData = function (fromType, autoID, _self, myCallBack, isGoBack) {
 		// console.log("fromType:" + fromType);
 		// console.log("autoID:" + autoID);
-
 		if (tool.isNullOrEmptyObject(fromType) || tool.isNullOrEmptyObject(autoID)) {
 			return;
 		}
@@ -3074,7 +3073,6 @@
 			return;
 		}
 		// console.log("controlName:" + controlName);
-
 		//获取控件字段值
 		var jObject = {};
 		//1>picker
@@ -3198,7 +3196,6 @@
 		//合并数据
 		jsonDatasTemp = tool.combineJObject(jsonDatasTemp,jObject);
 		// console.log(jsonDatasTemp);
-		// return;
 		var loadingIndexClassName = tool.showLoading();
 		$.ajax({
 			async: true,
@@ -3213,50 +3210,13 @@
 					tool.showText(tool.getMessage(data));
 					console.log(tool.getMessage(data));
 					return true;
-				}
-        //data = data._OnlyOneData || [];
-        /*
-				//保存成功后刷新当前页面
-				//兼容多个列表路由的情况，如business,businessCategories
-				var routeName = _self.$route.name;
-				var routers = _self.$router.options.routes;
-				var curRouter = null;
-
-				//更改列表页面的FromSave标志
-				for(var i = 0;i<routers.length;i++){
-					//若是指定的
-					if(routers[i].name == routeName){
-						curRouter = routers[i];
-						break;
-					}
-				}
-
-				if(!tool.isNullOrEmptyObject(curRouter)){
-					var listName = curRouter.meta.listName || "";
-					var listRouteNameArr = listName.split(',');
-					if(listRouteNameArr && listRouteNameArr.length >= 1){
-
-						for(var i = 0;i<routers.length;i++){
-							if($.inArray(routers[i].name,listRouteNameArr)>=0){
-								routers[i].meta.fromSave = true;
-								continue;
-							}
-						}
-
-					}
         }
-        */
 
+        _self.$store.commit('SET_ADD_ID', data._OnlyOneData);
 				if (!tool.isNullOrEmptyObject(myCallBack)) {
 					myCallBack(data);
-				}
+        }
 
-				// isGoBack = (isGoBack == undefined || isGoBack == null) ? true : isGoBack;
-				// //需要返回
-				// if(isGoBack){
-				// 	//返回到上一页
-				// 	_self.$router.back(-1);
-				// }
 			},
 			error: function (jqXHR, type, error) {
 				tool.hideLoading(loadingIndexClassName);
@@ -3264,7 +3224,6 @@
 				return true;
 			},
 			complete: function () {
-				//tool.hideLoading();
 				//隐藏虚拟键盘
 				document.activeElement.blur();
 			}

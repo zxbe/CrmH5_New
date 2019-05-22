@@ -71,26 +71,34 @@ export default {
             isAdd: false,
             linkIDField:"",
             linkNameField:"",
-            fromType:""
+            fromType:"",
+            addID:'',//新增记录后返回来的id
         }
     },
     created: function () {
-        this.field = this.$route.query.field;
-        this.code = this.$route.query.code;
-        this.typeValue = this.$route.query.typeValue;
-        this.title = this.$route.query.title;
-        this.value = this.$route.query.value;
-        this.selectType = this.$route.query.selectType;
-        this.filter = this.$route.query.filter;
-        this.addUrl = this.$route.query.addUrl;
-        this.linkIDField = this.$route.query.linkIDField;
-        this.linkNameField = this.$route.query.linkNameField;
-        this.fromType = this.$route.query.fromType;
-        
-        if (!tool.isNullOrEmptyObject(this.addUrl)) {
-            this.isAdd = true;
+        let _self = this;
+        _self.field = _self.$route.query.field;
+        _self.code = _self.$route.query.code;
+        _self.typeValue = _self.$route.query.typeValue;
+        _self.title = _self.$route.query.title;
+        _self.value = _self.$route.query.value;
+        _self.selectType = _self.$route.query.selectType;
+        _self.filter = _self.$route.query.filter;
+        _self.addUrl = _self.$route.query.addUrl;
+        _self.linkIDField = _self.$route.query.linkIDField;
+        _self.linkNameField = _self.$route.query.linkNameField;
+        _self.fromType = _self.$route.query.fromType;
+
+        //获取新增记录返回来的id
+        _self.addID = _self.$store.state.addID || '';
+        if(!tool.isNullOrEmptyObject(_self.addID)){
+            _self.value = _self.addID.toString();
         }
-        //console.log("this.addUrl:"+this.addUrl);
+
+        if (!tool.isNullOrEmptyObject(_self.addUrl)) {
+            _self.isAdd = true;
+        }
+
     },
     mounted: function () {
         lanTool.updateLanVersion();
@@ -130,7 +138,6 @@ export default {
         //渲染已经选择的的数据
         iniVal: function () {
             var self = this;
-
             if (tool.isNullOrEmptyObject(self.value)) {
                 return;
             }
@@ -162,8 +169,12 @@ export default {
                         toTopH.push(scrollTo);
                     }
                 }
-
                 self.scrollTo(toTopH);
+
+                //触发确认操作
+                if(!tool.isNullOrEmptyObject(self.addID)){
+                    self.saveHandler();
+                }
 
             })
         },
@@ -247,7 +258,6 @@ export default {
                 };
             }
 
-            //console.log(returnObj);
             eventBus.$emit('updataSelectList', returnObj);
             $this.$router.back(-1);
         },
@@ -337,6 +347,11 @@ export default {
             });
         }
     },
+    beforeRouteLeave:function(to, from, next){
+        let _self = this;
+        _self.$store.commit('SET_ADD_ID', '');
+        next();
+    }
 }
 </script>
 
