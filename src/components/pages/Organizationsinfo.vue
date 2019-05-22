@@ -203,7 +203,6 @@ export default {
         next();
     },
     created: function () {
-        console.log('oganizationsinfo created');
         let _self = this;
         _self.$store.commit('SET_ITEM', 'organizationsinfo');
         _self.ptitle = this.$route.query.infoName || lanTool.lanContent("792_添加公司");
@@ -228,11 +227,6 @@ export default {
             $(".HideWhenNew").show();
             _self.isAddNew = false;
         }
-
-        console.log('isAddNew:'+ _self.isAddNew);
-        console.log('operation:'+ _self.operation);
-        console.log('onlyView:'+ _self.onlyView);
-        // console.log('notDelete:'+ _self.notDelete);
 
         //如果是只查看，控制元素不可以更改
         _self.controlEdit();

@@ -128,6 +128,7 @@ export default{
 
             _self.showPage = num;
             _self.$store.commit(mutationsName, num);
+            $(window).scrollTop(0);
 
             if(isResetRightPanel){
 

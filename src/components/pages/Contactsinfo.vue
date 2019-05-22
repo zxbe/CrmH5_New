@@ -268,7 +268,6 @@ export default {
         };
     },
     created: function () {
-      console.log('contactsinfo created');
         let _self = this;
         _self.$store.commit('SET_ITEM', 'contactsinfo');
 
@@ -279,7 +278,6 @@ export default {
         _self.source = _self.$route.query.source || '';
         _self.rightPanelFromType = "6";
         _self.rightPanelFromID = _self.$route.params.id || "";
-
 
         _self.onlyView = (_self.$route.query.onlyView == "true" || _self.$route.query.onlyView == true) ? true : false;
 
@@ -304,11 +302,6 @@ export default {
             _self.isAddNew = false;
             _self.operation = true;
         }
-
-        console.log('isAddNew:'+ _self.isAddNew);
-        console.log('operation:'+ _self.operation);
-        console.log('onlyView:'+ _self.onlyView);
-        // console.log('notDelete:'+ _self.notDelete);
 
         //渲染控件
         tool.InitiateInfoPageControl(_self, _self.id, function () {
