@@ -145,9 +145,10 @@ export default {
         _self.ptitle = this.$route.query.infoName || lanTool.lanContent('1001_会议记录详情');
         _self.id = _self.$route.params.id;
         _self.oppID = _self.$route.query.OppID;
+        _self.fromIDNew = _self.$route.query.OppID;
         _self.scheduleID = _self.$route.query.ScheduleID;
         _self.scheduleIDNew = _self.$route.query.ScheduleID;
-        _self.fromIDNew = _self.$route.query.OppID;
+
         _self.onlyView = (_self.$route.query.onlyView == "true" || _self.$route.query.onlyView == true) ? true : false;
     },
     mounted: function () {
@@ -246,7 +247,6 @@ export default {
         handleOppID: function (oppID, isLock,fromSelectList) {
             isLock = (isLock == undefined || isLock == null) ? false : isLock;
             var _self = this;
-            // console.log(oppID);
             //清空选项
             if (tool.isNullOrEmptyObject(oppID) && fromSelectList != undefined && fromSelectList != null && fromSelectList == true) {
 
@@ -441,7 +441,13 @@ export default {
         },
         //保存
         savePageData: function (e) {
+
             var _self = this;
+            let newOppID = $('[data-field="OppID"]').attr('data-fieldval') || '';
+            if(tool.isNullOrEmptyObject(newOppID)){
+                return;
+            }
+
             var fromType = "MeetingNoteinfo";
             tool.SaveOrUpdateData(fromType, _self.id, _self, function (dataTemp) {
 
@@ -455,7 +461,9 @@ export default {
                     }
                     var path = "/MeetingNoteinfo/" + autoIDTemp;
                     var query = _self.$route.query;
+                        query.OppID = newOppID;
                     _self.$store.commit('REMOVE_ITEM', 'meetingNoteinfo');
+
                     _self.$router.replace({
                         path: path,
                         query: query
