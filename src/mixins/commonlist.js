@@ -23,80 +23,98 @@ export default{
          * height : 固定元素距离页面顶部的距离
          */
         watchScrollHandle: function (height) {
+
             var _self = this;
             setTimeout(function () {
 
                 $(window).unbind('scroll').bind('scroll',function(){
                     var scrollTop = $(document).scrollTop() || $(window).scrollTop();
-
                     if ($(".group-div").length <= 0) return;
-                    $(".group-div").each(function () {
-                        if (($(this).offset().top - scrollTop) <= height){
+                    $(".group-div").each(function (index, el) {
+
+                        if($(el).find('.group-item-list').length <= 0){
+                          return true;
+                        }
+                        let groupDivHeight = $(el).innerHeight();
+
+                        if ((($(el).offset().top - scrollTop) <= height) &&
+                            (($(el).offset().top + groupDivHeight - scrollTop) > height)
+                        ){
                             if (tool.getSystem() === "ios") {
-                                $(this).find(".date-div").addClass("sticky")
-                                        .css({
-                                            top: height + "px"
-                                        });
+                                $(el).find(".date-div")
+                                     .addClass("sticky")
+                                     .css({top: height + "px"});
                                 return true;
                             } else {
-                                $(this).find(".date-div")
+                                $(el).find(".date-div")
                                     .css({
                                         position: "fixed",
                                         top: height + "px"
                                     });
-                                $(this).children(".occupy-div").show();
+                                $(el).children(".occupy-div").show();
                                 return true;
                             }
                         } else {
                             if (tool.getSystem() === "ios") {
-                                $(this).find(".date-div").removeClass("sticky")
-                                    .css({
-                                        top: "0px"
-                                    });
+                                $(el).find(".date-div")
+                                    .removeClass("sticky")
+                                    .css({top: "0px"});
                                 return true;
                             } else {
-                                $(this).find(".date-div")
+                                $(el).find(".date-div")
                                     .css({
                                         position: "static"
                                     });
-                                $(this).children(".occupy-div").hide();
+                                $(el).children(".occupy-div").hide();
                                 return true;
                             }
                         }
                     });
 
+
+
                     if ($(".company_item").length <= 0) return;
                     let dateDivHeight = $('.date-div').innerHeight()+1;
-                    $(".company_item").each(function () {
-                        if (($(this).offset().top - scrollTop) <= (height + dateDivHeight)){
+                    let companyItemTitHeight = $('.company_item_tit').innerHeight()+1;
+
+                    $(".company_item").each(function (index, el) {
+
+                        if($(el).find('.contact_list').length <= 0){
+                          return true;
+                        }
+                        let companyItemHeight = $(el).innerHeight();
+
+                        if ((($(el).offset().top - scrollTop) <= (height + dateDivHeight)) &&
+                            (($(el).offset().top + companyItemHeight - scrollTop) > (height + dateDivHeight + companyItemTitHeight))
+                        ){
                             if (tool.getSystem() === "ios") {
-                                $(this).find(".company_item_tit").addClass("sticky")
+                                $(el).find(".company_item_tit").addClass("sticky")
                                         .css({
                                             top: (height + dateDivHeight) + "px"
                                         });
                                 return true;
                             } else {
-                                $(this).find(".company_item_tit")
+                                $(el).find(".company_item_tit")
                                     .css({
                                         position: "fixed",
                                         top: (height + dateDivHeight) + "px"
                                     });
-                                $(this).children(".occupy-div").show();
-                                return true;
+                                $(el).children(".occupy-div").show();
+                                return;
                             }
                         } else {
                             if (tool.getSystem() === "ios") {
-                                $(this).find(".date-div").removeClass("sticky")
+                                $(el).find(".company_item_tit").removeClass("sticky")
                                     .css({
                                         top: "0px"
                                     });
                                 return true;
                             } else {
-                                $(this).find(".date-div")
+                                $(el).find(".company_item_tit")
                                     .css({
                                         position: "static"
                                     });
-                                $(this).children(".occupy-div").hide();
+                                $(el).children(".occupy-div").hide();
                                 return true;
                             }
                         }
