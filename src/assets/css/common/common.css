@@ -296,6 +296,7 @@ label.radios-label input:disabled:checked + .radios:after {
 .meeting-list .data-events-item::after{  content: ""; display: block; height: 1px; background: beige; width: 100%;
   left: 0; top: 0; position: absolute;
 }
+.meeting-list .data-events-item:first-child::after{background:#ffffff;}
 .meeting-list .item-title{font-weight:bold;color:#333;width: 100%;
   overflow: hidden;
   white-space: nowrap;
@@ -335,6 +336,7 @@ label.radios-label input:disabled:checked + .radios:after {
 .opportunities-list .group-item{background:#fff;position:relative;}
 .opportunities-list .item-block{padding:5px 10px 5px 0.8rem;}
 .opportunities-list .group-item::after{content:'';display:block;height: 1px;background:beige;width:100%;left:0;top:0px;position:absolute;}
+.opportunities-list .group-item:first-child::after{background:#ffffff;}
 .opportunities-list .item-div{line-height: 0.4rem;}
 .opportunities-list .line-clamp2{
     display: -webkit-box;
@@ -381,6 +383,7 @@ label.radios-label input:disabled:checked + .radios:after {
 .dealPipeline-list .group-item{background:#fff;position:relative;}
 .dealPipeline-list .item-block{padding:5px 10px 5px 0.8rem;}
 .dealPipeline-list .group-item::after{content:'';display:block;height: 1px;background:beige;width:100%;left:0;top:0px;position:absolute;}
+.dealPipeline-list .group-item:first-child::after{background:#ffffff;}
 .dealPipeline-list .item-div{line-height:0.4rem;}
 .dealPipeline-list .line-clamp2{
   display: -webkit-box;
@@ -428,6 +431,7 @@ label.radios-label input:disabled:checked + .radios:after {
 .organizations-list .item-block{padding:5px 10px 5px 0.8rem;}
 .organizations-list .group-item::after{content:'';display:block;height: 1px;background:beige;width:100%;left:0;
 top:0px;position:absolute;}
+.organizations-list .group-item:first-child::after{background:#ffffff;}
 .organizations-list .item-div{line-height:1.2;padding:5px 0;display: flex;align-items: center;}
 .organizations-list .item-first-div{font-weight:bold;color:#ff5a21;}
 .organizations-list .item-first-div .right{font-weight: 100;}
@@ -468,6 +472,7 @@ top:0px;position:absolute;}
 .contacts-list .item-block{padding:5px 10px 5px 0.8rem;}
 .contacts-list .group-item::after{content:'';display:block;height: 1px;background:beige;width:100%;left:0;
 top:0px;position:absolute;}
+.contacts-list .group-item:first-child::after{background:#ffffff;}
 .contacts-list .item-div{
   line-height:1.3;
   display: flex;
