@@ -74,7 +74,7 @@
                               <div v-for="companys in group.items" :key="companys.AutoID" class="company_item">
                                 <div class="company_item_tit f14" >
                                     <div class="company_name" :data-groupid="companys.AutoID">{{companys.ShortName}}</div>
-                                    <div>数量</div>
+                                    <div>（{{companys.GroupRowCount}}）</div>
                                 </div>
                                 <div class="occupy-div"></div>
 
