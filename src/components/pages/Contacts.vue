@@ -64,7 +64,7 @@
             <div v-show="!noData" id="contactsList" data-fromtype="organizations">
                   <div v-for="group in groupData" :key="group.GroupID" class="list-group-div group-div">
                       <div class="date-div">
-                          <span class="calcfont calc-gongsixinxi"></span>
+                          <span class="calcfont calc-business"></span>
                           <span class="group-name" :data-groupid="group.GroupID">{{group.GroupName}}</span>
                           <span class="right">（{{group.GroupRowCount}}）</span>
                       </div>
@@ -73,6 +73,7 @@
                       <div v-if="group.items.length > 0" class="group-item-list contacts-list">
                               <div v-for="companys in group.items" :key="companys.AutoID" class="company_item">
                                 <div class="company_item_tit f14" >
+                                    <span class="calcfont calc-gongsixinxi"></span>
                                     <div class="company_name" :data-groupid="companys.AutoID">{{companys.ShortName}}</div>
                                     <div>（{{companys.GroupRowCount}}）</div>
                                 </div>
