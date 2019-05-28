@@ -494,6 +494,6 @@ top:0px;position:absolute;}
 .contacts-list .item-first-div{font-weight:bold;color:#ff5a21;padding-top:5px;}
 
 .contacts-list .item-user-icon{display: inline-block;width: 0.8rem;height:0.8rem;line-height:0.8rem;
-  text-align:center;border: 1px solid #3cadf9;position: absolute;top:10px;left:0.25rem;
+  text-align:center;border: 1px solid #3cadf9;position: absolute;top:10px;left:0.35rem;
   border-radius: 5px;font-size:0.6rem!important;color:#3cadf9;}
-.contacts-list .contacts-item-block{padding:5px 10px 5px 1.3rem;}
+.contacts-list .contacts-item-block{padding:5px 10px 5px 1.4rem;}
