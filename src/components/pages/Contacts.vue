@@ -391,7 +391,6 @@ export default {
                             });
                     }else{
                         //若是收起
-                        // var allQueryData = tool.combineArray(_self.queryCondictionData, _self.queryCondiction, "Field");
                         _self.getContacts(categoryID, companyID, function(){
                             _self.$nextTick(function () {
                                 target.addClass("open")
@@ -411,6 +410,9 @@ export default {
             if(tool.isNullOrEmptyObject(categoryID) || tool.isNullOrEmptyObject(companyID)){
               return;
             }
+            //筛选条件
+            var allQueryData = tool.combineArray(_self.queryCondictionData, _self.queryCondiction, "Field");
+            // console.log(allQueryData);
             //请求地址
             var urlTemp = tool.AjaxBaseUrl();
             var controlName = tool.Api_ContactsHandle_GroupInnerData;
@@ -421,7 +423,7 @@ export default {
                 _ControlName: controlName,
                 GroupID: companyID,
                 _RegisterCode: tool.RegisterCode(),
-                QueryCondiction: []
+                QueryCondiction:JSON.stringify(allQueryData)
             };
             var loadingIndexClassName = tool.showLoading();
             $.ajax({
