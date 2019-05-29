@@ -400,10 +400,11 @@ export default {
         eventBus.fromSearchBtn = false;
         if (fromSearchBtn) {
             _self.RefreshCurPageGroupData();
+
+            //把列表中的open类清楚
+            $('.open').removeClass('open');
         }
 
-        //把列表中的open类清楚
-        $('.open').removeClass('open');
     },
 
     methods: {
