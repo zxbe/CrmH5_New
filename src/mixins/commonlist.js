@@ -302,6 +302,9 @@ export default{
                     _self.ClearSearchText();
                 }
 
+                //把列表中的open类清楚
+                $('.open').removeClass('open');
+
             }, '', groupBy);
 
         }
