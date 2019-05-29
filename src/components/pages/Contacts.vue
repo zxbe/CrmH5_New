@@ -234,6 +234,29 @@ export default {
                 }
             ],
             ContactsSearch: [{
+                    queryfield: "ShortNameEN",
+                    text: lanTool.lanContent("726_公司名称"),
+                    fieldControlType: "textareaInput",
+                    queryType: "string",
+                    queryFormat: "",
+                    queryRelation: "and",
+                    queryValue: "",
+                    queryComparison: "like"
+                },
+				{
+                    queryfield: "BusinessType",
+                    text: lanTool.lanContent("1007_业务分类"),
+                    fieldControlType: "picker",
+                    queryType: "string",
+                    queryFormat: "",
+                    queryRelation: "and",
+                    queryValue: "",
+                    queryComparison: "=",
+                    Code: "DropDowList_ViewBaseAllTypes",
+                    TypeValue: "Companybusinesstype",
+                    datalanid: "1007_业务分类"
+                },
+                {
                     queryfield: "EnglishName",
                     text: lanTool.lanContent("848_姓名"),
                     fieldControlType: "textareaInput",
@@ -257,23 +280,24 @@ export default {
                     selectType: "checkbox",
                     datalanid: "825_负责人",
                     fromType: "6"
-                },
-                {
-                    queryfield: "CompanyID",
-                    text: lanTool.lanContent('726_公司名称'),
-                    fieldControlType: "selectList",
-                    queryType: "string",
-                    queryFormat: "",
-                    queryRelation: "and",
-                    queryValue: "",
-                    queryComparison: "=",
-                    Code: "DropDowList_ViewBaseCompanyBaseInf",
-                    TypeValue: "",
-                    selectType: "radio",
-                    resulteRow: true,
-                    clickObj: "CompanyIDClickObj",
-                    datalanid: "726_公司名称"
-                },
+                }
+                //,
+                // {
+                //     queryfield: "CompanyID",
+                //     text: lanTool.lanContent('726_公司名称'),
+                //     fieldControlType: "selectList",
+                //     queryType: "string",
+                //     queryFormat: "",
+                //     queryRelation: "and",
+                //     queryValue: "",
+                //     queryComparison: "=",
+                //     Code: "DropDowList_ViewBaseCompanyBaseInf",
+                //     TypeValue: "",
+                //     selectType: "radio",
+                //     resulteRow: true,
+                //     clickObj: "CompanyIDClickObj",
+                //     datalanid: "726_公司名称"
+                // },
             ]
         };
     },
