@@ -325,6 +325,9 @@ export default {
         if (fromSearchBtn) {
             _self.RefreshCurPageGroupData();
         }
+
+        //把列表中的open类清楚
+        $('.open').removeClass('open');
     },
     methods: {
         //切换

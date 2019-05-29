@@ -310,6 +310,7 @@ export default {
         //清空右侧筛选数据
         eventBus.queryCondictionData = null;
         _self.$store.commit('SET_ITEM', 'contacts');
+
     },
     mounted:function(){
         let _self = this;
@@ -356,6 +357,9 @@ export default {
         if (fromSearchBtn) {
             _self.RefreshCurPageGroupData();
         }
+
+        //把列表中的open类清楚
+        $('.open').removeClass('open');
 
     },
 
