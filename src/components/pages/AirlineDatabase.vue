@@ -1311,7 +1311,7 @@ export default {
         }
 
         //挂载完后首次获取内容
-        _self.getTabContent();
+        // _self.getTabContent();
     },
     methods: {
         //跳转到fleet Details列表
@@ -1350,6 +1350,8 @@ export default {
         },
         //初始化年控件
         initSelectYear: function () {
+            var _self = this;
+
             //构造可选年份数据
             //配置年数据
 			var yearConfigArr = [];
@@ -1376,6 +1378,7 @@ export default {
                 toolbarCloseText: lanTool.lanContent('569_确认'), //确认
                 toolbarCancleText: lanTool.lanContent('570_取消'), //取消
                 onOpen: function (data) {
+                    
                     //del by Dylan 这段代码貌似没什么意义
                     // var defaultValue = _curObj.val() || '';
                     // _curObj.picker("setValue", [defaultValue]);
@@ -1389,6 +1392,7 @@ export default {
 
                     $(".close-picker").off('click').on('click',function(){
                         console.log("confirm");
+                        _self.versionID = _curObj.val() || '';
                         //查询模块数据
                         _self.getTabContent();
                     });
@@ -1415,7 +1419,6 @@ export default {
             var _self = this;
             $('.cd-bouncy-nav-modal li').off('click').on('click', function (event) {
                 var category = $(this).attr("data-category");
-
                 _self.triggerBouncyNav(false, category, $(this));
             });
         },
@@ -1432,9 +1435,12 @@ export default {
                     }
                         
                     if (!tool.isNullOrEmptyObject($this)) {
-                        $($this).addClass("mui-active")
+                        $($this).addClass("mui-active");
                         $(window).scrollTop(0);
                         $($this).siblings().removeClass("mui-active");
+
+                        //获取当前航空公司当前模块的内容
+                        _self.getTabContent();
                     }
                     if (!tool.isNullOrEmptyObject(e)) {
                         //判断模块是否可以进行日期选择 没有的话隐藏时间控件
@@ -1446,8 +1452,6 @@ export default {
                     }
                     $('.cd-bouncy-nav-modal').removeClass('fade-out');
                     _self.is_bouncy_nav_animating = false;
-                    //查询模块数据
-                    _self.getTabContent();
                 });
                 //判断css 动画是否开启..
                 if ($('.cd-bouncy-nav-trigger').parents('.no-csstransitions').length > 0) {
