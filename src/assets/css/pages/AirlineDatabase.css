@@ -43,7 +43,8 @@ header a {
     bottom: 0;
     width: calc(50% - 1.76rem);
     right: 0.88rem;
-    padding: 0.2rem 0;
+	padding: 0.2rem 0;
+	display: none;
 
 }
 /* 去掉input top阴影 */

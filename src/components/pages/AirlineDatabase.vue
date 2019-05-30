@@ -6,7 +6,7 @@
         <div class="inputTime">
             <input id="selectYear" type="text" placeholder="select year" readonly>
         </div>
-        <a @click="showMenu" class="calcfont calc-jiugongge right"></a>
+            <a @click="showMenu" class="calcfont calc-jiugongge right"></a>
     </header>
     <div class="segmentedControlContentsBox">
         <div class="segmentedControlContents mui-active" id="ID" data-TabID="7516">
@@ -1241,7 +1241,7 @@
                     <li data-category="#ID">
                         <a>ID</a>
                     </li>
-                    <li data-category="#country">
+                    <li data-category="#country" class="haveTime">
                         <a>Country Risk</a>
                     </li>
                     <li data-category="#market">
@@ -1250,19 +1250,19 @@
                     <li data-category="#financing">
                         <a >Financing Power</a>
                     </li>
-                    <li data-category="#fleet">
+                    <li data-category="#fleet" class="haveTime">
                         <a >Fleet Profile Metrics</a>
                     </li>
-                    <li data-category="#production">
+                    <li data-category="#production" class="haveTime">
                         <a >Production</a>
                     </li>
-                    <li data-category="#airline">
+                    <li data-category="#airline" class="haveTime">
                         <a >Airline Operation Metrics</a>
                     </li>
-                    <li data-category="#financial">
+                    <li data-category="#financial" class="haveTime">
                         <a >Financial Metrics</a>
                     </li>
-                    <li data-category="#listing">
+                    <li data-category="#listing" class="haveTime">
                         <a >Listing & Rating Information</a>
                     </li>
                 </ul>
@@ -1278,8 +1278,8 @@ export default {
         return {
             title: "Airline Database",
             is_bouncy_nav_animating: false,
-            tabID:"",//模块ID
-            versionID:""//当前选中的年
+            tabID: "", //模块ID
+            versionID: "" //当前选中的年
         }
     },
     mounted: function () {
@@ -1374,11 +1374,11 @@ export default {
                 // console.log($(this).attr("data-category"));
                 var category = $(this).attr("data-category");
                 // console.log("id:" + category);
-                _self.triggerBouncyNav(false, category);
+                _self.triggerBouncyNav(false, category, $(this));
             });
         },
         //模块跳转
-        triggerBouncyNav: function ($bool, $this) {
+        triggerBouncyNav: function ($bool, $this, e) {
             var _self = this;
             if (!_self.is_bouncy_nav_animating) {
                 _self.is_bouncy_nav_animating = true;
@@ -1391,6 +1391,14 @@ export default {
                         $($this).addClass("mui-active")
                         $(window).scrollTop(0);
                         $($this).siblings().removeClass("mui-active");
+                    }
+                    if (!tool.isNullOrEmptyObject(e)) {
+                        //判断模块是否可以进行日期选择 没有的话隐藏时间控件
+                        if (e.hasClass('haveTime')) {
+                            $(".inputTime").show();
+                        } else {
+                            $(".inputTime").hide();
+                        }
                     }
                     $('.cd-bouncy-nav-modal').removeClass('fade-out');
                     _self.is_bouncy_nav_animating = false;
