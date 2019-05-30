@@ -231,9 +231,44 @@ a.mui-navigate-right .listHead {
 	padding-left: 0.3rem;
 }
 
-
-
-
+/* fleet detail跳转按钮样式 */
+.fleetDetailBtn{
+   position: relative;
+   background-color: #ffffff;
+   height: 0.8rem;
+   padding: 0 0.3rem;
+   border-bottom: solid 1px #dcdcdc;
+   margin: 0.3rem 0;
+}
+.fleetDetailBtnContent{
+	display: inline-block;
+    height: .8rem;
+	line-height: .8rem;
+	font-size: 0.3rem;
+	max-width: calc(100% - 1rem);
+	box-sizing: border-box;
+    width: auto;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+	color: #595959;
+}
+.fleetDetailBtnIcon{
+	position: absolute;
+	top: 0;
+	/* bottom: 0; */
+	right: 0.3rem;
+	width: 0.32rem;
+	height: 0.8rem;	
+	line-height: 0.8rem;
+}
+.fleetDetailBtnIcon span.calc-you{
+	padding: 0;
+	height: 0.8rem;
+	line-height: 0.8rem;
+	font-size: 0.32rem;
+	color: #cdcdcd;
+}
 
 /* 弹出菜单遮罩 */
 .itemZheZhao {

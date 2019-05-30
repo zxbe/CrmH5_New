@@ -49,14 +49,7 @@
                                 <div class="ListCellContentLeftText lanText" data-lanid="701_国家"></div>
                             </div>
                             <div class="ListCellContentRight rightContent">
-                                <div
-                                  data-field="CountryID"
-                                  data-fieldControlType="selectList"
-                                  data-lanid="701_国家"
-                                  data-fieldVal=""
-                                  Code="DropDowList_ViewBaseCountryInf"
-                                  data-selectType="radio"
-                                  class="ListCellContentRightText" />
+                                <div data-field="CountryID" data-fieldControlType="selectList" data-lanid="701_国家" data-fieldVal="" Code="DropDowList_ViewBaseCountryInf" data-selectType="radio" class="ListCellContentRightText" />
                             </div>
                             <div class="ListCellRightIcon"><span class="mui-icon calcfont calc-you"></span></div>
                         </div>
@@ -68,14 +61,7 @@
                                 <div class="ListCellContentLeftText lanText" data-lanid="702_城市"></div>
                             </div>
                             <div class="ListCellContentRight rightContent">
-                                <div
-                                  data-field="CityID"
-                                  data-fieldControlType="linkSelectList"
-                                  data-lanid="702_城市"
-                                  data-fieldVal=""
-                                  Code="DropDowList_ViewBaseCountryCity"
-                                  data-selectType="radio"
-                                  class="ListCellContentRightText" />
+                                <div data-field="CityID" data-fieldControlType="linkSelectList" data-lanid="702_城市" data-fieldVal="" Code="DropDowList_ViewBaseCountryCity" data-selectType="radio" class="ListCellContentRightText" />
                             </div>
                             <div class="ListCellRightIcon"><span class="mui-icon calcfont calc-you"></span></div>
                         </div>
@@ -154,6 +140,21 @@
                                 </div>
                             </div>
                         </div>
+
+                        <div v-show="!isAddNew" class="airlineinfo">
+                            <div class="ListCell" @click="goToAirlinePage">
+                                <div class="ListCellLeftIcon"><span class="mui-icon calcfont calc-lianxiren2"></span></div>
+                                <div class="ListCellContent">
+                                    <div class="ListCellContentLeft leftContent">
+                                        <div class="ListCellContentLeftText" >Airline Database</div>
+                                    </div>
+                                    <div class="ListCellContentRight rightContent">
+                                        <div class="ListCellContentRightText"></div>
+                                    </div>
+                                    <div class="ListCellRightIcon"><span class="mui-icon calcfont calc-you"></span></div>
+                                </div>
+                            </div>
+                        </div>
                         <!-- <Uploadfile></Uploadfile> -->
 
                         <!-- <Infofooter :modifiedtime="modifiedtime" :modifiedby="modifiedby"> </Infofooter> -->
@@ -174,7 +175,7 @@ import Infofooter from '../common/infoFooter'
 import Uploadfile from './Uploadfile'
 
 export default {
-    name:'organizationsinfo',
+    name: 'organizationsinfo',
     components: {
         Infoheader,
         Infofooter,
@@ -185,7 +186,7 @@ export default {
         return {
 
             ptitle: 'Organizationsinfo detail',
-            id:'',
+            id: '',
 
             isAddNew: false, //是否添加新纪录
             onlyView: false, //控制页面头部icon,true:不显示头部icon,false:显示
@@ -253,7 +254,7 @@ export default {
                 tool.linkageField(_self, 'CountryID', 'CityID');
 
                 //返回时更新selectlist控件的结果
-                tool.UpdateFieldValueFromBack(eventBus, function(){
+                tool.UpdateFieldValueFromBack(eventBus, function () {
                     //清空全局变量
                     eventBus.selectListData = null;
                 })
@@ -266,7 +267,7 @@ export default {
         tool.linkageField(_self, 'CountryID', 'CityID');
 
         //返回时更新selectlist控件的结果
-        tool.UpdateFieldValueFromBack(eventBus, function(){
+        tool.UpdateFieldValueFromBack(eventBus, function () {
             //清空全局变量
             eventBus.selectListData = null;
         })
@@ -283,18 +284,26 @@ export default {
                 return;
             }
             var urlTemp = "/contactsof";
-           var infoName =lanTool.lanContent("791_联系人") ||"";
+            var infoName = lanTool.lanContent("791_联系人") || "";
             var parameter = {
                 companyID: companyID,
                 companyName: companyName,
-                infoName:infoName
+                infoName: infoName
             };
             _self.$router.push({
                 path: urlTemp,
                 query: parameter
             });
         },
+       //跳转到Airline Database 界面
+       goToAirlinePage:function(e){
+           var _self = this;
+            var urlTemp = "/airlineDatabase";
+            _self.$router.push({
+                path: urlTemp
+            });
 
+       },
         followToggle: function (e) {
             var _self = this;
             var autoID = _self.$route.params.id;
@@ -326,7 +335,7 @@ export default {
             tool.SaveOrUpdateData(fromType, id, _self, function () {
                 _self.$store.commit('REMOVE_ITEM', 'contacts');
                 _self.$store.commit('REMOVE_ITEM', 'organizationsinfo');
-                 _self.$router.back(-1);
+                _self.$router.back(-1);
             });
         },
 
@@ -340,22 +349,22 @@ export default {
         },
 
         //只查看的情况 控制元素是否可修改
-        controlEdit:function(){
+        controlEdit: function () {
             var _self = this;
-            if(_self.onlyView){
-                _self.$nextTick(function(){
+            if (_self.onlyView) {
+                _self.$nextTick(function () {
                     $('.OrganizationsList,.MoreList').addClass('disable');
                 })
-            }else{
-                _self.$nextTick(function(){
+            } else {
+                _self.$nextTick(function () {
                     $('.OrganizationsList,.MoreList').removeClass('disable');
                 })
             }
         }
     },
 
-    beforeRouteLeave:function(to, from, next){
-        if(to.name == 'contacts' || to.name == 'contactsinfo'){
+    beforeRouteLeave: function (to, from, next) {
+        if (to.name == 'contacts' || to.name == 'contactsinfo') {
             this.$store.commit('REMOVE_ITEM', 'organizationsinfo');
         }
         next();
@@ -370,15 +379,15 @@ export default {
     color: #FF5A21 !important;
 }
 
-.contactList {
+.contactList,.airlineinfo {
     margin-top: 10px;
 }
 
-.contactList .ListCell:after {
+.contactList .ListCell:after,.airlineinfo .ListCell:after {
     background-color: #fff;
 }
 
-.contactList .ListCellContentLeftText {
+.contactList .ListCellContentLeftText, .airlineinfo .ListCellContentLeftText{
     font-weight: 700;
 }
 </style>

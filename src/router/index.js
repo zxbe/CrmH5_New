@@ -28,6 +28,10 @@ import Groupselectlist from '@/components/common/Groupselectlist'
 import Poweruser from '@/components/pages/Poweruser'
 import Linkedpage from '@/components/pages/Linkedpage'
 
+//dba
+import AirlineDatabase from '@/components/pages/AirlineDatabase'
+import FleetDetailsList from '@/components/pages/FleetDetailsList'
+
 //单点登陆
 import SingleSignOn from '@/components/SingleSignOn'
 
@@ -96,7 +100,9 @@ const router =  new Router({
     // { path:'/airlineDatabase',name:'airlineDatabase',component:AirlineDatabase},
 
 
-
+   //database
+ { path:'/airlineDatabase',name:'airlineDatabase',component:AirlineDatabase},
+ { path:'/fleetDetailsList',name:'fleetDetailsList',component:FleetDetailsList},
   ]
 });
 

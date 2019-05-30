@@ -7,7 +7,7 @@
             <input id="selectYear" type="text" placeholder="select year" readonly>
         </div>
 
-        <a  @click="showMenu" class="calcfont calc-jiugongge right"></a>
+            <a  @click="showMenu" class="calcfont calc-jiugongge right"></a>
     </header>
     <div class="segmentedControlContentsBox">
         <div class="segmentedControlContents mui-active" id="ID">
@@ -76,9 +76,9 @@
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
-                            <div class="parameterName">Operator(English)</div>
+                            <div class="parameterName">Outstangding amount</div>
                             <div class="parameterValue">
-                                Operator(English)test
+                                1,365.37
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
@@ -87,13 +87,6 @@
                             </div>
                             <div class="parameterValue">
                                 FQ
-                            </div>
-                        </li>
-                        <li class="mui-table-view-cell">
-                            <div class="parameterName">Outstanding amount
-                            </div>
-                            <div class="parameterValue">
-                                1,365.37
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
@@ -359,7 +352,7 @@
                         <li class="mui-table-view-cell">
                             <div class="parameterName">Major competitiveness</div>
                             <div class="parameterValue">
-                                price advantage
+                                others
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
@@ -512,20 +505,6 @@
                     <div class="headTitle">Fleet plan</div>
                     <ul class="mui-table-view">
                         <li class="mui-table-view-cell">
-                            <div class="parameterName">Fleet Profile Metrics Date
-                            </div>
-                            <div class="parameterValue">
-                                2018
-                            </div>
-                        </li>
-                        <li class="mui-table-view-cell">
-                            <div class="parameterName">Report date
-                            </div>
-                            <div class="parameterValue">
-                                2018/11/12
-                            </div>
-                        </li>
-                        <li class="mui-table-view-cell">
                             <div class="parameterName">Number of fleet</div>
                             <div class="parameterValue">
                                 12,357
@@ -590,17 +569,14 @@
                                 Aircraft Loan
                             </div>
                         </li>
-                        <li class="mui-table-view-cell">
-                            <div class="parameterName">Please specify
-                            </div>
-                            <div class="parameterValue">
-                                Please specify
-                            </div>
-                        </li>
                     </ul>
                 </div>
             </div>
-            <div class="shouSuoList">
+            <div class="fleetDetailBtn" @click.stop="gotoUrl()">
+                <div class="fleetDetailBtnContent">fleet Details</div>
+                <div class="fleetDetailBtnIcon"><span class="calcfont calc-you"></span></div>
+            </div>
+            <!-- <div class="shouSuoList">
                 <ul class="mui-table-view mui-table-view-chevron mui-collapse-content">
                     <li class="mui-table-view-cell mui-collapse">
                         <a class="mui-navigate-right">
@@ -671,14 +647,14 @@
                         </ul>
                     </li>
                 </ul>
-            </div>
+            </div> -->
         </div>
         <div class="segmentedControlContents" id="production">
             <div class="fenLeiList">
                 <div class="fenLeiListCell">
                     <div class="headTitle">Production</div>
                     <ul class="mui-table-view">
-                        <li class="mui-table-view-cell">
+                        <!-- <li class="mui-table-view-cell">
                             <div class="parameterName">Production Date
                             </div>
                             <div class="parameterValue">
@@ -691,7 +667,7 @@
                             <div class="parameterValue">
                                 2018/11/11
                             </div>
-                        </li>
+                        </li> -->
                         <li class="mui-table-view-cell">
                             <div class="parameterName">Available Seat Kilometers (ASK)
                             </div>
@@ -855,13 +831,6 @@
                     <div class="headTitle">Profitability</div>
                     <ul class="mui-table-view">
                         <li class="mui-table-view-cell">
-                            <div class="parameterName">Local Currency
-                            </div>
-                            <div class="parameterValue">
-                                United States Dollar (USD)
-                            </div>
-                        </li>
-                        <li class="mui-table-view-cell">
                             <div class="parameterName">Exchange Rate (exchange to Standard)
                             </div>
                             <div class="parameterValue">
@@ -869,91 +838,113 @@
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
-                            <div class="parameterName">Total Revenue (Compulsory)
+                            <div class="parameterName">Local Currency
+                            </div>
+                            <div class="parameterValue">
+                                United States Dollar (USD)
+                            </div>
+                        </li>
+                        <li class="mui-table-view-cell">
+                            <div class="parameterName">Standard money
+                            </div>
+                            <div class="parameterValue">
+                                United Stated Dollar(USD)
+                            </div>
+                        </li>
+
+                        <li class="mui-table-view-cell">
+                            <div class="parameterName">Total Revenue
                             </div>
                             <div class="parameterValue">
                                 13.36
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
-                            <div class="parameterName">Passenger revenue (Optional)
+                            <div class="parameterName">Passenger revenue
                             </div>
                             <div class="parameterValue">
                                 11.87
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
-                            <div class="parameterName">Passenger revenue / Total revenue (%) (Optional)
+                            <div class="parameterName">Passenger revenue / Total revenue(%)
                             </div>
                             <div class="parameterValue">
                                 88.85%
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
-                            <div class="parameterName">Cargo revenue (Optional)
+                            <div class="parameterName">Cargo revenue
                             </div>
                             <div class="parameterValue">
                                 3.63
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
-                            <div class="parameterName">Cargo revenue / Total revenue (%) (Optional)
+                            <div class="parameterName">Cargo revenue / Total revenue(%)
                             </div>
                             <div class="parameterValue">
                                 27.17%
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
-                            <div class="parameterName">Ancillary revenue (Optional)
+                            <div class="parameterName">Ancillary revenue
                             </div>
                             <div class="parameterValue">
                                 6.77
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
-                            <div class="parameterName">Ancillary revenue / Total revenue (%) (Optional)
+                            <div class="parameterName">Ancillary revenue / Total revenue(%)
                             </div>
                             <div class="parameterValue">
                                 50.67%
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
-                            <div class="parameterName">Direct cost (% of total cost) (Optional)
+                            <div class="parameterName">Total Cost
+                            </div>
+                            <div class="parameterValue">
+                                50.67%
+                            </div>
+                        </li>
+                        <li class="mui-table-view-cell">
+                            <div class="parameterName">Direct cost (% of total cost)
                             </div>
                             <div class="parameterValue">
                                 21.58%
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
-                            <div class="parameterName">Cost of maintenance (% of total cost) (Optional)
+                            <div class="parameterName">Cost of maintenance (% of total cost)
                             </div>
                             <div class="parameterValue">
                                 1185.00%
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
-                            <div class="parameterName">Cost of spare parts (% of total cost) (Optional)
+                            <div class="parameterName">Cost of spare parts (% of total cost)
                             </div>
                             <div class="parameterValue">
                                 8.97%
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
-                            <div class="parameterName">Cost of rental (% of total cost) (Optional)
+                            <div class="parameterName">Cost of rental (% of total cost)
                             </div>
                             <div class="parameterValue">
                                 32.95%
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
-                            <div class="parameterName">Indirect cost (% of total cost) (Optional)
+                            <div class="parameterName">Indirect cost (% of total cost)
                             </div>
                             <div class="parameterValue">
                                 11.89%
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
-                            <div class="parameterName">EBITDAR (Compulsory)
+                            <div class="parameterName">EBITDAR
                             </div>
                             <div class="parameterValue">
                                 633.25
@@ -967,63 +958,63 @@
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
-                            <div class="parameterName">EBITDA (Optional)
+                            <div class="parameterName">EBITDA
                             </div>
                             <div class="parameterValue">
                                 33.69
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
-                            <div class="parameterName">EBITDA Margin (Optional)
+                            <div class="parameterName">EBITDA Margin
                             </div>
                             <div class="parameterValue">
                                 252.17%
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
-                            <div class="parameterName">EBIT (Compulsory)
+                            <div class="parameterName">EBIT
                             </div>
                             <div class="parameterValue">
                                 13.68
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
-                            <div class="parameterName">EBIT margin (Optional)
+                            <div class="parameterName">EBIT margin
                             </div>
                             <div class="parameterValue">
                                 102.40%
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
-                            <div class="parameterName">Net Profit (Compulsory)
+                            <div class="parameterName">Net Profit
                             </div>
                             <div class="parameterValue">
                                 15.95
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
-                            <div class="parameterName">Net profit margin (%) (Compulsory)
+                            <div class="parameterName">Net profit margin(%)
                             </div>
                             <div class="parameterValue">
                                 63.98%
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
-                            <div class="parameterName">Unit Revenue (PRASK) (Optional)
+                            <div class="parameterName">Unit Revenue (PRASK)
                             </div>
                             <div class="parameterValue">
                                 88.00
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
-                            <div class="parameterName">Passenger yield (US cent/km) (Optional)
+                            <div class="parameterName">Passenger yield (US cent/km)
                             </div>
                             <div class="parameterValue">
                                 10,365.00
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
-                            <div class="parameterName">Unit Cost (CASK) (Optional)
+                            <div class="parameterName">Unit Cost (CASK)
                             </div>
                             <div class="parameterValue">
                                 233,698.00
@@ -1035,87 +1026,95 @@
                     <div class="headTitle">Liquidity</div>
                     <ul class="mui-table-view">
                         <li class="mui-table-view-cell">
-                            <div class="parameterName">Cash and Cash Equivalents (Optional)
+                            <div class="parameterName">Cash and Cash Equivalents
                             </div>
                             <div class="parameterValue">
                                 1.0
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
-                            <div class="parameterName">Free Cash Flow (Optional)
+                            <div class="parameterName">Free Cash Flow
                             </div>
                             <div class="parameterValue">
                                 2
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
-                            <div class="parameterName">Cash Flow from Operations (Optional
+                            <div class="parameterName">Cash Flow from Operations
                             </div>
                             <div class="parameterValue">
                                 3
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
-                            <div class="parameterName">Cash Flow from Investment (Optional)
+                            <div class="parameterName">Cash Flow from Investment
                             </div>
                             <div class="parameterValue">
                                 4
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
-                            <div class="parameterName">Cash Flow from Financing (Optional)
+                            <div class="parameterName">Cash Flow from Financing
                             </div>
                             <div class="parameterValue">
                                 5
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
-                            <div class="parameterName">Net Cash Flow (Optional)
+                            <div class="parameterName">Net Cash Flow
                             </div>
                             <div class="parameterValue">
                                 8
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
-                            <div class="parameterName">Total Assets (Optional)
+                            <div class="parameterName">Total Assets
                             </div>
                             <div class="parameterValue">
                                 6
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
-                            <div class="parameterName">Total Liabilities (Optional)
+                            <div class="parameterName">Total Liabilities
                             </div>
                             <div class="parameterValue">
                                 8
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
-                            <div class="parameterName">Net Asset Value (Optional) (Optional)
+                            <div class="parameterName">Net Asset Value
                             </div>
                             <div class="parameterValue">
                                 6
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
-                            <div class="parameterName">Leverage Ratio (%) (Compulsory)
+                            <div class="parameterName">Leverage Ratio(%)
                             </div>
                             <div class="parameterValue">
                                 66.7%
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
-                            <div class="parameterName">Current Ratio (%) (Optional)
+                            <div class="parameterName">Current Ratio(%)
                             </div>
                             <div class="parameterValue">
                                 10%
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
-                            <div class="parameterName">EBITDAR-to-(interest + rent) coverage ratio (Compulsory)
+                            <div class="parameterName">EBITDAR-to-(interest + rent) coverage ratio
                             </div>
                             <div class="parameterValue">
                                 12%
+                            </div>
+                        </li>
+
+                        <li class="mui-table-view-cell">
+                            <div class="parameterName">EBITDA-to-interest coverage ratio(%)
+                            </div>
+                            <div class="parameterValue">
+                                11%
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
@@ -1125,20 +1124,13 @@
                                 31%
                             </div>
                         </li>
-                        <li class="mui-table-view-cell">
-                            <div class="parameterName">EBITDA-to-interest coverage ratio (%) (Optional)
-                            </div>
-                            <div class="parameterValue">
-                                11%
-                            </div>
-                        </li>
                     </ul>
                 </div>
                 <div class="fenLeiListCell">
                     <div class="headTitle">Comments</div>
                     <ul class="mui-table-view">
                         <li class="mui-table-view-cell">
-                            <div class="parameterName">Audit report avaiable for not (Compulsory)
+                            <div class="parameterName">Audit report avaiable for not
                             </div>
                             <div class="parameterValue">
                                 No
@@ -1226,7 +1218,7 @@
                     </ul>
                 </div>
                 <div class="fenLeiListCell">
-                    <div class="headTitle">Other Info</div>
+                    <div class="headTitle">Business Opportunity</div>
                     <ul class="mui-table-view">
                         <li class="mui-table-view-cell">
                             <div class="parameterName">Remarks
@@ -1241,7 +1233,7 @@
         </div>
     </div>
     <!-- 弹出层 -->
-    <div class="itemZheZhao" ></div>
+    <div class="itemZheZhao"></div>
     <div class="sucaihuo-container">
         <div class="cd-bouncy-nav-modal" @touchmove.stop.prevent>
             <nav>
@@ -1294,6 +1286,14 @@ export default {
         this.initSelectYear();
     },
     methods: {
+        gotoUrl: function () {
+            console.log("helllll");
+            
+            var _self = this;
+            _self.$router.push({
+                path: "/fleetDetailsList"
+            });
+        },
         // 列表收缩展示
         showList: function () {
             var _self = this;
@@ -1303,7 +1303,7 @@ export default {
                     return;
                 }
                 var parentTarget = target.parent();
-                  if (tool.isNullOrEmptyObject(parentTarget)) {
+                if (tool.isNullOrEmptyObject(parentTarget)) {
                     return;
                 }
                 if (!parentTarget.hasClass("mui-active")) {
@@ -1320,39 +1320,36 @@ export default {
         back: function () {
             this.$router.back(-1);
         },
-        initSelectYear:function(){
+        initSelectYear: function () {
             //构造可选年份数据
             var yearArray = [];
-            for(var i = 2000; i <= 2099; i++){
+            for (var i = 2000; i <= 2099; i++) {
                 yearArray.push(i);
             }
             var _curObj = $('#selectYear');
             _curObj.val((new Date()).FormatNew('yyyy'));
-            if(tool.isNullOrEmptyObject(_curObj)) return;
+            if (tool.isNullOrEmptyObject(_curObj)) return;
             var selectYear = yearArray[0]; //默认选择的年份
             _curObj.picker({
-                  title: lanTool.lanContent("1000002_请选择年")||"",
-                  cols: [
-                    {
-                      textAlign: 'center',
-                      values:yearArray
-                    }
-                  ],
-                  toolbarCloseText: lanTool.lanContent('569_确认'),//确认
-                  toolbarCancleText: lanTool.lanContent('570_取消'),//取消
-                  onOpen: function (data) {
+                title: lanTool.lanContent("1000002_请选择年") || "",
+                cols: [{
+                    textAlign: 'center',
+                    values: yearArray
+                }],
+                toolbarCloseText: lanTool.lanContent('569_确认'), //确认
+                toolbarCancleText: lanTool.lanContent('570_取消'), //取消
+                onOpen: function (data) {
                     var defaultValue = _curObj.val() || '';
                     _curObj.picker("setValue", [defaultValue]);
                     selectYear = defaultValue;
-                    $('.close-picker').off('click').on("click",function() {
-                          if(tool.isNullOrEmptyObject(selectYear) || selectYear == defaultValue) return;
-
+                    $('.close-picker').off('click').on("click", function () {
+                        if (tool.isNullOrEmptyObject(selectYear) || selectYear == defaultValue) return;
 
                     })
-                  },
-                  onChange: function (data, valueTemp, displayTemp) {
-                      selectYear = valueTemp[0];
-                  }
+                },
+                onChange: function (data, valueTemp, displayTemp) {
+                    selectYear = valueTemp[0];
+                }
 
             });
         },
@@ -1389,6 +1386,7 @@ export default {
                         $(".itemZheZhao").hide();
                     if (!tool.isNullOrEmptyObject($this)) {
                         $($this).addClass("mui-active")
+                        $(window).scrollTop(0);
                         $($this).siblings().removeClass("mui-active");
                     }
                     $('.cd-bouncy-nav-modal').removeClass('fade-out');
