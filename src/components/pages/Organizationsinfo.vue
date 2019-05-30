@@ -140,8 +140,8 @@
                                 </div>
                             </div>
                         </div>
-
-                        <div v-show="!isAddNew" class="airlineinfo">
+                        <!-- HideWhenNewOrHasNoAccess -->
+                        <div v-show="!isAddNew&&isHasADBAccess" class="airlineinfo">
                             <div class="ListCell" @click="goToAirlinePage">
                                 <div class="ListCellLeftIcon"><span class="mui-icon calcfont calc-lianxiren2"></span></div>
                                 <div class="ListCellContent">
@@ -198,6 +198,7 @@ export default {
             rightPanelFromID: "", //传给右侧菜单用的参数
             isShowSendBtn: false, //侧滑是否显示分享给同事选项
             isShowClose: false, //侧滑是否显示关闭这个商业机会选项
+            isHasADBAccess:false//是否拥有访问ADB的权限
         }
     },
     beforeRouteEnter: function (to, from, next) {
@@ -250,6 +251,49 @@ export default {
                     tool.autoTextarea(cur);
                 });
 
+                //请求接口，判断当前用户是否有访问当前航空公司ADB数据的权限
+                //api接口地址
+                var apiUrlTemp = tool.combineRequestUrl(tool.ADBAjaxUrl(),tool.getConfigValue(tool.ADBApi_AirlineDatabase_IsCurrentUserHasAccess));
+                console.log("apiUrlTemp:"+apiUrlTemp);
+                var jsonDatas = {
+                    CurrentLanguageVersion: lanTool.currentLanguageVersion,
+                    UserName: tool.UserName(),
+                    CompanyID: _self.id
+                };
+                // var loadingIndexClassName = tool.showLoading();
+                $.ajax({
+                    async: true,
+                    type: "post",
+                    url: apiUrlTemp,
+                    data: {
+                        jsonDatas:JSON.stringify(jsonDatas)
+                    },
+                    success: function (data) {
+                        data = tool.jObject(data);
+                        if (data.Result != 1) {
+                            // tool.hideLoading(loadingIndexClassName);
+                            // tool.showText(data.Msg);
+                            console.log(tool.getMessage(data.Msg));
+                            return true;
+                        }
+
+                        if(!tool.isNullOrEmptyObject(data.Data) && data.Data == true){
+                            _self.isHasADBAccess = true;
+                        }else{
+                            _self.isHasADBAccess = false;
+                        }
+                    },
+                    error: function (jqXHR, type, error) {
+                        console.log(error);
+                        // tool.hideLoading(loadingIndexClassName);
+                        return true;
+                    },
+                    complete: function () {
+                        //隐藏虚拟键盘
+                        document.activeElement.blur();
+                    }
+                });
+
                 //处理联动字段
                 tool.linkageField(_self, 'CountryID', 'CityID');
 
@@ -257,7 +301,7 @@ export default {
                 tool.UpdateFieldValueFromBack(eventBus, function () {
                     //清空全局变量
                     eventBus.selectListData = null;
-                })
+                });
             });
         });
     },
@@ -297,12 +341,19 @@ export default {
         },
        //跳转到Airline Database 界面
        goToAirlinePage:function(e){
-           var _self = this;
+            var _self = this;
             var urlTemp = "/airlineDatabase";
+            var companyID = _self.$route.params.id || "";
+            if(tool.isNullOrEmptyObject(companyID)){
+                return;
+            }
+            var parameter = {
+                CompanyID: companyID
+            };
             _self.$router.push({
-                path: urlTemp
+                path: urlTemp,
+                query: parameter
             });
-
        },
         followToggle: function (e) {
             var _self = this;
@@ -362,7 +413,6 @@ export default {
             }
         }
     },
-
     beforeRouteLeave: function (to, from, next) {
         if (to.name == 'contacts' || to.name == 'contactsinfo') {
             this.$store.commit('REMOVE_ITEM', 'organizationsinfo');

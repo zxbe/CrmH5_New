@@ -425,6 +425,16 @@
 	 */
 	tool.Api_MessagesToUserHandle_SetDisabled = "Api_MessagesToUserHandle_SetDisabled";
 
+	/*
+	 * ADBAjaxUrl:ADB系统请求的api地址
+	 */
+	tool.config_ADBAjaxUrl = "ADBAjaxUrl";
+	/*
+	 * 查看当前用户是否有访问指定航空公司数据的权限
+	 */
+	tool.ADBApi_AirlineDatabase_IsCurrentUserHasAccess = "ADBApi_AirlineDatabase_IsCurrentUserHasAccess";
+
+
 
 	/*
 	 * currentLanguageVersion:当前语言版本
@@ -486,6 +496,11 @@
 	/*请求的公共入口地址*/
 	tool.AjaxBaseUrl = function () {
 		return tool.getConfigValue(tool.config_ajaxUrl) || "";
+	}
+
+	/*请求的ADB API的入口地址*/
+	tool.ADBAjaxUrl = function () {
+		return tool.getConfigValue(tool.config_ADBAjaxUrl) || "";
 	}
 
 	/*判断传入值是否为空*/
