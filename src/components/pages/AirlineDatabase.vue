@@ -26,7 +26,7 @@
                         <li class="mui-table-view-cell">
                             <div class="parameterName">IATA</div>
                             <div class="parameterValue">
-                                iatatest
+                                {{detailEntity["7340"]||""}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
@@ -1389,6 +1389,8 @@ export default {
 
                     $(".close-picker").off('click').on('click',function(){
                         console.log("confirm");
+                        //查询模块数据
+                        _self.getTabContent();
                     });
                 },
                 onChange: function (data, valueTemp, displayTemp) {
@@ -1444,7 +1446,8 @@ export default {
                     }
                     $('.cd-bouncy-nav-modal').removeClass('fade-out');
                     _self.is_bouncy_nav_animating = false;
-
+                    //查询模块数据
+                    _self.getTabContent();
                 });
                 //判断css 动画是否开启..
                 if ($('.cd-bouncy-nav-trigger').parents('.no-csstransitions').length > 0) {
