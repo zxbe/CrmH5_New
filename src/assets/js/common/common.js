@@ -433,8 +433,10 @@
 	 * 查看当前用户是否有访问指定航空公司数据的权限
 	 */
 	tool.ADBApi_AirlineDatabase_IsCurrentUserHasAccess = "ADBApi_AirlineDatabase_IsCurrentUserHasAccess";
-
-
+	/*
+	 * 根据模块Id查询业务数据
+	 */
+	tool.ADBApi_AirlineDatabase_Query_InfoDetailByTab = "ADBApi_AirlineDatabase_Query_InfoDetailByTab";
 
 	/*
 	 * currentLanguageVersion:当前语言版本

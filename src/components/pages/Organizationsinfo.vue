@@ -254,7 +254,7 @@ export default {
                 //请求接口，判断当前用户是否有访问当前航空公司ADB数据的权限
                 //api接口地址
                 var apiUrlTemp = tool.combineRequestUrl(tool.ADBAjaxUrl(),tool.getConfigValue(tool.ADBApi_AirlineDatabase_IsCurrentUserHasAccess));
-                console.log("apiUrlTemp:"+apiUrlTemp);
+                // console.log("apiUrlTemp:"+apiUrlTemp);
                 var jsonDatas = {
                     CurrentLanguageVersion: lanTool.currentLanguageVersion,
                     UserName: tool.UserName(),
@@ -344,11 +344,14 @@ export default {
             var _self = this;
             var urlTemp = "/airlineDatabase";
             var companyID = _self.$route.params.id || "";
-            if(tool.isNullOrEmptyObject(companyID)){
+            var companyName = $('[data-field="ShortNameEN"]').val() || '';
+            if (tool.isNullOrEmptyObject(companyID) || tool.isNullOrEmptyObject(companyName)) {
                 return;
             }
+            
             var parameter = {
-                CompanyID: companyID
+                CompanyID: companyID,
+                CompanyName: companyName,
             };
             _self.$router.push({
                 path: urlTemp,

@@ -6,11 +6,10 @@
         <div class="inputTime">
             <input id="selectYear" type="text" placeholder="select year" readonly>
         </div>
-
-            <a  @click="showMenu" class="calcfont calc-jiugongge right"></a>
+        <a @click="showMenu" class="calcfont calc-jiugongge right"></a>
     </header>
     <div class="segmentedControlContentsBox">
-        <div class="segmentedControlContents mui-active" id="ID">
+        <div class="segmentedControlContents mui-active" id="ID" data-TabID="7516">
             <div class="fenLeiList">
                 <div class="fenLeiListCell">
 
@@ -181,7 +180,7 @@
                 </ul>
             </div>
         </div>
-        <div class="segmentedControlContents" id="country">
+        <div class="segmentedControlContents" id="country" data-TabID="7517">
             <div class="fenLeiList">
                 <div class="fenLeiListCell">
                     <div class="headTitle">Country Rating</div>
@@ -330,7 +329,7 @@
                 </div>
             </div>
         </div>
-        <div class="segmentedControlContents" id="market">
+        <div class="segmentedControlContents" id="market" data-TabID="7518">
             <div class="fenLeiList">
                 <div class="fenLeiListCell">
                     <div class="headTitle">Market Position</div>
@@ -403,7 +402,7 @@
                 </ul>
             </div>
         </div>
-        <div class="segmentedControlContents" id="financing">
+        <div class="segmentedControlContents" id="financing" data-TabID="7519">
             <div class="fenLeiList">
                 <div class="fenLeiListCell">
                     <div class="headTitle">Associate with any other airlines / airline group</div>
@@ -499,7 +498,7 @@
                 </ul>
             </div>
         </div>
-        <div class="segmentedControlContents" id="fleet">
+        <div class="segmentedControlContents" id="fleet" data-TabID="7520">
             <div class="fenLeiList">
                 <div class="fenLeiListCell">
                     <div class="headTitle">Fleet plan</div>
@@ -649,7 +648,7 @@
                 </ul>
             </div> -->
         </div>
-        <div class="segmentedControlContents" id="production">
+        <div class="segmentedControlContents" id="production" data-TabID="7521">
             <div class="fenLeiList">
                 <div class="fenLeiListCell">
                     <div class="headTitle">Production</div>
@@ -736,7 +735,7 @@
                 </div>
             </div>
         </div>
-        <div class="segmentedControlContents" id="airline">
+        <div class="segmentedControlContents" id="airline" data-TabID="7522">
             <div class="fenLeiList">
                 <div class="fenLeiListCell">
                     <div class="headTitle">Resilient</div>
@@ -825,7 +824,7 @@
                 </div>
             </div>
         </div>
-        <div class="segmentedControlContents" id="financial">
+        <div class="segmentedControlContents" id="financial" data-TabID="7523">
             <div class="fenLeiList">
                 <div class="fenLeiListCell">
                     <div class="headTitle">Profitability</div>
@@ -1140,7 +1139,7 @@
                 </div>
             </div>
         </div>
-        <div class="segmentedControlContents" id="listing">
+        <div class="segmentedControlContents" id="listing" data-TabID="7524">
             <div class="fenLeiList">
                 <div class="fenLeiListCell">
                     <div class="headTitle">Listing & Rating Information</div>
@@ -1232,6 +1231,7 @@
             </div>
         </div>
     </div>
+
     <!-- 弹出层 -->
     <div class="itemZheZhao"></div>
     <div class="sucaihuo-container">
@@ -1276,8 +1276,10 @@
 export default {
     data() {
         return {
-            title: "AirlineDatabase",
+            title: "Airline Database",
             is_bouncy_nav_animating: false,
+            tabID:"",//模块ID
+            versionID:""//当前选中的年
         }
     },
     mounted: function () {
@@ -1287,14 +1289,12 @@ export default {
     },
     methods: {
         gotoUrl: function () {
-            console.log("helllll");
-            
             var _self = this;
             _self.$router.push({
                 path: "/fleetDetailsList"
             });
         },
-        // 列表收缩展示
+        //列表收缩展示
         showList: function () {
             var _self = this;
             $("a.mui-navigate-right").off("click").on("click", function () {
@@ -1317,9 +1317,11 @@ export default {
                 }
             })
         },
+        //返回上一步
         back: function () {
             this.$router.back(-1);
         },
+        //初始化年控件
         initSelectYear: function () {
             //构造可选年份数据
             var yearArray = [];
@@ -1353,9 +1355,10 @@ export default {
 
             });
         },
+        //显示模块菜单
         showMenu: function () {
             var _self = this;
-            console.log("menu");
+            // console.log("menu");
             if (!$('.cd-bouncy-nav-modal').hasClass("fade-in")) {
                 $(".itemZheZhao").show();
                 _self.triggerBouncyNav(true);
@@ -1364,17 +1367,17 @@ export default {
             }
 
         },
+        //模块跳转
         getEvent: function () {
             var _self = this;
             $('.cd-bouncy-nav-modal li').off('click').on('click', function (event) {
-                console.log($(this).attr("data-category"));
+                // console.log($(this).attr("data-category"));
                 var category = $(this).attr("data-category");
-                console.log("id:" + category);
-
+                // console.log("id:" + category);
                 _self.triggerBouncyNav(false, category);
             });
         },
-
+        //模块跳转
         triggerBouncyNav: function ($bool, $this) {
             var _self = this;
             if (!_self.is_bouncy_nav_animating) {
@@ -1401,7 +1404,6 @@ export default {
             }
         }
     }
-
 }
 </script>
 
