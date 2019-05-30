@@ -1,5 +1,6 @@
 <template>
 <div>
+
     <header class="mui-bar mui-bar-nav">
         <a @click="back" class="calcfont calc-fanhui left" id="back"></a>
         <h1 class="mui-title f18">{{title}}</h1>
@@ -8,6 +9,7 @@
         </div>
             <a @click="showMenu" class="calcfont calc-jiugongge right"></a>
     </header>
+
     <div class="segmentedControlContentsBox">
         <div class="segmentedControlContents mui-active" id="ID" data-TabID="7516">
             <div class="fenLeiList">
@@ -18,7 +20,7 @@
                         <li class="mui-table-view-cell">
                             <div class="parameterName">ICAO</div>
                             <div class="parameterValue">
-                                9 Air
+                                {{detailEntity["7339"]||""}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
@@ -571,7 +573,7 @@
                     </ul>
                 </div>
             </div>
-            <div class="fleetDetailBtn" @click.stop="gotoUrl()">
+            <div class="fleetDetailBtn" @click.stop="gotoFleetDetailsList()">
                 <div class="fleetDetailBtnContent">fleet Details</div>
                 <div class="fleetDetailBtnIcon"><span class="calcfont calc-you"></span></div>
             </div>
@@ -1245,7 +1247,7 @@
                         <a>Country Risk</a>
                     </li>
                     <li data-category="#market">
-                        <a >Market Metrics</a>
+                        <a>Market Metrics</a>
                     </li>
                     <li data-category="#financing">
                         <a >Financing Power</a>
@@ -1269,6 +1271,7 @@
             </nav>
         </div>
     </div>
+
 </div>
 </template>
 
@@ -1278,17 +1281,41 @@ export default {
         return {
             title: "Airline Database",
             is_bouncy_nav_animating: false,
+            companyID:"",//公司ID
             tabID: "", //模块ID
-            versionID: "" //当前选中的年
+            versionID: "", //当前选中的年
+            detailEntity:{}//明细实体
         }
+    },
+    created:function(){
+        $(window).scrollTop(0);
     },
     mounted: function () {
         this.getEvent();
         this.showList();
         this.initSelectYear();
+
+        var _self = this;
+        //公司ID
+        _self.companyID = _self.$route.query.CompanyID;
+        //公司名
+        _self.title = _self.$route.query.CompanyName;
+        //当前选择的时间
+        _self.versionID = $("#selectYear").val()||"";
+        //当前激活的模块
+        var curTab = $("#segmentedControlContents.mui-active");
+        if(tool.isNullOrEmptyObject(curTab)){
+            _self.tabID = "7516";
+        }else{
+            _self.tabID = curTab.attr("data-TabID")||"7516";
+        }
+
+        //挂载完后首次获取内容
+        _self.getTabContent();
     },
     methods: {
-        gotoUrl: function () {
+        //跳转到fleet Details列表
+        gotoFleetDetailsList: function () {
             var _self = this;
             _self.$router.push({
                 path: "/fleetDetailsList"
@@ -1324,35 +1351,49 @@ export default {
         //初始化年控件
         initSelectYear: function () {
             //构造可选年份数据
-            var yearArray = [];
-            for (var i = 2000; i <= 2099; i++) {
-                yearArray.push(i);
+            //配置年数据
+			var yearConfigArr = [];
+			//默认前后50年可选
+			var unitYear = 50;
+			var currentYear = new Date().getFullYear();
+			var starIndex = currentYear - unitYear;
+			var endIndex = currentYear + unitYear;
+			for(var i = starIndex;i <= endIndex;i++){
+				yearConfigArr.push(i);
             }
             var _curObj = $('#selectYear');
-            _curObj.val((new Date()).FormatNew('yyyy'));
-            if (tool.isNullOrEmptyObject(_curObj)) return;
-            var selectYear = yearArray[0]; //默认选择的年份
+            _curObj.val(currentYear);
+            if (tool.isNullOrEmptyObject(_curObj)) {
+                return;
+            }
+            var selectYear = currentYear; //默认选择的年份
             _curObj.picker({
                 title: lanTool.lanContent("1000002_请选择年") || "",
                 cols: [{
                     textAlign: 'center',
-                    values: yearArray
+                    values: yearConfigArr
                 }],
                 toolbarCloseText: lanTool.lanContent('569_确认'), //确认
                 toolbarCancleText: lanTool.lanContent('570_取消'), //取消
                 onOpen: function (data) {
-                    var defaultValue = _curObj.val() || '';
-                    _curObj.picker("setValue", [defaultValue]);
-                    selectYear = defaultValue;
-                    $('.close-picker').off('click').on("click", function () {
-                        if (tool.isNullOrEmptyObject(selectYear) || selectYear == defaultValue) return;
+                    //del by Dylan 这段代码貌似没什么意义
+                    // var defaultValue = _curObj.val() || '';
+                    // _curObj.picker("setValue", [defaultValue]);
+                    // selectYear = defaultValue;
+                    // $('.close-picker').off('click').on("click", function () {
+                    //     if (tool.isNullOrEmptyObject(selectYear) || selectYear == defaultValue) {
+                    //         return;
+                    //     }
+                    // });
+                    //end del
 
-                    })
+                    $(".close-picker").off('click').on('click',function(){
+                        console.log("confirm");
+                    });
                 },
                 onChange: function (data, valueTemp, displayTemp) {
                     selectYear = valueTemp[0];
                 }
-
             });
         },
         //显示模块菜单
@@ -1371,9 +1412,8 @@ export default {
         getEvent: function () {
             var _self = this;
             $('.cd-bouncy-nav-modal li').off('click').on('click', function (event) {
-                // console.log($(this).attr("data-category"));
                 var category = $(this).attr("data-category");
-                // console.log("id:" + category);
+
                 _self.triggerBouncyNav(false, category, $(this));
             });
         },
@@ -1385,8 +1425,10 @@ export default {
                 //切换菜单动画   判断动画结束后才能调用 （webkitAnimationEnd oanimationend msAnimationEnd animationend）
                 $('.cd-bouncy-nav-modal').toggleClass('fade-in', $bool).toggleClass('fade-out', !$bool).find('li:last-child').one('webkitAnimationEnd oanimationend msAnimationEnd animationend', function () {
                     $('.cd-bouncy-nav-modal').toggleClass('is-visible', $bool);
-                    if (!$bool)
+                    if (!$bool){
                         $(".itemZheZhao").hide();
+                    }
+                        
                     if (!tool.isNullOrEmptyObject($this)) {
                         $($this).addClass("mui-active")
                         $(window).scrollTop(0);
@@ -1410,6 +1452,55 @@ export default {
                     _self.is_bouncy_nav_animating = false;
                 }
             }
+        },
+        //获取当前航空公司当前模块的内容
+        getTabContent:function(){
+            //api接口地址
+            var _self = this;
+            
+            if(tool.isNullOrEmptyObject(_self.tabID) || tool.isNullOrEmptyObject(_self.companyID)|| tool.isNullOrEmptyObject(_self.versionID)){
+                return;
+            }
+
+            var apiUrlTemp = tool.combineRequestUrl(tool.ADBAjaxUrl(),tool.getConfigValue(tool.ADBApi_AirlineDatabase_Query_InfoDetailByTab));
+            console.log("apiUrlTemp:"+apiUrlTemp);
+            var jsonDatas = {
+                CurrentLanguageVersion: lanTool.currentLanguageVersion,
+                UserName: tool.UserName(),
+                TabID:_self.tabID,
+                CompanyID: _self.companyID,
+                VersionID:_self.versionID
+            };
+            var loadingIndexClassName = tool.showLoading();
+            $.ajax({
+                async: true,
+                type: "post",
+                url: apiUrlTemp,
+                data: {
+                    jsonDatas:JSON.stringify(jsonDatas)
+                },
+                success: function (data) {
+                    tool.hideLoading(loadingIndexClassName);
+                    data = tool.jObject(data);
+                    if (data.Result != 1) {
+                        tool.showText(data.Msg);
+                        console.log(tool.getMessage(data.Msg));
+                        return true;
+                    }
+
+                    console.log(data);
+                    _self.detailEntity = data.Data;
+                },
+                error: function (jqXHR, type, error) {
+                    console.log(error);
+                    tool.hideLoading(loadingIndexClassName);
+                    return true;
+                },
+                complete: function () {
+                    //隐藏虚拟键盘
+                    document.activeElement.blur();
+                }
+            });
         }
     }
 }
