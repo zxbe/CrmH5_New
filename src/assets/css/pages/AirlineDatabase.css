@@ -114,7 +114,7 @@ input{
 .headTitle {
 	padding: 0.2rem 0.3rem;
 	color: #595959;
-    font-size: 0.25rem;
+    font-size: 0.26rem;
     background-color: rgb(245, 245, 245);
     border-bottom: solid 1px gainsboro;
 }
@@ -174,6 +174,7 @@ a.mui-navigate-right .listHead {
 	text-overflow: ellipsis;
 	white-space: nowrap;
 	color: #595959;
+	font-size: 0.26rem;
 }
 .mui-table-view-cell.mui-collapse a.mui-navigate-right span{
     position: absolute;
@@ -192,10 +193,10 @@ a.mui-navigate-right .listHead {
 {
 	display: inline-block;
 	width: 27%;
-	font-size: 0.28rem;
+	font-size: 0.24rem;
 	line-height: 0.36rem;
 	text-align: right;
-	color: #595959;
+	color: #929292;
 	margin: auto 0;
 	margin-left: 0.2rem;
 }
@@ -441,7 +442,7 @@ li {
 	color: #ffffff;
 }
 
-.cd-bouncy-nav a::before {
+.cd-bouncy-nav li a::before {
 	content: '';
 	display: block;
 	position: absolute;
@@ -463,7 +464,9 @@ li {
     background-position: 0.3rem 0.3rem;
     background-size:1rem 1rem;
 }
-
+.cd-bouncy-nav li.active a::before{
+	background-color: #c58f49;
+}
 .no-touch .cd-bouncy-nav a:hover::before {
 
 }

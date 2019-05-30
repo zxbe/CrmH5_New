@@ -2,7 +2,7 @@
 		var link = document.createElement('link');
 		link.setAttribute('type', 'text/css');
 		link.setAttribute('rel', 'stylesheet');
-		link.setAttribute('href', 'https://at.alicdn.com/t/font_651046_k3wiu6pek9e.css');
+		link.setAttribute('href', 'https://at.alicdn.com/t/font_651046_2rc2rsn5elz.css');
 
 		//link.setAttribute('href', '../fonts/iconfont1.css');
     document.head.appendChild(link);

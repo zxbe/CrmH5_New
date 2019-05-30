@@ -376,7 +376,7 @@
                     </ul>
                 </div>
             </div>
-            <div class="shouSuoList">
+            <!-- <div class="shouSuoList">
                 <ul class="mui-table-view mui-table-view-chevron mui-collapse-content">
                     <li class="mui-table-view-cell mui-collapse">
                         <a class="mui-navigate-right">
@@ -395,6 +395,47 @@
                                 <div class="flexBoxTwo">
                                     <div class="boxOne">Hubs/Bases2</div>
                                     <div class="boxTwo">Growth ratio2</div>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div> -->
+            <div class="shouSuoList">
+                <ul class="mui-table-view mui-table-view-chevron mui-collapse-content">
+                    <li class="mui-table-view-cell mui-collapse">
+                        <a class="mui-navigate-right">
+
+                                <div class="listHead">Market Growth Rate</div>
+                                 <span class="calcfont calc-xia"></span>
+                                </a>
+                        <ul class="mui-table-view">
+                            <li class="mui-table-view-cell">
+                                <div class="flexBox">
+                                    <div class="flexBoxKey">Hubs / Bases</div>
+                                    <div class="flexBoxValue">qingdao</div>
+                                </div>
+                                <div class="flexBox">
+                                    <div class="flexBoxKey">Passenger growth ratio</div>
+                                    <div class="flexBoxValue">30%</div>
+                                </div>
+                                <div class="flexBox">
+                                    <div class="flexBoxKey">Year</div>
+                                    <div class="flexBoxValue">2018</div>
+                                </div>
+                            </li>
+                            <li class="mui-table-view-cell">
+                                <div class="flexBox">
+                                    <div class="flexBoxKey">Hubs / Bases</div>
+                                    <div class="flexBoxValue">qingdao</div>
+                                </div>
+                                <div class="flexBox">
+                                    <div class="flexBoxKey">Passenger growth ratio</div>
+                                    <div class="flexBoxValue">35%</div>
+                                </div>
+                                <div class="flexBox">
+                                    <div class="flexBoxKey">Year</div>
+                                    <div class="flexBoxValue">2019</div>
                                 </div>
                             </li>
                         </ul>
@@ -429,7 +470,7 @@
                     </ul>
                 </div>
             </div>
-            <div class="shouSuoList">
+            <!-- <div class="shouSuoList">
                 <ul class="mui-table-view mui-table-view-chevron mui-collapse-content">
                     <li class="mui-table-view-cell mui-collapse">
                         <a class="mui-navigate-right">
@@ -491,6 +532,102 @@
                                 <div class="flexBoxTwo">
                                     <div class="boxOne">Bank2</div>
                                     <div class="boxTwo">Comment2</div>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div> -->
+            <div class="shouSuoList">
+                <ul class="mui-table-view mui-table-view-chevron mui-collapse-content">
+                    <li class="mui-table-view-cell mui-collapse">
+                        <a class="mui-navigate-right">
+
+                                <div class="listHead">Detailed shareholding</div>
+                                 <span class="calcfont calc-xia"></span>
+                                </a>
+                        <ul class="mui-table-view">
+                            <li class="mui-table-view-cell">
+                                <div class="flexBox">
+                                    <div class="flexBoxKey">Shareholder</div>
+                                    <div class="flexBoxValue">南山集团</div>
+                                </div>
+                                <div class="flexBox">
+                                    <div class="flexBoxKey">Ownership Percentage</div>
+                                    <div class="flexBoxValue">30%</div>
+                                </div>
+                            </li>
+                            <li class="mui-table-view-cell">
+                                <div class="flexBox">
+                                    <div class="flexBoxKey">Shareholder</div>
+                                    <div class="flexBoxValue">新南国际</div>
+                                </div>
+                                <div class="flexBox">
+                                    <div class="flexBoxKey">Ownership Percentage</div>
+                                    <div class="flexBoxValue">70%</div>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+                <ul class="mui-table-view mui-table-view-chevron mui-collapse-content">
+                    <li class="mui-table-view-cell mui-collapse">
+                        <a class="mui-navigate-right">
+
+                                <div class="listHead">Lessor participation</div>
+                                 <span class="calcfont calc-xia"></span>
+                                </a>
+                        <ul class="mui-table-view">
+                            <li class="mui-table-view-cell">
+                                <div class="flexBox">
+                                    <div class="flexBoxKey">Lessor</div>
+                                    <div class="flexBoxValue">qingdao</div>
+                                </div>
+                                <div class="flexBox">
+                                    <div class="flexBoxKey">Comment</div>
+                                    <div class="flexBoxValue">-</div>
+                                </div>
+
+                            </li>
+                            <li class="mui-table-view-cell">
+                                <div class="flexBox">
+                                    <div class="flexBoxKey">Lessor</div>
+                                    <div class="flexBoxValue">qingdao</div>
+                                </div>
+                                <div class="flexBox">
+                                    <div class="flexBoxKey">Comment</div>
+                                    <div class="flexBoxValue">-</div>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+                <ul class="mui-table-view mui-table-view-chevron mui-collapse-content">
+                    <li class="mui-table-view-cell mui-collapse">
+                        <a class="mui-navigate-right">
+
+                                <div class="listHead">Bank participation</div>
+                                 <span class="calcfont calc-xia"></span>
+                                </a>
+                        <ul class="mui-table-view">
+                            <li class="mui-table-view-cell">
+                                <div class="flexBox">
+                                    <div class="flexBoxKey">Bank</div>
+                                    <div class="flexBoxValue">中国银行</div>
+                                </div>
+                                <div class="flexBox">
+                                    <div class="flexBoxKey">Comment</div>
+                                    <div class="flexBoxValue">30%</div>
+                                </div>
+                            </li>
+                            <li class="mui-table-view-cell">
+                                <div class="flexBox">
+                                    <div class="flexBoxKey">Bank</div>
+                                    <div class="flexBoxValue">中国银行</div>
+                                </div>
+                                <div class="flexBox">
+                                    <div class="flexBoxKey">Comment</div>
+                                    <div class="flexBoxValue">35%</div>
                                 </div>
                             </li>
                         </ul>
@@ -1238,7 +1375,7 @@
         <div class="cd-bouncy-nav-modal" @touchmove.stop.prevent>
             <nav>
                 <ul class="cd-bouncy-nav">
-                    <li data-category="#ID">
+                    <li data-category="#ID" class="active">
                         <a>ID</a>
                     </li>
                     <li data-category="#country" class="haveTime">
@@ -1399,6 +1536,8 @@ export default {
                         } else {
                             $(".inputTime").hide();
                         }
+                       e.addClass("active")
+                       e.siblings().removeClass("active");
                     }
                     $('.cd-bouncy-nav-modal').removeClass('fade-out');
                     _self.is_bouncy_nav_animating = false;
