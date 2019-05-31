@@ -32,28 +32,35 @@
                         <li class="mui-table-view-cell">
                             <div class="parameterName">Operator(English)</div>
                             <div class="parameterValue">
-                                Operator(English)test
+                                {{detailEntity["7487"]||""}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
                             <div class="parameterName">Operator (Chinese)
                             </div>
                             <div class="parameterValue">
-                                Operator (Chinese)test
+                                {{detailEntity["7509"]||""}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
                             <div class="parameterName">Country
                             </div>
                             <div class="parameterValue">
-                                China
+                                {{detailEntity["7486"]||""}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
                             <div class="parameterName">Region/Area
                             </div>
                             <div class="parameterValue">
-                                Asia Pacific
+                                {{detailEntity["7341"]||""}}
+                            </div>
+                        </li>
+                        <li class="mui-table-view-cell">
+                            <div class="parameterName">List Company
+                            </div>
+                            <div class="parameterValue">
+                                {{detailEntity["7667"]||""}}
                             </div>
                         </li>
                     </ul>
@@ -65,21 +72,21 @@
                             <div class="parameterName">Existing Customer
                             </div>
                             <div class="parameterValue">
-                                No
+                                {{detailEntity["7347"]||""}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
                             <div class="parameterName">Payment record in CALC
                             </div>
                             <div class="parameterValue">
-                                123,121.00
+                                {{detailEntity["7349"]||""}}
 
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
                             <div class="parameterName">Outstangding amount</div>
                             <div class="parameterValue">
-                                1,365.37
+                                {{detailEntity["7545"]||""}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
@@ -87,14 +94,14 @@
 
                             </div>
                             <div class="parameterValue">
-                                FQ
+                                {{detailEntity["7350"]||""}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
                             <div class="parameterName">Comments
                             </div>
                             <div class="parameterValue">
-                                CommentsTest
+                                {{detailEntity["7546"]||""}}
                             </div>
                         </li>
                     </ul>
@@ -190,54 +197,54 @@
                         <li class="mui-table-view-cell">
                             <div class="parameterName">Country Rating</div>
                             <div class="parameterValue">
-                                country Rating(test)
+                                {{detailEntity["7353"]||""}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
                             <div class="parameterName">Specifying rating agency</div>
                             <div class="parameterValue">
-                                test agency
+                                {{detailEntity["7544"]||""}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
                             <div class="parameterName">Blacklist Countries</div>
                             <div class="parameterValue">
-                                No
+                                {{detailEntity["7354"]||""}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
                             <div class="parameterName">One belt one road country or not
                             </div>
                             <div class="parameterValue">
-                                Yes
+                                {{detailEntity["7355"]||""}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
                             <div class="parameterName">GDP growth rate
                             </div>
                             <div class="parameterValue">
-                                13.37%
+                                {{detailEntity["7356"]||""}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
                             <div class="parameterName">GDP per capita
                             </div>
                             <div class="parameterValue">
-                                32.66
+                                {{detailEntity["7359"]||""}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
                             <div class="parameterName">OECD Country Export Credit Risk
                             </div>
                             <div class="parameterValue">
-                                4
+                                {{detailEntity["7357"]||""}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
                             <div class="parameterName">CALC current rating
                             </div>
                             <div class="parameterValue">
-                                Not Available
+                                {{detailEntity["7358"]||""}}
                             </div>
                         </li>
                     </ul>
@@ -249,20 +256,20 @@
                             <div class="parameterName">Currency Performance
                             </div>
                             <div class="parameterValue">
-                                23.37%
+                                {{detailEntity["7361"]||""}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
                             <div class="parameterName">Major income currency
                             </div>
                             <div class="parameterValue">
-                                China Yuan Renminbi (CNY)
+                                {{detailEntity["7362"]||""}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
                             <div class="parameterName">Major cost currency </div>
                             <div class="parameterValue">
-                                China Yuan Renminbi (CNY)
+                                {{detailEntity["7363"]||""}}
                             </div>
                         </li>
 
@@ -275,56 +282,56 @@
                             <div class="parameterName">Owner/Operator Register
                             </div>
                             <div class="parameterValue">
-                                Owner
+                                {{detailEntity["7365"]||""}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
                             <div class="parameterName">Cape Town Ratified or not?
                             </div>
                             <div class="parameterValue">
-                                Yes
+                                {{detailEntity["7366"]||""}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
                             <div class="parameterName">IDERA
                             </div>
                             <div class="parameterValue">
-                                Yes
+                                {{detailEntity["7367"]||""}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
                             <div class="parameterName">DPOA
                             </div>
                             <div class="parameterValue">
-                                Yes
+                                {{detailEntity["7368"]||""}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
                             <div class="parameterName">Self-help allowed
                             </div>
                             <div class="parameterValue">
-                                Yes
+                                {{detailEntity["7369"]||""}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
                             <div class="parameterName">Default record
                             </div>
                             <div class="parameterValue">
-                                Yes
+                                {{detailEntity["7370"]||""}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
                             <div class="parameterName">Repossession record
                             </div>
                             <div class="parameterValue">
-                                Yes
+                                {{detailEntity["7371"]||""}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
                             <div class="parameterName">Aircraft registration country
                             </div>
                             <div class="parameterValue">
-                                Hong Kong SAR, China
+                                {{detailEntity["7372"]||""}}
                             </div>
                         </li>
                     </ul>
@@ -340,27 +347,27 @@
                             <div class="parameterName">Flag carrier or not, and alliance
                             </div>
                             <div class="parameterValue">
-                                Flag carrier or not, and alliance
+                                {{detailEntity["7374"]||""}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
                             <div class="parameterName">Business model
                             </div>
                             <div class="parameterValue">
-                                LCC with long haul
+                                {{detailEntity["7375"]||""}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
                             <div class="parameterName">Major competitiveness</div>
                             <div class="parameterValue">
-                                others
+                                {{detailEntity["7376"]||""}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
                             <div class="parameterName">Please specify
                             </div>
                             <div class="parameterValue">
-                                specify test
+                                {{detailEntity["7638"]||""}}
                             </div>
                         </li>
                     </ul>
@@ -372,7 +379,7 @@
                             <div class="parameterName">News link to website
                             </div>
                             <div class="parameterValue">
-                                www.baidu.com
+                                {{detailEntity["7378"]||""}}
                             </div>
                         </li>
                     </ul>
@@ -454,7 +461,7 @@
                             <div class="parameterName">Associate with any other airlines / airline group
                             </div>
                             <div class="parameterValue">
-                                Associate with any other airlines / airline group
+                                {{detailEntity["7541"]||""}}
                             </div>
                         </li>
                     </ul>
@@ -466,7 +473,7 @@
                             <div class="parameterName">with stock code and link to IR page
                             </div>
                             <div class="parameterValue">
-                                with stock code and link to IR page
+                                {{detailEntity["7384"]||""}}
                             </div>
                         </li>
                     </ul>
@@ -645,42 +652,42 @@
                         <li class="mui-table-view-cell">
                             <div class="parameterName">Number of fleet</div>
                             <div class="parameterValue">
-                                12,357
+                                {{detailEntity["7390"]||""}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
                             <div class="parameterName">Fleet Type
                             </div>
                             <div class="parameterValue">
-                                Fleet Type
+                                {{detailEntity["7391"]||""}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
                             <div class="parameterName">Order book
                             </div>
                             <div class="parameterValue">
-                                36,847
+                                {{detailEntity["7392"]||""}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
                             <div class="parameterName">Order book Type
                             </div>
                             <div class="parameterValue">
-                                Order book Type
+                                {{detailEntity["7393"]||""}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
                             <div class="parameterName">Average fleet age (Year)
                             </div>
                             <div class="parameterValue">
-                                165.37
+                                {{detailEntity["7394"]||""}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
                             <div class="parameterName">Retire old aircraft plan
                             </div>
                             <div class="parameterValue">
-                                Retire old aircraft plan
+                                {{detailEntity["7395"]||""}}
                             </div>
                         </li>
                     </ul>
@@ -692,7 +699,7 @@
                             <div class="parameterName">Average available Seat Growth (YoY)
                             </div>
                             <div class="parameterValue">
-                                12.37%
+                                {{detailEntity["7343"]||""}}
                             </div>
                         </li>
                     </ul>
@@ -704,7 +711,14 @@
                             <div class="parameterName">Top 3 financing tools/product to fleet
                             </div>
                             <div class="parameterValue">
-                                Aircraft Loan
+                                {{detailEntity["7345"]||""}}
+                            </div>
+                        </li>
+                        <li class="mui-table-view-cell">
+                            <div class="parameterName">Please specify
+                            </div>
+                            <div class="parameterValue">
+                                {{detailEntity["7636"]||""}}
                             </div>
                         </li>
                     </ul>
@@ -810,56 +824,56 @@
                             <div class="parameterName">Available Seat Kilometers (ASK)
                             </div>
                             <div class="parameterValue">
-                                136.37
+                               {{detailEntity["7399"]||""}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
                             <div class="parameterName">Seat capacity provided
                             </div>
                             <div class="parameterValue">
-                                136.37
+                                {{detailEntity["7400"]||""}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
                             <div class="parameterName">Revenue Passenger Kilometers (RPK)
                             </div>
                             <div class="parameterValue">
-                                136.37
+                               {{detailEntity["7401"]||""}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
                             <div class="parameterName">Number of Passengers Carried within 12 months
                             </div>
                             <div class="parameterValue">
-                                136.37
+                                {{detailEntity["7402"]||""}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
                             <div class="parameterName">Load Factor(%)
                             </div>
                             <div class="parameterValue">
-                                136.37
+                                {{detailEntity["7403"]||""}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
                             <div class="parameterName">Number of Domestic Route
                             </div>
                             <div class="parameterValue">
-                                136.37
+                                {{detailEntity["7404"]||""}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
                             <div class="parameterName">Number of Internatioal Route
                             </div>
                             <div class="parameterValue">
-                                65,811
+                                {{detailEntity["7405"]||""}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
                             <div class="parameterName">Daily utilization
                             </div>
                             <div class="parameterValue">
-                                Daily utilization
+                                {{detailEntity["7589"]||""}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
@@ -867,7 +881,7 @@
 
                             </div>
                             <div class="parameterValue">
-                                65,811
+                               {{detailEntity["7590"]||""}}
                             </div>
                         </li>
                     </ul>
@@ -883,14 +897,14 @@
                             <div class="parameterName">Bankruptcy before or not
                             </div>
                             <div class="parameterValue">
-                                Yes
+                                {{detailEntity["7407"]||""}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
                             <div class="parameterName">Established year
                             </div>
                             <div class="parameterValue">
-                                Established year
+                                {{detailEntity["7578"]||""}}
                             </div>
                         </li>
                     </ul>
@@ -902,35 +916,35 @@
                             <div class="parameterName">Safety rating
                             </div>
                             <div class="parameterValue">
-                                5
+                               {{detailEntity["7409"]||""}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
                             <div class="parameterName">IOSA certified
                             </div>
                             <div class="parameterValue">
-                                Yes
+                                {{detailEntity["7636"]||""}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
                             <div class="parameterName">Number of Accident (Total Loss) within 10 years
                             </div>
                             <div class="parameterValue">
-                                6666
+                                {{detailEntity["7636"]||""}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
                             <div class="parameterName">Number of Accident (Non total Loss) within 10 years
                             </div>
                             <div class="parameterValue">
-                                6666
+                               {{detailEntity["7636"]||""}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
                             <div class="parameterName">Number of Incident within 5 years
                             </div>
                             <div class="parameterValue">
-                                6666
+                               {{detailEntity["7636"]||""}}
                             </div>
                         </li>
                     </ul>
@@ -942,21 +956,21 @@
                             <div class="parameterName">A check, C check or D check?
                             </div>
                             <div class="parameterValue">
-                                A check, C check or D check?
+                               {{detailEntity["7636"]||""}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
                             <div class="parameterName">Who are main MRO for aircraft
                             </div>
                             <div class="parameterValue">
-                                Who are main MRO for aircraft
+                                {{detailEntity["7636"]||""}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
                             <div class="parameterName">Who are main MRO for engine
                             </div>
                             <div class="parameterValue">
-                                Who are main MRO for engine
+                                {{detailEntity["7636"]||""}}
                             </div>
                         </li>
                     </ul>
@@ -972,21 +986,21 @@
                             <div class="parameterName">Exchange Rate (exchange to Standard)
                             </div>
                             <div class="parameterValue">
-                                1
+                              {{detailEntity["7636"]||""}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
                             <div class="parameterName">Local Currency
                             </div>
                             <div class="parameterValue">
-                                United States Dollar (USD)
+                               {{detailEntity["7636"]||""}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
                             <div class="parameterName">Standard money
                             </div>
                             <div class="parameterValue">
-                                United Stated Dollar(USD)
+                                {{detailEntity["7636"]||""}}
                             </div>
                         </li>
 
@@ -994,168 +1008,168 @@
                             <div class="parameterName">Total Revenue
                             </div>
                             <div class="parameterValue">
-                                13.36
+                                {{detailEntity["7636"]||""}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
                             <div class="parameterName">Passenger revenue
                             </div>
                             <div class="parameterValue">
-                                11.87
+                               {{detailEntity["7636"]||""}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
                             <div class="parameterName">Passenger revenue / Total revenue(%)
                             </div>
                             <div class="parameterValue">
-                                88.85%
+                                {{detailEntity["7636"]||""}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
                             <div class="parameterName">Cargo revenue
                             </div>
                             <div class="parameterValue">
-                                3.63
+                               {{detailEntity["7636"]||""}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
                             <div class="parameterName">Cargo revenue / Total revenue(%)
                             </div>
                             <div class="parameterValue">
-                                27.17%
+                                {{detailEntity["7636"]||""}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
                             <div class="parameterName">Ancillary revenue
                             </div>
                             <div class="parameterValue">
-                                6.77
+                               {{detailEntity["7636"]||""}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
                             <div class="parameterName">Ancillary revenue / Total revenue(%)
                             </div>
                             <div class="parameterValue">
-                                50.67%
+                               {{detailEntity["7636"]||""}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
                             <div class="parameterName">Total Cost
                             </div>
                             <div class="parameterValue">
-                                50.67%
+                               {{detailEntity["7636"]||""}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
                             <div class="parameterName">Direct cost (% of total cost)
                             </div>
                             <div class="parameterValue">
-                                21.58%
+                               {{detailEntity["7636"]||""}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
                             <div class="parameterName">Cost of maintenance (% of total cost)
                             </div>
                             <div class="parameterValue">
-                                1185.00%
+                               {{detailEntity["7636"]||""}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
                             <div class="parameterName">Cost of spare parts (% of total cost)
                             </div>
                             <div class="parameterValue">
-                                8.97%
+                                {{detailEntity["7636"]||""}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
                             <div class="parameterName">Cost of rental (% of total cost)
                             </div>
                             <div class="parameterValue">
-                                32.95%
+                                {{detailEntity["7636"]||""}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
                             <div class="parameterName">Indirect cost (% of total cost)
                             </div>
                             <div class="parameterValue">
-                                11.89%
+                                {{detailEntity["7636"]||""}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
                             <div class="parameterName">EBITDAR
                             </div>
                             <div class="parameterValue">
-                                633.25
+                                {{detailEntity["7636"]||""}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
                             <div class="parameterName">EBITDAR Margin (Compulsory)
                             </div>
                             <div class="parameterValue">
-                                4739.90%
+                                {{detailEntity["7636"]||""}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
                             <div class="parameterName">EBITDA
                             </div>
                             <div class="parameterValue">
-                                33.69
+                                {{detailEntity["7636"]||""}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
                             <div class="parameterName">EBITDA Margin
                             </div>
                             <div class="parameterValue">
-                                252.17%
+                                {{detailEntity["7636"]||""}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
                             <div class="parameterName">EBIT
                             </div>
                             <div class="parameterValue">
-                                13.68
+                                {{detailEntity["7636"]||""}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
                             <div class="parameterName">EBIT margin
                             </div>
                             <div class="parameterValue">
-                                102.40%
+                                {{detailEntity["7636"]||""}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
                             <div class="parameterName">Net Profit
                             </div>
                             <div class="parameterValue">
-                                15.95
+                                {{detailEntity["7636"]||""}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
                             <div class="parameterName">Net profit margin(%)
                             </div>
                             <div class="parameterValue">
-                                63.98%
+                                {{detailEntity["7636"]||""}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
                             <div class="parameterName">Unit Revenue (PRASK)
                             </div>
                             <div class="parameterValue">
-                                88.00
+                                {{detailEntity["7636"]||""}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
                             <div class="parameterName">Passenger yield (US cent/km)
                             </div>
                             <div class="parameterValue">
-                                10,365.00
+                                {{detailEntity["7636"]||""}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
                             <div class="parameterName">Unit Cost (CASK)
                             </div>
                             <div class="parameterValue">
-                                233,698.00
+                                {{detailEntity["7636"]||""}}
                             </div>
                         </li>
                     </ul>
@@ -1167,84 +1181,84 @@
                             <div class="parameterName">Cash and Cash Equivalents
                             </div>
                             <div class="parameterValue">
-                                1.0
+                                {{detailEntity["7636"]||""}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
                             <div class="parameterName">Free Cash Flow
                             </div>
                             <div class="parameterValue">
-                                2
+                               {{detailEntity["7636"]||""}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
                             <div class="parameterName">Cash Flow from Operations
                             </div>
                             <div class="parameterValue">
-                                3
+                                {{detailEntity["7636"]||""}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
                             <div class="parameterName">Cash Flow from Investment
                             </div>
                             <div class="parameterValue">
-                                4
+                               {{detailEntity["7636"]||""}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
                             <div class="parameterName">Cash Flow from Financing
                             </div>
                             <div class="parameterValue">
-                                5
+                               {{detailEntity["7636"]||""}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
                             <div class="parameterName">Net Cash Flow
                             </div>
                             <div class="parameterValue">
-                                8
+                                {{detailEntity["7636"]||""}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
                             <div class="parameterName">Total Assets
                             </div>
                             <div class="parameterValue">
-                                6
+                                {{detailEntity["7636"]||""}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
                             <div class="parameterName">Total Liabilities
                             </div>
                             <div class="parameterValue">
-                                8
+                                {{detailEntity["7636"]||""}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
                             <div class="parameterName">Net Asset Value
                             </div>
                             <div class="parameterValue">
-                                6
+                               {{detailEntity["7636"]||""}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
                             <div class="parameterName">Leverage Ratio(%)
                             </div>
                             <div class="parameterValue">
-                                66.7%
+                                {{detailEntity["7636"]||""}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
                             <div class="parameterName">Current Ratio(%)
                             </div>
                             <div class="parameterValue">
-                                10%
+                                {{detailEntity["7636"]||""}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
                             <div class="parameterName">EBITDAR-to-(interest + rent) coverage ratio
                             </div>
                             <div class="parameterValue">
-                                12%
+                                {{detailEntity["7636"]||""}}
                             </div>
                         </li>
 
@@ -1252,14 +1266,14 @@
                             <div class="parameterName">EBITDA-to-interest coverage ratio(%)
                             </div>
                             <div class="parameterValue">
-                                11%
+                                {{detailEntity["7636"]||""}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
                             <div class="parameterName">Net Debt-to-EBITDA (%) (Optional)
                             </div>
                             <div class="parameterValue">
-                                31%
+                               {{detailEntity["7636"]||""}}
                             </div>
                         </li>
                     </ul>
@@ -1271,7 +1285,7 @@
                             <div class="parameterName">Audit report avaiable for not
                             </div>
                             <div class="parameterValue">
-                                No
+                               {{detailEntity["7636"]||""}}
                             </div>
                         </li>
                     </ul>
@@ -1287,70 +1301,70 @@
                             <div class="parameterName">Stock Code
                             </div>
                             <div class="parameterValue">
-                                test Stock Code
+                                {{detailEntity["7636"]||""}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
                             <div class="parameterName">P/B
                             </div>
                             <div class="parameterValue">
-                                1132.2321
+                               {{detailEntity["7636"]||""}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
                             <div class="parameterName">P/E
                             </div>
                             <div class="parameterValue">
-                                23.37
+                                {{detailEntity["7636"]||""}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
                             <div class="parameterName">Dividend yield
                             </div>
                             <div class="parameterValue">
-                                18.97%
+                                {{detailEntity["7636"]||""}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
                             <div class="parameterName">Share Price Range within 12 months
                             </div>
                             <div class="parameterValue">
-                                3~5
+                                {{detailEntity["7636"]||""}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
                             <div class="parameterName">Earning per share
                             </div>
                             <div class="parameterValue">
-                                11.88
+                                {{detailEntity["7636"]||""}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
                             <div class="parameterName">NAV per share
                             </div>
                             <div class="parameterValue">
-                                665.37
+                                {{detailEntity["7636"]||""}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
                             <div class="parameterName">percentage of floating shares
                             </div>
                             <div class="parameterValue">
-                                5.69%
+                                {{detailEntity["7636"]||""}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
                             <div class="parameterName">Company Credit Rating
                             </div>
                             <div class="parameterValue">
-                                Company Credit Rating
+                                {{detailEntity["7636"]||""}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
                             <div class="parameterName">Specifying rating agency
                             </div>
                             <div class="parameterValue">
-                                Specifying rating agency
+                                {{detailEntity["7636"]||""}}
                             </div>
                         </li>
                     </ul>
@@ -1362,7 +1376,7 @@
                             <div class="parameterName">Remarks
                             </div>
                             <div class="parameterValue">
-                                Remarks test Remarks test Remarks test Remarks test Remarks test Remarks test Remarks test Remarks test Remarks test Remarks test Remarks test Remarks test Remarks test Remarks test Remarks test Remarks test Remarks test Remarks test Remarks test Remarks test Remarks test Remarks test Remarks test Remarks test Remarks test Remarks test Remarks test Remarks test Remarks test Remarks test Remarks test Remarks test Remarks test Remarks test Remarks test Remarks test Remarks test Remarks test Remarks test Remarks test Remarks test Remarks test Remarks test Remarks test Remarks test Remarks test Remarks test Remarks test Remarks test Remarks test Remarks test Remarks test Remarks test Remarks test Remarks test Remarks test Remarks test Remarks test Remarks test Remarks test Remarks test Remarks test Remarks test Remarks test Remarks test Remarks test Remarks test
+                                {{detailEntity["7636"]||""}}
                             </div>
                         </li>
                     </ul>
@@ -1418,13 +1432,13 @@ export default {
         return {
             title: "Airline Database",
             is_bouncy_nav_animating: false,
-            companyID:"",//公司ID
+            companyID: "", //公司ID
             tabID: "", //模块ID
             versionID: "", //当前选中的年
-            detailEntity:{}//明细实体
+            detailEntity: {} //明细实体
         }
     },
-    created:function(){
+    created: function () {
         $(window).scrollTop(0);
     },
     mounted: function () {
@@ -1438,13 +1452,13 @@ export default {
         //公司名
         _self.title = _self.$route.query.CompanyName;
         //当前选择的时间
-        _self.versionID = $("#selectYear").val()||"";
+        _self.versionID = $("#selectYear").val() || "";
         //当前激活的模块
         var curTab = $("#segmentedControlContents.mui-active");
-        if(tool.isNullOrEmptyObject(curTab)){
+        if (tool.isNullOrEmptyObject(curTab)) {
             _self.tabID = "7516";
-        }else{
-            _self.tabID = curTab.attr("data-TabID")||"7516";
+        } else {
+            _self.tabID = curTab.attr("data-TabID") || "7516";
         }
 
         //挂载完后首次获取内容
@@ -1491,14 +1505,14 @@ export default {
 
             //构造可选年份数据
             //配置年数据
-			var yearConfigArr = [];
-			//默认前后50年可选
-			var unitYear = 50;
-			var currentYear = new Date().getFullYear();
-			var starIndex = currentYear - unitYear;
-			var endIndex = currentYear + unitYear;
-			for(var i = starIndex;i <= endIndex;i++){
-				yearConfigArr.push(i);
+            var yearConfigArr = [];
+            //默认前后50年可选
+            var unitYear = 50;
+            var currentYear = new Date().getFullYear();
+            var starIndex = currentYear - unitYear;
+            var endIndex = currentYear + unitYear;
+            for (var i = starIndex; i <= endIndex; i++) {
+                yearConfigArr.push(i);
             }
             var _curObj = $('#selectYear');
             _curObj.val(currentYear);
@@ -1515,7 +1529,7 @@ export default {
                 toolbarCloseText: lanTool.lanContent('569_确认'), //确认
                 toolbarCancleText: lanTool.lanContent('570_取消'), //取消
                 onOpen: function (data) {
-                    
+
                     //del by Dylan 这段代码貌似没什么意义
                     // var defaultValue = _curObj.val() || '';
                     // _curObj.picker("setValue", [defaultValue]);
@@ -1527,7 +1541,7 @@ export default {
                     // });
                     //end del
 
-                    $(".close-picker").off('click').on('click',function(){
+                    $(".close-picker").off('click').on('click', function () {
                         console.log("confirm");
                         _self.versionID = _curObj.val() || '';
                         //查询模块数据
@@ -1567,10 +1581,10 @@ export default {
                 //切换菜单动画   判断动画结束后才能调用 （webkitAnimationEnd oanimationend msAnimationEnd animationend）
                 $('.cd-bouncy-nav-modal').toggleClass('fade-in', $bool).toggleClass('fade-out', !$bool).find('li:last-child').one('webkitAnimationEnd oanimationend msAnimationEnd animationend', function () {
                     $('.cd-bouncy-nav-modal').toggleClass('is-visible', $bool);
-                    if (!$bool){
+                    if (!$bool) {
                         $(".itemZheZhao").hide();
                     }
-                        
+
                     if (!tool.isNullOrEmptyObject($this)) {
                         $($this).addClass("mui-active");
                         $(window).scrollTop(0);
@@ -1586,8 +1600,8 @@ export default {
                         } else {
                             $(".inputTime").hide();
                         }
-                       e.addClass("active")
-                       e.siblings().removeClass("active");
+                        e.addClass("active")
+                        e.siblings().removeClass("active");
                     }
                     $('.cd-bouncy-nav-modal').removeClass('fade-out');
                     _self.is_bouncy_nav_animating = false;
@@ -1600,22 +1614,22 @@ export default {
             }
         },
         //获取当前航空公司当前模块的内容
-        getTabContent:function(){
+        getTabContent: function () {
             //api接口地址
             var _self = this;
-            
-            if(tool.isNullOrEmptyObject(_self.tabID) || tool.isNullOrEmptyObject(_self.companyID)|| tool.isNullOrEmptyObject(_self.versionID)){
+
+            if (tool.isNullOrEmptyObject(_self.tabID) || tool.isNullOrEmptyObject(_self.companyID) || tool.isNullOrEmptyObject(_self.versionID)) {
                 return;
             }
 
-            var apiUrlTemp = tool.combineRequestUrl(tool.ADBAjaxUrl(),tool.getConfigValue(tool.ADBApi_AirlineDatabase_Query_InfoDetailByTab));
-            console.log("apiUrlTemp:"+apiUrlTemp);
+            var apiUrlTemp = tool.combineRequestUrl(tool.ADBAjaxUrl(), tool.getConfigValue(tool.ADBApi_AirlineDatabase_Query_InfoDetailByTab));
+            console.log("apiUrlTemp:" + apiUrlTemp);
             var jsonDatas = {
                 CurrentLanguageVersion: lanTool.currentLanguageVersion,
                 UserName: tool.UserName(),
-                TabID:_self.tabID,
+                TabID: _self.tabID,
                 CompanyID: _self.companyID,
-                VersionID:_self.versionID
+                VersionID: _self.versionID
             };
             var loadingIndexClassName = tool.showLoading();
             $.ajax({
@@ -1623,7 +1637,7 @@ export default {
                 type: "post",
                 url: apiUrlTemp,
                 data: {
-                    jsonDatas:JSON.stringify(jsonDatas)
+                    jsonDatas: JSON.stringify(jsonDatas)
                 },
                 success: function (data) {
                     tool.hideLoading(loadingIndexClassName);
