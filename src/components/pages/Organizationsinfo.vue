@@ -143,7 +143,7 @@
                         <!-- HideWhenNewOrHasNoAccess -->
                         <div v-show="!isAddNew&&isHasADBAccess" class="airlineinfo">
                             <div class="ListCell" @click="goToAirlinePage">
-                                <div class="ListCellLeftIcon"><span class="mui-icon calcfont calc-lianxiren2"></span></div>
+                                <div class="ListCellLeftIcon"><span class="mui-icon calcfont calc-database"></span></div>
                                 <div class="ListCellContent">
                                     <div class="ListCellContentLeft leftContent">
                                         <div class="ListCellContentLeftText" >Airline Database</div>
