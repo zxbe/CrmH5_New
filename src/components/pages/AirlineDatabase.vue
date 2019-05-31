@@ -1655,7 +1655,7 @@ export default {
             });
         },
         //模块跳转
-        triggerBouncyNav: function ($bool, $this, e) {
+        triggerBouncyNav: function ($bool, $this, curObj) {
             var _self = this;
             if (!_self.is_bouncy_nav_animating) {
                 _self.is_bouncy_nav_animating = true;
@@ -1674,15 +1674,15 @@ export default {
                         //获取当前航空公司当前模块的内容
                         _self.getTabContent();
                     }
-                    if (!tool.isNullOrEmptyObject(e)) {
+                    if (!tool.isNullOrEmptyObject(curObj)) {
                         //判断模块是否可以进行日期选择 没有的话隐藏时间控件
-                        if (e.hasClass('haveTime')) {
+                        if (curObj.hasClass('haveTime')) {
                             $(".inputTime").show();
                         } else {
                             $(".inputTime").hide();
                         }
-                        e.addClass("active")
-                        e.siblings().removeClass("active");
+                        curObj.addClass("active")
+                        curObj.siblings().removeClass("active");
                     }
                     $('.cd-bouncy-nav-modal').removeClass('fade-out');
                     _self.is_bouncy_nav_animating = false;
