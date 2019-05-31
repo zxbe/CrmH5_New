@@ -102,7 +102,7 @@
                             </div>
                             <div class="parameterValue">
                                 <p class="textareaP">
-                                    <textarea data-field="OtherRemark" data-fieldControlType="textareaInput">{{detailEntity["7546"]||""}}</textarea>
+                                    <textarea readonly>{{detailEntity["7546"]||""}}</textarea>
                                 </p>
                             </div>
                         </li>
@@ -394,7 +394,7 @@
                             </div>
                             <div class="parameterValue">
                                 <p class="textareaP">
-                                    <textarea data-field="OtherRemark" data-fieldControlType="textareaInput"> {{detailEntity["7378"]||""}}</textarea>
+                                    <textarea readonly> {{detailEntity["7378"]||""}}</textarea>
                                 </p>
                             </div>
                         </li>
@@ -688,7 +688,7 @@
                             </div>
                             <div class="parameterValue">
                                 <p class="textareaP">
-                                    <textarea data-field="OtherRemark" data-fieldControlType="textareaInput"> {{detailEntity["7391"]||""}}</textarea>
+                                    <textarea readonly> {{detailEntity["7391"]||""}}</textarea>
                                 </p>
                             </div>
                         </li>
@@ -704,7 +704,7 @@
                             </div>
                             <div class="parameterValue">
                                 <p class="textareaP">
-                                    <textarea data-field="OtherRemark" data-fieldControlType="textareaInput">{{detailEntity["7393"]||""}}</textarea>
+                                    <textarea readonly>{{detailEntity["7393"]||""}}</textarea>
                                 </p>
                             </div>
                         </li>
@@ -1456,7 +1456,7 @@
                             </div>
                             <div class="parameterValue">
                                 <p class="textareaP">
-                                    <textarea data-field="OtherRemark" data-fieldControlType="textareaInput">{{detailEntity["7576"]||""}}</textarea>
+                                    <textarea readonly>{{detailEntity["7576"]||""}}</textarea>
                                 </p>
                             </div>
                         </li>
@@ -1744,8 +1744,8 @@ export default {
                     _self.detailEntity = data.Data;
                     _self.$nextTick(function () {
                         //渲染textarea
-                        $("textarea").each(function (index, cur) {
-                            $(cur).height('25');
+                        $("textarea").each(function (index, cur) {                            
+                            // $(cur).height('25');
                             tool.autoTextarea(cur);
                         });
                     })

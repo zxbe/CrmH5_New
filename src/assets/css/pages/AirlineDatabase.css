@@ -146,13 +146,9 @@ p.textareaP{
     margin-left: 0;
     overflow: hidden;
     position: relative;
-    /* left: -4px; */
     border: none;
     font-size: 0.28rem;
-    /*border: 1px solid transparent; */
-    /* height: 400px; */
     line-height: 0.34rem;
-    /* margin: 11px 11px 8px 0; */
     display: block;
     height:0.5rem;
 }
@@ -477,7 +473,6 @@ li {
 	height: 1.6rem;
 	width: 1.6rem;
 	border-radius: 50%;
-	/* background-color: #77BFA3; */
 	background-color: #e9cfae;
 	background-image: url("../../../assets/images/id.svg");
 	background-repeat: no-repeat;
@@ -486,9 +481,6 @@ li {
 }
 .cd-bouncy-nav li.active a::before{
 	background-color: #c58f49;
-}
-.no-touch .cd-bouncy-nav a:hover::before {
-
 }
 
 .cd-bouncy-nav li:nth-of-type(2) a::before {
