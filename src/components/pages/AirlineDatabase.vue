@@ -1454,7 +1454,7 @@ export default {
         //当前选择的时间
         _self.versionID = $("#selectYear").val() || "";
         //当前激活的模块
-        var curTab = $("#segmentedControlContents.mui-active");
+        var curTab = $(".segmentedControlContents.mui-active");
         if (tool.isNullOrEmptyObject(curTab)) {
             _self.tabID = "7516";
         } else {
@@ -1462,7 +1462,7 @@ export default {
         }
 
         //挂载完后首次获取内容
-        // _self.getTabContent();
+        _self.getTabContent();
     },
     methods: {
         //跳转到fleet Details列表
@@ -1543,7 +1543,7 @@ export default {
 
                     $(".close-picker").off('click').on('click', function () {
                         console.log("confirm");
-                        _self.versionID = _curObj.val() || '';
+                        //_self.versionID = _curObj.val() || '';
                         //查询模块数据
                         _self.getTabContent();
                     });
@@ -1618,6 +1618,17 @@ export default {
             //api接口地址
             var _self = this;
 
+            //获取当前激活的模块
+            var curTab = $(".segmentedControlContents.mui-active");
+            console.log(curTab);
+            if (tool.isNullOrEmptyObject(curTab)) {
+                _self.tabID = "7516";
+            } else {
+                _self.tabID = curTab.attr("data-TabID") || "7516";
+            }
+
+            //获取当前年
+            _self.versionID = $("#selectYear").val() || '';
             if (tool.isNullOrEmptyObject(_self.tabID) || tool.isNullOrEmptyObject(_self.companyID) || tool.isNullOrEmptyObject(_self.versionID)) {
                 return;
             }
