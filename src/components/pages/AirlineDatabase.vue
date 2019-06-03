@@ -1457,6 +1457,7 @@
 
 <script>
 export default {
+     name:'airlineDatabase',
     data() {
         return {
             title: "Airline Database",
@@ -1474,7 +1475,9 @@ export default {
         }
     },
     created: function () {
+        var _self = this;
         $(window).scrollTop(0);
+        _self.$store.commit('SET_ITEM', 'airlineDatabase');
     },
     mounted: function () {
         this.getEvent();
@@ -1776,6 +1779,12 @@ export default {
                 }
             });
         }
+    },
+     beforeRouteLeave:function(to, from, next){         
+      if(to.name == 'organizationsinfo'){          
+          this.$store.commit('REMOVE_ITEM', 'airlineDatabase');
+      }
+      next();
     }
 }
 </script>

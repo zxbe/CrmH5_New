@@ -40,6 +40,10 @@
                     <div class="flexBoxKey">Manager</div>
                     <div class="LeftValue">{{item["7644"]||""}}</div>
                 </div>
+                 <div class="flexBox">
+                    <div class="flexBoxKey">Remarks</div>
+                    <div class="LeftValue">{{item["7561"]||""}}</div>
+                </div>
             </div>
         </div>
         <nothing v-show="noData" style="padding-top:0.8rem;"></nothing>
