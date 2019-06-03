@@ -167,6 +167,7 @@
 
 		//分割时间格式化-,/,空格,:
 		var dateTimeFormatStrArray = dateTimeFormatStr.split(/-|:|\/|\s/g);
+		// console.log(dateTimeFormatStrArray);
 
 		//获取时间格式各个部分的索引
 		for (var i = 0; i < dateTimeFormatStrArray.length; i++) {
@@ -189,14 +190,27 @@
 
 		//分割时间
 		var dateStrArray = dateStr.split(/-|:|\/|\s/g);
+		// console.log(dateStrArray);
 		if (yearIndex <= -1) {
 			return dateStr;
 		}
 
+		// console.log(yearIndex);
+		// console.log(monthIndex);
+		// console.log(dayIndex);
+		// console.log(hourIndex);
+		// console.log(minuteIndex);
+		// console.log(secondIndex);
+
 		if (hourIndex <= -1) {
 			return dateStrArray[yearIndex] + "/" + dateStrArray[monthIndex] + "/" + dateStrArray[dayIndex];
 		} else {
-			return dateStrArray[yearIndex] + "/" + dateStrArray[monthIndex] + "/" + dateStrArray[dayIndex] + " " + dateStrArray[hourIndex] + ":" + dateStrArray[minuteIndex] + ":" + dateStrArray[secondIndex];
+			//若小时为undefined,则不构造小时分钟秒
+			if(tool.isNullOrEmptyObject(dateStrArray[hourIndex])){
+				return dateStrArray[yearIndex] + "/" + dateStrArray[monthIndex] + "/" + dateStrArray[dayIndex];
+			}else{
+				return dateStrArray[yearIndex] + "/" + dateStrArray[monthIndex] + "/" + dateStrArray[dayIndex] + " " + dateStrArray[hourIndex] + ":" + dateStrArray[minuteIndex] + ":" + dateStrArray[secondIndex];
+			}
 		}
   };
 
@@ -441,6 +455,11 @@
 	 * 根据模块Id查询业务数据
 	 */
 	tool.ADBApi_AirlineDatabase_Query_InfoDetailByTab = "ADBApi_AirlineDatabase_Query_InfoDetailByTab";
+	/*
+	 * 根据模块Id查询列表数据
+	 */
+	tool.ADBApi_AirlineDatabase_Query_ListByTab = "ADBApi_AirlineDatabase_Query_ListByTab";
+	
 
 	/*
 	 * currentLanguageVersion:当前语言版本
@@ -1462,11 +1481,14 @@
     *修改时间格式
     */
    tool.ChangeTimeFormat = function (value,newFormat,oldFormat) {
+		console.log(value);
+		console.log(newFormat);
+		console.log(oldFormat);
 		if (tool.isNullOrEmptyObject(value) || tool.isNullOrEmptyObject(newFormat)) {
 			return "";
 		}
 
-		oldFormat = oldFormat || "yyyy-MM-dd HH:mm:ss";
+		oldFormat = oldFormat || "yyyy/MM/dd HH:mm:ss";
 
 		//value = new Date(value.DateTimeStrFormat("yyyy-MM-dd HH:mm:ss")).FormatNew("d/MMM/yyyy HH:mm");
 		value = new Date(value.DateTimeStrFormat(oldFormat)).FormatNew(newFormat);

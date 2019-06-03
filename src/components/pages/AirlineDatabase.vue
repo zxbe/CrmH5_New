@@ -1517,7 +1517,13 @@ export default {
             companyID: "", //公司ID
             tabID: "", //模块ID
             versionID: "", //当前选中的年
-            detailEntity: {} //明细实体
+            detailEntity: {}, //明细实体
+            ContactsArray:[],
+            MarketMetricsArray:[],
+            DetailedshareholdingArray:[],
+            LessorparticipationArray:[],
+            BankparticipationArray:[],
+            FleetDatailsArray:[]
         }
     },
     created: function () {

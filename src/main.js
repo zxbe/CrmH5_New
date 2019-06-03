@@ -90,8 +90,8 @@ Vue.filter('FileSizeFormat',function(val){
 
 //百分数格式化
 Vue.filter('formatPercent',function(val,dataFormat){
-  console.log("formatPercent:"+val);
-  console.log("formatPercent:"+dataFormat);
+  // console.log("formatPercent:"+val);
+  // console.log("formatPercent:"+dataFormat);
   if (tool.isNullOrEmptyObject(val)) {
       return "";
   }
@@ -115,8 +115,8 @@ Vue.filter('formatPercent',function(val,dataFormat){
 });
 //数字格式化
 Vue.filter('formatFigure',function(val,dataFormat){
-  console.log("formatFigure:"+val);
-  console.log("formatFigure:"+dataFormat);
+  // console.log("formatFigure:"+val);
+  // console.log("formatFigure:"+dataFormat);
   if (tool.isNullOrEmptyObject(val)) {
       return "";
   }
@@ -126,7 +126,7 @@ Vue.filter('formatFigure',function(val,dataFormat){
 
   try{
     val = tool.formatNum(val, tool.getFixNum(dataFormat));
-    console.log(val);
+    // console.log(val);
     return val;
   }
   catch(err){
@@ -144,9 +144,11 @@ Vue.filter('abdDateFormat',function(val,dataFormat){
     return val;
   }
 
+  var oldFormat = "yyyy/MM/dd HH:mm:ss";
   try{
+    val = val.ReplaceAll("-","/")
     val = val.ReplaceAll("T", " ");
-    val = tool.ChangeTimeFormat(val, dataFormat);
+    val = tool.ChangeTimeFormat(val, dataFormat,oldFormat);
     return val;
   }catch(err){
     console.log(err);
