@@ -1008,10 +1008,10 @@
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
-                            <div class="parameterName">Standard money
+                            <div class="parameterName">Standard money
                             </div>
                             <div class="parameterValue">
-                                {{detailEntity["7636"]||""}}
+                                United States Dollar (USD)
                             </div>
                         </li>
                     </ul>
@@ -1356,7 +1356,7 @@
                             <div class="parameterName">Share Price Range within 12 months
                             </div>
                             <div class="parameterValue">
-                               {{(detailEntity["7473"]||"") | formatFigure("#,###.##")}}
+                               {{(detailEntity["7473"]||"") | formatFigureRange("#,###.##")}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">

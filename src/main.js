@@ -155,6 +155,37 @@ Vue.filter('abdDateFormat',function(val,dataFormat){
     return val;
   }
 });
+//数值范围格式化
+Vue.filter('formatFigureRange',function(val,dataFormat){
+  // console.log("formatFigure:"+val);
+  // console.log("formatFigure:"+dataFormat);
+
+  if (tool.isNullOrEmptyObject(val)) {
+    return "";
+  }
+
+  try{
+    
+    var valDisplay = "";
+    var valArray = val.split(",");
+    for(var i=0;i<valArray.length;i++){
+      var valTemp = valArray[i];
+  
+      if(!tool.isNullOrEmptyObject(dataFormat)){
+        valTemp = tool.formatNum(valTemp, tool.getFixNum(dataFormat));
+      }
+      
+      valDisplay += valTemp + "~";
+    }
+
+    valDisplay = tool.isNullOrEmptyObject(valDisplay)?"":valDisplay.substring(0, valDisplay.length - 1);
+    return valDisplay;
+  }
+  catch(err){
+    console.log(err);
+    return val;
+  }
+});
 
 /* eslint-disable no-new */
 new Vue({
