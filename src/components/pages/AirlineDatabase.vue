@@ -1,16 +1,17 @@
 <template>
 <div>
+
     <header class="mui-bar mui-bar-nav">
         <a @click="back" class="calcfont calc-fanhui left" id="back"></a>
         <h1 class="mui-title f18">{{title}}</h1>
         <div class="inputTime">
             <input id="selectYear" type="text" placeholder="select year" readonly>
         </div>
-
-        <a  @click="showMenu" class="calcfont calc-jiugongge right"></a>
+            <a @click="showMenu" class="calcfont calc-jiugongge right"></a>
     </header>
+
     <div class="segmentedControlContentsBox">
-        <div class="segmentedControlContents mui-active" id="ID">
+        <div class="segmentedControlContents mui-active" id="ID" data-TabID="7516">
             <div class="fenLeiList">
                 <div class="fenLeiListCell">
 
@@ -19,66 +20,72 @@
                         <li class="mui-table-view-cell">
                             <div class="parameterName">ICAO</div>
                             <div class="parameterValue">
-                                9 Air
+                                {{detailEntity["7339"]||""}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
                             <div class="parameterName">IATA</div>
                             <div class="parameterValue">
-                                iatatest
+                                {{detailEntity["7340"]||""}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
                             <div class="parameterName">Operator(English)</div>
                             <div class="parameterValue">
-                                Operator(English)test
+                                {{detailEntity["7487"]||""}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
                             <div class="parameterName">Operator (Chinese)
                             </div>
                             <div class="parameterValue">
-                                Operator (Chinese)test
+                                {{detailEntity["7509"]||""}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
                             <div class="parameterName">Country
                             </div>
                             <div class="parameterValue">
-                                China
+                                {{detailEntity["7486"]||""}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
                             <div class="parameterName">Region/Area
                             </div>
                             <div class="parameterValue">
-                                Asia Pacific
+                                {{detailEntity["7341"]||""}}
+                            </div>
+                        </li>
+                        <li class="mui-table-view-cell">
+                            <div class="parameterName">List Company
+                            </div>
+                            <div class="parameterValue">
+                                {{detailEntity["7667"]||""}}
                             </div>
                         </li>
                     </ul>
                 </div>
                 <div class="fenLeiListCell">
-                    <div class="headTitle">Record CALC</div>
+                    <div class="headTitle">Record in CALC</div>
                     <ul class="mui-table-view">
                         <li class="mui-table-view-cell">
                             <div class="parameterName">Existing Customer
                             </div>
                             <div class="parameterValue">
-                                No
+                                {{detailEntity["7347"]||""}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
-                            <div class="parameterName">Payment record in CALC
+                            <div class="parameterName">Payment Record in CALC
                             </div>
                             <div class="parameterValue">
-                                123,121.00
-
+                                {{(detailEntity["7349"]||"") | formatFigure("#,###.##")}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
-                            <div class="parameterName">Operator(English)</div>
+                            <div class="parameterName">Outstangding amount</div>
                             <div class="parameterValue">
-                                Operator(English)test
+                                {{(detailEntity["7545"]||"") | formatFigure("#,###.##")}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
@@ -86,21 +93,16 @@
 
                             </div>
                             <div class="parameterValue">
-                                FQ
-                            </div>
-                        </li>
-                        <li class="mui-table-view-cell">
-                            <div class="parameterName">Outstanding amount
-                            </div>
-                            <div class="parameterValue">
-                                1,365.37
+                                {{detailEntity["7350"]||""}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
                             <div class="parameterName">Comments
                             </div>
                             <div class="parameterValue">
-                                CommentsTest
+                                <p class="textareaP">
+                                    <textarea readonly :value="(detailEntity['7546']||'')"></textarea>
+                                </p>
                             </div>
                         </li>
                     </ul>
@@ -110,59 +112,21 @@
                 <ul class="mui-table-view mui-table-view-chevron mui-collapse-content">
                     <li class="mui-table-view-cell mui-collapse">
                         <a class="mui-navigate-right">
-
-                                <div class="listHead">Contact</div>
-                                 <span class="calcfont calc-xia"></span>
-                                </a>
+                            <div class="listHead">Contacts</div>
+                            <span class="calcfont calc-xia"></span>
+                        </a>
                         <ul class="mui-table-view">
-                            <li class="mui-table-view-cell">
+
+                            <!-- <li class="mui-table-view-cell">
                                 <div class="flexBox">
-                                    <div class="flexBoxKey">Title Title Title Title Title Title</div>
-                                    <div class="flexBoxValue">Chief Technical Officer(CTO)Chief Technical Officer(CTO)Chief Technical Officer(CTO)Chief Technical Officer(CTO)Chief Technical Officer(CTO)Chief Technical Officer(CTO)Chief Technical Officer(CTO)Chief Technical Officer(CTO)Chief Technical Officer(CTO)Chief Technical Officer(CTO)Chief Technical Officer(CTO)Chief Technical Officer(CTO)</div>
-                                </div>
-                                <div class="flexBox">
-                                    <div class="flexBoxKey">name</div>
+                                    <div class="flexBoxKey">Name</div>
                                     <div class="flexBoxValue">mingzi</div>
                                 </div>
-                                <div class="flexBox">
-                                    <div class="flexBoxKey">Please specify</div>
-                                    <div class="flexBoxValue">specify</div>
-                                </div>
-                                <div class="flexBox">
-                                    <div class="flexBoxKey">Work Number</div>
-                                    <div class="flexBoxValue">1555121133</div>
-                                </div>
-                                <div class="flexBox">
-                                    <div class="flexBoxKey">Mobile Number</div>
-                                    <div class="flexBoxValue">1555121133</div>
-                                </div>
-                                <div class="flexBox">
-                                    <div class="flexBoxKey">email</div>
-                                    <div class="flexBoxValue">12422@163.com</div>
-                                </div>
-                                <div class="flexBox">
-                                    <div class="flexBoxKey">status</div>
-                                    <div class="flexBoxValue">Active</div>
-                                </div>
-                                <div class="flexBox">
-                                    <div class="flexBoxKey">comments</div>
-                                    <div class="flexBoxValue">comments</div>
-                                </div>
-                            </li>
-                            <li class="mui-table-view-cell">
                                 <div class="flexBox">
                                     <div class="flexBoxKey">Title</div>
                                     <div class="flexBoxValue">Chief Technical Officer(CTO)</div>
                                 </div>
                                 <div class="flexBox">
-                                    <div class="flexBoxKey">name</div>
-                                    <div class="flexBoxValue">mingzi</div>
-                                </div>
-                                <div class="flexBox">
-                                    <div class="flexBoxKey">Please specify</div>
-                                    <div class="flexBoxValue">specify</div>
-                                </div>
-                                <div class="flexBox">
                                     <div class="flexBoxKey">Work Number</div>
                                     <div class="flexBoxValue">1555121133</div>
                                 </div>
@@ -171,79 +135,123 @@
                                     <div class="flexBoxValue">1555121133</div>
                                 </div>
                                 <div class="flexBox">
-                                    <div class="flexBoxKey">email</div>
+                                    <div class="flexBoxKey">Email</div>
                                     <div class="flexBoxValue">12422@163.com</div>
                                 </div>
                                 <div class="flexBox">
-                                    <div class="flexBoxKey">status</div>
+                                    <div class="flexBoxKey">Status</div>
                                     <div class="flexBoxValue">Active</div>
                                 </div>
                                 <div class="flexBox">
-                                    <div class="flexBoxKey">comments</div>
+                                    <div class="flexBoxKey">Comments</div>
                                     <div class="flexBoxValue">comments</div>
                                 </div>
+                            </li> -->
+
+                            <li v-for="item in ContactsArray" class="mui-table-view-cell">
+                                <div class="flexBox">
+                                    <div class="flexBoxKey">Name</div>
+                                    <div class="flexBoxValue">{{item["7533"]||""}}</div>
+                                </div>
+                                <div class="flexBox">
+                                    <div class="flexBoxKey">Title</div>
+                                    <div class="flexBoxValue">{{item["7534"]||""}}</div>
+                                </div>
+                                <div class="flexBox">
+                                    <div class="flexBoxKey">Work Number</div>
+                                    <div class="flexBoxValue">{{item["7535"]||""}}</div>
+                                </div>
+                                <div class="flexBox">
+                                    <div class="flexBoxKey">Mobile Number</div>
+                                    <div class="flexBoxValue">{{item["7536"]||""}}</div>
+                                </div>
+                                <div class="flexBox">
+                                    <div class="flexBoxKey">Email</div>
+                                    <div class="flexBoxValue">{{item["7537"]||""}}</div>
+                                </div>
+                                <div class="flexBox">
+                                    <div class="flexBoxKey">Status</div>
+                                    <div class="flexBoxValue">{{item["7538"]||""}}</div>
+                                </div>
+                                <div class="flexBox">
+                                    <div class="flexBoxKey">Comments</div>
+                                    <div class="flexBoxValue">{{item["7539"]||""}}</div>
+                                </div>
                             </li>
+
                         </ul>
                     </li>
                 </ul>
             </div>
         </div>
-        <div class="segmentedControlContents" id="country">
+        <div class="segmentedControlContents" id="country" data-TabID="7517">
             <div class="fenLeiList">
+                <div class="fenLeiListCell">
+                    <div class="headTitle">Info</div>
+                    <ul class="mui-table-view">
+                        <li class="mui-table-view-cell">
+                            <div class="parameterName">Report date
+                            </div>
+                            <div class="parameterValue">
+                                {{(detailEntity["7581"]||"") | abdDateFormat("yyyy/MM/dd")}}
+                            </div>
+                        </li>
+                    </ul>
+                </div>
                 <div class="fenLeiListCell">
                     <div class="headTitle">Country Rating</div>
                     <ul class="mui-table-view">
                         <li class="mui-table-view-cell">
                             <div class="parameterName">Country Rating</div>
                             <div class="parameterValue">
-                                country Rating(test)
+                                {{detailEntity["7353"]||""}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
                             <div class="parameterName">Specifying rating agency</div>
                             <div class="parameterValue">
-                                test agency
+                                {{detailEntity["7544"]||""}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
                             <div class="parameterName">Blacklist Countries</div>
                             <div class="parameterValue">
-                                No
+                                {{detailEntity["7354"]||""}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
                             <div class="parameterName">One belt one road country or not
                             </div>
                             <div class="parameterValue">
-                                Yes
+                                {{detailEntity["7355"]||""}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
                             <div class="parameterName">GDP growth rate
                             </div>
                             <div class="parameterValue">
-                                13.37%
+                                {{(detailEntity["7356"]||"") | formatPercent("##.##")}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
                             <div class="parameterName">GDP per capita
                             </div>
                             <div class="parameterValue">
-                                32.66
+                                {{(detailEntity["7359"]||"") | formatFigure("#,###.##")}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
                             <div class="parameterName">OECD Country Export Credit Risk
                             </div>
                             <div class="parameterValue">
-                                4
+                                {{detailEntity["7357"]||""}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
                             <div class="parameterName">CALC current rating
                             </div>
                             <div class="parameterValue">
-                                Not Available
+                                {{detailEntity["7358"]||""}}
                             </div>
                         </li>
                     </ul>
@@ -255,20 +263,20 @@
                             <div class="parameterName">Currency Performance
                             </div>
                             <div class="parameterValue">
-                                23.37%
+                                {{(detailEntity["7361"]||"") | formatPercent("##.##")}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
                             <div class="parameterName">Major income currency
                             </div>
                             <div class="parameterValue">
-                                China Yuan Renminbi (CNY)
+                                {{detailEntity["7362"]||""}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
                             <div class="parameterName">Major cost currency </div>
                             <div class="parameterValue">
-                                China Yuan Renminbi (CNY)
+                                {{detailEntity["7363"]||""}}
                             </div>
                         </li>
 
@@ -281,63 +289,63 @@
                             <div class="parameterName">Owner/Operator Register
                             </div>
                             <div class="parameterValue">
-                                Owner
+                                {{detailEntity["7365"]||""}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
                             <div class="parameterName">Cape Town Ratified or not?
                             </div>
                             <div class="parameterValue">
-                                Yes
+                                {{detailEntity["7366"]||""}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
                             <div class="parameterName">IDERA
                             </div>
                             <div class="parameterValue">
-                                Yes
+                                {{detailEntity["7367"]||""}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
                             <div class="parameterName">DPOA
                             </div>
                             <div class="parameterValue">
-                                Yes
+                                {{detailEntity["7368"]||""}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
                             <div class="parameterName">Self-help allowed
                             </div>
                             <div class="parameterValue">
-                                Yes
+                                {{detailEntity["7369"]||""}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
                             <div class="parameterName">Default record
                             </div>
                             <div class="parameterValue">
-                                Yes
+                                {{detailEntity["7370"]||""}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
                             <div class="parameterName">Repossession record
                             </div>
                             <div class="parameterValue">
-                                Yes
+                                {{detailEntity["7371"]||""}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
                             <div class="parameterName">Aircraft registration country
                             </div>
                             <div class="parameterValue">
-                                Hong Kong SAR, China
+                                {{detailEntity["7372"]||""}}
                             </div>
                         </li>
                     </ul>
                 </div>
             </div>
         </div>
-        <div class="segmentedControlContents" id="market">
+        <div class="segmentedControlContents" id="market" data-TabID="7518">
             <div class="fenLeiList">
                 <div class="fenLeiListCell">
                     <div class="headTitle">Market Position</div>
@@ -346,45 +354,47 @@
                             <div class="parameterName">Flag carrier or not, and alliance
                             </div>
                             <div class="parameterValue">
-                                Flag carrier or not, and alliance
+                                {{detailEntity["7374"]||""}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
                             <div class="parameterName">Business model
                             </div>
                             <div class="parameterValue">
-                                LCC with long haul
+                                {{detailEntity["7375"]||""}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
                             <div class="parameterName">Major competitiveness</div>
                             <div class="parameterValue">
-                                price advantage
+                                {{detailEntity["7376"]||""}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
                             <div class="parameterName">Please specify
                             </div>
                             <div class="parameterValue">
-                                specify test
+                                {{detailEntity["7638"]||""}}
                             </div>
                         </li>
                     </ul>
                 </div>
                 <div class="fenLeiListCell">
-                    <div class="headTitle">Market Position</div>
+                    <div class="headTitle">News about this airline</div>
                     <ul class="mui-table-view">
                         <li class="mui-table-view-cell">
                             <div class="parameterName">News link to website
                             </div>
                             <div class="parameterValue">
-                                www.baidu.com
+                                <p class="textareaP">
+                                    <textarea readonly :value="(detailEntity['7378']||'')"></textarea>
+                                </p>
                             </div>
                         </li>
                     </ul>
                 </div>
             </div>
-            <div class="shouSuoList">
+            <!-- <div class="shouSuoList">
                 <ul class="mui-table-view mui-table-view-chevron mui-collapse-content">
                     <li class="mui-table-view-cell mui-collapse">
                         <a class="mui-navigate-right">
@@ -408,9 +418,35 @@
                         </ul>
                     </li>
                 </ul>
+            </div> -->
+            <div class="shouSuoList">
+                <ul class="mui-table-view mui-table-view-chevron mui-collapse-content">
+                    <li class="mui-table-view-cell mui-collapse">
+                        <a class="mui-navigate-right">
+                            <div class="listHead">Market Growth Rate</div>
+                            <span class="calcfont calc-xia"></span>
+                        </a>
+                        <ul class="mui-table-view">
+                            <li v-for="item in MarketMetricsArray" class="mui-table-view-cell">
+                                <div class="flexBox">
+                                    <div class="flexBoxKey">Hubs / Bases</div>
+                                    <div class="flexBoxValue">{{item["7547"]||""}}</div>
+                                </div>
+                                <div class="flexBox">
+                                    <div class="flexBoxKey">Passenger growth ratio</div>
+                                    <div class="flexBoxValue">{{(item["7548"]||"") | formatPercent("##.##")}}</div>
+                                </div>
+                                <div class="flexBox">
+                                    <div class="flexBoxKey">Year</div>
+                                    <div class="flexBoxValue">{{item["7668"]||""}}</div>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
             </div>
         </div>
-        <div class="segmentedControlContents" id="financing">
+        <div class="segmentedControlContents" id="financing" data-TabID="7519">
             <div class="fenLeiList">
                 <div class="fenLeiListCell">
                     <div class="headTitle">Associate with any other airlines / airline group</div>
@@ -419,7 +455,7 @@
                             <div class="parameterName">Associate with any other airlines / airline group
                             </div>
                             <div class="parameterValue">
-                                Associate with any other airlines / airline group
+                                {{detailEntity["7541"]||""}}
                             </div>
                         </li>
                     </ul>
@@ -431,13 +467,13 @@
                             <div class="parameterName">with stock code and link to IR page
                             </div>
                             <div class="parameterValue">
-                                with stock code and link to IR page
+                                {{detailEntity["7384"]||""}}
                             </div>
                         </li>
                     </ul>
                 </div>
             </div>
-            <div class="shouSuoList">
+            <!-- <div class="shouSuoList">
                 <ul class="mui-table-view mui-table-view-chevron mui-collapse-content">
                     <li class="mui-table-view-cell mui-collapse">
                         <a class="mui-navigate-right">
@@ -504,66 +540,134 @@
                         </ul>
                     </li>
                 </ul>
+            </div> -->
+            <div class="shouSuoList">
+                <ul class="mui-table-view mui-table-view-chevron mui-collapse-content">
+                    <li class="mui-table-view-cell mui-collapse">
+                        <a class="mui-navigate-right">
+
+                                <div class="listHead">Detailed shareholding</div>
+                                 <span class="calcfont calc-xia"></span>
+                                </a>
+                        <ul class="mui-table-view">
+                            <li v-for="item in DetailedshareholdingArray" class="mui-table-view-cell">
+                                <div class="flexBox">
+                                    <div class="flexBoxKey">Shareholder</div>
+                                    <div class="flexBoxValue">{{item["7540"]||""}}</div>
+                                </div>
+                                <div class="flexBox">
+                                    <div class="flexBoxKey">Ownership Percentage</div>
+                                    <div class="flexBoxValue">{{(item["7577"]||"") | formatPercent("##.##")}}</div>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+                <ul class="mui-table-view mui-table-view-chevron mui-collapse-content">
+                    <li class="mui-table-view-cell mui-collapse">
+                        <a class="mui-navigate-right">
+                            <div class="listHead">Lessor participation</div>
+                            <span class="calcfont calc-xia"></span>
+                        </a>
+                        <ul class="mui-table-view">
+                            <li v-for="item in LessorparticipationArray" class="mui-table-view-cell">
+                                <div class="flexBox">
+                                    <div class="flexBoxKey">Lessor</div>
+                                    <div class="flexBoxValue">{{item["7549"]||""}}</div>
+                                </div>
+                                <div class="flexBox">
+                                    <div class="flexBoxKey">Comment</div>
+                                    <div class="flexBoxValue">{{item["7550"]||""}}</div>
+                                </div>
+
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+                <ul class="mui-table-view mui-table-view-chevron mui-collapse-content">
+                    <li class="mui-table-view-cell mui-collapse">
+                        <a class="mui-navigate-right">
+                            <div class="listHead">Bank participation</div>
+                            <span class="calcfont calc-xia"></span>
+                        </a>
+                        <ul class="mui-table-view">
+                            <li v-for="item in BankparticipationArray" class="mui-table-view-cell">
+                                <div class="flexBox">
+                                    <div class="flexBoxKey">Bank</div>
+                                    <div class="flexBoxValue">{{item["7551"]||""}}</div>
+                                </div>
+                                <div class="flexBox">
+                                    <div class="flexBoxKey">Comment</div>
+                                    <div class="flexBoxValue">{{item["7552"]||""}}</div>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
             </div>
         </div>
-        <div class="segmentedControlContents" id="fleet">
+        <div class="segmentedControlContents" id="fleet" data-TabID="7520">
             <div class="fenLeiList">
                 <div class="fenLeiListCell">
-                    <div class="headTitle">Fleet plan</div>
+                    <div class="headTitle">Info</div>
                     <ul class="mui-table-view">
-                        <li class="mui-table-view-cell">
-                            <div class="parameterName">Fleet Profile Metrics Date
-                            </div>
-                            <div class="parameterValue">
-                                2018
-                            </div>
-                        </li>
                         <li class="mui-table-view-cell">
                             <div class="parameterName">Report date
                             </div>
                             <div class="parameterValue">
-                                2018/11/12
+                                {{(detailEntity["7582"]||"") | abdDateFormat("yyyy/MM/dd")}}
                             </div>
                         </li>
+                    </ul>
+                </div>
+                <div class="fenLeiListCell">
+                    <div class="headTitle">Fleet plan</div>
+                    <ul class="mui-table-view">
                         <li class="mui-table-view-cell">
                             <div class="parameterName">Number of fleet</div>
                             <div class="parameterValue">
-                                12,357
+                                {{(detailEntity["7390"]||"") | formatFigure("#,###")}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
                             <div class="parameterName">Fleet Type
                             </div>
                             <div class="parameterValue">
-                                Fleet Type
+                                <p class="textareaP">
+                                    <textarea readonly :value="(detailEntity['7391']||'')"></textarea>
+                                </p>
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
                             <div class="parameterName">Order book
                             </div>
                             <div class="parameterValue">
-                                36,847
+                                {{(detailEntity["7392"]||"") | formatFigure("#,###")}}
+
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
                             <div class="parameterName">Order book Type
                             </div>
                             <div class="parameterValue">
-                                Order book Type
+                                <p class="textareaP">
+                                    <textarea readonly :value="(detailEntity['7393']||'')"></textarea>
+                                </p>
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
                             <div class="parameterName">Average fleet age (Year)
                             </div>
                             <div class="parameterValue">
-                                165.37
+                                {{(detailEntity["7394"]||"") | formatFigure("#,###.##")}}
+
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
                             <div class="parameterName">Retire old aircraft plan
                             </div>
                             <div class="parameterValue">
-                                Retire old aircraft plan
+                                {{detailEntity["7395"]||""}}
                             </div>
                         </li>
                     </ul>
@@ -575,7 +679,7 @@
                             <div class="parameterName">Average available Seat Growth (YoY)
                             </div>
                             <div class="parameterValue">
-                                12.37%
+                                {{(detailEntity["7343"]||"") | formatPercent("##.##")}}
                             </div>
                         </li>
                     </ul>
@@ -587,20 +691,24 @@
                             <div class="parameterName">Top 3 financing tools/product to fleet
                             </div>
                             <div class="parameterValue">
-                                Aircraft Loan
+                                {{detailEntity["7345"]||""}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
                             <div class="parameterName">Please specify
                             </div>
                             <div class="parameterValue">
-                                Please specify
+                                {{detailEntity["7636"]||""}}
                             </div>
                         </li>
                     </ul>
                 </div>
             </div>
-            <div class="shouSuoList">
+            <div class="fleetDetailBtn" @click.stop="gotoFleetDetailsList()">
+                <div class="fleetDetailBtnContent">Fleet Details</div>
+                <div class="fleetDetailBtnIcon"><span class="calcfont calc-you"></span></div>
+            </div>
+            <!-- <div class="shouSuoList">
                 <ul class="mui-table-view mui-table-view-chevron mui-collapse-content">
                     <li class="mui-table-view-cell mui-collapse">
                         <a class="mui-navigate-right">
@@ -671,14 +779,26 @@
                         </ul>
                     </li>
                 </ul>
-            </div>
+            </div> -->
         </div>
-        <div class="segmentedControlContents" id="production">
+        <div class="segmentedControlContents" id="production" data-TabID="7521">
             <div class="fenLeiList">
+                <div class="fenLeiListCell">
+                    <div class="headTitle">Info</div>
+                    <ul class="mui-table-view">
+                        <li class="mui-table-view-cell">
+                            <div class="parameterName">Report date
+                            </div>
+                            <div class="parameterValue">
+                                {{(detailEntity["7583"]||"") | abdDateFormat("yyyy/MM/dd")}}
+                            </div>
+                        </li>
+                    </ul>
+                </div>
                 <div class="fenLeiListCell">
                     <div class="headTitle">Production</div>
                     <ul class="mui-table-view">
-                        <li class="mui-table-view-cell">
+                        <!-- <li class="mui-table-view-cell">
                             <div class="parameterName">Production Date
                             </div>
                             <div class="parameterValue">
@@ -691,61 +811,61 @@
                             <div class="parameterValue">
                                 2018/11/11
                             </div>
-                        </li>
+                        </li> -->
                         <li class="mui-table-view-cell">
                             <div class="parameterName">Available Seat Kilometers (ASK)
                             </div>
                             <div class="parameterValue">
-                                136.37
+                                {{(detailEntity["7399"]||"") | formatFigure("#,###.##")}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
                             <div class="parameterName">Seat capacity provided
                             </div>
                             <div class="parameterValue">
-                                136.37
+                               {{(detailEntity["7400"]||"") | formatFigure("#,###.##")}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
                             <div class="parameterName">Revenue Passenger Kilometers (RPK)
                             </div>
                             <div class="parameterValue">
-                                136.37
+                               {{(detailEntity["7401"]||"") | formatFigure("#,###.##")}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
                             <div class="parameterName">Number of Passengers Carried within 12 months
                             </div>
                             <div class="parameterValue">
-                                136.37
+                                {{(detailEntity["7402"]||"") | formatFigure("#,###.##")}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
                             <div class="parameterName">Load Factor(%)
                             </div>
                             <div class="parameterValue">
-                                136.37
+                               {{(detailEntity["7403"]||"") | formatPercent("##.##")}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
                             <div class="parameterName">Number of Domestic Route
                             </div>
                             <div class="parameterValue">
-                                136.37
+                                {{(detailEntity["7404"]||"") | formatFigure("#,###.##")}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
                             <div class="parameterName">Number of Internatioal Route
                             </div>
                             <div class="parameterValue">
-                                65,811
+                                 {{(detailEntity["7405"]||"") | formatFigure("#,###")}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
                             <div class="parameterName">Daily utilization
                             </div>
                             <div class="parameterValue">
-                                Daily utilization
+                                {{detailEntity["7589"]||""}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
@@ -753,15 +873,27 @@
 
                             </div>
                             <div class="parameterValue">
-                                65,811
+                                 {{(detailEntity["7590"]||"") | formatFigure("#,###")}}
                             </div>
                         </li>
                     </ul>
                 </div>
             </div>
         </div>
-        <div class="segmentedControlContents" id="airline">
+        <div class="segmentedControlContents" id="airline" data-TabID="7522">
             <div class="fenLeiList">
+                <div class="fenLeiListCell">
+                    <div class="headTitle">Info</div>
+                    <ul class="mui-table-view">
+                        <li class="mui-table-view-cell">
+                            <div class="parameterName">Report date
+                            </div>
+                            <div class="parameterValue">
+                                {{(detailEntity["7584"]||"") | abdDateFormat("yyyy/MM/dd")}}
+                            </div>
+                        </li>
+                    </ul>
+                </div>
                 <div class="fenLeiListCell">
                     <div class="headTitle">Resilient</div>
                     <ul class="mui-table-view">
@@ -769,14 +901,14 @@
                             <div class="parameterName">Bankruptcy before or not
                             </div>
                             <div class="parameterValue">
-                                Yes
+                                {{detailEntity["7407"]||""}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
                             <div class="parameterName">Established year
                             </div>
                             <div class="parameterValue">
-                                Established year
+                                {{detailEntity["7578"]||""}}
                             </div>
                         </li>
                     </ul>
@@ -788,35 +920,35 @@
                             <div class="parameterName">Safety rating
                             </div>
                             <div class="parameterValue">
-                                5
+                                {{detailEntity["7409"]||""}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
                             <div class="parameterName">IOSA certified
                             </div>
                             <div class="parameterValue">
-                                Yes
+                                {{detailEntity["7410"]||""}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
                             <div class="parameterName">Number of Accident (Total Loss) within 10 years
                             </div>
                             <div class="parameterValue">
-                                6666
+                                 {{(detailEntity["7411"]||"") | formatFigure("#,###")}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
                             <div class="parameterName">Number of Accident (Non total Loss) within 10 years
                             </div>
                             <div class="parameterValue">
-                                6666
+                                {{(detailEntity["7412"]||"") | formatFigure("#,###")}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
                             <div class="parameterName">Number of Incident within 5 years
                             </div>
                             <div class="parameterValue">
-                                6666
+                                {{(detailEntity["7591"]||"") | formatFigure("#,###")}}
                             </div>
                         </li>
                     </ul>
@@ -828,205 +960,231 @@
                             <div class="parameterName">A check, C check or D check?
                             </div>
                             <div class="parameterValue">
-                                A check, C check or D check?
+                                {{detailEntity["7414"]||""}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
                             <div class="parameterName">Who are main MRO for aircraft
                             </div>
                             <div class="parameterValue">
-                                Who are main MRO for aircraft
+                                {{detailEntity["7415"]||""}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
                             <div class="parameterName">Who are main MRO for engine
                             </div>
                             <div class="parameterValue">
-                                Who are main MRO for engine
+                                {{detailEntity["7416"]||""}}
                             </div>
                         </li>
                     </ul>
                 </div>
             </div>
         </div>
-        <div class="segmentedControlContents" id="financial">
+        <div class="segmentedControlContents" id="financial" data-TabID="7523">
             <div class="fenLeiList">
                 <div class="fenLeiListCell">
-                    <div class="headTitle">Profitability</div>
+                    <div class="headTitle">Info</div>
                     <ul class="mui-table-view">
                         <li class="mui-table-view-cell">
-                            <div class="parameterName">Local Currency
+                            <div class="parameterName">Report date
                             </div>
                             <div class="parameterValue">
-                                United States Dollar (USD)
+                                {{(detailEntity["7585"]||"") | abdDateFormat("yyyy/MM/dd")}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
                             <div class="parameterName">Exchange Rate (exchange to Standard)
                             </div>
                             <div class="parameterValue">
-                                1
+                                {{(detailEntity["7587"]||"") | formatFigure("#,###.####")}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
-                            <div class="parameterName">Total Revenue (Compulsory)
+                            <div class="parameterName">Local Currency
                             </div>
                             <div class="parameterValue">
-                                13.36
+                                {{detailEntity["7586"]||""}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
-                            <div class="parameterName">Passenger revenue (Optional)
+                            <div class="parameterName">Standard money
                             </div>
                             <div class="parameterValue">
-                                11.87
+                                United States Dollar (USD)
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="fenLeiListCell">
+                    <div class="headTitle">Profitability</div>
+                    <ul class="mui-table-view">
+                        <li class="mui-table-view-cell">
+                            <div class="parameterName">Total Revenue
+                            </div>
+                            <div class="parameterValue">
+                                {{(detailEntity["7426"]||"") | formatFigure("#,###.##")}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
-                            <div class="parameterName">Passenger revenue / Total revenue (%) (Optional)
+                            <div class="parameterName">Passenger revenue
                             </div>
                             <div class="parameterValue">
-                                88.85%
+                                {{(detailEntity["7427"]||"") | formatFigure("#,###.##")}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
-                            <div class="parameterName">Cargo revenue (Optional)
+                            <div class="parameterName">Passenger revenue / Total revenue(%)
                             </div>
                             <div class="parameterValue">
-                                3.63
+                                {{(detailEntity["7428"]||"") | formatPercent("##.##")}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
-                            <div class="parameterName">Cargo revenue / Total revenue (%) (Optional)
+                            <div class="parameterName">Cargo revenue
                             </div>
                             <div class="parameterValue">
-                                27.17%
+                                {{(detailEntity["7429"]||"") | formatFigure("#,###.##")}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
-                            <div class="parameterName">Ancillary revenue (Optional)
+                            <div class="parameterName">Cargo revenue / Total revenue(%)
                             </div>
                             <div class="parameterValue">
-                                6.77
+                                {{(detailEntity["7430"]||"") | formatPercent("##.##")}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
-                            <div class="parameterName">Ancillary revenue / Total revenue (%) (Optional)
+                            <div class="parameterName">Ancillary revenue
                             </div>
                             <div class="parameterValue">
-                                50.67%
+                                {{(detailEntity["7431"]||"") | formatFigure("#,###.##")}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
-                            <div class="parameterName">Direct cost (% of total cost) (Optional)
+                            <div class="parameterName">Ancillary revenue / Total revenue(%)
                             </div>
                             <div class="parameterValue">
-                                21.58%
+                                {{(detailEntity["7432"]||"") | formatPercent("##.##")}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
-                            <div class="parameterName">Cost of maintenance (% of total cost) (Optional)
+                            <div class="parameterName">Total Cost
                             </div>
                             <div class="parameterValue">
-                                1185.00%
+                               {{(detailEntity["7433"]||"") | formatFigure("#,###.##")}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
-                            <div class="parameterName">Cost of spare parts (% of total cost) (Optional)
+                            <div class="parameterName">Direct cost (% of total cost)
                             </div>
                             <div class="parameterValue">
-                                8.97%
+                                {{(detailEntity["7434"]||"") | formatPercent("##.##")}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
-                            <div class="parameterName">Cost of rental (% of total cost) (Optional)
+                            <div class="parameterName">Cost of maintenance (% of total cost)
                             </div>
                             <div class="parameterValue">
-                                32.95%
+                                {{(detailEntity["7435"]||"") | formatPercent("##.##")}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
-                            <div class="parameterName">Indirect cost (% of total cost) (Optional)
+                            <div class="parameterName">Cost of spare parts (% of total cost)
                             </div>
                             <div class="parameterValue">
-                                11.89%
+                               {{(detailEntity["7436"]||"") | formatPercent("##.##")}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
-                            <div class="parameterName">EBITDAR (Compulsory)
+                            <div class="parameterName">Cost of rental (% of total cost)
                             </div>
                             <div class="parameterValue">
-                                633.25
+                                {{(detailEntity["7437"]||"") | formatPercent("##.##")}}
+                            </div>
+                        </li>
+                        <li class="mui-table-view-cell">
+                            <div class="parameterName">Indirect cost (% of total cost)
+                            </div>
+                            <div class="parameterValue">
+                                {{(detailEntity["7438"]||"") | formatPercent("##.##")}}
+                            </div>
+                        </li>
+                        <li class="mui-table-view-cell">
+                            <div class="parameterName">EBITDAR
+                            </div>
+                            <div class="parameterValue">
+                                {{(detailEntity["7439"]||"") | formatFigure("#,###.##")}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
                             <div class="parameterName">EBITDAR Margin (Compulsory)
                             </div>
                             <div class="parameterValue">
-                                4739.90%
+                               {{(detailEntity["7440"]||"") | formatPercent("##.##")}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
-                            <div class="parameterName">EBITDA (Optional)
+                            <div class="parameterName">EBITDA
                             </div>
                             <div class="parameterValue">
-                                33.69
+                                {{(detailEntity["7441"]||"") | formatFigure("#,###.##")}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
-                            <div class="parameterName">EBITDA Margin (Optional)
+                            <div class="parameterName">EBITDA Margin
                             </div>
                             <div class="parameterValue">
-                                252.17%
+                                {{(detailEntity["7442"]||"") | formatPercent("##.##")}}
+                                </div>
+                        </li>
+                        <li class="mui-table-view-cell">
+                            <div class="parameterName">EBIT
+                            </div>
+                            <div class="parameterValue">
+                                {{(detailEntity["7443"]||"") | formatFigure("#,###.##")}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
-                            <div class="parameterName">EBIT (Compulsory)
+                            <div class="parameterName">EBIT margin
                             </div>
                             <div class="parameterValue">
-                                13.68
+                                {{(detailEntity["7444"]||"") | formatPercent("##.##")}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
-                            <div class="parameterName">EBIT margin (Optional)
+                            <div class="parameterName">Net Profit
                             </div>
                             <div class="parameterValue">
-                                102.40%
+                               {{(detailEntity["7445"]||"") | formatFigure("#,###.##")}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
-                            <div class="parameterName">Net Profit (Compulsory)
+                            <div class="parameterName">Net profit margin(%)
                             </div>
                             <div class="parameterValue">
-                                15.95
+                               {{(detailEntity["7446"]||"") | formatPercent("##.##")}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
-                            <div class="parameterName">Net profit margin (%) (Compulsory)
+                            <div class="parameterName">Unit Revenue (PRASK)
                             </div>
                             <div class="parameterValue">
-                                63.98%
+                               {{(detailEntity["7447"]||"") | formatFigure("#,###.##")}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
-                            <div class="parameterName">Unit Revenue (PRASK) (Optional)
+                            <div class="parameterName">Passenger yield (US cent/km)
                             </div>
                             <div class="parameterValue">
-                                88.00
+                                {{(detailEntity["7448"]||"") | formatFigure("#,###.##")}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
-                            <div class="parameterName">Passenger yield (US cent/km) (Optional)
+                            <div class="parameterName">Unit Cost (CASK)
                             </div>
                             <div class="parameterValue">
-                                10,365.00
-                            </div>
-                        </li>
-                        <li class="mui-table-view-cell">
-                            <div class="parameterName">Unit Cost (CASK) (Optional)
-                            </div>
-                            <div class="parameterValue">
-                                233,698.00
+                               {{(detailEntity["7449"]||"") | formatFigure("#,###.##")}}
                             </div>
                         </li>
                     </ul>
@@ -1035,101 +1193,102 @@
                     <div class="headTitle">Liquidity</div>
                     <ul class="mui-table-view">
                         <li class="mui-table-view-cell">
-                            <div class="parameterName">Cash and Cash Equivalents (Optional)
+                            <div class="parameterName">Cash and Cash Equivalents
                             </div>
                             <div class="parameterValue">
-                                1.0
+                                 {{(detailEntity["7451"]||"") | formatFigure("#,###.##")}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
-                            <div class="parameterName">Free Cash Flow (Optional)
+                            <div class="parameterName">Free Cash Flow
                             </div>
                             <div class="parameterValue">
-                                2
+                                 {{(detailEntity["7452"]||"") | formatFigure("#,###.##")}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
-                            <div class="parameterName">Cash Flow from Operations (Optional
+                            <div class="parameterName">Cash Flow from Operations
                             </div>
                             <div class="parameterValue">
-                                3
+                                 {{(detailEntity["7453"]||"") | formatFigure("#,###.##")}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
-                            <div class="parameterName">Cash Flow from Investment (Optional)
+                            <div class="parameterName">Cash Flow from Investment
                             </div>
                             <div class="parameterValue">
-                                4
+                                 {{(detailEntity["7454"]||"") | formatFigure("#,###.##")}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
-                            <div class="parameterName">Cash Flow from Financing (Optional)
+                            <div class="parameterName">Cash Flow from Financing
                             </div>
                             <div class="parameterValue">
-                                5
+                                 {{(detailEntity["7455"]||"") | formatFigure("#,###.##")}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
-                            <div class="parameterName">Net Cash Flow (Optional)
+                            <div class="parameterName">Net Cash Flow
                             </div>
                             <div class="parameterValue">
-                                8
+                                {{(detailEntity["7456"]||"") | formatFigure("#,###.##")}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
-                            <div class="parameterName">Total Assets (Optional)
+                            <div class="parameterName">Total Assets
                             </div>
                             <div class="parameterValue">
-                                6
+                                 {{(detailEntity["7457"]||"") | formatFigure("#,###.##")}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
-                            <div class="parameterName">Total Liabilities (Optional)
+                            <div class="parameterName">Total Liabilities
                             </div>
                             <div class="parameterValue">
-                                8
+                               {{(detailEntity["7458"]||"") | formatFigure("#,###.##")}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
-                            <div class="parameterName">Net Asset Value (Optional) (Optional)
+                            <div class="parameterName">Net Asset Value
                             </div>
                             <div class="parameterValue">
-                                6
+                                {{(detailEntity["7459"]||"") | formatFigure("#,###.##")}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
-                            <div class="parameterName">Leverage Ratio (%) (Compulsory)
+                            <div class="parameterName">Leverage Ratio(%)
                             </div>
                             <div class="parameterValue">
-                                66.7%
+                                {{(detailEntity["7460"]||"") | formatPercent("##.##")}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
-                            <div class="parameterName">Current Ratio (%) (Optional)
+                            <div class="parameterName">Current Ratio(%)
                             </div>
                             <div class="parameterValue">
-                                10%
+                                {{(detailEntity["7461"]||"") | formatPercent("##.##")}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
-                            <div class="parameterName">EBITDAR-to-(interest + rent) coverage ratio (Compulsory)
+                            <div class="parameterName">EBITDAR-to-(interest + rent) coverage ratio
                             </div>
                             <div class="parameterValue">
-                                12%
+                                {{(detailEntity["7462"]||"") | formatPercent("##.##")}}
+                            </div>
+                        </li>
+
+                        <li class="mui-table-view-cell">
+                            <div class="parameterName">EBITDA-to-interest coverage ratio(%)
+                            </div>
+                            <div class="parameterValue">
+                               {{(detailEntity["7463"]||"") | formatPercent("##.##")}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
                             <div class="parameterName">Net Debt-to-EBITDA (%) (Optional)
                             </div>
                             <div class="parameterValue">
-                                31%
-                            </div>
-                        </li>
-                        <li class="mui-table-view-cell">
-                            <div class="parameterName">EBITDA-to-interest coverage ratio (%) (Optional)
-                            </div>
-                            <div class="parameterValue">
-                                11%
+                                {{(detailEntity["7464"]||"") | formatPercent("##.##")}}
                             </div>
                         </li>
                     </ul>
@@ -1138,18 +1297,30 @@
                     <div class="headTitle">Comments</div>
                     <ul class="mui-table-view">
                         <li class="mui-table-view-cell">
-                            <div class="parameterName">Audit report avaiable for not (Compulsory)
+                            <div class="parameterName">Audit report avaiable or not
                             </div>
                             <div class="parameterValue">
-                                No
+                                {{detailEntity["7543"]||""}}
                             </div>
                         </li>
                     </ul>
                 </div>
             </div>
         </div>
-        <div class="segmentedControlContents" id="listing">
+        <div class="segmentedControlContents" id="listing" data-TabID="7524">
             <div class="fenLeiList">
+                <div class="fenLeiListCell">
+                    <div class="headTitle">Info</div>
+                    <ul class="mui-table-view">
+                        <li class="mui-table-view-cell">
+                            <div class="parameterName">Report date
+                            </div>
+                            <div class="parameterValue">
+                               {{(detailEntity["7588"]||"") | abdDateFormat("yyyy/MM/dd")}}
+                            </div>
+                        </li>
+                    </ul>
+                </div>
                 <div class="fenLeiListCell">
                     <div class="headTitle">Listing & Rating Information</div>
                     <ul class="mui-table-view">
@@ -1157,82 +1328,84 @@
                             <div class="parameterName">Stock Code
                             </div>
                             <div class="parameterValue">
-                                test Stock Code
+                                {{detailEntity["7469"]||""}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
                             <div class="parameterName">P/B
                             </div>
                             <div class="parameterValue">
-                                1132.2321
+                                {{(detailEntity["7470"]||"") | formatFigure("#,###.##")}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
                             <div class="parameterName">P/E
                             </div>
                             <div class="parameterValue">
-                                23.37
+                                {{(detailEntity["7471"]||"") | formatFigure("#,###.##")}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
                             <div class="parameterName">Dividend yield
                             </div>
                             <div class="parameterValue">
-                                18.97%
+                                {{(detailEntity["7472"]||"") | formatPercent("##.##")}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
                             <div class="parameterName">Share Price Range within 12 months
                             </div>
                             <div class="parameterValue">
-                                3~5
+                               {{(detailEntity["7473"]||"") | formatFigureRange("#,###.##")}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
                             <div class="parameterName">Earning per share
                             </div>
                             <div class="parameterValue">
-                                11.88
+                                {{(detailEntity["7474"]||"") | formatFigure("#,###.##")}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
                             <div class="parameterName">NAV per share
                             </div>
                             <div class="parameterValue">
-                                665.37
+                               {{(detailEntity["7475"]||"") | formatFigure("#,###.##")}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
                             <div class="parameterName">percentage of floating shares
                             </div>
                             <div class="parameterValue">
-                                5.69%
+                               {{(detailEntity["7476"]||"") | formatPercent("##.##")}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
                             <div class="parameterName">Company Credit Rating
                             </div>
                             <div class="parameterValue">
-                                Company Credit Rating
+                                {{detailEntity["7564"]||""}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
                             <div class="parameterName">Specifying rating agency
                             </div>
                             <div class="parameterValue">
-                                Specifying rating agency
+                                {{detailEntity["7579"]||""}}
                             </div>
                         </li>
                     </ul>
                 </div>
                 <div class="fenLeiListCell">
-                    <div class="headTitle">Other Info</div>
+                    <div class="headTitle">Business Opportunity</div>
                     <ul class="mui-table-view">
                         <li class="mui-table-view-cell">
                             <div class="parameterName">Remarks
                             </div>
                             <div class="parameterValue">
-                                Remarks test Remarks test Remarks test Remarks test Remarks test Remarks test Remarks test Remarks test Remarks test Remarks test Remarks test Remarks test Remarks test Remarks test Remarks test Remarks test Remarks test Remarks test Remarks test Remarks test Remarks test Remarks test Remarks test Remarks test Remarks test Remarks test Remarks test Remarks test Remarks test Remarks test Remarks test Remarks test Remarks test Remarks test Remarks test Remarks test Remarks test Remarks test Remarks test Remarks test Remarks test Remarks test Remarks test Remarks test Remarks test Remarks test Remarks test Remarks test Remarks test Remarks test Remarks test Remarks test Remarks test Remarks test Remarks test Remarks test Remarks test Remarks test Remarks test Remarks test Remarks test Remarks test Remarks test Remarks test Remarks test Remarks test Remarks test
+                                <p class="textareaP">
+                                    <textarea readonly :value="(detailEntity['7576']||'')"></textarea>
+                                </p>
                             </div>
                         </li>
                     </ul>
@@ -1240,61 +1413,109 @@
             </div>
         </div>
     </div>
+
     <!-- 弹出层 -->
-    <div class="itemZheZhao" ></div>
+    <div class="itemZheZhao"></div>
     <div class="sucaihuo-container">
         <div class="cd-bouncy-nav-modal" @touchmove.stop.prevent>
             <nav>
                 <ul class="cd-bouncy-nav">
-                    <li data-category="#ID">
+                    <li data-category="#ID" class="active">
                         <a>ID</a>
                     </li>
-                    <li data-category="#country">
+                    <li data-category="#country" class="haveTime">
                         <a>Country Risk</a>
                     </li>
                     <li data-category="#market">
-                        <a >Market Metrics</a>
+                        <a>Market Metrics</a>
                     </li>
                     <li data-category="#financing">
                         <a >Financing Power</a>
                     </li>
-                    <li data-category="#fleet">
+                    <li data-category="#fleet" class="haveTime">
                         <a >Fleet Profile Metrics</a>
                     </li>
-                    <li data-category="#production">
+                    <li data-category="#production" class="haveTime">
                         <a >Production</a>
                     </li>
-                    <li data-category="#airline">
+                    <li data-category="#airline" class="haveTime">
                         <a >Airline Operation Metrics</a>
                     </li>
-                    <li data-category="#financial">
+                    <li data-category="#financial" class="haveTime">
                         <a >Financial Metrics</a>
                     </li>
-                    <li data-category="#listing">
+                    <li data-category="#listing" class="haveTime">
                         <a >Listing & Rating Information</a>
                     </li>
                 </ul>
             </nav>
         </div>
     </div>
+
 </div>
 </template>
 
 <script>
 export default {
+     name:'airlineDatabase',
     data() {
         return {
-            title: "AirlineDatabase",
+            title: "Airline Database",
             is_bouncy_nav_animating: false,
+            companyID: "", //公司ID
+            tabID: "", //模块ID
+            versionID: "", //当前选中的年
+            detailEntity: {}, //明细实体
+            ContactsArray:[],
+            MarketMetricsArray:[],
+            DetailedshareholdingArray:[],
+            LessorparticipationArray:[],
+            BankparticipationArray:[],
+            FleetDatailsArray:[]
         }
+    },
+    created: function () {
+        var _self = this;
+        $(window).scrollTop(0);
+        _self.$store.commit('SET_ITEM', 'airlineDatabase');
     },
     mounted: function () {
         this.getEvent();
         this.showList();
         this.initSelectYear();
+
+        var _self = this;
+        //公司ID
+        _self.companyID = _self.$route.query.CompanyID;
+        //公司名
+        _self.title = _self.$route.query.CompanyName;
+        //当前选择的时间
+        _self.versionID = $("#selectYear").val() || "";
+        //当前激活的模块
+        var curTab = $(".segmentedControlContents.mui-active");
+        if (tool.isNullOrEmptyObject(curTab)) {
+            _self.tabID = "7516";
+        } else {
+            _self.tabID = curTab.attr("data-TabID") || "7516";
+        }
+
+        //挂载完后首次获取内容
+        _self.getTabContent();
     },
     methods: {
-        // 列表收缩展示
+        //跳转到fleet Details列表
+        gotoFleetDetailsList: function () {
+            var _self = this;
+            var fleetDatailsArrayStr = JSON.stringify(_self.FleetDatailsArray);
+            _self.$router.push({
+                //path: "/fleetDetailsList",
+                name:"fleetDetailsList",
+                params:{
+                    fleetDatailsArrayStr:fleetDatailsArrayStr
+                }
+            });
+        },
+        //列表收缩展示
         showList: function () {
             var _self = this;
             $("a.mui-navigate-right").off("click").on("click", function () {
@@ -1303,7 +1524,7 @@ export default {
                     return;
                 }
                 var parentTarget = target.parent();
-                  if (tool.isNullOrEmptyObject(parentTarget)) {
+                if (tool.isNullOrEmptyObject(parentTarget)) {
                     return;
                 }
                 if (!parentTarget.hasClass("mui-active")) {
@@ -1317,48 +1538,68 @@ export default {
                 }
             })
         },
+        //返回上一步
         back: function () {
             this.$router.back(-1);
         },
-        initSelectYear:function(){
+        //初始化年控件
+        initSelectYear: function () {
+            var _self = this;
+
             //构造可选年份数据
-            var yearArray = [];
-            for(var i = 2000; i <= 2099; i++){
-                yearArray.push(i);
+            //配置年数据
+            var yearConfigArr = [];
+            //默认前后50年可选
+            var unitYear = 50;
+            var currentYear = new Date().getFullYear();
+            var starIndex = currentYear - unitYear;
+            var endIndex = currentYear + unitYear;
+            for (var i = starIndex; i <= endIndex; i++) {
+                yearConfigArr.push(i);
             }
             var _curObj = $('#selectYear');
-            _curObj.val((new Date()).FormatNew('yyyy'));
-            if(tool.isNullOrEmptyObject(_curObj)) return;
-            var selectYear = yearArray[0]; //默认选择的年份
+            _curObj.val(currentYear);
+            if (tool.isNullOrEmptyObject(_curObj)) {
+                return;
+            }
+            var selectYear = currentYear; //默认选择的年份
             _curObj.picker({
-                  title: lanTool.lanContent("1000002_请选择年")||"",
-                  cols: [
-                    {
-                      textAlign: 'center',
-                      values:yearArray
-                    }
-                  ],
-                  toolbarCloseText: lanTool.lanContent('569_确认'),//确认
-                  toolbarCancleText: lanTool.lanContent('570_取消'),//取消
-                  onOpen: function (data) {
-                    var defaultValue = _curObj.val() || '';
-                    _curObj.picker("setValue", [defaultValue]);
-                    selectYear = defaultValue;
-                    $('.close-picker').off('click').on("click",function() {
-                          if(tool.isNullOrEmptyObject(selectYear) || selectYear == defaultValue) return;
+                title: lanTool.lanContent("1000002_请选择年") || "",
+                cols: [{
+                    textAlign: 'center',
+                    values: yearConfigArr
+                }],
+                toolbarCloseText: lanTool.lanContent('569_确认'), //确认
+                toolbarCancleText: lanTool.lanContent('570_取消'), //取消
+                onOpen: function (data) {
 
+                    //del by Dylan 这段代码貌似没什么意义
+                    // var defaultValue = _curObj.val() || '';
+                    // _curObj.picker("setValue", [defaultValue]);
+                    // selectYear = defaultValue;
+                    // $('.close-picker').off('click').on("click", function () {
+                    //     if (tool.isNullOrEmptyObject(selectYear) || selectYear == defaultValue) {
+                    //         return;
+                    //     }
+                    // });
+                    //end del
 
-                    })
-                  },
-                  onChange: function (data, valueTemp, displayTemp) {
-                      selectYear = valueTemp[0];
-                  }
-
+                    $(".close-picker").off('click').on('click', function () {
+                        console.log("confirm");
+                        //_self.versionID = _curObj.val() || '';
+                        //查询模块数据
+                        _self.getTabContent();
+                    });
+                },
+                onChange: function (data, valueTemp, displayTemp) {
+                    selectYear = valueTemp[0];
+                }
             });
         },
+        //显示模块菜单
         showMenu: function () {
             var _self = this;
-            console.log("menu");
+            // console.log("menu");
             if (!$('.cd-bouncy-nav-modal').hasClass("fade-in")) {
                 $(".itemZheZhao").show();
                 _self.triggerBouncyNav(true);
@@ -1367,33 +1608,46 @@ export default {
             }
 
         },
+        //模块跳转
         getEvent: function () {
             var _self = this;
             $('.cd-bouncy-nav-modal li').off('click').on('click', function (event) {
-                console.log($(this).attr("data-category"));
                 var category = $(this).attr("data-category");
-                console.log("id:" + category);
-
-                _self.triggerBouncyNav(false, category);
+                _self.triggerBouncyNav(false, category, $(this));
             });
         },
-
-        triggerBouncyNav: function ($bool, $this) {
+        //模块跳转
+        triggerBouncyNav: function ($bool, $this, curObj) {
             var _self = this;
             if (!_self.is_bouncy_nav_animating) {
                 _self.is_bouncy_nav_animating = true;
                 //切换菜单动画   判断动画结束后才能调用 （webkitAnimationEnd oanimationend msAnimationEnd animationend）
                 $('.cd-bouncy-nav-modal').toggleClass('fade-in', $bool).toggleClass('fade-out', !$bool).find('li:last-child').one('webkitAnimationEnd oanimationend msAnimationEnd animationend', function () {
                     $('.cd-bouncy-nav-modal').toggleClass('is-visible', $bool);
-                    if (!$bool)
+                    if (!$bool) {
                         $(".itemZheZhao").hide();
+                    }
+
                     if (!tool.isNullOrEmptyObject($this)) {
-                        $($this).addClass("mui-active")
+                        $($this).addClass("mui-active");
+                        $(window).scrollTop(0);
                         $($this).siblings().removeClass("mui-active");
+
+                        //获取当前航空公司当前模块的内容
+                        _self.getTabContent();
+                    }
+                    if (!tool.isNullOrEmptyObject(curObj)) {
+                        //判断模块是否可以进行日期选择 没有的话隐藏时间控件
+                        if (curObj.hasClass('haveTime')) {
+                            $(".inputTime").show();
+                        } else {
+                            $(".inputTime").hide();
+                        }
+                        curObj.addClass("active")
+                        curObj.siblings().removeClass("active");
                     }
                     $('.cd-bouncy-nav-modal').removeClass('fade-out');
                     _self.is_bouncy_nav_animating = false;
-
                 });
                 //判断css 动画是否开启..
                 if ($('.cd-bouncy-nav-trigger').parents('.no-csstransitions').length > 0) {
@@ -1401,9 +1655,137 @@ export default {
                     _self.is_bouncy_nav_animating = false;
                 }
             }
-        }
-    }
+        },
+        //获取当前航空公司当前模块的内容
+        getTabContent: function () {
+            //api接口地址
+            var _self = this;
 
+            //获取当前激活的模块
+            var curTab = $(".segmentedControlContents.mui-active");
+            // console.log(curTab);
+            if (tool.isNullOrEmptyObject(curTab)) {
+                _self.tabID = "7516";
+            } else {
+                _self.tabID = curTab.attr("data-TabID") || "7516";
+            }
+
+            //获取当前年
+            _self.versionID = $("#selectYear").val() || '';
+            if (tool.isNullOrEmptyObject(_self.tabID) || tool.isNullOrEmptyObject(_self.companyID) || tool.isNullOrEmptyObject(_self.versionID)) {
+                return;
+            }
+
+            var apiUrlTemp = tool.combineRequestUrl(tool.ADBAjaxUrl(), tool.getConfigValue(tool.ADBApi_AirlineDatabase_Query_InfoDetailByTab));
+            // console.log("apiUrlTemp:" + apiUrlTemp);
+            var jsonDatas = {
+                CurrentLanguageVersion: lanTool.currentLanguageVersion,
+                UserName: tool.UserName(),
+                TabID: _self.tabID,
+                CompanyID: _self.companyID,
+                VersionID: _self.versionID
+            };
+            var loadingIndexClassName = tool.showLoading();
+            $.ajax({
+                async: true,
+                type: "post",
+                url: apiUrlTemp,
+                data: {
+                    jsonDatas: JSON.stringify(jsonDatas)
+                },
+                success: function (data) {
+                    tool.hideLoading(loadingIndexClassName);
+                    data = tool.jObject(data);
+                    if (data.Result != 1) {
+                        tool.showText(data.Msg);
+                        console.log(tool.getMessage(data.Msg));
+                        return true;
+                    }
+
+                    _self.detailEntity = data.Data;
+
+                    //渲染textarea                    
+                    _self.$nextTick(function () {
+                        $("textarea").each(function (index, cur) {
+                            tool.autoTextarea(cur);
+                        });
+                    });
+
+                    //拥有列表的模块
+                    var hasListTabIDArray = ["7516","7518","7519","7520"];
+                    var tabIDTemp = _self.tabID.toString();
+                    if(hasListTabIDArray.indexOf(tabIDTemp)>=0){
+                        console.log(tabIDTemp);
+                        //获取列表数据
+
+                        apiUrlTemp = tool.combineRequestUrl(tool.ADBAjaxUrl(), tool.getConfigValue(tool.ADBApi_AirlineDatabase_Query_ListByTab));
+                        $.ajax({
+                            async: true,
+                            type: "post",
+                            url: apiUrlTemp,
+                            data: {
+                                jsonDatas: JSON.stringify(jsonDatas)
+                            },
+                            success: function (data) {
+                                console.log(data);
+                                data = tool.jObject(data);
+                                if (data.Result != 1) {
+                                    tool.showText(data.Msg);
+                                    console.log(tool.getMessage(data.Msg));
+                                    return true;
+                                }
+                                data = data.Data || {};
+
+                                if(tabIDTemp == "7516"){
+                                    _self.ContactsArray = data["ContactsArray"] || [];
+                                }else if(tabIDTemp == "7518"){
+                                    _self.MarketMetricsArray = data["MarketMetricsArray"] || [];
+                                }else if(tabIDTemp == "7519"){
+                                    _self.DetailedshareholdingArray = data["DetailedshareholdingArray"] || [];
+                                    _self.LessorparticipationArray = data["LessorparticipationArray"] || [];
+                                    _self.BankparticipationArray = data["BankparticipationArray"] || [];
+                                }else if(tabIDTemp == "7520"){
+                                    _self.FleetDatailsArray = data["FleetDatailsArray"] || [];
+                                }else{
+
+                                }
+                            },
+                            error: function (jqXHR, type, error) {
+                                console.log(error);
+                                return true;
+                            },
+                            complete: function () {
+                                //隐藏虚拟键盘
+                                document.activeElement.blur();
+                            }
+                        });
+
+                        //渲染textarea                    
+                        _self.$nextTick(function () {
+                            $("textarea").each(function (index, cur) {
+                                tool.autoTextarea(cur);
+                            });
+                        });
+                    }
+                },
+                error: function (jqXHR, type, error) {
+                    console.log(error);
+                    tool.hideLoading(loadingIndexClassName);
+                    return true;
+                },
+                complete: function () {
+                    //隐藏虚拟键盘
+                    document.activeElement.blur();
+                }
+            });
+        }
+    },
+     beforeRouteLeave:function(to, from, next){         
+      if(to.name == 'organizationsinfo'){          
+          this.$store.commit('REMOVE_ITEM', 'airlineDatabase');
+      }
+      next();
+    }
 }
 </script>
 

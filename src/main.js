@@ -88,6 +88,105 @@ Vue.filter('FileSizeFormat',function(val){
   return val;
 });
 
+//百分数格式化
+Vue.filter('formatPercent',function(val,dataFormat){
+  // console.log("formatPercent:"+val);
+  // console.log("formatPercent:"+dataFormat);
+  if (tool.isNullOrEmptyObject(val)) {
+      return "";
+  }
+  if(tool.isNullOrEmptyObject(tool.isNullOrEmptyObject(dataFormat))){
+    return val;
+  }
+
+  try{
+    val = Number(val).mul(100);
+    val = tool.formatNum(val, tool.getFixNum(dataFormat));
+
+    if(tool.isNullOrEmptyObject(val)){
+      return val;
+    }else{
+      return val.toString() + "%";
+    }
+  }
+  catch(err){
+    return val;
+  }
+});
+//数字格式化
+Vue.filter('formatFigure',function(val,dataFormat){
+  // console.log("formatFigure:"+val);
+  // console.log("formatFigure:"+dataFormat);
+  if (tool.isNullOrEmptyObject(val)) {
+      return "";
+  }
+  if(tool.isNullOrEmptyObject(tool.isNullOrEmptyObject(dataFormat))){
+    return val;
+  }
+
+  try{
+    val = tool.formatNum(val, tool.getFixNum(dataFormat));
+    // console.log(val);
+    return val;
+  }
+  catch(err){
+    console.log(err);
+    return val;
+  }
+});
+//ADB日期格式化
+Vue.filter('abdDateFormat',function(val,dataFormat){
+  if (tool.isNullOrEmptyObject(val)) {
+    return "";
+  }
+
+  if(tool.isNullOrEmptyObject(dataFormat)){
+    return val;
+  }
+
+  var oldFormat = "yyyy/MM/dd HH:mm:ss";
+  try{
+    val = val.ReplaceAll("-","/")
+    val = val.ReplaceAll("T", " ");
+    val = tool.ChangeTimeFormat(val, dataFormat,oldFormat);
+    return val;
+  }catch(err){
+    console.log(err);
+    return val;
+  }
+});
+//数值范围格式化
+Vue.filter('formatFigureRange',function(val,dataFormat){
+  // console.log("formatFigure:"+val);
+  // console.log("formatFigure:"+dataFormat);
+
+  if (tool.isNullOrEmptyObject(val)) {
+    return "";
+  }
+
+  try{
+    
+    var valDisplay = "";
+    var valArray = val.split(",");
+    for(var i=0;i<valArray.length;i++){
+      var valTemp = valArray[i];
+  
+      if(!tool.isNullOrEmptyObject(dataFormat)){
+        valTemp = tool.formatNum(valTemp, tool.getFixNum(dataFormat));
+      }
+      
+      valDisplay += valTemp + "~";
+    }
+
+    valDisplay = tool.isNullOrEmptyObject(valDisplay)?"":valDisplay.substring(0, valDisplay.length - 1);
+    return valDisplay;
+  }
+  catch(err){
+    console.log(err);
+    return val;
+  }
+});
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

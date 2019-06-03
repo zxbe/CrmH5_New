@@ -9,6 +9,10 @@
 			.indexOf(m[3].toLowerCase()) >= 0;
 	};
 
+	Number.prototype.mul = function (arg) {
+    return tool.accMul(arg, this);
+	}
+
 	//把fromStr替换成toStr
 	String.prototype.ReplaceAll=function(fromStr,toStr){
 		var reg=new RegExp(fromStr,"g"); //创建正则RegExp对象
@@ -163,6 +167,7 @@
 
 		//分割时间格式化-,/,空格,:
 		var dateTimeFormatStrArray = dateTimeFormatStr.split(/-|:|\/|\s/g);
+		// console.log(dateTimeFormatStrArray);
 
 		//获取时间格式各个部分的索引
 		for (var i = 0; i < dateTimeFormatStrArray.length; i++) {
@@ -185,14 +190,27 @@
 
 		//分割时间
 		var dateStrArray = dateStr.split(/-|:|\/|\s/g);
+		// console.log(dateStrArray);
 		if (yearIndex <= -1) {
 			return dateStr;
 		}
 
+		// console.log(yearIndex);
+		// console.log(monthIndex);
+		// console.log(dayIndex);
+		// console.log(hourIndex);
+		// console.log(minuteIndex);
+		// console.log(secondIndex);
+
 		if (hourIndex <= -1) {
 			return dateStrArray[yearIndex] + "/" + dateStrArray[monthIndex] + "/" + dateStrArray[dayIndex];
 		} else {
-			return dateStrArray[yearIndex] + "/" + dateStrArray[monthIndex] + "/" + dateStrArray[dayIndex] + " " + dateStrArray[hourIndex] + ":" + dateStrArray[minuteIndex] + ":" + dateStrArray[secondIndex];
+			//若小时为undefined,则不构造小时分钟秒
+			if(tool.isNullOrEmptyObject(dateStrArray[hourIndex])){
+				return dateStrArray[yearIndex] + "/" + dateStrArray[monthIndex] + "/" + dateStrArray[dayIndex];
+			}else{
+				return dateStrArray[yearIndex] + "/" + dateStrArray[monthIndex] + "/" + dateStrArray[dayIndex] + " " + dateStrArray[hourIndex] + ":" + dateStrArray[minuteIndex] + ":" + dateStrArray[secondIndex];
+			}
 		}
   };
 
@@ -425,6 +443,23 @@
 	 */
 	tool.Api_MessagesToUserHandle_SetDisabled = "Api_MessagesToUserHandle_SetDisabled";
 
+	/*
+	 * ADBAjaxUrl:ADB系统请求的api地址
+	 */
+	tool.config_ADBAjaxUrl = "ADBAjaxUrl";
+	/*
+	 * 查看当前用户是否有访问指定航空公司数据的权限
+	 */
+	tool.ADBApi_AirlineDatabase_IsCurrentUserHasAccess = "ADBApi_AirlineDatabase_IsCurrentUserHasAccess";
+	/*
+	 * 根据模块Id查询业务数据
+	 */
+	tool.ADBApi_AirlineDatabase_Query_InfoDetailByTab = "ADBApi_AirlineDatabase_Query_InfoDetailByTab";
+	/*
+	 * 根据模块Id查询列表数据
+	 */
+	tool.ADBApi_AirlineDatabase_Query_ListByTab = "ADBApi_AirlineDatabase_Query_ListByTab";
+	
 
 	/*
 	 * currentLanguageVersion:当前语言版本
@@ -486,6 +521,11 @@
 	/*请求的公共入口地址*/
 	tool.AjaxBaseUrl = function () {
 		return tool.getConfigValue(tool.config_ajaxUrl) || "";
+	}
+
+	/*请求的ADB API的入口地址*/
+	tool.ADBAjaxUrl = function () {
+		return tool.getConfigValue(tool.config_ADBAjaxUrl) || "";
 	}
 
 	/*判断传入值是否为空*/
@@ -556,6 +596,72 @@
 	// 	sysStorage.clear();
 	// 	return true;
 	// };
+
+	//乘法函数，用来得到精确的乘法结果
+	//说明：javascript的乘法结果会有误差，在两个浮点数相乘的时候会比较明显。这个函数返回较为精确的乘法结果。
+	//调用：accMul(arg1,arg2)
+	//返回值：arg1乘以 arg2的精确结果
+	tool.accMul = function(arg1, arg2){
+		var m = 0, s1 = arg1.toString(), s2 = arg2.toString();
+    try { m += s1.split(".")[1].length } catch (e) { }
+    try { m += s2.split(".")[1].length } catch (e) { }
+    return Number(s1.replace(".", "")) * Number(s2.replace(".", "")) / Math.pow(10, m);
+	}
+
+	/*
+	 * 数字格式化
+	 * s:待格式化的数值
+	 * n:小数位数
+	 */
+	tool.formatNum = function(s, n){
+		var isMinus = s < 0 ? true : false;
+    if (isMinus) {
+        s = Math.abs(s)
+    };
+    
+    s = parseFloat((s + "").replace(/[^\d\.-]/g, "")).toFixed(n) + "";
+    //console.log("dylan_s:" + s);
+
+    if (isNaN(s) || ((s + "").replace(/\s/g, "")) == "") {
+        return "";
+    }
+    n = n >= 0 && n <= 20 ? n : 2;
+    var l = s.split(".")[0].split("").reverse(),
+        r = s.split(".")[1];
+    if (r == undefined) {
+        r = "";
+        for (var i = 0; i < n; i++) {
+            r += "0";
+        }
+    }
+
+    var t = "";
+    for (i = 0; i < l.length; i++) {
+        t += l[i] + ((i + 1) % 3 == 0 && (i + 1) != l.length ? "," : "");
+    }
+    if (r == "") {
+        return ((isMinus ? "-" : "") + t.split("").reverse().join(""));
+    } else {
+        return ((isMinus ? "-" : "") + t.split("").reverse().join("") + "." + r);
+    }
+	}
+
+	/*
+	 * 根据格式获取小数位个数
+	 * dataFormat:格式
+	 */
+	tool.getFixNum = function(dataFormat){
+		if(tool.isNullOrEmptyObject(dataFormat)){
+			return 0;
+		}
+
+		var fixArray = dataFormat.split(".");
+		if (fixArray == undefined || fixArray == null || fixArray.length != 2) {
+			return 0;
+		}
+
+		return Number(fixArray[1].length);
+	}
 
 	//sessionStorage
 	//sessionStorage 的生命周期是在浏览器关闭前。也就是说，在整个浏览器未关闭前，其数据一直都是存在的
@@ -1375,11 +1481,14 @@
     *修改时间格式
     */
    tool.ChangeTimeFormat = function (value,newFormat,oldFormat) {
+		// console.log(value);
+		// console.log(newFormat);
+		// console.log(oldFormat);
 		if (tool.isNullOrEmptyObject(value) || tool.isNullOrEmptyObject(newFormat)) {
 			return "";
 		}
 
-		oldFormat = oldFormat || "yyyy-MM-dd HH:mm:ss";
+		oldFormat = oldFormat || "yyyy/MM/dd HH:mm:ss";
 
 		//value = new Date(value.DateTimeStrFormat("yyyy-MM-dd HH:mm:ss")).FormatNew("d/MMM/yyyy HH:mm");
 		value = new Date(value.DateTimeStrFormat(oldFormat)).FormatNew(newFormat);

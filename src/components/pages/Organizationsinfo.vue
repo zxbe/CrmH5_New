@@ -49,14 +49,7 @@
                                 <div class="ListCellContentLeftText lanText" data-lanid="701_国家"></div>
                             </div>
                             <div class="ListCellContentRight rightContent">
-                                <div
-                                  data-field="CountryID"
-                                  data-fieldControlType="selectList"
-                                  data-lanid="701_国家"
-                                  data-fieldVal=""
-                                  Code="DropDowList_ViewBaseCountryInf"
-                                  data-selectType="radio"
-                                  class="ListCellContentRightText" />
+                                <div data-field="CountryID" data-fieldControlType="selectList" data-lanid="701_国家" data-fieldVal="" Code="DropDowList_ViewBaseCountryInf" data-selectType="radio" class="ListCellContentRightText" />
                             </div>
                             <div class="ListCellRightIcon"><span class="mui-icon calcfont calc-you"></span></div>
                         </div>
@@ -68,14 +61,7 @@
                                 <div class="ListCellContentLeftText lanText" data-lanid="702_城市"></div>
                             </div>
                             <div class="ListCellContentRight rightContent">
-                                <div
-                                  data-field="CityID"
-                                  data-fieldControlType="linkSelectList"
-                                  data-lanid="702_城市"
-                                  data-fieldVal=""
-                                  Code="DropDowList_ViewBaseCountryCity"
-                                  data-selectType="radio"
-                                  class="ListCellContentRightText" />
+                                <div data-field="CityID" data-fieldControlType="linkSelectList" data-lanid="702_城市" data-fieldVal="" Code="DropDowList_ViewBaseCountryCity" data-selectType="radio" class="ListCellContentRightText" />
                             </div>
                             <div class="ListCellRightIcon"><span class="mui-icon calcfont calc-you"></span></div>
                         </div>
@@ -154,6 +140,21 @@
                                 </div>
                             </div>
                         </div>
+                        <!-- HideWhenNewOrHasNoAccess -->
+                        <div v-show="!isAddNew&&isHasADBAccess" class="airlineinfo">
+                            <div class="ListCell" @click="goToAirlinePage">
+                                <div class="ListCellLeftIcon"><span class="mui-icon calcfont calc-database"></span></div>
+                                <div class="ListCellContent">
+                                    <div class="ListCellContentLeft leftContent">
+                                        <div class="ListCellContentLeftText" >Airline Database</div>
+                                    </div>
+                                    <div class="ListCellContentRight rightContent">
+                                        <div class="ListCellContentRightText"></div>
+                                    </div>
+                                    <div class="ListCellRightIcon"><span class="mui-icon calcfont calc-you"></span></div>
+                                </div>
+                            </div>
+                        </div>
                         <!-- <Uploadfile></Uploadfile> -->
 
                         <!-- <Infofooter :modifiedtime="modifiedtime" :modifiedby="modifiedby"> </Infofooter> -->
@@ -174,7 +175,7 @@ import Infofooter from '../common/infoFooter'
 import Uploadfile from './Uploadfile'
 
 export default {
-    name:'organizationsinfo',
+    name: 'organizationsinfo',
     components: {
         Infoheader,
         Infofooter,
@@ -185,7 +186,7 @@ export default {
         return {
 
             ptitle: 'Organizationsinfo detail',
-            id:'',
+            id: '',
 
             isAddNew: false, //是否添加新纪录
             onlyView: false, //控制页面头部icon,true:不显示头部icon,false:显示
@@ -197,6 +198,7 @@ export default {
             rightPanelFromID: "", //传给右侧菜单用的参数
             isShowSendBtn: false, //侧滑是否显示分享给同事选项
             isShowClose: false, //侧滑是否显示关闭这个商业机会选项
+            isHasADBAccess:false//是否拥有访问ADB的权限
         }
     },
     beforeRouteEnter: function (to, from, next) {
@@ -249,14 +251,57 @@ export default {
                     tool.autoTextarea(cur);
                 });
 
+                //请求接口，判断当前用户是否有访问当前航空公司ADB数据的权限
+                //api接口地址
+                var apiUrlTemp = tool.combineRequestUrl(tool.ADBAjaxUrl(),tool.getConfigValue(tool.ADBApi_AirlineDatabase_IsCurrentUserHasAccess));
+                // console.log("apiUrlTemp:"+apiUrlTemp);
+                var jsonDatas = {
+                    CurrentLanguageVersion: lanTool.currentLanguageVersion,
+                    UserName: tool.UserName(),
+                    CompanyID: _self.id
+                };
+                // var loadingIndexClassName = tool.showLoading();
+                $.ajax({
+                    async: true,
+                    type: "post",
+                    url: apiUrlTemp,
+                    data: {
+                        jsonDatas:JSON.stringify(jsonDatas)
+                    },
+                    success: function (data) {
+                        data = tool.jObject(data);
+                        if (data.Result != 1) {
+                            // tool.hideLoading(loadingIndexClassName);
+                            // tool.showText(data.Msg);
+                            console.log(tool.getMessage(data.Msg));
+                            return true;
+                        }
+
+                        if(!tool.isNullOrEmptyObject(data.Data) && data.Data == true){
+                            _self.isHasADBAccess = true;
+                        }else{
+                            _self.isHasADBAccess = false;
+                        }
+                    },
+                    error: function (jqXHR, type, error) {
+                        console.log(error);
+                        // tool.hideLoading(loadingIndexClassName);
+                        return true;
+                    },
+                    complete: function () {
+                        //隐藏虚拟键盘
+                        document.activeElement.blur();
+                    }
+                });
+
                 //处理联动字段
                 tool.linkageField(_self, 'CountryID', 'CityID');
 
                 //返回时更新selectlist控件的结果
-                tool.UpdateFieldValueFromBack(eventBus, function(){
+                tool.UpdateFieldValueFromBack(eventBus, function () {
                     //清空全局变量
                     eventBus.selectListData = null;
-                })
+                });
             });
         });
     },
@@ -266,7 +311,7 @@ export default {
         tool.linkageField(_self, 'CountryID', 'CityID');
 
         //返回时更新selectlist控件的结果
-        tool.UpdateFieldValueFromBack(eventBus, function(){
+        tool.UpdateFieldValueFromBack(eventBus, function () {
             //清空全局变量
             eventBus.selectListData = null;
         })
@@ -283,18 +328,36 @@ export default {
                 return;
             }
             var urlTemp = "/contactsof";
-           var infoName =lanTool.lanContent("791_联系人") ||"";
+            var infoName = lanTool.lanContent("791_联系人") || "";
             var parameter = {
                 companyID: companyID,
                 companyName: companyName,
-                infoName:infoName
+                infoName: infoName
             };
             _self.$router.push({
                 path: urlTemp,
                 query: parameter
             });
         },
-
+       //跳转到Airline Database 界面
+       goToAirlinePage:function(e){
+            var _self = this;
+            var urlTemp = "/airlineDatabase";
+            var companyID = _self.$route.params.id || "";
+            var companyName = $('[data-field="ShortNameEN"]').val() || '';
+            if (tool.isNullOrEmptyObject(companyID) || tool.isNullOrEmptyObject(companyName)) {
+                return;
+            }
+            
+            var parameter = {
+                CompanyID: companyID,
+                CompanyName: companyName,
+            };
+            _self.$router.push({
+                path: urlTemp,
+                query: parameter
+            });
+       },
         followToggle: function (e) {
             var _self = this;
             var autoID = _self.$route.params.id;
@@ -326,7 +389,7 @@ export default {
             tool.SaveOrUpdateData(fromType, id, _self, function () {
                 _self.$store.commit('REMOVE_ITEM', 'contacts');
                 _self.$store.commit('REMOVE_ITEM', 'organizationsinfo');
-                 _self.$router.back(-1);
+                _self.$router.back(-1);
             });
         },
 
@@ -340,22 +403,21 @@ export default {
         },
 
         //只查看的情况 控制元素是否可修改
-        controlEdit:function(){
+        controlEdit: function () {
             var _self = this;
-            if(_self.onlyView){
-                _self.$nextTick(function(){
+            if (_self.onlyView) {
+                _self.$nextTick(function () {
                     $('.OrganizationsList,.MoreList').addClass('disable');
                 })
-            }else{
-                _self.$nextTick(function(){
+            } else {
+                _self.$nextTick(function () {
                     $('.OrganizationsList,.MoreList').removeClass('disable');
                 })
             }
         }
     },
-
-    beforeRouteLeave:function(to, from, next){
-        if(to.name == 'contacts' || to.name == 'contactsinfo'){
+    beforeRouteLeave: function (to, from, next) {
+        if (to.name == 'contacts' || to.name == 'contactsinfo') {
             this.$store.commit('REMOVE_ITEM', 'organizationsinfo');
         }
         next();
@@ -370,15 +432,15 @@ export default {
     color: #FF5A21 !important;
 }
 
-.contactList {
+.contactList,.airlineinfo {
     margin-top: 10px;
 }
 
-.contactList .ListCell:after {
+.contactList .ListCell:after,.airlineinfo .ListCell:after {
     background-color: #fff;
 }
 
-.contactList .ListCellContentLeftText {
+.contactList .ListCellContentLeftText, .airlineinfo .ListCellContentLeftText{
     font-weight: 700;
 }
 </style>
