@@ -1481,9 +1481,9 @@
     *修改时间格式
     */
    tool.ChangeTimeFormat = function (value,newFormat,oldFormat) {
-		console.log(value);
-		console.log(newFormat);
-		console.log(oldFormat);
+		// console.log(value);
+		// console.log(newFormat);
+		// console.log(oldFormat);
 		if (tool.isNullOrEmptyObject(value) || tool.isNullOrEmptyObject(newFormat)) {
 			return "";
 		}

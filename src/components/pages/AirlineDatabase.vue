@@ -112,59 +112,21 @@
                 <ul class="mui-table-view mui-table-view-chevron mui-collapse-content">
                     <li class="mui-table-view-cell mui-collapse">
                         <a class="mui-navigate-right">
-
-                                <div class="listHead">Contact</div>
-                                 <span class="calcfont calc-xia"></span>
-                                </a>
+                            <div class="listHead">Contact</div>
+                            <span class="calcfont calc-xia"></span>
+                        </a>
                         <ul class="mui-table-view">
-                            <li class="mui-table-view-cell">
+
+                            <!-- <li class="mui-table-view-cell">
                                 <div class="flexBox">
-                                    <div class="flexBoxKey">Title Title Title Title Title Title</div>
-                                    <div class="flexBoxValue">Chief Technical Officer(CTO)Chief Technical Officer(CTO)Chief Technical Officer(CTO)Chief Technical Officer(CTO)Chief Technical Officer(CTO)Chief Technical Officer(CTO)Chief Technical Officer(CTO)Chief Technical Officer(CTO)Chief Technical Officer(CTO)Chief Technical Officer(CTO)Chief Technical Officer(CTO)Chief Technical Officer(CTO)</div>
-                                </div>
-                                <div class="flexBox">
-                                    <div class="flexBoxKey">name</div>
+                                    <div class="flexBoxKey">Name</div>
                                     <div class="flexBoxValue">mingzi</div>
                                 </div>
-                                <div class="flexBox">
-                                    <div class="flexBoxKey">Please specify</div>
-                                    <div class="flexBoxValue">specify</div>
-                                </div>
-                                <div class="flexBox">
-                                    <div class="flexBoxKey">Work Number</div>
-                                    <div class="flexBoxValue">1555121133</div>
-                                </div>
-                                <div class="flexBox">
-                                    <div class="flexBoxKey">Mobile Number</div>
-                                    <div class="flexBoxValue">1555121133</div>
-                                </div>
-                                <div class="flexBox">
-                                    <div class="flexBoxKey">email</div>
-                                    <div class="flexBoxValue">12422@163.com</div>
-                                </div>
-                                <div class="flexBox">
-                                    <div class="flexBoxKey">status</div>
-                                    <div class="flexBoxValue">Active</div>
-                                </div>
-                                <div class="flexBox">
-                                    <div class="flexBoxKey">comments</div>
-                                    <div class="flexBoxValue">comments</div>
-                                </div>
-                            </li>
-                            <li class="mui-table-view-cell">
                                 <div class="flexBox">
                                     <div class="flexBoxKey">Title</div>
                                     <div class="flexBoxValue">Chief Technical Officer(CTO)</div>
                                 </div>
                                 <div class="flexBox">
-                                    <div class="flexBoxKey">name</div>
-                                    <div class="flexBoxValue">mingzi</div>
-                                </div>
-                                <div class="flexBox">
-                                    <div class="flexBoxKey">Please specify</div>
-                                    <div class="flexBoxValue">specify</div>
-                                </div>
-                                <div class="flexBox">
                                     <div class="flexBoxKey">Work Number</div>
                                     <div class="flexBoxValue">1555121133</div>
                                 </div>
@@ -173,18 +135,50 @@
                                     <div class="flexBoxValue">1555121133</div>
                                 </div>
                                 <div class="flexBox">
-                                    <div class="flexBoxKey">email</div>
+                                    <div class="flexBoxKey">Email</div>
                                     <div class="flexBoxValue">12422@163.com</div>
                                 </div>
                                 <div class="flexBox">
-                                    <div class="flexBoxKey">status</div>
+                                    <div class="flexBoxKey">Status</div>
                                     <div class="flexBoxValue">Active</div>
                                 </div>
                                 <div class="flexBox">
-                                    <div class="flexBoxKey">comments</div>
+                                    <div class="flexBoxKey">Comments</div>
                                     <div class="flexBoxValue">comments</div>
                                 </div>
+                            </li> -->
+
+                            <li v-for="item in ContactsArray" class="mui-table-view-cell">
+                                <div class="flexBox">
+                                    <div class="flexBoxKey">Name</div>
+                                    <div class="flexBoxValue">{{item["7533"]||""}}</div>
+                                </div>
+                                <div class="flexBox">
+                                    <div class="flexBoxKey">Title</div>
+                                    <div class="flexBoxValue">{{item["7534"]||""}}</div>
+                                </div>
+                                <div class="flexBox">
+                                    <div class="flexBoxKey">Work Number</div>
+                                    <div class="flexBoxValue">{{item["7535"]||""}}</div>
+                                </div>
+                                <div class="flexBox">
+                                    <div class="flexBoxKey">Mobile Number</div>
+                                    <div class="flexBoxValue">{{item["7536"]||""}}</div>
+                                </div>
+                                <div class="flexBox">
+                                    <div class="flexBoxKey">Email</div>
+                                    <div class="flexBoxValue">{{item["7537"]||""}}</div>
+                                </div>
+                                <div class="flexBox">
+                                    <div class="flexBoxKey">Status</div>
+                                    <div class="flexBoxValue">{{item["7538"]||""}}</div>
+                                </div>
+                                <div class="flexBox">
+                                    <div class="flexBoxKey">Comments</div>
+                                    <div class="flexBoxValue">{{item["7539"]||""}}</div>
+                                </div>
                             </li>
+
                         </ul>
                     </li>
                 </ul>
@@ -429,37 +423,22 @@
                 <ul class="mui-table-view mui-table-view-chevron mui-collapse-content">
                     <li class="mui-table-view-cell mui-collapse">
                         <a class="mui-navigate-right">
-
-                                <div class="listHead">Market Growth Rate</div>
-                                 <span class="calcfont calc-xia"></span>
-                                </a>
+                            <div class="listHead">Market Growth Rate</div>
+                            <span class="calcfont calc-xia"></span>
+                        </a>
                         <ul class="mui-table-view">
-                            <li class="mui-table-view-cell">
+                            <li v-for="item in MarketMetricsArray" class="mui-table-view-cell">
                                 <div class="flexBox">
                                     <div class="flexBoxKey">Hubs / Bases</div>
-                                    <div class="flexBoxValue">qingdao</div>
+                                    <div class="flexBoxValue">{{item["7547"]||""}}</div>
                                 </div>
                                 <div class="flexBox">
                                     <div class="flexBoxKey">Passenger growth ratio</div>
-                                    <div class="flexBoxValue">30%</div>
+                                    <div class="flexBoxValue">{{(item["7548"]||"") | formatPercent("##.##")}}</div>
                                 </div>
                                 <div class="flexBox">
                                     <div class="flexBoxKey">Year</div>
-                                    <div class="flexBoxValue">2018</div>
-                                </div>
-                            </li>
-                            <li class="mui-table-view-cell">
-                                <div class="flexBox">
-                                    <div class="flexBoxKey">Hubs / Bases</div>
-                                    <div class="flexBoxValue">qingdao</div>
-                                </div>
-                                <div class="flexBox">
-                                    <div class="flexBoxKey">Passenger growth ratio</div>
-                                    <div class="flexBoxValue">35%</div>
-                                </div>
-                                <div class="flexBox">
-                                    <div class="flexBoxKey">Year</div>
-                                    <div class="flexBoxValue">2019</div>
+                                    <div class="flexBoxValue">{{item["7668"]||""}}</div>
                                 </div>
                             </li>
                         </ul>
@@ -571,24 +550,14 @@
                                  <span class="calcfont calc-xia"></span>
                                 </a>
                         <ul class="mui-table-view">
-                            <li class="mui-table-view-cell">
+                            <li v-for="item in DetailedshareholdingArray" class="mui-table-view-cell">
                                 <div class="flexBox">
                                     <div class="flexBoxKey">Shareholder</div>
-                                    <div class="flexBoxValue">南山集团</div>
+                                    <div class="flexBoxValue">{{item["7540"]||""}}</div>
                                 </div>
                                 <div class="flexBox">
                                     <div class="flexBoxKey">Ownership Percentage</div>
-                                    <div class="flexBoxValue">30%</div>
-                                </div>
-                            </li>
-                            <li class="mui-table-view-cell">
-                                <div class="flexBox">
-                                    <div class="flexBoxKey">Shareholder</div>
-                                    <div class="flexBoxValue">新南国际</div>
-                                </div>
-                                <div class="flexBox">
-                                    <div class="flexBoxKey">Ownership Percentage</div>
-                                    <div class="flexBoxValue">70%</div>
+                                    <div class="flexBoxValue">{{(item["7577"]||"") | formatPercent("##.##")}}</div>
                                 </div>
                             </li>
                         </ul>
@@ -597,31 +566,20 @@
                 <ul class="mui-table-view mui-table-view-chevron mui-collapse-content">
                     <li class="mui-table-view-cell mui-collapse">
                         <a class="mui-navigate-right">
-
-                                <div class="listHead">Lessor participation</div>
-                                 <span class="calcfont calc-xia"></span>
-                                </a>
+                            <div class="listHead">Lessor participation</div>
+                            <span class="calcfont calc-xia"></span>
+                        </a>
                         <ul class="mui-table-view">
-                            <li class="mui-table-view-cell">
+                            <li v-for="item in LessorparticipationArray" class="mui-table-view-cell">
                                 <div class="flexBox">
                                     <div class="flexBoxKey">Lessor</div>
-                                    <div class="flexBoxValue">qingdao</div>
+                                    <div class="flexBoxValue">{{item["7549"]||""}}</div>
                                 </div>
                                 <div class="flexBox">
                                     <div class="flexBoxKey">Comment</div>
-                                    <div class="flexBoxValue">-</div>
+                                    <div class="flexBoxValue">{{item["7550"]||""}}</div>
                                 </div>
 
-                            </li>
-                            <li class="mui-table-view-cell">
-                                <div class="flexBox">
-                                    <div class="flexBoxKey">Lessor</div>
-                                    <div class="flexBoxValue">qingdao</div>
-                                </div>
-                                <div class="flexBox">
-                                    <div class="flexBoxKey">Comment</div>
-                                    <div class="flexBoxValue">-</div>
-                                </div>
                             </li>
                         </ul>
                     </li>
@@ -629,29 +587,18 @@
                 <ul class="mui-table-view mui-table-view-chevron mui-collapse-content">
                     <li class="mui-table-view-cell mui-collapse">
                         <a class="mui-navigate-right">
-
-                                <div class="listHead">Bank participation</div>
-                                 <span class="calcfont calc-xia"></span>
-                                </a>
+                            <div class="listHead">Bank participation</div>
+                            <span class="calcfont calc-xia"></span>
+                        </a>
                         <ul class="mui-table-view">
-                            <li class="mui-table-view-cell">
+                            <li v-for="item in BankparticipationArray" class="mui-table-view-cell">
                                 <div class="flexBox">
                                     <div class="flexBoxKey">Bank</div>
-                                    <div class="flexBoxValue">中国银行</div>
+                                    <div class="flexBoxValue">{{item["7551"]||""}}</div>
                                 </div>
                                 <div class="flexBox">
                                     <div class="flexBoxKey">Comment</div>
-                                    <div class="flexBoxValue">30%</div>
-                                </div>
-                            </li>
-                            <li class="mui-table-view-cell">
-                                <div class="flexBox">
-                                    <div class="flexBoxKey">Bank</div>
-                                    <div class="flexBoxValue">中国银行</div>
-                                </div>
-                                <div class="flexBox">
-                                    <div class="flexBoxKey">Comment</div>
-                                    <div class="flexBoxValue">35%</div>
+                                    <div class="flexBoxValue">{{item["7552"]||""}}</div>
                                 </div>
                             </li>
                         </ul>
@@ -758,7 +705,7 @@
                 </div>
             </div>
             <div class="fleetDetailBtn" @click.stop="gotoFleetDetailsList()">
-                <div class="fleetDetailBtnContent">fleet Details</div>
+                <div class="fleetDetailBtnContent">Fleet Details</div>
                 <div class="fleetDetailBtnIcon"><span class="calcfont calc-you"></span></div>
             </div>
             <!-- <div class="shouSuoList">
@@ -1556,8 +1503,13 @@ export default {
         //跳转到fleet Details列表
         gotoFleetDetailsList: function () {
             var _self = this;
+            var fleetDatailsArrayStr = JSON.stringify(_self.FleetDatailsArray);
             _self.$router.push({
-                path: "/fleetDetailsList"
+                //path: "/fleetDetailsList",
+                name:"fleetDetailsList",
+                params:{
+                    fleetDatailsArrayStr:fleetDatailsArrayStr
+                }
             });
         },
         //列表收缩展示
@@ -1747,15 +1699,71 @@ export default {
                         return true;
                     }
 
-                    // console.log(data);
                     _self.detailEntity = data.Data;
+
+                    //渲染textarea                    
                     _self.$nextTick(function () {
-                        //渲染textarea
                         $("textarea").each(function (index, cur) {
-                            // $(cur).height('25');
                             tool.autoTextarea(cur);
                         });
-                    })
+                    });
+
+                    //拥有列表的模块
+                    var hasListTabIDArray = ["7516","7518","7519","7520"];
+                    var tabIDTemp = _self.tabID.toString();
+                    if(hasListTabIDArray.indexOf(tabIDTemp)>=0){
+                        console.log(tabIDTemp);
+                        //获取列表数据
+
+                        apiUrlTemp = tool.combineRequestUrl(tool.ADBAjaxUrl(), tool.getConfigValue(tool.ADBApi_AirlineDatabase_Query_ListByTab));
+                        $.ajax({
+                            async: true,
+                            type: "post",
+                            url: apiUrlTemp,
+                            data: {
+                                jsonDatas: JSON.stringify(jsonDatas)
+                            },
+                            success: function (data) {
+                                console.log(data);
+                                data = tool.jObject(data);
+                                if (data.Result != 1) {
+                                    tool.showText(data.Msg);
+                                    console.log(tool.getMessage(data.Msg));
+                                    return true;
+                                }
+                                data = data.Data || {};
+
+                                if(tabIDTemp == "7516"){
+                                    _self.ContactsArray = data["ContactsArray"] || [];
+                                }else if(tabIDTemp == "7518"){
+                                    _self.MarketMetricsArray = data["MarketMetricsArray"] || [];
+                                }else if(tabIDTemp == "7519"){
+                                    _self.DetailedshareholdingArray = data["DetailedshareholdingArray"] || [];
+                                    _self.LessorparticipationArray = data["LessorparticipationArray"] || [];
+                                    _self.BankparticipationArray = data["BankparticipationArray"] || [];
+                                }else if(tabIDTemp == "7520"){
+                                    _self.FleetDatailsArray = data["FleetDatailsArray"] || [];
+                                }else{
+
+                                }
+                            },
+                            error: function (jqXHR, type, error) {
+                                console.log(error);
+                                return true;
+                            },
+                            complete: function () {
+                                //隐藏虚拟键盘
+                                document.activeElement.blur();
+                            }
+                        });
+
+                        //渲染textarea                    
+                        _self.$nextTick(function () {
+                            $("textarea").each(function (index, cur) {
+                                tool.autoTextarea(cur);
+                            });
+                        });
+                    }
                 },
                 error: function (jqXHR, type, error) {
                     console.log(error);

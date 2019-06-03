@@ -10,35 +10,35 @@
             <div class="fleetDetailListItem">
                 <div class="flexBoxTwo">
                     <div class="LeftKey">MSN</div>
-                    <div class="LeftValue">{{item.MSN}}</div>
+                    <div class="LeftValue">{{item["7555"]||""}}</div>
                     <div class="rightKey">Fleet Type</div>
-                    <div class="rightValue">{{item.fleetType}}</div>
+                    <div class="LeftValue">{{item["7556"]||""}}</div>
                 </div>
                 <div class="flexBoxTwo">
                     <div class="LeftKey">Engine Type</div>
-                    <div class="LeftValue">{{item.engineType}}</div>
+                    <div class="LeftValue">{{item["7557"]||""}}</div>
                     <div class="rightKey">Build Year</div>
-                    <div class="rightValue">{{item.buildYear}}</div>
+                    <div class="LeftValue">{{item["7642"]||""}}</div>
                 </div>
                 <div class="flexBoxTwo">
                     <div class="LeftKey">Status</div>
-                    <div class="LeftValue">{{item.status}}</div>
+                    <div class="LeftValue">{{item["7643"]||""}}</div>
                     <div class="rightKey">lease/Own</div>
-                    <div class="rightValue">{{item.leaseOrOwn}}</div>
+                    <div class="LeftValue">{{item["7560"]||""}}</div>
                 </div>
                 <div class="flexBoxTwo">
                     <div class="LeftKey">Lease Start</div>
-                    <div class="LeftValue">{{item.leaseStart}}</div>
+                    <div class="LeftValue">{{(item["7645"]||"") | abdDateFormat("yyyy/MM/dd")}}</div>
                     <div class="rightKey">Lease End</div>
-                    <div class="rightValue">{{item.leaseEnd}}</div>
+                    <div class="LeftValue">{{(item["7646"]||"") | abdDateFormat("yyyy/MM/dd")}}</div>
                 </div>
                 <div class="flexBox">
                     <div class="flexBoxKey">Manufacturer</div>
-                    <div class="flexBoxValue">{{item.manufacturer}}</div>
+                    <div class="LeftValue">{{item["7641"]||""}}</div>
                 </div>
                 <div class="flexBox">
                     <div class="flexBoxKey">Manager</div>
-                    <div class="flexBoxValue">{{item.manager}}</div>
+                    <div class="LeftValue">{{item["7644"]||""}}</div>
                 </div>
             </div>
         </div>
@@ -59,47 +59,47 @@ export default {
     },
     data() {
         return {
-            title: "fleet Details",
+            title: "Fleet Details",
             noData: false, //没数据
             detailListData: [
-                {
-                MSN: '61370',
-                fleetType: '737 Max8',
-                engineType: 'LEAP 1B',
-                buildYear:'2019',
-                status:'On order',
-                leaseOrOwn:'lease',
-                leaseStart:'2018-10-27',
-                leaseEnd:'2020-02-03',
-                manufacturer:'Boeing',
-                manager:'9Air'
+            // {
+            //     MSN: '61370',
+            //     fleetType: '737 Max8',
+            //     engineType: 'LEAP 1B',
+            //     buildYear:'2019',
+            //     status:'On order',
+            //     leaseOrOwn:'lease',
+            //     leaseStart:'2018-10-27',
+            //     leaseEnd:'2020-02-03',
+            //     manufacturer:'Boeing',
+            //     manager:'9Air'
 
-            },
-             {
-                MSN: 'ZSPD-B73M-83094',
-                fleetType: '737 Max8',
-                engineType: 'LEAP 1B',
-                buildYear:'2019',
-                status:'On order',
-                leaseOrOwn:'lease',
-                leaseStart:'2018-10-27',
-                leaseEnd:'2020-02-03',
-                manufacturer:'Boeing',
-                manager:'Africa Charter Airline'
-                }, 
-                {
-                MSN: 'XXX1-B73M-105593',
-                fleetType: '737 Max8',
-                engineType: 'LEAP 1B',
-                buildYear:'2019',
-                status:'On order',
-                leaseOrOwn:'lease',
-                leaseStart:'2018-10-27',
-                leaseEnd:'2020-02-03',
-                manufacturer:'Boeing',
-                manager:'9Air'
-                }
-                ],
+            // },
+            // {
+            //     MSN: 'ZSPD-B73M-83094',
+            //     fleetType: '737 Max8',
+            //     engineType: 'LEAP 1B',
+            //     buildYear:'2019',
+            //     status:'On order',
+            //     leaseOrOwn:'lease',
+            //     leaseStart:'2018-10-27',
+            //     leaseEnd:'2020-02-03',
+            //     manufacturer:'Boeing',
+            //     manager:'Africa Charter Airline'
+            // }, 
+            // {
+            //     MSN: 'XXX1-B73M-105593',
+            //     fleetType: '737 Max8',
+            //     engineType: 'LEAP 1B',
+            //     buildYear:'2019',
+            //     status:'On order',
+            //     leaseOrOwn:'lease',
+            //     leaseStart:'2018-10-27',
+            //     leaseEnd:'2020-02-03',
+            //     manufacturer:'Boeing',
+            //     manager:'9Air'
+            // }
+            ],
             //侧滑搜索页面数据模型
             searchData: [{
                     queryfield: "TheName",
@@ -199,13 +199,24 @@ export default {
                     queryRelation: "and",
                     queryValue: "",
                     queryComparison: "like"
-                },
+                }
             ],
         }
 
     },
-    mounted: function () {
+    created:function(){
         $(window).scrollTop(0);
+    },
+    mounted: function () {
+        var _self = this;
+        var fleetDatailsArrayStr = _self.$route.params.fleetDatailsArrayStr;
+        if(tool.isNullOrEmptyObject(fleetDatailsArrayStr)){
+            _self.detailListData = [];
+        }else{
+            _self.detailListData = tool.jObject(fleetDatailsArrayStr);
+        }
+        
+        console.log(_self.detailListData);
     },
     methods: {
         back: function () {
@@ -223,8 +234,7 @@ export default {
                         paramStr: JSON.stringify(parameter)
                     }
                 });
-            })
-
+            });
         }
     },
 }
