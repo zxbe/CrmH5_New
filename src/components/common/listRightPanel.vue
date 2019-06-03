@@ -76,26 +76,14 @@ export default {
             dataFilter:'',
             groupByVal:'',//分组数据
             // isParentFirstEnter:false,  //存储赋组件是否是新创建
+            viewValueWatch:null,
             dataFilterWatch:null,
             modelDataFilterWatch:null
-        }
-    },
-    watch:{
-        //视图切换使用
-        viewValue:function(newVule){
-
-            eventBus.$emit('changeViewEvent',newVule);
-            if(newVule == 'calendarView'){
-                eventBus.$emit('updataCalendarEvent');
-            }else{
-                eventBus.$emit('updataListEvent');
-            }
         }
     },
     props:['panelData','searchData','showCategory'],
     created:function(){
         var _self = this;
-        // _self.isParentFirstEnter = _self.$parent.isFirstEnter;
     },
     mounted:function(){
         var _self = this;
@@ -175,6 +163,23 @@ export default {
                         }
                     }
                 });
+
+                //watch监听viewValue
+                if(!tool.isNullOrEmptyObject(_self.viewValueWatch)){
+                    _self.viewValueWatch();
+                }
+                _self.viewValueWatch = _self.$watch('viewValue', function(newValue){
+                    if(tool.isNullOrEmptyObject(newValue)) {
+                        return;
+                    }
+
+                    eventBus.$emit('changeViewEvent',newValue);
+                    if(newValue == 'calendarView'){
+                        eventBus.$emit('updataCalendarEvent');
+                    }else{
+                        eventBus.$emit('updataListEvent');
+                    }
+                })
 
 
                 //watch监听dataFilter
