@@ -88,6 +88,7 @@ Vue.filter('FileSizeFormat',function(val){
   return val;
 });
 
+//百分数格式化
 Vue.filter('formatPercent',function(val,dataFormat){
   console.log("formatPercent:"+val);
   console.log("formatPercent:"+dataFormat);
@@ -101,13 +102,18 @@ Vue.filter('formatPercent',function(val,dataFormat){
   try{
     val = Number(val).mul(100);
     val = tool.formatNum(val, tool.getFixNum(dataFormat));
-    return val;
+
+    if(tool.isNullOrEmptyObject(val)){
+      return val;
+    }else{
+      return val.toString() + "%";
+    }
   }
   catch(err){
     return val;
   }
 });
-
+//数字格式化
 Vue.filter('formatFigure',function(val,dataFormat){
   console.log("formatFigure:"+val);
   console.log("formatFigure:"+dataFormat);
@@ -120,9 +126,30 @@ Vue.filter('formatFigure',function(val,dataFormat){
 
   try{
     val = tool.formatNum(val, tool.getFixNum(dataFormat));
+    console.log(val);
     return val;
   }
   catch(err){
+    console.log(err);
+    return val;
+  }
+});
+//ADB日期格式化
+Vue.filter('abdDateFormat',function(val,dataFormat){
+  if (tool.isNullOrEmptyObject(val)) {
+    return "";
+  }
+
+  if(tool.isNullOrEmptyObject(dataFormat)){
+    return val;
+  }
+
+  try{
+    val = val.ReplaceAll("T", " ");
+    val = tool.ChangeTimeFormat(val, dataFormat);
+    return val;
+  }catch(err){
+    console.log(err);
     return val;
   }
 });

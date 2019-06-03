@@ -199,7 +199,7 @@
                             <div class="parameterName">Report date
                             </div>
                             <div class="parameterValue">
-                                {{detailEntity["7581"]||""}}
+                                {{(detailEntity[7581]||"") | abdDateFormat("yyyy/MM/dd")}}
                             </div>
                         </li>
                     </ul>
@@ -236,7 +236,7 @@
                             <div class="parameterName">GDP growth rate
                             </div>
                             <div class="parameterValue">
-                                {{detailEntity["7356"]||""}}
+                                {{(detailEntity[7356]||"") | formatPercent("##.##")}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
