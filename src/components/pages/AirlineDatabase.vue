@@ -79,14 +79,13 @@
                             <div class="parameterName">Payment record in CALC
                             </div>
                             <div class="parameterValue">
-                                {{detailEntity["7349"]||""}}
-
+                                {{(detailEntity["7349"]||"") | formatFigure("#,###.##")}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
                             <div class="parameterName">Outstangding amount</div>
                             <div class="parameterValue">
-                                {{detailEntity["7545"]||""}}
+                                {{(detailEntity["7545"]||"") | formatFigure("#,###.##")}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
@@ -102,7 +101,7 @@
                             </div>
                             <div class="parameterValue">
                                 <p class="textareaP">
-                                    <textarea readonly>{{detailEntity["7546"]||""}}</textarea>
+                                    <textarea readonly :value="(detailEntity['7546']||'')"></textarea>
                                 </p>
                             </div>
                         </li>
@@ -394,7 +393,7 @@
                             </div>
                             <div class="parameterValue">
                                 <p class="textareaP">
-                                    <textarea readonly> {{detailEntity["7378"]||""}}</textarea>
+                                    <textarea readonly :value="(detailEntity['7378']||'')"></textarea>
                                 </p>
                             </div>
                         </li>
@@ -688,7 +687,7 @@
                             </div>
                             <div class="parameterValue">
                                 <p class="textareaP">
-                                    <textarea readonly> {{detailEntity["7391"]||""}}</textarea>
+                                    <textarea readonly :value="(detailEntity['7391']||'')"></textarea>
                                 </p>
                             </div>
                         </li>
@@ -704,7 +703,7 @@
                             </div>
                             <div class="parameterValue">
                                 <p class="textareaP">
-                                    <textarea readonly>{{detailEntity["7393"]||""}}</textarea>
+                                    <textarea readonly :value="(detailEntity['7393']||'')"></textarea>
                                 </p>
                             </div>
                         </li>
@@ -1456,7 +1455,7 @@
                             </div>
                             <div class="parameterValue">
                                 <p class="textareaP">
-                                    <textarea readonly>{{detailEntity["7576"]||""}}</textarea>
+                                    <textarea readonly :value="(detailEntity['7576']||'')"></textarea>
                                 </p>
                             </div>
                         </li>
@@ -1701,7 +1700,7 @@ export default {
 
             //获取当前激活的模块
             var curTab = $(".segmentedControlContents.mui-active");
-            console.log(curTab);
+            // console.log(curTab);
             if (tool.isNullOrEmptyObject(curTab)) {
                 _self.tabID = "7516";
             } else {
@@ -1715,7 +1714,7 @@ export default {
             }
 
             var apiUrlTemp = tool.combineRequestUrl(tool.ADBAjaxUrl(), tool.getConfigValue(tool.ADBApi_AirlineDatabase_Query_InfoDetailByTab));
-            console.log("apiUrlTemp:" + apiUrlTemp);
+            // console.log("apiUrlTemp:" + apiUrlTemp);
             var jsonDatas = {
                 CurrentLanguageVersion: lanTool.currentLanguageVersion,
                 UserName: tool.UserName(),
@@ -1740,7 +1739,7 @@ export default {
                         return true;
                     }
 
-                    console.log(data);
+                    // console.log(data);
                     _self.detailEntity = data.Data;
                     _self.$nextTick(function () {
                         //渲染textarea

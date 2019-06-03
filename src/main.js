@@ -88,6 +88,45 @@ Vue.filter('FileSizeFormat',function(val){
   return val;
 });
 
+Vue.filter('formatPercent',function(val,dataFormat){
+  console.log("formatPercent:"+val);
+  console.log("formatPercent:"+dataFormat);
+  if (tool.isNullOrEmptyObject(val)) {
+      return "";
+  }
+  if(tool.isNullOrEmptyObject(tool.isNullOrEmptyObject(dataFormat))){
+    return val;
+  }
+
+  try{
+    val = Number(val).mul(100);
+    val = tool.formatNum(val, tool.getFixNum(dataFormat));
+    return val;
+  }
+  catch(err){
+    return val;
+  }
+});
+
+Vue.filter('formatFigure',function(val,dataFormat){
+  console.log("formatFigure:"+val);
+  console.log("formatFigure:"+dataFormat);
+  if (tool.isNullOrEmptyObject(val)) {
+      return "";
+  }
+  if(tool.isNullOrEmptyObject(tool.isNullOrEmptyObject(dataFormat))){
+    return val;
+  }
+
+  try{
+    val = tool.formatNum(val, tool.getFixNum(dataFormat));
+    return val;
+  }
+  catch(err){
+    return val;
+  }
+});
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
