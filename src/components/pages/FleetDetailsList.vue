@@ -34,15 +34,15 @@
                 </div>
                 <div class="flexBox">
                     <div class="flexBoxKey">Manufacturer</div>
-                    <div class="LeftValue">{{item["7641"]||""}}</div>
+                    <div class="flexBoxValue">{{item["7641"]||""}}</div>
                 </div>
                 <div class="flexBox">
                     <div class="flexBoxKey">Manager</div>
-                    <div class="LeftValue">{{item["7644"]||""}}</div>
+                    <div class="flexBoxValue">{{item["7644"]||""}}</div>
                 </div>
                  <div class="flexBox">
                     <div class="flexBoxKey">Remarks</div>
-                    <div class="LeftValue">{{item["7561"]||""}}</div>
+                    <div class="flexBoxValue">{{item["7561"]||""}}</div>
                 </div>
             </div>
         </div>

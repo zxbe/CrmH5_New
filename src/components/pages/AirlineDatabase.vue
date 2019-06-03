@@ -66,7 +66,7 @@
                     </ul>
                 </div>
                 <div class="fenLeiListCell">
-                    <div class="headTitle">Record CALC</div>
+                    <div class="headTitle">Record in CALC</div>
                     <ul class="mui-table-view">
                         <li class="mui-table-view-cell">
                             <div class="parameterName">Existing Customer
@@ -76,7 +76,7 @@
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
-                            <div class="parameterName">Payment record in CALC
+                            <div class="parameterName">Payment Record in CALC
                             </div>
                             <div class="parameterValue">
                                 {{(detailEntity["7349"]||"") | formatFigure("#,###.##")}}
