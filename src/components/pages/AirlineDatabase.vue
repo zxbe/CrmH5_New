@@ -112,7 +112,7 @@
                 <ul class="mui-table-view mui-table-view-chevron mui-collapse-content">
                     <li class="mui-table-view-cell mui-collapse">
                         <a class="mui-navigate-right">
-                            <div class="listHead">Contact</div>
+                            <div class="listHead">Contacts</div>
                             <span class="calcfont calc-xia"></span>
                         </a>
                         <ul class="mui-table-view">
@@ -380,7 +380,7 @@
                     </ul>
                 </div>
                 <div class="fenLeiListCell">
-                    <div class="headTitle">Market Position</div>
+                    <div class="headTitle">News about this airline</div>
                     <ul class="mui-table-view">
                         <li class="mui-table-view-cell">
                             <div class="parameterName">News link to website
