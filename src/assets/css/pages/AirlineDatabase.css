@@ -135,6 +135,19 @@ input{
 	min-height: 0.34rem;
 	overflow: hidden;
 }
+.stockCode{
+	line-height: 0.32rem;
+	display:inline-block;
+	border: solid 1px #999;
+	background-color: #dddddd;
+	margin-left: 5px;
+	padding: 0 5px;
+	width: 1.4rem;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	vertical-align: middle;
+}
 p.textareaP{
     width: 100%;
 }
