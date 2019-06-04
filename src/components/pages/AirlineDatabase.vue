@@ -1468,7 +1468,7 @@
 
 <script>
 export default {
-    name:'AirlineDatabase',
+    name:'airlineDatabase',
     data() {
         return {
             title: "Airline Database",
