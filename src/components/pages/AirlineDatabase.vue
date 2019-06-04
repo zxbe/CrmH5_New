@@ -1037,7 +1037,8 @@
                             <div class="parameterName">Passenger revenue / Total revenue(%)
                             </div>
                             <div class="parameterValue">
-                                {{(detailEntity["7428"]||"") | formatPercent("##.##")}}
+                                <!-- {{(detailEntity["7428"]||"") | formatPercent("##.##")}} -->
+                                {{(detailEntity["7428"]||"") | calFormat("[7427]/[7426]","##.##",true,detailEntity)}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
@@ -1051,7 +1052,8 @@
                             <div class="parameterName">Cargo revenue / Total revenue(%)
                             </div>
                             <div class="parameterValue">
-                                {{(detailEntity["7430"]||"") | formatPercent("##.##")}}
+                                <!-- {{(detailEntity["7430"]||"") | formatPercent("##.##")}} -->
+                                {{(detailEntity["7430"]||"") | calFormat("[7429]/[7426]","##.##",true,detailEntity)}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
@@ -1065,7 +1067,8 @@
                             <div class="parameterName">Ancillary revenue / Total revenue(%)
                             </div>
                             <div class="parameterValue">
-                                {{(detailEntity["7432"]||"") | formatPercent("##.##")}}
+                                <!-- {{(detailEntity["7432"]||"") | formatPercent("##.##")}} -->
+                                {{(detailEntity["7432"]||"") | calFormat("[7431]/[7426]","##.##",true,detailEntity)}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
@@ -1121,7 +1124,8 @@
                             <div class="parameterName">EBITDAR Margin (Compulsory)
                             </div>
                             <div class="parameterValue">
-                               {{(detailEntity["7440"]||"") | formatPercent("##.##")}}
+                               <!-- {{(detailEntity["7440"]||"") | formatPercent("##.##")}} -->
+                               {{(detailEntity["7440"]||"") | calFormat("[7439]/[7426]","##.##",true,detailEntity)}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
@@ -1135,7 +1139,8 @@
                             <div class="parameterName">EBITDA Margin
                             </div>
                             <div class="parameterValue">
-                                {{(detailEntity["7442"]||"") | formatPercent("##.##")}}
+                                <!-- {{(detailEntity["7442"]||"") | formatPercent("##.##")}} -->
+                                {{(detailEntity["7442"]||"") | calFormat("[7441]/[7426]","##.##",true,detailEntity)}}
                                 </div>
                         </li>
                         <li class="mui-table-view-cell">
@@ -1149,7 +1154,8 @@
                             <div class="parameterName">EBIT margin
                             </div>
                             <div class="parameterValue">
-                                {{(detailEntity["7444"]||"") | formatPercent("##.##")}}
+                                <!-- {{(detailEntity["7444"]||"") | formatPercent("##.##")}} -->
+                                {{(detailEntity["7444"]||"") | calFormat("[7443]/[7426]","##.##",true,detailEntity)}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
@@ -1170,14 +1176,16 @@
                             <div class="parameterName">Unit Revenue (PRASK)
                             </div>
                             <div class="parameterValue">
-                               {{(detailEntity["7447"]||"") | formatFigure("#,###.##")}}
+                               <!-- {{(detailEntity["7447"]||"") | formatFigure("#,###.##")}} -->
+                               {{(detailEntity["7447"]||"") | calFormat("[7427]/[7399]","##.##",true,detailEntity)}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
                             <div class="parameterName">Passenger yield (US cent/km)
                             </div>
                             <div class="parameterValue">
-                                {{(detailEntity["7448"]||"") | formatFigure("#,###.##")}}
+                                <!-- {{(detailEntity["7448"]||"") | formatFigure("#,###.##")}} -->
+                                {{(detailEntity["7448"]||"") | calFormat("[7427]/[7401]","##.##",true,detailEntity)}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
@@ -1259,7 +1267,8 @@
                             <div class="parameterName">Leverage Ratio(%)
                             </div>
                             <div class="parameterValue">
-                                {{(detailEntity["7460"]||"") | formatPercent("##.##")}}
+                                <!-- {{(detailEntity["7460"]||"") | formatPercent("##.##")}} -->
+                                {{(detailEntity["7460"]||"") | calFormat("[7457]/[7458]","##.##",true,detailEntity)}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
@@ -1457,7 +1466,7 @@
 
 <script>
 export default {
-     name:'airlineDatabase',
+    name:'AirlineDatabase',
     data() {
         return {
             title: "Airline Database",
@@ -1472,6 +1481,60 @@ export default {
             LessorparticipationArray:[],
             BankparticipationArray:[],
             FleetDatailsArray:[]
+        }
+    },
+    filters:{
+        //val:值
+        //calExpression:计算表达式
+        //dataFormat:格式化
+        //isPercent:是否百分数
+        calFormat:function(val,calExpression,dataFormat,isPercent,detailEntityTemp){
+            var valNew = "";
+            try{
+                if(tool.isNullOrEmptyObject(calExpression) || tool.isNullOrEmptyObject(detailEntityTemp)){
+                    return valNew;
+                }
+                var calExpressionArray = calExpression.split(/[+-/()*]/);
+                if(tool.isNullOrEmptyObject(calExpressionArray) || calExpressionArray.length <=0 ){
+                    return valNew;
+                }
+
+                for(var i=0;i<calExpressionArray.length;i++){
+                    // console.log(calExpressionArray[i]);
+                    var calExpressionValTemp = calExpressionArray[i].replace("[","").replace("]","");
+                    // console.log(calExpressionValTemp);
+                    var calExpressionVal = detailEntityTemp[calExpressionValTemp]||0;
+                    // console.log(calExpressionVal);
+                    calExpression = calExpression.replace(calExpressionArray[i],calExpressionVal);
+                }
+
+                // console.log(calExpression);
+                valNew = eval(calExpression);
+                // console.log(valNew);
+                if(isNaN(valNew)){
+                    valNew = "";
+                    return valNew;
+                }
+
+                if(tool.isNullOrEmptyObject(dataFormat)){
+                    return valNew;
+                }
+
+                //是否百分数
+                if(isPercent){
+                    valNew = Number(valNew).mul(100);
+                    valNew = tool.formatNum(valNew, tool.getFixNum(dataFormat));
+                    valNew = valNew.toString() + "%";
+                    return valNew;
+                }else{
+                    valNew = tool.formatNum(valNew, tool.getFixNum(dataFormat));
+                    return valNew;
+                }
+                return valNew;
+            }catch(err){
+                console.log(err);
+                return valNew;
+            }
         }
     },
     created: function () {
@@ -1715,7 +1778,7 @@ export default {
                     var hasListTabIDArray = ["7516","7518","7519","7520"];
                     var tabIDTemp = _self.tabID.toString();
                     if(hasListTabIDArray.indexOf(tabIDTemp)>=0){
-                        console.log(tabIDTemp);
+                        // console.log(tabIDTemp);
                         //获取列表数据
 
                         apiUrlTemp = tool.combineRequestUrl(tool.ADBAjaxUrl(), tool.getConfigValue(tool.ADBApi_AirlineDatabase_Query_ListByTab));
@@ -1727,7 +1790,7 @@ export default {
                                 jsonDatas: JSON.stringify(jsonDatas)
                             },
                             success: function (data) {
-                                console.log(data);
+                                // console.log(data);
                                 data = tool.jObject(data);
                                 if (data.Result != 1) {
                                     tool.showText(data.Msg);
