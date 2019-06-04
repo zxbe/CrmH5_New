@@ -23,7 +23,7 @@
                 <div class="flexBoxTwo">
                     <div class="LeftKey">Status</div>
                     <div class="LeftValue">{{item["7643"]||""}}</div>
-                    <div class="rightKey">lease/Own</div>
+                    <div class="rightKey">Lease/Own</div>
                     <div class="LeftValue">{{item["7560"]||""}}</div>
                 </div>
                 <div class="flexBoxTwo">
