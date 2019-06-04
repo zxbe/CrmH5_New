@@ -8,7 +8,7 @@ const store = new Vuex.Store({
         tripmeetingShowModule:0,
         contactsShowModule:0,
         businessShowModule:0,
-        viewType:'calendarView', //Tripmeeting模块视图切换
+        viewType:'listView', //Tripmeeting模块视图切换
         addID:'', //用于记录新增记录的id
         linkePageShow:0 //用于linkePage页面记录显示的模块
     },

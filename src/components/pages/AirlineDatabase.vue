@@ -464,7 +464,9 @@
                     <div class="headTitle">Public listing</div>
                     <ul class="mui-table-view">
                         <li class="mui-table-view-cell">
-                            <div class="parameterName">with stock code and link to IR page
+                            <div class="parameterName stockName">
+                                <span>with stock code and link to IR page</span>
+                                <span class="stockCode">Stock code</span>
                             </div>
                             <div class="parameterValue">
                                 {{detailEntity["7384"]||""}}

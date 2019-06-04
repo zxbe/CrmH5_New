@@ -104,14 +104,15 @@ export default {
                     groupText: lanTool.lanContent('867_视图'),
                     groupName: 'view',
                     type: 'radio',
-                    default: 'calendarView',
-                    items: [{
-                            text: lanTool.lanContent('928_日历视图'),
-                            value: 'calendarView'
-                        },
+                    default: 'listView',
+                    items: [
                         {
                             text: lanTool.lanContent('929_列表视图'),
                             value: 'listView'
+                        },
+                        {
+                            text: lanTool.lanContent('928_日历视图'),
+                            value: 'calendarView'
                         }
                     ]
                 },
@@ -427,7 +428,7 @@ export default {
       if(to.name == 'index'){
           this.$store.commit('REMOVE_ITEM', 'tripmeeting');
           this.$store.commit('SET_TRIPMEETING_SHOW_MODULE', 0);
-          this.$store.commit('SET_VIEW_TYPE', 'calendarView');
+          this.$store.commit('SET_VIEW_TYPE', 'listView');
       }
       next();
     },
