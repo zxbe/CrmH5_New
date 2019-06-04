@@ -213,7 +213,8 @@ export default {
     },
     mounted: function () {
         var _self = this;
-        var fleetDatailsArrayStr = _self.$route.params.fleetDatailsArrayStr;
+        //var fleetDatailsArrayStr = _self.$route.params.fleetDatailsArrayStr;
+        var fleetDatailsArrayStr = _self.$route.query.FleetDatailsArray;
         if(tool.isNullOrEmptyObject(fleetDatailsArrayStr)){
             _self.detailListData = [];
         }else{

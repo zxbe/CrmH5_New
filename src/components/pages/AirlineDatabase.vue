@@ -1571,13 +1571,21 @@ export default {
         //跳转到fleet Details列表
         gotoFleetDetailsList: function () {
             var _self = this;
-            var fleetDatailsArrayStr = JSON.stringify(_self.FleetDatailsArray);
+            // var fleetDatailsArrayStr = JSON.stringify(_self.FleetDatailsArray);
+            // _self.$router.push({
+            //     name:"fleetDetailsList",
+            //     params:{
+            //         fleetDatailsArrayStr:fleetDatailsArrayStr
+            //     }
+            // });
+
+            var urlTemp = "/fleetDetailsList";
+            var parameter = {
+                FleetDatailsArray: JSON.stringify(_self.FleetDatailsArray)
+            };
             _self.$router.push({
-                //path: "/fleetDetailsList",
-                name:"fleetDetailsList",
-                params:{
-                    fleetDatailsArrayStr:fleetDatailsArrayStr
-                }
+                path: urlTemp,
+                query: parameter
             });
         },
         //列表收缩展示
