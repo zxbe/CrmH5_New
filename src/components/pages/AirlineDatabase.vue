@@ -466,7 +466,7 @@
                         <li class="mui-table-view-cell">
                             <div class="parameterName stockName">
                                 <span>with stock code and link to IR page</span>
-                                <span class="stockCode">Stock code</span>
+                                <span class="stockCode">{{detailEntity["7469"]||""}}</span>
                             </div>
                             <div class="parameterValue">
                                 {{detailEntity["7384"]||""}}
