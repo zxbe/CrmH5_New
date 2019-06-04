@@ -1482,7 +1482,7 @@ export default {
             DetailedshareholdingArray:[],
             LessorparticipationArray:[],
             BankparticipationArray:[],
-            FleetDatailsArray:[]
+            // FleetDatailsArray:[]
         }
     },
     filters:{
@@ -1581,7 +1581,10 @@ export default {
 
             var urlTemp = "/fleetDetailsList";
             var parameter = {
-                FleetDatailsArray: JSON.stringify(_self.FleetDatailsArray)
+                //FleetDatailsArray: JSON.stringify(_self.FleetDatailsArray)
+                TabID: _self.tabID,
+                CompanyID: _self.companyID,
+                VersionID: _self.versionID
             };
             _self.$router.push({
                 path: urlTemp,
@@ -1788,6 +1791,11 @@ export default {
                     var hasListTabIDArray = ["7516","7518","7519","7520"];
                     var tabIDTemp = _self.tabID.toString();
                     if(hasListTabIDArray.indexOf(tabIDTemp)>=0){
+
+                        if(tabIDTemp == "7520"){
+                            return true;
+                        }
+
                         // console.log(tabIDTemp);
                         //获取列表数据
 
@@ -1818,7 +1826,8 @@ export default {
                                     _self.LessorparticipationArray = data["LessorparticipationArray"] || [];
                                     _self.BankparticipationArray = data["BankparticipationArray"] || [];
                                 }else if(tabIDTemp == "7520"){
-                                    _self.FleetDatailsArray = data["FleetDatailsArray"] || [];
+                                    //fleetDatail的请求放到列表页面去请求
+                                    //_self.FleetDatailsArray = data["FleetDatailsArray"] || [];
                                 }else{
 
                                 }

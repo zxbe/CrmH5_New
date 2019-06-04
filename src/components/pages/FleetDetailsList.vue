@@ -65,49 +65,16 @@ export default {
         return {
             title: "Fleet Details",
             noData: false, //没数据
-            detailListData: [
-            // {
-            //     MSN: '61370',
-            //     fleetType: '737 Max8',
-            //     engineType: 'LEAP 1B',
-            //     buildYear:'2019',
-            //     status:'On order',
-            //     leaseOrOwn:'lease',
-            //     leaseStart:'2018-10-27',
-            //     leaseEnd:'2020-02-03',
-            //     manufacturer:'Boeing',
-            //     manager:'9Air'
-
-            // },
-            // {
-            //     MSN: 'ZSPD-B73M-83094',
-            //     fleetType: '737 Max8',
-            //     engineType: 'LEAP 1B',
-            //     buildYear:'2019',
-            //     status:'On order',
-            //     leaseOrOwn:'lease',
-            //     leaseStart:'2018-10-27',
-            //     leaseEnd:'2020-02-03',
-            //     manufacturer:'Boeing',
-            //     manager:'Africa Charter Airline'
-            // }, 
-            // {
-            //     MSN: 'XXX1-B73M-105593',
-            //     fleetType: '737 Max8',
-            //     engineType: 'LEAP 1B',
-            //     buildYear:'2019',
-            //     status:'On order',
-            //     leaseOrOwn:'lease',
-            //     leaseStart:'2018-10-27',
-            //     leaseEnd:'2020-02-03',
-            //     manufacturer:'Boeing',
-            //     manager:'9Air'
-            // }
-            ],
+            tabID:"",//模块ID
+            companyID:"",//公司ID
+            versionID:"",//当前年
+            queryCondictionData:[],//过滤条件
+            detailListData: [],
             //侧滑搜索页面数据模型
             searchData: [{
-                    queryfield: "TheName",
+                    queryfield: "7555",
                     text: "NSN",
+                    isRange:false,
                     fieldControlType: "textareaInput",
                     queryType: "string",
                     queryFormat: "",
@@ -116,7 +83,7 @@ export default {
                     queryComparison: "like"
                 },
                 {
-                    queryfield: "TheManufacturer",
+                    queryfield: "7641",
                     text: "Manufacturer",
                     fieldControlType: "textareaInput",
                     queryType: "string",
@@ -125,7 +92,7 @@ export default {
                     queryValue: "",
                     queryComparison: "like"
                 }, {
-                    queryfield: "TheFleetType",
+                    queryfield: "7556",
                     text: "Fleet Type",
                     fieldControlType: "textareaInput",
                     queryType: "string",
@@ -134,7 +101,7 @@ export default {
                     queryValue: "",
                     queryComparison: "like"
                 }, {
-                    queryfield: "TheEngineType",
+                    queryfield: "7557",
                     text: "Engine Type",
                     fieldControlType: "textareaInput",
                     queryType: "string",
@@ -143,7 +110,7 @@ export default {
                     queryValue: "",
                     queryComparison: "like"
                 }, {
-                    queryfield: "TheStatus",
+                    queryfield: "7643",
                     text: "Status",
                     fieldControlType: "textareaInput",
                     queryType: "string",
@@ -152,7 +119,7 @@ export default {
                     queryValue: "",
                     queryComparison: "like"
                 }, {
-                    queryfield: "TheManager",
+                    queryfield: "7644",
                     text: "Manager",
                     fieldControlType: "textareaInput",
                     queryType: "string",
@@ -161,7 +128,7 @@ export default {
                     queryValue: "",
                     queryComparison: "like"
                 }, {
-                    queryfield: "TheLeaseOrOwn",
+                    queryfield: "7560",
                     text: "Lease/Own",
                     fieldControlType: "textareaInput",
                     queryType: "string",
@@ -171,7 +138,7 @@ export default {
                     queryComparison: "like"
                 },
                 {
-                    queryfield: "TheBuildYear",
+                    queryfield: "7642",
                     text: "Build Year",
                     fieldControlType: "dateTimePicker",
                     queryType: "string",
@@ -181,28 +148,30 @@ export default {
                     queryComparison: "like"
                 },
                 {
-                    queryfield: "TheLeaseStart",
-                    nextqueryfield:"TheLeaseStartNext",
+                    queryfield: "7645",
+                    isRange:true,
                     text: "Lease Start",
                     fieldControlType: "dateTimePicker",
-                    queryType: "string",
+                    queryType: "date",
                     selectType:"dateSelect",
                     queryFormat: "",
                     queryRelation: "and",
                     queryValue: "",
-                    queryComparison: "like"
+                    queryComparison: "between",
+                    queryIsChangeBetween:true
                 },
                 {
-                    queryfield: "TheLeaseEnd",
-                    nextqueryfield:"TheLeaseEndNext",
+                    queryfield: "7646",
+                    isRange:true,
                     text: "Lease End",
                     fieldControlType: "dateTimePicker",
-                    queryType: "string",
+                    queryType: "date",
                     selectType:"dateSelect",
                     queryFormat: "",
                     queryRelation: "and",
                     queryValue: "",
-                    queryComparison: "like"
+                    queryComparison: "between",
+                    queryIsChangeBetween:true
                 }
             ],
         }
@@ -214,19 +183,30 @@ export default {
     mounted: function () {
         var _self = this;
         //var fleetDatailsArrayStr = _self.$route.params.fleetDatailsArrayStr;
-        var fleetDatailsArrayStr = _self.$route.query.FleetDatailsArray;
-        if(tool.isNullOrEmptyObject(fleetDatailsArrayStr)){
-            _self.detailListData = [];
-        }else{
-            _self.detailListData = tool.jObject(fleetDatailsArrayStr);
-        }
-        
-        console.log(_self.detailListData);
+        // var fleetDatailsArrayStr = _self.$route.query.FleetDatailsArray;
+        // if(tool.isNullOrEmptyObject(fleetDatailsArrayStr)){
+        //     _self.detailListData = [];
+        // }else{
+        //     _self.detailListData = tool.jObject(fleetDatailsArrayStr);
+        // }
+        // console.log(_self.detailListData);
+
+        _self.tabID = _self.$route.query.TabID || "";
+        _self.companyID = _self.$route.query.CompanyID || "";
+        _self.versionID = _self.$route.query.VersionID || "";
+
+        _self.queryCondictionData = eventBus.queryCondictionData||[];
+        // console.log(_self.queryCondictionData);
+
+        //查询列表数据
+        _self.queryList();
     },
     methods: {
+        //返回上一步
         back: function () {
             this.$router.back(-1);
         },
+        //点击跳转到查询页面
         search: function () {
             var _self = this;
             var parameter = {
@@ -239,6 +219,49 @@ export default {
                         paramStr: JSON.stringify(parameter)
                     }
                 });
+            });
+        },
+        //查询列表数据
+        queryList:function(){
+            //api接口地址
+            var _self = this;
+            var apiUrlTemp = tool.combineRequestUrl(tool.ADBAjaxUrl(), tool.getConfigValue(tool.ADBApi_AirlineDatabase_Query_ListByTab));
+            var jsonDatas = {
+                CurrentLanguageVersion: lanTool.currentLanguageVersion,
+                UserName: tool.UserName(),
+                TabID: _self.tabID,
+                CompanyID: _self.companyID,
+                VersionID: _self.versionID,
+                IsUsePager:false,
+                QueryCondiction:_self.queryCondictionData||[]
+            };
+            $.ajax({
+                async: true,
+                type: "post",
+                url: apiUrlTemp,
+                data: {
+                    jsonDatas: JSON.stringify(jsonDatas)
+                },
+                success: function (data) {
+                    // console.log(data);
+                    data = tool.jObject(data);
+                    if (data.Result != 1) {
+                        tool.showText(data.Msg);
+                        console.log(tool.getMessage(data.Msg));
+                        return true;
+                    }
+                    data = data.Data || {};
+                    _self.detailListData = data["FleetDatailsArray"] || [];
+                    // console.log(_self.detailListData);
+                },
+                error: function (jqXHR, type, error) {
+                    console.log(error);
+                    return true;
+                },
+                complete: function () {
+                    //隐藏虚拟键盘
+                    document.activeElement.blur();
+                }
             });
         }
     },

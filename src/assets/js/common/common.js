@@ -3650,7 +3650,7 @@
 				Format:_curObj.attr("data-queryformat") || "",
 				Relation:_curObj.attr("data-queryrelation") || "",
 				Value:value,
-				Comparison:_curObj.attr("data-querycomparison") || "",
+				Comparison:_curObj.attr("data-querycomparison") || ""
 			};
 			queryCondiction.push(queryCondictionObj);
 		});
@@ -3660,21 +3660,70 @@
 			if(tool.isNullOrEmptyObject(_curObj)){
 				return true;
 			}
-			var value = _curObj.val()||"";
-			if(tool.isNullOrEmptyObject(value)){
+
+			if(_curObj.parent('.endDate').length>=1)
+			{
 				return true;
 			}
-			var queryCondictionObj =
-			{
-				Field:_curObj.attr("data-field") || "",
-				Type:_curObj.attr("data-querytype") || "",
-				Format:_curObj.attr("data-queryformat") || "",
-				Relation:_curObj.attr("data-queryrelation") || "",
-				Value:value,
-        Comparison:_curObj.attr("data-querycomparison") || "",
-        DisplayValue:_curObj.val()||""
-			};
-			queryCondiction.push(queryCondictionObj);
+
+			//若含有startDate,则说明是Range
+			if(_curObj.parent('.startDate').length>=1){
+				var fieldTemp = _curObj.attr("data-field") || "";
+				// console.log(fieldTemp);
+
+				var valArray = [];
+				_curObj = $("[data-field='"+ fieldTemp +"']:eq(0)");
+				if(tool.isNullOrEmptyObject(_curObj)){
+					return true;
+				}
+				var value = _curObj.val()||"";
+				if(!tool.isNullOrEmptyObject(value)){
+					valArray.push(value);
+				}
+
+				_curObj = $("[data-field='"+ fieldTemp +"']:eq(1)");
+				if(tool.isNullOrEmptyObject(_curObj)){
+					return true;
+				}
+				value = _curObj.val()||"";
+				if(!tool.isNullOrEmptyObject(value)){
+					valArray.push(value);
+				}
+
+				if(tool.isNullOrEmptyObject(valArray) || valArray.length<=0){
+					return true;
+				}
+				value = valArray.join(",");
+				var queryCondictionObj =
+				{
+					Field:_curObj.attr("data-field") || "",
+					Type:_curObj.attr("data-querytype") || "",
+					Format:_curObj.attr("data-queryformat") || "",
+					Relation:_curObj.attr("data-queryrelation") || "",
+					Value:value,
+					Comparison:_curObj.attr("data-querycomparison") || "",
+					DisplayValue:value,
+					IsChangeBetween:_curObj.attr("data-queryIsChangeBetween") || "false",
+				};
+				queryCondiction.push(queryCondictionObj);
+
+			}else{
+				var value = _curObj.val()||"";
+				if(tool.isNullOrEmptyObject(value)){
+					return true;
+				}
+				var queryCondictionObj =
+				{
+					Field:_curObj.attr("data-field") || "",
+					Type:_curObj.attr("data-querytype") || "",
+					Format:_curObj.attr("data-queryformat") || "",
+					Relation:_curObj.attr("data-queryrelation") || "",
+					Value:value,
+					Comparison:_curObj.attr("data-querycomparison") || "",
+					DisplayValue:_curObj.val()||""
+				};
+				queryCondiction.push(queryCondictionObj);
+			}
 		});
 
 
