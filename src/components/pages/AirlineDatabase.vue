@@ -1177,7 +1177,7 @@
                             </div>
                             <div class="parameterValue">
                                <!-- {{(detailEntity["7447"]||"") | formatFigure("#,###.##")}} -->
-                               {{(detailEntity["7447"]||"") | calFormat("[7427]/[7399]","##.##",true,detailEntity)}}
+                               {{(detailEntity["7447"]||"") | calFormat("[7427]/[7399]","##.##",false,detailEntity)}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
@@ -1185,7 +1185,7 @@
                             </div>
                             <div class="parameterValue">
                                 <!-- {{(detailEntity["7448"]||"") | formatFigure("#,###.##")}} -->
-                                {{(detailEntity["7448"]||"") | calFormat("[7427]/[7401]","##.##",true,detailEntity)}}
+                                {{(detailEntity["7448"]||"") | calFormat("[7427]/[7401]","##.##",false,detailEntity)}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
