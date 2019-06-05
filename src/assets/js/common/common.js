@@ -3680,8 +3680,7 @@
 				if(!tool.isNullOrEmptyObject(value)){
 					valArray.push(value);
 				}
-
-				_curObj = $("[data-field='"+ fieldTemp +"']:eq(1)");
+				_curObj = $("[data-field='"+ fieldTemp +"_0']:eq(0)");
 				if(tool.isNullOrEmptyObject(_curObj)){
 					return true;
 				}
@@ -3693,6 +3692,14 @@
 				if(tool.isNullOrEmptyObject(valArray) || valArray.length<=0){
 					return true;
 				}
+
+				//若数组的长度不是2，说明用户只填写了其中一个值
+				if(valArray.length!=2){
+					var msgTemp = lanTool.lanContent("1000166_开始值和结束值必须填写！");
+					msgTemp = msgTemp.replace("{0}",(_curObj.attr("data-fieldName") || ""));
+					throw new Error(msgTemp);
+				}
+
 				value = valArray.join(",");
 				var queryCondictionObj =
 				{

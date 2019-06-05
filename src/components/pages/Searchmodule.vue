@@ -79,6 +79,7 @@ export default {
             var _self = this;
             var _curObj = e.target;
             _self.$nextTick(function () {
+              try{
                 tool.ConstructQueryCondiction(_self, function (queryCondictionTemp) {
 
                     eventBus.$emit("queryCondiction", {
@@ -89,6 +90,10 @@ export default {
                     _self.$store.commit('REMOVE_ITEM', 'searchmodule');
                     _self.$router.back(-1);
                 });
+              }catch(err){
+                tool.alert(err.message);
+                return false;
+              }
             })
         },
         //清空查询条件

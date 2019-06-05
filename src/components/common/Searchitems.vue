@@ -33,7 +33,7 @@
                 <div class="endDate">
                     <input class="f14 search-input" type="text"
                     :placeholder="item.text"
-                    :data-field="item.queryfield"
+                    :data-field="item.queryfield+'_0'"
                     :data-fieldControlType="item.fieldControlType"
                     :data-queryType="item.queryType"
                     :data-queryFormat="item.queryFormat"
@@ -54,6 +54,7 @@
               class="dateTimePicker"
               :data-field="item.queryfield"
               :data-fieldControlType="item.fieldControlType"
+              :data-fieldName="item.text"
               :data-TimeType="item.timeType"
               :TypeValue="item.TypeValue"
               :data-queryType="item.queryType"
@@ -70,8 +71,9 @@
           <div class="endDate">
             <input
               class="dateTimePicker"
-              :data-field="item.queryfield"
+              :data-field="item.queryfield+'_0'"
               :data-fieldControlType="item.fieldControlType"
+              :data-fieldName="item.text"
               :data-TimeType="item.timeType"
               :TypeValue="item.TypeValue"
               :data-queryType="item.queryType"
