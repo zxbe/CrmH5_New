@@ -40,9 +40,13 @@
                     <div class="flexBoxKey">Manager</div>
                     <div class="flexBoxValue">{{item["7644"]||""}}</div>
                 </div>
-                 <div class="flexBox">
+                <div class="flexBox">
                     <div class="flexBoxKey">Remarks</div>
-                    <div class="flexBoxValue">{{item["7561"]||""}}</div>
+                    <div class="flexBoxValue">
+                        <p class="textareaP">
+                            <textarea readonly :value="(item['7561']||'')"></textarea>
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -56,6 +60,7 @@ import Header from '../common/Listheader'
 import Nothing from "../common/Nothing"
 import Mixins from '../../mixins/commonlist.js'
 export default {
+    name: "fleetDetailsList",
     mixins: [Mixins],
     components: {
         'Header': Header,
@@ -65,16 +70,16 @@ export default {
         return {
             title: "Fleet Details",
             noData: false, //没数据
-            tabID:"",//模块ID
-            companyID:"",//公司ID
-            versionID:"",//当前年
-            queryCondictionData:[],//过滤条件
+            tabID: "", //模块ID
+            companyID: "", //公司ID
+            versionID: "", //当前年
+            queryCondictionData: [], //过滤条件
             detailListData: [],
             //侧滑搜索页面数据模型
             searchData: [{
                     queryfield: "7555",
                     text: "NSN",
-                    isRange:false,
+                    isRange: false,
                     fieldControlType: "textareaInput",
                     queryType: "string",
                     queryFormat: "",
@@ -149,7 +154,7 @@ export default {
                 // },
                 {
                     queryfield: "7642",
-                    isRange:true,
+                    isRange: true,
                     text: "Build Year",
                     fieldControlType: "dateTimePicker",
                     queryType: "date",
@@ -157,11 +162,11 @@ export default {
                     queryRelation: "and",
                     queryValue: "",
                     queryComparison: "between",
-                    queryIsChangeBetween:true
+                    queryIsChangeBetween: true
                 },
                 {
                     queryfield: "7645",
-                    isRange:true,
+                    isRange: true,
                     text: "Lease Start",
                     fieldControlType: "dateTimePicker",
                     queryType: "date",
@@ -170,27 +175,31 @@ export default {
                     queryRelation: "and",
                     queryValue: "",
                     queryComparison: "between",
-                    queryIsChangeBetween:true
+                    queryIsChangeBetween: true
                 },
                 {
                     queryfield: "7646",
-                    isRange:true,
+                    isRange: true,
                     text: "Lease End",
                     fieldControlType: "dateTimePicker",
                     queryType: "date",
-                    selectType:"dateSelect",
+                    selectType: "dateSelect",
                     queryFormat: "",
                     queryRelation: "and",
                     queryValue: "",
                     queryComparison: "between",
-                    queryIsChangeBetween:true
+                    queryIsChangeBetween: true
                 }
             ],
         }
 
     },
-    created:function(){
+    created: function () {
         $(window).scrollTop(0);
+        //清空右侧筛选数据
+        eventBus.queryCondictionData = null;
+        var _self = this;
+        _self.$store.commit('SET_ITEM', 'fleetDetailsList');
     },
     mounted: function () {
         var _self = this;
@@ -207,12 +216,35 @@ export default {
         _self.companyID = _self.$route.query.CompanyID || "";
         _self.versionID = _self.$route.query.VersionID || "";
 
-        _self.queryCondictionData = eventBus.queryCondictionData||[];
-        // console.log(_self.queryCondictionData);
+        _self.queryCondictionData = eventBus.queryCondictionData || [];
+        console.log(_self.queryCondictionData);
 
         //查询列表数据
         _self.queryList();
     },
+     activated: function () {
+          $(window).scrollTop(0);
+         var _self = this;
+        //var fleetDatailsArrayStr = _self.$route.params.fleetDatailsArrayStr;
+        // var fleetDatailsArrayStr = _self.$route.query.FleetDatailsArray;
+        // if(tool.isNullOrEmptyObject(fleetDatailsArrayStr)){
+        //     _self.detailListData = [];
+        // }else{
+        //     _self.detailListData = tool.jObject(fleetDatailsArrayStr);
+        // }
+        // console.log(_self.detailListData);
+
+        _self.tabID = _self.$route.query.TabID || "";
+        _self.companyID = _self.$route.query.CompanyID || "";
+        _self.versionID = _self.$route.query.VersionID || "";
+
+        _self.queryCondictionData = eventBus.queryCondictionData || [];
+        // console.log(_self.queryCondictionData);
+
+        //查询列表数据
+        _self.queryList();
+     },
+
     methods: {
         //返回上一步
         back: function () {
@@ -222,8 +254,10 @@ export default {
         search: function () {
             var _self = this;
             var parameter = {
-                'dataModule': _self.searchData,
+                'dataModule':_self.searchData,
+                'queryCondictionData':_self.queryCondictionData
             };
+
             _self.$nextTick(function () {
                 _self.$router.push({
                     name: "searchmodule",
@@ -234,7 +268,7 @@ export default {
             });
         },
         //查询列表数据
-        queryList:function(){
+        queryList: function () {
             //api接口地址
             var _self = this;
             var apiUrlTemp = tool.combineRequestUrl(tool.ADBAjaxUrl(), tool.getConfigValue(tool.ADBApi_AirlineDatabase_Query_ListByTab));
@@ -244,8 +278,8 @@ export default {
                 TabID: _self.tabID,
                 CompanyID: _self.companyID,
                 VersionID: _self.versionID,
-                IsUsePager:false,
-                QueryCondiction:_self.queryCondictionData||[]
+                IsUsePager: false,
+                QueryCondiction: _self.queryCondictionData || []
             };
             $.ajax({
                 async: true,
@@ -255,16 +289,29 @@ export default {
                     jsonDatas: JSON.stringify(jsonDatas)
                 },
                 success: function (data) {
-                    // console.log(data);
                     data = tool.jObject(data);
                     if (data.Result != 1) {
                         tool.showText(data.Msg);
-                        console.log(tool.getMessage(data.Msg));
+                        console.log(tool.getMessage(data.Msg));                        
+                        _self.noData = true;
                         return true;
                     }
                     data = data.Data || {};
+                    console.log("data:"+JSON.stringify(data));
+                    //沒有数据的时候
+                    if (data["FleetDatailsArray"].length <= 0) {
+                        _self.noData = true;
+                    }else{
+                        _self.noData = false;
+                    }
                     _self.detailListData = data["FleetDatailsArray"] || [];
-                    // console.log(_self.detailListData);
+                    //渲染textarea                    
+                    _self.$nextTick(function () {
+                        $("textarea").each(function (index, cur) {
+                            $(cur).height('25');
+                            tool.autoTextarea(cur);
+                        });
+                    });
                 },
                 error: function (jqXHR, type, error) {
                     console.log(error);
@@ -277,6 +324,12 @@ export default {
             });
         }
     },
+    beforeRouteLeave: function (to, from, next) {
+        if (to.name == 'airlineDatabase') {
+            this.$store.commit('REMOVE_ITEM', 'fleetDetailsList');
+        }
+        next();
+    }
 }
 </script>
 
@@ -372,6 +425,26 @@ header a {
     word-wrap: break-word;
 }
 
+p.textareaP {
+    width: 100%;
+}
+
+.flexBoxValue .textareaP textarea {
+    width: 100%;
+    outline: none;
+    background-color: transparent;
+    display: block;
+    margin-left: 0;
+    overflow: hidden;
+    position: relative;
+    border: none;
+    font-size: 0.28rem;
+    line-height: 0.34rem;
+    display: block;
+    height: 0.5rem;
+    padding-top: 10px;
+}
+
 .LeftKey,
 .LeftValue,
 .rightKey,
@@ -387,6 +460,7 @@ header a {
     padding: 0 0.1rem;
     word-wrap: break-word;
 }
+
 .LeftKey,
 .rightKey {
     text-align: right;
