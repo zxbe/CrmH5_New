@@ -6,7 +6,7 @@
         <a @click="search" class="calcfont calc-shaixuan2 right"></a>
     </header>
     <div class="pageContent">
-        <div v-show="!noData" class="fleetDetailList" v-for="item in detailListData">
+        <div v-show="!noData" class="fleetDetailList" v-for="item in detailListData" :key="item.SubRowID">
             <div class="fleetDetailListItem">
                 <div class="flexBoxTwo">
                     <div class="LeftKey">MSN</div>
@@ -312,6 +312,8 @@ export default {
                         _self.noData = false;
                     }
                     _self.detailListData = data["FleetDatailsArray"] || [];
+                    console.log("detailListData:"+JSON.stringify( _self.detailListData));
+                    
                     //渲染textarea                    
                     _self.$nextTick(function () {
                         $(window).scrollTop(0);
