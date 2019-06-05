@@ -39,7 +39,7 @@ export default {
             _self.searchData = paramObj.dataModule;
             _self.queryCondictionData = paramObj.queryCondictionData;
         }
-        console.log(_self.queryCondictionData);
+        // console.log(_self.queryCondictionData);
     },
     mounted: function () {
         let _self = this;
@@ -81,12 +81,13 @@ export default {
             _self.$nextTick(function () {
               try{
                 tool.ConstructQueryCondiction(_self, function (queryCondictionTemp) {
-
+                    //console.log("queryCondictionTemp:"+JSON.stringify(queryCondictionTemp));
+                    
                     eventBus.$emit("queryCondiction", {
                         queryCondiction: queryCondictionTemp,
                         isFromConfirm: true
                     });
-                    console.log(queryCondictionTemp);
+                    // console.log(queryCondictionTemp);
                     _self.$store.commit('REMOVE_ITEM', 'searchmodule');
                     _self.$router.back(-1);
                 });
@@ -121,14 +122,14 @@ export default {
             }
             var data = {};
             $.each(_self.queryCondictionData, function (index, item) {
-
                 data[item.Field] = item.Value || '';
                 if (item.DisplayValue) {
                     data[item.Field + '_Name'] = item.DisplayValue || '';
                 }
+            });
+            console.log(_self.queryCondictionData);
+            console.log(data);
 
-            })
-            console.log("_self.queryCondictionData:" + JSON.stringify(_self.queryCondictionData));
 
             //控件赋值操作
             //1>picker
@@ -286,34 +287,27 @@ export default {
                 if (_curObj.parent('.endDate').length >= 1) {
                     return true;
                 }
+
                 var dataField = _curObj.attr("data-field") || "";
                 if (tool.isNullOrEmptyObject(dataField)) {
                     return true;
                 }
-
                 var fieldVal = data[dataField] || "";
-                if (fieldVal.indexOf(",") >= 0) {
-                    //若含有startDate,则说明是Range
-                    if (_curObj.parent('.startDate').length >= 1) {
-                        var fieldTemp = _curObj.attr("data-field") || "";
-                        // console.log(fieldTemp);
 
-                        var valArray = fieldVal.split(",")
-                        console.log("valArray:" + JSON.stringify(valArray));
+                //若含有startDate,则说明是Range
+                if(_curObj.parent('.startDate').length>=1){
+                  var fieldValArray = fieldVal.split(",");
+                  if(fieldValArray.length != 2 || tool.isNullOrEmptyObject(fieldValArray[0]) || tool.isNullOrEmptyObject(fieldValArray[1])){
+                      return true;
+                  }
+                  _curObj.val(fieldValArray[0]);
 
-                        _curObj = $("[data-field='" + fieldTemp + "']:eq(0)");
-                        if (tool.isNullOrEmptyObject(_curObj)) {
-                            return true;
-                        }
-                        _curObj.val(valArray[0]) || "";
-                        _curObj = $("[data-field='" + fieldTemp + "']:eq(1)");
-                        if (tool.isNullOrEmptyObject(_curObj)) {
-                            return true;
-                        }
-                        _curObj.val(valArray[1]) || "";
-                    }
-
-                } else {
+                  _curObj = $("[data-field='"+ dataField +"_0']:eq(0)");
+                  if(tool.isNullOrEmptyObject(_curObj)){
+                    return true;
+                  }
+                  _curObj.val(fieldValArray[1]);
+                }else{
                     var format = _curObj.attr("data-format") || "";
                     if (!tool.isNullOrEmptyObject(format) && !tool.isNullOrEmptyObject(fieldVal)) {
                         fieldVal = fieldVal.ReplaceAll("T", " ");
@@ -322,7 +316,6 @@ export default {
 
                     _curObj.val(fieldVal);
                 }
-
             });
 
             if (!tool.isNullOrEmptyObject(myCallBack)) {

@@ -252,7 +252,10 @@ export default {
         },
         //点击跳转到查询页面
         search: function () {
+           
             var _self = this;
+             console.log("_self.queryCondictionData:"+_self.queryCondictionData);
+            
             var parameter = {
                 'dataModule':_self.searchData,
                 'queryCondictionData':_self.queryCondictionData
@@ -292,12 +295,12 @@ export default {
                     data = tool.jObject(data);
                     if (data.Result != 1) {
                         tool.showText(data.Msg);
-                        console.log(tool.getMessage(data.Msg));                        
+                        console.log(tool.getMessage(data.Msg));
                         _self.noData = true;
                         return true;
                     }
                     data = data.Data || {};
-                    console.log("data:"+JSON.stringify(data));
+                    // console.log("data:"+JSON.stringify(data));
                     //沒有数据的时候
                     if (data["FleetDatailsArray"].length <= 0) {
                         _self.noData = true;
@@ -307,8 +310,9 @@ export default {
                     _self.detailListData = data["FleetDatailsArray"] || [];
                     //渲染textarea                    
                     _self.$nextTick(function () {
+                        $(window).scrollTop(0);
                         $("textarea").each(function (index, cur) {
-                            $(cur).height('25');
+                            // $(cur).height('25');
                             tool.autoTextarea(cur);
                         });
                     });

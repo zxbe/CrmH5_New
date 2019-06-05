@@ -3676,6 +3676,7 @@
 				if(tool.isNullOrEmptyObject(_curObj)){
 					return true;
 				}
+				//fieldTemp = _curObj.attr("data-field") || "";
 				var value = _curObj.val()||"";
 				if(!tool.isNullOrEmptyObject(value)){
 					valArray.push(value);
@@ -3699,11 +3700,10 @@
 					msgTemp = msgTemp.replace("{0}",(_curObj.attr("data-fieldName") || ""));
 					throw new Error(msgTemp);
 				}
-
 				value = valArray.join(",");
 				var queryCondictionObj =
 				{
-					Field:_curObj.attr("data-field") || "",
+					Field:fieldTemp,
 					Type:_curObj.attr("data-querytype") || "",
 					Format:_curObj.attr("data-queryformat") || "",
 					Relation:_curObj.attr("data-queryrelation") || "",
