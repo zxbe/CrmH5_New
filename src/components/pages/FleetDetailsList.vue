@@ -222,9 +222,8 @@ export default {
         //查询列表数据
         _self.queryList();
     },
-     activated: function () {
-          $(window).scrollTop(0);
-         var _self = this;
+    activated: function () {
+        var _self = this;
         //var fleetDatailsArrayStr = _self.$route.params.fleetDatailsArrayStr;
         // var fleetDatailsArrayStr = _self.$route.query.FleetDatailsArray;
         // if(tool.isNullOrEmptyObject(fleetDatailsArrayStr)){
@@ -241,9 +240,14 @@ export default {
         _self.queryCondictionData = eventBus.queryCondictionData || [];
         // console.log(_self.queryCondictionData);
 
-        //查询列表数据
-        _self.queryList();
-     },
+        //获取是否是从搜索页面点击确定按钮返回来的标志
+        var fromSearchBtn = eventBus.fromSearchBtn || false;
+        eventBus.fromSearchBtn = false;
+        if (fromSearchBtn) {
+            //查询列表数据
+            _self.queryList();
+        }
+    },
 
     methods: {
         //返回上一步
@@ -252,13 +256,13 @@ export default {
         },
         //点击跳转到查询页面
         search: function () {
-           
+
             var _self = this;
-             console.log("_self.queryCondictionData:"+_self.queryCondictionData);
-            
+            console.log("_self.queryCondictionData:" + _self.queryCondictionData);
+
             var parameter = {
-                'dataModule':_self.searchData,
-                'queryCondictionData':_self.queryCondictionData
+                'dataModule': _self.searchData,
+                'queryCondictionData': _self.queryCondictionData
             };
 
             _self.$nextTick(function () {
@@ -304,7 +308,7 @@ export default {
                     //沒有数据的时候
                     if (data["FleetDatailsArray"].length <= 0) {
                         _self.noData = true;
-                    }else{
+                    } else {
                         _self.noData = false;
                     }
                     _self.detailListData = data["FleetDatailsArray"] || [];
