@@ -414,7 +414,7 @@ header a {
     display: inline-block;
     width: 30%;
     box-sizing: border-box;
-    font-size: 0.28rem;
+    font-size: 0.24rem;
     line-height: 0.36rem;
     text-align: right;
     color: #929292;
@@ -463,14 +463,13 @@ p.textareaP {
     width: 25%;
     display: inline-block;
     box-sizing: border-box;
-    font-size: 0.28rem;
+    font-size: 0.24rem;
     line-height: 0.36rem;
     text-align: center;
     margin: auto 0;
     padding: 0 0.1rem;
     word-wrap: break-word;
 }
-
 .LeftKey,
 .rightKey {
     text-align: right;
@@ -480,5 +479,6 @@ p.textareaP {
 .LeftValue,
 .rightValue {
     text-align: left;
+    font-size: 0.28rem;
 }
 </style>
