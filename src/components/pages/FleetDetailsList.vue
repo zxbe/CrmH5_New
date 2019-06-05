@@ -137,15 +137,27 @@ export default {
                     queryValue: "",
                     queryComparison: "like"
                 },
+                // {
+                //     queryfield: "7642",
+                //     text: "Build Year",
+                //     fieldControlType: "dateTimePicker",
+                //     queryType: "string",
+                //     queryFormat: "",
+                //     queryRelation: "and",
+                //     queryValue: "",
+                //     queryComparison: "like"
+                // },
                 {
                     queryfield: "7642",
+                    isRange:true,
                     text: "Build Year",
                     fieldControlType: "dateTimePicker",
-                    queryType: "string",
+                    queryType: "date",
                     queryFormat: "",
                     queryRelation: "and",
                     queryValue: "",
-                    queryComparison: "like"
+                    queryComparison: "between",
+                    queryIsChangeBetween:true
                 },
                 {
                     queryfield: "7645",
@@ -153,7 +165,7 @@ export default {
                     text: "Lease Start",
                     fieldControlType: "dateTimePicker",
                     queryType: "date",
-                    selectType:"dateSelect",
+                    // selectType:"dateSelect",
                     queryFormat: "",
                     queryRelation: "and",
                     queryValue: "",

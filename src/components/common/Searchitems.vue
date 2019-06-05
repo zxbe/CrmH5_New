@@ -65,7 +65,7 @@
             >
           </div>
 
-          <div class="lianxian">--</div>
+          <div class="lianxian">~</div>
 
           <div class="endDate">
             <input
