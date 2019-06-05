@@ -1819,18 +1819,13 @@ export default {
 
                                 if(tabIDTemp == "7516"){
                                     _self.ContactsArray = data["ContactsArray"] || [];
-                                     console.log("_self.ContactsArray:"+JSON.stringify(_self.ContactsArray));
                                 }else if(tabIDTemp == "7518"){
                                     _self.MarketMetricsArray = data["MarketMetricsArray"] || [];
-                                    console.log("_self.MarketMetricsArray:"+JSON.stringify(_self.MarketMetricsArray));
                                 }else if(tabIDTemp == "7519"){
                                     _self.DetailedshareholdingArray = data["DetailedshareholdingArray"] || [];
-                                    console.log("_self.DetailedshareholdingArray:"+JSON.stringify(_self.DetailedshareholdingArray));
                                     
                                     _self.LessorparticipationArray = data["LessorparticipationArray"] || [];
-                                    console.log("_self.LessorparticipationArray:"+JSON.stringify(_self.LessorparticipationArray));
                                     _self.BankparticipationArray = data["BankparticipationArray"] || [];
-                                    console.log("_self.BankparticipationArray:"+JSON.stringify(_self.BankparticipationArray));
                                 }else if(tabIDTemp == "7520"){
                                     //fleetDatail的请求放到列表页面去请求
                                     //_self.FleetDatailsArray = data["FleetDatailsArray"] || [];
