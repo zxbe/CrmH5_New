@@ -148,7 +148,7 @@
                                 </div>
                             </li> -->
 
-                            <li v-for="item in ContactsArray" class="mui-table-view-cell">
+                            <li v-for="item in ContactsArray" class="mui-table-view-cell" :key="item.SubRowID">
                                 <div class="flexBox">
                                     <div class="flexBoxKey">Name</div>
                                     <div class="flexBoxValue">{{item["7533"]||""}}</div>
@@ -427,7 +427,7 @@
                             <span class="calcfont calc-xia"></span>
                         </a>
                         <ul class="mui-table-view">
-                            <li v-for="item in MarketMetricsArray" class="mui-table-view-cell">
+                            <li v-for="item in MarketMetricsArray" class="mui-table-view-cell" :key="item.SubRowID">
                                 <div class="flexBox">
                                     <div class="flexBoxKey">Hubs / Bases</div>
                                     <div class="flexBoxValue">{{item["7547"]||""}}</div>
@@ -552,7 +552,7 @@
                                  <span class="calcfont calc-xia"></span>
                                 </a>
                         <ul class="mui-table-view">
-                            <li v-for="item in DetailedshareholdingArray" class="mui-table-view-cell">
+                            <li v-for="item in DetailedshareholdingArray" class="mui-table-view-cell" :key="item.SubRowID">
                                 <div class="flexBox">
                                     <div class="flexBoxKey">Shareholder</div>
                                     <div class="flexBoxValue">{{item["7540"]||""}}</div>
@@ -572,7 +572,7 @@
                             <span class="calcfont calc-xia"></span>
                         </a>
                         <ul class="mui-table-view">
-                            <li v-for="item in LessorparticipationArray" class="mui-table-view-cell">
+                            <li v-for="item in LessorparticipationArray" class="mui-table-view-cell" :key="item.SubRowID">
                                 <div class="flexBox">
                                     <div class="flexBoxKey">Lessor</div>
                                     <div class="flexBoxValue">{{item["7549"]||""}}</div>
@@ -593,7 +593,7 @@
                             <span class="calcfont calc-xia"></span>
                         </a>
                         <ul class="mui-table-view">
-                            <li v-for="item in BankparticipationArray" class="mui-table-view-cell">
+                            <li v-for="item in BankparticipationArray" class="mui-table-view-cell" :key="item.SubRowID">
                                 <div class="flexBox">
                                     <div class="flexBoxKey">Bank</div>
                                     <div class="flexBoxValue">{{item["7551"]||""}}</div>
@@ -1819,12 +1819,18 @@ export default {
 
                                 if(tabIDTemp == "7516"){
                                     _self.ContactsArray = data["ContactsArray"] || [];
+                                     console.log("_self.ContactsArray:"+JSON.stringify(_self.ContactsArray));
                                 }else if(tabIDTemp == "7518"){
                                     _self.MarketMetricsArray = data["MarketMetricsArray"] || [];
+                                    console.log("_self.MarketMetricsArray:"+JSON.stringify(_self.MarketMetricsArray));
                                 }else if(tabIDTemp == "7519"){
                                     _self.DetailedshareholdingArray = data["DetailedshareholdingArray"] || [];
+                                    console.log("_self.DetailedshareholdingArray:"+JSON.stringify(_self.DetailedshareholdingArray));
+                                    
                                     _self.LessorparticipationArray = data["LessorparticipationArray"] || [];
+                                    console.log("_self.LessorparticipationArray:"+JSON.stringify(_self.LessorparticipationArray));
                                     _self.BankparticipationArray = data["BankparticipationArray"] || [];
+                                    console.log("_self.BankparticipationArray:"+JSON.stringify(_self.BankparticipationArray));
                                 }else if(tabIDTemp == "7520"){
                                     //fleetDatail的请求放到列表页面去请求
                                     //_self.FleetDatailsArray = data["FleetDatailsArray"] || [];
