@@ -51,6 +51,9 @@
             </div>
         </div>
         <nothing v-show="noData" style="padding-top:0.8rem;"></nothing>
+        <div class="topping">
+            <span class="calcfont calc-icon_zhiding" @click="goTopping"></span>
+        </div>
     </div>
 </div>
 </template>
@@ -250,6 +253,12 @@ export default {
     },
 
     methods: {
+        //点击回到顶部
+        goTopping:function(){
+            console.log("top");
+            
+           $(window).scrollTop(0);
+        },
         //返回上一步
         back: function () {
             this.$router.back(-1);
@@ -483,5 +492,21 @@ p.textareaP {
 .rightValue {
     text-align: left;
     font-size: 0.28rem;
+}
+/* 置顶 */
+.topping{
+    position: fixed;
+    bottom: 1rem;
+    right: 0.6rem;
+    width: 0.88rem;
+    height: 0.88rem;
+    z-index: 20;
+    border-radius: 0.16rem;
+}
+.topping span{
+    padding: 0.04rem;
+    margin: 0;
+    font-size: 0.8rem;
+    color: rgba(0, 0, 0, 0.3);
 }
 </style>
