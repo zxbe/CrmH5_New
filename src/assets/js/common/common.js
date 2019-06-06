@@ -2184,7 +2184,7 @@ import config from '../../configfile/config.js'
    * pageSource:页面来源
    *
    */
-  tool.InitInnerDataList = function(vueObj, fromType, groupID, queryCondiction, myCallBack, pageSource, groupBy){
+  tool.InitInnerDataList = function(vueObj, fromType, groupID, queryCondiction, myCallBack, pageSource, groupBy,pageType){
 
       if(tool.isNullOrEmptyObject(vueObj) || tool.isNullOrEmptyObject(fromType) || tool.isNullOrEmptyObject(groupID)){
           return ;
@@ -2245,8 +2245,9 @@ import config from '../../configfile/config.js'
         GroupID: groupID,
         _RegisterCode: tool.RegisterCode(),
         QueryCondiction: JSON.stringify(queryCondiction),
-        // GroupBy:groupBy
+        PageType: (pageType == undefined || pageType == null) ? 0 : pageType
       };
+
       if(pageSource != undefined && pageSource == 'index'){
           jsonDatasTemp.RecentDay = 7;
       }else{

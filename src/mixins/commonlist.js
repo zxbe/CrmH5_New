@@ -248,6 +248,7 @@ export default{
                         }
 
                         let groupBy = _self.groupBy == undefined ? '' : _self.groupBy;
+                        console.log(_self.showPage);
 
                         tool.InitInnerDataList(_self, fromType, groupID, allQueryData, function(){
                             _self.$nextTick(function () {
@@ -259,7 +260,7 @@ export default{
                                   _self.contactsToggle();
                                 }
                             })
-                        }, '', groupBy);
+                        }, '', groupBy, _self.showPage);
                     }
                 }
             );
