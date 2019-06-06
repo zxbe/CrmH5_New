@@ -785,7 +785,7 @@ import config from '../../configfile/config.js'
       //写入缓存
       tool.setSessionStorageItem(tool.cache_Config, JSON.stringify(jsonTemp));
     }
-/*
+		/*
 		$.ajaxSettings.async = false;
 		try {
 			$.getJSON(tool.configFilePath, function (data) {
