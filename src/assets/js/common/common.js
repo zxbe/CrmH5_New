@@ -227,6 +227,9 @@
 }(jQuery, window));
 
 
+import config from '../../configfile/config.js'
+
+
 /**
  * 公共方法
  **/
@@ -236,11 +239,12 @@
 	/*
 	 * 配置文件路径
 	 */
-	tool.configFilePath = "/static/configfile/config.json";
+	// tool.configFilePath = "/static/configfile/config.json";
 	/*
 	 * ajaxUrl:请求的api地址
 	 */
-	tool.config_ajaxUrl = "ajaxUrl";
+  tool.config_ajaxUrl = "ajaxUrl";
+  tool.config_ajaxUrl_1 = "ajaxUrl_1";
 	/*
 	 * 多语言查询接口地址
 	 */
@@ -459,7 +463,7 @@
 	 * 根据模块Id查询列表数据
 	 */
 	tool.ADBApi_AirlineDatabase_Query_ListByTab = "ADBApi_AirlineDatabase_Query_ListByTab";
-	
+
 
 	/*
 	 * currentLanguageVersion:当前语言版本
@@ -618,7 +622,7 @@
     if (isMinus) {
         s = Math.abs(s)
     };
-    
+
     s = parseFloat((s + "").replace(/[^\d\.-]/g, "")).toFixed(n) + "";
     //console.log("dylan_s:" + s);
 
@@ -776,10 +780,13 @@
 		if (!tool.isNullOrEmptyObject(jsonTemp)) {
 			jsonTemp = tool.jObject(jsonTemp);
 			return jsonTemp;
-		}
-
+		}else{
+      jsonTemp = tool.jObject(config);
+      //写入缓存
+      tool.setSessionStorageItem(tool.cache_Config, JSON.stringify(jsonTemp));
+    }
+/*
 		$.ajaxSettings.async = false;
-
 		try {
 			$.getJSON(tool.configFilePath, function (data) {
 				if (tool.isNullOrEmptyObject(data)) {
@@ -795,7 +802,8 @@
 		} finally {
 			$.ajaxSettings.async = true;
 			return jsonTemp;
-		}
+    }
+    */
 	};
 
 	/*

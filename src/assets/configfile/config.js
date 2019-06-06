@@ -1,4 +1,4 @@
-{
+let json = {
 	"ajaxUrl":"http://197.7.50.186:8989/crm/ApiHome/ApiAction",
 	"AppID":114,
 	"LanguageVersionsHandle_Query":"LanguageVersionsHandle_Query",
@@ -56,3 +56,5 @@
 	"ADBApi_AirlineDatabase_Query_InfoDetailByTab":"/AirlineDatabase/Query_InfoDetailByTab",
 	"ADBApi_AirlineDatabase_Query_ListByTab":"/AirlineDatabase/Query_ListByTab"
 }
+
+export default json;
