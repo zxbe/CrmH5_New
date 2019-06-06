@@ -288,6 +288,7 @@ export default {
                 IsUsePager: false,
                 QueryCondiction: _self.queryCondictionData || []
             };
+            var loadingIndexClassName = tool.showLoading();
             $.ajax({
                 async: true,
                 type: "post",
@@ -296,6 +297,7 @@ export default {
                     jsonDatas: JSON.stringify(jsonDatas)
                 },
                 success: function (data) {
+                    tool.hideLoading(loadingIndexClassName);
                     data = tool.jObject(data);
                     if (data.Result != 1) {
                         tool.showText(data.Msg);
@@ -324,6 +326,7 @@ export default {
                     });
                 },
                 error: function (jqXHR, type, error) {
+                    tool.hideLoading(loadingIndexClassName);
                     console.log(error);
                     return true;
                 },
