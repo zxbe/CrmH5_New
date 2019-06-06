@@ -277,7 +277,8 @@ a.mui-navigate-right .listHead {
 	display: inline-block;
     height: .8rem;
 	line-height: .8rem;
-	font-size: 0.3rem;
+	font-size: 0.28rem;
+	font-weight: 700;
 	max-width: calc(100% - 1rem);
 	box-sizing: border-box;
     width: auto;
