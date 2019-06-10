@@ -6,49 +6,59 @@
         <a @click="search" class="calcfont calc-shaixuan2 right"></a>
     </header>
     <div class="pageContent">
-        <div v-show="!noData" class="fleetDetailList" v-for="item in detailListData" :key="item.SubRowID">
-            <div class="fleetDetailListItem">
-                <div class="flexBoxTwo">
-                    <div class="LeftKey">MSN</div>
-                    <div class="LeftValue">{{item["7555"]||""}}</div>
-                    <div class="rightKey">Fleet Type</div>
-                    <div class="LeftValue">{{item["7556"]||""}}</div>
-                </div>
-                <div class="flexBoxTwo">
-                    <div class="LeftKey">Engine Type</div>
-                    <div class="LeftValue">{{item["7557"]||""}}</div>
-                    <div class="rightKey">Build Year</div>
-                    <div class="LeftValue">{{item["7642"]||""}}</div>
-                </div>
-                <div class="flexBoxTwo">
-                    <div class="LeftKey">Status</div>
-                    <div class="LeftValue">{{item["7643"]||""}}</div>
-                    <div class="rightKey">Lease/Own</div>
-                    <div class="LeftValue">{{item["7560"]||""}}</div>
-                </div>
-                <div class="flexBoxTwo">
-                    <div class="LeftKey">Lease Start</div>
-                    <div class="LeftValue">{{(item["7645"]||"") | abdDateFormat("yyyy/MM/dd")}}</div>
-                    <div class="rightKey">Lease End</div>
-                    <div class="LeftValue">{{(item["7646"]||"") | abdDateFormat("yyyy/MM/dd")}}</div>
-                </div>
-                <div class="flexBox">
-                    <div class="flexBoxKey">Manufacturer</div>
-                    <div class="flexBoxValue">{{item["7641"]||""}}</div>
-                </div>
-                <div class="flexBox">
-                    <div class="flexBoxKey">Manager</div>
-                    <div class="flexBoxValue">{{item["7644"]||""}}</div>
-                </div>
-                <div class="flexBox">
-                    <div class="flexBoxKey">Remarks</div>
-                    <div class="flexBoxValue">
-                        <p class="textareaP">
-                            <textarea readonly :value="(item['7561']||'')"></textarea>
-                        </p>
-                    </div>
-                </div>
-            </div>
+        <div v-show="!noData" class="fleetDetailList">
+            <vue-scroll
+              ref="vs"
+              :ops="ops"
+              @refresh-start="refreshStart"
+              @refresh-before-deactivate="refreshBeforeDeactive"
+              @load-before-deactivate="loadBeforeDeactive"
+              @load-start="loadStart"
+            >
+              <div v-for="item in detailListData" :key="item.SubRowID" class="fleetDetailListItem">
+                  <div class="flexBoxTwo">
+                      <div class="LeftKey">MSN</div>
+                      <div class="LeftValue">{{item["7555"]||""}}</div>
+                      <div class="rightKey">Fleet Type</div>
+                      <div class="LeftValue">{{item["7556"]||""}}</div>
+                  </div>
+                  <div class="flexBoxTwo">
+                      <div class="LeftKey">Engine Type</div>
+                      <div class="LeftValue">{{item["7557"]||""}}</div>
+                      <div class="rightKey">Build Year</div>
+                      <div class="LeftValue">{{item["7642"]||""}}</div>
+                  </div>
+                  <div class="flexBoxTwo">
+                      <div class="LeftKey">Status</div>
+                      <div class="LeftValue">{{item["7643"]||""}}</div>
+                      <div class="rightKey">Lease/Own</div>
+                      <div class="LeftValue">{{item["7560"]||""}}</div>
+                  </div>
+                  <div class="flexBoxTwo">
+                      <div class="LeftKey">Lease Start</div>
+                      <div class="LeftValue">{{(item["7645"]||"") | abdDateFormat("yyyy/MM/dd")}}</div>
+                      <div class="rightKey">Lease End</div>
+                      <div class="LeftValue">{{(item["7646"]||"") | abdDateFormat("yyyy/MM/dd")}}</div>
+                  </div>
+                  <div class="flexBox">
+                      <div class="flexBoxKey">Manufacturer</div>
+                      <div class="flexBoxValue">{{item["7641"]||""}}</div>
+                  </div>
+                  <div class="flexBox">
+                      <div class="flexBoxKey">Manager</div>
+                      <div class="flexBoxValue">{{item["7644"]||""}}</div>
+                  </div>
+                  <div class="flexBox">
+                      <div class="flexBoxKey">Remarks</div>
+                      <div class="flexBoxValue">
+                          <p class="textareaP">
+                              <textarea readonly :value="(item['7561']||'')"></textarea>
+                          </p>
+                      </div>
+                  </div>
+              </div>
+
+            </vue-scroll>
         </div>
         <nothing v-show="noData" style="padding-top:0.8rem;"></nothing>
         <div class="topping">
@@ -62,22 +72,55 @@
 import Header from '../common/Listheader'
 import Nothing from "../common/Nothing"
 import Mixins from '../../mixins/commonlist.js'
+import vuescroll from 'vuescroll/dist/vuescroll-slide';
+import 'vuescroll/dist/vuescroll.css';
 export default {
     name: "fleetDetailsList",
     mixins: [Mixins],
     components: {
         'Header': Header,
-        'nothing': Nothing
+        'nothing': Nothing,
+        'vue-scroll':vuescroll
     },
     data() {
+        const ops = {
+          vuescroll: {
+            mode: 'slide',
+            pullRefresh: {
+              enable:true,
+              tips:{
+                deactive: '下拉刷新',
+                active: '释放刷新',
+                start: '刷新中...',
+                beforeDeactive: '刷新成功!'
+              }
+            },
+            pushLoad: {
+              enable: true,
+              auto: false,
+              autoLoadDistance: 10,
+              tips:{
+                deactive: '上拉加载',
+                active: '释放加载',
+                start: '加载中...',
+                beforeDeactive: '加载成功!'
+              }
+            }
+          },
+          bar: {
+              opacity:0,
+          }
+        };
         return {
+            ops,
             title: "Fleet Details",
             noData: false, //没数据
             tabID: "", //模块ID
             companyID: "", //公司ID
             versionID: "", //当前年
             queryCondictionData: [], //过滤条件
-            detailListData: [],
+            detailListData: [
+            ],
             //侧滑搜索页面数据模型
             searchData: [{
                     queryfield: "7555",
@@ -206,14 +249,6 @@ export default {
     },
     mounted: function () {
         var _self = this;
-        //var fleetDatailsArrayStr = _self.$route.params.fleetDatailsArrayStr;
-        // var fleetDatailsArrayStr = _self.$route.query.FleetDatailsArray;
-        // if(tool.isNullOrEmptyObject(fleetDatailsArrayStr)){
-        //     _self.detailListData = [];
-        // }else{
-        //     _self.detailListData = tool.jObject(fleetDatailsArrayStr);
-        // }
-        // console.log(_self.detailListData);
 
         _self.tabID = _self.$route.query.TabID || "";
         _self.companyID = _self.$route.query.CompanyID || "";
@@ -227,14 +262,6 @@ export default {
     },
     activated: function () {
         var _self = this;
-        //var fleetDatailsArrayStr = _self.$route.params.fleetDatailsArrayStr;
-        // var fleetDatailsArrayStr = _self.$route.query.FleetDatailsArray;
-        // if(tool.isNullOrEmptyObject(fleetDatailsArrayStr)){
-        //     _self.detailListData = [];
-        // }else{
-        //     _self.detailListData = tool.jObject(fleetDatailsArrayStr);
-        // }
-        // console.log(_self.detailListData);
 
         _self.tabID = _self.$route.query.TabID || "";
         _self.companyID = _self.$route.query.CompanyID || "";
@@ -253,10 +280,36 @@ export default {
     },
 
     methods: {
+        refreshStart:function(vsInstance, refreshDom, done){
+            setTimeout(() => {
+
+              done();
+            }, 1500);
+        },
+        refreshBeforeDeactive:function(vsInstance, refreshDom, done){
+            let _self = this;
+            //  console.log('refreshBeforeDeactive');
+            setTimeout(() => {
+
+              done();
+            }, 500);
+        },
+        loadStart:function(vsInstance, refreshDom, done){
+            setTimeout(() => {
+
+              done();
+            }, 1500);
+        },
+        loadBeforeDeactive:function(vsInstance, refreshDom, done){
+            setTimeout(() => {
+
+              done();
+            }, 500);
+        },
         //点击回到顶部
         goTopping:function(){
             console.log("top");
-            
+
            $(window).scrollTop(0);
         },
         //返回上一步
@@ -323,9 +376,9 @@ export default {
                         _self.noData = false;
                     }
                     _self.detailListData = data["FleetDatailsArray"] || [];
-                    console.log("detailListData:"+JSON.stringify( _self.detailListData));
-                    
-                    //渲染textarea                    
+                    // console.log("detailListData:"+JSON.stringify( _self.detailListData));
+
+                    //渲染textarea
                     _self.$nextTick(function () {
                         $(window).scrollTop(0);
                         $("textarea").each(function (index, cur) {
@@ -407,8 +460,16 @@ header a {
 }
 
 .pageContent {
-    padding-top: 0.88rem;
+
 }
+.fleetDetailList{
+  position: fixed;
+  top:0.88rem;
+  left: 0;
+  right: 0;
+  bottom:0;
+}
+
 
 .fleetDetailListItem {
     padding: 0.2rem 0;
