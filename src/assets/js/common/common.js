@@ -1797,7 +1797,7 @@ import config from '../../configfile/config.js'
    * pageSource:页面来源
    *
    */
-  tool.InitGrouplist = function(vueObj, fromType, queryCondiction, myCallBack, pageSource, groupBy){
+  tool.InitGrouplist = function(vueObj, fromType, queryCondiction, myCallBack, pageSource, groupBy,pageType){
 
       if(tool.isNullOrEmptyObject(fromType) || tool.isNullOrEmptyObject(fromType)){
           return ;
@@ -1847,17 +1847,21 @@ import config from '../../configfile/config.js'
           break;
       }
 
-    //请求地址
+
+		console.log(pageType);
+		//请求地址
 		var urlTemp = tool.AjaxBaseUrl();
 		//传入参数
 		var jsonDatasTemp = {
-        CurrentLanguageVersion: lanTool.currentLanguageVersion,
-        UserName: tool.UserName(),
-        _ControlName: controlName,
-        _RegisterCode: tool.RegisterCode(),
-        QueryCondiction: JSON.stringify(queryCondiction),
-        // GroupBy:groupBy
-    };
+		CurrentLanguageVersion: lanTool.currentLanguageVersion,
+		UserName: tool.UserName(),
+		_ControlName: controlName,
+		_RegisterCode: tool.RegisterCode(),
+		QueryCondiction: JSON.stringify(queryCondiction),
+		// GroupBy:groupBy
+		PageType: (pageType == undefined || pageType == null) ? 0 : pageType
+	};
+	
     if(pageSource != undefined && pageSource == 'index'){
         jsonDatasTemp.RecentDay = 7;
     }else{

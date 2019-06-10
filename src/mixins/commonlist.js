@@ -306,7 +306,7 @@ export default{
                 //把列表中的open类清楚
                 $('.open').removeClass('open');
 
-            }, '', groupBy);
+            }, '', groupBy,_self.showPage);
 
         }
 
