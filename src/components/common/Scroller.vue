@@ -100,10 +100,19 @@ export default {
       refreshStart:function(vsInstance, refreshDom, done){
           let _self = this;
           //调用父组件方法请求数据
-          setTimeout(() => {
+          _self.$parent.queryList('pullRefresh',function(data){
+              console.log('刷新');
 
-            done();
-          }, 1500);
+              _self.notMoreData = true;
+              if(_self.config.pushLoadEnable || _self.config.pushLoadEnable == undefined){
+                  _self.ops.vuescroll.pushLoad.enable = true;
+              }
+
+              done();
+          })
+          // setTimeout(() => {
+          //   done();
+          // }, 1500);
       },
       refreshBeforeDeactive:function(vsInstance, refreshDom, done){
           let _self = this;
@@ -114,10 +123,19 @@ export default {
       loadStart:function(vsInstance, refreshDom, done){
           let _self = this;
           //调用父组件方法请求数据
-          setTimeout(() => {
+          _self.$parent.queryList('pushLoad',function(data){
+              console.log('加载了一页数据');
 
-            done();
-          }, 1500);
+              //最后一页
+              if(data.length <= 0){
+                  _self.notMoreData = true;
+                  _self.ops.vuescroll.pushLoad.enable = false;
+              }
+              done();
+          })
+          // setTimeout(() => {
+          //   done();
+          // }, 1500);
       },
       loadBeforeDeactive:function(vsInstance, refreshDom, done){
           let _self = this;
@@ -128,7 +146,6 @@ export default {
 
       goTopping:function(){
           let _self = this;
-
           _self.$refs['vs'].scrollTo(
             {
               y: 20

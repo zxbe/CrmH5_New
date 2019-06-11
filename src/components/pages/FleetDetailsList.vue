@@ -52,14 +52,12 @@
               </div>
         </vue-scroll>
 
-
     </div>
 </div>
 </template>
 
 <script>
-import Header from '../common/Listheader'
-// import Nothing from "../common/Nothing"
+
 import Mixins from '../../mixins/commonlist.js'
 import vuescroll from '../common/Scroller';
 
@@ -67,8 +65,6 @@ export default {
     name: "fleetDetailsList",
     mixins: [Mixins],
     components: {
-        'Header': Header,
-        // 'nothing': Nothing,
         'vue-scroll':vuescroll
     },
     data() {
@@ -199,8 +195,9 @@ export default {
             scrollConfig:{
                 pushLoadEnable:true,
                 pullRefreshEnable:true,
-                showToTop:false
-            }
+                showToTop:true
+            },
+            currPage:1
         }
 
     },
@@ -214,7 +211,7 @@ export default {
         }
     },
     created: function () {
-      console.log(this.notData);
+
         $(window).scrollTop(0);
         //清空右侧筛选数据
         eventBus.queryCondictionData = null;
@@ -229,7 +226,7 @@ export default {
         _self.versionID = _self.$route.query.VersionID || "";
 
         _self.queryCondictionData = eventBus.queryCondictionData || [];
-        console.log(_self.queryCondictionData);
+        // console.log(_self.queryCondictionData);
 
         //查询列表数据
         _self.queryList();
@@ -255,12 +252,6 @@ export default {
 
     methods: {
 
-        //点击回到顶部
-        goTopping:function(){
-            console.log("top");
-
-           $(window).scrollTop(0);
-        },
         //返回上一步
         back: function () {
             this.$router.back(-1);
@@ -286,9 +277,18 @@ export default {
             });
         },
         //查询列表数据
-        queryList: function () {
+        queryList: function (queryType, callback) {
+            let _self = this;
+            if(queryType == 'pushLoad'){
+                //下拉请求
+                _self.currPage += 1;
+
+            }else{
+                //非下拉请求
+                _self.currPage = 1;
+
+            }
             //api接口地址
-            var _self = this;
             var apiUrlTemp = tool.combineRequestUrl(tool.ADBAjaxUrl(), tool.getConfigValue(tool.ADBApi_AirlineDatabase_Query_ListByTab));
             var jsonDatas = {
                 CurrentLanguageVersion: lanTool.currentLanguageVersion,
@@ -316,12 +316,16 @@ export default {
                         return true;
                     }
                     data = data.Data || {};
-                    // console.log("data:"+JSON.stringify(data));
 
+                    if(queryType == 'pushLoad'){
+                        _self.detailListData.concat(data["FleetDatailsArray"]);
+                    }else{
+                        _self.detailListData = data["FleetDatailsArray"] || [];
+                    }
 
-                    _self.detailListData = data["FleetDatailsArray"] || [];
-                    // console.log("detailListData:"+JSON.stringify( _self.detailListData));
-
+                    if(!tool.isNullOrEmptyObject(callback)){
+                      callback(data["FleetDatailsArray"]);
+                    }
 
                     //渲染textarea
                     _self.$nextTick(function () {
