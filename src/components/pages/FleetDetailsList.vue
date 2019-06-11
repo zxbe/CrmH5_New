@@ -280,11 +280,11 @@ export default {
         queryList: function (queryType, callback) {
             let _self = this;
             if(queryType == 'pushLoad'){
-                //下拉请求
+                //上拉请求
                 _self.currPage += 1;
 
             }else{
-                //非下拉请求
+                //非上拉请求
                 _self.currPage = 1;
 
             }
@@ -296,7 +296,7 @@ export default {
                 TabID: _self.tabID,
                 CompanyID: _self.companyID,
                 VersionID: _self.versionID,
-                IsUsePager: false,
+                IsUsePager: true,
                 QueryCondiction: _self.queryCondictionData || []
             };
             var loadingIndexClassName = tool.showLoading();
@@ -503,20 +503,5 @@ p.textareaP {
     text-align: left;
     font-size: 0.28rem;
 }
-/* 置顶 */
-.topping{
-    position: fixed;
-    bottom: 1rem;
-    right: 0.6rem;
-    width: 0.88rem;
-    height: 0.88rem;
-    z-index: 20;
-    border-radius: 0.16rem;
-}
-.topping span{
-    padding: 0.04rem;
-    margin: 0;
-    font-size: 0.8rem;
-    color: rgba(0, 0, 0, 0.3);
-}
+
 </style>

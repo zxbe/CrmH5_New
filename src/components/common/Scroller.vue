@@ -7,6 +7,7 @@
           :ops="ops"
           @refresh-start="refreshStart"
           @refresh-before-deactivate="refreshBeforeDeactive"
+
           @load-before-deactivate="loadBeforeDeactive"
           @load-start="loadStart"
         >
@@ -113,9 +114,6 @@ export default {
 
               done();
           })
-          // setTimeout(() => {
-          //   done();
-          // }, 1500);
       },
       refreshBeforeDeactive:function(vsInstance, refreshDom, done){
           let _self = this;
@@ -139,9 +137,6 @@ export default {
               }
               done();
           })
-          // setTimeout(() => {
-          //   done();
-          // }, 1500);
       },
       loadBeforeDeactive:function(vsInstance, refreshDom, done){
           let _self = this;
@@ -152,6 +147,7 @@ export default {
 
       goTopping:function(){
           let _self = this;
+          _self.ops.vuescroll.pushLoad.enable = false;
           _self.$refs['vs'].scrollTo(
             {
               y: 20
