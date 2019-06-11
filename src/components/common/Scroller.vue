@@ -12,7 +12,7 @@
           @load-start="loadStart"
         >
             <slot></slot>
-            <div v-show="notMoreData" class="not-more-data">没有更多数据了...</div>
+            <div v-show="notMoreData" class="not-more-data">{{noMoreData}}</div>
         </vue-scroll>
 
         <div v-if="showToTop" class="topping">
@@ -43,10 +43,10 @@ export default {
             pullRefresh: {
               enable:true,
               tips:{
-                deactive: '下拉刷新',
-                active: '释放刷新',
-                start: '刷新中...',
-                beforeDeactive: '刷新成功!'
+                deactive: lanTool.lanContent('1000167_下拉刷新'),
+                active: lanTool.lanContent('1000169_释放刷新'),
+                start: lanTool.lanContent('	1000170_正在刷新......'),
+                beforeDeactive: lanTool.lanContent('1000171_刷新成功')
               }
             },
             pushLoad: {
@@ -54,10 +54,10 @@ export default {
               auto: false,
               autoLoadDistance: 10,
               tips:{
-                deactive: '上拉加载',
-                active: '释放加载',
-                start: '加载中...',
-                beforeDeactive: '加载成功!'
+                deactive: lanTool.lanContent('1000168_上拉加载'),
+                active: lanTool.lanContent('1000172_释放加载'),
+                start: lanTool.lanContent('1000173_正在加载......'),
+                beforeDeactive: lanTool.lanContent('1000174_加载成功')
               }
             }
           },
@@ -68,7 +68,8 @@ export default {
         return {
             ops,
             notMoreData:false,
-            showToTop:false  //是否显示回到顶部,默认不显示
+            showToTop:false,  //是否显示回到顶部,默认不显示
+            noMoreData:lanTool.lanContent('1000175_没有更多数据了！')
         }
   },
   created:function(){

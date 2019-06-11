@@ -74,8 +74,7 @@ export default {
             companyID: "", //公司ID
             versionID: "", //当前年
             queryCondictionData: [], //过滤条件
-            detailListData: [
-            ],
+            detailListData: [],//列表数据
             //侧滑搜索页面数据模型
             searchData: [{
                     queryfield: "7555",
@@ -197,7 +196,8 @@ export default {
                 pullRefreshEnable:true,
                 showToTop:true
             },
-            currPage:1
+            pageSize:10,//一页显示多少记录
+            pageNum:1,//当前页码
         }
 
     },
@@ -281,11 +281,11 @@ export default {
             let _self = this;
             if(queryType == 'pushLoad'){
                 //上拉请求
-                _self.currPage += 1;
+                _self.pageNum += 1;
 
             }else{
                 //非上拉请求
-                _self.currPage = 1;
+                _self.pageNum = 1;
 
             }
             //api接口地址
@@ -297,6 +297,8 @@ export default {
                 CompanyID: _self.companyID,
                 VersionID: _self.versionID,
                 IsUsePager: true,
+                PageSize:_self.pageSize,
+                PageNum:_self.pageNum,
                 QueryCondiction: _self.queryCondictionData || []
             };
             var loadingIndexClassName = tool.showLoading();
