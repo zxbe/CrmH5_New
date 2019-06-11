@@ -119,7 +119,7 @@ export default {
           let _self = this;
           setTimeout(() => {
             done();
-            this.goTopping();
+            _self.goTopping();
           }, 200);
       },
       loadStart:function(vsInstance, refreshDom, done){
