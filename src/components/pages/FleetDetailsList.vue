@@ -282,11 +282,9 @@ export default {
             if(queryType == 'pushLoad'){
                 //上拉请求
                 _self.pageNum += 1;
-
             }else{
                 //非上拉请求
                 _self.pageNum = 1;
-
             }
             //api接口地址
             var apiUrlTemp = tool.combineRequestUrl(tool.ADBAjaxUrl(), tool.getConfigValue(tool.ADBApi_AirlineDatabase_Query_ListByTab));
@@ -320,13 +318,13 @@ export default {
                     data = data.Data || {};
 
                     if(queryType == 'pushLoad'){
-                        _self.detailListData.concat(data["FleetDatailsArray"]);
+                        _self.detailListData = _self.detailListData.concat(data["FleetDatailsArray"]);
                     }else{
                         _self.detailListData = data["FleetDatailsArray"] || [];
                     }
 
                     if(!tool.isNullOrEmptyObject(callback)){
-                      callback(data["FleetDatailsArray"]);
+                      callback(data["FleetDatailsArray"],_self.pageSize);
                     }
 
                     //渲染textarea

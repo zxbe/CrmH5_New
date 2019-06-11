@@ -12,7 +12,7 @@
           @load-start="loadStart"
         >
             <slot></slot>
-            <div v-show="notMoreData" class="not-more-data">{{noMoreData}}</div>
+            <div v-if="notMoreData" class="not-more-data">{{noMoreData}}</div>
         </vue-scroll>
 
         <div v-if="showToTop" class="topping">
@@ -52,7 +52,6 @@ export default {
             pushLoad: {
               enable: true,
               auto: false,
-              autoLoadDistance: 10,
               tips:{
                 deactive: lanTool.lanContent('1000168_上拉加载'),
                 active: lanTool.lanContent('1000172_释放加载'),
@@ -73,6 +72,7 @@ export default {
         }
   },
   created:function(){
+
       let _self = this,
           pullRefreshEnable = false,
           pushLoadEnable = false;
@@ -106,17 +106,16 @@ export default {
               return;
           }
           _self.$parent.queryList('pullRefresh',function(data){
-              console.log('刷新');
 
-              _self.notMoreData = true;
+              _self.notMoreData = false;
               if(_self.config.pushLoadEnable || _self.config.pushLoadEnable == undefined){
                   _self.ops.vuescroll.pushLoad.enable = true;
               }
-
               done();
           })
       },
       refreshBeforeDeactive:function(vsInstance, refreshDom, done){
+        console.log('refreshBeforeDeactive');
           let _self = this;
           setTimeout(() => {
             done();
@@ -128,11 +127,11 @@ export default {
           if(tool.isNullOrEmptyObject(_self.$parent.queryList)){
               return;
           }
-          _self.$parent.queryList('pushLoad',function(data){
-              console.log('加载了一页数据');
+          _self.$parent.queryList('pushLoad',function(data, pageSize){
 
               //最后一页
-              if(data.length <= 0){
+              console.log(data);
+              if(data.length < pageSize){
                   _self.notMoreData = true;
                   _self.ops.vuescroll.pushLoad.enable = false;
               }
@@ -151,7 +150,7 @@ export default {
           _self.ops.vuescroll.pushLoad.enable = false;
           _self.$refs['vs'].scrollTo(
             {
-              y: 20
+              y:'0%'
             },
             500,
             'easeInQuad'
@@ -189,3 +188,12 @@ export default {
     color: rgba(0, 0, 0, 0.3);
 }
 </style>
+<style>
+.__vuescroll .__refresh svg.start .active-path, .__vuescroll .__load svg.start .active-path{
+stroke: rgb(235, 143, 32);;
+}
+.__vuescroll .__refresh svg path, .__vuescroll .__refresh svg rect, .__vuescroll .__load svg path, .__vuescroll .__load svg rect{
+fill: rgb(235, 143, 32);;
+}
+</style>
+
