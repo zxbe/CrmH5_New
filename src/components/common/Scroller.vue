@@ -119,6 +119,7 @@ export default {
           let _self = this;
           setTimeout(() => {
             done();
+            this.goTopping();
           }, 200);
       },
       loadStart:function(vsInstance, refreshDom, done){
@@ -136,6 +137,7 @@ export default {
                   _self.ops.vuescroll.pushLoad.enable = false;
               }
               done();
+              
           })
       },
       loadBeforeDeactive:function(vsInstance, refreshDom, done){
