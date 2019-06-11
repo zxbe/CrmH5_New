@@ -115,11 +115,11 @@ export default {
           })
       },
       refreshBeforeDeactive:function(vsInstance, refreshDom, done){
-        console.log('refreshBeforeDeactive');
+        // console.log('refreshBeforeDeactive');
           let _self = this;
           setTimeout(() => {
             done();
-          }, 500);
+          }, 200);
       },
       loadStart:function(vsInstance, refreshDom, done){
           let _self = this;
@@ -130,7 +130,7 @@ export default {
           _self.$parent.queryList('pushLoad',function(data, pageSize){
 
               //最后一页
-              console.log(data);
+              // console.log(data);
               if(data.length < pageSize){
                   _self.notMoreData = true;
                   _self.ops.vuescroll.pushLoad.enable = false;
@@ -142,12 +142,11 @@ export default {
           let _self = this;
           setTimeout(() => {
             done();
-          }, 500);
+          }, 200);
       },
 
       goTopping:function(){
           let _self = this;
-          _self.ops.vuescroll.pushLoad.enable = false;
           _self.$refs['vs'].scrollTo(
             {
               y:'0%'
