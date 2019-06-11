@@ -100,6 +100,9 @@ export default {
       refreshStart:function(vsInstance, refreshDom, done){
           let _self = this;
           //调用父组件方法请求数据
+          if(tool.isNullOrEmptyObject(_self.$parent.queryList)){
+              return;
+          }
           _self.$parent.queryList('pullRefresh',function(data){
               console.log('刷新');
 
@@ -123,6 +126,9 @@ export default {
       loadStart:function(vsInstance, refreshDom, done){
           let _self = this;
           //调用父组件方法请求数据
+          if(tool.isNullOrEmptyObject(_self.$parent.queryList)){
+              return;
+          }
           _self.$parent.queryList('pushLoad',function(data){
               console.log('加载了一页数据');
 
