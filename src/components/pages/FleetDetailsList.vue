@@ -6,15 +6,8 @@
         <a @click="search" class="calcfont calc-shaixuan2 right"></a>
     </header>
     <div class="pageContent">
-        <div v-show="!noData" class="fleetDetailList">
-            <vue-scroll
-              ref="vs"
-              :ops="ops"
-              @refresh-start="refreshStart"
-              @refresh-before-deactivate="refreshBeforeDeactive"
-              @load-before-deactivate="loadBeforeDeactive"
-              @load-start="loadStart"
-            >
+
+        <vue-scroll :config="scrollConfig" :notData="notData">
               <div v-for="item in detailListData" :key="item.SubRowID" class="fleetDetailListItem">
                   <div class="flexBoxTwo">
                       <div class="LeftKey">MSN</div>
@@ -57,64 +50,30 @@
                       </div>
                   </div>
               </div>
+        </vue-scroll>
 
-            </vue-scroll>
-        </div>
-        <nothing v-show="noData" style="padding-top:0.8rem;"></nothing>
-        <div class="topping">
-            <span class="calcfont calc-icon_zhiding" @click="goTopping"></span>
-        </div>
+
     </div>
 </div>
 </template>
 
 <script>
 import Header from '../common/Listheader'
-import Nothing from "../common/Nothing"
+// import Nothing from "../common/Nothing"
 import Mixins from '../../mixins/commonlist.js'
-import vuescroll from 'vuescroll/dist/vuescroll-slide';
-import 'vuescroll/dist/vuescroll.css';
+import vuescroll from '../common/Scroller';
+
 export default {
     name: "fleetDetailsList",
     mixins: [Mixins],
     components: {
         'Header': Header,
-        'nothing': Nothing,
+        // 'nothing': Nothing,
         'vue-scroll':vuescroll
     },
     data() {
-        const ops = {
-          vuescroll: {
-            mode: 'slide',
-            pullRefresh: {
-              enable:true,
-              tips:{
-                deactive: '下拉刷新',
-                active: '释放刷新',
-                start: '刷新中...',
-                beforeDeactive: '刷新成功!'
-              }
-            },
-            pushLoad: {
-              enable: true,
-              auto: false,
-              autoLoadDistance: 10,
-              tips:{
-                deactive: '上拉加载',
-                active: '释放加载',
-                start: '加载中...',
-                beforeDeactive: '加载成功!'
-              }
-            }
-          },
-          bar: {
-              opacity:0,
-          }
-        };
         return {
-            ops,
             title: "Fleet Details",
-            noData: false, //没数据
             tabID: "", //模块ID
             companyID: "", //公司ID
             versionID: "", //当前年
@@ -237,10 +196,25 @@ export default {
                     queryIsChangeBetween: true
                 }
             ],
+            scrollConfig:{
+                pushLoadEnable:true,
+                pullRefreshEnable:true,
+                showToTop:false
+            }
         }
 
     },
+    computed:{
+        notData:function(){
+            let _self = this;
+            if(_self.detailListData.length <= 0){
+                return true;
+            }
+            return false
+        }
+    },
     created: function () {
+      console.log(this.notData);
         $(window).scrollTop(0);
         //清空右侧筛选数据
         eventBus.queryCondictionData = null;
@@ -280,32 +254,7 @@ export default {
     },
 
     methods: {
-        refreshStart:function(vsInstance, refreshDom, done){
-            setTimeout(() => {
 
-              done();
-            }, 1500);
-        },
-        refreshBeforeDeactive:function(vsInstance, refreshDom, done){
-            let _self = this;
-            //  console.log('refreshBeforeDeactive');
-            setTimeout(() => {
-
-              done();
-            }, 500);
-        },
-        loadStart:function(vsInstance, refreshDom, done){
-            setTimeout(() => {
-
-              done();
-            }, 1500);
-        },
-        loadBeforeDeactive:function(vsInstance, refreshDom, done){
-            setTimeout(() => {
-
-              done();
-            }, 500);
-        },
         //点击回到顶部
         goTopping:function(){
             console.log("top");
@@ -364,19 +313,15 @@ export default {
                     if (data.Result != 1) {
                         tool.showText(data.Msg);
                         console.log(tool.getMessage(data.Msg));
-                        _self.noData = true;
                         return true;
                     }
                     data = data.Data || {};
                     // console.log("data:"+JSON.stringify(data));
-                    //沒有数据的时候
-                    if (data["FleetDatailsArray"].length <= 0) {
-                        _self.noData = true;
-                    } else {
-                        _self.noData = false;
-                    }
+
+
                     _self.detailListData = data["FleetDatailsArray"] || [];
                     // console.log("detailListData:"+JSON.stringify( _self.detailListData));
+
 
                     //渲染textarea
                     _self.$nextTick(function () {
@@ -460,9 +405,6 @@ header a {
 }
 
 .pageContent {
-
-}
-.fleetDetailList{
   position: fixed;
   top:0.88rem;
   left: 0;
@@ -470,6 +412,9 @@ header a {
   bottom:0;
 }
 
+
+.fleetDetailList{
+}
 
 .fleetDetailListItem {
     padding: 0.2rem 0;
