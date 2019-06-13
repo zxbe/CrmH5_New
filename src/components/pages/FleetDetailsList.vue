@@ -311,7 +311,10 @@ export default {
                 PageNum:_self.pageNum,
                 QueryCondiction: _self.queryCondictionData || []
             };
-            var loadingIndexClassName = tool.showLoading();
+
+            if(tool.isNullOrEmptyObject(queryType)){
+                var loadingIndexClassName = tool.showLoading();
+            }
             $.ajax({
                 async: true,
                 type: "post",
