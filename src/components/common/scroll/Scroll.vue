@@ -145,9 +145,7 @@ export default {
       return pullup && typeof pullup === "boolean" ? PULL_UP_DEFAULT : pullup;
     }
   },
-  created(){
-    console.log(this.pullDownTips);
-  },
+
   watch: {
     data() {
       this.$nextTick(this.refresh);
@@ -155,7 +153,6 @@ export default {
   },
   methods: {
     initBScroll() {
-      console.log(this.optionsValue);
       //初始化better-scroll组件
       this.scroll = new BScroll(this.$refs.wrapper, {
         probeType: this.optionsValue.probeType,

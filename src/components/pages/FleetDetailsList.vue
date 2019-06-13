@@ -8,6 +8,7 @@
     <div class="pageContent">
 
         <vue-scroll
+          v-show="!noData"
           :options="{ pullup: true, pulldown: true }"
           :scrollbar="true" ref="scroll"
           @pulldown="pulldown"
@@ -57,6 +58,8 @@
               </div>
         </vue-scroll>
 
+        <nothing v-show="noData" style="padding-top:0.8rem;"></nothing>
+
     </div>
 </div>
 </template>
@@ -65,12 +68,14 @@
 
 import Mixins from '../../mixins/commonlist.js'
 import Scroll from '@/components/common/scroll/Scroll';
+import Nothing from "@/components/common/Nothing";
 
 export default {
     name: "fleetDetailsList",
     mixins: [Mixins],
     components: {
-        'vue-scroll':Scroll
+        'vue-scroll':Scroll,
+        nothing: Nothing
     },
     data() {
         return {
@@ -203,6 +208,7 @@ export default {
             },
             pageSize:10,//一页显示多少记录
             pageNum:1,//当前页码
+            noData:false
         }
 
     },
@@ -265,7 +271,7 @@ export default {
         search: function () {
 
             var _self = this;
-            console.log("_self.queryCondictionData:" + _self.queryCondictionData);
+            // console.log("_self.queryCondictionData:" + _self.queryCondictionData);
 
             var parameter = {
                 'dataModule': _self.searchData,
@@ -322,6 +328,13 @@ export default {
                     }
                     data = data.Data || {};
 
+                    //没有数据
+                    if(tool.isNullOrEmptyObject(data["FleetDatailsArray"]) && _self.pageNum == 1){
+                        _self.noData = true;
+                        return ;
+                    }
+                    _self.noData = false;
+
                     if(queryType == 'pushLoad'){
                         _self.detailListData = _self.detailListData.concat(data["FleetDatailsArray"]);
                     }else{
@@ -362,8 +375,6 @@ export default {
         //下拉
         pulldown:function(){
             let _self = this;
-            console.log('pulldown');
-
             _self.queryList('pushRefresh',function(){
                 // _self.$refs.scroll.refresh();
             })
@@ -372,7 +383,6 @@ export default {
         //上拉
         pullup:function(){
             let _self = this;
-            console.log('pullup');
              _self.queryList('pushLoad',function(data,pageSize){
 
                if(data.length < pageSize){
