@@ -9,6 +9,7 @@
 
         <vue-scroll
           v-show="!noData"
+          :showToTop="true"
           :options="{ pullup: true, pulldown: true }"
           :scrollbar="true" ref="scroll"
           @pulldown="pulldown"
@@ -344,6 +345,7 @@ export default {
                     if(queryType == undefined || queryType == ''){
                         _self.$refs.scroll.isPullingDown = true;
                         _self.$refs.scroll.isPullingUpEnd = false;
+                        _self.$refs.scroll.scrollTo(0, 0, 200, 'easing');
                     }
                     _self.$refs.scroll.refresh();
 

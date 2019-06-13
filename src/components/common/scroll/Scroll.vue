@@ -37,6 +37,10 @@
       </div>
     </div>
 
+    <div v-if="showToTop" class="topping">
+        <span class="calcfont calc-icon_zhiding" @click="goTopping"></span>
+    </div>
+
   </div>
 </template>
 
@@ -102,6 +106,10 @@ export default {
   },
   props: {
     data: [Object, Array],
+    showToTop:{
+      type: Boolean,
+      default: false
+    },
     scrollbar: {
       type: Boolean,
       default: false
@@ -234,6 +242,10 @@ export default {
     pullupEnd() {
       this.isPullingUpEnd = true;
       this.refresh();
+    },
+    goTopping:function(){
+        let _self = this;
+        _self.scrollTo(0, 0, 800, 'easing ');
     }
   },
   mounted() {
@@ -304,6 +316,23 @@ export default {
 }
 .better-scroll .scroll-default-wrapper {
   padding: 16px 0;
+}
+
+/* 回到顶部 */
+.topping{
+    position: fixed;
+    bottom: 1rem;
+    right: 0.6rem;
+    width: 0.88rem;
+    height: 0.88rem;
+    z-index: 20;
+    border-radius: 0.16rem;
+}
+.topping span{
+    padding: 0.04rem;
+    margin: 0;
+    font-size: 0.8rem;
+    color: rgba(0, 0, 0, 0.3);
 }
 </style>
 
