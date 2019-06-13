@@ -1861,7 +1861,7 @@ import config from '../../configfile/config.js'
 		// GroupBy:groupBy
 		PageType: (pageType == undefined || pageType == null) ? 0 : pageType
 	};
-	
+
     if(pageSource != undefined && pageSource == 'index'){
         jsonDatasTemp.RecentDay = 7;
     }else{
@@ -4091,6 +4091,7 @@ import config from '../../configfile/config.js'
 					continue;
 				}
 			} else {
+        id = $.trim(id);
 				if (("_" + lan.Data[i].AliasNameAuto).indexOf("_" + id) < 0) {
 					continue;
 				}

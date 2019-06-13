@@ -28,6 +28,8 @@ import Groupselectlist from '@/components/common/Groupselectlist'
 import Poweruser from '@/components/pages/Poweruser'
 import Linkedpage from '@/components/pages/Linkedpage'
 
+
+
 //dba
 import AirlineDatabase from '@/components/pages/AirlineDatabase'
 import FleetDetailsList from '@/components/pages/FleetDetailsList'
@@ -51,6 +53,7 @@ Vue.use(Router)
 const router =  new Router({
   mode:'hash',
   routes: [
+
     { path: '/',name:'login', component: Login },
     { path: '/login',name:'login', component: Login },
     { path: '/index',name:'index', component:Index },

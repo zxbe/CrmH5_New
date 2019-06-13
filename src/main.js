@@ -34,9 +34,6 @@ import './assets/js/common/CommonFront.js'
 import eventBus from './components/common/Event.js'
 
 
-// import VueAwesomeSwiper from 'vue-awesome-swiper'
-// Vue.use(VueAwesomeSwiper)
-
 //图片预览组件
 import gallery from 'img-vuer'
 Vue.use(gallery, {
@@ -165,16 +162,16 @@ Vue.filter('formatFigureRange',function(val,dataFormat){
   }
 
   try{
-    
+
     var valDisplay = "";
     var valArray = val.split(",");
     for(var i=0;i<valArray.length;i++){
       var valTemp = valArray[i];
-  
+
       if(!tool.isNullOrEmptyObject(dataFormat)){
         valTemp = tool.formatNum(valTemp, tool.getFixNum(dataFormat));
       }
-      
+
       valDisplay += valTemp + "~";
     }
 

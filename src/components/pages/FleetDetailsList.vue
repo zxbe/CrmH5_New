@@ -7,7 +7,12 @@
     </header>
     <div class="pageContent">
 
-        <vue-scroll :config="scrollConfig" :notData="notData">
+        <vue-scroll
+          :options="{ pullup: true, pulldown: true }"
+          :scrollbar="true" ref="scroll"
+          @pulldown="pulldown"
+          @pullup="pullup">
+
               <div v-for="item in detailListData" :key="item.SubRowID" class="fleetDetailListItem">
                   <div class="flexBoxTwo">
                       <div class="LeftKey">MSN</div>
@@ -59,13 +64,13 @@
 <script>
 
 import Mixins from '../../mixins/commonlist.js'
-import vuescroll from '../common/Scroller';
+import Scroll from '@/components/common/scroll/Scroll';
 
 export default {
     name: "fleetDetailsList",
     mixins: [Mixins],
     components: {
-        'vue-scroll':vuescroll
+        'vue-scroll':Scroll
     },
     data() {
         return {
@@ -323,6 +328,12 @@ export default {
                         _self.detailListData = data["FleetDatailsArray"] || [];
                     }
 
+                    if(queryType == undefined || queryType == ''){
+                        _self.$refs.scroll.isPullingDown = true;
+                        _self.$refs.scroll.isPullingUpEnd = false;
+                    }
+                    _self.$refs.scroll.refresh();
+
                     if(!tool.isNullOrEmptyObject(callback)){
                       callback(data["FleetDatailsArray"],_self.pageSize);
                     }
@@ -346,6 +357,32 @@ export default {
                     document.activeElement.blur();
                 }
             });
+        },
+
+        //下拉
+        pulldown:function(){
+            let _self = this;
+            console.log('pulldown');
+
+            _self.queryList('pushRefresh',function(){
+                // _self.$refs.scroll.refresh();
+            })
+        },
+
+        //上拉
+        pullup:function(){
+            let _self = this;
+            console.log('pullup');
+             _self.queryList('pushLoad',function(data,pageSize){
+
+               if(data.length < pageSize){
+                  _self.$refs.scroll.pullupEnd();
+               }
+              //  else{
+              //     _self.$refs.scroll.refresh();
+              //  }
+
+            })
         }
     },
     beforeRouteLeave: function (to, from, next) {
