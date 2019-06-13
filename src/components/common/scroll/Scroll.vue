@@ -4,9 +4,9 @@
     <div class="better-scroll-content" ref="content">
 
       <slot>
-        <div class="scroll-wrapper scroll-default-wrapper">
+        <!-- <div class="scroll-wrapper scroll-default-wrapper">
           <p>列表无数据</p>
-        </div>
+        </div> -->
       </slot>
 
       <div class="scroll-wrapper scroll-pulldown-wrapper" v-if="optionsValue.pulldown">
