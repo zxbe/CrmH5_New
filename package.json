@@ -19,7 +19,6 @@
     "vue-drawer-layout": "^0.3.1",
     "vue-router": "^3.0.1",
     "vue-svg-icon": "^1.2.9",
-    "vuescroll": "^4.13.0-beta",
     "vuex": "^3.1.1"
   },
   "devDependencies": {
