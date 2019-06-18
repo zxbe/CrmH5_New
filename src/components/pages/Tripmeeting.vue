@@ -28,7 +28,7 @@
                        class="list-group-div group-div">
                           <div class="date-div">
                             <span class="calcfont calc-rili1"></span>
-                            <span class="group-name" :data-groupid="group.GroupID">{{group.GroupName}}</span>
+                            <span class="group-name" :data-groupid="group.GroupID">{{group.GroupName|abdDateFormat('MMM/dd/yyyy')}}</span>
                             <span class="right">（{{group.GroupRowCount}}）</span>
                           </div>
                           <div class="occupy-div"></div>

@@ -8,7 +8,7 @@
             <!-- 显示日期 -->
             <div class="f14 date-div open">
                 <span class="calcfont calc-richeng"></span>
-                <div class="date-text">2018-11-16 Thursday</div>
+                <div class="date-text"></div>
             </div>
 
             <!-- tab切换 -->
@@ -313,7 +313,7 @@ export default {
                         var dateStr = year + "-" + month + "-" + day;
 
                         //展示选中的日期和星期
-                        $(".date-text").text(dateStr + "  " + tool.getWeekDayStr(dateStr));
+                        $(".date-text").text(tool.ChangeTimeFormat(dateStr,'MMM/dd/yyyy','yyyy-MM-dd') + "  " + tool.getWeekDayStr(dateStr));
                         _self.getEventsByDate(dateStr);
                     },
                     onOpen: function (p) {
@@ -426,7 +426,7 @@ export default {
 
                         month = parseInt(month) + 1;
                         var dateStr = year + "-" + month + "-" + day;
-                        $(".date-text").text(dateStr + "  " + tool.getWeekDayStr(dateStr));
+                        $(".date-text").text(tool.ChangeTimeFormat(dateStr,'MMM/dd/yyyy','yyyy-MM-dd') + "  " + tool.getWeekDayStr(dateStr));
 
                         _self.getEventsByDate(dateStr);
                     });

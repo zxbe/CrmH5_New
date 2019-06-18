@@ -1494,7 +1494,8 @@ import config from '../../configfile/config.js'
 		// console.log(oldFormat);
 		if (tool.isNullOrEmptyObject(value) || tool.isNullOrEmptyObject(newFormat)) {
 			return "";
-		}
+    }
+    value = value.replace("T","");
 
 		oldFormat = oldFormat || "yyyy/MM/dd HH:mm:ss";
 

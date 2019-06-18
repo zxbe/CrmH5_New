@@ -88,7 +88,7 @@
             <div v-for="group in groupData" :key="group.GroupID" class="month-event list-group-div group-div" data-fromtype="meeting">
                 <div class="f14 date-div">
                     <span class="calcfont calc-richeng" ></span>
-                    <span class="group-name" :data-groupid="group.GroupID">{{group.GroupName}}</span>
+                    <span class="group-name" :data-groupid="group.GroupID">{{group.GroupName|abdDateFormat('MMM/dd/yyyy')}}</span>
                     <span class="right">（{{group.GroupRowCount}}）</span>
                 </div>
                 <div class="occupy-div"></div>

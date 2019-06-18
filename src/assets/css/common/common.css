@@ -347,6 +347,7 @@ label.radios-label input:disabled:checked + .radios:after {
 }
 .opportunities-list .item-div-child{width:100%;display:block;}
 .opportunities-list .item-div .closed{color:#ff5a21;}
+.opportunities-list .item-div .updateTime{color:#666;}
 .opportunities-list .item-div-box{position: relative;}
 .opportunities-list .new-right{padding-left:60px;min-height: 0.8rem;}
 .opportunities-list .item-new-text{
@@ -393,6 +394,7 @@ label.radios-label input:disabled:checked + .radios:after {
   word-wrap:break-word;
 }
 .dealPipeline-list .item-div .closed{color:#ff5a21;}
+.dealPipeline-list .item-div .updateTime{color:#666;}
 .dealPipeline-list .item-div-box{position: relative;}
 .dealPipeline-list .new-right{padding-left:60px;min-height:0.8rem;}
 .dealPipeline-list .item-new-text{
@@ -432,7 +434,7 @@ label.radios-label input:disabled:checked + .radios:after {
 .organizations-list .group-item::after{content:'';display:block;height: 1px;background:beige;width:100%;left:0;
 top:0px;position:absolute;}
 .organizations-list .group-item:first-child::after{background:#ffffff;}
-.organizations-list .item-div{line-height:1.2;padding:5px 0;display: flex;align-items: center;}
+.organizations-list .item-div{line-height:1.25;padding:5px 0;display: flex;align-items: center;}
 .organizations-list .item-first-div{font-weight:bold;color:#ff5a21;}
 .organizations-list .item-first-div .right{font-weight: 100;}
 .organizations-list .item-div .left-text{display:inline-block;max-width:70%;
