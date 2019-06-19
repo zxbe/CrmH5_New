@@ -39,7 +39,7 @@
                                         </li>
                                         <li>
                                             <label class="lanText" data-lanid= '838_上传时间'></label>
-                                            <p data-field="createdtime">{{data.AddTime}}</p>
+                                            <p data-field="createdtime">{{data.AddTime|abdDateFormat('dd/MM/yyyy HH:mm:ss')}}</p>
                                         </li>
                                         <li>
                                             <label class="lanText" data-lanid= '178_文件大小'></label>
@@ -118,7 +118,7 @@ export default {
         }else{
             $this.isShowDownloadBtn = true;
         }
-        
+
 
         //传入参数
         var urlTemp = tool.AjaxBaseUrl();
