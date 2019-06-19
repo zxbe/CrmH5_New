@@ -71,7 +71,7 @@
                                                       <div class="item-div line-clamp2">{{item.Memo}}</div>
                                                       <div class="item-div f12 green-color padding-bottom-3 padding-top-3">
                                                         <span :class="item.className">{{item.CurrentState}}</span>
-                                                        <span class="right updateTime">{{item.LastUpdateTime|abdDateFormat('MMM/dd/yyyy')}}</span>
+                                                        <span class="right updateTime">{{item.LastUpdateTime|abdDateFormat('dd/MM/yyyy')}}</span>
                                                       </div>
                                                       <div v-if="item.IsMeetingExist.toLowerCase()!='false'" class="item-div-box">
                                                           <div class="item-new-text">{{item.meetingSysmbol}}</div>
@@ -80,7 +80,7 @@
                                                               <span class="itme-div-span">{{item.MeetingTitle}}</span>
                                                             </div>
                                                             <div class="item-div dete-div f12">
-                                                              <span>{{item.BeginTime|abdDateFormat('MMM/dd/yyyy HH:mm')}}</span>
+                                                              <span>{{item.BeginTime|abdDateFormat('dd/MM/yyyy HH:mm')}}</span>
                                                             </div>
                                                           </div>
                                                       </div>
@@ -120,7 +120,7 @@
                                                 </div>
                                                 <div class="item-div f12 green-color padding-bottom-3 padding-top-3">
                                                   <span :class="item.className">{{item.CurrentState}}</span>
-                                                  <span class="right updateTime">{{item.LastUpdateTime|abdDateFormat('MMM/dd/yyyy')}}</span>
+                                                  <span class="right updateTime">{{item.LastUpdateTime|abdDateFormat('dd/MM/yyyy')}}</span>
                                                 </div>
                                                 <div class="item-div line-clamp2">{{item.Memo}}</div>
                                                 <div v-if="item.IsMeetingExist.toLowerCase()!='false'" class="item-div-box">
@@ -131,7 +131,7 @@
                                                             <span class="itme-div-span">{{item.MeetingTitle}}</span>
                                                           </div>
                                                           <div class="item-div dete-div f12">
-                                                            <span>{{item.BeginTime|abdDateFormat('MMM/dd/yyyy HH:mm')}}</span>
+                                                            <span>{{item.BeginTime|abdDateFormat('dd/MM/yyyy HH:mm')}}</span>
                                                           </div>
                                                       </div>
                                                 </div>

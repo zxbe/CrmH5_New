@@ -68,7 +68,7 @@ Vue.filter('MeetingTimeFormat',function(val){
       return "";
     }
 
-    var format = "d/MMM/yyyy HH:mm";
+    var format = "dd/MM/yyyy HH:mm";
     val = val.ReplaceAll("T", " ");
     val = tool.ChangeTimeFormat(val, format);
 

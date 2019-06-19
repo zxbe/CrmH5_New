@@ -9,7 +9,7 @@
             </div>
             <div class="ListCellContentRight rightContent">
                 <!-- <div class="ListCellContentRightText">{{modifiedtime}}</div> -->
-                <div data-field="LastUpdateTime" data-fieldControlType="divText" data-formatType="DateTime" data-format="d/MMM/yyyy HH:mm" class="ListCellContentRightText"></div>
+                <div data-field="LastUpdateTime" data-fieldControlType="divText" data-formatType="DateTime" data-format="dd/MM/yyyy HH:mm" class="ListCellContentRightText"></div>
             </div>
         </div>
     </div>
@@ -34,7 +34,7 @@ export default {
         var _self = this;
         lanTool.updateLanVersion();
     },
-    created:function(){   
+    created:function(){
     }
 }
 </script>

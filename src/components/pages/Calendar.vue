@@ -313,7 +313,7 @@ export default {
                         var dateStr = year + "-" + month + "-" + day;
 
                         //展示选中的日期和星期
-                        $(".date-text").text(tool.ChangeTimeFormat(dateStr,'MMM/dd/yyyy','yyyy-MM-dd') + "  " + tool.getWeekDayStr(dateStr));
+                        $(".date-text").text(tool.ChangeTimeFormat(dateStr,'dd/MM/yyyy','yyyy-MM-dd') + "  " + tool.getWeekDayStr(dateStr));
                         _self.getEventsByDate(dateStr);
                     },
                     onOpen: function (p) {
@@ -426,7 +426,7 @@ export default {
 
                         month = parseInt(month) + 1;
                         var dateStr = year + "-" + month + "-" + day;
-                        $(".date-text").text(tool.ChangeTimeFormat(dateStr,'MMM/dd/yyyy','yyyy-MM-dd') + "  " + tool.getWeekDayStr(dateStr));
+                        $(".date-text").text(tool.ChangeTimeFormat(dateStr,'dd/MM/yyyy','yyyy-MM-dd') + "  " + tool.getWeekDayStr(dateStr));
 
                         _self.getEventsByDate(dateStr);
                     });
