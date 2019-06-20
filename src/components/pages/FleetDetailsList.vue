@@ -36,9 +36,9 @@
                   </div>
                   <div class="flexBoxTwo">
                       <div class="LeftKey">Lease Start</div>
-                      <div class="LeftValue">{{(item["7645"]||"") | abdDateFormat("yyyy/MM/dd")}}</div>
+                      <div class="LeftValue">{{(item["7645"]||"") | abdDateFormat("dd/MM/yyyy")}}</div>
                       <div class="rightKey">Lease End</div>
-                      <div class="LeftValue">{{(item["7646"]||"") | abdDateFormat("yyyy/MM/dd")}}</div>
+                      <div class="LeftValue">{{(item["7646"]||"") | abdDateFormat("dd/MM/yyyy")}}</div>
                   </div>
                   <div class="flexBox">
                       <div class="flexBoxKey">Manufacturer</div>

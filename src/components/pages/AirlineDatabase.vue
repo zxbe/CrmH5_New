@@ -193,7 +193,7 @@
                             <div class="parameterName">Report date
                             </div>
                             <div class="parameterValue">
-                                {{(detailEntity["7581"]||"") | abdDateFormat("yyyy/MM/dd")}}
+                                {{(detailEntity["7581"]||"") | abdDateFormat("dd/MM/yyyy")}}
                             </div>
                         </li>
                     </ul>
@@ -617,7 +617,7 @@
                             <div class="parameterName">Report date
                             </div>
                             <div class="parameterValue">
-                                {{(detailEntity["7582"]||"") | abdDateFormat("yyyy/MM/dd")}}
+                                {{(detailEntity["7582"]||"") | abdDateFormat("dd/MM/yyyy")}}
                             </div>
                         </li>
                     </ul>
@@ -792,7 +792,7 @@
                             <div class="parameterName">Report date
                             </div>
                             <div class="parameterValue">
-                                {{(detailEntity["7583"]||"") | abdDateFormat("yyyy/MM/dd")}}
+                                {{(detailEntity["7583"]||"") | abdDateFormat("dd/MM/yyyy")}}
                             </div>
                         </li>
                     </ul>
@@ -891,7 +891,7 @@
                             <div class="parameterName">Report date
                             </div>
                             <div class="parameterValue">
-                                {{(detailEntity["7584"]||"") | abdDateFormat("yyyy/MM/dd")}}
+                                {{(detailEntity["7584"]||"") | abdDateFormat("dd/MM/yyyy")}}
                             </div>
                         </li>
                     </ul>
@@ -992,7 +992,7 @@
                             <div class="parameterName">Report date
                             </div>
                             <div class="parameterValue">
-                                {{(detailEntity["7585"]||"") | abdDateFormat("yyyy/MM/dd")}}
+                                {{(detailEntity["7585"]||"") | abdDateFormat("dd/MM/yyyy")}}
                             </div>
                         </li>
                         <li class="mui-table-view-cell">
@@ -1327,7 +1327,7 @@
                             <div class="parameterName">Report date
                             </div>
                             <div class="parameterValue">
-                               {{(detailEntity["7588"]||"") | abdDateFormat("yyyy/MM/dd")}}
+                               {{(detailEntity["7588"]||"") | abdDateFormat("dd/MM/yyyy")}}
                             </div>
                         </li>
                     </ul>
@@ -1780,7 +1780,7 @@ export default {
 
                     _self.detailEntity = data.Data;
 
-                    //渲染textarea                    
+                    //渲染textarea
                     _self.$nextTick(function () {
                         $("textarea").each(function (index, cur) {
                             tool.autoTextarea(cur);
@@ -1823,7 +1823,7 @@ export default {
                                     _self.MarketMetricsArray = data["MarketMetricsArray"] || [];
                                 }else if(tabIDTemp == "7519"){
                                     _self.DetailedshareholdingArray = data["DetailedshareholdingArray"] || [];
-                                    
+
                                     _self.LessorparticipationArray = data["LessorparticipationArray"] || [];
                                     _self.BankparticipationArray = data["BankparticipationArray"] || [];
                                 }else if(tabIDTemp == "7520"){
@@ -1843,7 +1843,7 @@ export default {
                             }
                         });
 
-                        //渲染textarea                    
+                        //渲染textarea
                         _self.$nextTick(function () {
                             $("textarea").each(function (index, cur) {
                                 tool.autoTextarea(cur);
@@ -1863,8 +1863,8 @@ export default {
             });
         }
     },
-     beforeRouteLeave:function(to, from, next){         
-      if(to.name == 'organizationsinfo'){          
+     beforeRouteLeave:function(to, from, next){
+      if(to.name == 'organizationsinfo'){
           this.$store.commit('REMOVE_ITEM', 'airlineDatabase');
       }
       next();
