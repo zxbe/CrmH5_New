@@ -209,7 +209,11 @@
 			if(tool.isNullOrEmptyObject(dateStrArray[hourIndex])){
 				return dateStrArray[yearIndex] + "/" + dateStrArray[monthIndex] + "/" + dateStrArray[dayIndex];
 			}else{
-				return dateStrArray[yearIndex] + "/" + dateStrArray[monthIndex] + "/" + dateStrArray[dayIndex] + " " + dateStrArray[hourIndex] + ":" + dateStrArray[minuteIndex] + ":" + dateStrArray[secondIndex];
+        if(tool.isNullOrEmptyObject(dateStrArray[secondIndex])){
+          return dateStrArray[yearIndex] + "/" + dateStrArray[monthIndex] + "/" + dateStrArray[dayIndex] + " " + dateStrArray[hourIndex] + ":" + dateStrArray[minuteIndex];
+        }else{
+          return dateStrArray[yearIndex] + "/" + dateStrArray[monthIndex] + "/" + dateStrArray[dayIndex] + " " + dateStrArray[hourIndex] + ":" + dateStrArray[minuteIndex] + ":" + dateStrArray[secondIndex];
+        }
 			}
 		}
   };
@@ -1849,7 +1853,6 @@ import config from '../../configfile/config.js'
       }
 
 
-		console.log(pageType);
 		//请求地址
 		var urlTemp = tool.AjaxBaseUrl();
 		//传入参数
@@ -2863,6 +2866,8 @@ import config from '../../configfile/config.js'
 				_curObj.datetimePicker({
             fromId: fromId,
             jqueryObj: _curObj,
+            yearSplit:'/',
+            monthSplit: '/',
             title: titleVal,//标题
             toolbarCloseText: lanTool.lanContent('569_确认'),//确认
             toolbarCancleText: lanTool.lanContent('570_取消'),//取消
@@ -2870,18 +2875,21 @@ import config from '../../configfile/config.js'
             years:yearConfigArr,//年
             onOpen: function (pickerTemp,val1,val2) {
               //隐藏虚拟键盘
-                  document.activeElement.blur();
+              document.activeElement.blur();
               if(tool.isNullOrEmptyObject(pickerTemp) || tool.isNullOrEmptyObject(pickerTemp.value) || pickerTemp.value.length<=0){
                 return;
               }
               var valNew = "";
               if(pickerTemp.value.length == 5){
-                valNew = pickerTemp.value[0] + "-" + pickerTemp.value[1] + "-" + pickerTemp.value[2] + " " + pickerTemp.value[3] + ":" +  pickerTemp.value[4];
+
+                valNew = pickerTemp.value[0] + "/" + pickerTemp.value[1] + "/" + pickerTemp.value[2] + " " + pickerTemp.value[3] + ":" +  pickerTemp.value[4];
               }else{
-                valNew = pickerTemp.value[0] + "-" + pickerTemp.value[1] + "-" + pickerTemp.value[2];
+
+                valNew = pickerTemp.value[0] + "/" + pickerTemp.value[1] + "/" + pickerTemp.value[2];
               }
               _curObj.val(valNew);
             },
+
 				});
 			});
 

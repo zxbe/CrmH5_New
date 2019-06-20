@@ -4082,6 +4082,7 @@ Device/OS Detection
           }
       }
       p.params = params;
+      // console.log(p.params);
       p.cols = [];
       p.initialized = false;
 
@@ -4116,8 +4117,10 @@ Device/OS Detection
       // Value
       p.setValue = function (arrValues, transition) {
           var valueIndex = 0;
+          // console.log(arrValues);
           for (var i = 0; i < p.cols.length; i++) {
               if (p.cols[i] && !p.cols[i].divider) {
+                  // console.log("run continue");
                   p.cols[i].setValue(arrValues[valueIndex], transition);
                   valueIndex++;
               }
@@ -4141,15 +4144,16 @@ Device/OS Detection
                 if(p.params.datetimePicker != undefined && p.params.datetimePicker == true){
                     var dateFormat = p_object.attr("data-TimeType") ||"date";
                     var timeArray = tool.GetTimeArray('special');
-                    value.push(timeArray[0]);
-                    value.push(timeArray[1]);
                     value.push(timeArray[2]);
+                    value.push(timeArray[1]);
+                    value.push(timeArray[0]);
                     //判断时间格式
                     if(dateFormat == "dateTime"){
                       value.push(timeArray[3]);
                       value.push(timeArray[4]);
                       // value.push(timeArray[5]);
                     }
+
                 }else{
                     if(!tool.isNullOrEmptyObject(p.params.sourceDataObj) && p.params.sourceDataObj.length>=1){
                       value.push(p.params.sourceDataObj[0].text);
@@ -4163,7 +4167,7 @@ Device/OS Detection
                 p.params.value = value;
 
              }else{
-                value = value.replace(/(-|:)/g,' ').split(' ');
+                value = value.replace(/(-|:|\/)/g,' ').split(' ');
                 p.value = value;
                 p.displayValue = value;
                 p.params.value = value;
@@ -4198,6 +4202,7 @@ Device/OS Detection
           var colContainer = $(colElement);
           var colIndex = colContainer.index();
           var col = p.cols[colIndex];
+          // console.log(col);
           if (col.divider) return;
           col.container = colContainer;
           col.wrapper = col.container.find('.picker-items-col-wrapper');
@@ -4258,25 +4263,43 @@ Device/OS Detection
 
           // Set Value Function
           col.setValue = function (newValue, transition, valueCallbacks) {
+
               if (typeof transition === 'undefined') transition = '';
               var newActiveIndex = col.wrapper.find('.picker-item[data-picker-value="' + newValue + '"]').index();
 
+              // if(newActiveIndex <= -1){
+              //   return;
+              // }
+            //  console.log("newActiveIndex:"+newActiveIndex);
+             //console.log(col);
+
               //todo...
 
-            //   if(typeof newActiveIndex === 'undefined' || newActiveIndex === -1) {
-            //       col.value = col.displayValue = newValue;
-            //       return;
-            //   }
+              //   if(typeof newActiveIndex === 'undefined' || newActiveIndex === -1) {
+              //       col.value = col.displayValue = newValue;
+              //       return;
+              //   }
 
             if(typeof newActiveIndex === 'undefined' || newActiveIndex === -1) {
                 col.value = col.displayValue = '';
                 newActiveIndex = 0;
             }
 
+            // console.log(newValue);
+            // if(tool.isNullOrEmptyObject(col.value)){
+            //   return;
+            // }
+
               var newTranslate = -newActiveIndex * itemHeight + maxTranslate;
+              // console.log(newTranslate);
+              // console.log(typeof(newTranslate));
+              newTranslate = newTranslate.toString();
+              var strTemp = 'translate3d(0px,' +  newTranslate+ 'px,0px)';
               // Update wrapper
               col.wrapper.transition(transition);
-              col.wrapper.transform('translate3d(0,' + (newTranslate) + 'px,0)');
+              col.wrapper.transform(strTemp);
+
+
 
               // Watch items
               if (p.params.updateValuesOnMomentum && col.activeIndex && col.activeIndex !== newActiveIndex ) {
@@ -4512,6 +4535,7 @@ Device/OS Detection
 
       // HTML Layout
       p.columnHTML = function (col, onlyItems) {
+        //console.log(col.values);
           var columnItemsHTML = '';
           var columnHTML = '';
           if (col.divider) {
@@ -4526,6 +4550,7 @@ Device/OS Detection
           return onlyItems ? columnItemsHTML : columnHTML;
       };
       p.layout = function () {
+        // console.log(p.params.cols);
           var pickerHTML = '';
           var pickerClass = '';
           var i;
@@ -4662,7 +4687,9 @@ Device/OS Detection
               // Init Events
               p.container.find('.picker-items-col').each(function () {
                   var updateItems = true;
+                  //console.log(p.value);
                   if ((!p.initialized && p.params.value) || (p.initialized && p.value)) updateItems = false;
+                  //console.log(this);
                   p.initPickerCol(this, updateItems);
               });
 
@@ -4674,7 +4701,9 @@ Device/OS Detection
                   }
               }
               else {
-                  if (p.value) p.setValue(p.value, 0);
+                  if (p.value){
+                    p.setValue(p.value, 0);
+                  }
               }
           }
 
@@ -6195,14 +6224,46 @@ Device/OS Detection
         value: [today.getFullYear(), formatNumber(today.getMonth()+1), formatNumber(today.getDate()), formatNumber(today.getHours()), (formatNumber(today.getMinutes()))],
 
         onChange: function (picker, values, displayValues) {
+          //modify by Dylan 20190619 修改插件年月日格式
+          // var cols = picker.cols;
+          // var days = self.getDaysByMonthAndYear(values[1], values[0]);
+          // var currentValue = values[2];
+          // if(currentValue > days.length) currentValue = days.length;
+          // picker.cols[4].setValue(currentValue);
+
+          // //check min and max
+          // var current = new Date(values[0]+'-'+values[1]+'-'+values[2]);
+          // var valid = true;
+          // if(params.min) {
+          //   var min = new Date(typeof params.min === "function" ? params.min() : params.min);
+
+          //   if(current < +min) {
+          //     picker.setValue(lastValidValues);
+          //     valid = false;
+          //   }
+          // }
+          // if(params.max) {
+          //   var max = new Date(typeof params.max === "function" ? params.max() : params.max);
+          //   if(current > +max) {
+          //     picker.setValue(lastValidValues);
+          //     valid = false;
+          //   }
+          // }
+
+          // valid && (lastValidValues = values);
+
+          // if (self.params.onChange) {
+          //   self.params.onChange.apply(this, arguments);
+          // }
+
           var cols = picker.cols;
-          var days = self.getDaysByMonthAndYear(values[1], values[0]);
-          var currentValue = values[2];
+          var days = self.getDaysByMonthAndYear(values[1], values[2]);
+          var currentValue = values[0];
           if(currentValue > days.length) currentValue = days.length;
-          picker.cols[4].setValue(currentValue);
+          picker.cols[0].setValue(currentValue);
 
           //check min and max
-          var current = new Date(values[0]+'-'+values[1]+'-'+values[2]);
+          var current = new Date(values[2]+'-'+values[1]+'-'+values[0]);
           var valid = true;
           if(params.min) {
             var min = new Date(typeof params.min === "function" ? params.min() : params.min);
@@ -6225,15 +6286,46 @@ Device/OS Detection
           if (self.params.onChange) {
             self.params.onChange.apply(this, arguments);
           }
+
+          //end modify
         },
 
         formatValue: function (p, values, displayValues) {
           return self.params.format(p, values, displayValues);
         },
 
+        // cols: [
+        //   {
+        //     values: this.initYears
+        //   },
+        //   {
+        //     divider: true,  // 这是一个分隔符
+        //     content: params.yearSplit
+        //   },
+        //   {
+        //     values: this.initMonthes
+        //   },
+        //   {
+        //     divider: true,  // 这是一个分隔符
+        //     content: params.monthSplit
+        //   },
+        //   {
+        //     values: (function () {
+        //       var dates = [];
+        //       for (var i=1; i<=31; i++) dates.push(formatNumber(i));
+        //       return dates;
+        //     })()
+        //   },
+        // ]
+
         cols: [
           {
-            values: this.initYears
+            values: (function () {
+              var dates = [];
+              for (var i=1; i<=31; i++){
+                dates.push(formatNumber(i))};
+              return dates;
+            })()
           },
           {
             divider: true,  // 这是一个分隔符
@@ -6247,13 +6339,8 @@ Device/OS Detection
             content: params.monthSplit
           },
           {
-            values: (function () {
-              var dates = [];
-              for (var i=1; i<=31; i++) dates.push(formatNumber(i));
-              return dates;
-            })()
-          },
-
+            values: this.initYears
+          }
         ]
       }
 
@@ -6288,7 +6375,9 @@ Device/OS Detection
   }
 
   $.fn.datetimePicker = function(params) {
+
     params = $.extend({}, defaults, params);
+    // console.log(params);
     return this.each(function() {
       if(!this) return;
       var $this = $(this);
@@ -6336,10 +6425,16 @@ Device/OS Detection
       ];
     },
     format: function (p, values) { // 数组转换成字符串
-      return p.cols.map(function (col) {
-        return col.value || col.content;
-      }).join('');
+      var dateTime = p.cols.map(function (col) {
+            // console.log(p.cols);
+            return col.value || col.content;
+          }).join('');
+
+          // console.log(dateTime);
+
+          return dateTime;
     },
+
     parse: function (str) {
 
       // 把字符串转换成数组，用来解析初始值

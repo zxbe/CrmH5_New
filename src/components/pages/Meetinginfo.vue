@@ -34,7 +34,7 @@
                             <div class="ListCellContentLeftText lanText" data-lanid="712_开始时间"></div>
                         </div>
                         <div class="ListCellContentRight rightContent">
-                            <input id="startdate" type="text" data-field="BeginTime" data-fieldControlType="dateTimePicker" data-TimeType="dateTime" data-format="yyyy-MM-dd HH:mm" class="ListCellContentRightText"/>
+                            <input id="startdate" type="text" data-field="BeginTime" data-fieldControlType="dateTimePicker" data-TimeType="dateTime" data-format="dd/MM/yyyy HH:mm" class="ListCellContentRightText"/>
                         </div>
                             <div class="ListCellRightIcon"><span class="calcfont calc-you"></span></div>
                     </div>
@@ -47,7 +47,7 @@
                             <div class="ListCellContentLeftText lanText" data-lanid="713_结束时间"></div>
                         </div>
                         <div class="ListCellContentRight rightContent">
-                            <input id="enddate" type="text" data-field="EndTime" data-fieldControlType="dateTimePicker" data-TimeType="dateTime" data-format="yyyy-MM-dd HH:mm" class="ListCellContentRightText"/>
+                            <input id="enddate" type="text" data-field="EndTime" data-fieldControlType="dateTimePicker" data-TimeType="dateTime" data-format="dd/MM/yyyy HH:mm" class="ListCellContentRightText"/>
                         </div>
                             <div class="ListCellRightIcon"><span class="calcfont calc-you"></span></div>
                     </div>

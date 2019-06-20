@@ -227,7 +227,7 @@ export default {
                 path: url,
                 query: {
                     infoName: infoName,
-                    defaultDateTime:defaultDateTime
+                    defaultDateTime:tool.ChangeTimeFormat(defaultDateTime,'dd/MM/yyyy HH:mm','yyyy-MM-dd HH:mm')
                 }
             });
         },

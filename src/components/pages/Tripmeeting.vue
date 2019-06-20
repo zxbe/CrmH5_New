@@ -404,7 +404,7 @@ export default {
         addData:function(){
             var _self = this;
             var timeArray = tool.GetTimeArray('special');
-            var defaultDateTime = timeArray[0] + "-" + timeArray[1] + "-" + timeArray[2]+" "+ timeArray[3] +":" + timeArray[4];
+            var defaultDateTime = timeArray[2] + "/" + timeArray[1] + "/" + timeArray[0]+" "+ timeArray[3] +":" + timeArray[4];
             var url = "/meetinginfo/-1";
             _self.$router.push({
                     path: url,
