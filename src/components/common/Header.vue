@@ -1,67 +1,74 @@
 <template>
-
 <div>
     <header class="mui-bar mui-bar-nav">
 
-          <a v-if="isMain" @click="showRightPanel" class="calcfont calc-yonghu1 right"></a>
-          <a v-if="isMain" @click="goNotification" class="calcfont calc-mailbox right">
-              <span v-show="Number(messageCount)>=1" class="count">{{messageCount}}</span>
-          </a>
-          <a v-else @click="back" class="calcfont calc-fanhui left" id="back"></a>
+        <a v-if="isMain" @click="showRightPanel" class="calcfont calc-yonghu1 right"></a>
+        <a v-if="isMain" @click="goNotification" class="calcfont calc-mailbox right">
+            <span v-show="Number(messageCount)>=1" class="count">{{messageCount}}</span>
+        </a>
+        <a v-if="isMain" @click="goForumMsgPage" class="calcfont calc-bell right">
+            <span v-show="1" class="count">2</span>
+        </a>
+        <a v-else @click="back" class="calcfont calc-fanhui left" id="back"></a>
 
-
-
-          <h1 class="mui-title f18">{{title}}</h1>
+        <h1 class="mui-title f18">{{title}}</h1>
     </header>
 </div>
-
 </template>
-<script>
 
+<script>
 export default {
-    data(){
+    data() {
         return {
-            isMain:false, //是否首页
+            isMain: false, //是否首页
         }
     },
-    props:['title',"messageCount"],
-    created:function(){
+    props: ['title', "messageCount","forumMessage"],
+    created: function () {
         var url = this.$route.path;
-        if(url == '/Index'|| url == '/index'){
+        if (url == '/Index' || url == '/index') {
             this.isMain = true;
         }
     },
-    mounted:function(){
-      
+    mounted: function () {
+
     },
     activated: function () {
         lanTool.updateLanVersion();
     },
-    methods:{
-        back:function(){
+    methods: {
+        back: function () {
             console.log("back......");
             this.$router.back(-1);
         },
         //首页就显示侧滑
-        showRightPanel:function(){
+        showRightPanel: function () {
             eventBus.$emit('showIndexRightPanelEvent');
         },
-        goNotification:function(){
+        goNotification: function () {
             this.$router.push('/notification');
-        }
+        },
+        goForumMsgPage:function () {
+            console.log("论坛消息......");
+            this.$router.push('/forumNotification');
+        },
     }
 }
 </script>
 
 <style scoped>
-header{position: relative;}
-header.mui-bar {
-  /* line-height: 0.2rem; */
-  background: #f8f2dc;
-  overflow: hidden;
+header {
+    position: relative;
 }
+
+header.mui-bar {
+    /* line-height: 0.2rem; */
+    background: #f8f2dc;
+    overflow: hidden;
+}
+
 .mui-title {
-	right: 40px;
+    right: 40px;
     left: 40px;
     display: inline-block;
     overflow: hidden;
@@ -76,7 +83,8 @@ header.mui-bar {
     font-weight: 400;
     line-height: 0.88rem;
 }
-.calcfont{
+
+.calcfont {
     font-size: 0.48rem;
     text-align: center;
     padding: 0.2rem 10px;
@@ -86,31 +94,44 @@ header.mui-bar {
     text-decoration: none;
     line-height: 1;
 }
-.calc-liebiao,.calc-fanhui{
+
+.calc-liebiao,
+.calc-fanhui {
     /* margin-right: -10px; */
     /* margin-left: -10px; */
     /* padding-right: 10px;
     padding-left: 10px; */
 }
-.calc-mailbox{margin-right:-10px;z-index: 10;}
+
+.calc-mailbox {
+    margin-right: -10px;
+    z-index: 10;
+}
+.calc-bell{
+    margin-right: -10px;
+}
 /* .calc-mailbox::before{vertical-align:middle;} */
-.calc-liebiao{
-  font-size: 0.6rem;
-  padding: 0.15rem 10px;
+.calc-liebiao {
+    font-size: 0.6rem;
+    padding: 0.15rem 10px;
 }
 
 header .mui-title,
 header a {
-	color: #333;
+    color: #333;
 }
 
-.count{
-  background:#ff0000;
-  color:#fff;padding:3px;
-  position:absolute;
-  top:2px;right:2px;
-  display: inline-block;min-width:12px;min-height: 12px;font-size: 10px;
-  border-radius: 50%;}
-
-
+.count {
+    background: #ff0000;
+    color: #fff;
+    padding: 3px;
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    display: inline-block;
+    min-width: 12px;
+    min-height: 12px;
+    font-size: 10px;
+    border-radius: 50%;
+}
 </style>

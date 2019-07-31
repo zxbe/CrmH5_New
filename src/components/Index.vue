@@ -60,7 +60,7 @@
         <div class="occupy-position"></div>
 
         <!-- 提示 -->
-        <div class="tips">
+        <!-- <div class="tips">
             <div class="tips-box f12">
                 <span class="calcfont calc-tishi1"></span>
                 <div class="tips-text">
@@ -68,10 +68,10 @@
                 </div>
                 <router-link v-show="Number(meetingCount)>=1" to="/meetinglist" class="right upload-now a f14">
                     <span class="lanText" data-lanid="870_转到"></span>&gt;&gt;
-                </router-link>
+                </router-link> -->
                 <!-- <div @click="" to="/meetinglist" class="right upload-now a lanText f14" data-lanid="870_立刻去上传"></div> -->
-            </div>
-        </div>
+            <!-- </div>
+        </div> -->
 
         <div class="group-title">
             <div class="title-text f12 lanText" data-lanid="872_最近7天要参加的会议"></div>
@@ -144,6 +144,7 @@
               </div>
             </div>
           </div> -->
+                <div @click="SynchronousCamcardData" class="block-item item-border-top btnsynchronouscamcard lanText" data-lanid="1000193_同步CamCard数据"></div>
                 <div @click="ClearCache" class="block-item item-border-top lanText" data-lanid="776_清除缓存"></div>
             </div>
         </div>
@@ -322,6 +323,17 @@ export default {
             } else {
                 console.log("false");
             }
+        },
+        //同步Camcard的数据
+        SynchronousCamcardData:function(){
+             tool.showConfirm(
+                lanTool.lanContent("1000212_同步Camcard数据将会覆盖本地数据，是否确定同步？"),
+                function () {
+                      //点击确定后同步的逻辑处理
+                },
+                function () {
+                }
+            );
         },
         //清除缓存
         ClearCache: function () {

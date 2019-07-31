@@ -38,6 +38,8 @@ import FleetDetailsList from '@/components/pages/FleetDetailsList'
 //单点登陆
 import SingleSignOn from '@/components/SingleSignOn'
 
+//论坛相关
+import ForumNotification from '@/components/pages/ForumNotification'
 // import Report from '@/components/pages/Report'
 // import PrCalendarinfo from '@/components/pages/PrCalendarinfo'
 //dba
@@ -110,6 +112,8 @@ const router =  new Router({
    //database
  { path:'/airlineDatabase',name:'airlineDatabase',component:AirlineDatabase},
  { path:'/fleetDetailsList',name:'fleetDetailsList',component:FleetDetailsList},
+ //论坛
+ { path:'/forumNotification',name:'ForumNotification',component:ForumNotification},
   ]
 });
 

@@ -137,7 +137,11 @@
 
 .right-block-title{height:0.7rem;line-height:0.7rem;background:#e9cfae;padding-left:10px;font-weight: 600;}
 .right-block-items .block-item{line-height:0.7rem;box-sizing: border-box;padding:0 20px 0 10px;}
-.item-border-top{border-top:5px solid #f2f2f2}
+.item-border-top{border-top:2px solid #f2f2f2}
+.right-block-items .block-item.item-border-top{
+  padding-top:5px;
+  padding-bottom: 5px;
+}
 .language-type .language-icon{display:none;}
 .language-show .language-icon{display: block;}
 
