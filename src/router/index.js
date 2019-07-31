@@ -5,10 +5,11 @@ import Index from '@/components/Index'
 import Login from '@/components/Login'
 
 import Searchmodule from '@/components/pages/Searchmodule'
-import Meetinglist from '@/components/pages/Meetinglist'
 import Notification from '@/components/pages/Notification'
 import Previewfile from '@/components/pages/Previewfile'
 import Uploadinput from '@/components/pages/Uploadinput'
+import Meetinglist from '@/components/pages/Meetinglist'
+import Businesslist from '@/components/pages/BusinessList'
 
 import Tripmeeting from '@/components/pages/Tripmeeting'
 import Meetinginfo from '@/components/pages/Meetinginfo'
@@ -59,8 +60,11 @@ const router =  new Router({
     { path: '/index',name:'index', component:Index },
 
     { path: '/notification',name:'notification', component:Notification },
-    { path: '/meetinglist',name:'meetinglist', component: Meetinglist},
     { path: '/searchmodule/:paramStr',name:'searchmodule',component: Searchmodule},
+
+    { path: '/meetinglist',name:'meetinglist', component: Meetinglist},
+    { path: '/businesslist',name:'businesslist', component: Businesslist},
+
 
     //会议&出差
     { path: '/tripmeeting',name:'tripmeeting', component:Tripmeeting},

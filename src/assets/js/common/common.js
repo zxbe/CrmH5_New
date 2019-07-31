@@ -2620,46 +2620,49 @@ import config from '../../configfile/config.js'
 			});
 		});
 		//2-2>不同一行的selectList
-		//console.log($("#"+$("[data-fieldControlType='selectList'][data-clickObj]").attr("data-clickObj")).length);
-		$("#"+$("[data-fieldControlType='selectList'][data-clickObj]").attr("data-clickObj")).off('click').on('click',function(){
-			//查找子类
-			var _curObjTextdataFieldName = ($(this).attr('id') || "").ReplaceAll("ClickObj","");
-			var _curObj = $("[data-field='"+ _curObjTextdataFieldName +"']:first");
-			if(tool.isNullOrEmptyObject(_curObj)){
-				return;
-			}
-			// console.log(_curObj);
+    //console.log($("#"+$("[data-fieldControlType='selectList'][data-clickObj]").attr("data-clickObj")).length);
+    $("[data-fieldControlType='selectList'][data-clickObj]").each(function(index, obj){
 
-			var dataField = _curObj.attr("data-field") ||"";
-			var code = _curObj.attr("Code") ||"";
-			var filter = _curObj.attr("Filter") ||"";
-			var typeValue = _curObj.attr("TypeValue") ||"";
-			var value = _curObj.attr("data-fieldVal") ||"";
-			var selectType = _curObj.attr("data-selectType") ||"";
-			var title = lanTool.lanContent(_curObj.attr("data-lanid") ||"");
-			var addUrl = _curObj.attr("data-addUrl") ||"";
-			var linkIDField = _curObj.attr("data-linkIDField") ||"";//为了在弹出页面的新增上，带出id和name，如新增联系人，需要带上当前公司信息
-			var linkNameField = _curObj.attr("data-linkNameField") ||"";
-			var fromType = _curObj.attr("data-fromType") ||"";
+        $("#"+$(obj).attr("data-clickObj")).off('click').on('click',function(){
 
-			var parameter = {
-				'field':dataField,
-				'code':code,
-				"typeValue":typeValue,
-				'title':title,
-				'value':value,//已经选择的值
-				'selectType':selectType,
-				"filter":filter,
-				"addUrl":addUrl,
-				"linkIDField":linkIDField,
-				"linkNameField":linkNameField,
-				"fromType":fromType
-			};
-			self.$router.push({
-				path: '/selectlist',
-				query: parameter
-			});
-		});
+            //查找子类
+            var _curObjTextdataFieldName = ($(this).attr('id') || "").ReplaceAll("ClickObj","");
+            var _curObj = $("[data-field='"+ _curObjTextdataFieldName +"']:first");
+            if(tool.isNullOrEmptyObject(_curObj)){
+              return;
+            }
+            // console.log(_curObj);
+            var dataField = _curObj.attr("data-field") ||"";
+            var code = _curObj.attr("Code") ||"";
+            var filter = _curObj.attr("Filter") ||"";
+            var typeValue = _curObj.attr("TypeValue") ||"";
+            var value = _curObj.attr("data-fieldVal") ||"";
+            var selectType = _curObj.attr("data-selectType") ||"";
+            var title = lanTool.lanContent(_curObj.attr("data-lanid") ||"");
+            var addUrl = _curObj.attr("data-addUrl") ||"";
+            var linkIDField = _curObj.attr("data-linkIDField") ||"";//为了在弹出页面的新增上，带出id和name，如新增联系人，需要带上当前公司信息
+            var linkNameField = _curObj.attr("data-linkNameField") ||"";
+            var fromType = _curObj.attr("data-fromType") ||"";
+
+            var parameter = {
+              'field':dataField,
+              'code':code,
+              "typeValue":typeValue,
+              'title':title,
+              'value':value,//已经选择的值
+              'selectType':selectType,
+              "filter":filter,
+              "addUrl":addUrl,
+              "linkIDField":linkIDField,
+              "linkNameField":linkNameField,
+              "fromType":fromType
+            };
+            self.$router.push({
+              path: '/selectlist',
+              query: parameter
+            });
+      })
+    })
 
 		//3>渲染textarea
 		// $("textarea").each(function (index, cur) {

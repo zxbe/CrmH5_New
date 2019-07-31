@@ -19,7 +19,7 @@
             </div>
 
             <!-- 业务类型 -->
-            <div class="ListCell visible controlEdit">
+            <!-- <div class="ListCell visible controlEdit">
                 <div class="ListCellLeftIcon"><span class="calcfont calc-shangye"></span></div>
                 <div class="ListCellContent">
                     <div class="ListCellContentLeft leftContent">
@@ -30,7 +30,7 @@
                     </div>
                     <div class="ListCellRightIcon"><span class="calcfont calc-you"></span></div>
                 </div>
-            </div>
+            </div> -->
 
             <!-- 名称 -->
             <div class="ListCell visible controlEdit">
@@ -42,66 +42,30 @@
                 </div>
             </div>
 
-            <!-- opportunities 模块才有的属性 -->
-            <div class="OpportunitiesList controlEdit">
-
-                  <!-- 公司 -->
-                  <div class="ListSpecialCell visible" id="TargetCompanyIDClickObj">
-                      <div class="ListSpecialCellField">
-                          <div class="ListSpecialCellLeftIcon"><span class="calcfont calc-gongsixinxi"></span></div>
-                          <div class="ListSpecialCellFieldContent lanText" data-lanid="790_公司"></div>
-                          <div class="ListSpecialCellRightIcon"><span class="calcfont calc-you"></span></div>
-                      </div>
-                      <div
-                          class="ListSpecialCellContent"
-                          data-field="TargetCompanyID"
-                          data-fieldcontroltype="selectList"
-                          data-lanid="790_公司"
-                          data-fieldval=""
-                          data-selecttype="radio"
-                          code="DropDowList_ViewBaseCompanyBaseInfHasContact"
-                          typevalue=""
-                          data-clickObj="TargetCompanyIDClickObj"
-                          data-addUrl="/organizationsinfo"></div>
-                  </div>
-
-                  <!-- 联系人 -->
-                  <div class="ListCell" v-show="showPage==1">
-                      <div class="ListCellLeftIcon"><span class="calcfont calc-fuzerenicon"></span></div>
-                      <div class="ListCellContent">
-                          <div class="ListCellContentLeft leftContent">
-                              <div class="ListCellContentLeftText lanText" data-lanid="791_联系人"></div>
-                          </div>
-                          <div class="ListCellContentRight rightContent">
-                              <div
-                                data-field="ContactID"
-                                data-fieldControlType="linkSelectList"
-                                data-lanid="630_联系人"
-                                data-fieldVal=""
-                                Code="DropDowList_ViewBaseCompanyContactsByCompany"
-                                Filter=""
-                                data-selectType="radio"
-                                class="ListCellContentRightText"
-                                data-addUrl="/contactsinfo"
-                                data-linkIDField=""
-                                data-linkNameField=""
-                                data-fromType="6"></div>
-
-                          </div>
-                          <div class="ListCellRightIcon"><span class="calcfont calc-you"></span></div>
-                      </div>
-                    </div>
-
-                    <div class="ListCell visible" v-show="showPage==0">
-                        <div class="ListCellLeftIcon textLeftIcon"><span class="calcfont calc-feiji2"></span></div>
-                        <div class="ListCellLeftText">
-                            <p class="textareaP">
-                                <textarea data-field="MSN" data-fieldControlType="textareaInput" class="lanInputPlaceHolder" data-lanid="956_MSN"></textarea>
-                            </p>
+            <!-- 交易模块才有的属性 -->
+            <div v-show="showPage =='0'" class="OpportunitiesList controlEdit">
+                    <!-- LOI单号 -->
+                    <div class="ListSpecialCell visible" id="LOIIDClickObj">
+                        <div class="ListSpecialCellField">
+                            <div class="ListSpecialCellLeftIcon"><span class="calcfont calc-profile"></span></div>
+                            <div class="ListSpecialCellFieldContent lanText" data-lanid="	1000227_LOI单号"></div>
+                            <div class="ListSpecialCellRightIcon"><span class="calcfont calc-you"></span></div>
                         </div>
+                        <div
+                            class="ListSpecialCellContent"
+                            data-field="LOIID"
+                            data-fieldcontroltype="selectList"
+                            data-lanid="1000227_LOI单号"
+                            data-fieldval=""
+                            data-selecttype="radio"
+                            code="DropDowList_ViewBaseCompanyBaseInfHasContact"
+                            typevalue=""
+                            data-clickObj="LOIIDClickObj"
+                            data-addUrl="/organizationsinfo"></div>
                     </div>
 
-                    <div class="ListCell visible" v-show="showPage==0">
+                    <!-- 商业事项 -->
+                    <div class="ListCell visible" v-show="showPage=='0'">
                         <div class="ListCellLeftIcon"><span class="calcfont calc-shixiang"></span></div>
                         <div class="ListCellContent">
                             <div class="ListCellContentLeft leftContent">
@@ -113,8 +77,7 @@
                             <div class="ListCellRightIcon"><span class="calcfont calc-you"></span></div>
                         </div>
                     </div>
-
-                    <div class="ListCell visible MatterOtherObj" v-show="showPage==0">
+                    <div class="ListCell visible MatterOtherObj" v-show="showPage=='0'">
                         <div class="ListCellLeftIcon textLeftIcon"><span class="calcfont"></span></div>
                         <div class="ListCellLeftText">
                             <p class="textareaP">
@@ -122,99 +85,102 @@
                             </p>
                         </div>
                     </div>
-            </div>
 
-            <!-- 备忘 -->
-            <div class="ListCell visible controlEdit">
-                <div class="ListCellLeftIcon textLeftIcon"><span class="calcfont calc-beiwanglu"></span></div>
-                <div class="ListCellLeftText">
-                    <p class="textareaP">
-                        <textarea data-field="Memo" data-fieldControlType="textareaInput" class="lanInputPlaceHolder" data-lanid="719_备忘"></textarea>
-                    </p>
-                </div>
-            </div>
-
-            <!-- 风险提示 -->
-            <div class="ListCell controlEdit">
-                <div class="ListCellLeftIcon textLeftIcon"><span class="calcfont calc-fengxianyujing"></span></div>
-                <div class="ListCellLeftText">
-                    <p class="textareaP">
-                        <textarea data-field="RiskTips" data-fieldControlType="textareaInput" class="lanInputPlaceHolder" data-lanid="904_风险提示"></textarea>
-                    </p>
-                </div>
-            </div>
-
-            <!-- 关注 -->
-            <div v-show="!isAddNew" class="ListCell controlEdit">
-                <div class="ListCellLeftIcon textLeftIcon" @click="followToggle">
-                  <span data-field="IsFollow" data-fieldControlType="icon" data-fieldVal="{'true':'calc-shoucang','false':'calc-noshoucang'}" data-defaultVal="false" class="mui-icon calcfont guanZhu"></span>
-                </div>
-                <div class="ListCellLeftText">
-                    <p class="textareaP lanText" data-lanid="786_关注"></p>
-                </div>
-            </div>
-
-            <!-- 会议记录 -->
-            <div v-show="!isAddNew">
-
-                <div class="meetingRecord">
-                    <div class="headerBlock">
-                        <div class="headerBlockLeftIcon"><span class="calcfont calc-huiyi"></span></div>
-                        <div class="headerBlockContent f16 lanText" data-lanid="901_会议记录"></div>
-                        <div class="headerBlockRightIcon controlEdit">
-                          <span class="calcfont calc-jia" @click="goRecord($event)" data-url="/MeetingNoteinfo/-1"></span>
+                    <!-- MSN -->
+                    <div class="ListCell visible" v-show="showPage=='0'">
+                        <div class="ListCellLeftIcon textLeftIcon"><span class="calcfont calc-feiji2"></span></div>
+                        <div class="ListCellLeftText">
+                            <p class="textareaP">
+                                <textarea data-field="MSN" data-fieldControlType="textareaInput" class="lanInputPlaceHolder" data-lanid="956_MSN"></textarea>
+                            </p>
                         </div>
                     </div>
-                </div>
-
-                <!-- 会议记录列表 -->
-                <div class="meetingRecordList">
-
-                    <div v-for="item in MeetingNotice" :key="item.AutoID" class="meetingRecordListCell">
-                        <div class="headerDiv">
-                            <div class="headerDivLeftIcon"><span class="calcfont calc-xinxi1"></span></div>
-                            <div class="headerDivContent">
-                                <div class="content">{{item.MeetingTitle}}</div>
-                            </div>
-                            <div class="headerDivRightBtn" >
-                                <div class="rightBtn" data-lanid="" @click="goRecord($event, item.AutoID)" :data-url="'/MeetingNoteinfo/' + item.AutoID">
-                                {{seeMore}}
-                                </div>
-                            </div>
-                            <div class="headerDivRightDelete controlEdit"  @click="deleteMeetingNote(item.AutoID,$event)" >
-                                <span class="calcfont calc-delete"></span>
-                            </div>
-                        </div>
-                        <div v-show="item.CompanyID_Name" class="airlinesName">
-                            <div class="airlinesNameContent f12">{{item.CompanyID_Name}}</div>
-                        </div>
-                        <div v-show="item.Remark" class="meetingRemark">
-                            <p class="f14">{{item.Remark}}</p>
-                        </div>
-                         <!-- 会议记录文档列表  -->
-                        <div class="meetingDocList">
-                            <div v-for="fileItem in item.DocList" :key="fileItem.ObjectName" class="docListCell">
-                                <div class="docListCellLeft" @click="goFileInfo(fileItem)">
-                                    <div class="docListCellLeftContent f12"><span class="calcfont calc-fujian"></span>{{fileItem.ObjectName}}</div>
-                                </div>
-                                <div class="docListCellRight">
-                                    <div class="docListCellRightContent">{{fileItem.AddTime|MeetingTimeFormat}}</div>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-
-                </div>
-
             </div>
 
-            <!-- 负责人 -->
+            <!-- 公司 -->
+            <div class="ListSpecialCell visible" id="TargetCompanyIDClickObj">
+                <div class="ListSpecialCellField">
+                    <div class="ListSpecialCellLeftIcon"><span class="calcfont calc-gongsixinxi"></span></div>
+                    <div class="ListSpecialCellFieldContent lanText" data-lanid="790_公司"></div>
+                    <div class="ListSpecialCellRightIcon"><span class="calcfont calc-you"></span></div>
+                </div>
+                <div
+                    class="ListSpecialCellContent"
+                    data-field="TargetCompanyID"
+                    data-fieldcontroltype="selectList"
+                    data-lanid="790_公司"
+                    data-fieldval=""
+                    data-selecttype="radio"
+                    code="DropDowList_ViewBaseCompanyBaseInfHasContact"
+                    typevalue=""
+                    data-clickObj="TargetCompanyIDClickObj"
+                    data-addUrl="/organizationsinfo"></div>
+            </div>
+
+            <!-- 联系人 -->
+            <div class="ListCell">
+                <div class="ListCellLeftIcon"><span class="calcfont calc-fuzerenicon"></span></div>
+                <div class="ListCellContent">
+                    <div class="ListCellContentLeft leftContent">
+                        <div class="ListCellContentLeftText lanText" data-lanid="791_联系人"></div>
+                    </div>
+                    <div class="ListCellContentRight rightContent">
+                        <div
+                          data-field="ContactID"
+                          data-fieldControlType="linkSelectList"
+                          data-lanid="630_联系人"
+                          data-fieldVal=""
+                          Code="DropDowList_ViewBaseCompanyContactsByCompany"
+                          Filter=""
+                          data-selectType="radio"
+                          class="ListCellContentRightText"
+                          data-addUrl="/contactsinfo"
+                          data-linkIDField=""
+                          data-linkNameField=""
+                          data-fromType="6"></div>
+
+                    </div>
+                    <div class="ListCellRightIcon"><span class="calcfont calc-you"></span></div>
+                </div>
+            </div>
+
+            <!-- 机会来源   只有在商业机会可见-->
+            <div v-show="showPage =='1'" class="shareBlock controlEdit">
+                <div class="ListCell visible">
+                    <div class="ListCellLeftIcon">
+                        <span class="calcfont calc-laiyuanqingkuang"></span>
+                    </div>
+                    <div class="ListCellContent">
+                        <div class="ListCellContentLeft leftContent">
+                            <div class="ListCellContentLeftText lanText" data-lanid="1000230_机会来源"></div>
+                        </div>
+                        <div class="ListCellContentRight rightContent">
+                            <input
+                                data-field="SourceFrom"
+                                data-lanid="1000230_机会来源"
+                                data-fieldcontroltype="picker"
+                                data-fieldVal
+                                code="DropDowList_DtbAllTypes"
+                                TypeValue="Accessabletype"
+                                class="ListCellContentRightText"
+                            ></div>
+                            <div class="ListCellRightIcon">
+                                <span class="calcfont calc-you"></span>
+                            </div>
+                        </div>
+                </div>
+                <div class="ListCell visible controlEdit initiatorObj">
+                    <div class="ListCellLeftIcon textLeftIcon"><span class="calcfont calc-qita1"></span></div>
+                    <div class="ListCellLeftText">
+                        <p class="textareaP">
+                              <textarea data-field="SourceFromOther" data-fieldControlType="textareaInput" class="lanInputPlaceHolder"></textarea>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 可访问 -->
             <div class="shareBlock controlEdit">
-                <!-- <div class="shareTip">
-                    <p><span>* </span><span class="zhuyi lanText"
-                    data-lanid="899_请注意，负责人及其所有上司可以编辑数据并分享。分享此商业机会后，对应的联系人也将分享给对方。"></span></p>
-                </div> -->
                 <div class="ListCell visible">
                     <div class="ListCellLeftIcon">
                         <span class="calcfont calc-yidu"></span>
@@ -261,11 +227,55 @@
                         <div class="ListCellRightIcon"><span class="calcfont calc-you"></span></div>
                     </div>
                 </div>
+            </div>
 
+            <!-- 风险提示 -->
+            <div class="ListCell controlEdit">
+                <div class="ListCellLeftIcon textLeftIcon"><span class="calcfont calc-fengxianyujing"></span></div>
+                <div class="ListCellLeftText">
+                    <p class="textareaP">
+                        <textarea data-field="RiskTips" data-fieldControlType="textareaInput" class="lanInputPlaceHolder" data-lanid="904_风险提示"></textarea>
+                    </p>
+                </div>
+            </div>
+
+            <!-- 备忘 -->
+            <div class="ListCell visible controlEdit">
+                <div class="ListCellLeftIcon textLeftIcon"><span class="calcfont calc-beiwanglu"></span></div>
+                <div class="ListCellLeftText">
+                    <p class="textareaP">
+                        <textarea data-field="Memo" data-fieldControlType="textareaInput" class="lanInputPlaceHolder" data-lanid="719_备忘"></textarea>
+                    </p>
+                </div>
+            </div>
+
+            <!-- 关注 -->
+            <!-- <div v-show="!isAddNew" class="ListCell controlEdit">
+                <div class="ListCellLeftIcon textLeftIcon" @click="followToggle">
+                  <span data-field="IsFollow" data-fieldControlType="icon" data-fieldVal="{'true':'calc-shoucang','false':'calc-noshoucang'}" data-defaultVal="false" class="mui-icon calcfont guanZhu"></span>
+                </div>
+                <div class="ListCellLeftText">
+                    <p class="textareaP lanText" data-lanid="786_关注"></p>
+                </div>
+            </div> -->
+
+            <!-- 会议 -->
+            <div class="accessBlock" v-show="!isAddNew">
+                <div class="ListCell" @click="goToMeetingList">
+                    <div class="ListCellLeftIcon">
+                        <span class="calcfont calc-huiyi"></span>
+                    </div>
+                    <div class="ListCellContent">
+                        <div class="ListCellContentLeft leftContent">
+                            <div class="ListCellContentLeftText lanText" data-lanid="619_会议"></div>
+                        </div>
+                        <div class="ListCellRightIcon"><span class="calcfont calc-you"></span></div>
+                    </div>
+                </div>
             </div>
 
             <!-- 查看有权限访问的同事 -->
-            <div class="accessBlock initiatorObj">
+            <div class="accessBlock" v-show="!isAddNew">
                 <div class="ListCell" @click="goToShareList">
                     <div class="ListCellLeftIcon">
                         <span class="calcfont calc-yidu"></span>
@@ -278,6 +288,66 @@
                     </div>
                 </div>
             </div>
+
+            <!-- 会议文档 -->
+            <DocumentList
+              v-show="!isAddNew"
+              :document-data="documentData"
+              addible="false"
+              deletable="false"
+            ></DocumentList>
+            <!-- <div v-show="!isAddNew">
+
+                <div class="meetingRecord">
+                    <div class="headerBlock">
+                        <div class="headerBlockLeftIcon"><span class="calcfont calc-wendang2"></span></div>
+                        <div class="headerBlockContent f16 lanText" data-lanid="750_文档"></div>
+                        <div class="headerBlockRightIcon controlEdit">
+                          <span class="calcfont calc-jia" @click="goRecord($event)" data-url="/MeetingNoteinfo/-1"></span>
+                        </div>
+                    </div>
+                </div> -->
+                <!-- 会议记录列表 -->
+                <!-- <div class="meetingRecordList">
+                    <div v-for="item in MeetingNotice" :key="item.AutoID" class="meetingRecordListCell">
+                        <div class="headerDiv">
+                            <div class="headerDivLeftIcon"><span class="calcfont calc-xinxi1"></span></div>
+                            <div class="headerDivContent">
+                                <div class="content">{{item.MeetingTitle}}</div>
+                            </div>
+                            <div class="headerDivRightBtn" >
+                                <div class="rightBtn" data-lanid="" @click="goRecord($event, item.AutoID)" :data-url="'/MeetingNoteinfo/' + item.AutoID">
+                                {{seeMore}}
+                                </div>
+                            </div>
+                            <div class="headerDivRightDelete controlEdit"  @click="deleteMeetingNote(item.AutoID,$event)" >
+                                <span class="calcfont calc-delete"></span>
+                            </div>
+                        </div>
+                        <div v-show="item.CompanyID_Name" class="airlinesName">
+                            <div class="airlinesNameContent f12">{{item.CompanyID_Name}}</div>
+                        </div>
+                        <div v-show="item.Remark" class="meetingRemark">
+                            <p class="f14">{{item.Remark}}</p>
+                        </div>  -->
+                         <!-- 会议记录文档列表  -->
+                        <!-- <div class="meetingDocList">
+                            <div v-for="fileItem in item.DocList" :key="fileItem.ObjectName" class="docListCell">
+                                <div class="docListCellLeft" @click="goFileInfo(fileItem)">
+                                    <div class="docListCellLeftContent f12"><span class="calcfont calc-fujian"></span>{{fileItem.ObjectName}}</div>
+                                </div>
+                                <div class="docListCellRight">
+                                    <div class="docListCellRightContent">{{fileItem.AddTime|MeetingTimeFormat}}</div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div> -->
+
 
             <Infofooter v-show="!isAddNew"> </Infofooter>
 
@@ -298,19 +368,21 @@
 import Infoheader from '../common/Infoheader'
 import InfoRightPanel from '../common/InfoRightPanel'
 import Infofooter from '../common/infoFooter'
+import DocumentList from '../common/DocumentList'
 
 export default {
     name:'opportunitiesinfo',
     components: {
         Infoheader,
         Infofooter,
-        InfoRightPanel
+        InfoRightPanel,
+        DocumentList
     },
     data() {
         return {
             ptitle: 'Opportunities detail',
 
-            showPage:'',//记录列表页是从哪个模块进来的
+            showPage:'',//记录列表页是从哪个模块进来的 0：交易；1：商业机会
             isAddNew: false, //是否添加新纪录
             operation:true,//控制详情页header按钮，ture:显示可操作，false:隐藏
             onlyView:false,//控制页面头部icon,true:不显示头部icon,false:显示
@@ -324,8 +396,19 @@ export default {
             id:'', //dealPipeline id
             showTips:false,
             //会议记录数据
-            MeetingNotice:[
-
+            MeetingNotice:[],
+            //文档数据
+            documentData:[
+              {
+                AutoID:123,
+                ObjectName:'123123123123123123123123123123123.jpg',
+                AddTime:'2019-07-30T15:25:00'
+              },
+              {
+                AutoID:124,
+                ObjectName:'963999999.jpg',
+                AddTime:'2019-07-30T15:25:00'
+              }
             ],
             seeMore:"",
             isInitiator:false,//是否当前记录的负责人（PS：只有负责人才可以操作单据）
@@ -338,6 +421,7 @@ export default {
     created: function () {
         let _self = this;
         _self.$store.commit('SET_ITEM', 'opportunitiesinfo');
+
     },
     mounted: function () {
         let _self = this;
@@ -348,8 +432,9 @@ export default {
         _self.rightPanelCloseThis();
         _self.id = _self.$route.params.id;
 
-        _self.showPage = _self.$route.query.showPage || '';
-        if (_self.showPage == 1)
+        _self.showPage = _self.$route.query.showPage.toString() || '';
+
+        if (_self.showPage == '1')
         {
             _self.closeThisContent = lanTool.lanContent('944_关闭这个商业机会');
             _self.ptitle = this.$route.query.infoName || lanTool.lanContent('885_增加机会');
@@ -394,12 +479,24 @@ export default {
                 if (tool.isNullOrEmptyObject(curObj)) {
                     return;
                 }
-
                 var fieldval = curObj.attr("data-fieldval");
                 if (fieldval == "23") {
-                    $(".initiatorObj").hide();
+                    curObj.closest('.shareBlock').find(".initiatorObj").hide();
                 } else {
-                    $(".initiatorObj").show();
+                    curObj.closest('.shareBlock').find(".initiatorObj").show();
+                }
+            });
+            //控制data-field="SourceFrom"显示和隐藏
+            $("[data-field='SourceFrom']").off('change input').on('change input', function () {
+                var curObj = $(this);
+                if (tool.isNullOrEmptyObject(curObj)) {
+                    return;
+                }
+                var fieldval = curObj.attr("data-fieldval");
+                if (fieldval == "23") {
+                    curObj.closest('.shareBlock').find(".initiatorObj").hide();
+                } else {
+                    curObj.closest('.shareBlock').find(".initiatorObj").show();
                 }
             });
             //默认给data-field="Initiator"赋予23(公开) todo 这里要想个方法来赋值
@@ -412,6 +509,8 @@ export default {
                         .attr("data-fieldVal", publicObj.id)
                         .trigger("change");
                 }
+
+                $("[data-field='SourceFrom']").trigger("change");
             }
 
             //控制data-field="MatterOther"显示和隐藏
@@ -432,7 +531,7 @@ export default {
             //控制BusinessTypes字段不可修改
             _self.controlBusinessTypes();
             //控制TheName字段 在 Deal Pipeline 下不可修改
-            if(_self.showPage == 0){
+            if(_self.showPage == '0'){
                 $("[data-field='TheName']").addClass('disable color6').closest('.ListCell').removeClass('visible');
             }else{
                 $("[data-field='TheName']").removeClass('disable color6').closest('.ListCell').addClass('visible');
@@ -490,9 +589,17 @@ export default {
                 fromType: fromType,
                 fromID: fromID
             };
-            this.$router.push({
+            _self.$router.push({
                 path: "/poweruser",
                 query: parameter
+            });
+        },
+        //跳转会议列表
+        goToMeetingList:function(){
+            var _self = this;
+            _self.$router.push({
+                path: "/meetinglist",
+                // query: parameter
             });
         },
         //查看/添加会议记录
@@ -658,7 +765,7 @@ export default {
             var _self = this;
             if (_self.isAddNew) {
                 var businessSectorObj = {};
-                if(_self.showPage == 0){
+                if(_self.showPage == '0'){
                     businessSectorObj = _self.getDealObj();
                 }else{
                     businessSectorObj = _self.getOpportunityObj();

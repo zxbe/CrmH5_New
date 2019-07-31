@@ -1,0 +1,345 @@
+<template>
+<!-- BusinessList:从详情页面进入的交易列表，商业机会列表   -->
+
+<div>
+    <header class="mui-bar mui-bar-nav">
+          <!-- <a v-if="isMain" @click="showRightPanel" class="calcfont calc-yonghu1 right"></a>
+          <a v-if="isMain" @click="goNotification" class="calcfont calc-mailbox right">
+              <span v-show="Number(messageCount)>=1" class="count">{{messageCount}}</span>
+          </a> -->
+          <a @click="back" class="calcfont calc-fanhui left" id="back"></a>
+          <h1 class="mui-title f18">{{title}}</h1>
+    </header>
+
+    <div class="page-content">
+        <vue-scroll
+          v-show="!noData"
+          :showToTop="false"
+          :options="{ pullup: true, pulldown: true }"
+          :scrollbar="false" ref="scroll"
+          @pulldown="pulldown"
+          @pullup="pullup">
+
+            <div
+            v-for="item in listData"
+            :key="item.AutoID"
+            class="group-item f14"
+            :data-url="'/opportunitiesinfo/' + item.AutoID">
+                    <div class="item-block">
+                        <div class="item-div item-first-div blue-color">
+                        {{item.TheName}}
+                        </div>
+                        <!-- <div class="item-div line-clamp2">{{item.Memo}}</div> -->
+                        <div class="item-div f12 green-color padding-bottom-3 padding-top-3">
+                          <span :class="item.className">{{item.CurrentState}}</span>
+                          <span class="right updateTime">{{item.Initiator}}</span>
+                        </div>
+                        <div class="item-div-box">
+                            <div class="new-right">
+                              <div class="item-div">
+                                <span class="itme-div-span">{{item.MeetingTitle}}</span>
+                              </div>
+                              <div class="item-div dete-div f12">
+                                <span>{{item.MeetingDate|abdDateFormat('dd/MM/yyyy HH:mm')}}</span>
+                              </div>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+
+        </vue-scroll>
+
+        <nothing v-show="noData" style="padding-top:0.8rem;"></nothing>
+
+    </div>
+
+
+</div>
+
+</template>
+
+<script>
+import Scroll from '@/components/common/scroll/Scroll';
+import Nothing from "../common/Nothing"
+export default {
+  components:{
+      'vue-scroll':Scroll,
+      'nothing': Nothing
+  },
+  data(){
+    return{
+      title:'交易',
+      listData:[],
+      noData: false, //没数据
+      pageSize:10,//一页显示多少记录
+      pageNum:1,//当前页码
+    }
+  },
+  mounted:function(){
+      lanTool.updateLanVersion();
+      this.queryList();
+  },
+  methods:{
+      back:function(){
+          this.$router.back(-1);
+      },
+      //查询列表数据
+      queryList: function (queryType, callback) {
+          let _self = this;
+          if(queryType == 'pushLoad'){
+              //上拉请求
+              _self.pageNum += 1;
+          }else{
+              //非上拉请求
+              _self.pageNum = 1;
+          }
+          //api接口地址
+          var apiUrlTemp = '';
+          var jsonDatas = {
+              // CurrentLanguageVersion: lanTool.currentLanguageVersion,
+              // UserName: tool.UserName(),
+              // TabID: _self.tabID,
+              // CompanyID: _self.companyID,
+              // VersionID: _self.versionID,
+              // IsUsePager: true,
+              // PageSize:_self.pageSize,
+              // PageNum:_self.pageNum,
+              // QueryCondiction: _self.queryCondictionData || []
+          };
+
+          if(tool.isNullOrEmptyObject(queryType)){
+              var loadingIndexClassName = tool.showLoading();
+          }
+          // $.ajax({
+          //     async: true,
+          //     type: "post",
+          //     url: apiUrlTemp,
+          //     data: {
+          //         jsonDatas: JSON.stringify(jsonDatas)
+          //     },
+          //     success: function (data) {
+          //         tool.hideLoading(loadingIndexClassName);
+          //         data = tool.jObject(data);
+          //         if (data.Result != 1) {
+          //             tool.showText(data.Msg);
+          //             console.log(tool.getMessage(data.Msg));
+          //             return true;
+          //         }
+          //         data = data.Data || {};
+
+          //         //没有数据
+          //         if(tool.isNullOrEmptyObject(data["FleetDatailsArray"]) && _self.pageNum == 1){
+          //             _self.noData = true;
+          //             return ;
+          //         }
+          //         _self.noData = false;
+
+          //         if(queryType == 'pushLoad'){
+          //             _self.listData = _self.listData.concat(data["FleetDatailsArray"]);
+          //         }else{
+          //             _self.listData = data["FleetDatailsArray"] || [];
+          //         }
+
+          //         if(queryType == undefined || queryType == ''){
+          //             _self.$refs.scroll.isPullingDown = true;
+          //             _self.$refs.scroll.isPullingUpEnd = false;
+          //             _self.$refs.scroll.scrollTo(0, 0, 200, 'easing');
+          //         }
+          //         _self.$refs.scroll.refresh();
+
+          //         if(!tool.isNullOrEmptyObject(callback)){
+          //           callback(data["FleetDatailsArray"],_self.pageSize);
+          //         }
+
+          //         //渲染textarea
+          //         _self.$nextTick(function () {
+          //             $(window).scrollTop(0);
+          //             $("textarea").each(function (index, cur) {
+          //                 // $(cur).height('25');
+          //                 tool.autoTextarea(cur);
+          //             });
+          //         });
+          //     },
+          //     error: function (jqXHR, type, error) {
+          //         tool.hideLoading(loadingIndexClassName);
+          //         console.log(error);
+          //         return true;
+          //     },
+          //     complete: function () {
+          //         //隐藏虚拟键盘
+          //         document.activeElement.blur();
+          //     }
+          // });
+
+          var responseData = [
+            {
+              AutoID: 976,
+              BusinessTypes: 29,
+              ContactID: "南方航空公司某某",
+              CurrentState: "进行中",
+              CurrentStateHidden: 38,
+              Initiator: "aoniruan阮毅文",
+              IsFollow: 0,
+              LastUpdateTime: "2019-07-26T14:07:00",
+              LastUpdateUserName: "aoniruan阮毅文",
+              MeetingDate: "2019-07-28T08:00:00",
+              MeetingTitle: "关于和中国南方航空公司的合作相关会议",
+              Memo: "售后回租",
+              RiskTips: "技术方面要求非常高",
+              TargetCompanyID: "中国南方航空",
+              TheName: "MSN4554_ch Southern Airlines_SLB"
+            },
+            {
+              AutoID: 977,
+              BusinessTypes: 29,
+              ContactID: "员工",
+              CurrentState: "进行中",
+              CurrentStateHidden: 38,
+              Initiator: "aoniruan阮毅文",
+              IsFollow: 0,
+              LastUpdateTime: "2019-07-26T14:07:00",
+              LastUpdateUserName: "aoniruan阮毅文",
+              MeetingDate: "2019-07-28T08:00:00",
+              MeetingTitle: "关于和中国南方航空公司的合作相关会议",
+              Memo: "售后回租",
+              RiskTips: "技术方面要求非常高",
+              TargetCompanyID: "中国南方航空",
+              TheName: "MSN4554_ch Southern Airlines_SLB"
+            },
+          ]
+
+          if(queryType == 'pushLoad'){
+              _self.listData = _self.listData.concat(responseData);
+          }else{
+              _self.listData = responseData || [];
+          }
+
+          setTimeout(() => {
+            tool.hideLoading(loadingIndexClassName);
+            _self.$refs.scroll.refresh();
+          }, 2000);
+      },
+
+      //下拉
+      pulldown:function(){
+          let _self = this;
+          _self.queryList('pushRefresh',function(){
+              // _self.$refs.scroll.refresh();
+          })
+      },
+
+      //上拉
+      pullup:function(){
+          let _self = this;
+            _self.queryList('pushLoad',function(data,pageSize){
+
+              if(data.length < pageSize){
+                _self.$refs.scroll.pullupEnd();
+              }
+            //  else{
+            //     _self.$refs.scroll.refresh();
+            //  }
+
+          })
+      }
+  }
+
+}
+</script>
+
+
+<style scoped>
+/*头部style --start--*/
+header.mui-bar {
+  position: relative;
+  background: #f8f2dc;
+  overflow: hidden;
+}
+.mui-bar .calcfont{
+    font-size: 0.48rem;
+    text-align: center;
+    padding: 0.2rem 10px;
+    position: relative;
+    z-index: 20;
+    display: inline-block;
+    text-decoration: none;
+    line-height: 1;
+}
+.mui-bar .mui-title {
+	  right: 40px;
+    left: 40px;
+    display: inline-block;
+    overflow: hidden;
+    width: auto;
+    margin: 0;
+    text-overflow: ellipsis;
+    position: absolute;
+    padding: 0;
+    text-align: center;
+    white-space: nowrap;
+    font-weight: 400;
+    line-height: 0.88rem;
+}
+/*头部style --end--*/
+
+.page-content{
+  position: fixed;
+  top:0.88rem;
+  bottom:0;
+  left:0;right:0;
+}
+
+/*列表style ---start--*/
+.group-item{
+  background: #fff;
+  position: relative;
+}
+.group-item::after{content:'';display:block;height: 1px;background:beige;width:100%;left:0;top:0px;position:absolute;}
+.group-item .item-block {
+    padding: 5px 10px;
+}
+.group-item .item-first-div {
+    font-weight: 700;
+    padding: 5px 0 3px;
+    color: #3cadf9;
+}
+
+.group-item:first-child::after{background:#ffffff;}
+.group-item .item-div{line-height:0.4rem;}
+.group-item .line-clamp2{
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
+  word-wrap:break-word;
+}
+.group-item .item-div .closed{color:#ff5a21;}
+.group-item .item-div .updateTime{color:#666;}
+.group-item .item-div-box{position: relative;}
+.group-item .new-right{min-height:0.8rem;}
+.group-item .itme-div-span{display: block;
+  width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;}
+.group-item .item-first-div{
+  font-weight:bold;width: 100%;
+  padding:5px 0 3px;display:block;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.group-item .dete-div{color:#666666;}
+.group-item .blue-color{color:#3cadf9;}
+.group-item .green-color{color:#009979;}
+.group-item .padding-bottom-3{padding-bottom: 3px;}
+.group-item .padding-top-3{padding-top: 3px;}
+
+
+/*列表style ---end--*/
+
+</style>
+
+
+
+
