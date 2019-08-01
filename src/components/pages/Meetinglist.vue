@@ -31,8 +31,11 @@
                   :key="item.AutoID"
                   class="data-events-item f14 "
                   :class="{'selectable': fromType=='dealPipeline'||fromType=='pitches' }">
-                      <label class="radios-label" v-if="fromType=='dealPipeline'||fromType=='pitches'">
-                        <input type="radio" :name="field" :value="item.AutoID"><i class="radios"></i>
+                      <!-- <label class="radios-label" v-if="fromType=='dealPipeline'||fromType=='pitches'">
+                        <input type="radio" name="meetinglist" :value="item.AutoID" v-model="radioValue"><i class="radios"></i>
+                      </label> -->
+                      <label class="checkbox-label">
+                          <input type="checkbox" name="meetinglist" :value="item.AutoID" v-model="checkboxValue"/><i class="checkbox"></i><span class="radios f14">{{item.text}}</span>
                       </label>
                       <div @click="goInfoPage(item.AutoID,$event)">
                           <div class="item-title">{{item.MeetingTitle}}</div>
@@ -72,7 +75,8 @@ export default {
             pageNum:1,//当前页码
 
             fromType:'dealPipeline',  //标志是用那个模块过来的:organizations,contacts,dealPipeline,pitches
-            radioValue: "",
+            fromTypeId:'',  //dealPipelineID或者pitchesID,用于新增会议自动选择关联于商业字段
+            checkboxValue:[], //选择需要删除meetingId
         }
     },
     created:function(){
@@ -261,6 +265,12 @@ export default {
 
         //删除会议
         deleteMeeting:function(){
+          var _self = this;
+          if(_self.checkboxValue.length <=0 ){
+              tool.showText(lanTool.lanContent("709_请选择要删除的记录！"));
+              	//
+              return;
+          }
 
         },
 
@@ -322,7 +332,7 @@ header.mui-bar {
 .meeting-list .selectable{
   padding:8px 10px 8px 36px;
 }
-.radios-label{
+.checkbox-label{
   position: absolute;top:20px;left:10px;
 }
 </style>
