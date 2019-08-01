@@ -14,19 +14,6 @@
                         </p>
                     </div>
                 </div>
-                <!-- <div class="ListCell visible">
-                    <div class="ListCellLeftIcon"><span class="calcfont calc-shijian"></span></div>
-                    <div class="ListCellContent">
-                        <div class="ListCellContentLeft">
-                            <div class="ListCellContentLeftText">All day</div>
-                        </div>
-                        <div class="ListCellContentRight switch">
-                            <div class="weui-cell__ft">
-                                <input @click="allDayClick" class="weui-switch" type="checkbox">
-                            </div>
-                            </div>
-                        </div>
-                    </div> -->
 
                 <!-- 开始时间 -->
                 <div class="ListCell visible">
@@ -207,8 +194,6 @@
                         data-addUrl="/organizationsinfo"></div>
                 </div>
 
-
-
                 <!-- 备忘 -->
                 <div class="ListCell">
                     <div class="ListCellLeftIcon textLeftIcon"><span class="calcfont calc-beiwanglu"></span></div>
@@ -219,11 +204,21 @@
                     </div>
                 </div>
 
+                <!-- 会议总结 -->
+                <div class="ListCell">
+                    <div class="ListCellLeftIcon textLeftIcon"><span class="calcfont calc-beiwanglu"></span></div>
+                    <div class="ListCellLeftText">
+                        <p class="textareaP">
+                            <textarea data-field="Summary" data-fieldControlType="textareaInput" class="lanInputPlaceHolder" data-lanid="	1000291_会议总结"></textarea>
+                        </p>
+                    </div>
+                </div>
+
             </div>
 
             <Infofooter class="HideWhenNew"> </Infofooter>
 
-            <div v-show="accessMeetingNote" class="meetingRecord">
+            <!-- <div v-show="accessMeetingNote" class="meetingRecord">
                 <div class="ListCell" @click.stop="viewMeetingNote($event)">
                     <div class="ListCellLeftIcon"><span class="calcfont calc-yidu"></span></div>
                     <div class="ListCellContent">
@@ -236,11 +231,11 @@
                         <div class="ListCellRightIcon"><span class="calcfont calc-you"></span></div>
                     </div>
                 </div>
-            </div>
+            </div> -->
 
-                    </div>
-                </div>
-            </div>
+        </div>
+    </div>
+</div>
 </template>
 
 <script>
