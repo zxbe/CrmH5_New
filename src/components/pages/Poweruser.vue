@@ -58,10 +58,6 @@
                   <nothing v-if="noGroupData" style="padding-top:0.8rem;"></nothing>
             </div>
 
-
-
-
-
     </div>
 
 </div>
@@ -83,33 +79,9 @@ export default {
             FromID: "", //来源ID
             //用户数据
             userData: [
-                // {
-                //   id:'group1',
-                //   text:'group1'
-                // },
-                // {
-                //   id:'group1',
-                //   text:'group2'
-                // },
-                // {
-                //   id:'group1',
-                //   text:'group3'
-                // },
-                // {
-                //   id:'group1',
-                //   text:'group4'
-                // }
             ],
             //组数据
             groupData:[
-                // {
-                //   id:'group1',
-                //   text:'group1'
-                // },
-                // {
-                //   id:'group1',
-                //   text:'group2'
-                // }
             ],
             // userCheckedValue:[],
             // groupCheckedValue:[],

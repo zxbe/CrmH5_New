@@ -2,12 +2,16 @@
 <!-- 从详情点击进入的会议列表页面 -->
 <div>
     <header class="mui-bar mui-bar-nav">
-          <!-- <a v-if="isMain" @click="showRightPanel" class="calcfont calc-yonghu1 right"></a>
-          <a v-if="isMain" @click="goNotification" class="calcfont calc-mailbox right">
+          <!-- <a v-if="isMain" @click="showRightPanel" class="calcfont calc-yonghu1 right"></a> -->
+          <!-- <a v-if="isMain" @click="goNotification" class="calcfont calc-mailbox right">
               <span v-show="Number(messageCount)>=1" class="count">{{messageCount}}</span>
           </a> -->
           <a @click="back" class="calcfont calc-fanhui left" id="back"></a>
           <h1 class="mui-title f18">{{title}}</h1>
+          <a @click="clearHandler" class="calc-shanchu calcfont right" id="clear"></a>
+          <a @click="addHandler" class="calc-jiahao calcfont right" id="add"></a>
+          <a @click="addHandler" class="calc-guanlian calcfont right" id="add"></a>
+
     </header>
 
     <div class="page-content">
@@ -289,7 +293,9 @@ header.mui-bar {
     font-weight: 400;
     line-height: 0.88rem;
 }
-
+.mui-bar .calcfont{
+  margin-left: -10px
+}
 .page-content{
   position: fixed;
   top:0.88rem;
