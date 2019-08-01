@@ -287,7 +287,7 @@ export default {
                 {
                     "GroupID": 3,
                     "GroupName": "測試銷售組3",
-                    "GroupRowCount": 2,
+                    "GroupRowCount": 4,
                     "items": [{
                         "AutoID": 980,
                         "TheName": "MSNair320_HKhangkong_Sales",
@@ -350,7 +350,7 @@ export default {
 
         //分组展开/收起
         _self.groupToggle();
-
+         
         //初始化用户信息
         _self.initUserInfo();
 
@@ -365,7 +365,8 @@ export default {
 
         //获取消息数量
         _self.getMessageCount();
-
+       //收藏
+       _self.followToggle();
         _self.goInfo();
 
         //处理单点登陆
@@ -945,6 +946,39 @@ export default {
                 }
             });
         },
+         //点击关注/取消关注
+        followToggle: function () {
+            var _self = this;
+
+            $("#dealpipelineList,#opportunitiesList").off("click", ".item-stars-icon").on("click", ".item-stars-icon", function (e) {
+                e.preventDefault();
+                e.stopPropagation();
+
+                var target = $(e.target);
+                var _curObj = $(this);
+                var fromType = target.parents("div[data-fromtype]").attr("data-fromtype") || "";
+                var autoID = _curObj.attr("data-autoid") || "";
+                var actionType;
+                if (_curObj.hasClass("calc-shoucang")) {
+                    //取消关注
+                    actionType = 0;
+                } else {
+                    //添加关注
+                    actionType = 1;
+                }
+
+                tool.UserFollow(fromType, autoID, actionType, function () {
+                    if (_curObj.hasClass("calc-shoucang")) {
+                        //取消关注
+                        _curObj.removeClass("calc-shoucang").addClass("calc-noshoucang");
+                    } else {
+                        //添加关注
+                        _curObj.removeClass("calc-noshoucang").addClass("calc-shoucang");
+                    }
+                });
+            })
+        },
+
         //点击跳转到详情页
         goInfo: function () {
             var _self = this;
@@ -974,6 +1008,39 @@ export default {
                     });
                 }
             );
+            $("#dealpipelineList,#opportunitiesList").off('click', 'div.group-item').on(
+                'click',
+                'div.group-item',
+                function (event) {
+                    var target = $(event.target);
+                    if (target.hasClass("item-stars-icon")) {
+                        return;
+                    }
+                    if (!target.hasClass("group-item")) {
+                        target = target.closest("div.group-item");
+                        if (tool.isNullOrEmptyObject(target)) {
+                            return;
+                        }
+                    }
+
+                    var url = target.attr("data-url") || "";
+                    if (tool.isNullOrEmptyObject(url)) {
+                        return;
+                    }
+
+                    //点击列表是获取到属性名传给详情
+                    var infoName = null;
+                    infoName = $(this).find(".item-first-div").text() || "";
+                    var parameter = {
+                        showPage: _self.showPage,
+                        infoName: infoName
+                    };
+                    _self.$router.push({
+                        path: url,
+                        query: parameter
+                    });
+
+                });
 
         },
         //处理退出登陆按钮
