@@ -225,7 +225,7 @@
 
             </div>
 
-            <Infofooter class="HideWhenNew"> </Infofooter>
+            <Infofooter v-show="!isAddNew"> </Infofooter>
 
             <!-- <div v-show="accessMeetingNote" class="meetingRecord">
                 <div class="ListCell" @click.stop="viewMeetingNote($event)">
@@ -322,12 +322,10 @@ export default {
         var fromType = "Meetinginfo";
         //若是新增，则隐藏新增不需要显示的模块
         if (tool.isNullOrEmptyObject(_self.id) || Number(_self.id) <= 0) {
-            $(".HideWhenNew").hide();
             _self.isAddNew = true;
             _self.operation = false;
             _self.accessMeetingNote = false;
         } else {
-            $(".HideWhenNew").show();
             _self.isAddNew = false;
             _self.operation = false;
         }
