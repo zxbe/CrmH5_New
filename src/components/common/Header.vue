@@ -49,7 +49,6 @@ export default {
             this.$router.push('/notification');
         },
         goForumMsgPage:function () {
-            console.log("论坛消息......");
             this.$router.push('/forumNotification');
         },
     }
