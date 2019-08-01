@@ -70,6 +70,34 @@
                     </div>
                 </div>
 
+                <!-- 会议性质 -->
+                <div class="ListCell visible">
+                    <div class="ListCellLeftIcon"><span class="calcfont calc-shuxing"></span></div>
+                    <div class="ListCellContent">
+                        <div class="ListCellContentLeft leftContent">
+                            <div class="ListCellContentLeftText lanText" data-lanid="714_会议性质"></div>
+                        </div>
+                        <div class="ListCellContentRight rightContent">
+                            <input type="text" data-field="MeetingNature" data-fieldControlType="picker" data-fieldVal="" Code="DropDowList_DtbAllTypes" TypeValue="InternalExternaltype" class="ListCellContentRightText"/>
+                        </div>
+                            <div class="ListCellRightIcon"><span class="calcfont calc-you"></span></div>
+                    </div>
+                </div>
+
+                <!-- CAAL -->
+                <div class="ListCell visible">
+                    <div class="ListCellLeftIcon"><span class="calcfont calc-shuxing"></span></div>
+                    <div class="ListCellContent">
+                        <div class="ListCellContentLeft leftContent">
+                            <div class="ListCellContentLeftText lanText" data-lanid="1000289_CAAL"></div>
+                        </div>
+                        <div class="ListCellContentRight rightContent">
+                            <input type="text" data-field="CAAL" data-fieldControlType="picker" data-fieldVal="" Code="DropDowList_DtbAllTypes" TypeValue="InternalExternaltype" class="ListCellContentRightText"/>
+                        </div>
+                            <div class="ListCellRightIcon"><span class="calcfont calc-you"></span></div>
+                    </div>
+                </div>
+
                 <!-- 公司 -->
                 <div class="ListSpecialCell visible" id="CompanyIDClickObj">
                     <div class="ListSpecialCellField">
@@ -145,8 +173,8 @@
                     data-isShowAdd="true" data-fromType="9"></div>
                 </div>
 
-                <!-- 是否首次会议 -->
-                <div class="ListCell visible">
+                <!-- 状态 -->
+                <div class="ListCell">
                     <div class="ListCellLeftIcon"><span class="calcfont calc-shuxing"></span></div>
                     <div class="ListCellContent">
                         <div class="ListCellContentLeft leftContent">
@@ -159,6 +187,29 @@
                     </div>
                 </div>
 
+                <!-- 与会人员 -->
+                <div class="ListSpecialCell" id="ParticipantsClickObj">
+                    <div class="ListSpecialCellField">
+                        <div class="ListSpecialCellLeftIcon"><span class="calcfont calc-gongsixinxi"></span></div>
+                        <div class="ListSpecialCellFieldContent lanText" data-lanid="1000288_与会人员"></div>
+                        <div class="ListSpecialCellRightIcon"><span class="calcfont calc-you"></span></div>
+                    </div>
+                    <div
+                        class="ListSpecialCellContent"
+                        data-field="Participants"
+                        data-fieldcontroltype="selectList"
+                        data-lanid="1000288_与会人员"
+                        data-fieldval=""
+                        data-selecttype="checkbox"
+                        code="DropDowList_ViewBaseCompanyBaseInfHasContact"
+                        typevalue=""
+                        data-clickObj="ParticipantsClickObj"
+                        data-addUrl="/organizationsinfo"></div>
+                </div>
+
+
+
+                <!-- 备忘 -->
                 <div class="ListCell">
                     <div class="ListCellLeftIcon textLeftIcon"><span class="calcfont calc-beiwanglu"></span></div>
                     <div class="ListCellLeftText">
