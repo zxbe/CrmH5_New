@@ -8,26 +8,14 @@
           </a> -->
           <a @click="back" class="calcfont calc-fanhui left" id="back"></a>
           <h1 class="mui-title f18">{{title}}</h1>
-          <a @click="clearHandler" class="calc-shanchu calcfont right" id="clear"></a>
-          <a @click="addHandler" class="calc-jiahao calcfont right" id="add"></a>
-          <a @click="addHandler" class="calc-guanlian calcfont right" id="add"></a>
+
+          <a v-show="fromType=='dealPipeline'||fromType=='pitches'" @click="deleteMeeting" class="calc-shanchu calcfont right" id="delete"></a>
+          <a v-show="fromType=='dealPipeline'||fromType=='pitches'" @click="addMeeting" class="calc-jiahao calcfont right" id="add"></a>
+          <a v-show="fromType=='dealPipeline'||fromType=='pitches'" @click="relationMeeting" class="calc-guanlian calcfont right" id="relation"></a>
 
     </header>
 
     <div class="page-content">
-
-        <!-- <div class="group-item-list meeting-list">
-              <div v-show="!noData" v-for="item in listData" :key="item.AutoID" class="data-events-item f14" @click="goInfoPage(item.AutoID,$event)">
-                  <div class="item-title">{{item.MeetingTitle}}</div>
-                  <div class="item-time f12">
-                    <span class="calcfont calc-gengxinshijian"></span>
-                    <span class="time-text">{{item.BeginTime|MeetingTimeFormat}}~{{item.EndTime|MeetingTimeFormat}}</span>
-                    <div class="right-text">{{item.Realname}}</div>
-                  </div>
-                  <div class="item-address">{{item.CompanyID}}</div>
-                  <div class="item-initiator">{{item.ContactsID|formatContactsID}}{{item.Title|formatTitle}}</div>
-              </div>
-        </div> -->
 
         <vue-scroll
           v-show="!noData"
@@ -37,14 +25,24 @@
           @pulldown="pulldown"
           @pullup="pullup">
             <div class="group-item-list meeting-list">
-                <div v-show="!noData" v-for="item in listData" :key="item.AutoID" class="data-events-item f14" @click="goInfoPage(item.AutoID,$event)">
-                    <div class="item-title">{{item.MeetingTitle}}</div>
-                    <div class="item-time f12">
-                      <span class="calcfont calc-gengxinshijian"></span>
-                      <span class="time-text">{{item.BeginTime|MeetingTimeFormat}}~{{item.EndTime|MeetingTimeFormat}}</span>
-                      <div class="right-text">{{item.LastUpdateUserName}}</div>
-                    </div>
-                </div>
+                <div
+                  v-show="!noData"
+                  v-for="item in listData"
+                  :key="item.AutoID"
+                  class="data-events-item f14 "
+                  :class="{'selectable': fromType=='dealPipeline'||fromType=='pitches' }">
+                      <label class="radios-label" v-if="fromType=='dealPipeline'||fromType=='pitches'">
+                        <input type="radio" :name="field" :value="item.AutoID"><i class="radios"></i>
+                      </label>
+                      <div @click="goInfoPage(item.AutoID,$event)">
+                          <div class="item-title">{{item.MeetingTitle}}</div>
+                          <div class="item-time f12">
+                            <span class="calcfont calc-gengxinshijian"></span>
+                            <span class="time-text">{{item.BeginTime|MeetingTimeFormat}}~{{item.EndTime|MeetingTimeFormat}}</span>
+                            <div class="right-text">{{item.LastUpdateUserName}}</div>
+                          </div>
+                      </div>
+                  </div>
             </div>
 
         </vue-scroll>
@@ -72,6 +70,9 @@ export default {
             noData: false, //没数据
             pageSize:10,//一页显示多少记录
             pageNum:1,//当前页码
+
+            fromType:'dealPipeline',  //标志是用那个模块过来的:organizations,contacts,dealPipeline,pitches
+            radioValue: "",
         }
     },
     created:function(){
@@ -256,6 +257,22 @@ export default {
               //  }
 
             })
+        },
+
+        //删除会议
+        deleteMeeting:function(){
+
+        },
+
+        //新建会议
+        addMeeting:function(){
+
+        },
+
+        //关联会议
+        relationMeeting:function(){
+
+
         }
     }
 }
@@ -302,5 +319,10 @@ header.mui-bar {
   bottom:0;
   left:0;right:0;
 }
-
+.meeting-list .selectable{
+  padding:8px 10px 8px 36px;
+}
+.radios-label{
+  position: absolute;top:20px;left:10px;
+}
 </style>
