@@ -61,7 +61,8 @@
         <div class="pageListContent">
             <div class="nav sticky">
                 <div id="meetingSwitchPage" @click="switchPage(0,$event)" class="nav-item f16 active-item lanText" data-lanid="619_会议"></div>
-                <div id="opportunitiesSwitchPage" @click="switchPage(1,$event)" class="nav-item f16 lanText" data-lanid="1000339_商业机会 & 交易"></div>
+                <div id="dealsSwitchPage" @click="switchPage(1,$event)" class="nav-item f16 lanText" data-lanid="817_交易"></div>
+                <div id="opportunitiesSwitchPage" @click="switchPage(2,$event)" class="nav-item f16 lanText" data-lanid="649_商业机会"></div>
                 <div class="nav-border"></div>
             </div>
             <div v-show="showPage == 0" class="group-title">
@@ -71,14 +72,20 @@
                 </router-link>
             </div>
             <div v-show="showPage == 1" class="group-title">
-                <div class="title-text f12 lanText" data-lanid="1000176_最近的商业机会 & 交易"></div>
+                <div class="title-text f12 lanText" data-lanid="1000347_最近的交易"></div>
+                <router-link to="/businessCategories" class="check-all right f14 a">
+                    <span class="lanText" data-lanid="936_更多"></span>&gt;&gt;
+                </router-link>
+            </div>
+            <div v-show="showPage == 2" class="group-title">
+                <div class="title-text f12 lanText" data-lanid="1000346_最近的商业机会"></div>
                 <router-link to="/businessCategories" class="check-all right f14 a">
                     <span class="lanText" data-lanid="936_更多"></span>&gt;&gt;
                 </router-link>
             </div>
             <div v-show="showPage == 0" class="pageList">
                 <!-- 列表 -->
-                <div v-if="!notData" class="list-view" id="indexMeetingList">
+                <div v-if="!noData" class="list-view" id="indexMeetingList">
 
                     <div v-for="group in groupData" :key="group.GroupID" class="month-event list-group-div group-div" data-fromtype="meeting">
                         <div class="f14 date-div">
@@ -105,11 +112,11 @@
 
                 </div>
                 <!-- 没有数据   -->
-                <nothing v-if="notData" style="padding-top:0.8rem;"></nothing>
+                <nothing v-if="noData" style="padding-top:0.8rem;"></nothing>
             </div>
             <div v-show="showPage == 1" class="pageList">
-                <div v-show="!notData" id="dealpipelineList" data-fromtype="dealPipeline">
-                    <div v-for="group in dealData" :key="group.GroupID" class="list-group-div group-div">
+                <div v-show="!noData" id="dealpipelineList" data-fromtype="dealPipeline">
+                    <div v-for="group in groupData" :key="group.GroupID" class="list-group-div group-div">
                         <div class="date-div">
                             <span class="calcfont calc-lianxiren1"></span>
                             <span class="group-name" :data-groupid="group.GroupID">{{group.GroupName}}</span>
@@ -129,7 +136,7 @@
                                         <span :class="item.className">{{item.CurrentState}}</span>
                                         <span class="right updateTime">{{item.LastUpdateTime|abdDateFormat('dd/MM/yyyy')}}</span>
                                     </div>
-                                    <div v-if="item.IsMeetingExist.toLowerCase()!='false'" class="item-div-box">
+                                    <div v-if="item.IsMeetingExist!='false'" class="item-div-box">
                                         <div class="item-new-text">{{item.meetingSysmbol}}</div>
                                         <div class="new-right">
                                             <div class="item-div">
@@ -145,7 +152,48 @@
                         </div>
                     </div>
                 </div>
-                <nothing v-show="notData" style="padding-top:0.8rem;"></nothing>
+                <nothing v-show="noData" style="padding-top:0.8rem;"></nothing>
+            </div>
+            <div v-show="showPage == 2" class="pageList">
+                <div v-show="!noData" id="opportunitiesList" data-fromtype="opportunities">
+
+                    <div v-for="group in groupData" :key="group.GroupID" class="list-group-div group-div">
+                        <div class="date-div ">
+                            <span class="calcfont calc-lianxiren1"></span>
+                            <span class="group-name" :data-groupid="group.GroupID">{{group.GroupName}}</span>
+                            <span class="right">（{{group.GroupRowCount}}）</span>
+                        </div>
+                        <div class="occupy-div"></div>
+
+                        <div v-if="group.items.length > 0" class="group-item-list opportunities-list">
+                            <div v-for="item in group.items" :key="item.AutoID" class=" group-item f14" :data-url="'/opportunitiesinfo/' + item.AutoID">
+                                <div class="item-stars-icon calcfont" :class="item.IsFollow" :data-autoid="item.AutoID"></div>
+                                <div class="item-block">
+                                    <div class="item-div item-first-div blue-color">
+                                        {{item.TheName}}
+                                    </div>
+                                    <div class="item-div f12 green-color padding-bottom-3 padding-top-3">
+                                        <span :class="item.className">{{item.CurrentState}}</span>
+                                        <span class="right updateTime">{{item.LastUpdateTime|abdDateFormat('dd/MM/yyyy')}}</span>
+                                    </div>
+                                    <div class="item-div line-clamp2">{{item.Memo}}</div>
+                                    <div v-if="item.IsMeetingExist!='false'" class="item-div-box">
+                                        <div class="item-new-text">{{item.meetingSysmbol}}</div>
+
+                                        <div class="new-right">
+                                            <div class="item-div">
+                                                <span class="itme-div-span">{{item.MeetingTitle}}</span>
+                                            </div>
+                                            <div class="item-div dete-div f12">
+                                                <span>{{item.BeginTime|abdDateFormat('dd/MM/yyyy HH:mm')}}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -224,109 +272,49 @@ export default {
     data() {
         return {
             title: "",
-            notData: false, //没有数据
+            noData: false, //没有数据
             showPanel: false,
             groupData: [], //7天的数据
             dealData: [{
                     "GroupID": 2,
                     "GroupName": "測試銷售組1",
-                    "GroupRowCount": 3,
-                    "items": [{
-                        "AutoID": 982,
-                        "TheName": "MSN123_9 Air_Trading",
-                        "Memo": "666",
-                        "CurrentState": "In Progress",
-                        "IsFollow": "calc-noshoucang",
-                        "IsMeetingExist": "true",
-                        "MeetingTitle": "31号1次会议",
-                        "BeginTime": "2019-07-31T08:00:00"
-                    }, {
-                        "AutoID": 895,
-                        "TheName": "MSN456",
-                        "Memo": "8999",
-                        "CurrentState": "Closed",
-                        "IsFollow": "calc-shoucang",
-                        "IsMeetingExist": "false",
-                        "MeetingTitle": null,
-                        "BeginTime": null
-                    }, {
-                        "AutoID": 893,
-                        "TheName": "MSN66666_test_Operator_SLB",
-                        "Memo": "sdfdsfs",
-                        "CurrentState": "Closed",
-                        "IsFollow": "calc-noshoucang",
-                        "IsMeetingExist": "false",
-                        "MeetingTitle": null,
-                        "BeginTime": null
-                    }, ]
+                    "GroupRowCount": 15,
+                    "items": []
                 },
                 {
                     "GroupID": 1,
                     "GroupName": "測試銷售組2",
-                    "GroupRowCount": 2,
-                    "items": [{
-                        "AutoID": 960,
-                        "TheName": "MSN3698_kongke_Trading",
-                        "Memo": "for\nkongke\nmemo",
-                        "CurrentState": "Close the order with win",
-                        "IsFollow": "calc-noshoucang",
-                        "IsMeetingExist": "true",
-                        "MeetingTitle": "空客第一次会议",
-                        "BeginTime": "2019-07-25T08:30:00"
-                    }, {
-                        "AutoID": 959,
-                        "TheName": "MSN3369_nanhang_SLB",
-                        "Memo": "tes\n3",
-                        "CurrentState": "In Progress",
-                        "IsFollow": "calc-noshoucang",
-                        "IsMeetingExist": "true",
-                        "MeetingTitle": "M737Max购买会面",
-                        "BeginTime": "2019-07-17T09:00:00"
-                    }]
+                    "GroupRowCount": 53,
+                    "items": []
                 },
                 {
                     "GroupID": 3,
                     "GroupName": "測試銷售組3",
-                    "GroupRowCount": 4,
-                    "items": [{
-                        "AutoID": 980,
-                        "TheName": "MSNair320_HKhangkong_Sales",
-                        "Memo": null,
-                        "CurrentState": "In Progress",
-                        "IsFollow": "calc-noshoucang",
-                        "IsMeetingExist": "true",
-                        "MeetingTitle": "测试",
-                        "BeginTime": "2019-07-03T00:00:00"
-                    }, {
-                        "AutoID": 974,
-                        "TheName": "MSN777_china EVA Air_加大合作力度",
-                        "Memo": "资料准备齐全",
-                        "CurrentState": "In Progress",
-                        "IsFollow": "calc-noshoucang",
-                        "IsMeetingExist": "true",
-                        "MeetingTitle": "与澳洲航空公司交易的探讨会议",
-                        "BeginTime": "2019-08-02T10:00:00"
-                    }, {
-                        "AutoID": 976,
-                        "TheName": "MSN4554_ch Southern Airlines_SLB",
-                        "Memo": "售后回租",
-                        "CurrentState": "In Progress",
-                        "IsFollow": "calc-noshoucang",
-                        "IsMeetingExist": "true",
-                        "MeetingTitle": "关于和中国南方航空公司的合作相关会议",
-                        "BeginTime": "2019-07-28T08:00:00"
-                    }, {
-                        "AutoID": 946,
-                        "TheName": "MSNten_10_数据挖掘机公司_Financing",
-                        "Memo": "memo ten_10",
-                        "CurrentState": "In Progress",
-                        "IsFollow": "calc-noshoucang",
-                        "IsMeetingExist": "true",
-                        "MeetingTitle": "test huiyi2",
-                        "BeginTime": "2019-07-22T19:00:00"
-                    }]
+                    "GroupRowCount": 8,
+                    "items": []
                 }
             ],
+            pitchesData: [{
+                "GroupID": 13,
+                "GroupName": "IT Team",
+                "GroupRowCount": 7,
+                "items": []
+            }, {
+                "GroupID": 2,
+                "GroupName": "Test Sales Team1",
+                "GroupRowCount": 10,
+                "items": [],
+            }, {
+                "GroupID": 1,
+                "GroupName": "Test Sales Team2",
+                "GroupRowCount": 34,
+                "items": []
+            }, {
+                "GroupID": 3,
+                "GroupName": "Test Sales Team3",
+                "GroupRowCount": 4,
+                "items": []
+            }],
             meetingCount: 0, //未上传会议记录的会议数量
             messageCount: 0, //消息数量
             forumMessageCount: 3, //论坛消息的数量
@@ -350,7 +338,7 @@ export default {
 
         //分组展开/收起
         _self.groupToggle();
-         
+
         //初始化用户信息
         _self.initUserInfo();
 
@@ -365,8 +353,8 @@ export default {
 
         //获取消息数量
         _self.getMessageCount();
-       //收藏
-       _self.followToggle();
+        //收藏
+        _self.followToggle();
         _self.goInfo();
 
         //处理单点登陆
@@ -377,14 +365,25 @@ export default {
     },
     methods: {
         switchPage: function (num, e) {
-            console.log("切换" + num);
             var _self = this;
             var el = e.target;
             if (num === undefined) return;
             $(el).addClass('active-item').siblings().removeClass('active-item');
             _self.changePos();
+            switch (num) {
+                case 0:
+                    _self.getRecentMeeting();
+                    break;
+                case 1:
+                    _self.getRecentDealsAndOpportunities(1);
+                    break;
+                case 2:
+                    _self.getRecentDealsAndOpportunities(2);
+                    break;
+                default:
+                    break;
+            }
             _self.showPage = num;
-
         },
         //table底部横条过渡效果
         changePos: function () {
@@ -650,6 +649,8 @@ export default {
                         //             .slideDown(500);
                         //     })
                         // });
+                        console.log("groupID:" + groupID);
+
                         tool.InitInnerDataList(_self, 'meeting', groupID, [], function () {
                             _self.$nextTick(function () {
                                 target.addClass("open")
@@ -659,7 +660,8 @@ export default {
                         }, 'index');
                     }
                 })
-            $("#dealpipelineList").off("click", "div.date-div").on(
+
+            $("#dealpipelineList,#opportunitiesList").off("click", "div.date-div").on(
                 "click",
                 "div.date-div",
                 function (event) {
@@ -670,7 +672,7 @@ export default {
                             return;
                         }
                     }
-
+                    var fromType = target.parents("div[data-fromtype]").attr("data-fromtype") || "";
                     var groupID = target.find("span[data-groupid]:first").attr("data-groupid") || "";
 
                     if (tool.isNullOrEmptyObject(groupID)) {
@@ -684,7 +686,7 @@ export default {
                             .siblings(".group-item-list")
                             .slideUp(500, function () {
                                 //清空items数据
-                                $.each(_self.dealData, function (index, item) {
+                                $.each(_self.groupData, function (index, item) {
                                     if (item.GroupID == groupID) {
                                         item.items = [];
                                         return;
@@ -693,14 +695,7 @@ export default {
                             });
                     } else {
                         //若是收起
-                        // _self.getInnerDataList(groupID, function () {
-                        //     _self.$nextTick(function () {
-                        //         target.addClass("open")
-                        //             .siblings(".group-item-list")
-                        //             .slideDown(500);
-                        //     })
-                        // });
-                        tool.InitInnerDataList(_self, 'dealPipeline', groupID, [], function () {
+                        tool.InitInnerDataList(_self, fromType, groupID, [], function () {
                             _self.$nextTick(function () {
                                 target.addClass("open")
                                     .siblings(".group-item-list")
@@ -741,6 +736,22 @@ export default {
                 });
             }
         },
+        //获取最近7天的交易和商业机会的分组数据
+        getRecentDealsAndOpportunities: function (num) {
+            var _self = this;
+            _self.groupData = [];
+            switch (num) {
+                case 1:
+                    _self.groupData = _self.dealData;
+                    break;
+                case 2:
+                    _self.groupData = _self.pitchesData;
+                    break;
+                default:
+                    break;
+            }
+
+        },
         //获取最近几天的会议分组数据
         getRecentMeeting: function () {
             var _self = this;
@@ -772,14 +783,14 @@ export default {
                                 data = tool.jObject(data);
                                 if (data._ReturnStatus == false) {
                                     tool.showText(tool.getMessage(data));
-                                    _self.notData = true;
+                                    _self.noData = true;
                                     return;
                                 }
 
                                 _self.groupData = data._OnlyOneData.Rows || [];
                                 //无数据
                                 if (_self.groupData.length <= 0) {
-                                    _self.notData = true;
+                                    _self.noData = true;
                                     return;
                                 }
                                 //添加属性
@@ -890,7 +901,7 @@ export default {
                     data = tool.jObject(data);
                     if (data._ReturnStatus == false) {
                         tool.showText(tool.getMessage(data));
-                        _self.notData = true;
+                        _self.noData = true;
                         return;
                     }
 
@@ -929,7 +940,7 @@ export default {
                     data = tool.jObject(data);
                     if (data._ReturnStatus == false) {
                         tool.showText(tool.getMessage(data));
-                        _self.notData = true;
+                        _self.noData = true;
                         return;
                     }
 
@@ -946,7 +957,7 @@ export default {
                 }
             });
         },
-         //点击关注/取消关注
+        //点击关注/取消关注
         followToggle: function () {
             var _self = this;
 
