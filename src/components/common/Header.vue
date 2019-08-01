@@ -7,7 +7,7 @@
             <span v-show="Number(messageCount)>=1" class="count">{{messageCount}}</span>
         </a>
         <a v-if="isMain" @click="goForumMsgPage" class="calcfont calc-bell right">
-            <span v-show="1" class="count">2</span>
+            <span v-show="Number(forumMessageCount)>=1" class="count">{{forumMessageCount}}</span>
         </a>
         <a v-else @click="back" class="calcfont calc-fanhui left" id="back"></a>
 
@@ -23,7 +23,7 @@ export default {
             isMain: false, //是否首页
         }
     },
-    props: ['title', "messageCount","forumMessage"],
+    props: ['title', "messageCount","forumMessageCount"],
     created: function () {
         var url = this.$route.path;
         if (url == '/Index' || url == '/index') {

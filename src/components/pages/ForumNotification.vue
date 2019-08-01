@@ -8,28 +8,6 @@
         <h1 class="mui-title f18">{{title}}</h1>
     </header>
     <div class="page-content">
-        <!-- <div id="list" class="notification-list">
-            <div class="item f14 ">
-                <div class="alreadyRead">
-                    <div class="item-title">title</div>
-                    <div class="item-div">
-                        <span class="lanText" data-lanid="862_标题："></span>
-                        <div class="item-div-text">mallTitle</div>
-                    </div>
-                    <div class="item-div">
-                        <span class="lanText" data-lanid="863_时间："></span>
-                        <div class="item-div-text">time</div>
-                    </div>
-                    <div class="item-div">
-                        <span class="lanText" data-lanid="864_备忘："></span><span></span>
-                    </div>
-                    <div>
-                        <router-link class="a lanText" data-lanid="865_查看" to="">查看</router-link>
-                    </div>
-                </div>
-            </div>
-        </div>
-     -->
      <ul v-show="!notData" v-for="item in dataList" class="forumMessageList">
             <li>
                 <a class="forumMessage" :key="item.dataId" @click="gotoMessagePage(item.dataId)">

@@ -1,6 +1,6 @@
 <template>
 <div>
-    <Header class="header" :title="title" :messageCount="messageCount"></Header>
+    <Header class="header" :title="title" :messageCount="messageCount" :forumMessageCount="forumMessageCount"></Header>
 
     <div id="page-content" class="page-content">
         <!-- 搜索 -->
@@ -58,9 +58,99 @@
             </div>
         </div>
         <div class="occupy-position"></div>
+        <div class="pageListContent">
+            <div class="nav sticky">
+                <div id="meetingSwitchPage" @click="switchPage(0,$event)" class="nav-item f16 active-item lanText" data-lanid="619_会议"></div>
+                <div id="opportunitiesSwitchPage" @click="switchPage(1,$event)" class="nav-item f16 lanText" data-lanid="1000339_商业机会 & 交易"></div>
+                <div class="nav-border"></div>
+            </div>
+            <div v-show="showPage == 0" class="group-title">
+                <div class="title-text f12 lanText" data-lanid="1000177_最近要参加的会议"></div>
+                <router-link to="/tripmeeting" class="check-all right f14 a">
+                    <span class="lanText" data-lanid="936_更多"></span>&gt;&gt;
+                </router-link>
+            </div>
+            <div v-show="showPage == 1" class="group-title">
+                <div class="title-text f12 lanText" data-lanid="1000176_最近的商业机会 & 交易"></div>
+                <router-link to="/businessCategories" class="check-all right f14 a">
+                    <span class="lanText" data-lanid="936_更多"></span>&gt;&gt;
+                </router-link>
+            </div>
+            <div v-show="showPage == 0" class="pageList">
+                <!-- 列表 -->
+                <div v-if="!notData" class="list-view" id="indexMeetingList">
 
-        <!-- 提示 -->
-        <!-- <div class="tips">
+                    <div v-for="group in groupData" :key="group.GroupID" class="month-event list-group-div group-div" data-fromtype="meeting">
+                        <div class="f14 date-div">
+                            <span class="calcfont calc-richeng"></span>
+                            <span class="group-name" :data-groupid="group.GroupID">{{group.GroupName|abdDateFormat('dd/MM/yyyy')}}</span>
+                            <span class="right">（{{group.GroupRowCount}}）</span>
+                        </div>
+                        <div class="occupy-div"></div>
+                        <div v-if="group.items.length > 0" class="group-item-list meeting-list index-meeting-list">
+
+                            <div v-for="item in group.items" :key="item.AutoID" class="data-events-item f14" :data-url="'/meetinginfo/'+ item.AutoID">
+                                <div class="item-title">{{item.MeetingTitle}}</div>
+                                <div class="item-time f12">
+                                    <span class="calcfont calc-gengxinshijian"></span>
+                                    <span class="time-text">{{item.BeginTime|MeetingTimeFormat}}~{{item.EndTime|MeetingTimeFormat}}</span>
+                                    <span class="right-text">{{item.Realname}}</span>
+                                </div>
+                                <div class="item-address">{{item.CompanyID}}</div>
+                                <div class="item-initiator">{{item.ContactsID|formatContactsID}}{{item.Title|formatTitle}}</div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+                <!-- 没有数据   -->
+                <nothing v-if="notData" style="padding-top:0.8rem;"></nothing>
+            </div>
+            <div v-show="showPage == 1" class="pageList">
+                <div v-show="!notData" id="dealpipelineList" data-fromtype="dealPipeline">
+                    <div v-for="group in dealData" :key="group.GroupID" class="list-group-div group-div">
+                        <div class="date-div">
+                            <span class="calcfont calc-lianxiren1"></span>
+                            <span class="group-name" :data-groupid="group.GroupID">{{group.GroupName}}</span>
+                            <span class="right">（{{group.GroupRowCount}}）</span>
+                        </div>
+                        <div class="occupy-div"></div>
+
+                        <div v-if="group.items.length > 0" class="group-item-list dealPipeline-list">
+                            <div v-for="item in group.items" :key="item.AutoID" class=" group-item f14" :data-url="'/opportunitiesinfo/' + item.AutoID">
+                                <div class="item-stars-icon calcfont" :class="item.IsFollow" :data-autoid="item.AutoID"></div>
+                                <div class="item-block">
+                                    <div class="item-div item-first-div blue-color">
+                                        {{item.TheName}}
+                                    </div>
+                                    <div class="item-div line-clamp2">{{item.Memo}}</div>
+                                    <div class="item-div f12 green-color padding-bottom-3 padding-top-3">
+                                        <span :class="item.className">{{item.CurrentState}}</span>
+                                        <span class="right updateTime">{{item.LastUpdateTime|abdDateFormat('dd/MM/yyyy')}}</span>
+                                    </div>
+                                    <div v-if="item.IsMeetingExist.toLowerCase()!='false'" class="item-div-box">
+                                        <div class="item-new-text">{{item.meetingSysmbol}}</div>
+                                        <div class="new-right">
+                                            <div class="item-div">
+                                                <span class="itme-div-span">{{item.MeetingTitle}}</span>
+                                            </div>
+                                            <div class="item-div dete-div f12">
+                                                <span>{{item.BeginTime|abdDateFormat('dd/MM/yyyy HH:mm')}}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <nothing v-show="notData" style="padding-top:0.8rem;"></nothing>
+            </div>
+        </div>
+    </div>
+    <!-- 提示 -->
+    <!-- <div class="tips">
             <div class="tips-box f12">
                 <span class="calcfont calc-tishi1"></span>
                 <div class="tips-text">
@@ -69,47 +159,9 @@
                 <router-link v-show="Number(meetingCount)>=1" to="/meetinglist" class="right upload-now a f14">
                     <span class="lanText" data-lanid="870_转到"></span>&gt;&gt;
                 </router-link> -->
-                <!-- <div @click="" to="/meetinglist" class="right upload-now a lanText f14" data-lanid="870_立刻去上传"></div> -->
-            <!-- </div>
+    <!-- <div @click="" to="/meetinglist" class="right upload-now a lanText f14" data-lanid="870_立刻去上传"></div> -->
+    <!-- </div>
         </div> -->
-
-        <div class="group-title">
-            <div class="title-text f12 lanText" data-lanid="872_最近7天要参加的会议"></div>
-            <router-link to="/tripmeeting" class="check-all right f14 a">
-                <span class="lanText" data-lanid="936_更多"></span>&gt;&gt;
-            </router-link>
-        </div>
-
-        <!-- 没有数据   -->
-        <nothing v-if="notData" style="padding-top:1.5rem;"></nothing>
-        <!-- 列表 -->
-        <div v-if="!notData" class="list-view" id="indexMeetingList">
-
-            <div v-for="group in groupData" :key="group.GroupID" class="month-event list-group-div group-div" data-fromtype="meeting">
-                <div class="f14 date-div">
-                    <span class="calcfont calc-richeng" ></span>
-                    <span class="group-name" :data-groupid="group.GroupID">{{group.GroupName|abdDateFormat('dd/MM/yyyy')}}</span>
-                    <span class="right">（{{group.GroupRowCount}}）</span>
-                </div>
-                <div class="occupy-div"></div>
-                <div v-if="group.items.length > 0" class="group-item-list meeting-list index-meeting-list">
-
-                    <div v-for="item in group.items" :key="item.AutoID" class="data-events-item f14" :data-url="'/meetinginfo/'+ item.AutoID">
-                        <div class="item-title">{{item.MeetingTitle}}</div>
-                        <div class="item-time f12">
-                            <span class="calcfont calc-gengxinshijian"></span>
-                            <span class="time-text">{{item.BeginTime|MeetingTimeFormat}}~{{item.EndTime|MeetingTimeFormat}}</span>
-                            <span class="right-text">{{item.Realname}}</span>
-                        </div>
-                        <div class="item-address">{{item.CompanyID}}</div>
-                        <div class="item-initiator">{{item.ContactsID|formatContactsID}}{{item.Title|formatTitle}}</div>
-                    </div>
-
-                </div>
-            </div>
-
-        </div>
-    </div>
 
     <!--  右侧侧滑 -->
     <div id="mask" class="mask" @click="panelToggle" v-show="showPanel"></div>
@@ -175,8 +227,110 @@ export default {
             notData: false, //没有数据
             showPanel: false,
             groupData: [], //7天的数据
+            dealData: [{
+                    "GroupID": 2,
+                    "GroupName": "測試銷售組1",
+                    "GroupRowCount": 3,
+                    "items": [{
+                        "AutoID": 982,
+                        "TheName": "MSN123_9 Air_Trading",
+                        "Memo": "666",
+                        "CurrentState": "In Progress",
+                        "IsFollow": "calc-noshoucang",
+                        "IsMeetingExist": "true",
+                        "MeetingTitle": "31号1次会议",
+                        "BeginTime": "2019-07-31T08:00:00"
+                    }, {
+                        "AutoID": 895,
+                        "TheName": "MSN456",
+                        "Memo": "8999",
+                        "CurrentState": "Closed",
+                        "IsFollow": "calc-shoucang",
+                        "IsMeetingExist": "false",
+                        "MeetingTitle": null,
+                        "BeginTime": null
+                    }, {
+                        "AutoID": 893,
+                        "TheName": "MSN66666_test_Operator_SLB",
+                        "Memo": "sdfdsfs",
+                        "CurrentState": "Closed",
+                        "IsFollow": "calc-noshoucang",
+                        "IsMeetingExist": "false",
+                        "MeetingTitle": null,
+                        "BeginTime": null
+                    }, ]
+                },
+                {
+                    "GroupID": 1,
+                    "GroupName": "測試銷售組2",
+                    "GroupRowCount": 2,
+                    "items": [{
+                        "AutoID": 960,
+                        "TheName": "MSN3698_kongke_Trading",
+                        "Memo": "for\nkongke\nmemo",
+                        "CurrentState": "Close the order with win",
+                        "IsFollow": "calc-noshoucang",
+                        "IsMeetingExist": "true",
+                        "MeetingTitle": "空客第一次会议",
+                        "BeginTime": "2019-07-25T08:30:00"
+                    }, {
+                        "AutoID": 959,
+                        "TheName": "MSN3369_nanhang_SLB",
+                        "Memo": "tes\n3",
+                        "CurrentState": "In Progress",
+                        "IsFollow": "calc-noshoucang",
+                        "IsMeetingExist": "true",
+                        "MeetingTitle": "M737Max购买会面",
+                        "BeginTime": "2019-07-17T09:00:00"
+                    }]
+                },
+                {
+                    "GroupID": 3,
+                    "GroupName": "測試銷售組3",
+                    "GroupRowCount": 2,
+                    "items": [{
+                        "AutoID": 980,
+                        "TheName": "MSNair320_HKhangkong_Sales",
+                        "Memo": null,
+                        "CurrentState": "In Progress",
+                        "IsFollow": "calc-noshoucang",
+                        "IsMeetingExist": "true",
+                        "MeetingTitle": "测试",
+                        "BeginTime": "2019-07-03T00:00:00"
+                    }, {
+                        "AutoID": 974,
+                        "TheName": "MSN777_china EVA Air_加大合作力度",
+                        "Memo": "资料准备齐全",
+                        "CurrentState": "In Progress",
+                        "IsFollow": "calc-noshoucang",
+                        "IsMeetingExist": "true",
+                        "MeetingTitle": "与澳洲航空公司交易的探讨会议",
+                        "BeginTime": "2019-08-02T10:00:00"
+                    }, {
+                        "AutoID": 976,
+                        "TheName": "MSN4554_ch Southern Airlines_SLB",
+                        "Memo": "售后回租",
+                        "CurrentState": "In Progress",
+                        "IsFollow": "calc-noshoucang",
+                        "IsMeetingExist": "true",
+                        "MeetingTitle": "关于和中国南方航空公司的合作相关会议",
+                        "BeginTime": "2019-07-28T08:00:00"
+                    }, {
+                        "AutoID": 946,
+                        "TheName": "MSNten_10_数据挖掘机公司_Financing",
+                        "Memo": "memo ten_10",
+                        "CurrentState": "In Progress",
+                        "IsFollow": "calc-noshoucang",
+                        "IsMeetingExist": "true",
+                        "MeetingTitle": "test huiyi2",
+                        "BeginTime": "2019-07-22T19:00:00"
+                    }]
+                }
+            ],
             meetingCount: 0, //未上传会议记录的会议数量
             messageCount: 0, //消息数量
+            forumMessageCount: 3, //论坛消息的数量
+            showPage: 0,
             isFromSingleSignOn: false //是否来源于单点登陆
         };
     },
@@ -221,6 +375,26 @@ export default {
 
     },
     methods: {
+        switchPage: function (num, e) {
+            console.log("切换" + num);
+            var _self = this;
+            var el = e.target;
+            if (num === undefined) return;
+            $(el).addClass('active-item').siblings().removeClass('active-item');
+            _self.changePos();
+            _self.showPage = num;
+
+        },
+        //table底部横条过渡效果
+        changePos: function () {
+            this.$nextTick(function () {
+                var activePos = $('.nav.sticky .active-item').position();
+                $('.nav-border').stop().css({
+                    left: activePos.left,
+                    // width: $('.calendar-nav .active-item').width()
+                });
+            })
+        },
         gotoUrl: function (e) {
             var target = $(e.target);
             var url = target.attr("url") || "";
@@ -325,14 +499,13 @@ export default {
             }
         },
         //同步Camcard的数据
-        SynchronousCamcardData:function(){
-             tool.showConfirm(
+        SynchronousCamcardData: function () {
+            tool.showConfirm(
                 lanTool.lanContent("1000212_同步Camcard数据将会覆盖本地数据，是否确定同步？"),
                 function () {
-                      //点击确定后同步的逻辑处理
+                    //点击确定后同步的逻辑
                 },
-                function () {
-                }
+                function () {}
             );
         },
         //清除缓存
@@ -373,60 +546,60 @@ export default {
         //监听滚动固定
         watchScroll: function () {
             var _self = this;
-                var headerH = parseFloat($("header").innerHeight());
-                // var searchH = parseFloat($("#searchBtn").innerHeight()) + 16;
-                var navH = parseFloat($(".occupy-position").innerHeight());
+            var headerH = parseFloat($("header").innerHeight());
+            // var searchH = parseFloat($("#searchBtn").innerHeight()) + 16;
+            var navH = parseFloat($(".occupy-position").innerHeight());
 
-                $(window).unbind('scroll').bind('scroll', function () {
+            $(window).unbind('scroll').bind('scroll', function () {
 
-                    if ($(".month-event").length <= 0) return;
-                    // var scrollTop = $(this).scrollTop();
-                    var scrollTop = $(document).scrollTop() || $(window).scrollTop();
+                if ($(".month-event").length <= 0) return;
+                // var scrollTop = $(this).scrollTop();
+                var scrollTop = $(document).scrollTop() || $(window).scrollTop();
 
-                    $(".month-event").each(function () {
-                        if (
-                            $(this).offset().top - scrollTop <=
-                            navH + headerH
-                        ) {
-                            if (tool.getSystem() === "ios") {
-                                $(this)
-                                    .find(".date-div")
-                                    .addClass("sticky")
-                                    .css({
-                                        top: navH + headerH + "px"
-                                    });
-                            } else {
-                                $(this)
-                                    .find(".date-div")
-                                    .css({
-                                        position: "fixed",
-                                        top: navH + headerH + "px"
-                                    });
-                                $(this)
-                                    .find(".occupy-div")
-                                    .show();
-                            }
+                $(".month-event").each(function () {
+                    if (
+                        $(this).offset().top - scrollTop <=
+                        navH + headerH
+                    ) {
+                        if (tool.getSystem() === "ios") {
+                            $(this)
+                                .find(".date-div")
+                                .addClass("sticky")
+                                .css({
+                                    top: navH + headerH + "px"
+                                });
                         } else {
-                            if (tool.getSystem() === "ios") {
-                                $(this)
-                                    .find(".date-div")
-                                    .removeClass("sticky")
-                                    .css({
-                                        top: "0px"
-                                    });
-                            } else {
-                                $(this)
-                                    .find(".date-div")
-                                    .css({
-                                        position: "static"
-                                    });
-                                $(this)
-                                    .find(".occupy-div")
-                                    .hide();
-                            }
+                            $(this)
+                                .find(".date-div")
+                                .css({
+                                    position: "fixed",
+                                    top: navH + headerH + "px"
+                                });
+                            $(this)
+                                .find(".occupy-div")
+                                .show();
                         }
-                    });
+                    } else {
+                        if (tool.getSystem() === "ios") {
+                            $(this)
+                                .find(".date-div")
+                                .removeClass("sticky")
+                                .css({
+                                    top: "0px"
+                                });
+                        } else {
+                            $(this)
+                                .find(".date-div")
+                                .css({
+                                    position: "static"
+                                });
+                            $(this)
+                                .find(".occupy-div")
+                                .hide();
+                        }
+                    }
                 });
+            });
         },
         //搜索
         goSearch: function () {
@@ -476,13 +649,63 @@ export default {
                         //             .slideDown(500);
                         //     })
                         // });
-                        tool.InitInnerDataList(_self, 'meeting', groupID, [], function(){
+                        tool.InitInnerDataList(_self, 'meeting', groupID, [], function () {
                             _self.$nextTick(function () {
                                 target.addClass("open")
                                     .siblings(".group-item-list")
                                     .slideDown(500);
                             })
-                        },'index');
+                        }, 'index');
+                    }
+                })
+            $("#dealpipelineList").off("click", "div.date-div").on(
+                "click",
+                "div.date-div",
+                function (event) {
+                    var target = $(event.target);
+                    if (!target.hasClass('date-div')) {
+                        target = target.closest('div.date-div');
+                        if (target == undefined) {
+                            return;
+                        }
+                    }
+
+                    var groupID = target.find("span[data-groupid]:first").attr("data-groupid") || "";
+
+                    if (tool.isNullOrEmptyObject(groupID)) {
+                        return;
+                    }
+
+                    //若是展开
+                    if (target.hasClass("open")) {
+                        target
+                            .removeClass("open")
+                            .siblings(".group-item-list")
+                            .slideUp(500, function () {
+                                //清空items数据
+                                $.each(_self.dealData, function (index, item) {
+                                    if (item.GroupID == groupID) {
+                                        item.items = [];
+                                        return;
+                                    }
+                                })
+                            });
+                    } else {
+                        //若是收起
+                        // _self.getInnerDataList(groupID, function () {
+                        //     _self.$nextTick(function () {
+                        //         target.addClass("open")
+                        //             .siblings(".group-item-list")
+                        //             .slideDown(500);
+                        //     })
+                        // });
+                        tool.InitInnerDataList(_self, 'dealPipeline', groupID, [], function () {
+                            _self.$nextTick(function () {
+                                target.addClass("open")
+                                    .siblings(".group-item-list")
+                                    .slideDown(500);
+                            })
+                        }, 'index');
                     }
                 })
 
@@ -520,62 +743,62 @@ export default {
         //获取最近几天的会议分组数据
         getRecentMeeting: function () {
             var _self = this;
-            tool.InitGrouplist(_self, 'meeting', [], function(data){},'index')
+            tool.InitGrouplist(_self, 'meeting', [], function (data) {}, 'index')
 
-/*
-            //查询分组数据
-            //请求地址
-            var urlTemp = tool.AjaxBaseUrl();
-            var controlName = tool.Api_MeetingHandle_Group;
-            //传入参数
-            var jsonDatasTemp = {
-                CurrentLanguageVersion: lanTool.currentLanguageVersion,
-                UserName: tool.UserName(),
-                _ControlName: controlName,
-                _RegisterCode: tool.RegisterCode(),
-                QueryCondiction: JSON.stringify([]),
-                RecentDay: 7
-            };
-            var loadingIndexClassName = tool.showLoading();
+            /*
+                        //查询分组数据
+                        //请求地址
+                        var urlTemp = tool.AjaxBaseUrl();
+                        var controlName = tool.Api_MeetingHandle_Group;
+                        //传入参数
+                        var jsonDatasTemp = {
+                            CurrentLanguageVersion: lanTool.currentLanguageVersion,
+                            UserName: tool.UserName(),
+                            _ControlName: controlName,
+                            _RegisterCode: tool.RegisterCode(),
+                            QueryCondiction: JSON.stringify([]),
+                            RecentDay: 7
+                        };
+                        var loadingIndexClassName = tool.showLoading();
 
-            $.ajax({
-                async: true,
-                type: "post",
-                url: urlTemp,
-                data: jsonDatasTemp,
-                success: function (data) {
-                    tool.hideLoading(loadingIndexClassName);
-                    data = tool.jObject(data);
-                    if (data._ReturnStatus == false) {
-                        tool.showText(tool.getMessage(data));
-                        _self.notData = true;
-                        return;
-                    }
+                        $.ajax({
+                            async: true,
+                            type: "post",
+                            url: urlTemp,
+                            data: jsonDatasTemp,
+                            success: function (data) {
+                                tool.hideLoading(loadingIndexClassName);
+                                data = tool.jObject(data);
+                                if (data._ReturnStatus == false) {
+                                    tool.showText(tool.getMessage(data));
+                                    _self.notData = true;
+                                    return;
+                                }
 
-                    _self.groupData = data._OnlyOneData.Rows || [];
-                    //无数据
-                    if (_self.groupData.length <= 0) {
-                        _self.notData = true;
-                        return;
-                    }
-                    //添加属性
-                    $.each(_self.groupData, function (index, item) {
-                        _self.$set(item, 'items', []);
-                    })
+                                _self.groupData = data._OnlyOneData.Rows || [];
+                                //无数据
+                                if (_self.groupData.length <= 0) {
+                                    _self.notData = true;
+                                    return;
+                                }
+                                //添加属性
+                                $.each(_self.groupData, function (index, item) {
+                                    _self.$set(item, 'items', []);
+                                })
 
-                },
-                error: function (jqXHR, type, error) {
-                    console.log(error);
-                    tool.hideLoading(loadingIndexClassName);
-                    return;
-                },
-                complete: function () {
-                    //tool.hideLoading();
-                    //隐藏虚拟键盘
-                    document.activeElement.blur();
-                }
-            });
-            */
+                            },
+                            error: function (jqXHR, type, error) {
+                                console.log(error);
+                                tool.hideLoading(loadingIndexClassName);
+                                return;
+                            },
+                            complete: function () {
+                                //tool.hideLoading();
+                                //隐藏虚拟键盘
+                                document.activeElement.blur();
+                            }
+                        });
+                        */
         },
         /*
         //获取内部列表
@@ -772,5 +995,6 @@ export default {
 </script>
 
 <style scoped>
+/* @import "../assets/css/common/commonlist.css"; */
 @import "../assets/css/pages/index.css";
 </style>
