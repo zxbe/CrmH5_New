@@ -43,9 +43,6 @@ export default {
   },
   props:['documentData','addible','deletable','meetingId'],
   created:function(){
-    console.log(this.documentData);
-    console.log(this.addible);
-    console.log(this.deletable);
   },
   methods:{
     //点击去文件详情页

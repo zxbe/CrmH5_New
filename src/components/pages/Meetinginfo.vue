@@ -214,6 +214,15 @@
                     </div>
                 </div>
 
+                <!-- 会议文档 -->
+                <DocumentList
+                  v-show="!isAddNew"
+                  :document-data="documentData"
+                  addible="true"
+                  deletable="true"
+                  :meeting-id="id"
+                ></DocumentList>
+
             </div>
 
             <Infofooter class="HideWhenNew"> </Infofooter>
@@ -241,12 +250,14 @@
 <script>
 import Infoheader from '../common/Infoheader'
 import Infofooter from '../common/infoFooter'
+import DocumentList from '../common/DocumentList'
 
 export default {
     name:'meetinginfo',
     components: {
         Infoheader,
         Infofooter,
+        DocumentList
     },
     data() {
         return {
@@ -258,7 +269,34 @@ export default {
             meetingNoticeID : "",//会议记录id
             oppID : "",//deal pipeline/opportunity ID
             defaultDateTime:"",//新建单据时候的初始时间
-            id:''  //会议id
+            id:'',  //会议id
+            //文档数据
+            documentData:[
+              {
+                AddTime: "2019-07-31 18:31:00",
+                AddUserName: "dylanxu",
+                AutoID: "765411",
+                FileLength: "54768",
+                ObjectName: "Project Management - CRM_PC(20190625)_V6_19073118305794.xlsx",
+                ObjectRemark: "test",
+              },
+              {
+                AddTime: "2019-07-26 14:09:00",
+                AddUserName: "ceshi",
+                AutoID: "765386",
+                FileLength: "240704",
+                ObjectName: "t01ecab926fd33d8055_19072614092088.jpg",
+                ObjectRemark: ""
+              },
+              {
+                AddTime: "2019-07-26 13:57:00",
+                AddUserName: "alancheng",
+                AutoID: "765385",
+                FileLength: "1022368",
+                ObjectName: "MYXJ_20150716224149_save_19072613564350.png",
+                ObjectRemark: ""
+              }
+            ],
         }
     },
 
@@ -272,6 +310,8 @@ export default {
         _self.ptitle = _self.$route.query.infoName || lanTool.lanContent("914_添加会议");
         _self.defaultDateTime = _self.$route.query.defaultDateTime||"";
 
+        _self.id = _self.$route.params.id;
+
     },
     mounted: function () {
         let _self = this;
@@ -279,7 +319,6 @@ export default {
         document.activeElement.blur();
         $(window).scrollTop(0);
 
-        _self.id = _self.$route.params.id;
         var fromType = "Meetinginfo";
         //若是新增，则隐藏新增不需要显示的模块
         if (tool.isNullOrEmptyObject(_self.id) || Number(_self.id) <= 0) {

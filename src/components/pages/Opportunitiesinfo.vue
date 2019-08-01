@@ -18,20 +18,6 @@
                 </div>
             </div>
 
-            <!-- 业务类型 -->
-            <!-- <div class="ListCell visible controlEdit">
-                <div class="ListCellLeftIcon"><span class="calcfont calc-shangye"></span></div>
-                <div class="ListCellContent">
-                    <div class="ListCellContentLeft leftContent">
-                        <div class="ListCellContentLeftText lanText" data-lanid="695_业务"></div>
-                    </div>
-                    <div class="ListCellContentRight rightContent">
-                        <input type="text" data-field="BusinessTypes" data-lanid="695_业务" data-fieldControlType="picker" data-fieldVal="" Code="DropDowList_DtbAllTypes" TypeValue="OpportunityBusinessTypes" class="ListCellContentRightText"/>
-                    </div>
-                    <div class="ListCellRightIcon"><span class="calcfont calc-you"></span></div>
-                </div>
-            </div> -->
-
             <!-- 名称 -->
             <div class="ListCell visible controlEdit">
                 <div class="ListCellLeftIcon textLeftIcon"><span class="calcfont calc-yewujihui"></span></div>
@@ -400,14 +386,28 @@ export default {
             //文档数据
             documentData:[
               {
-                AutoID:123,
-                ObjectName:'123123123123123123123123123123123.jpg',
-                AddTime:'2019-07-30T15:25:00'
+                AddTime: "2019-07-31 18:31:00",
+                AddUserName: "dylanxu",
+                AutoID: "765411",
+                FileLength: "54768",
+                ObjectName: "Project Management - CRM_PC(20190625)_V6_19073118305794.xlsx",
+                ObjectRemark: "test",
               },
               {
-                AutoID:124,
-                ObjectName:'963999999.jpg',
-                AddTime:'2019-07-30T15:25:00'
+                AddTime: "2019-07-26 14:09:00",
+                AddUserName: "ceshi",
+                AutoID: "765386",
+                FileLength: "240704",
+                ObjectName: "t01ecab926fd33d8055_19072614092088.jpg",
+                ObjectRemark: ""
+              },
+              {
+                AddTime: "2019-07-26 13:57:00",
+                AddUserName: "alancheng",
+                AutoID: "765385",
+                FileLength: "1022368",
+                ObjectName: "MYXJ_20150716224149_save_19072613564350.png",
+                ObjectRemark: ""
               }
             ],
             seeMore:"",
