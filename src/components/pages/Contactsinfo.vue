@@ -13,12 +13,7 @@
                     </div>
                     <div class="ListCellLeftText">
                         <p class="textareaP">
-                            <textarea
-                  data-field="EnglishName"
-                  data-fieldcontroltype="textareaInput"
-                  class="lanInputPlaceHolder"
-                  data-lanid="848_姓名"
-                ></textarea>
+                            <textarea data-field="EnglishName" data-fieldcontroltype="textareaInput" class="lanInputPlaceHolder" data-lanid="848_姓名"></textarea>
                         </p>
                     </div>
                 </div>
@@ -36,31 +31,21 @@
                 </div>
                 <div class="ListCell visible">
                     <div class="ListCellLeftIcon textLeftIcon">
-                        <span class="calcfont calc-zhiwei"></span>
-                    </div>
-                    <div class="ListCellLeftText">
-                        <p class="textareaP">
-                            <textarea
-                  data-field="Title"
-                  data-fieldcontroltype="textareaInput"
-                  class="lanInputPlaceHolder"
-                  data-lanid="696_职位"
-                ></textarea>
-                        </p>
-                    </div>
-                </div>
-                <div class="ListCell visible">
-                    <div class="ListCellLeftIcon textLeftIcon">
                         <span class="calcfont calc-mailbox"></span>
                     </div>
                     <div class="ListCellLeftText">
                         <p class="textareaP">
-                            <textarea
-                  data-field="Email"
-                  data-fieldcontroltype="textareaInput"
-                  class="lanInputPlaceHolder"
-                  data-lanid="697_邮箱"
-                ></textarea>
+                            <textarea data-field="Email" data-fieldcontroltype="textareaInput" class="lanInputPlaceHolder" data-lanid="697_邮箱"></textarea>
+                        </p>
+                    </div>
+                </div>
+                <div class="ListCell">
+                    <div class="ListCellLeftIcon textLeftIcon">
+                        <span class="calcfont calc-zhiwei"></span>
+                    </div>
+                    <div class="ListCellLeftText">
+                        <p class="textareaP">
+                            <textarea data-field="Title" data-fieldcontroltype="textareaInput" class="lanInputPlaceHolder" data-lanid="696_职位"></textarea>
                         </p>
                     </div>
                 </div>
@@ -70,12 +55,7 @@
                     </div>
                     <div class="ListCellLeftText">
                         <p class="textareaP">
-                            <textarea
-                  data-field="TelPhone"
-                  data-fieldcontroltype="textareaInput"
-                  class="lanInputPlaceHolder"
-                  data-lanid="704_办公电话"
-                ></textarea>
+                            <textarea data-field="TelPhone" data-fieldcontroltype="textareaInput" class="lanInputPlaceHolder" data-lanid="704_办公电话"></textarea>
                         </p>
                     </div>
                 </div>
@@ -85,12 +65,7 @@
                     </div>
                     <div class="ListCellLeftText">
                         <p class="textareaP">
-                            <textarea
-                  data-field="Phone"
-                  data-fieldcontroltype="textareaInput"
-                  class="lanInputPlaceHolder"
-                  data-lanid="705_移动电话"
-                ></textarea>
+                            <textarea data-field="Phone" data-fieldcontroltype="textareaInput" class="lanInputPlaceHolder" data-lanid="705_移动电话"></textarea>
                         </p>
                     </div>
                 </div>
@@ -100,12 +75,7 @@
                     </div>
                     <div class="ListCellLeftText">
                         <p class="textareaP">
-                            <textarea
-                  data-field="DepartmentName"
-                  data-fieldcontroltype="textareaInput"
-                  class="lanInputPlaceHolder"
-                  data-lanid="567_部门"
-                ></textarea>
+                            <textarea data-field="DepartmentName" data-fieldcontroltype="textareaInput" class="lanInputPlaceHolder" data-lanid="567_部门"></textarea>
                         </p>
                     </div>
                 </div>
@@ -115,12 +85,7 @@
                     </div>
                     <div class="ListCellLeftText">
                         <p class="textareaP">
-                            <textarea
-                  data-field="Fax"
-                  data-fieldcontroltype="textareaInput"
-                  class="lanInputPlaceHolder"
-                  data-lanid="703_传真"
-                ></textarea>
+                            <textarea data-field="Fax" data-fieldcontroltype="textareaInput" class="lanInputPlaceHolder" data-lanid="703_传真"></textarea>
                         </p>
                     </div>
                 </div>
@@ -130,12 +95,7 @@
                     </div>
                     <div class="ListCellLeftText">
                         <p class="textareaP">
-                            <textarea
-                  data-field="ContactRemark"
-                  data-fieldcontroltype="textareaInput"
-                  class="lanInputPlaceHolder"
-                  data-lanid="699_备注"
-                ></textarea>
+                            <textarea data-field="ContactRemark" data-fieldcontroltype="textareaInput" class="lanInputPlaceHolder" data-lanid="699_备注"></textarea>
                         </p>
                     </div>
                 </div>
@@ -150,74 +110,49 @@
                             <div class="ListCellContentLeftText lanText" data-lanid="803_可访问"></div>
                         </div>
                         <div class="ListCellContentRight rightContent">
-                            <input
-                                data-field="IsPublic"
-                                data-lanid="803_可访问"
-                                data-fieldcontroltype="picker"
-                                data-fieldVal
-                                code="DropDowList_DtbAllTypes"
-                                TypeValue="Accessabletype"
-                                class="ListCellContentRightText"
-                            ></div>
-                            <div class="ListCellRightIcon">
-                                <span class="calcfont calc-you"></span>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- 负责人 -->
-                    <div class="initiatorObj">
-                        <div class="ListCell visible">
-                            <div class="ListCellLeftIcon">
-                                <span class="calcfont calc-fuzerenicon"></span>
-                            </div>
-                            <div class="ListCellContent">
-                                <div class="ListCellContentLeft leftContent">
-                                    <div class="ListCellContentLeftText lanText" data-lanid="825_负责人"></div>
-                                </div>
-                                <div class="ListCellContentRight rightContent">
-                                    <div class="ListCellContentRightText" data-field="Initiator" data-fieldcontroltype="groupSelectList" data-lanid="825_负责人" data-fieldval="" data-selecttype="checkbox" code="DropDowList_PopedomTeamVsUser" typevalue="" data-fromType="6"></div>
-                                </div>
-                                <div class="ListCellRightIcon">
-                                    <span class="calcfont calc-you"></span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="ListCell tip ">
-                            <div class="tipBox">
-                                <p class="f14">
-                                    <span>*</span>
-                                    <span class="lanText" data-lanid="850_请注意，当选择私有的时，只有负责人及其上司可以访问并分享。"></span>
-                                </p>
-                            </div>
+                            <input data-field="IsPublic" data-lanid="803_可访问" data-fieldcontroltype="picker" data-fieldVal code="DropDowList_DtbAllTypes" TypeValue="Accessabletype" class="ListCellContentRightText"></div>
+                        <div class="ListCellRightIcon">
+                            <span class="calcfont calc-you"></span>
                         </div>
                     </div>
                 </div>
-                <div v-show="!isAddNew" class="showMoreList">
-                    <div class="organizationMessage">
-                        <div class="ListCell" @click="goToOrganizationsInfo">
-                            <div class="ListCellLeftIcon">
-                                <span class="calcfont calc-gongsixinxi"></span>
-                            </div>
-                            <div class="ListCellContent">
-                                <div class="ListCellContentLeft leftContent">
-                                    <div class="ListCellContentLeftText lanText" data-lanid="851_查看公司信息"></div>
-                                </div>
-                                <div class="ListCellRightIcon">
-                                    <span class="calcfont calc-you"></span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="accessView initiatorObj">
-                    <div class="ListCell" @click.stop="goToShareList">
+                <!-- 负责人 -->
+                <div class="initiatorObj">
+                    <div class="ListCell visible">
                         <div class="ListCellLeftIcon">
-                            <span class="calcfont calc-yidu"></span>
+                            <span class="calcfont calc-fuzerenicon"></span>
                         </div>
                         <div class="ListCellContent">
                             <div class="ListCellContentLeft leftContent">
-                                <div class="ListCellContentLeftText lanText" data-lanid="852_查看有权限访问的同事"></div>
+                                <div class="ListCellContentLeftText lanText" data-lanid="825_负责人"></div>
+                            </div>
+                            <div class="ListCellContentRight rightContent">
+                                <div class="ListCellContentRightText" data-field="Initiator" data-fieldcontroltype="groupSelectList" data-lanid="825_负责人" data-fieldval="" data-selecttype="checkbox" code="DropDowList_PopedomTeamVsUser" typevalue="" data-fromType="6"></div>
+                            </div>
+                            <div class="ListCellRightIcon">
+                                <span class="calcfont calc-you"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ListCell tip ">
+                        <div class="tipBox">
+                            <p class="f14">
+                                <span>*</span>
+                                <span class="lanText" data-lanid="850_请注意，当选择私有的时，只有负责人及其上司可以访问并分享。"></span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div v-show="!isAddNew" class="showMoreList">
+                <div class="organizationMessage">
+                    <div class="ListCell" @click="goToOrganizationsInfo">
+                        <div class="ListCellLeftIcon">
+                            <span class="calcfont calc-gongsixinxi"></span>
+                        </div>
+                        <div class="ListCellContent">
+                            <div class="ListCellContentLeft leftContent">
+                                <div class="ListCellContentLeftText lanText" data-lanid="851_查看公司信息"></div>
                             </div>
                             <div class="ListCellRightIcon">
                                 <span class="calcfont calc-you"></span>
@@ -225,13 +160,30 @@
                         </div>
                     </div>
                 </div>
-                <Infofooter v-show="!isAddNew"></Infofooter>
-
             </div>
-        </div>
-        <InfoRightPanel ref="rightPanel" :isShowClose="isShowClose" :isShowSend="isShowSendBtn" :rightPanelFromType="rightPanelFromType" :rightPanelFromID="rightPanelFromID"></InfoRightPanel>
 
+            <!-- <div class="accessView initiatorObj">
+                <div class="ListCell" @click.stop="goToShareList">
+                    <div class="ListCellLeftIcon">
+                        <span class="calcfont calc-yidu"></span>
+                    </div>
+                    <div class="ListCellContent">
+                        <div class="ListCellContentLeft leftContent">
+                            <div class="ListCellContentLeftText lanText" data-lanid="852_查看有权限访问的同事"></div>
+                        </div>
+                        <div class="ListCellRightIcon">
+                            <span class="calcfont calc-you"></span>
+                        </div>
+                    </div>
+                </div>
+            </div> -->
+            <Infofooter v-show="!isAddNew"></Infofooter>
+
+        </div>
     </div>
+    <InfoRightPanel ref="rightPanel" :isShowClose="isShowClose" :isShowSend="isShowSendBtn"  :rightPanelFromType="rightPanelFromType" :rightPanelFromID="rightPanelFromID"></InfoRightPanel>
+
+</div>
 </template>
 
 <script>
@@ -240,7 +192,7 @@ import InfoRightPanel from "../common/InfoRightPanel";
 import Infofooter from "../common/infoFooter";
 
 export default {
-    name:'contactsinfo',
+    name: 'contactsinfo',
     components: {
         Infoheader,
         Infofooter,
@@ -249,7 +201,7 @@ export default {
     data() {
         return {
             ptitle: "contact detail",
-            id:'',
+            id: '',
 
             isAddNew: false, //是否添加新纪录
             operation: false, //控制详情页header按钮，ture:显示可操作，false:隐藏
@@ -262,8 +214,9 @@ export default {
             rightPanelFromID: "", //传给右侧菜单用的参数
             isShowSendBtn: true, //侧滑是否显示分享给同事选项
             isShowClose: false, //侧滑是否显示关闭这个商业机会选项
+            
 
-            source:'',//记录上一个页面是不是contactsof
+            source: '', //记录上一个页面是不是contactsof
 
         };
     },
@@ -351,7 +304,7 @@ export default {
             tool.IniInfoData(fromType, _self.id, function () {
 
                 //如果页面来源是contactsof不需要判断操作权限
-                if(_self.source != 'contactsof'){
+                if (_self.source != 'contactsof') {
                     //判断当前用户是否可以操作当前单据
                     _self.initUserAccess();
                 }
@@ -363,7 +316,7 @@ export default {
                 });
 
                 //返回时更新selectlist控件的结果
-                tool.UpdateFieldValueFromBack(eventBus, function(){
+                tool.UpdateFieldValueFromBack(eventBus, function () {
                     //清空全局变量
                     eventBus.selectListData = null;
                 })
@@ -377,7 +330,7 @@ export default {
         var _self = this;
 
         //返回时更新selectlist控件的结果
-        tool.UpdateFieldValueFromBack(eventBus, function(){
+        tool.UpdateFieldValueFromBack(eventBus, function () {
             //清空全局变量
             eventBus.selectListData = null;
         })
@@ -438,9 +391,9 @@ export default {
 
             tool.SaveOrUpdateData(fromType, id, _self, function (data) {
 
-                  _self.$store.commit('REMOVE_ITEM', 'contacts');
-                  _self.$store.commit('REMOVE_ITEM', 'contactsinfo');
-                  _self.$router.back(-1);
+                _self.$store.commit('REMOVE_ITEM', 'contacts');
+                _self.$store.commit('REMOVE_ITEM', 'contactsinfo');
+                _self.$router.back(-1);
             });
 
         },
@@ -478,8 +431,8 @@ export default {
 
     },
 
-    beforeRouteLeave:function(to, from, next){
-        if(to.name == 'contacts' || to.name == 'contactsof'){
+    beforeRouteLeave: function (to, from, next) {
+        if (to.name == 'contacts' || to.name == 'contactsof') {
             this.$store.commit('REMOVE_ITEM', 'contactsinfo');
         }
         next();
