@@ -184,7 +184,13 @@ export default {
         },
         //同步Camcard数据
         SynchronousCamCardData: function () {
-            console.log("同步Camcard数据");
+            tool.showConfirm(
+                lanTool.lanContent("1000212_同步Camcard数据将会覆盖本地数据，是否确定同步？"),
+                function () {
+                    //点击确定后同步的逻辑
+                },
+                function () {}
+            );
         },
     },
 
