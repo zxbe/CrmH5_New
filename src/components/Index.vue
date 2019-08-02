@@ -317,7 +317,7 @@ export default {
             }],
             meetingCount: 0, //未上传会议记录的会议数量
             messageCount: 0, //消息数量
-            forumMessageCount: 3, //论坛消息的数量
+            forumMessageCount: 0, //论坛消息的数量
             showPage: 0,
             isFromSingleSignOn: false //是否来源于单点登陆
         };
@@ -326,6 +326,7 @@ export default {
 
     },
     mounted: function () {
+
         var _self = this;
         _self.isFromSingleSignOn =
             (_self.$route.query.IsFromSingleSignOn == null || _self.$route.query.IsFromSingleSignOn == undefined) ?
@@ -351,8 +352,11 @@ export default {
         //获取未上传会议记录的会议数量
         _self.getNoUploadRecordCount();
 
-        //获取消息数量
+        //获取分享消息数量
         _self.getMessageCount();
+        //获取论坛消息数量
+        _self.getForumMessageCount();
+
         //收藏
         _self.followToggle();
         _self.goInfo();
@@ -361,6 +365,7 @@ export default {
         _self.handleLogOut();
 
         _self.watchScroll();
+
 
     },
     methods: {
@@ -918,6 +923,7 @@ export default {
                 }
             });
         },
+        //获取分享消息数量
         getMessageCount: function () {
             var _self = this;
             //请求地址
@@ -945,6 +951,46 @@ export default {
                     }
 
                     _self.messageCount = data._OnlyOneData || 0;
+                },
+                error: function (jqXHR, type, error) {
+                    console.log(error);
+                    return;
+                },
+                complete: function () {
+                    //tool.hideLoading();
+                    //隐藏虚拟键盘
+                    document.activeElement.blur();
+                }
+            });
+        },
+        //获取论坛消息数量
+        getForumMessageCount: function () {
+            var _self = this;
+            //请求地址
+            var urlTemp = tool.AjaxBaseUrl();
+            var controlName = tool.Api_MessagesToUserHandle_QueryPostCount;
+            //传入参数
+            var jsonDatasTemp = {
+                CurrentLanguageVersion: lanTool.currentLanguageVersion,
+                UserName: tool.UserName(),
+                _ControlName: controlName,
+                _RegisterCode: tool.RegisterCode()
+            };
+
+            $.ajax({
+                async: true,
+                type: "post",
+                url: urlTemp,
+                data: jsonDatasTemp,
+                success: function (data) {
+                    data = tool.jObject(data);
+                    if (data._ReturnStatus == false) {
+                        tool.showText(tool.getMessage(data));
+                        _self.noData = true;
+                        return;
+                    }
+
+                    _self.forumMessageCount = data._OnlyOneData || 0;
                 },
                 error: function (jqXHR, type, error) {
                     console.log(error);

@@ -8,17 +8,17 @@
         <h1 class="mui-title f18">{{title}}</h1>
     </header>
     <div class="page-content">
-     <ul v-show="!notData" v-for="item in dataList" class="forumMessageList">
+     <ul v-show="!notData" v-for="item in listData" :key="item.AutoID" class="forumMessageList" :class="{'alreadyRead':item.IsOpen==true}">
             <li>
-                <a class="forumMessage" :key="item.dataId" @click="gotoMessagePage(item.dataId)">
+                <a class="forumMessage" :key="item.dataId" @click="goInfoPage(item)">
                     <div class="headImg"><img src="../../assets/images/default_user_img.png" alt=""></div>
                     <h4>
-                        <div class="postingTitle">{{item.title}}</div>
+                        <div class="postingTitle">{{item.Theme}}</div>
                     </h4>
-                    <div class="postingContent">{{item.content}}</div>
+                    <div class="postingContent">{{item.Content}}</div>
                     <div>
-                        <span class="userName pullLeft">{{item.userName}}</span>
-                        <span class="postingTime pullRight"><i class="calcfont calc-shijian"></i>{{item.dateTime}}</span>
+                        <span class="userName pullLeft">{{item.UserName}}</span>
+                        <span class="postingTime pullRight"><i class="calcfont calc-shijian"></i>{{item.PostTime|MeetingTimeFormat}}</span>
                     </div>
                 </a>
             </li>
@@ -38,59 +38,246 @@ export default {
         return {
             title: lanTool.lanContent('1000283_论坛消息'),
             notData: false,
-            dataList: [{
-                imgUrl: "",
-                title: "python--爬虫--爬虫学习路线指南",
-                content: "爬虫是入门Python最好的方式，没有之一。Python有很多应用的方向，比如后台开发、web开发、科学计算等等，但爬虫对于初学者而言更友好，原理简单，几行代码就能实现基本的爬虫，学习的过程更加平滑，你能体会更大的成就感。",
-                userName: "aoniruan阮毅文",
-                dateTime: "2019-07-31 18:20",
-                dataId:"1"
-            }, {
-                imgUrl: "",
-                title: "python--爬虫--爬虫学习路线指南",
-                content: "爬虫是入门Python最好的方式，没有之一。Python有很多应用的方向，比如后台开发、web开发、科学计算等等，但爬虫对于初学者而言更友好，原理简单，几行代码就能实现基本的爬虫，学习的过程更加平滑，你能体会更大的成就感。",
-                userName: "aoniruan阮毅文",
-                dateTime: "2019-07-31 19:30",
-                dataId:"2"
-            }, {
-                imgUrl: "",
-                title: "python--爬虫--爬虫学习路线指南",
-                content: "爬虫是入门Python最好的方式，没有之一。Python有很多应用的方向，比如后台开发、web开发、科学计算等等，但爬虫对于初学者而言更友好，原理简单，几行代码就能实现基本的爬虫，学习的过程更加平滑，你能体会更大的成就感。",
-                userName: "aoniruan阮毅文",
-                dateTime: "2019-07-31 20:20",
-                dataId:"3"
-            }],
+            listData: [
+            //     {
+            //     imgUrl: "",
+            //     title: "python--爬虫--爬虫学习路线指南",
+            //     content: "爬虫是入门Python最好的方式，没有之一。Python有很多应用的方向，比如后台开发、web开发、科学计算等等，但爬虫对于初学者而言更友好，原理简单，几行代码就能实现基本的爬虫，学习的过程更加平滑，你能体会更大的成就感。",
+            //     userName: "aoniruan阮毅文",
+            //     dateTime: "2019-07-31 18:20",
+            //     dataId:"1"
+            // }, {
+            //     imgUrl: "",
+            //     title: "python--爬虫--爬虫学习路线指南",
+            //     content: "爬虫是入门Python最好的方式，没有之一。Python有很多应用的方向，比如后台开发、web开发、科学计算等等，但爬虫对于初学者而言更友好，原理简单，几行代码就能实现基本的爬虫，学习的过程更加平滑，你能体会更大的成就感。",
+            //     userName: "aoniruan阮毅文",
+            //     dateTime: "2019-07-31 19:30",
+            //     dataId:"2"
+            // }, {
+            //     imgUrl: "",
+            //     title: "python--爬虫--爬虫学习路线指南",
+            //     content: "爬虫是入门Python最好的方式，没有之一。Python有很多应用的方向，比如后台开发、web开发、科学计算等等，但爬虫对于初学者而言更友好，原理简单，几行代码就能实现基本的爬虫，学习的过程更加平滑，你能体会更大的成就感。",
+            //     userName: "aoniruan阮毅文",
+            //     dateTime: "2019-07-31 20:20",
+            //     dataId:"3"
+            // }
+            ],
         }
     },
     created: function () {
 
     },
     mounted: function () {
-
+        lanTool.updateLanVersion();
+        //查询消息列表
+        this.getMessageList();
     },
     methods: {
         back: function () {
             this.$router.back(-1);
         },
+        //查询消息列表
+        getMessageList:function(){
+            var _self = this;
+            //请求地址
+            var urlTemp = tool.AjaxBaseUrl();
+            var controlName = tool.Api_MessagesToUserHandle_QueryPostMsgList;
+            //传入参数
+            var jsonDatasTemp = {
+                CurrentLanguageVersion: lanTool.currentLanguageVersion,
+                UserName: tool.UserName(),
+                _ControlName: controlName,
+                _RegisterCode: tool.RegisterCode()
+            };
+
+            $.ajax({
+                async: true,
+                type: "post",
+                url: urlTemp,
+                data: jsonDatasTemp,
+                success: function (data) {
+                    data = tool.jObject(data);
+                    // console.log(data);
+                    if (data._ReturnStatus == false) {
+                        tool.showText(tool.getMessage(data));
+                        console.log(tool.getMessage(data));
+                        _self.notData = true;
+                        return;
+                    }
+
+                    _self.listData = data._OnlyOneData.Rows || [];
+                    if(tool.isNullOrEmptyObject(_self.listData) || _self.listData.length<=0){
+                        _self.notData = true;
+                    }else{
+                        _self.notData = false;
+                    }
+                    
+                },
+                error: function (jqXHR, type, error) {
+                    console.log(error);
+                    return;
+                },
+                complete: function () {
+                    //tool.hideLoading();
+                    //隐藏虚拟键盘
+                    document.activeElement.blur();
+                }
+            });
+        },
+        //标志已读
         setAllRead: function () {
-            console.log("全部置为已读");
-            // $(".page-content .forumMessageList .forumMessage").hasClass("alreadyRead");
+            var _self = this;
+            var allDataArr = _self.listData||[];
+            if(tool.isNullOrEmptyObject(allDataArr) || allDataArr.length<=0){
+                return;
+            }
+            var autoIDArr = [];
+            for(var i =0;i<allDataArr.length;i++){
+                autoIDArr.push(allDataArr[i]["AutoID"] || "");
+            }
+
+            tool.showConfirm(
+                lanTool.lanContent("997_您确定要将全部消息设置为已读吗？"),
+                function() {
+                    _self.setReadExe(autoIDArr,true);
+                },
+                function() {}
+            );
+        },
+        //设置指定的记录为已读
+        setCurRead:function(data){
+            var _self = this;
+            var autoIDArray = [];
+            autoIDArray.push(data["AutoID"]||"");
+            _self.setReadExe(autoIDArray,true);
+        },
+        //执行记录设置为已读
+        setReadExe:function(autoIDArray,isRefresh){
+            if(tool.isNullOrEmptyObject(autoIDArray)){
+                return;
+            }
+
+            var _self = this;
+            //请求地址
+            var urlTemp = tool.AjaxBaseUrl();
+            var controlName = tool.Api_MessagesToUserHandle_SetRead;
+            //传入参数
+            var jsonDatasTemp = {
+                CurrentLanguageVersion: lanTool.currentLanguageVersion,
+                UserName: tool.UserName(),
+                _ControlName: controlName,
+                _RegisterCode: tool.RegisterCode(),
+                AutoID: JSON.stringify(autoIDArray)
+            };
+
+            $.ajax({
+                async: true,
+                type: "post",
+                url: urlTemp,
+                data: jsonDatasTemp,
+                success: function (data) {
+                    data = tool.jObject(data);
+                    // console.log(data);
+                    if (data._ReturnStatus == false) {
+                        tool.showText(tool.getMessage(data));
+                        console.log(tool.getMessage(data));
+                        //_self.notData = true;
+                        //return;
+                    }
+
+                    //若需要刷新列表
+                    if(isRefresh){
+                        _self.getMessageList();
+                    }
+                },
+                error: function (jqXHR, type, error) {
+                    console.log(error);
+                    return;
+                },
+                complete: function () {
+                    //tool.hideLoading();
+                    //隐藏虚拟键盘
+                    document.activeElement.blur();
+                }
+            });
         },
         clearAll: function () {
             var _self = this;
-             tool.showConfirm(
+            var allDataArr = _self.listData||[];
+            if(tool.isNullOrEmptyObject(allDataArr) || allDataArr.length<=0){
+                return;
+            }
+            var autoIDArr = [];
+            for(var i =0;i<allDataArr.length;i++){
+                autoIDArr.push(allDataArr[i]["AutoID"]||"");
+            }
+
+            tool.showConfirm(
                 lanTool.lanContent("998_您确定要清除全部消息吗？"),
-                function () {
-                      //点击确定清除所有消息
-                      _self.dataList = [];
+                function() {
+                    //请求地址
+                    var urlTemp = tool.AjaxBaseUrl();
+                    var controlName = tool.Api_MessagesToUserHandle_SetDisabled;
+                    //传入参数
+                    var jsonDatasTemp = {
+                        CurrentLanguageVersion: lanTool.currentLanguageVersion,
+                        UserName: tool.UserName(),
+                        _ControlName: controlName,
+                        _RegisterCode: tool.RegisterCode(),
+                        AutoID: JSON.stringify(autoIDArr)
+                    };
+
+                    $.ajax({
+                        async: true,
+                        type: "post",
+                        url: urlTemp,
+                        data: jsonDatasTemp,
+                        success: function (data) {
+                            data = tool.jObject(data);
+                            // console.log(data);
+                            if (data._ReturnStatus == false) {
+                                tool.showText(tool.getMessage(data));
+                                console.log(tool.getMessage(data));
+                                // _self.notData = true;
+                                // return;
+                            }
+
+                            //刷新列表
+                            _self.getMessageList();
+                        },
+                        error: function (jqXHR, type, error) {
+                            console.log(error);
+                            return;
+                        },
+                        complete: function () {
+                            //tool.hideLoading();
+                            //隐藏虚拟键盘
+                            document.activeElement.blur();
+                        }
+                    });
                 },
-                function () {
-                }
-            );
+                function() {}
+            );  
         },
-      gotoMessagePage:function(dataId){
-          console.log("dataId"+dataId);
-      }
+        //跳转到详情 TODO逻辑待完善
+        goInfoPage:function(data){
+            var _self = this;
+            var infoName = "";
+            var url = "";
+            var parameter = {
+                "infoName":data["Theme"]||""
+            };
+
+            //url = "/contactsinfo/" + fromID;
+
+            //设置记录为已读
+            _self.setCurRead(data);
+            //页面跳转
+            // _self.$router.push({
+            //     path: url,
+            //     query: parameter
+            // });
+        }
     }
 }
 </script>
@@ -223,5 +410,8 @@ header a {
 .calc-shijian {
     padding: 0;
     font-size: 0.28rem;
+}
+.alreadyRead{
+    opacity: 0.6;
 }
 </style>
