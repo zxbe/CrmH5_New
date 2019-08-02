@@ -736,7 +736,19 @@ export default {
                             });
                     } else {
                         //若是收起
-                        tool.InitInnerDataList(_self, fromType, groupID, [], function () {
+                        var queryCondictionTemp = _self.constructDealAndPitchQueryCondition();
+                        var fromTypeTemp = "";
+                        switch (_self.showPage) {
+                            case 1:
+                                fromTypeTemp = "dealPipeline";
+                                break;
+                            case 2:
+                                fromTypeTemp = "opportunities";
+                                break;
+                            default:
+                                break;
+                        }
+                        tool.InitInnerDataList(_self, fromTypeTemp, groupID, queryCondictionTemp, function () {
                             _self.$nextTick(function () {
                                 target.addClass("open")
                                     .siblings(".group-item-list")
@@ -776,21 +788,8 @@ export default {
                 });
             }
         },
-        //获取最近交易和商业机会的分组数据
-        getRecentDealsAndOpportunities: function (num) {
-            var _self = this;
-            _self.groupData = [];
-            var fromTypeTemp = "";
-            switch (num) {
-                case 1:
-                    fromTypeTemp = "dealPipeline";
-                    break;
-                case 2:
-                    fromTypeTemp = "opportunities";
-                    break;
-                default:
-                    break;
-            }
+        //构造交易和商业机会的查询条件
+        constructDealAndPitchQueryCondition:function(){
             var queryCondictionTemp = [];
             var dateTimeFormatStr = "yyyy/MM/dd";
             var endDate = new Date();
@@ -807,8 +806,26 @@ export default {
                 Value:startDateStr+","+endDateStr,
                 Comparison:"between"
             };
-            console.log(queryCondictionObjTemp);
             queryCondictionTemp.push(queryCondictionObjTemp);
+            return queryCondictionTemp;
+        },
+        //获取最近交易和商业机会的分组数据
+        getRecentDealsAndOpportunities: function (num) {
+            var _self = this;
+            _self.groupData = [];
+            var fromTypeTemp = "";
+            switch (num) {
+                case 1:
+                    fromTypeTemp = "dealPipeline";
+                    break;
+                case 2:
+                    fromTypeTemp = "opportunities";
+                    break;
+                default:
+                    break;
+            }
+            
+            var queryCondictionTemp = _self.constructDealAndPitchQueryCondition();
             tool.InitGrouplist(_self, fromTypeTemp, queryCondictionTemp, function (data) {});
         },
         //获取最近几天的会议分组数据
