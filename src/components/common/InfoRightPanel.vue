@@ -36,6 +36,7 @@ export default {
             // isShowClose:false,
             isShowMeetingLink: false,
             isShowContactsLink:false,
+            isShowOrganizationsInfoLink:false,
             isShowPowerUserLink: false,
             isShowDealLink: false,
             isShowSynchronizeLink: false,
@@ -45,6 +46,8 @@ export default {
     props: ['isShowSend', 'isShowClose', 'closeThisContent', 'rightPanelFromType', 'rightPanelFromID','businessType'],
 
     created: function () {
+      console.log('rightPanelFromType:'+ this.rightPanelFromType);
+      console.log('rightPanelFromID:'+ this.rightPanelFromID);
         var _self = this;
         //联系人:6;公司:7;会议:8;商机&交易:9;
         switch (_self.rightPanelFromType) {
@@ -151,7 +154,7 @@ export default {
             })
         },
         //跳转到联系人列表
-       goToContactsList: function() {
+        goToContactsList: function() {
           this.$parent.goToContactsPage();
         },
         //跳转到公司详情
@@ -180,12 +183,35 @@ export default {
         },
         //查看关联的交易列表
         goToDealListPage: function () {
-            console.log("查看关联的交易列表");
-
+            // console.log("查看关联的交易列表");
+            var _self = this;
+            var parameter = {
+                fromType:_self.rightPanelFromType,
+                fromId:_self.rightPanelFromID
+            };
+            _self.panelToggle();
+            _self.$nextTick(function () {
+                _self.$router.push({
+                    path: "/businesslist",
+                    query: parameter
+                });
+            })
         },
         //查看关联的商业机会列表
         goToOpportunityListPage: function () {
             console.log("查看关联的商业机会列表");
+            var _self = this;
+            var parameter = {
+                fromType:_self.rightPanelFromType,
+                fromId:_self.rightPanelFromID
+            };
+            _self.panelToggle();
+            _self.$nextTick(function () {
+                _self.$router.push({
+                    path: "/businesslist",
+                    query: parameter
+                });
+            })
         },
         //同步Camcard数据
         SynchronousCamCardData: function () {

@@ -206,8 +206,11 @@ export default {
     },
     created: function () {
         let _self = this;
-        _self.rightPanelFromType = "7";
         _self.$store.commit('SET_ITEM', 'organizationsinfo');
+        _self.rightPanelFromType = "7";
+        _self.id = _self.$route.params.id || '';
+        _self.rightPanelFromID = _self.id;
+
         _self.ptitle = this.$route.query.infoName || lanTool.lanContent("792_添加公司");
 
         _self.onlyView = (_self.$route.query.onlyView == "true" || _self.$route.query.onlyView == true) ? true : false;
@@ -221,7 +224,6 @@ export default {
 
         let fromType = "Organizationsinfo";
 
-        _self.id = _self.$route.params.id;
         //若是新增，则隐藏新增不需要显示的模块
         if (tool.isNullOrEmptyObject(_self.id) || Number(_self.id) <= 0) {
             $(".HideWhenNew").hide();
@@ -357,7 +359,7 @@ export default {
             if (tool.isNullOrEmptyObject(companyID) || tool.isNullOrEmptyObject(companyName)) {
                 return;
             }
-            
+
             var parameter = {
                 CompanyID: companyID,
                 CompanyName: companyName,

@@ -73,7 +73,20 @@ export default {
       noData: false, //没数据
       pageSize:10,//一页显示多少记录
       pageNum:1,//当前页码
+
+      fromType:'',  //标志是用那个模块过来的；联系人:6;公司:7;会议:8;商机&交易:9;
+      fromId:'',
+
+
     }
+  },
+  created:function(){
+    var _self = this;
+    _self.fromType = _self.$route.query.fromType || '';
+    _self.fromId = _self.$route.query.fromId || '';
+
+    console.log('fromType:'+ _self.fromType);
+    console.log('fromId:'+ _self.fromId);
   },
   mounted:function(){
       lanTool.updateLanVersion();
