@@ -275,7 +275,9 @@ export default {
             noData: false, //没有数据
             showPanel: false,
             groupData: [], //7天的数据
-            dealData: [{
+            dealData: 
+            [
+                {
                     "GroupID": 2,
                     "GroupName": "測試銷售組1",
                     "GroupRowCount": 15,
@@ -294,7 +296,8 @@ export default {
                     "items": []
                 }
             ],
-            pitchesData: [{
+            pitchesData: [
+            {
                 "GroupID": 13,
                 "GroupName": "IT Team",
                 "GroupRowCount": 7,
@@ -314,12 +317,14 @@ export default {
                 "GroupName": "Test Sales Team3",
                 "GroupRowCount": 4,
                 "items": []
-            }],
+            }
+            ],
             meetingCount: 0, //未上传会议记录的会议数量
             messageCount: 0, //消息数量
             forumMessageCount: 0, //论坛消息的数量
             showPage: 0,
-            isFromSingleSignOn: false //是否来源于单点登陆
+            isFromSingleSignOn: false, //是否来源于单点登陆
+            recentDealAndPitchDay:30,//查询最近30天的Deal和Pitch记录
         };
     },
     created: function () {
@@ -365,8 +370,6 @@ export default {
         _self.handleLogOut();
 
         _self.watchScroll();
-
-
     },
     methods: {
         switchPage: function (num, e) {
@@ -505,10 +508,43 @@ export default {
         },
         //同步Camcard的数据
         SynchronousCamcardData: function () {
+
             tool.showConfirm(
                 lanTool.lanContent("1000212_同步Camcard数据将会覆盖本地数据，是否确定同步？"),
-                function () {
-                    //点击确定后同步的逻辑
+                function () {        
+                    //请求地址
+                    var urlTemp = tool.AjaxBaseUrl();
+                    var controlName = tool.Api_CamcardDataHandle_SyncCompanyAndContactData;
+                    //传入参数
+                    var jsonDatasTemp = {
+                        CurrentLanguageVersion: lanTool.currentLanguageVersion,
+                        UserName: tool.UserName(),
+                        _ControlName: controlName,
+                        _RegisterCode: tool.RegisterCode()
+                    };
+
+                    var loadingIndexClassName = tool.showLoading();
+                    $.ajax({
+                        async: true,
+                        type: "post",
+                        url: urlTemp,
+                        data: jsonDatasTemp,
+                        success: function (data) {
+                            tool.hideLoading(loadingIndexClassName);
+                            data = tool.jObject(data);
+                            tool.showText(tool.getMessage(data));
+                            window.location.reload();
+                        },
+                        error: function (jqXHR, type, error) {
+                            tool.hideLoading(loadingIndexClassName);
+                            console.log(error);
+                            return;
+                        },
+                        complete: function () {
+                            //隐藏虚拟键盘
+                            document.activeElement.blur();
+                        }
+                    });
                 },
                 function () {}
             );
@@ -523,8 +559,8 @@ export default {
                     //重新加载多语言
                     lanTool.waitExcute(false, true, function () {
                         //window.location.reload();
-                        // _self.$router.go(0); //todo 以后增加刷新机制以后增加刷新机制
-                        window.location.reload(); //todo 以后增加刷新机制以后增加刷新机制
+                        // _self.$router.go(0); //todo 以后增加刷新机制
+                        window.location.reload(); //todo 以后增加刷新机制
                     });
                 },
                 function () {}
@@ -664,7 +700,7 @@ export default {
                             })
                         }, 'index');
                     }
-                })
+                });
 
             $("#dealpipelineList,#opportunitiesList").off("click", "div.date-div").on(
                 "click",
@@ -708,8 +744,7 @@ export default {
                             })
                         }, 'index');
                     }
-                })
-
+                });
         },
         //侧滑
         panelToggle: function () {
@@ -741,148 +776,46 @@ export default {
                 });
             }
         },
-        //获取最近7天的交易和商业机会的分组数据
+        //获取最近交易和商业机会的分组数据
         getRecentDealsAndOpportunities: function (num) {
             var _self = this;
             _self.groupData = [];
+            var fromTypeTemp = "";
             switch (num) {
                 case 1:
-                    _self.groupData = _self.dealData;
+                    fromTypeTemp = "dealPipeline";
                     break;
                 case 2:
-                    _self.groupData = _self.pitchesData;
+                    fromTypeTemp = "opportunities";
                     break;
                 default:
                     break;
             }
-
+            var queryCondictionTemp = [];
+            var dateTimeFormatStr = "yyyy/MM/dd";
+            var endDate = new Date();
+            var endDateStr = endDate.FormatNew(dateTimeFormatStr);
+            var startDate = new Date();
+            var isFormat = true;
+            var startDateStr = tool.SetDate(startDate, 0, 0, -30, isFormat, dateTimeFormatStr);
+            var queryCondictionObjTemp =
+            {
+                Field:"LastUpdateTime",
+                Type:"Date",
+                Format:"yyyy/MM/dd",
+                Relation:"and",
+                Value:startDateStr+","+endDateStr,
+                Comparison:"between"
+            };
+            console.log(queryCondictionObjTemp);
+            queryCondictionTemp.push(queryCondictionObjTemp);
+            tool.InitGrouplist(_self, fromTypeTemp, queryCondictionTemp, function (data) {});
         },
         //获取最近几天的会议分组数据
         getRecentMeeting: function () {
             var _self = this;
             tool.InitGrouplist(_self, 'meeting', [], function (data) {}, 'index')
-
-            /*
-                        //查询分组数据
-                        //请求地址
-                        var urlTemp = tool.AjaxBaseUrl();
-                        var controlName = tool.Api_MeetingHandle_Group;
-                        //传入参数
-                        var jsonDatasTemp = {
-                            CurrentLanguageVersion: lanTool.currentLanguageVersion,
-                            UserName: tool.UserName(),
-                            _ControlName: controlName,
-                            _RegisterCode: tool.RegisterCode(),
-                            QueryCondiction: JSON.stringify([]),
-                            RecentDay: 7
-                        };
-                        var loadingIndexClassName = tool.showLoading();
-
-                        $.ajax({
-                            async: true,
-                            type: "post",
-                            url: urlTemp,
-                            data: jsonDatasTemp,
-                            success: function (data) {
-                                tool.hideLoading(loadingIndexClassName);
-                                data = tool.jObject(data);
-                                if (data._ReturnStatus == false) {
-                                    tool.showText(tool.getMessage(data));
-                                    _self.noData = true;
-                                    return;
-                                }
-
-                                _self.groupData = data._OnlyOneData.Rows || [];
-                                //无数据
-                                if (_self.groupData.length <= 0) {
-                                    _self.noData = true;
-                                    return;
-                                }
-                                //添加属性
-                                $.each(_self.groupData, function (index, item) {
-                                    _self.$set(item, 'items', []);
-                                })
-
-                            },
-                            error: function (jqXHR, type, error) {
-                                console.log(error);
-                                tool.hideLoading(loadingIndexClassName);
-                                return;
-                            },
-                            complete: function () {
-                                //tool.hideLoading();
-                                //隐藏虚拟键盘
-                                document.activeElement.blur();
-                            }
-                        });
-                        */
         },
-        /*
-        //获取内部列表
-        getInnerDataList: function (groupID, myCallBack) {
-            if (tool.isNullOrEmptyObject(groupID)) {
-                return;
-            }
-            var _self = this;
-            tool.InitInnerDataList(_self, 'meeting', groupID, [], 'index', myCallBack);
-
-            //查询分组数据
-            //请求地址
-            var urlTemp = tool.AjaxBaseUrl();
-            var controlName = tool.Api_MeetingHandle_GroupInnerData;
-            //传入参数
-            var jsonDatasTemp = {
-                CurrentLanguageVersion: lanTool.currentLanguageVersion,
-                UserName: tool.UserName(),
-                _ControlName: controlName,
-                GroupID: groupID,
-                _RegisterCode: tool.RegisterCode(),
-                QueryCondiction: JSON.stringify([]),
-                RecentDay: 7
-            };
-            var loadingIndexClassName = tool.showLoading();
-            $.ajax({
-                async: true,
-                type: "post",
-                url: urlTemp,
-                data: jsonDatasTemp,
-                success: function (data) {
-                    data = tool.jObject(data);
-                    tool.hideLoading(loadingIndexClassName);
-                    if (data._ReturnStatus == false) {
-                        tool.showText(tool.getMessage(data));
-                        return;
-                    }
-                    data = data._OnlyOneData.Rows || [];
-                    //无数据
-                    if (data.length <= 0) {
-                        return;
-                    }
-
-                    $.each(_self.groupData, function (index, item) {
-                        if (item.GroupID == groupID) {
-                            item.items = data;
-                        }
-                    })
-
-                    if (!tool.isNullOrEmptyObject(myCallBack)) {
-                        myCallBack();
-                    }
-                    return;
-                },
-                error: function (jqXHR, type, error) {
-                    console.log(error);
-                    tool.hideLoading(loadingIndexClassName);
-                    return;
-                },
-                complete: function () {
-                    // tool.hideLoading();
-                    //隐藏虚拟键盘
-                    document.activeElement.blur();
-                }
-            });
-        },
-        */
         //获取未上传会议记录的会议数量
         getNoUploadRecordCount: function () {
             var _self = this;
@@ -1035,7 +968,6 @@ export default {
                 });
             })
         },
-
         //点击跳转到详情页
         goInfo: function () {
             var _self = this;
