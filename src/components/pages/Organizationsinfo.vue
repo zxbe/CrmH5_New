@@ -42,7 +42,7 @@
                             <div class="ListCellRightIcon"><span class="mui-icon calcfont calc-you"></span></div>
                         </div>
                     </div>
-                    <div class="ListCell">
+                    <div class="ListCell visible">
                         <div class="ListCellLeftIcon"><span class="mui-icon calcfont calc-nationaarea"></span></div>
                         <div class="ListCellContent">
                             <div class="ListCellContentLeft leftContent">
@@ -54,7 +54,7 @@
                             <div class="ListCellRightIcon"><span class="mui-icon calcfont calc-you"></span></div>
                         </div>
                     </div>
-                    <div class="ListCell">
+                    <div class="ListCell visible">
                         <div class="ListCellLeftIcon"><span class="mui-icon calcfont calc-diqiuquanqiu"></span></div>
                         <div class="ListCellContent">
                             <div class="ListCellContentLeft leftContent">
@@ -126,7 +126,7 @@
 
                         </div>
                         <!-- HideWhenNew -->
-                        <div v-show="!isAddNew" class="contactList">
+                        <!-- <div v-show="!isAddNew" class="contactList">
                             <div class="ListCell" @click="goToContactsPage">
                                 <div class="ListCellLeftIcon"><span class="mui-icon calcfont calc-lianxiren2"></span></div>
                                 <div class="ListCellContent">
@@ -139,7 +139,7 @@
                                     <div class="ListCellRightIcon"><span class="mui-icon calcfont calc-you"></span></div>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                         <!-- HideWhenNewOrHasNoAccess -->
                         <div v-show="!isAddNew&&isHasADBAccess" class="airlineinfo">
                             <div class="ListCell" @click="goToAirlinePage">

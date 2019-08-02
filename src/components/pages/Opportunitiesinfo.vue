@@ -246,7 +246,7 @@
             </div> -->
 
             <!-- 会议 -->
-            <div class="accessBlock" v-show="!isAddNew">
+            <!-- <div class="accessBlock" v-show="!isAddNew">
                 <div class="ListCell" @click="goToMeetingList">
                     <div class="ListCellLeftIcon">
                         <span class="calcfont calc-huiyi"></span>
@@ -258,10 +258,10 @@
                         <div class="ListCellRightIcon"><span class="calcfont calc-you"></span></div>
                     </div>
                 </div>
-            </div>
+            </div> -->
 
             <!-- 查看有权限访问的同事 -->
-            <div class="accessBlock" v-show="!isAddNew">
+            <!-- <div class="accessBlock" v-show="!isAddNew">
                 <div class="ListCell" @click="goToShareList">
                     <div class="ListCellLeftIcon">
                         <span class="calcfont calc-yidu"></span>
@@ -273,7 +273,7 @@
                         <div class="ListCellRightIcon"><span class="calcfont calc-you"></span></div>
                     </div>
                 </div>
-            </div>
+            </div> -->
 
             <!-- 会议文档 -->
             <DocumentList
@@ -448,14 +448,12 @@ export default {
 
         //若是新增，则隐藏新增不需要显示的模块
         if(tool.isNullOrEmptyObject(_self.id) || Number(_self.id) <= 0){
-            // $(".HideWhenNew").hide();
             _self.isAddNew = true;
             _self.showTips = false; //隐藏提示
              _self.onlyView = false;//保存按钮展示
             $('.scroll-div').removeClass('disable');
             $('.controlEdit').removeClass('disable');
         }else{
-            // $(".HideWhenNew").show();
             _self.isAddNew = false;
         }
 
@@ -578,30 +576,30 @@ export default {
     },
     methods: {
         //查看有权限访问的同事
-        goToShareList: function() {
-            var _self = this;
-            var fromType = "9";
-            var fromID = _self.$route.params.id || "";
-            if (tool.isNullOrEmptyObject(fromID)) {
-                return;
-            }
-            var parameter = {
-                fromType: fromType,
-                fromID: fromID
-            };
-            _self.$router.push({
-                path: "/poweruser",
-                query: parameter
-            });
-        },
+        // goToShareList: function() {
+        //     var _self = this;
+        //     var fromType = "9";
+        //     var fromID = _self.$route.params.id || "";
+        //     if (tool.isNullOrEmptyObject(fromID)) {
+        //         return;
+        //     }
+        //     var parameter = {
+        //         fromType: fromType,
+        //         fromID: fromID
+        //     };
+        //     _self.$router.push({
+        //         path: "/poweruser",
+        //         query: parameter
+        //     });
+        // },
         //跳转会议列表
-        goToMeetingList:function(){
-            var _self = this;
-            _self.$router.push({
-                path: "/meetinglist",
-                // query: parameter
-            });
-        },
+        // goToMeetingList:function(){
+        //     var _self = this;
+        //     _self.$router.push({
+        //         path: "/meetinglist",
+        //         // query: parameter
+        //     });
+        // },
         //查看/添加会议记录
         goRecord: function (e,AutoID) {
             var _self = this;

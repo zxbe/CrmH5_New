@@ -1,3 +1,4 @@
+/*
 import commoninfo from '../components/common/commoninfo'
 export default{
 
@@ -167,3 +168,4 @@ export default{
         }
     }
   };
+  */

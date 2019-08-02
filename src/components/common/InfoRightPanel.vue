@@ -3,20 +3,20 @@
 
     <div id="mask" class="mask" @click="panelToggle" v-show="showPanel"></div>
     <div id="right-content" class="right-content">
-        <!-- <div right-content-block id="dataBlock" v-show="items.length>0">
-            <div class="right-content-header f16">Related Data</div>
-            <div class="right-content-list f14" v-for="item in items">
-                <div class="right-content-list-cell"><span class="mui-icon calcfont calc-guanxi"></span>{{item}}</div>
-            </div>
-        </div> -->
+
         <div right-content-block id="generalBlock">
             <div class="right-content-header f16 lanText" data-lanid="943_操作"></div>
             <div class="right-content-list f14">
                 <div id="rightPanelCloseThis" class="right-content-list-cell" v-show="isShowClose"><span class="mui-icon calcfont calc-jieshu">{{closeThisContent}}</span></div>
+                <div class="right-content-list-cell" v-show="isShowSend" @click="showShareList"><span class="mui-icon calcfont calc-icon-share lanText" data-lanid="946_分享给同事"></span></div>
                 <!-- <div id="rightPanelCloseThisOpp" class="right-content-list-cell" v-show="isShowCloseOpp"><span class="mui-icon calcfont calc-jieshu lanText" data-lanid="944_关闭这个商业机会"></span></div> -->
                 <!-- <div id="rightPanelCloseThisDeal" class="right-content-list-cell" v-show="isShowCloseDeal"><span class="mui-icon calcfont calc-jiaoyi lanText" data-lanid="945_关闭这个交易"></span></div> -->
-                <div class="right-content-list-cell" v-show="isShowSend" @click="showShareList"><span class="mui-icon calcfont calc-icon-share lanText" data-lanid="946_分享给同事"></span></div>
                 <!-- <div class="right-content-list-cell"><span class="mui-icon calcfont calc-fenxiang1"></span>Send to Chat</div> -->
+                <div class="right-content-list-cell" v-show="isShowMeetingLink" @click="goToMeetingList"><span class="mui-icon calcfont calc-huiyi lanText" data-lanid="619_会议"></span></div>
+                <div class="right-content-list-cell" v-show="isShowPowerUserLink" @click="goToPowerUserPage"><span class="mui-icon calcfont calc-yidu lanText" data-lanid="852_查看有权限访问的同事"></span></div>
+                <div class="right-content-list-cell" v-show="isShowDealLink" @click="goToDealListPage"><span class="mui-icon calcfont calc-handshake-o lanText" data-lanid="817_交易"></span></div>
+                <div class="right-content-list-cell" v-show="isShowDealLink" @click="goToOpportunityListPage"><span class="mui-icon calcfont calc-jiezhishijianicon lanText" data-lanid="649_商业机会"></span></div>
+                <div class="right-content-list-cell" v-show="isShowSynchronizeLink" @click="SynchronousCamCardData"><span class="mui-icon calcfont calc-exchange lanText" data-lanid="1000193_同步CamCard数据"></span></div>
             </div>
         </div>
     </div>
@@ -30,21 +30,23 @@ export default {
             showPanel: false,
             classificationValue: '', //右侧分类
             dataFilter: [],
-            // rightPanelFromTypeNew: "",
-            // rightPanelFromIDNew: ""
+            // isShowClose:false,
+            isShowMeetingLink:true,
+            isShowPowerUserLink:false,
+            isShowDealLink:false,
+            isShowSynchronizeLink:false,
         }
     },
-    props: ['isShowSend', 'isShowClose','closeThisContent', 'rightPanelFromType', 'rightPanelFromID'],
-    watch: {
-        // rightPanelFromType: function (newVal, oldVal) {
-        //     this.rightPanelFromTypeNew = newVal;
-        // },
-        // rightPanelFromID: function (newVal, oldVal) {
-        //     this.rightPanelFromIDNew = newVal;
-        // }
-    },
-    created: function () {
+    props: ['isShowSend', 'isShowClose','closeThisContent', 'rightPanelFromType', 'rightPanelFromID',],
 
+    created: function () {
+        var _self = this;
+        if(_self.rightPanelFromType == "6"){
+           _self.isShowMeetingLink = true;
+           _self.isShowPowerUserLink = true;
+          _self.isShowDealLink =true;
+          _self.isShowSynchronizeLink=true;
+        }
     },
     mounted: function () {
         lanTool.updateLanVersion();
@@ -106,7 +108,51 @@ export default {
                     query: parameter
                 });
             })
-        }
+        },
+        //跳转会议列表
+        goToMeetingList:function(){
+            var _self = this;
+            _self.panelToggle();
+            _self.$nextTick(function () {
+                _self.$router.push({
+                    path: "/meetinglist",
+                    // query: parameter
+                });
+            })
+        },
+        //查看有权限访问的同事
+        goToPowerUserPage: function() {
+            var _self = this;
+            var fromType = _self.rightPanelFromType;
+            var fromID = _self.$route.params.id || "";
+            if (tool.isNullOrEmptyObject(fromID)) {
+                return;
+            }
+            var parameter = {
+                fromType: fromType,
+                fromID: fromID
+            };
+            _self.panelToggle();
+            _self.$nextTick(function () {
+                _self.$router.push({
+                    path: "/poweruser",
+                    query: parameter
+                });
+            })
+        },
+        //查看关联的交易列表
+        goToDealListPage:function(){
+           console.log("查看关联的交易列表");
+
+        },
+        //查看关联的商业机会列表
+        goToOpportunityListPage:function(){
+           console.log("查看关联的商业机会列表");
+        },
+        //同步Camcard数据
+        SynchronousCamCardData:function() {
+            console.log("同步Camcard数据");
+        },
     },
 
     beforeDestroy: function () {
@@ -123,7 +169,7 @@ export default {
     line-height: 0.88rem;
     width: 100%;
     background-color: #F8F2DC;
-    padding-left: 0.1rem;
+    padding-left: 0.2rem;
 
 }
 
@@ -140,6 +186,7 @@ export default {
 
 .right-content-list .calcfont::before {
     font-size: 0.36rem;
+    margin-right: 5px;
 }
 
 .right-content-list-cell {
