@@ -49,7 +49,7 @@
                         </p>
                     </div>
                 </div>
-                <div class="ListCell">
+                <div class="ListCell" style="background:rgb(252,252,252)">
                     <div class="ListCellLeftIcon textLeftIcon">
                         <span class="calcfont calc-nationaarea"></span>
                     </div>
@@ -59,7 +59,7 @@
                         </p>
                     </div>
                 </div>
-                <div class="ListCell">
+                <div class="ListCell" style="background:rgb(252,252,252)">
                     <div class="ListCellLeftIcon textLeftIcon">
                         <span class="calcfont calc-diqiuquanqiu"></span>
                     </div>
