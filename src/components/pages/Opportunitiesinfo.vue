@@ -373,7 +373,7 @@ export default {
             operation:true,//控制详情页header按钮，ture:显示可操作，false:隐藏
             onlyView:false,//控制页面头部icon,true:不显示头部icon,false:显示
 
-            rightPanelFromType:"",//传给右侧菜单用的参数
+            rightPanelFromType:"9",//传给右侧菜单用的参数
             rightPanelFromID:"",//传给右侧菜单用的参数
             isShowSendBtn: true,  //侧滑是否显示分享给同事选项
             isShowClose:true, //侧滑是否显示关闭这个商业机会选项
@@ -443,7 +443,6 @@ export default {
             _self.ptitle =this.$route.query.infoName || lanTool.lanContent('884_增加交易');
         }
         var fromType = "Opportunitiesinfo";
-        _self.rightPanelFromType = "9";
         _self.rightPanelFromID = _self.$route.params.id || "";
 
         //若是新增，则隐藏新增不需要显示的模块

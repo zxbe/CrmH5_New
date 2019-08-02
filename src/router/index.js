@@ -9,6 +9,8 @@ import Notification from '@/components/pages/Notification'
 import Previewfile from '@/components/pages/Previewfile'
 import Uploadinput from '@/components/pages/Uploadinput'
 import Meetinglist from '@/components/pages/Meetinglist'
+import MeetingListForRelation from '@/components/pages/MeetingListForRelation'
+
 import Businesslist from '@/components/pages/BusinessList'
 
 import Tripmeeting from '@/components/pages/Tripmeeting'
@@ -65,6 +67,7 @@ const router =  new Router({
     { path: '/searchmodule/:paramStr',name:'searchmodule',component: Searchmodule},
 
     { path: '/meetinglist',name:'meetinglist', component: Meetinglist},
+    { path: '/meetinglistforrelation',name:'meetinglistforrelation', component: MeetingListForRelation},
     { path: '/businesslist',name:'businesslist', component: Businesslist},
 
 

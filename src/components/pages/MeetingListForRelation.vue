@@ -1,21 +1,12 @@
 <template>
-<!-- 从详情点击进入的会议列表页面 -->
+<!-- 该页面用于交易和商业机会模块中 -- 关联会议 -->
 <div>
-    <header class="mui-bar mui-bar-nav">
-          <!-- <a v-if="isMain" @click="showRightPanel" class="calcfont calc-yonghu1 right"></a> -->
-          <!-- <a v-if="isMain" @click="goNotification" class="calcfont calc-mailbox right">
-              <span v-show="Number(messageCount)>=1" class="count">{{messageCount}}</span>
-          </a> -->
+  <header class="mui-bar mui-bar-nav">
           <a @click="back" class="calcfont calc-fanhui left" id="back"></a>
           <h1 class="mui-title f18">{{title}}</h1>
+  </header>
 
-          <a v-show="fromType=='9'" @click="deleteMeeting" class="calc-shanchu calcfont right" id="delete"></a>
-          <a v-show="fromType=='9'" @click="addMeeting" class="calc-jiahao calcfont right" id="add"></a>
-          <a v-show="fromType=='9'" @click="relationMeeting" class="calc-guanlian calcfont right" id="relation"></a>
-
-    </header>
-
-    <div class="page-content" :class="{'checkbox-list': fromType=='9'}">
+  <div class="page-content" :class="{'checkbox-list': fromType=='9'}">
 
         <vue-scroll
           v-show="!noData"
@@ -49,25 +40,15 @@
         <nothing v-show="noData" style="padding-top:0.8rem;"></nothing>
     </div>
 
-    <div v-if="fromType=='9'" class="selectAll">
-        <div class="item-div">
-            <label class="checkbox-label">
-                      <input @click="selectAll" type="checkbox" name="sex"/><i class="checkbox checkAll"></i>
-                      <span>all</span>
-        </label>
-        </div>
-    </div>
 
 </div>
 </template>
 
 <script>
-// import Header from '../common/Header'
 import Scroll from '@/components/common/scroll/Scroll';
 import Nothing from "../common/Nothing"
 export default {
     components:{
-        // 'Header':Header,
         'vue-scroll':Scroll,
         'nothing': Nothing
     },
@@ -78,17 +59,7 @@ export default {
             noData: false, //没数据
             pageSize:10,//一页显示多少记录
             pageNum:1,//当前页码
-
-            fromType:'',  //标志是用那个模块过来的；联系人:6;公司:7;会议:8;商机&交易:9;
-            fromId:'',  //dealPipelineID或者pitchesID,用于新增会议自动选择关联于商业字段
-            checkboxValue:[], //选择需要删除meetingId
         }
-    },
-    created:function(){
-      var _self = this;
-      _self.fromType = _self.$route.query.fromType || '';
-      _self.fromId = _self.$route.query.fromId || '';
-
     },
     mounted:function(){
        lanTool.updateLanVersion();
@@ -98,36 +69,6 @@ export default {
         back:function(){
             this.$router.back(-1);
         },
-
-        //点击跳转到会议记录页
-        goInfoPage:function(scheduleID,el){
-            if(tool.isNullOrEmptyObject(scheduleID)){
-                return;
-            }
-
-            var _self = this;
-            var meetingNoticeID = "-1";
-            var url = "/MeetingNoteinfo/" + meetingNoticeID;
-            var oppID = "";
-             //获取会议记录详情的标题
-            var infoName = null;
-            if ($(el.target).hasClass("data-events-item")) {
-                infoName = $(el.target).find(".item-title").text();
-            } else {
-                infoName = $(el.target).parents(".data-events-item").children(".item-title").text() || "";
-            }
-            scheduleID = Number(scheduleID)<=0?"":scheduleID;
-            var parameter = {
-                OppID:oppID,
-                ScheduleID:scheduleID,
-                infoName:infoName
-            };
-            _self.$router.push({
-                path: url,
-                query: parameter
-            });
-        },
-
         //查询列表数据
         queryList: function (queryType, callback) {
             let _self = this;
@@ -271,94 +212,12 @@ export default {
 
             })
         },
-
-        //删除会议
-        deleteMeeting:function(){
-          var _self = this;
-          if(_self.checkboxValue.length <=0 ){
-              tool.showText(lanTool.lanContent("709_请选择要删除的记录！"));
-              return;
-          }
-          // console.log(_self.checkboxValue);
-          tool.showConfirm(
-              lanTool.lanContent("593_您确定要删除数据吗？"),
-              function() {
-                var loadingIndexClassName = tool.showLoading();
-                var jsonDatasTemp = {};
-                var urlTemp = '';
-                $.ajax({
-                  async: true,
-                  type: "post",
-                  url: urlTemp,
-                  data: jsonDatasTemp,
-                  success: function (data) {
-                    tool.hideLoading(loadingIndexClassName);
-                    data = tool.jObject(data);
-                    if (data._ReturnStatus == false) {
-                      tool.showText(tool.getMessage(data));
-                      // console.log(tool.getMessage(data));
-                      return true;
-                    }
-                  },
-                  error: function (jqXHR, type, error) {
-                    console.log(error);
-                    tool.hideLoading(loadingIndexClassName);
-                    return true;
-                  },
-                  complete: function () {
-                    //tool.hideLoading();
-                    //隐藏虚拟键盘
-                    document.activeElement.blur();
-                  }
-                });
-
-              },
-              function() {}
-          );
-
-        },
-
-        //新建会议
-        addMeeting:function(){
-            var _self = this;
-            var url = "/meetinginfo/-1";
-            _self.$router.push({
-                    path: url,
-                    query: {
-                        // defaultDateTime: defaultDateTime
-                    }
-            });
-        },
-
-        //关联会议
-        relationMeeting:function(){
-            var _self = this;
-            var url = "/meetinglistforrelation";
-            _self.$router.push({
-                    path: url,
-                    query: {
-                        // defaultDateTime: defaultDateTime
-                    }
-            });
-
-        },
-
-        //选择全部
-        selectAll: function (e) {
-            var self = this;
-            var el = e.target,
-                t = $(e.target).is(":checked");
-            if (t) {
-                $.each(self.listData, function (index, item) {
-                    self.checkboxValue.push(item.AutoID);
-                })
-            } else {
-                self.checkboxValue = [];
-            }
-        },
     }
+
+
 }
 </script>
+
 
 <style scoped>
 
@@ -392,9 +251,6 @@ header.mui-bar {
     font-weight: 400;
     line-height: 0.88rem;
 }
-.mui-bar .calcfont{
-  margin-left: -10px
-}
 
 
 .page-content{
@@ -403,33 +259,4 @@ header.mui-bar {
   bottom:0px;
   left:0;right:0;
 }
-.checkbox-list{
-  bottom:50px;
-}
-.meeting-list .selectable{
-  padding:8px 10px 8px 36px;
-}
-.meeting-list .checkbox-label{
-  position: absolute;top:20px;left:10px;
-}
-
-
-.selectAll{
-	position: fixed;
-	left: 0;
-	right: 0;
-	height: 50px;
-  line-height: 50px;
-  padding-left:10px;
-	bottom: 0;
-  z-index: 2;
-  background-color: rgb(245,245,245);
-  color: gray;
-  /* display: none; */
-}
-.selectAll .checkbox-label{position: relative;}
-.selectAll span{
-    padding-left:5px;
-}
-/* .selectAll .item-div .checkbox-label .checkbox{top:2px;} */
 </style>

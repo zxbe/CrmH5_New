@@ -13,6 +13,7 @@
                 <!-- <div id="rightPanelCloseThisDeal" class="right-content-list-cell" v-show="isShowCloseDeal"><span class="mui-icon calcfont calc-jiaoyi lanText" data-lanid="945_关闭这个交易"></span></div> -->
                 <!-- <div class="right-content-list-cell"><span class="mui-icon calcfont calc-fenxiang1"></span>Send to Chat</div> -->
                 <div class="right-content-list-cell" v-show="isShowMeetingLink" @click="goToMeetingList"><span class="mui-icon calcfont calc-huiyi lanText" data-lanid="619_会议"></span></div>
+                <div class="right-content-list-cell" v-show="isShowContactsLink" @click="goToContactsList"><span class="mui-icon calcfont calc-kehulianxiren lanText" data-lanid="630_联系人"></span></div>
                 <div class="right-content-list-cell" v-show="isShowPowerUserLink" @click="goToPowerUserPage"><span class="mui-icon calcfont calc-yidu lanText" data-lanid="852_查看有权限访问的同事"></span></div>
                 <div class="right-content-list-cell" v-show="isShowDealLink" @click="goToDealListPage"><span class="mui-icon calcfont calc-handshake-o lanText" data-lanid="817_交易"></span></div>
                 <div class="right-content-list-cell" v-show="isShowDealLink" @click="goToOpportunityListPage"><span class="mui-icon calcfont calc-jiezhishijianicon lanText" data-lanid="649_商业机会"></span></div>
@@ -31,7 +32,8 @@ export default {
             classificationValue: '', //右侧分类
             dataFilter: [],
             // isShowClose:false,
-            isShowMeetingLink: true,
+            isShowMeetingLink: false,
+            isShowContactsLink:false,
             isShowPowerUserLink: false,
             isShowDealLink: false,
             isShowSynchronizeLink: false,
@@ -41,6 +43,7 @@ export default {
 
     created: function () {
         var _self = this;
+        //联系人:6;公司:7;会议:8;商机&交易:9;
         switch (_self.rightPanelFromType) {
             case "6":
                 _self.isShowMeetingLink = true;
@@ -53,6 +56,13 @@ export default {
                 _self.isShowPowerUserLink = true;
                 _self.isShowDealLink = true;
                 _self.isShowSynchronizeLink = true;
+                 _self.isShowContactsLink = true;
+                break;
+            case "9":
+                _self.isShowMeetingLink = true;
+                _self.isShowPowerUserLink = true;
+                _self.isShowDealLink = false;
+                _self.isShowSynchronizeLink = false;
                 break;
             default:
                 break;
@@ -107,8 +117,8 @@ export default {
         showShareList: function () {
             var _self = this;
             var parameter = {
-                rightPanelFromType: this.rightPanelFromType, //来源类型
-                rightPanelFromID: this.rightPanelFromID //来源ID
+                rightPanelFromType: _self.rightPanelFromType, //来源类型
+                rightPanelFromID: _self.rightPanelFromID //来源ID
             };
             _self.panelToggle();
             _self.$nextTick(function () {
@@ -121,13 +131,21 @@ export default {
         //跳转会议列表
         goToMeetingList: function () {
             var _self = this;
+            var parameter = {
+                fromType:_self.rightPanelFromType,
+                fromId:_self.rightPanelFromID
+            };
             _self.panelToggle();
             _self.$nextTick(function () {
                 _self.$router.push({
                     path: "/meetinglist",
-                    // query: parameter
+                    query: parameter
                 });
             })
+        },
+        goToContactsList:function(){
+           console.log("联系人列表");
+
         },
         //查看有权限访问的同事
         goToPowerUserPage: function () {
