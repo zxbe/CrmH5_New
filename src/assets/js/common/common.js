@@ -459,6 +459,10 @@ import config from '../../configfile/config.js'
 	 */
 	tool.Api_MessagesToUserHandle_QueryPostMsgList = "Api_MessagesToUserHandle_QueryPostMsgList";
 
+	/*
+	 * 同步公司和联系人数据接口
+	 */
+	tool.Api_CamcardDataHandle_SyncCompanyAndContactData = "Api_CamcardDataHandle_SyncCompanyAndContactData";
 
 	/*
 	 * ADBAjaxUrl:ADB系统请求的api地址
@@ -1507,11 +1511,9 @@ import config from '../../configfile/config.js'
 		// console.log(oldFormat);
 		if (tool.isNullOrEmptyObject(value) || tool.isNullOrEmptyObject(newFormat)) {
 			return "";
-    }
-    value = value.replace("T","");
-
+		}
+		value = value.replace("T","");
 		oldFormat = oldFormat || "yyyy/MM/dd HH:mm:ss";
-
 		//value = new Date(value.DateTimeStrFormat("yyyy-MM-dd HH:mm:ss")).FormatNew("d/MMM/yyyy HH:mm");
 		value = new Date(value.DateTimeStrFormat(oldFormat)).FormatNew(newFormat);
 		return value;
