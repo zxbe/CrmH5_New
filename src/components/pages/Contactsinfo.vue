@@ -349,7 +349,12 @@ export default {
         var _self = this;
 
         //返回时更新selectlist控件的结果
-        tool.UpdateFieldValueFromBack(eventBus, function () {
+        tool.UpdateFieldValueFromBack(eventBus, function (curObj) {
+            //选择公司后 国家和城市在这里跟着变动
+            var dataField = curObj.attr("data-field") ||"";
+            if (dataField == "CompanyID") {
+                
+            }
             //清空全局变量
             eventBus.selectListData = null;
         })

@@ -47,7 +47,7 @@ export default {
     },
     data() {
         return {
-            title: 'Contacts',
+            title: lanTool.lanContent("630_联系人"),
             companyID: "", //公司id
             companyName: '', //公司名字
             noData: false, //没数据
@@ -57,9 +57,9 @@ export default {
         }
     },
     created: function () {
-        this.companyID = this.$route.query.companyID || "";
-        this.companyName = this.$route.query.companyName || "";
-        this.title = this.$route.query.infoName || "";
+        this.companyID = this.$route.query.fromId || "";
+        // this.companyName = this.$route.query.companyName || "";
+        // this.title = this.$route.query.infoName || "";
     },
     beforeRouteEnter: function (to, from, next) {
         next();
@@ -165,6 +165,7 @@ export default {
                     } else {
                         _self.listData = data || [];
                     }
+                    _self.$refs.scroll.refresh();
                     //定义跳转事件
                     _self.$nextTick(function () {
                         $("[data-url]").off('click').on('click', function () {
@@ -204,10 +205,10 @@ export default {
                 }
             });
 
-            setTimeout(() => {
-                tool.hideLoading(loadingIndexClassName);
-                _self.$refs.scroll.refresh();
-            }, 2000);
+            // setTimeout(() => {
+            //     tool.hideLoading(loadingIndexClassName);
+            //     _self.$refs.scroll.refresh();
+            // }, 2000);
         },
 
         //下拉

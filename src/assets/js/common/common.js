@@ -3901,7 +3901,7 @@ import config from '../../configfile/config.js'
       curObj.text(eventBus.selectListData.value.text);
 
       if (!tool.isNullOrEmptyObject(callback)) {
-          callback();
+          callback(curObj);
       }
 
   }

@@ -330,26 +330,26 @@ export default {
     },
     methods: {
         //跳转到联系人界面事件
-        goToContactsPage: function () {
-            var _self = this;
-            var companyID = _self.$route.params.id || "";
-            var companyName = $('[data-field="ShortNameEN"]').val() || '';
+        // goToContactsPage: function () {
+        //     var _self = this;
+        //     var companyID = _self.$route.params.id || "";
+        //     var companyName = $('[data-field="ShortNameEN"]').val() || '';
 
-            if (tool.isNullOrEmptyObject(companyID) || tool.isNullOrEmptyObject(companyName)) {
-                return;
-            }
-            var urlTemp = "/contactsof";
-            var infoName = lanTool.lanContent("791_联系人") || "";
-            var parameter = {
-                companyID: companyID,
-                companyName: companyName,
-                infoName: infoName
-            };
-            _self.$router.push({
-                path: urlTemp,
-                query: parameter
-            });
-        },
+        //     if (tool.isNullOrEmptyObject(companyID) || tool.isNullOrEmptyObject(companyName)) {
+        //         return;
+        //     }
+        //     var urlTemp = "/contactsof";
+        //     var infoName = lanTool.lanContent("791_联系人") || "";
+        //     var parameter = {
+        //         companyID: companyID,
+        //         companyName: companyName,
+        //         infoName: infoName
+        //     };
+        //     _self.$router.push({
+        //         path: urlTemp,
+        //         query: parameter
+        //     });
+        // },
        //跳转到Airline Database 界面
        goToAirlinePage:function(e){
             var _self = this;
