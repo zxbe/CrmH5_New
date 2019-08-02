@@ -34,7 +34,7 @@
                       <label class="checkbox-label" v-if="fromType=='9'">
                           <input type="checkbox" name="meetinglist" :value="item.AutoID" v-model="checkboxValue"/><i class="checkbox"></i>
                       </label>
-                      <div @click="goInfoPage(item.AutoID,$event)">
+                      <div @click="goInfoPage(item,$event)">
                           <div class="item-title">{{item.MeetingTitle}}</div>
                           <div class="item-time f12">
                             <span class="calcfont calc-gengxinshijian"></span>
@@ -99,32 +99,19 @@ export default {
             this.$router.back(-1);
         },
 
-        //点击跳转到会议记录页
-        goInfoPage:function(scheduleID,el){
-            if(tool.isNullOrEmptyObject(scheduleID)){
+        //点击跳转到会议详情
+        goInfoPage:function(item,e){
+            var _self = this;
+            if(tool.isNullOrEmptyObject(item.AutoID)){
                 return;
             }
-
-            var _self = this;
-            var meetingNoticeID = "-1";
-            var url = "/MeetingNoteinfo/" + meetingNoticeID;
-            var oppID = "";
-             //获取会议记录详情的标题
-            var infoName = null;
-            if ($(el.target).hasClass("data-events-item")) {
-                infoName = $(el.target).find(".item-title").text();
-            } else {
-                infoName = $(el.target).parents(".data-events-item").children(".item-title").text() || "";
-            }
-            scheduleID = Number(scheduleID)<=0?"":scheduleID;
-            var parameter = {
-                OppID:oppID,
-                ScheduleID:scheduleID,
-                infoName:infoName
-            };
+            var url = "/meetinginfo/" + item.AutoID
+            var infoName = item.MeetingTitle || '';
             _self.$router.push({
                 path: url,
-                query: parameter
+                query: {
+                        infoName: infoName
+                    }
             });
         },
 
