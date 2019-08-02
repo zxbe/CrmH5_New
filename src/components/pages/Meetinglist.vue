@@ -32,7 +32,7 @@
                   class="data-events-item f14 "
                   :class="{'selectable': fromType=='9'}">
                       <label class="checkbox-label" v-if="fromType=='9'">
-                          <input type="checkbox" name="meetinglist" :value="item.AutoID" v-model="checkboxValue"/><i class="checkbox"></i><span class="radios f14">{{item.text}}</span>
+                          <input type="checkbox" name="meetinglist" :value="item.AutoID" v-model="checkboxValue"/><i class="checkbox"></i>
                       </label>
                       <div @click="goInfoPage(item.AutoID,$event)">
                           <div class="item-title">{{item.MeetingTitle}}</div>
@@ -322,11 +322,13 @@ export default {
         addMeeting:function(){
             var _self = this;
             var url = "/meetinginfo/-1";
+            var parameter = {
+                fromType: _self.fromType, //来源类型
+                fromId: _self.fromId //来源ID
+            };
             _self.$router.push({
                     path: url,
-                    query: {
-                        // defaultDateTime: defaultDateTime
-                    }
+                    query: parameter
             });
         },
 
@@ -334,11 +336,13 @@ export default {
         relationMeeting:function(){
             var _self = this;
             var url = "/meetinglistforrelation";
+            var parameter = {
+                fromType: _self.fromType, //来源类型
+                fromId: _self.fromId //来源ID
+            };
             _self.$router.push({
                     path: url,
-                    query: {
-                        // defaultDateTime: defaultDateTime
-                    }
+                    query: parameter
             });
 
         },
@@ -392,7 +396,7 @@ header.mui-bar {
     font-weight: 400;
     line-height: 0.88rem;
 }
-.mui-bar .calcfont{
+.mui-bar .right.calcfont{
   margin-left: -10px
 }
 

@@ -31,7 +31,7 @@
             <!-- 交易模块才有的属性 -->
             <div v-show="showPage =='0'" class="OpportunitiesList controlEdit">
                     <!-- LOI单号 -->
-                    <div class="ListSpecialCell visible" id="LOIIDClickObj">
+                    <div class="ListSpecialCell" id="LOIIDClickObj">
                         <div class="ListSpecialCellField">
                             <div class="ListSpecialCellLeftIcon"><span class="calcfont calc-profile"></span></div>
                             <div class="ListSpecialCellFieldContent lanText" data-lanid="	1000227_LOI单号"></div>
@@ -73,7 +73,7 @@
                     </div>
 
                     <!-- MSN -->
-                    <div class="ListCell visible" v-show="showPage=='0'">
+                    <div class="ListCell" v-show="showPage=='0'">
                         <div class="ListCellLeftIcon textLeftIcon"><span class="calcfont calc-feiji2"></span></div>
                         <div class="ListCellLeftText">
                             <p class="textareaP">
@@ -104,7 +104,7 @@
             </div>
 
             <!-- 联系人 -->
-            <div class="ListCell">
+            <div class="ListCell visible">
                 <div class="ListCellLeftIcon"><span class="calcfont calc-fuzerenicon"></span></div>
                 <div class="ListCellContent">
                     <div class="ListCellContentLeft leftContent">
@@ -226,7 +226,7 @@
             </div>
 
             <!-- 备忘 -->
-            <div class="ListCell visible controlEdit">
+            <div class="ListCell controlEdit">
                 <div class="ListCellLeftIcon textLeftIcon"><span class="calcfont calc-beiwanglu"></span></div>
                 <div class="ListCellLeftText">
                     <p class="textareaP">

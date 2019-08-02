@@ -4,9 +4,11 @@
   <header class="mui-bar mui-bar-nav">
           <a @click="back" class="calcfont calc-fanhui left" id="back"></a>
           <h1 class="mui-title f18">{{title}}</h1>
+
+          <a @click="relationAction" class="calcfont calc-gou right" id=""></a>
   </header>
 
-  <div class="page-content" :class="{'checkbox-list': fromType=='9'}">
+  <div class="page-content">
 
         <vue-scroll
           v-show="!noData"
@@ -20,22 +22,22 @@
                   v-show="!noData"
                   v-for="item in listData"
                   :key="item.AutoID"
-                  class="data-events-item f14 "
-                  :class="{'selectable': fromType=='9'}">
-                      <label class="checkbox-label" v-if="fromType=='9'">
-                          <input type="checkbox" name="meetinglist" :value="item.AutoID" v-model="checkboxValue"/><i class="checkbox"></i><span class="radios f14">{{item.text}}</span>
+                  class="data-events-item f14 selectable">
+
+                      <label class="radios-label">
+                          <input type="radio" name="relationMeeting" :value="item.AutoID" v-model="radioValue"/><i class="radios"></i>
                       </label>
-                      <div @click="goInfoPage(item.AutoID,$event)">
+                      <div>
                           <div class="item-title">{{item.MeetingTitle}}</div>
                           <div class="item-time f12">
                             <span class="calcfont calc-gengxinshijian"></span>
                             <span class="time-text">{{item.BeginTime|MeetingTimeFormat}}~{{item.EndTime|MeetingTimeFormat}}</span>
-                            <div class="right-text">{{item.LastUpdateUserName}}</div>
+                            <div class="right-text">{{item.ContactsID}}</div>
                           </div>
+                          <div class="item-company">{{item.CompanyID}}</div>
                       </div>
                   </div>
             </div>
-
         </vue-scroll>
         <nothing v-show="noData" style="padding-top:0.8rem;"></nothing>
     </div>
@@ -54,12 +56,22 @@ export default {
     },
     data(){
         return{
-            title:lanTool.lanContent('1000_会议列表'),
+            title:'关联会议',
             listData:[],
             noData: false, //没数据
             pageSize:10,//一页显示多少记录
             pageNum:1,//当前页码
+
+            radioValue:'',
+
+            fromType:'',  //标志是用那个模块过来的；联系人:6;公司:7;会议:8;商机&交易:9;
+            fromId:'',  //dealPipelineID或者pitchesID,用于新增会议自动选择关联于商业字段
         }
+    },
+    created:function(){
+        var _self = this;
+        _self.fromType = _self.$route.query.fromType || '';
+        _self.fromId = _self.$route.query.fromId || '';
     },
     mounted:function(){
        lanTool.updateLanVersion();
@@ -159,23 +171,41 @@ export default {
 
             var responseData = [
               {
-                AutoID: 10373,
-                BeginTime: "2019-07-28T08:00:00",
-                EndTime: "2019-07-28T10:00:00",
-                LastUpdateTime: "2019-07-26T14:09:00",
-                LastUpdateUserName: "aoniruan阮毅文",
-                MeetingID: 10289,
-                MeetingTitle: "关于和中国南方航空公司的合作相关会议"
+                AddUserName: "alancheng鄭兆麟",
+                AutoID: 10218,
+                BeginTime: "2019-05-27T09:15:00",
+                CompanyID: "9 Air",
+                ContactsID: "员工姓氏",
+                EndTime: "2019-05-27T17:15:00",
+                LastUpdateTime: "2019-05-24T09:10:00",
+                MeetingTitle: "27号会议",
+                MeetingType: null,
+                Remark: null
               },
               {
-                AutoID: 10371,
-                BeginTime: "2019-07-26T08:00:00",
-                EndTime: "2019-07-26T18:00:00",
-                LastUpdateTime: "2019-07-26T15:17:00",
-                LastUpdateUserName: "alancheng鄭兆麟",
-                MeetingID: 10287,
-                MeetingTitle: "26号1次会议"
+                AddUserName: "alancheng鄭兆麟",
+                AutoID: 10216,
+                BeginTime: "2019-05-22T16:15:00",
+                CompanyID: "9 Air",
+                ContactsID: "纳尼",
+                EndTime: "2019-05-22T16:45:00",
+                LastUpdateTime: "2019-05-22T16:16:00",
+                MeetingTitle: "半年总结",
+                MeetingType: null,
+                Remark: null
               },
+              {
+                AddUserName: "alancheng鄭兆麟",
+                AutoID: 10212,
+                BeginTime: "2019-05-25T16:15:00",
+                CompanyID: "9 Air",
+                ContactsID: "15中机租联系人_1",
+                EndTime: "2019-05-25T19:15:00",
+                LastUpdateTime: "2019-05-22T16:25:00",
+                MeetingTitle: "25号会议",
+                MeetingType: null,
+                Remark: null
+              }
             ]
 
             if(queryType == 'pushLoad'){
@@ -212,6 +242,19 @@ export default {
 
             })
         },
+
+        //关联会议动作
+        relationAction:function(){
+          var _self = this;
+          if(tool.isNullOrEmptyObject(_self.radioValue)){
+              tool.showText(lanTool.lanContent("592_请选择数据！"));
+              return;
+          }
+          // 请求接口去关联
+          console.log(_self.radioValue);
+
+
+        }
     }
 
 
@@ -258,5 +301,17 @@ header.mui-bar {
   top:0.88rem;
   bottom:0px;
   left:0;right:0;
+}
+.meeting-list .selectable{
+  padding:8px 10px 8px 36px;
+}
+.meeting-list .radios-label{
+  position: absolute;top:30px;left:10px;
+}
+.meeting-list .item-company{
+    width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 </style>
