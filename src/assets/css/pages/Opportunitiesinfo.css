@@ -291,3 +291,34 @@ span.calcfont.calc-shoucang {
 .initiatorObj{
   /* display:none; */
 }
+
+
+/*关闭交易/商业机会， 转换为交易  弹层*/
+.elastic-layer{
+  position:fixed;
+  z-index: 110;
+  display:none;
+  background: rgba(0, 0, 0, 0.3);
+  top:0;left:0;bottom:0;right:0;
+}
+.elastic-layer-content{
+  width: 80%;
+  max-width: 300px;
+  min-height: 100px;
+  background: #fff;
+  border-radius: 3px;
+  position:absolute;
+  top:50%;left:50%;
+  transform: translate(-50%,-50%);
+  padding:15px;
+}
+.elastic-layer-title{
+  padding:10px 0px;
+  border-bottom: 1px solid #ccc;
+}
+
+.elastic-layer-item{
+  display: flex;
+  padding: 9px .3rem;
+  /* line-height: 1; */
+}

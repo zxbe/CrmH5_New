@@ -350,11 +350,50 @@
 
 
     <!-- 关闭交易/商业机会弹框 -->
-    <div class=""></div>
+    <div id="closeThis" class="elastic-layer">
+        <div class="elastic-layer-content">
+            <div class="elastic-layer-title">关闭交易</div>
+
+            <div class="elastic-layer-item f14">
+
+                <div class="ListCellContentLeft leftContent">
+                    <div class="ListCellContentLeftText lanText" data-lanid="947_商业事项"></div>
+                </div>
+                <div class="ListCellContentRight rightContent">
+                    <input type="text"
+                          data-field="Matter"
+                          data-lanid="947_商业事项"
+                          data-fieldControlType="picker"
+                          data-fieldVal=""
+                          Code="DropDowList_DtbAllTypes"
+                          TypeValue="Matter"
+                          class="ListCellContentRightText"/>
+                </div>
+                <div class="ListCellRightIcon"><span class="calcfont calc-you"></span></div>
+            </div>
+
+            <div class="elastic-layer-item f14">
+                <!-- <div class="ListCellContentLeft leftContent">
+                    <div class="ListCellContentLeftText lanText" data-lanid="947_商业事项"></div>
+                </div>
+                <div class="ListCellContentRight rightContent">
+                    <input type="text" data-field="Matter" data-lanid="947_商业事项" data-fieldControlType="picker" data-fieldVal="" Code="DropDowList_DtbAllTypes" TypeValue="Matter" class="ListCellContentRightText"/>
+                </div>
+                <div class="ListCellRightIcon"><span class="calcfont calc-you"></span></div> -->
+            </div>
+            <div class="elastic-layer-item"></div>
+
+
+            <div class="btn-div">
+
+            </div>
+
+        </div>
+    </div>
 
 
     <!-- 转换为交易弹框 -->
-    <div class=""></div>
+    <div class="elastic-layer"></div>
 
 
 </div>
@@ -454,7 +493,7 @@ export default {
         document.activeElement.blur();
         $(window).scrollTop(0);
         _self.seeMore =lanTool.lanContent("900_查看详细");
-        _self.rightPanelCloseThis();
+        // _self.rightPanelCloseThis();
         var fromType = "Opportunitiesinfo";
 
         //若是新增，则隐藏新增不需要显示的模块
@@ -557,7 +596,7 @@ export default {
                 _self.initUserAccess(data);
 
                 //渲染会议记录列表
-                _self.iniMeetingNoteList();
+                // _self.iniMeetingNoteList();
 
                 //处理联动字段
                 tool.linkageField(_self, 'TargetCompanyID', 'ContactID');
@@ -586,62 +625,38 @@ export default {
 
     },
     methods: {
-        //查看有权限访问的同事
-        // goToShareList: function() {
+
+        //查看/添加会议记录
+        // goRecord: function (e,AutoID) {
         //     var _self = this;
-        //     var fromType = "9";
-        //     var fromID = _self.$route.params.id || "";
-        //     if (tool.isNullOrEmptyObject(fromID)) {
+        //     if(_self.enableGoRecord == false){
+        //         return ;
+        //     }
+        //     var target = $(e.target);
+        //     var url = target.attr("data-url");
+        //     var oppID = _self.$route.params.id;
+        //     if(tool.isNullOrEmptyObject(oppID)){
         //         return;
         //     }
+        //     oppID = Number(oppID)<=0?"":oppID;
+        //     var scheduleID = "";
+
+        //     var onlyView = false;
+        //     //点击查看全部，把onlyView设置为true
+        //     if(!tool.isNullOrEmptyObject(AutoID)){
+        //         onlyView = _self.onlyView;
+        //     }
         //     var parameter = {
-        //         fromType: fromType,
-        //         fromID: fromID
+        //         OppID:oppID,
+        //         ScheduleID:scheduleID,
+        //         onlyView:onlyView
         //     };
+
         //     _self.$router.push({
-        //         path: "/poweruser",
+        //         path: url,
         //         query: parameter
         //     });
         // },
-        //跳转会议列表
-        // goToMeetingList:function(){
-        //     var _self = this;
-        //     _self.$router.push({
-        //         path: "/meetinglist",
-        //         // query: parameter
-        //     });
-        // },
-        //查看/添加会议记录
-        goRecord: function (e,AutoID) {
-            var _self = this;
-            if(_self.enableGoRecord == false){
-                return ;
-            }
-            var target = $(e.target);
-            var url = target.attr("data-url");
-            var oppID = _self.$route.params.id;
-            if(tool.isNullOrEmptyObject(oppID)){
-                return;
-            }
-            oppID = Number(oppID)<=0?"":oppID;
-            var scheduleID = "";
-
-            var onlyView = false;
-            //点击查看全部，把onlyView设置为true
-            if(!tool.isNullOrEmptyObject(AutoID)){
-                onlyView = _self.onlyView;
-            }
-            var parameter = {
-                OppID:oppID,
-                ScheduleID:scheduleID,
-                onlyView:onlyView
-            };
-
-            _self.$router.push({
-                path: url,
-                query: parameter
-            });
-        },
 
         //保存
         savePageData:function(e){
@@ -667,34 +682,37 @@ export default {
         },
 
         //关注
-        followToggle: function (e) {
-            var _self = this;
-            var autoID = _self.$route.params.id;
-            var fromType = "dealPipeline";//或者opportunities都可以，同一张表
-            var actionType;
-            if ($(".guanZhu").hasClass("calc-shoucang")) {
-               //取消关注
-                actionType = 0;
-            } else {
-                //添加关注
-                actionType = 1;
-            }
-            tool.UserFollow(fromType,autoID,actionType,function(){
-              if ($(".guanZhu").hasClass("calc-shoucang")) {
-                    //取消关注
-                    $(".guanZhu").removeClass("calc-shoucang").addClass("calc-noshoucang");
-                } else {
-                    //添加关注
-                    $(".guanZhu").removeClass("calc-noshoucang").addClass("calc-shoucang");
-                }
-          });
-        },
+        // followToggle: function (e) {
+        //     var _self = this;
+        //     var autoID = _self.$route.params.id;
+        //     var fromType = "dealPipeline";//或者opportunities都可以，同一张表
+        //     var actionType;
+        //     if ($(".guanZhu").hasClass("calc-shoucang")) {
+        //        //取消关注
+        //         actionType = 0;
+        //     } else {
+        //         //添加关注
+        //         actionType = 1;
+        //     }
+        //     tool.UserFollow(fromType,autoID,actionType,function(){
+        //       if ($(".guanZhu").hasClass("calc-shoucang")) {
+        //             //取消关注
+        //             $(".guanZhu").removeClass("calc-shoucang").addClass("calc-noshoucang");
+        //         } else {
+        //             //添加关注
+        //             $(".guanZhu").removeClass("calc-noshoucang").addClass("calc-shoucang");
+        //         }
+        //   });
+        // },
 
-        //右侧点击关闭这个
+        //右侧点击关闭这个 //侧滑组件调用此方法
         rightPanelCloseThis:function(){
             var _self = this;
-            var id = _self.$route.params.id;
-            var fromType = "Opportunitiesinfo";
+            var id = _self.id;
+            $('#closeThis').show();
+
+
+            // var fromType = "Opportunitiesinfo";
             var urlTemp = tool.AjaxBaseUrl();
             var controlName = tool.Api_OpportunityHandle_Close;
             //传入参数
@@ -706,44 +724,46 @@ export default {
                 AutoID: id
             };
 
-            setTimeout(function () {
-                $('#rightPanelCloseThis').off("click").on('click',function(){
-                    tool.showConfirm(lanTool.lanContent("963_您确定要关闭它吗？"),function(){
+            tool.showConfirm(lanTool.lanContent("963_您确定要关闭它吗？"),function(){
 
-                        var loadingIndexClassName = tool.showLoading();
-                        $.ajax({
-                          async: true,
-                          type: "post",
-                          url: urlTemp,
-                          data: jsonDatasTemp,
-                          success: function (data) {
-                              tool.hideLoading(loadingIndexClassName);
-                              data = tool.jObject(data);
-                              if (data._ReturnStatus == false) {
-                                  tool.showText(tool.getMessage(data));
-                                  return true;
-                              }
-                              _self.$store.commit('REMOVE_ITEM', 'businessCategories');
-                              //返回到上一页
-						                  _self.$router.back(-1);
-                          },
-                          error: function (jqXHR, type, error) {
-                              console.log(error);
-                              tool.hideLoading(loadingIndexClassName);
-                              return true;
-                          },
-                          complete: function () {
-                              //tool.hideLoading();
-                              //隐藏虚拟键盘
-                              document.activeElement.blur();
-                          }
-                        });
-
-                        //调子组件 收起侧滑方法
-                        _self.$refs.rightPanel.panelToggle();
-                    });
+                var loadingIndexClassName = tool.showLoading();
+                $.ajax({
+                  async: true,
+                  type: "post",
+                  url: urlTemp,
+                  data: jsonDatasTemp,
+                  success: function (data) {
+                      tool.hideLoading(loadingIndexClassName);
+                      data = tool.jObject(data);
+                      if (data._ReturnStatus == false) {
+                          tool.showText(tool.getMessage(data));
+                          return true;
+                      }
+                      _self.$store.commit('REMOVE_ITEM', 'businessCategories');
+                      //返回到上一页
+                      _self.$router.back(-1);
+                  },
+                  error: function (jqXHR, type, error) {
+                      console.log(error);
+                      tool.hideLoading(loadingIndexClassName);
+                      return true;
+                  },
+                  complete: function () {
+                      //tool.hideLoading();
+                      //隐藏虚拟键盘
+                      document.activeElement.blur();
+                  }
                 });
-            },0);
+
+                //调子组件 收起侧滑方法
+                _self.$refs.rightPanel.panelToggle();
+            });
+
+            // setTimeout(function () {
+            //     $('#rightPanelCloseThis').off("click").on('click',function(){
+
+            //     });
+            // },0);
         },
 
         //获取成交对象
@@ -796,120 +816,120 @@ export default {
         },
 
         //渲染会议记录列表
-        iniMeetingNoteList:function(){
-            var _self = this;
+        // iniMeetingNoteList:function(){
+        //     var _self = this;
 
-            var autoID = _self.id;
-            var urlTemp = tool.AjaxBaseUrl();
-            var controlName = tool.Api_OpportunityHandle_QueryMeetingNoteListByOppID;
-            //传入参数
-            var jsonDatasTemp = {
-                CurrentLanguageVersion: lanTool.currentLanguageVersion,
-                UserName: tool.UserName(),
-                _ControlName: controlName,
-                _RegisterCode: tool.RegisterCode(),
-                AutoID: autoID
-            };
+        //     var autoID = _self.id;
+        //     var urlTemp = tool.AjaxBaseUrl();
+        //     var controlName = tool.Api_OpportunityHandle_QueryMeetingNoteListByOppID;
+        //     //传入参数
+        //     var jsonDatasTemp = {
+        //         CurrentLanguageVersion: lanTool.currentLanguageVersion,
+        //         UserName: tool.UserName(),
+        //         _ControlName: controlName,
+        //         _RegisterCode: tool.RegisterCode(),
+        //         AutoID: autoID
+        //     };
 
-            $.ajax({
-                async: true,
-                type: "post",
-                url: urlTemp,
-                data: jsonDatasTemp,
-                success: function (data) {
-                    data = tool.jObject(data);
-                    if (data._ReturnStatus == false) {
-                        tool.showText(tool.getMessage(data));
-                        return true;
-                    }
-                    //写入会议记录
-                    //_self.MeetingNotice = data["MeetingNotice"]||[];
-                    _self.MeetingNotice = data._OnlyOneData || [];
-                    _self.enableGoRecord = true;
-                },
-                error: function (jqXHR, type, error) {
-                    console.log(error);
-                    return true;
-                },
-                complete: function () {
-                    //tool.hideLoading();
-                    //隐藏虚拟键盘
-                    document.activeElement.blur();
-                }
-            });
-        },
+        //     $.ajax({
+        //         async: true,
+        //         type: "post",
+        //         url: urlTemp,
+        //         data: jsonDatasTemp,
+        //         success: function (data) {
+        //             data = tool.jObject(data);
+        //             if (data._ReturnStatus == false) {
+        //                 tool.showText(tool.getMessage(data));
+        //                 return true;
+        //             }
+        //             //写入会议记录
+        //             //_self.MeetingNotice = data["MeetingNotice"]||[];
+        //             _self.MeetingNotice = data._OnlyOneData || [];
+        //             _self.enableGoRecord = true;
+        //         },
+        //         error: function (jqXHR, type, error) {
+        //             console.log(error);
+        //             return true;
+        //         },
+        //         complete: function () {
+        //             //tool.hideLoading();
+        //             //隐藏虚拟键盘
+        //             document.activeElement.blur();
+        //         }
+        //     });
+        // },
 
         //删除会议记录
-        deleteMeetingNote:function(autoID,e){
-            var _self = this;
-            if(tool.isNullOrEmptyObject(autoID)){
-                return;
-            }
+        // deleteMeetingNote:function(autoID,e){
+        //     var _self = this;
+        //     if(tool.isNullOrEmptyObject(autoID)){
+        //         return;
+        //     }
 
-            var idArr = [];
-            idArr.push(autoID);
-            var urlTemp = tool.AjaxBaseUrl();
-            var controlName = tool.Api_MeetingNoticeHandle_Delete;
-            //传入参数
-            var jsonDatasTemp = {
-                CurrentLanguageVersion: lanTool.currentLanguageVersion,
-                UserName: tool.UserName(),
-                _ControlName: controlName,
-                _RegisterCode: tool.RegisterCode(),
-                AutoID: JSON.stringify(idArr)
-            };
+        //     var idArr = [];
+        //     idArr.push(autoID);
+        //     var urlTemp = tool.AjaxBaseUrl();
+        //     var controlName = tool.Api_MeetingNoticeHandle_Delete;
+        //     //传入参数
+        //     var jsonDatasTemp = {
+        //         CurrentLanguageVersion: lanTool.currentLanguageVersion,
+        //         UserName: tool.UserName(),
+        //         _ControlName: controlName,
+        //         _RegisterCode: tool.RegisterCode(),
+        //         AutoID: JSON.stringify(idArr)
+        //     };
 
-            tool.showConfirm(
-                lanTool.lanContent("593_您确定要删除数据吗？"),
-                function() {
-                    var loadingIndexClassName = tool.showLoading();
+        //     tool.showConfirm(
+        //         lanTool.lanContent("593_您确定要删除数据吗？"),
+        //         function() {
+        //             var loadingIndexClassName = tool.showLoading();
 
-                    $.ajax({
-                        async: true,
-                        type: "post",
-                        url: urlTemp,
-                        data: jsonDatasTemp,
-                        success: function (data) {
-                            tool.hideLoading(loadingIndexClassName);
-                            data = tool.jObject(data);
-                            if (data._ReturnStatus == false) {
-                                tool.showText(tool.getMessage(data));
-                                return true;
-                            }
+        //             $.ajax({
+        //                 async: true,
+        //                 type: "post",
+        //                 url: urlTemp,
+        //                 data: jsonDatasTemp,
+        //                 success: function (data) {
+        //                     tool.hideLoading(loadingIndexClassName);
+        //                     data = tool.jObject(data);
+        //                     if (data._ReturnStatus == false) {
+        //                         tool.showText(tool.getMessage(data));
+        //                         return true;
+        //                     }
 
-                            //刷新会议列表
-                            var fromType = "Opportunitiesinfo";
-                            // tool.IniInfoData(fromType, _self.id, function(data){
-                                //渲染会议记录列表
-                                //_self.iniMeetingNoteList(data);
-                            // });
-                            //渲染会议记录列表
-                            _self.iniMeetingNoteList();
-                        },
-                        error: function (jqXHR, type, error) {
-                            console.log(error);
-                            tool.hideLoading(loadingIndexClassName);
-                            return true;
-                        },
-                        complete: function () {
-                            //tool.hideLoading();
-                            //隐藏虚拟键盘
-                            document.activeElement.blur();
-                        }
-                    });
+        //                     //刷新会议列表
+        //                     var fromType = "Opportunitiesinfo";
+        //                     // tool.IniInfoData(fromType, _self.id, function(data){
+        //                         //渲染会议记录列表
+        //                         //_self.iniMeetingNoteList(data);
+        //                     // });
+        //                     //渲染会议记录列表
+        //                     // _self.iniMeetingNoteList();
+        //                 },
+        //                 error: function (jqXHR, type, error) {
+        //                     console.log(error);
+        //                     tool.hideLoading(loadingIndexClassName);
+        //                     return true;
+        //                 },
+        //                 complete: function () {
+        //                     //tool.hideLoading();
+        //                     //隐藏虚拟键盘
+        //                     document.activeElement.blur();
+        //                 }
+        //             });
 
-			          },
-                function() {}
-            );
-        },
+			  //         },
+        //         function() {}
+        //     );
+        // },
 
         //点击去文件详情页
-        goFileInfo:function(data){
-            if(tool.isNullOrEmptyObject(data)){
-                return ;
-            }
-            this.$router.push({path:'/previewfile', query: data});
-        },
+        // goFileInfo:function(data){
+        //     if(tool.isNullOrEmptyObject(data)){
+        //         return ;
+        //     }
+        //     this.$router.push({path:'/previewfile', query: data});
+        // },
 
         //只查看的情况 控制元素是否可修改
         controlEdit:function(){
