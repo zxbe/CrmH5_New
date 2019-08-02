@@ -51,6 +51,26 @@
                 </div>
                 <div class="ListCell">
                     <div class="ListCellLeftIcon textLeftIcon">
+                        <span class="calcfont calc-nationaarea"></span>
+                    </div>
+                    <div class="ListCellLeftText">
+                        <p class="textareaP">
+                            <textarea data-field="CountryID" disabled="disabled" data-fieldcontroltype="textareaInput" class="lanInputPlaceHolder" data-lanid="701_国家"></textarea>
+                        </p>
+                    </div>
+                </div>
+                <div class="ListCell">
+                    <div class="ListCellLeftIcon textLeftIcon">
+                        <span class="calcfont calc-diqiuquanqiu"></span>
+                    </div>
+                    <div class="ListCellLeftText">
+                        <p class="textareaP">
+                            <textarea data-field="CityID" disabled="disabled" data-fieldcontroltype="textareaInput" class="lanInputPlaceHolder" data-lanid="702_城市"></textarea>
+                        </p>
+                    </div>
+                </div>
+                <div class="ListCell">
+                    <div class="ListCellLeftIcon textLeftIcon">
                         <span class="calcfont calc-phone"></span>
                     </div>
                     <div class="ListCellLeftText">
@@ -181,7 +201,7 @@
 
         </div>
     </div>
-    <InfoRightPanel ref="rightPanel" :isShowClose="isShowClose" :isShowSend="isShowSendBtn"  :rightPanelFromType="rightPanelFromType" :rightPanelFromID="rightPanelFromID"></InfoRightPanel>
+    <InfoRightPanel ref="rightPanel" :isShowClose="isShowClose" :isShowSend="isShowSendBtn" :rightPanelFromType="rightPanelFromType" :rightPanelFromID="rightPanelFromID"></InfoRightPanel>
 
 </div>
 </template>
@@ -214,7 +234,6 @@ export default {
             rightPanelFromID: "", //传给右侧菜单用的参数
             isShowSendBtn: true, //侧滑是否显示分享给同事选项
             isShowClose: false, //侧滑是否显示关闭这个商业机会选项
-            
 
             source: '', //记录上一个页面是不是contactsof
 

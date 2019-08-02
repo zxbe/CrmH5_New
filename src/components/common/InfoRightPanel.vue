@@ -31,21 +31,31 @@ export default {
             classificationValue: '', //右侧分类
             dataFilter: [],
             // isShowClose:false,
-            isShowMeetingLink:true,
-            isShowPowerUserLink:false,
-            isShowDealLink:false,
-            isShowSynchronizeLink:false,
+            isShowMeetingLink: true,
+            isShowPowerUserLink: false,
+            isShowDealLink: false,
+            isShowSynchronizeLink: false,
         }
     },
-    props: ['isShowSend', 'isShowClose','closeThisContent', 'rightPanelFromType', 'rightPanelFromID',],
+    props: ['isShowSend', 'isShowClose', 'closeThisContent', 'rightPanelFromType', 'rightPanelFromID', ],
 
     created: function () {
         var _self = this;
-        if(_self.rightPanelFromType == "6"){
-           _self.isShowMeetingLink = true;
-           _self.isShowPowerUserLink = true;
-          _self.isShowDealLink =true;
-          _self.isShowSynchronizeLink=true;
+        switch (_self.rightPanelFromType) {
+            case "6":
+                _self.isShowMeetingLink = true;
+                _self.isShowPowerUserLink = true;
+                _self.isShowDealLink = true;
+                _self.isShowSynchronizeLink = true;
+                break;
+            case "7":
+                _self.isShowMeetingLink = true;
+                _self.isShowPowerUserLink = true;
+                _self.isShowDealLink = true;
+                _self.isShowSynchronizeLink = true;
+                break;
+            default:
+                break;
         }
     },
     mounted: function () {
@@ -53,17 +63,16 @@ export default {
         eventBus.$on('gengduoEvent', this.panelToggle);
         this.panelToggle(false);
     },
-    activated: function () {
-    },
+    activated: function () {},
     methods: {
         //侧滑
         //isClose值如果为false，表示刚进页面收起侧滑；
         //如果没传isClose值showPanel就取反，表示正常的展开收起
         panelToggle: function (isClose) {
             var _self = this;
-            if(isClose == false){
+            if (isClose == false) {
                 _self.showPanel = isClose;
-            }else{
+            } else {
                 _self.showPanel = !_self.showPanel;
             }
             if (_self.showPanel) {
@@ -110,7 +119,7 @@ export default {
             })
         },
         //跳转会议列表
-        goToMeetingList:function(){
+        goToMeetingList: function () {
             var _self = this;
             _self.panelToggle();
             _self.$nextTick(function () {
@@ -121,7 +130,7 @@ export default {
             })
         },
         //查看有权限访问的同事
-        goToPowerUserPage: function() {
+        goToPowerUserPage: function () {
             var _self = this;
             var fromType = _self.rightPanelFromType;
             var fromID = _self.$route.params.id || "";
@@ -141,16 +150,16 @@ export default {
             })
         },
         //查看关联的交易列表
-        goToDealListPage:function(){
-           console.log("查看关联的交易列表");
+        goToDealListPage: function () {
+            console.log("查看关联的交易列表");
 
         },
         //查看关联的商业机会列表
-        goToOpportunityListPage:function(){
-           console.log("查看关联的商业机会列表");
+        goToOpportunityListPage: function () {
+            console.log("查看关联的商业机会列表");
         },
         //同步Camcard数据
-        SynchronousCamCardData:function() {
+        SynchronousCamCardData: function () {
             console.log("同步Camcard数据");
         },
     },

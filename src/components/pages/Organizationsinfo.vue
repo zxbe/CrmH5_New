@@ -1,7 +1,7 @@
 <template>
 <div>
 
-    <Infoheader class="sticky infoheader" :isAddNew="isAddNew" :onlyView="onlyView" :title="ptitle"></Infoheader>
+    <Infoheader class="sticky infoheader" :isAddNew="isAddNew" :onlyView="onlyView" :operation="operation" :title="ptitle"></Infoheader>
 
     <div class="scroll-div">
         <div class="box">
@@ -163,7 +163,7 @@
                     </div>
                 </div>
             </div>
-            <InfoRightPanel :isShowClose="isShowClose" :isShowSend="isShowSendBtn" :rightPanelFromType="rightPanelFromType" :rightPanelFromID="rightPanelFromID"></InfoRightPanel>
+            <InfoRightPanel ref="rightPanel" :isShowClose="isShowClose" :isShowSend="isShowSendBtn" :rightPanelFromType="rightPanelFromType" :rightPanelFromID="rightPanelFromID"></InfoRightPanel>
 
         </div>
 </template>
@@ -191,7 +191,7 @@ export default {
             isAddNew: false, //是否添加新纪录
             onlyView: false, //控制页面头部icon,true:不显示头部icon,false:显示
             onlyMore: false,
-
+            operation:true,
             isFirstEnter: false, //是否首次进入
 
             rightPanelFromType: "", //传给右侧菜单用的参数
@@ -206,6 +206,7 @@ export default {
     },
     created: function () {
         let _self = this;
+        _self.rightPanelFromType = "7";
         _self.$store.commit('SET_ITEM', 'organizationsinfo');
         _self.ptitle = this.$route.query.infoName || lanTool.lanContent("792_添加公司");
 
