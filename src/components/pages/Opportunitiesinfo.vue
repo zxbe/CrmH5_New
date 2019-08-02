@@ -348,6 +348,15 @@
       :rightPanelFromID="rightPanelFromID"
       :businessType="businessType"></InfoRightPanel>
 
+
+    <!-- 关闭交易/商业机会弹框 -->
+    <div class=""></div>
+
+
+    <!-- 转换为交易弹框 -->
+    <div class=""></div>
+
+
 </div>
 </template>
 

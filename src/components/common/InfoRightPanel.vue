@@ -67,7 +67,6 @@ export default {
                 _self.isShowPowerUserLink = true;
                 _self.isShowDealLink = false;
                 _self.isShowSynchronizeLink = false;
-                console.log(_self.businessType);
                 if(_self.businessType == '30'){
                   _self.isShowTransformLink = true;
                 }

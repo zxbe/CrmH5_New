@@ -24,7 +24,7 @@
               </div>
           </div>
 
-          <div class="ListCell">
+          <!-- <div class="ListCell">
               <div class="ListCellLeftIcon"><span class=" calcfont calc-17"></span></div>
               <div class="ListCellContent">
                   <div class="ListCellContentLeft leftContent">
@@ -42,7 +42,7 @@
                   </div>
                   <div class="ListCellRightIcon"><span class=" calcfont calc-you"></span></div>
               </div>
-          </div>
+          </div> -->
 
           <div class="ListCell">
                 <div class="ListCellLeftIcon textLeftIcon"><span class=" calcfont calc-bianji1"></span></div>
@@ -173,7 +173,7 @@ export default {
             jsonDatasTemp["FromID"] = _self.fromID;
             jsonDatasTemp["FileName"] = $("#curFileName").text()||"";
             jsonDatasTemp["description"] = $("[data-field='description']").val()||"";
-            jsonDatasTemp["100205"] = $("[data-field='100205']").val()||"";
+            // jsonDatasTemp["100205"] = $("[data-field='100205']").val()||"";
             jsonDatasTemp["fileBase64Str"] = _self.file;
             //end modify
 
