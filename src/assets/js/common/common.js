@@ -365,8 +365,8 @@ import config from '../../configfile/config.js'
 	/*
 	 * 查询未上传会议记录的会议列表
 	 */
-  tool.Api_MeetingHandle_QueryNoUploadRecord = "Api_MeetingHandle_QueryNoUploadRecord";
-  /*
+  	tool.Api_MeetingHandle_QueryNoUploadRecord = "Api_MeetingHandle_QueryNoUploadRecord";
+  	/*
 	 * 查询未上传会议记录的会议列表
 	 */
 	tool.Api_MeetingHandle_HasToSave = "Api_MeetingHandle_HasToSave";
@@ -450,6 +450,15 @@ import config from '../../configfile/config.js'
 	 * 清除消息(支持批量操作)接口
 	 */
 	tool.Api_MessagesToUserHandle_SetDisabled = "Api_MessagesToUserHandle_SetDisabled";
+	/*
+	 * 查询帖子消息数量接口
+	 */
+	tool.Api_MessagesToUserHandle_QueryPostCount = "Api_MessagesToUserHandle_QueryPostCount";
+	/*
+	 * 帖子消息列表查询接口
+	 */
+	tool.Api_MessagesToUserHandle_QueryPostMsgList = "Api_MessagesToUserHandle_QueryPostMsgList";
+
 
 	/*
 	 * ADBAjaxUrl:ADB系统请求的api地址

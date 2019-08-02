@@ -48,6 +48,8 @@ let json = {
 	"Api_MessagesToUserHandle_Query":"Api_MessagesToUserHandle_Query",
 	"Api_MessagesToUserHandle_SetRead":"Api_MessagesToUserHandle_SetRead",
 	"Api_MessagesToUserHandle_SetDisabled":"Api_MessagesToUserHandle_SetDisabled",
+	"Api_MessagesToUserHandle_QueryPostCount":"Api_MessagesToUserHandle_QueryPostCount",
+	"Api_MessagesToUserHandle_QueryPostMsgList":"Api_MessagesToUserHandle_QueryPostMsgList",
 	"currentLanguageVersion":"",
 	"refreshSessionTime":1200000,
 	"ADBAjaxUrl":"http://197.7.50.186:777/ADB",
