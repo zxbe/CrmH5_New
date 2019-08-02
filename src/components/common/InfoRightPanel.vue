@@ -143,7 +143,7 @@ export default {
         //查看关联的交易列表
         goToDealListPage:function(){
            console.log("查看关联的交易列表");
-           
+
         },
         //查看关联的商业机会列表
         goToOpportunityListPage:function(){
