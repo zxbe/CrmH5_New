@@ -345,7 +345,8 @@
       :closeThisContent="closeThisContent"
       :isShowSend="isShowSendBtn"
       :rightPanelFromType="rightPanelFromType"
-      :rightPanelFromID="rightPanelFromID"></InfoRightPanel>
+      :rightPanelFromID="rightPanelFromID"
+      :businessType="businessType"></InfoRightPanel>
 
 </div>
 </template>
@@ -377,6 +378,7 @@ export default {
             rightPanelFromID:"",//传给右侧菜单用的参数
             isShowSendBtn: true,  //侧滑是否显示分享给同事选项
             isShowClose:true, //侧滑是否显示关闭这个商业机会选项
+            businessType:'',  //侧滑 交易:29;商机:30
             closeThisContent:"",
 
             id:'', //dealPipeline id
@@ -422,6 +424,20 @@ export default {
         let _self = this;
         _self.$store.commit('SET_ITEM', 'opportunitiesinfo');
 
+        _self.id = _self.$route.params.id || '';
+        _self.rightPanelFromID = _self.id;
+        _self.showPage = _self.$route.query.showPage.toString() || '';
+        if (_self.showPage == '1')
+        {
+            _self.closeThisContent = lanTool.lanContent('944_关闭这个商业机会');
+            _self.ptitle = this.$route.query.infoName || lanTool.lanContent('885_增加机会');
+            _self.businessType = '30';
+        } else {
+            _self.closeThisContent = lanTool.lanContent('945_关闭这个交易');
+            _self.ptitle =this.$route.query.infoName || lanTool.lanContent('884_增加交易');
+            _self.businessType = '29';
+        }
+
     },
     mounted: function () {
         let _self = this;
@@ -430,20 +446,7 @@ export default {
         $(window).scrollTop(0);
         _self.seeMore =lanTool.lanContent("900_查看详细");
         _self.rightPanelCloseThis();
-        _self.id = _self.$route.params.id;
-
-        _self.showPage = _self.$route.query.showPage.toString() || '';
-
-        if (_self.showPage == '1')
-        {
-            _self.closeThisContent = lanTool.lanContent('944_关闭这个商业机会');
-            _self.ptitle = this.$route.query.infoName || lanTool.lanContent('885_增加机会');
-        } else {
-            _self.closeThisContent = lanTool.lanContent('945_关闭这个交易');
-            _self.ptitle =this.$route.query.infoName || lanTool.lanContent('884_增加交易');
-        }
         var fromType = "Opportunitiesinfo";
-        _self.rightPanelFromID = _self.$route.params.id || "";
 
         //若是新增，则隐藏新增不需要显示的模块
         if(tool.isNullOrEmptyObject(_self.id) || Number(_self.id) <= 0){

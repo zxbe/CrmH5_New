@@ -18,6 +18,7 @@
                 <div class="right-content-list-cell" v-show="isShowDealLink" @click="goToDealListPage"><span class="mui-icon calcfont calc-handshake-o lanText" data-lanid="817_交易"></span></div>
                 <div class="right-content-list-cell" v-show="isShowDealLink" @click="goToOpportunityListPage"><span class="mui-icon calcfont calc-jiezhishijianicon lanText" data-lanid="649_商业机会"></span></div>
                 <div class="right-content-list-cell" v-show="isShowSynchronizeLink" @click="SynchronousCamCardData"><span class="mui-icon calcfont calc-exchange lanText" data-lanid="1000193_同步CamCard数据"></span></div>
+                <div class="right-content-list-cell" v-show="isShowTransformLink" @click="SynchronousCamCardData"><span class="mui-icon calcfont calc-exchange lanText" data-lanid="1000239_转为交易"></span></div>
             </div>
         </div>
     </div>
@@ -37,9 +38,10 @@ export default {
             isShowPowerUserLink: false,
             isShowDealLink: false,
             isShowSynchronizeLink: false,
+            isShowTransformLink:false
         }
     },
-    props: ['isShowSend', 'isShowClose', 'closeThisContent', 'rightPanelFromType', 'rightPanelFromID', ],
+    props: ['isShowSend', 'isShowClose', 'closeThisContent', 'rightPanelFromType', 'rightPanelFromID','businessType'],
 
     created: function () {
         var _self = this;
@@ -63,6 +65,10 @@ export default {
                 _self.isShowPowerUserLink = true;
                 _self.isShowDealLink = false;
                 _self.isShowSynchronizeLink = false;
+                console.log(_self.businessType);
+                if(_self.businessType == '30'){
+                  _self.isShowTransformLink = true;
+                }
                 break;
             default:
                 break;
