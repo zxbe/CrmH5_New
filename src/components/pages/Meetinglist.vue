@@ -333,7 +333,13 @@ export default {
         //关联会议
         relationMeeting:function(){
             var _self = this;
-            // meetinglistforrelation
+            var url = "/meetinglistforrelation";
+            _self.$router.push({
+                    path: url,
+                    query: {
+                        // defaultDateTime: defaultDateTime
+                    }
+            });
 
         },
 

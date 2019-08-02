@@ -43,6 +43,8 @@ export default {
 
     created: function () {
         var _self = this;
+        //联系人:6;公司:7;会议:8;商机&交易:9;
+        console.log(_self.rightPanelFromType);
         switch (_self.rightPanelFromType) {
             case "6":
                 _self.isShowMeetingLink = true;
@@ -56,6 +58,12 @@ export default {
                 _self.isShowDealLink = true;
                 _self.isShowSynchronizeLink = true;
                  _self.isShowContactsLink = true;
+                break;
+            case "9":
+                _self.isShowMeetingLink = true;
+                _self.isShowPowerUserLink = true;
+                _self.isShowDealLink = false;
+                _self.isShowSynchronizeLink = false;
                 break;
             default:
                 break;
@@ -134,7 +142,7 @@ export default {
         },
         goToContactsList:function(){
            console.log("联系人列表");
-           
+
         },
         //查看有权限访问的同事
         goToPowerUserPage: function () {
