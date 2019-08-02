@@ -58,7 +58,6 @@ export default {
                 break;
             case "7":
                 _self.isShowMeetingLink = true;
-                _self.isShowPowerUserLink = true;
                 _self.isShowDealLink = true;
                 _self.isShowSynchronizeLink = true;
                  _self.isShowContactsLink = true;
@@ -157,7 +156,18 @@ export default {
         },
         //跳转到联系人列表
         goToContactsList: function() {
-          this.$parent.goToContactsPage();
+          var _self = this;
+            var parameter = {
+                fromType:_self.rightPanelFromType,
+                fromId:_self.rightPanelFromID
+            };
+            _self.panelToggle();
+            _self.$nextTick(function () {
+                _self.$router.push({
+                    path: "/contactsof",
+                    query: parameter
+                });
+            })
         },
         //跳转到公司详情
         goToOrganizationsInfo: function() {
@@ -201,7 +211,6 @@ export default {
         },
         //查看关联的商业机会列表
         goToOpportunityListPage: function () {
-            console.log("查看关联的商业机会列表");
             var _self = this;
             var parameter = {
                 fromType:_self.rightPanelFromType,

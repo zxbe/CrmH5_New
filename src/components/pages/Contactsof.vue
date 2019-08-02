@@ -161,7 +161,7 @@ export default {
                     _self.noData = false;
 
                     if (queryType == 'pushLoad') {
-                        _self.listData = _self.listData.concat(data);
+                        // _self.listData = _self.listData.concat(data);
                     } else {
                         _self.listData = data || [];
                     }
