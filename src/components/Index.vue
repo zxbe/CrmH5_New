@@ -277,47 +277,47 @@ export default {
             groupData: [], //7天的数据
             dealData: 
             [
-                {
-                    "GroupID": 2,
-                    "GroupName": "測試銷售組1",
-                    "GroupRowCount": 15,
-                    "items": []
-                },
-                {
-                    "GroupID": 1,
-                    "GroupName": "測試銷售組2",
-                    "GroupRowCount": 53,
-                    "items": []
-                },
-                {
-                    "GroupID": 3,
-                    "GroupName": "測試銷售組3",
-                    "GroupRowCount": 8,
-                    "items": []
-                }
+                // {
+                //     "GroupID": 2,
+                //     "GroupName": "測試銷售組1",
+                //     "GroupRowCount": 15,
+                //     "items": []
+                // },
+                // {
+                //     "GroupID": 1,
+                //     "GroupName": "測試銷售組2",
+                //     "GroupRowCount": 53,
+                //     "items": []
+                // },
+                // {
+                //     "GroupID": 3,
+                //     "GroupName": "測試銷售組3",
+                //     "GroupRowCount": 8,
+                //     "items": []
+                // }
             ],
             pitchesData: [
-            {
-                "GroupID": 13,
-                "GroupName": "IT Team",
-                "GroupRowCount": 7,
-                "items": []
-            }, {
-                "GroupID": 2,
-                "GroupName": "Test Sales Team1",
-                "GroupRowCount": 10,
-                "items": [],
-            }, {
-                "GroupID": 1,
-                "GroupName": "Test Sales Team2",
-                "GroupRowCount": 34,
-                "items": []
-            }, {
-                "GroupID": 3,
-                "GroupName": "Test Sales Team3",
-                "GroupRowCount": 4,
-                "items": []
-            }
+            // {
+            //     "GroupID": 13,
+            //     "GroupName": "IT Team",
+            //     "GroupRowCount": 7,
+            //     "items": []
+            // }, {
+            //     "GroupID": 2,
+            //     "GroupName": "Test Sales Team1",
+            //     "GroupRowCount": 10,
+            //     "items": [],
+            // }, {
+            //     "GroupID": 1,
+            //     "GroupName": "Test Sales Team2",
+            //     "GroupRowCount": 34,
+            //     "items": []
+            // }, {
+            //     "GroupID": 3,
+            //     "GroupName": "Test Sales Team3",
+            //     "GroupRowCount": 4,
+            //     "items": []
+            // }
             ],
             meetingCount: 0, //未上传会议记录的会议数量
             messageCount: 0, //消息数量
@@ -374,6 +374,7 @@ export default {
     methods: {
         switchPage: function (num, e) {
             var _self = this;
+            _self.groupData = [];
             var el = e.target;
             if (num === undefined) return;
             $(el).addClass('active-item').siblings().removeClass('active-item');
@@ -790,13 +791,14 @@ export default {
         },
         //构造交易和商业机会的查询条件
         constructDealAndPitchQueryCondition:function(){
+            var _self = this;
             var queryCondictionTemp = [];
             var dateTimeFormatStr = "yyyy/MM/dd";
             var endDate = new Date();
             var endDateStr = endDate.FormatNew(dateTimeFormatStr);
             var startDate = new Date();
             var isFormat = true;
-            var startDateStr = tool.SetDate(startDate, 0, 0, -30, isFormat, dateTimeFormatStr);
+            var startDateStr = tool.SetDate(startDate, 0, 0, -_self.recentDealAndPitchDay, isFormat, dateTimeFormatStr);
             var queryCondictionObjTemp =
             {
                 Field:"LastUpdateTime",
@@ -812,7 +814,6 @@ export default {
         //获取最近交易和商业机会的分组数据
         getRecentDealsAndOpportunities: function (num) {
             var _self = this;
-            _self.groupData = [];
             var fromTypeTemp = "";
             switch (num) {
                 case 1:
