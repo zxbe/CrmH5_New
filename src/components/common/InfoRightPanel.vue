@@ -13,6 +13,7 @@
                 <!-- <div id="rightPanelCloseThisDeal" class="right-content-list-cell" v-show="isShowCloseDeal"><span class="mui-icon calcfont calc-jiaoyi lanText" data-lanid="945_关闭这个交易"></span></div> -->
                 <!-- <div class="right-content-list-cell"><span class="mui-icon calcfont calc-fenxiang1"></span>Send to Chat</div> -->
                 <div class="right-content-list-cell" v-show="isShowMeetingLink" @click="goToMeetingList"><span class="mui-icon calcfont calc-huiyi lanText" data-lanid="619_会议"></span></div>
+                <div class="right-content-list-cell" v-show="isShowContactsLink" @click="goToContactsList"><span class="mui-icon calcfont calc-kehulianxiren lanText" data-lanid="630_联系人"></span></div>
                 <div class="right-content-list-cell" v-show="isShowPowerUserLink" @click="goToPowerUserPage"><span class="mui-icon calcfont calc-yidu lanText" data-lanid="852_查看有权限访问的同事"></span></div>
                 <div class="right-content-list-cell" v-show="isShowDealLink" @click="goToDealListPage"><span class="mui-icon calcfont calc-handshake-o lanText" data-lanid="817_交易"></span></div>
                 <div class="right-content-list-cell" v-show="isShowDealLink" @click="goToOpportunityListPage"><span class="mui-icon calcfont calc-jiezhishijianicon lanText" data-lanid="649_商业机会"></span></div>
@@ -31,7 +32,8 @@ export default {
             classificationValue: '', //右侧分类
             dataFilter: [],
             // isShowClose:false,
-            isShowMeetingLink: true,
+            isShowMeetingLink: false,
+            isShowContactsLink:false,
             isShowPowerUserLink: false,
             isShowDealLink: false,
             isShowSynchronizeLink: false,
@@ -53,6 +55,7 @@ export default {
                 _self.isShowPowerUserLink = true;
                 _self.isShowDealLink = true;
                 _self.isShowSynchronizeLink = true;
+                 _self.isShowContactsLink = true;
                 break;
             default:
                 break;
@@ -128,6 +131,10 @@ export default {
                     // query: parameter
                 });
             })
+        },
+        goToContactsList:function(){
+           console.log("联系人列表");
+           
         },
         //查看有权限访问的同事
         goToPowerUserPage: function () {
