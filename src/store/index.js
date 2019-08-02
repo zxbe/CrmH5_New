@@ -15,11 +15,12 @@ const store = new Vuex.Store({
         viewType:'listView', //Tripmeeting模块视图切换
 
         //只在详情页面用
-        fromType:"",//联系人:6;公司:7;会议:8;商机&交易:9;
-        businessType:"",//交易:29;商机:30
-        fromID:""  //每条记录的id
+        // fromType:"",//联系人:6;公司:7;会议:8;商机&交易:9;
+        // businessType:"",//交易:29;商机:30
+        // fromID:""  //每条记录的id
     },
     mutations: {
+
         //设置linkPage页面需要展示的模块
         SET_LINKE_PAGE_SHOW(state, val){
             val = (val == '' || val == undefined) ? 0 : val;
