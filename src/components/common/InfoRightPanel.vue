@@ -44,7 +44,6 @@ export default {
     created: function () {
         var _self = this;
         //联系人:6;公司:7;会议:8;商机&交易:9;
-        console.log(_self.rightPanelFromType);
         switch (_self.rightPanelFromType) {
             case "6":
                 _self.isShowMeetingLink = true;
@@ -118,8 +117,8 @@ export default {
         showShareList: function () {
             var _self = this;
             var parameter = {
-                rightPanelFromType: this.rightPanelFromType, //来源类型
-                rightPanelFromID: this.rightPanelFromID //来源ID
+                rightPanelFromType: _self.rightPanelFromType, //来源类型
+                rightPanelFromID: _self.rightPanelFromID //来源ID
             };
             _self.panelToggle();
             _self.$nextTick(function () {
@@ -132,11 +131,15 @@ export default {
         //跳转会议列表
         goToMeetingList: function () {
             var _self = this;
+            var parameter = {
+                fromType:_self.rightPanelFromType,
+                fromId:_self.rightPanelFromID
+            };
             _self.panelToggle();
             _self.$nextTick(function () {
                 _self.$router.push({
                     path: "/meetinglist",
-                    // query: parameter
+                    query: parameter
                 });
             })
         },

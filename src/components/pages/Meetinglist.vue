@@ -79,15 +79,15 @@ export default {
             pageSize:10,//一页显示多少记录
             pageNum:1,//当前页码
 
-            fromType:'9',  //标志是用那个模块过来的；联系人:6;公司:7;会议:8;商机&交易:9;
+            fromType:'',  //标志是用那个模块过来的；联系人:6;公司:7;会议:8;商机&交易:9;
             fromId:'',  //dealPipelineID或者pitchesID,用于新增会议自动选择关联于商业字段
             checkboxValue:[], //选择需要删除meetingId
         }
     },
     created:function(){
       var _self = this;
-      // _self.fromType = _self.$route.query.fromType || '';
-      // _self.fromId = _self.$route.query.fromId || '';
+      _self.fromType = _self.$route.query.fromType || '';
+      _self.fromId = _self.$route.query.fromId || '';
 
     },
     mounted:function(){
