@@ -164,7 +164,7 @@
                     </div>
                 </div>
             </div>
-            <div v-show="!isAddNew" class="showMoreList">
+            <!-- <div v-show="!isAddNew" class="showMoreList">
                 <div class="organizationMessage">
                     <div class="ListCell" @click="goToOrganizationsInfo">
                         <div class="ListCellLeftIcon">
@@ -180,7 +180,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> -->
 
             <!-- <div class="accessView initiatorObj">
                 <div class="ListCell" @click.stop="goToShareList">

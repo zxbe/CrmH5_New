@@ -14,6 +14,7 @@
                 <!-- <div class="right-content-list-cell"><span class="mui-icon calcfont calc-fenxiang1"></span>Send to Chat</div> -->
                 <div class="right-content-list-cell" v-show="isShowMeetingLink" @click="goToMeetingList"><span class="mui-icon calcfont calc-huiyi lanText" data-lanid="619_会议"></span></div>
                 <div class="right-content-list-cell" v-show="isShowContactsLink" @click="goToContactsList"><span class="mui-icon calcfont calc-kehulianxiren lanText" data-lanid="630_联系人"></span></div>
+                <div class="right-content-list-cell" v-show="isShowOrganizationsInfoLink" @click="goToOrganizationsInfo"><span class="mui-icon calcfont calc-gongsixinxi lanText" data-lanid="851_查看公司信息"></span></div>
                 <div class="right-content-list-cell" v-show="isShowPowerUserLink" @click="goToPowerUserPage"><span class="mui-icon calcfont calc-yidu lanText" data-lanid="852_查看有权限访问的同事"></span></div>
                 <div class="right-content-list-cell" v-show="isShowDealLink" @click="goToDealListPage"><span class="mui-icon calcfont calc-handshake-o lanText" data-lanid="817_交易"></span></div>
                 <div class="right-content-list-cell" v-show="isShowDealLink" @click="goToOpportunityListPage"><span class="mui-icon calcfont calc-jiezhishijianicon lanText" data-lanid="649_商业机会"></span></div>
@@ -52,6 +53,7 @@ export default {
                 _self.isShowPowerUserLink = true;
                 _self.isShowDealLink = true;
                 _self.isShowSynchronizeLink = true;
+                _self.isShowOrganizationsInfoLink = true;
                 break;
             case "7":
                 _self.isShowMeetingLink = true;
@@ -149,9 +151,13 @@ export default {
                 });
             })
         },
-        goToContactsList:function(){
-           console.log("联系人列表");
-
+        //跳转到联系人列表
+       goToContactsList: function() {
+          this.$parent.goToContactsPage();
+        },
+        //跳转到公司详情
+        goToOrganizationsInfo: function() {
+            this.$parent.goToOrganizationsInfo();
         },
         //查看有权限访问的同事
         goToPowerUserPage: function () {
