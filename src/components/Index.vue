@@ -56,8 +56,7 @@
                     </div>
                 </div>
                 <div class="weui-grid">
-                    <!-- <div @click.stop="gotoUrl($event)" url="/airlineDatabase" class="js_grid"> -->
-                    <div @click.stop="gotoUrl($event)" url="" class="js_grid">
+                    <div @click.stop="gotoUrl($event)" url="/userEvents" class="js_grid">
                         <div class="weui-grid__icon UserManagement-icon">
                             <span class="calcfont calc-yonghu"></span>
                         </div>
