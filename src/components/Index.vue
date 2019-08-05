@@ -55,6 +55,15 @@
                         <p class="f12 weui-grid__label lanText" data-lanid="784_商业智能"></p>
                     </div>
                 </div>
+                <div class="weui-grid">
+                    <!-- <div @click.stop="gotoUrl($event)" url="/airlineDatabase" class="js_grid"> -->
+                    <div @click.stop="gotoUrl($event)" url="" class="js_grid">
+                        <div class="weui-grid__icon UserManagement-icon">
+                            <span class="calcfont calc-yonghu"></span>
+                        </div>
+                        <p class="f12 weui-grid__label lanText" data-lanid="1136_用户管理"></p>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="occupy-position"></div>
@@ -112,7 +121,7 @@
 
                 </div>
                 <!-- 没有数据   -->
-                <nothing v-if="noData" style="padding-top:0.8rem;"></nothing>
+                <nothing v-if="noData" class="noDataIcon"></nothing>
             </div>
             <div v-show="showPage == 1" class="pageList">
                 <div v-show="!noData" id="dealpipelineList" data-fromtype="dealPipeline">
@@ -152,7 +161,7 @@
                         </div>
                     </div>
                 </div>
-                <nothing v-show="noData" style="padding-top:0.8rem;"></nothing>
+                <nothing v-show="noData" class="noDataIcon"></nothing>
             </div>
             <div v-show="showPage == 2" class="pageList">
                 <div v-show="!noData" id="opportunitiesList" data-fromtype="opportunities">
