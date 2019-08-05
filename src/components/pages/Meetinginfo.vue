@@ -45,7 +45,7 @@
 
                 <!-- 会议类型 -->
                 <div class="ListCell visible">
-                    <div class="ListCellLeftIcon"><span class="calcfont calc-shuxing"></span></div>
+                    <div class="ListCellLeftIcon"><span class="calcfont calc-17"></span></div>
                     <div class="ListCellContent">
                         <div class="ListCellContentLeft leftContent">
                             <div class="ListCellContentLeftText lanText" data-lanid="715_会议类型"></div>
@@ -73,7 +73,7 @@
 
                 <!-- CAAL -->
                 <div class="ListCell visible">
-                    <div class="ListCellLeftIcon"><span class="calcfont calc-shuxing"></span></div>
+                    <div class="ListCellLeftIcon"><span class="calcfont calc-woshimaijia2"></span></div>
                     <div class="ListCellContent">
                         <div class="ListCellContentLeft leftContent">
                             <div class="ListCellContentLeftText lanText" data-lanid="1000289_CAAL"></div>
@@ -133,7 +133,7 @@
 
                 <!-- 是否首次会议 -->
                 <div class="ListCell visible">
-                    <div class="ListCellLeftIcon"><span class="calcfont calc-shuxing"></span></div>
+                    <div class="ListCellLeftIcon"><span class="calcfont calc-zhuanjifenshoucishezhinicheng"></span></div>
                     <div class="ListCellContent">
                         <div class="ListCellContentLeft leftContent">
                             <div class="ListCellContentLeftText lanText" data-lanid="1000290_是否首次会议？"></div>
@@ -162,7 +162,7 @@
 
                 <!-- 状态 -->
                 <div class="ListCell">
-                    <div class="ListCellLeftIcon"><span class="calcfont calc-shuxing"></span></div>
+                    <div class="ListCellLeftIcon"><span class="calcfont calc-zhuangtai"></span></div>
                     <div class="ListCellContent">
                         <div class="ListCellContentLeft leftContent">
                             <div class="ListCellContentLeftText lanText" data-lanid="728_状态"></div>
@@ -177,7 +177,7 @@
                 <!-- 与会人员 -->
                 <div class="ListSpecialCell" id="ParticipantsClickObj">
                     <div class="ListSpecialCellField">
-                        <div class="ListSpecialCellLeftIcon"><span class="calcfont calc-gongsixinxi"></span></div>
+                        <div class="ListSpecialCellLeftIcon"><span class="calcfont calc-huiyi"></span></div>
                         <div class="ListSpecialCellFieldContent lanText" data-lanid="1000288_与会人员"></div>
                         <div class="ListSpecialCellRightIcon"><span class="calcfont calc-you"></span></div>
                     </div>
@@ -194,9 +194,9 @@
                         data-addUrl=""></div>
                 </div>
 
-                <!-- 备忘 -->
+                <!-- 目标 -->
                 <div class="ListCell">
-                    <div class="ListCellLeftIcon textLeftIcon"><span class="calcfont calc-beiwanglu"></span></div>
+                    <div class="ListCellLeftIcon textLeftIcon"><span class="calcfont calc-mubiao"></span></div>
                     <div class="ListCellLeftText">
                         <p class="textareaP">
                             <textarea data-field="Remark" data-fieldControlType="textareaInput" class="lanInputPlaceHolder" data-lanid="1000348_目标"></textarea>
