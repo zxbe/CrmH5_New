@@ -171,7 +171,11 @@ export default {
         },
         //跳转到公司详情
         goToOrganizationsInfo: function() {
-            this.$parent.goToOrganizationsInfo();
+            var _self = this;
+             _self.panelToggle();
+              _self.$nextTick(function () {
+                _self.$parent.goToOrganizationsInfo();
+            })
         },
         //查看有权限访问的同事
         goToPowerUserPage: function () {
