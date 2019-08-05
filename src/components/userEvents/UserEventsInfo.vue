@@ -32,7 +32,7 @@ export default {
     },
     created: function () {
         var _self = this;
-      _self.rightPanelFromID = "20";
+      _self.rightPanelFromType = "20";
     },
     mounted: function () {
 

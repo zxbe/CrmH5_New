@@ -40,6 +40,10 @@ import Groupselectlist from '@/components/customPlugin/Groupselectlist'
 import Poweruser from '@/components/customPlugin/Poweruser'
 import Linkedpage from '@/components/customPlugin/Linkedpage'
 
+//用户活动
+import UserEvents from '@/components/userEvents/UserEvents'
+import UserEventsInfo from '@/components/userEvents/UserEventsInfo'
+
 
 // import Report from '@/components/pages/Report'
 // import PrCalendarinfo from '@/components/pages/PrCalendarinfo'
@@ -122,6 +126,9 @@ const router =  new Router({
  { path:'/fleetDetailsList',name:'fleetDetailsList',component:FleetDetailsList},
  //论坛
  { path:'/forumNotification',name:'ForumNotification',component:ForumNotification},
+ //用户活动
+ { path:'/userEvents',name:'UserEvents',component:UserEvents},
+ { path:'/userEventsInfo',name:'UserEvents',component:UserEventsInfo},
   ]
 });
 
