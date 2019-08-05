@@ -23,12 +23,10 @@
             <div
             v-for="item in listData"
             :key="item.AutoID"
-            class="group-item f14"
-            :data-url="'/opportunitiesinfo/' + item.AutoID">
-                    <div class="item-block">
-                        <div class="item-div item-first-div blue-color">
-                        {{item.TheName}}
-                        </div>
+            class="group-item f14">
+            <!-- :data-url="'/opportunitiesinfo/' + item.AutoID"> -->
+                    <div class="item-block" @click="goToInfo(item.AutoID)" :data-id="item.AutoID">
+                        <div class="item-div item-first-div blue-color">{{item.TheName}}</div>
                         <!-- <div class="item-div line-clamp2">{{item.Memo}}</div> -->
                         <div class="item-div f12 green-color padding-bottom-3 padding-top-3">
                           <span :class="item.className">{{item.CurrentState}}</span>
@@ -95,6 +93,23 @@ export default {
   methods:{
       back:function(){
           this.$router.back(-1);
+      },
+      //点击跳到详情页面
+      goToInfo:function( id ){
+        var _self = this;
+        if(tool.isNullOrEmptyObject(id)){
+          retrun;
+        }
+        var url = "/opportunitiesinfo/"+ id;
+        // var parameter = {
+        //     fromType: _self.fromType, //来源类型
+        //     fromId: _self.fromId //来源ID
+        // };
+        _self.$router.push({
+                path: url,
+                // query: parameter
+        });
+
       },
       //查询列表数据
       queryList: function (queryType, callback) {
