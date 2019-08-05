@@ -6,7 +6,7 @@
       <div class="headerBlockLeftIcon">
         <span class="calcfont calc-wendang2"></span>
       </div>
-      <div data-lanid="750_文档" class="headerBlockContent f16 lanText">文档</div>
+      <div data-lanid="750_文档" class="headerBlockContent f16 lanText"></div>
 
       <div v-show="addible=='true'" class="headerBlockRightIcon controlEdit">
         <span @click="goUpload($event, meetingId)" data-url="/MeetingNoteinfo/-1" class="calcfont calc-jia"></span>
@@ -58,19 +58,22 @@ export default {
         if(tool.isNullOrEmptyObject(AutoID)){
           return;
         }
+        var autoIDArray = new Array();
+        autoIDArray.push(AutoID);
+
         tool.showConfirm(
             lanTool.lanContent("593_您确定要删除数据吗？"),
             function() {
                 var loadingIndexClassName = tool.showLoading();
                 var urlTemp = tool.AjaxBaseUrl();
-                var controlName = tool.Api_MeetingNoticeHandle_Delete;
+                var controlName = tool.Api_DocumentsHandle_Delete;
                 //传入参数
                 var jsonDatasTemp = {
                     CurrentLanguageVersion: lanTool.currentLanguageVersion,
                     UserName: tool.UserName(),
                     _ControlName: controlName,
                     _RegisterCode: tool.RegisterCode(),
-                    AutoID: JSON.stringify(AutoID)
+                    AutoID: JSON.stringify(autoIDArray)
                 };
                 $.ajax({
                     async: true,
@@ -89,6 +92,9 @@ export default {
                         // var fromType = "Opportunitiesinfo";
                         // //渲染会议记录列表
                         // _self.iniMeetingNoteList();
+
+                        //渲染会议记录列表
+                        _self.$parent.InitDocList(_self.meetingId);
                     },
                     error: function (jqXHR, type, error) {
                         console.log(error);
@@ -116,17 +122,14 @@ export default {
         var url = "/uploadinput";
         var parameter = {
             fromID:AutoID,
-            // fromType:onlyView,
-            // ScheduleID:scheduleID
+            fromType:"8",
+            scheduleID:AutoID
         };
-
         _self.$router.push({
             path: url,
             query: parameter
         });
-    },
-
-
+    }
   }
 
 }

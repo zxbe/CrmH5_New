@@ -98,6 +98,8 @@ export default {
         _self.fromType = _self.$route.query.fromType;
         _self.scheduleID = _self.$route.query.scheduleID||"";
 
+        console.log(_self.$route.query);
+
         //清空页面数据
         tool.ClearControlData(function(){
             //渲染控件
@@ -161,16 +163,17 @@ export default {
             //modify by Dylan 构造form表单数据
             //传入参数
             var urlTemp = tool.AjaxBaseUrl();
-		        var controlName = tool.Api_DocumentsHandle_UploadDocuments2DMS;
+            var controlName = tool.Api_DocumentsHandle_UploadDocuments2DMS;
             var jsonDatasTemp = {
                 CurrentLanguageVersion: lanTool.currentLanguageVersion,
                 UserName: tool.UserName(),
                 _ControlName: controlName,
                 _RegisterCode: tool.RegisterCode(),
+                FromTypeID:_self.fromType,
+                FromID:_self.fromID,
                 ScheduleID:_self.scheduleID
             };
-            jsonDatasTemp["FromTypeID"] = _self.fromType;
-            jsonDatasTemp["FromID"] = _self.fromID;
+            
             jsonDatasTemp["FileName"] = $("#curFileName").text()||"";
             jsonDatasTemp["description"] = $("[data-field='description']").val()||"";
             // jsonDatasTemp["100205"] = $("[data-field='100205']").val()||"";
@@ -196,7 +199,8 @@ export default {
                         console.log(tool.getMessage(data));
                         return true;
                     }
-                    _self.$store.commit('REMOVE_ITEM', 'meetingNoteinfo');
+                    //_self.$store.commit('REMOVE_ITEM', 'meetingNoteinfo');
+                    _self.$store.commit('REMOVE_ITEM', 'meetinginfo');
                     //返回到上一页
                     _self.$router.back(-1);
                 },

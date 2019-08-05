@@ -51,7 +51,7 @@
                             <div class="ListCellContentLeftText lanText" data-lanid="715_会议类型"></div>
                         </div>
                         <div class="ListCellContentRight rightContent">
-                            <input type="text" data-field="MeetingType" data-fieldControlType="picker" data-fieldVal="" Code="DropDowList_DtbAllTypes" TypeValue="InternalExternaltype" class="ListCellContentRightText"/>
+                            <input type="text" data-field="MeetingType" data-fieldControlType="picker" data-fieldVal="" Code="DropDowList_DtbAllTypes" TypeValue="MeetingType" class="ListCellContentRightText"/>
                         </div>
                             <div class="ListCellRightIcon"><span class="calcfont calc-you"></span></div>
                     </div>
@@ -65,7 +65,7 @@
                             <div class="ListCellContentLeftText lanText" data-lanid="714_会议性质"></div>
                         </div>
                         <div class="ListCellContentRight rightContent">
-                            <input type="text" data-field="MeetingNature" data-fieldControlType="picker" data-fieldVal="" Code="DropDowList_DtbAllTypes" TypeValue="InternalExternaltype" class="ListCellContentRightText"/>
+                            <input type="text" data-field="MeetingNature" data-fieldControlType="picker" data-fieldVal="" Code="DropDowList_DtbAllTypes" TypeValue="MeetingNature" class="ListCellContentRightText"/>
                         </div>
                             <div class="ListCellRightIcon"><span class="calcfont calc-you"></span></div>
                     </div>
@@ -79,7 +79,7 @@
                             <div class="ListCellContentLeftText lanText" data-lanid="1000289_CAAL"></div>
                         </div>
                         <div class="ListCellContentRight rightContent">
-                            <input type="text" data-field="CAAL" data-fieldControlType="picker" data-fieldVal="" Code="DropDowList_DtbAllTypes" TypeValue="InternalExternaltype" class="ListCellContentRightText"/>
+                            <input type="text" data-field="CAAL" data-fieldControlType="picker" data-fieldVal="" Code="DropDowList_DtbAllTypes" TypeValue="YesOrNo" class="ListCellContentRightText"/>
                         </div>
                             <div class="ListCellRightIcon"><span class="calcfont calc-you"></span></div>
                     </div>
@@ -139,7 +139,7 @@
                             <div class="ListCellContentLeftText lanText" data-lanid="1000290_是否首次会议？"></div>
                         </div>
                         <div class="ListCellContentRight rightContent">
-                            <input type="text" data-field="IsFirstMeeting" data-fieldControlType="picker" data-fieldVal="" Code="DropDowList_DtbAllTypes" TypeValue="InternalExternaltype" class="ListCellContentRightText"/>
+                            <input type="text" data-field="IsFirstMeeting" data-fieldControlType="picker" data-fieldVal="" Code="DropDowList_DtbAllTypes" TypeValue="YesOrNo" class="ListCellContentRightText"/>
                         </div>
                             <div class="ListCellRightIcon"><span class="calcfont calc-you"></span></div>
                     </div>
@@ -168,7 +168,7 @@
                             <div class="ListCellContentLeftText lanText" data-lanid="728_状态"></div>
                         </div>
                         <div class="ListCellContentRight rightContent">
-                            <input type="text" data-field="CurrentState" data-fieldControlType="picker" data-fieldVal="" Code="DropDowList_DtbAllTypes" TypeValue="InternalExternaltype" class="ListCellContentRightText"/>
+                            <input type="text" data-field="CurrentState" data-fieldControlType="picker" data-fieldVal="" Code="DropDowList_DtbAllTypes" TypeValue="OAStatus" class="ListCellContentRightText"/>
                         </div>
                             <div class="ListCellRightIcon"><span class="calcfont calc-you"></span></div>
                     </div>
@@ -188,10 +188,10 @@
                         data-lanid="1000288_与会人员"
                         data-fieldval=""
                         data-selecttype="checkbox"
-                        code="DropDowList_ViewBaseCompanyBaseInfHasContact"
+                        code="DropDowList_AccountManager"
                         typevalue=""
                         data-clickObj="ParticipantsClickObj"
-                        data-addUrl="/organizationsinfo"></div>
+                        data-addUrl=""></div>
                 </div>
 
                 <!-- 备忘 -->
@@ -199,7 +199,7 @@
                     <div class="ListCellLeftIcon textLeftIcon"><span class="calcfont calc-beiwanglu"></span></div>
                     <div class="ListCellLeftText">
                         <p class="textareaP">
-                            <textarea data-field="Remark" data-fieldControlType="textareaInput" class="lanInputPlaceHolder" data-lanid="719_备忘"></textarea>
+                            <textarea data-field="Remark" data-fieldControlType="textareaInput" class="lanInputPlaceHolder" data-lanid="1000348_目标"></textarea>
                         </p>
                     </div>
                 </div>
@@ -209,7 +209,7 @@
                     <div class="ListCellLeftIcon textLeftIcon"><span class="calcfont calc-beiwanglu"></span></div>
                     <div class="ListCellLeftText">
                         <p class="textareaP">
-                            <textarea data-field="Summary" data-fieldControlType="textareaInput" class="lanInputPlaceHolder" data-lanid="	1000291_会议总结"></textarea>
+                            <textarea data-field="Summary" data-fieldControlType="textareaInput" class="lanInputPlaceHolder" data-lanid="1000291_会议总结"></textarea>
                         </p>
                     </div>
                 </div>
@@ -272,34 +272,33 @@ export default {
             id:'',  //会议id
             //文档数据
             documentData:[
-              {
-                AddTime: "2019-07-31 18:31:00",
-                AddUserName: "dylanxu",
-                AutoID: "765411",
-                FileLength: "54768",
-                ObjectName: "Project Management - CRM_PC(20190625)_V6_19073118305794.xlsx",
-                ObjectRemark: "test",
-              },
-              {
-                AddTime: "2019-07-26 14:09:00",
-                AddUserName: "ceshi",
-                AutoID: "765386",
-                FileLength: "240704",
-                ObjectName: "t01ecab926fd33d8055_19072614092088.jpg",
-                ObjectRemark: ""
-              },
-              {
-                AddTime: "2019-07-26 13:57:00",
-                AddUserName: "alancheng",
-                AutoID: "765385",
-                FileLength: "1022368",
-                ObjectName: "MYXJ_20150716224149_save_19072613564350.png",
-                ObjectRemark: ""
-              }
+            //   {
+            //     AddTime: "2019-07-31 18:31:00",
+            //     AddUserName: "dylanxu",
+            //     AutoID: "765411",
+            //     FileLength: "54768",
+            //     ObjectName: "Project Management - CRM_PC(20190625)_V6_19073118305794.xlsx",
+            //     ObjectRemark: "test",
+            //   },
+            //   {
+            //     AddTime: "2019-07-26 14:09:00",
+            //     AddUserName: "ceshi",
+            //     AutoID: "765386",
+            //     FileLength: "240704",
+            //     ObjectName: "t01ecab926fd33d8055_19072614092088.jpg",
+            //     ObjectRemark: ""
+            //   },
+            //   {
+            //     AddTime: "2019-07-26 13:57:00",
+            //     AddUserName: "alancheng",
+            //     AutoID: "765385",
+            //     FileLength: "1022368",
+            //     ObjectName: "MYXJ_20150716224149_save_19072613564350.png",
+            //     ObjectRemark: ""
+            //   }
             ],
         }
     },
-
     beforeRouteEnter: function (to, from, next) {
         next();
     },
@@ -309,9 +308,7 @@ export default {
         //从列表获取详情名
         _self.ptitle = _self.$route.query.infoName || lanTool.lanContent("914_添加会议");
         _self.defaultDateTime = _self.$route.query.defaultDateTime||"";
-
         _self.id = _self.$route.params.id;
-
     },
     mounted: function () {
         let _self = this;
@@ -330,7 +327,7 @@ export default {
             _self.operation = false;
         }
 
-        //则联动清空联系人
+        //清空联系人
         $("[data-field='ContactsID']").text("").attr("data-fieldVal", "").off('click');
         //渲染控件
         tool.InitiateInfoPageControl(_self, _self.id, function () {
@@ -342,6 +339,9 @@ export default {
             });
             //渲染数据
             tool.IniInfoData(fromType, _self.id, function (data) {
+
+                //渲染文档列表
+                _self.InitDocList(_self.id);
 
                 _self.meetingNoticeID = data["MeetingNoticeID"];
 
@@ -361,7 +361,7 @@ export default {
                 tool.UpdateFieldValueFromBack(eventBus, function(){
                     //清空全局变量
                     eventBus.selectListData = null;
-                })
+                });
             });
         });
     },
@@ -385,6 +385,7 @@ export default {
         })
     },
     methods: {
+        //删除数据
         deleteData: function (e) {
             var _self = this;
             var id = _self.$route.params.id;
@@ -393,7 +394,7 @@ export default {
                 _self.$store.commit('REMOVE_ITEM', 'tripmeeting');
             });
         },
-
+        //保存数据
         savePageData: function (e) {
             var _self = this;
             if ($("#startdate").length > 0) {
@@ -415,7 +416,7 @@ export default {
                     $.alert(dateEmptyAlert, tips,"", sure);
                     return;
                 }
-              else if ((!tool.isNullOrEmptyObject(startdate) && !tool.isNullOrEmptyObject(enddate)) && d1 >= d2) {
+                else if ((!tool.isNullOrEmptyObject(startdate) && !tool.isNullOrEmptyObject(enddate)) && d1 >= d2) {
                     $.alert(compareAlert, tips,"", sure);
                     return;
                 } else {
@@ -429,7 +430,6 @@ export default {
                 }
             }
         },
-
         //渲染查看会议记录模块
         initMeetingNote:function(){
             var _self = this;
@@ -440,7 +440,7 @@ export default {
                 _self.accessMeetingNote = true;
             }
         },
-
+        //跳转到会议记录页面
         viewMeetingNote: function (e) {
             var _self = this;
             var urlTemp = tool.AjaxBaseUrl();
@@ -506,7 +506,6 @@ export default {
                 }
             })
         },
-
         //新建时初始化时间
         initDefaultDateTime:function(){
             var _self = this;
@@ -514,8 +513,49 @@ export default {
                 $("#startdate,#enddate").val(_self.defaultDateTime);
             }
         },
+        //渲染文档列表
+        InitDocList:function(meetingID){
+            var _self = this;
+            var urlTemp = tool.AjaxBaseUrl();
+            var controlName = tool.Api_DocumentsHandle_Query;
 
+            //清空文档数据
+            _self.documentData = [];
 
+            //传入参数
+            var jsonDatasTemp = {
+                CurrentLanguageVersion: lanTool.currentLanguageVersion,
+                UserName: tool.UserName(),
+                _ControlName: controlName,
+                _RegisterCode: tool.RegisterCode(),
+                FromTypeID : "8",
+                FromID: meetingID
+            };
+            $.ajax({
+                async: true,
+                type: "post",
+                url: urlTemp,
+                data: jsonDatasTemp,
+                success: function (data) {
+                    data = tool.jObject(data);
+                    if (data._ReturnStatus == false) {
+                        tool.showText(tool.getMessage(data));
+                        console.log(tool.getMessage(data));
+                        return true;
+                    }
+                    data = data._OnlyOneData || {};
+                    _self.documentData = data.Rows || [];
+                },
+                error: function (jqXHR, type, error) {
+                    console.log(error);
+                    return true;
+                },
+                complete: function () {
+                    //隐藏虚拟键盘
+                    document.activeElement.blur();
+                }
+            });
+        }
     },
     beforeRouteLeave:function(to, from, next){
         if(to.name == 'tripmeeting' || to.name == 'index'){
@@ -523,7 +563,6 @@ export default {
         }
         next();
     }
-
 }
 </script>
 
