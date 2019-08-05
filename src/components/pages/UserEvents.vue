@@ -210,7 +210,7 @@ export default {
     float: right;
 }
 .userEmail,.userPhone{
-    padding-top: 15px;
+    padding-top: 0.3rem;
     font-size: 13px;
 }
 

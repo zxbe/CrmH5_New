@@ -35,19 +35,19 @@ export default {
             dataFilter: [],
             // isShowClose:false,
             isShowMeetingLink: false,
-            isShowContactsLink:false,
-            isShowOrganizationsInfoLink:false,
+            isShowContactsLink: false,
+            isShowOrganizationsInfoLink: false,
             isShowPowerUserLink: false,
             isShowDealLink: false,
             isShowSynchronizeLink: false,
-            isShowTransformLink:false
+            isShowTransformLink: false
         }
     },
-    props: ['isShowSend', 'isShowClose', 'closeThisContent', 'rightPanelFromType', 'rightPanelFromID','businessType'],
+    props: ['isShowSend', 'isShowClose', 'closeThisContent', 'rightPanelFromType', 'rightPanelFromID', 'businessType'],
 
     created: function () {
         var _self = this;
-        //联系人:6;公司:7;会议:8;商机&交易:9;
+        //联系人:6;公司:7;会议:8;商机&交易:9; 用户：暂时用20；
         switch (_self.rightPanelFromType) {
             case "6":
                 _self.isShowMeetingLink = true;
@@ -60,16 +60,21 @@ export default {
                 _self.isShowMeetingLink = true;
                 _self.isShowDealLink = true;
                 _self.isShowSynchronizeLink = true;
-                 _self.isShowContactsLink = true;
+                _self.isShowContactsLink = true;
                 break;
             case "9":
                 _self.isShowMeetingLink = true;
                 _self.isShowPowerUserLink = true;
                 _self.isShowDealLink = false;
                 _self.isShowSynchronizeLink = false;
-                if(_self.businessType == '30'){
-                  _self.isShowTransformLink = true;
+                if (_self.businessType == '30') {
+                    _self.isShowTransformLink = true;
                 }
+                break;
+            case "20":
+                _self.isShowMeetingLink = true;
+                _self.isShowContactsLink = true;
+                _self.isShowDealLink = true;
                 break;
             default:
                 break;
@@ -83,12 +88,12 @@ export default {
     activated: function () {},
     methods: {
         //点击关闭
-        closeThis:function(){
-          this.$parent.rightPanelCloseThis();
+        closeThis: function () {
+            this.$parent.rightPanelCloseThis();
         },
         //点击转换为交易
-        transformTo:function(){
-          this.$parent.rightPanelTransformTo();
+        transformTo: function () {
+            this.$parent.rightPanelTransformTo();
         },
 
         //侧滑
@@ -148,8 +153,8 @@ export default {
         goToMeetingList: function () {
             var _self = this;
             var parameter = {
-                fromType:_self.rightPanelFromType,
-                fromId:_self.rightPanelFromID
+                fromType: _self.rightPanelFromType,
+                fromId: _self.rightPanelFromID
             };
             _self.panelToggle();
             _self.$nextTick(function () {
@@ -160,11 +165,11 @@ export default {
             })
         },
         //跳转到联系人列表
-        goToContactsList: function() {
-          var _self = this;
+        goToContactsList: function () {
+            var _self = this;
             var parameter = {
-                fromType:_self.rightPanelFromType,
-                fromId:_self.rightPanelFromID
+                fromType: _self.rightPanelFromType,
+                fromId: _self.rightPanelFromID
             };
             _self.panelToggle();
             _self.$nextTick(function () {
@@ -175,10 +180,10 @@ export default {
             })
         },
         //跳转到公司详情
-        goToOrganizationsInfo: function() {
+        goToOrganizationsInfo: function () {
             var _self = this;
-             _self.panelToggle();
-              _self.$nextTick(function () {
+            _self.panelToggle();
+            _self.$nextTick(function () {
                 _self.$parent.goToOrganizationsInfo();
             })
         },
@@ -207,8 +212,8 @@ export default {
             // console.log("查看关联的交易列表");
             var _self = this;
             var parameter = {
-                fromType:_self.rightPanelFromType,
-                fromId:_self.rightPanelFromID
+                fromType: _self.rightPanelFromType,
+                fromId: _self.rightPanelFromID
             };
             _self.panelToggle();
             _self.$nextTick(function () {
@@ -222,8 +227,8 @@ export default {
         goToOpportunityListPage: function () {
             var _self = this;
             var parameter = {
-                fromType:_self.rightPanelFromType,
-                fromId:_self.rightPanelFromID
+                fromType: _self.rightPanelFromType,
+                fromId: _self.rightPanelFromID
             };
             _self.panelToggle();
             _self.$nextTick(function () {
