@@ -169,17 +169,17 @@
 </template>
 
 <script>
-import Infoheader from '../common/Infoheader'
-import InfoRightPanel from '../common/InfoRightPanel'
-import Infofooter from '../common/infoFooter'
-import Uploadfile from './Uploadfile'
+import Infoheader from '@/components/common/Infoheader'
+import InfoRightPanel from '@/components/common/InfoRightPanel'
+import Infofooter from '@/components/common/infoFooter'
+// import Uploadfile from './Uploadfile'
 
 export default {
     name: 'organizationsinfo',
     components: {
         Infoheader,
         Infofooter,
-        Uploadfile,
+        // Uploadfile,
         InfoRightPanel
     },
     data() {
@@ -437,7 +437,7 @@ export default {
 </script>
 
 <style scoped>
-@import "../../assets/css/pages/calendarinfo.css";
+@import "../../../assets/css/pages/calendarinfo.css";
 
 .ListCell .mui-icon.calcfont.calc-shoucang {
     color: #FF5A21 !important;

@@ -73,11 +73,11 @@
 </template>
 
 <script>
-import Calendar from './Calendar'
-import Header from '../common/Listheader'
-import Listrightpanel from '../common/Listrightpanel'
-import Nothing from "../common/Nothing"
-import Mixins from '../../mixins/commonlist.js'
+import Calendar from '@/components/pages/tripmeeting/Calendar'
+import Header from '@/components/common/Listheader'
+import Listrightpanel from '@/components/common/Listrightpanel'
+import Nothing from "@/components/common/Nothing"
+import Mixins from '@/mixins/commonlist.js'
 
 var count = 0;
 export default {
@@ -441,5 +441,5 @@ export default {
 </script>
 
 <style scoped>
-@import "../../assets/css/common/commonlist.css";
+@import "../../../assets/css/common/commonlist.css";
 </style>

@@ -248,9 +248,9 @@
 </template>
 
 <script>
-import Infoheader from '../common/Infoheader'
-import Infofooter from '../common/infoFooter'
-import DocumentList from '../common/DocumentList'
+import Infoheader from '@/components/common/Infoheader'
+import Infofooter from '@/components/common/infoFooter'
+import DocumentList from '@/components/common/DocumentList'
 
 export default {
     name:'meetinginfo',
@@ -567,7 +567,7 @@ export default {
 </script>
 
 <style scoped>
-@import "../../assets/css/pages/calendarinfo.css";
+@import "../../../assets/css/pages/calendarinfo.css";
 
 .meetingRecord {
     margin: 10px 0;

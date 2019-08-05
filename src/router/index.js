@@ -7,23 +7,23 @@ import Login from '@/components/Login'
 import Searchmodule from '@/components/pages/Searchmodule'
 import Notification from '@/components/pages/Notification'
 import Previewfile from '@/components/pages/Previewfile'
-import Uploadinput from '@/components/pages/Uploadinput'
+import Uploadinput from '@/components/pages/tripmeeting/Uploadinput'
 import Meetinglist from '@/components/pages/Meetinglist'
 import MeetingListForRelation from '@/components/pages/MeetingListForRelation'
 
 import Businesslist from '@/components/pages/BusinessList'
 
-import Tripmeeting from '@/components/pages/Tripmeeting'
-import Meetinginfo from '@/components/pages/Meetinginfo'
+import Tripmeeting from '@/components/pages/tripmeeting/Tripmeeting'
+import Meetinginfo from '@/components/pages/tripmeeting/Meetinginfo'
 import MeetingNoteinfo from '@/components/pages/MeetingNoteinfo'
 
-import Contacts from '@/components/pages/Contacts'
-import Contactsinfo from '@/components/pages/Contactsinfo'
-import Organizationsinfo from '@/components/pages/Organizationsinfo'
+import Contacts from '@/components/pages/contacts/Contacts'
+import Contactsinfo from '@/components/pages/contacts/Contactsinfo'
+import Organizationsinfo from '@/components/pages/contacts/Organizationsinfo'
 import Contactsof from '@/components/pages/Contactsof'
 
-import BusinessCategories from '@/components/pages/BusinessCategories'
-import Opportunitiesinfo from '@/components/pages/Opportunitiesinfo'
+import BusinessCategories from '@/components/pages/business/BusinessCategories'
+import Opportunitiesinfo from '@/components/pages/business/Opportunitiesinfo'
 
 import Selectlist from '@/components/common/Selectlist'
 import Sharelist from '@/components/pages/Sharelist'
@@ -34,14 +34,14 @@ import Linkedpage from '@/components/pages/Linkedpage'
 
 
 //dba
-import AirlineDatabase from '@/components/pages/AirlineDatabase'
-import FleetDetailsList from '@/components/pages/FleetDetailsList'
+import AirlineDatabase from '@/components/pages/business/AirlineDatabase'
+import FleetDetailsList from '@/components/pages/business/FleetDetailsList'
 
 //单点登陆
 import SingleSignOn from '@/components/SingleSignOn'
 
 //论坛相关
-import ForumNotification from '@/components/pages/ForumNotification'
+import ForumNotification from '@/components/pages/forum/ForumNotification'
 // import Report from '@/components/pages/Report'
 // import PrCalendarinfo from '@/components/pages/PrCalendarinfo'
 //dba
@@ -72,8 +72,14 @@ const router =  new Router({
 
 
     //会议&出差
-    { path: '/tripmeeting',name:'tripmeeting', component:Tripmeeting},
-    { path: '/meetinginfo/:id',name:'meetinginfo', component:Meetinginfo},
+    { path: '/tripmeeting',
+      name:'tripmeeting',
+      component: (resolve) => require(['@/components/pages/tripmeeting/Tripmeeting'], resolve)
+    },
+    { path: '/meetinginfo/:id',
+      name:'meetinginfo',
+      component: (resolve) => require(['@/components/pages/tripmeeting/Meetinginfo'], resolve)
+    },
     //会议记录
     { path: '/meetingNoteinfo/:id',name:'meetingNoteinfo', component:MeetingNoteinfo,},
     //上传文件

@@ -92,7 +92,7 @@
 </template>
 
 <script>
-import Nothing from "../common/Nothing"
+import Nothing from "@/components/common/Nothing"
 export default {
     components: {
         'nothing': Nothing

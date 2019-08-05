@@ -173,7 +173,7 @@ export default {
                 FromID:_self.fromID,
                 ScheduleID:_self.scheduleID
             };
-            
+
             jsonDatasTemp["FileName"] = $("#curFileName").text()||"";
             jsonDatasTemp["description"] = $("[data-field='description']").val()||"";
             // jsonDatasTemp["100205"] = $("[data-field='100205']").val()||"";
@@ -222,7 +222,7 @@ export default {
 
 
 <style scoped>
-@import "../../assets/css/pages/calendarinfo.css";
+@import "../../../assets/css/pages/calendarinfo.css";
 /*页面头部style*/
 
 header {

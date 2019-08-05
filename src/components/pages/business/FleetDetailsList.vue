@@ -67,7 +67,7 @@
 
 <script>
 
-import Mixins from '../../mixins/commonlist.js'
+import Mixins from '@/mixins/commonlist.js'
 import Scroll from '@/components/common/scroll/Scroll';
 import Nothing from "@/components/common/Nothing";
 

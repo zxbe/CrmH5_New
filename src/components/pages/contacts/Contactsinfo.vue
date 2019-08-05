@@ -207,9 +207,9 @@
 </template>
 
 <script>
-import Infoheader from "../common/Infoheader";
-import InfoRightPanel from "../common/InfoRightPanel";
-import Infofooter from "../common/infoFooter";
+import Infoheader from "@/components/common/Infoheader";
+import InfoRightPanel from "@/components/common/InfoRightPanel";
+import Infofooter from "@/components/common/infoFooter";
 
 export default {
     name: 'contactsinfo',
@@ -353,7 +353,7 @@ export default {
             //选择公司后 国家和城市在这里跟着变动
             var dataField = curObj.attr("data-field") ||"";
             if (dataField == "CompanyID") {
-                
+
             }
             //清空全局变量
             eventBus.selectListData = null;
@@ -466,7 +466,7 @@ export default {
 </script>
 
 <style scoped>
-@import "../../assets/css/pages/calendarinfo.css";
+@import "../../../assets/css/pages/calendarinfo.css";
 
 .accessView,
 .organizationMessage {

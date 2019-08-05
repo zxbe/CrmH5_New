@@ -150,10 +150,10 @@
 </template>
 
 <script>
-import Header from '../common/Listheader'
-import Listrightpanel from '../common/Listrightpanel'
-import Nothing from "../common/Nothing"
-import Mixins from '../../mixins/commonlist.js'
+import Header from '@/components/common/Listheader'
+import Listrightpanel from '@/components/common/Listrightpanel'
+import Nothing from "@/components/common/Nothing"
+import Mixins from '@/mixins/commonlist.js'
 export default {
     name:'businessCategories',
     mixins:[Mixins],
@@ -816,7 +816,7 @@ export default {
 </script>
 
 <style scoped>
-@import "../../assets/css/pages/BusinessCategories.css";
+@import "../../../assets/css/pages/BusinessCategories.css";
 </style>
 
 

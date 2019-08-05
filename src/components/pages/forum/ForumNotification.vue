@@ -11,7 +11,7 @@
      <ul v-show="!notData" v-for="item in listData" :key="item.AutoID" class="forumMessageList" :class="{'alreadyRead':item.IsOpen==true}">
             <li>
                 <a class="forumMessage" :key="item.dataId" @click="goInfoPage(item)">
-                    <div class="headImg"><img src="../../assets/images/default_user_img.png" alt=""></div>
+                    <div class="headImg"><img src="../../../assets/images/default_user_img.png" alt=""></div>
                     <h4>
                         <div class="postingTitle">{{item.Theme}}</div>
                     </h4>
@@ -29,7 +29,7 @@
 </template>
 
 <script>
-import Nothing from "../common/Nothing"
+import Nothing from "@/components/common/Nothing"
 export default {
     components: {
         'nothing': Nothing
@@ -111,7 +111,7 @@ export default {
                     }else{
                         _self.notData = false;
                     }
-                    
+
                 },
                 error: function (jqXHR, type, error) {
                     console.log(error);
@@ -257,7 +257,7 @@ export default {
                     });
                 },
                 function() {}
-            );  
+            );
         },
         //跳转到详情 TODO逻辑待完善
         goInfoPage:function(data){
