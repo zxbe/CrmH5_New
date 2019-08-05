@@ -8,9 +8,9 @@
 </template>
 
 <script>
-import Infoheader from '../common/Infoheader'
-import InfoRightPanel from '../common/InfoRightPanel'
-import Infofooter from '../common/infoFooter'
+import Infoheader from '@/components/customPlugin/Infoheader'
+import InfoRightPanel from '@/components/customPlugin/InfoRightPanel'
+import Infofooter from '@/components/customPlugin/infoFooter'
 export default {
     name: 'UserEventsInfo',
     components: {

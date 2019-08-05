@@ -68,8 +68,8 @@
 <script>
 
 import Mixins from '@/mixins/commonlist.js'
-import Scroll from '@/components/common/scroll/Scroll';
-import Nothing from "@/components/common/Nothing";
+import Scroll from '@/components/customPlugin/scroll/Scroll';
+import Nothing from "@/components/customPlugin/Nothing";
 
 export default {
     name: "fleetDetailsList",

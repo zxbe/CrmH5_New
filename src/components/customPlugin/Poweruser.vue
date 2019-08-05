@@ -64,7 +64,7 @@
 </template>
 
 <script>
-import Nothing from "../common/Nothing"
+import Nothing from "@/components/customPlugin/Nothing"
 export default {
     components:{
         'nothing':Nothing

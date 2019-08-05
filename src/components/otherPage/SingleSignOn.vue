@@ -2,7 +2,7 @@
 <div class="conten">
         <div v-show="!isSuccess" id="img-div" class="img-div">
             <div class="error-title">{{title}}</div>
-            <img src="../assets/images/error500.png" />
+            <img src="../../assets/images/error500.png" />
         </div>
           <div id="error-tips" class="error-tips">
                 {{msg}}

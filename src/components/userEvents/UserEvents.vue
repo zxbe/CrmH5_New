@@ -26,9 +26,9 @@
 </template>
 
 <script>
-import Header from "../common/Listheader";
-import Listrightpanel from "../common/Listrightpanel";
-import Nothing from "../common/Nothing";
+import Header from "@/components/customPlugin/Listheader";
+import Listrightpanel from "@/components/customPlugin/Listrightpanel";
+import Nothing from "@/components/customPlugin/Nothing";
 export default {
     name: 'userEvents',
     components: {
@@ -143,7 +143,7 @@ export default {
 
     },
     mouted: function () {
-      
+
     },
     methods: {
        goUserInfoPage:function (data) {
@@ -152,7 +152,7 @@ export default {
             _self.$router.push({
                 path: "/userEventsInfo"
             });
-           
+
        }
     },
 }

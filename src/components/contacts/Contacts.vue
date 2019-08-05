@@ -111,9 +111,9 @@
 </template>
 
 <script>
-import Header from "@/components/common/Listheader";
-import Listrightpanel from "@/components/common/Listrightpanel";
-import Nothing from "@/components/common/Nothing";
+import Header from "@/components/customPlugin/Listheader";
+import Listrightpanel from "@/components/customPlugin/Listrightpanel";
+import Nothing from "@/components/customPlugin/Nothing";
 import Mixins from '@/mixins/commonlist.js'
 
 export default {
@@ -610,5 +610,5 @@ export default {
 </script>
 
 <style scoped>
-@import "../../../assets/css/common/commonlist.css";
+@import "../../assets/css/common/commonlist.css";
 </style>

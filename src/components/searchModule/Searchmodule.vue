@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import Searchitems from "../common/Searchitems";
+import Searchitems from "@/components/searchModule/Searchitems";
 export default {
     name: 'searchmodule',
     components: {
@@ -82,7 +82,7 @@ export default {
               try{
                 tool.ConstructQueryCondiction(_self, function (queryCondictionTemp) {
                     //console.log("queryCondictionTemp:"+JSON.stringify(queryCondictionTemp));
-                    
+
                     eventBus.$emit("queryCondiction", {
                         queryCondiction: queryCondictionTemp,
                         isFromConfirm: true

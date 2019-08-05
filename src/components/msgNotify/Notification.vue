@@ -90,7 +90,7 @@
 </template>
 
 <script>
-import Nothing from "../common/Nothing"
+import Nothing from "@/components/customPlugin/Nothing"
 export default {
     components:{
         'nothing': Nothing
@@ -155,7 +155,7 @@ export default {
                     }else{
                         _self.notData = false;
                     }
-                    
+
                 },
                 error: function (jqXHR, type, error) {
                     console.log(error);
@@ -225,7 +225,7 @@ export default {
                     });
                 },
                 function() {}
-            );  
+            );
         },
         //跳转到详情
         goInfoPage:function(data){

@@ -63,8 +63,8 @@
 
 <script>
 // import Header from '../common/Header'
-import Scroll from '@/components/common/scroll/Scroll';
-import Nothing from "../common/Nothing"
+import Scroll from '@/components/customPlugin/scroll/Scroll';
+import Nothing from "@/components/customPlugin/Nothing"
 export default {
     components:{
         // 'Header':Header,

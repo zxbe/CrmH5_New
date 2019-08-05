@@ -1,47 +1,46 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
-import Index from '@/components/Index'
-import Login from '@/components/Login'
-
-import Searchmodule from '@/components/pages/Searchmodule'
-import Notification from '@/components/pages/Notification'
-import Previewfile from '@/components/pages/Previewfile'
-import Uploadinput from '@/components/pages/tripmeeting/Uploadinput'
-import Meetinglist from '@/components/pages/Meetinglist'
-import MeetingListForRelation from '@/components/pages/MeetingListForRelation'
-
-import Businesslist from '@/components/pages/BusinessList'
-
-import Tripmeeting from '@/components/pages/tripmeeting/Tripmeeting'
-import Meetinginfo from '@/components/pages/tripmeeting/Meetinginfo'
-import MeetingNoteinfo from '@/components/pages/MeetingNoteinfo'
-
-import Contacts from '@/components/pages/contacts/Contacts'
-import Contactsinfo from '@/components/pages/contacts/Contactsinfo'
-import Organizationsinfo from '@/components/pages/contacts/Organizationsinfo'
-import Contactsof from '@/components/pages/Contactsof'
-
-import BusinessCategories from '@/components/pages/business/BusinessCategories'
-import Opportunitiesinfo from '@/components/pages/business/Opportunitiesinfo'
-
-import Selectlist from '@/components/common/Selectlist'
-import Sharelist from '@/components/pages/Sharelist'
-import Groupselectlist from '@/components/common/Groupselectlist'
-import Poweruser from '@/components/pages/Poweruser'
-import Linkedpage from '@/components/pages/Linkedpage'
-
-
-
-//dba
-import AirlineDatabase from '@/components/pages/business/AirlineDatabase'
-import FleetDetailsList from '@/components/pages/business/FleetDetailsList'
-
 //单点登陆
-import SingleSignOn from '@/components/SingleSignOn'
+import SingleSignOn from '@/components/otherPage/SingleSignOn'
+import Index from '@/components/otherPage/Index'
+import Login from '@/components/otherPage/Login'
 
-//论坛相关
-import ForumNotification from '@/components/pages/forum/ForumNotification'
+import Searchmodule from '@/components/searchModule/Searchmodule'
+
+//论坛消息
+import ForumNotification from '@/components/msgNotify/ForumNotification'
+import Notification from '@/components/msgNotify/Notification'
+
+import Previewfile from '@/components/documentModule/Previewfile'
+import Uploadinput from '@/components/documentModule/Uploadinput'
+
+import Meetinglist from '@/components/linkListPage/Meetinglist'
+import MeetingListForRelation from '@/components/linkListPage/MeetingListForRelation'
+import Businesslist from '@/components/linkListPage/BusinessList'
+import Contactsof from '@/components/linkListPage/Contactsof'
+
+// import Tripmeeting from '@/components/tripmeeting/Tripmeeting'
+// import Meetinginfo from '@/components/tripmeeting/Meetinginfo'
+import MeetingNoteinfo from '@/components/tripmeeting/MeetingNoteinfo'
+
+import Contacts from '@/components/contacts/Contacts'
+import Contactsinfo from '@/components/contacts/Contactsinfo'
+import Organizationsinfo from '@/components/contacts/Organizationsinfo'
+
+import BusinessCategories from '@/components/business/BusinessCategories'
+import Opportunitiesinfo from '@/components/business/Opportunitiesinfo'
+//dba
+import AirlineDatabase from '@/components/business/AirlineDatabase'
+import FleetDetailsList from '@/components/business/FleetDetailsList'
+
+import Selectlist from '@/components/customPlugin/Selectlist'
+import Sharelist from '@/components/customPlugin/Sharelist'
+import Groupselectlist from '@/components/customPlugin/Groupselectlist'
+import Poweruser from '@/components/customPlugin/Poweruser'
+import Linkedpage from '@/components/customPlugin/Linkedpage'
+
+
 // import Report from '@/components/pages/Report'
 // import PrCalendarinfo from '@/components/pages/PrCalendarinfo'
 //dba
@@ -74,11 +73,11 @@ const router =  new Router({
     //会议&出差
     { path: '/tripmeeting',
       name:'tripmeeting',
-      component: (resolve) => require(['@/components/pages/tripmeeting/Tripmeeting'], resolve)
+      component: (resolve) => require(['@/components/tripmeeting/Tripmeeting'], resolve)
     },
     { path: '/meetinginfo/:id',
       name:'meetinginfo',
-      component: (resolve) => require(['@/components/pages/tripmeeting/Meetinginfo'], resolve)
+      component: (resolve) => require(['@/components/tripmeeting/Meetinginfo'], resolve)
     },
     //会议记录
     { path: '/meetingNoteinfo/:id',name:'meetingNoteinfo', component:MeetingNoteinfo,},

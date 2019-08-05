@@ -110,9 +110,9 @@
 </template>
 
 <script>
-import Infoheader from '../common/Infoheader'
-import Infofooter from '../common/infoFooter'
-import Uploadfile from './Uploadfile'
+import Infoheader from '@/components/customPlugin/Infoheader'
+import Infofooter from '@/components/customPlugin/infoFooter'
+import Uploadfile from '@/components/documentModule/Uploadfile'
 
 export default {
     name:'meetingNoteinfo',

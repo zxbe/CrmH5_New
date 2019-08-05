@@ -270,8 +270,8 @@
 </style>
 
 <script>
-import Header from "./common/Header"
-import Nothing from "./common/Nothing"
+import Header from "@/components/customPlugin/Header"
+import Nothing from "@/components/customPlugin/Nothing"
 export default {
     components: {
         Header: Header,
@@ -283,7 +283,7 @@ export default {
             noData: false, //没有数据
             showPanel: false,
             groupData: [], //7天的数据
-            dealData: 
+            dealData:
             [
                 // {
                 //     "GroupID": 2,
@@ -520,7 +520,7 @@ export default {
 
             tool.showConfirm(
                 lanTool.lanContent("1000212_同步Camcard数据将会覆盖本地数据，是否确定同步？"),
-                function () {        
+                function () {
                     //请求地址
                     var urlTemp = tool.AjaxBaseUrl();
                     var controlName = tool.Api_CamcardDataHandle_SyncCompanyAndContactData;
@@ -833,7 +833,7 @@ export default {
                 default:
                     break;
             }
-            
+
             var queryCondictionTemp = _self.constructDealAndPitchQueryCondition();
             tool.InitGrouplist(_self, fromTypeTemp, queryCondictionTemp, function (data) {});
         },
@@ -1078,5 +1078,5 @@ export default {
 
 <style scoped>
 /* @import "../assets/css/common/commonlist.css"; */
-@import "../assets/css/pages/index.css";
+@import "../../assets/css/pages/index.css";
 </style>

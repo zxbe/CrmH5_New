@@ -206,7 +206,7 @@ export default {
 #Body {
   height: 100%;
   width: 100%;
-  background-image: url(../assets/images/login/login.jpg);
+  background-image: url(../../assets/images/login/login.jpg);
   background-size: 100%;
   background-repeat: no-repeat;
 }

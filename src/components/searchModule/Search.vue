@@ -38,7 +38,7 @@
 // require('swiper/dist/css/swiper.css')
 // import { swiper, swiperSlide } from 'vue-awesome-swiper'
 // import Searchitems from '../common/Searchitems'
-import Header from '../common/Header'
+import Header from '@/components/customPlugin/Header'
 
 export default {
     components: {

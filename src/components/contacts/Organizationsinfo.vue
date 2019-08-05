@@ -169,9 +169,9 @@
 </template>
 
 <script>
-import Infoheader from '@/components/common/Infoheader'
-import InfoRightPanel from '@/components/common/InfoRightPanel'
-import Infofooter from '@/components/common/infoFooter'
+import Infoheader from '@/components/customPlugin/Infoheader'
+import InfoRightPanel from '@/components/customPlugin/InfoRightPanel'
+import Infofooter from '@/components/customPlugin/infoFooter'
 // import Uploadfile from './Uploadfile'
 
 export default {
@@ -437,7 +437,7 @@ export default {
 </script>
 
 <style scoped>
-@import "../../../assets/css/pages/calendarinfo.css";
+@import "../../assets/css/pages/calendarinfo.css";
 
 .ListCell .mui-icon.calcfont.calc-shoucang {
     color: #FF5A21 !important;
