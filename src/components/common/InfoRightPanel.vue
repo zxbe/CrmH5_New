@@ -19,7 +19,7 @@
                 <div class="right-content-list-cell" v-show="isShowDealLink" @click="goToDealListPage"><span class="mui-icon calcfont calc-handshake-o lanText" data-lanid="817_交易"></span></div>
                 <div class="right-content-list-cell" v-show="isShowDealLink" @click="goToOpportunityListPage"><span class="mui-icon calcfont calc-jiezhishijianicon lanText" data-lanid="649_商业机会"></span></div>
                 <div class="right-content-list-cell" v-show="isShowSynchronizeLink" @click="SynchronousCamCardData"><span class="mui-icon calcfont calc-exchange lanText" data-lanid="1000193_同步CamCard数据"></span></div>
-                <div class="right-content-list-cell" v-show="isShowTransformLink" @click="SynchronousCamCardData"><span class="mui-icon calcfont calc-exchange lanText" data-lanid="1000239_转为交易"></span></div>
+                <div class="right-content-list-cell" v-show="isShowTransformLink" @click="transformTo"><span class="mui-icon calcfont calc-exchange lanText" data-lanid="1000239_转为交易"></span></div>
             </div>
         </div>
     </div>
@@ -86,6 +86,11 @@ export default {
         closeThis:function(){
           this.$parent.rightPanelCloseThis();
         },
+        //点击转换为交易
+        transformTo:function(){
+          this.$parent.rightPanelTransformTo();
+        },
+
         //侧滑
         //isClose值如果为false，表示刚进页面收起侧滑；
         //如果没传isClose值showPanel就取反，表示正常的展开收起

@@ -310,15 +310,103 @@ span.calcfont.calc-shoucang {
   position:absolute;
   top:50%;left:50%;
   transform: translate(-50%,-50%);
-  padding:15px;
+  /* padding:15px; */
 }
 .elastic-layer-title{
-  padding:10px 0px;
-  border-bottom: 1px solid #ccc;
+  padding:20px 15px 10px 15px;
+  /* border-bottom: 1px solid #ccc; */
+  position: relative;
 }
-
+.elastic-layer-title::after{
+  content: " ";
+  position: absolute;
+  left: 0;
+  bottom:0;
+  right: 0;
+  height: 1px;
+  border-top: 1px solid #d5d5d6;
+  color: #d5d5d6;
+  -webkit-transform-origin: 0 0;
+  transform-origin: 0 0;
+  -webkit-transform: scaleY(.5);
+  transform: scaleY(.5);
+}
+.elastic-layer-items{
+  padding:9px .3rem 25px;
+}
 .elastic-layer-item{
   display: flex;
-  padding: 9px .3rem;
-  /* line-height: 1; */
+  padding:9px 0;
+  position: relative;
+}
+/* .elastic-layer-item::after{
+  position: absolute;
+  content: "";
+  left:0;
+  right:0;
+  bottom: 0;
+  height: 1px;
+  background-color:#f6e78b;
+} */
+.nessesary {
+  color: red;
+  padding-right: 5px;
+}
+
+#LoseReason-div,#LoseReasonOther-div,#MatterOther-div{display: none;}
+.ListCellRightIcon .calcfont{color:#cdcdcd;}
+.MSN_lable::after{
+  content: ":";
+  padding:0 5px;
+}
+
+.btn-div{
+  position: relative;
+  line-height: 48px;
+  font-size: 18px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  text-align: center;
+}
+.btn-div::after{
+  content: " ";
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  height: 1px;
+  border-top: 1px solid #d5d5d6;
+  color: #d5d5d6;
+  -webkit-transform-origin: 0 0;
+  transform-origin: 0 0;
+  -webkit-transform: scaleY(.5);
+  transform: scaleY(.5);
+}
+.btn-div .mybtn{
+  display: block;
+  -webkit-box-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  color: #3cc51f;
+  text-decoration: none;
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+  position: relative;
+}
+.btn-div .mybtn.btn-cancel{
+  color:#5f646e;
+}
+.btn-div .mybtn.btn-cancel::after{
+  content: " ";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 1px;
+  height: 100%;
+  border-left: 1px solid #d5d5d6;
+  color: #d5d5d6;
+  -webkit-transform-origin: 0 0;
+  transform-origin: 0 0;
+  -webkit-transform: scaleX(.5);
+  transform: scaleX(.5);
 }
