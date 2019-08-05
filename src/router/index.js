@@ -42,6 +42,9 @@ import SingleSignOn from '@/components/SingleSignOn'
 
 //论坛相关
 import ForumNotification from '@/components/pages/ForumNotification'
+//用户活动
+import UserEvents from'@/components/pages/UserEvents'
+import UserEventsInfo from'@/components/pages/UserEventsInfo'
 // import Report from '@/components/pages/Report'
 // import PrCalendarinfo from '@/components/pages/PrCalendarinfo'
 //dba
@@ -117,6 +120,10 @@ const router =  new Router({
  { path:'/fleetDetailsList',name:'fleetDetailsList',component:FleetDetailsList},
  //论坛
  { path:'/forumNotification',name:'ForumNotification',component:ForumNotification},
+
+ //用户活动
+ { path:'/userEvents',name:'UserEvents',component:UserEvents},
+ { path:'/userEventsInfo',name:'UserEventsInfo',component:UserEventsInfo},
   ]
 });
 
