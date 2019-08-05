@@ -70,7 +70,10 @@
   background: #f78f1e;
 }
 .intelligence-icon{
-  background:#a39f93;
+  background:rgb(0, 192, 239);
+}
+.UserManagement-icon{
+  background-color: rgb(221, 76, 88);
 }
 .weui-grid__label{
   /* line-height:16px; */
@@ -91,7 +94,7 @@
 }
 .nav.sticky{
   position: fixed;
-  top: 2.68rem;
+  top: 4.38rem;/*调整列表距离顶部的距离*/
   left: 0;
   z-index: 99;
   width: 100%;
@@ -119,7 +122,9 @@
   box-sizing: border-box;
   width: 33.3%;
 }
-
+.noDataIcon{
+  padding-top:1.6rem
+}
 .active-item {
   color: #009979;
 }
