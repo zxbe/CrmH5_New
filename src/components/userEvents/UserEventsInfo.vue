@@ -120,7 +120,8 @@ export default {
 }
 .divContentBox .field label{
    padding-left: 5px;
-   font-size: 0.28rem;
+   font-size: 0.22rem;
+   color: #929292;
 }
 .divContentBox .content{
     width: 100%;
