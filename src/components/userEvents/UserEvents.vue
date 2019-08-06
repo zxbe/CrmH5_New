@@ -167,7 +167,7 @@ export default {
     display: block;
     padding: 0.2rem;
     height: auto;
-    border-bottom: 1px solid #f4f4f4;
+    border-bottom: 1px solid beige;
     height: 1.3rem;
 }
 .headImg {

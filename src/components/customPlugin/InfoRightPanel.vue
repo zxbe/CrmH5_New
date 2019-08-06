@@ -47,7 +47,7 @@ export default {
 
     created: function () {
         var _self = this;
-        //联系人:6;公司:7;会议:8;商机&交易:9; 用户：暂时用20；
+        //联系人:6;公司:7;会议:8;商机&交易:9; 用户管理：11；
         switch (_self.rightPanelFromType) {
             case "6":
                 _self.isShowMeetingLink = true;
@@ -71,7 +71,7 @@ export default {
                     _self.isShowTransformLink = true;
                 }
                 break;
-            case "20":
+            case "11":
                 _self.isShowMeetingLink = true;
                 _self.isShowContactsLink = true;
                 _self.isShowDealLink = true;
