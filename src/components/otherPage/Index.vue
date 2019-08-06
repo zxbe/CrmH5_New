@@ -60,7 +60,7 @@
                         <div class="weui-grid__icon UserManagement-icon">
                             <span class="calcfont calc-yonghu"></span>
                         </div>
-                        <p class="f12 weui-grid__label lanText" data-lanid="1136_用户管理"></p>
+                        <p class="f12 weui-grid__label lanText" data-lanid="1000304_用户活动"></p>
                     </div>
                 </div>
             </div>
@@ -93,7 +93,7 @@
             </div>
             <div v-show="showPage == 0" class="pageList">
                 <!-- 列表 -->
-                <div v-if="!noData" class="list-view" id="indexMeetingList">
+                <div v-show ="!noData" class="list-view" id="indexMeetingList">
 
                     <div v-for="group in groupData" :key="group.GroupID" class="month-event list-group-div group-div" data-fromtype="meeting">
                         <div class="f14 date-div">
@@ -120,7 +120,7 @@
 
                 </div>
                 <!-- 没有数据   -->
-                <nothing v-if="noData" class="noDataIcon"></nothing>
+                <nothing v-show="noData" class="noDataIcon"></nothing>
             </div>
             <div v-show="showPage == 1" class="pageList">
                 <div v-show="!noData" id="dealpipelineList" data-fromtype="dealPipeline">
@@ -836,7 +836,8 @@ export default {
             }
 
             var queryCondictionTemp = _self.constructDealAndPitchQueryCondition();
-            tool.InitGrouplist(_self, fromTypeTemp, queryCondictionTemp, function (data) {});
+            tool.InitGrouplist(_self, fromTypeTemp, queryCondictionTemp, function (data) {
+            });
         },
         //获取最近几天的会议分组数据
         getRecentMeeting: function () {
