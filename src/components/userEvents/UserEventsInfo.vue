@@ -72,7 +72,7 @@ export default {
                 PositionID:"前端工程师",
                 Phone:"852 6210 8352",
                 Email:"alancheng@fpigp.com alancheng@fpigp.com alancheng@fpigp.com alancheng@fpigp.com alancheng@fpigp.com",
-                AddUserName:"abeyeung1阮义文",
+                AddUserName:"aoniruan阮毅文",
                 AddTime:"2019/08/05 10:00",
                 LastUpdateUserName:"abeyeung2",
                 LastUpdateTime:"2019/08/20 13:30"

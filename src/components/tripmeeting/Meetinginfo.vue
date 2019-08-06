@@ -195,7 +195,7 @@
                 </div>
 
                 <!-- 目标 -->
-                <div class="ListCell">
+                <div class="ListCell visible">
                     <div class="ListCellLeftIcon textLeftIcon"><span class="calcfont calc-mubiao"></span></div>
                     <div class="ListCellLeftText">
                         <p class="textareaP">

@@ -57,8 +57,8 @@ export default {
 			"Email": "alancheng@fpigp.com"
 		}, ],
             searchData: [{
-                    queryfield: "ShortNameEN",
-                    text: lanTool.lanContent("733_英文名称"),
+                    queryfield: "UserName",
+                    text: lanTool.lanContent("1000307_用户帐号"),
                     fieldControlType: "textareaInput",
                     queryType: "string",
                     queryFormat: "",
@@ -67,8 +67,8 @@ export default {
                     queryComparison: "like"
                 },
                 {
-                    queryfield: "ShortNameCN",
-                    text: lanTool.lanContent("32_中文名称"),
+                    queryfield: "Realname",
+                    text: lanTool.lanContent("848_姓名"),
                     fieldControlType: "textareaInput",
                     queryType: "string",
                     queryFormat: "",
@@ -76,63 +76,47 @@ export default {
                     queryValue: "",
                     queryComparison: "like"
                 },
-                {
-                    queryfield: "BusinessType",
-                    text: lanTool.lanContent("1007_业务分类"),
-                    fieldControlType: "picker",
+                              {
+                    queryfield: "DepartmentID",
+                    text: lanTool.lanContent("567_部门"),
+                    fieldControlType: "textareaInput",
                     queryType: "string",
                     queryFormat: "",
                     queryRelation: "and",
                     queryValue: "",
-                    queryComparison: "=",
-                    Code: "DropDowList_ViewBaseAllTypes",
-                    TypeValue: "Companybusinesstype",
-                    datalanid: "1007_业务分类"
+                    queryComparison: "like"
                 },
-                {
-                    queryfield: "CountryID",
-                    text: lanTool.lanContent("701_国家"),
-                    fieldControlType: "selectList",
+               {
+                    queryfield: "PositionID",
+                    text: lanTool.lanContent("1000259_职务"),
+                    fieldControlType: "textareaInput",
                     queryType: "string",
                     queryFormat: "",
                     queryRelation: "and",
                     queryValue: "",
-                    queryComparison: "=",
-                    Code: "DropDowList_ViewBaseCountryInf",
-                    TypeValue: "",
-                    selectType: "radio",
-                    resulteRow: true,
-                    clickObj: "CountryIDClickObj",
-                    datalanid: "701_国家"
+                    queryComparison: "like"
                 },
-                {
-                    queryfield: "CityID",
-                    text: lanTool.lanContent("702_城市"),
-                    fieldControlType: "selectList",
+               {
+                    queryfield: "Phone",
+                    text: lanTool.lanContent("698_电话"),
+                    fieldControlType: "textareaInput",
                     queryType: "string",
                     queryFormat: "",
                     queryRelation: "and",
                     queryValue: "",
-                    queryComparison: "=",
-                    Code: "DropDowList_ViewBaseCountryCity",
-                    TypeValue: "",
-                    selectType: "radio",
-                    datalanid: "702_城市"
+                    queryComparison: "like"
                 },
-                {
-                    queryfield: "AccountManager",
-                    text: lanTool.lanContent("785_客户经理"),
-                    fieldControlType: "selectList",
+               {
+                    queryfield: "Email",
+                    text: lanTool.lanContent("697_邮箱"),
+                    fieldControlType: "textareaInput",
                     queryType: "string",
                     queryFormat: "",
                     queryRelation: "and",
                     queryValue: "",
-                    queryComparison: "=",
-                    Code: "DropDowList_AccountManager",
-                    TypeValue: "",
-                    selectType: "radio",
-                    datalanid: "785_客户经理"
-                }
+                    queryComparison: "like"
+                },
+
             ],
         }
     },
