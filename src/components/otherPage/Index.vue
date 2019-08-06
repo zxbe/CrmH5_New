@@ -202,6 +202,7 @@
                         </div>
                     </div>
                 </div>
+                <nothing v-show="noData" class="noDataIcon"></nothing>
             </div>
         </div>
     </div>

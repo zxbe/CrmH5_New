@@ -90,11 +90,11 @@
   position: relative;
   height: auto;
   background-color: white;
-  padding-top: 0.8rem;
+  padding-top:2.6rem;
 }
 .nav.sticky{
   position: fixed;
-  top: 4.38rem;/*调整列表距离顶部的距离*/
+  top: 4.44rem;/*调整列表距离顶部的距离*/
   left: 0;
   z-index: 99;
   width: 100%;
@@ -123,7 +123,7 @@
   width: 33.3%;
 }
 .noDataIcon{
-  padding-top:1.6rem
+  padding-top:0.8rem
 }
 .active-item {
   color: #009979;

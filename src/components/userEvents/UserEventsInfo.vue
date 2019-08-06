@@ -26,8 +26,17 @@
                 </div>
             </div>
             <div class="systemMessage">
-                <div class="creator">
-
+               <div class="divContentBox">
+                    <span class="field"><span class="calcfont calc-yonghu"></span><label class="lanText" data-lanid="833_创建者"></label></span>
+                    <span class="content"><span data-bid="AddUserName">{{userDetailData.AddUserName}}</span>,<span data-bid="AddTime">{{userDetailData.AddTime}}</span></span>
+                </div>
+                <div class="divContentBox">
+                    <span class="field">
+                        <span class="calcfont calc-yonghu1">
+                            </span><label class="lanText" data-lanid="805_更新者"></label></span>
+                    <span class="content" >
+                        <span data-bid="LastUpdateUserName">{{userDetailData.LastUpdateUserName}}</span>
+                        ,<span data-bid="LastUpdateTime">{{userDetailData.LastUpdateTime}}</span></span>
                 </div>
             </div>
         </div>
@@ -62,7 +71,11 @@ export default {
                 DepartmentID:"人力资源与管理",
                 PositionID:"前端工程师",
                 Phone:"852 6210 8352",
-                Email:"alancheng@fpigp.com alancheng@fpigp.com alancheng@fpigp.com alancheng@fpigp.com alancheng@fpigp.com"
+                Email:"alancheng@fpigp.com alancheng@fpigp.com alancheng@fpigp.com alancheng@fpigp.com alancheng@fpigp.com",
+                AddUserName:"abeyeung1",
+                AddTime:"2019/08/05 10:00",
+                LastUpdateUserName:"abeyeung2",
+                LastUpdateTime:"2019/08/20 13:30"
             }
         }
     },
@@ -86,14 +99,16 @@ export default {
     padding-top: 0.88rem;
     width: 100%;
 }
-
+.Container{
+    /* background-color: #ffffff; */
+}
 .divContent {
     width: 100%;
 }
 
 .divContentBox {
     width: 100%;
-    padding: 9px 15px;
+    padding: 9px 0.3rem;
     padding-bottom: 5px;
     border-bottom: solid 1px beige;
     box-sizing: border-box;
@@ -110,6 +125,28 @@ export default {
 .divContentBox .content{
     width: 100%;
     padding-top: 5px;
-    font-size: 14px;
+    font-size: 0.28rem;
+}
+.systemMessage{
+   border-top: solid 20px rgb(242, 242, 242);
+   position: relative;
+}
+.systemMessage .divContentBox{
+    /* display: flex; */
+    height: 1rem;
+    border-bottom: solid 1px beige;
+    line-height: 0.62rem;
+}
+.systemMessage .divContentBox .field{
+    width:calc(40% - 0.3rem);
+   float: left;
+    clear: left;
+   /* text-align: left; */
+   
+}
+.systemMessage .divContentBox .Content{
+    width:calc(60% - 0.3rem);
+    float: right;
+   clear: right; 
 }
 </style>
