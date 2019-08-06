@@ -39,6 +39,7 @@ export default {
     data() {
         return {
             title: lanTool.lanContent("1000304_用户活动"),
+            queryCondictionData: [], //综合查询条件
             userDataList: [{
                 AutoID: 52,
                 UserName: "abeyeung",
@@ -124,12 +125,35 @@ export default {
         next();
     },
     created: function () {
-
+        console.log("created...");
+        var _self = this;
+           //清空右侧筛选数据
+        eventBus.queryCondictionData = null;
+        _self.$store.commit('SET_ITEM', 'userEvents');
     },
-    mouted: function () {
+    mounted: function () {
+       console.log("mouted...");
+       this.getUserEventsList();
+    },
+      activated: function () {
+          console.log("activated...");
+        var _self = this;
+        _self.queryCondictionData = eventBus.queryCondictionData;
+
+        //获取是否是从搜索页面点击确定按钮返回来的标志
+        var fromSearchBtn = eventBus.fromSearchBtn || false;
+        eventBus.fromSearchBtn = false;
+        if (fromSearchBtn) {
+            _self.getUserEventsList();
+        }
 
     },
     methods: {
+       //获取用户列表
+       getUserEventsList:function(){
+          console.log("获取用户活动的数据");
+          //请求接口数据
+       },
        goUserInfoPage:function (data) {
            console.log("跳转到用户详情");
             var _self = this;
@@ -139,6 +163,12 @@ export default {
 
        }
     },
+     beforeRouteLeave:function(to, from, next){
+      if(to.name == 'index'){
+          this.$store.commit('REMOVE_ITEM', 'userEvents');
+      }
+      next();
+    }
 }
 </script>
 
