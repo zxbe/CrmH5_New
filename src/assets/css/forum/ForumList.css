@@ -1,8 +1,4 @@
-.header{
-  display: flex;
-}
-
-.header .calcfont {
+.mycalcfont {
   font-size: 0.48rem;
   text-align: center;
   padding: 0.2rem 10px;
@@ -11,4 +7,133 @@
   display: inline-block;
   text-decoration: none;
   line-height: 1;
+}
+ul,li{list-style: none;padding:0;margin: 0;}
+/*头部*/
+.header{
+  display: flex;
+  height: .88rem;
+  overflow: hidden;
+  position: fixed;
+  top:0;
+  left:0;
+  right: 0;
+  background: #fff;
+}
+.header .search{
+  flex: 1;
+  padding-right: 15px;
+}
+.header .search-div{
+    background: #f1f0f6;
+    padding:6px 10px;
+    margin-top: 7px;
+    border-radius: 3px;
+    color:#8f8f97;
+}
+.header .search-icon{
+  vertical-align: middle;
+  margin-right: 5px;
+}
+
+/*标签*/
+.tag{
+  display: flex;
+  height: .88rem;
+  overflow: hidden;
+  position: fixed;
+  top:0.88rem;
+  left:0;
+  right: 0;
+  background: #fff;
+}
+.tag .tag-items{
+  flex: 1;
+  padding-left: 5px;
+  align-items:center;
+  overflow: hidden;
+}
+.tag ul{
+  display: flex;
+  width: 200%;
+  height: 100%;
+  flex-direction:row;
+  flex-wrap:nowrap;
+  align-items:center;
+  align-content:center;
+}
+.tag li{
+  padding:5px 10px;
+}
+
+/*列表*/
+.list{
+  position: fixed;
+  top:1.76rem;
+  left:0;
+  right:0;
+  bottom: 0;
+}
+.list-item{
+  padding:10px 15px;
+}
+.list-item .title{
+  padding-bottom:5px;
+  line-height:1.3;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp:2;
+  -webkit-box-orient: vertical;
+}
+.list-item .content{
+  color:#8b8c8e;
+  line-height:1.3;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp:2;
+  -webkit-box-orient: vertical;
+}
+.list-item .feeditemtag{
+  display: flex;
+  padding-top:5px;
+}
+.list-item .feeditemtag span{
+  display: inline-block;padding:2px 5px;background: rgb(126, 187, 255);
+  border-radius: 3px;margin: 0 5px 5px 0;color:#fff;
+}
+.list-item .info{
+  display: flex;
+  flex-direction:row;
+  align-items:center;
+  margin-bottom:5px;
+}
+.list-item .info .img{
+  display: block;width: 25px;height: 25px;
+  border-radius: 50%;
+  margin-right: 5px;
+}
+.list-item .name{
+  margin-right: 5px;
+  max-width:33%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.list-item .info-state{
+  display: inline-block;width:80px;line-height: 1;
+  padding:5px 0;
+  text-align: center;
+  background: rgb(221, 75, 57);
+  color:#fff;
+  border-radius: 3px;
+  margin-right: 5px;
+}
+.list-item .hand,.list-item .replies{
+  margin-right: 5px;
+}
+.list-item .time{
+  flex: 1;
+  text-align: right;
 }
