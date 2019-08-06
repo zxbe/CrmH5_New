@@ -38,7 +38,6 @@ export default {
     },
     methods: {
         back: function () {
-            console.log("back......");
             this.$router.back(-1);
         },
         //首页就显示侧滑

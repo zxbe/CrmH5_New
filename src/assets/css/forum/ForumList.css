@@ -1,0 +1,14 @@
+.header{
+  display: flex;
+}
+
+.header .calcfont {
+  font-size: 0.48rem;
+  text-align: center;
+  padding: 0.2rem 10px;
+  position: relative;
+  z-index: 20;
+  display: inline-block;
+  text-decoration: none;
+  line-height: 1;
+}

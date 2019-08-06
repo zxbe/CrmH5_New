@@ -126,6 +126,12 @@ const router =  new Router({
  { path:'/fleetDetailsList',name:'fleetDetailsList',component:FleetDetailsList},
  //论坛
  { path:'/forumNotification',name:'ForumNotification',component:ForumNotification},
+ { path:'/forumlist',
+   name:'forumlist',
+   component: (resolve) => require(['@/components/forum/ForumList'], resolve)
+  },
+
+
  //用户活动
  { path:'/userEvents',name:'UserEvents',component:UserEvents},
  { path:'/userEventsInfo',name:'UserEvents',component:UserEventsInfo},
