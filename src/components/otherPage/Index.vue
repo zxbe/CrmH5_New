@@ -1074,6 +1074,7 @@ export default {
     },
     beforeDestroy: function () {
         eventBus.$off("showIndexRightPanelEvent");
+        var a = 0;
     }
 };
 </script>
