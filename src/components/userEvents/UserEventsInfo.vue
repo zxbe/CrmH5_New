@@ -27,16 +27,16 @@
             </div>
             <div class="systemMessage">
                <div class="divContentBox">
-                    <span class="field"><span class="calcfont calc-yonghu"></span><label class="lanText" data-lanid="833_创建者"></label></span>
-                    <span class="content"><span data-bid="AddUserName">{{userDetailData.AddUserName}}</span>,<span data-bid="AddTime">{{userDetailData.AddTime}}</span></span>
+                    <div class="field"><span class="calcfont calc-yonghu"></span><label class="lanText" data-lanid="833_创建者"></label></div>
+                    <div class="content"><span data-bid="AddUserName">{{userDetailData.AddUserName}}</span>,<span data-bid="AddTime">{{userDetailData.AddTime}}</span></div>
                 </div>
                 <div class="divContentBox">
-                    <span class="field">
+                    <div class="field">
                         <span class="calcfont calc-yonghu1">
-                            </span><label class="lanText" data-lanid="805_更新者"></label></span>
-                    <span class="content" >
+                            </span><label class="lanText" data-lanid="805_更新者"></label></div>
+                    <div class="content" >
                         <span data-bid="LastUpdateUserName">{{userDetailData.LastUpdateUserName}}</span>
-                        ,<span data-bid="LastUpdateTime">{{userDetailData.LastUpdateTime}}</span></span>
+                        ,<span data-bid="LastUpdateTime">{{userDetailData.LastUpdateTime}}</span></div>
                 </div>
             </div>
         </div>
@@ -72,7 +72,7 @@ export default {
                 PositionID:"前端工程师",
                 Phone:"852 6210 8352",
                 Email:"alancheng@fpigp.com alancheng@fpigp.com alancheng@fpigp.com alancheng@fpigp.com alancheng@fpigp.com",
-                AddUserName:"abeyeung1",
+                AddUserName:"abeyeung1阮义文",
                 AddTime:"2019/08/05 10:00",
                 LastUpdateUserName:"abeyeung2",
                 LastUpdateTime:"2019/08/20 13:30"
@@ -131,8 +131,8 @@ export default {
    border-top: solid 20px rgb(242, 242, 242);
    position: relative;
 }
-.systemMessage .divContentBox{
-    /* display: flex; */
+/* .systemMessage .divContentBox{
+   
     height: 1rem;
     border-bottom: solid 1px beige;
     line-height: 0.62rem;
@@ -141,12 +141,12 @@ export default {
     width:calc(40% - 0.3rem);
    float: left;
     clear: left;
-   /* text-align: left; */
+  
    
 }
 .systemMessage .divContentBox .Content{
     width:calc(60% - 0.3rem);
     float: right;
    clear: right; 
-}
+}  */
 </style>
