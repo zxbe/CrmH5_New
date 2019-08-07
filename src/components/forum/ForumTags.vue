@@ -22,10 +22,10 @@
         :scrollbar="false" ref="scroll">
 
             <div v-for="item in listData" :key="item.AutoID" class="list-item">
-                <div class="w40"><a >{{item.Name}}</a></div>
+                <div class="w40"><a @click="goToList(item.AutoID)">{{item.Name}}</a></div>
                 <div class="w30">{{item.PostCount}}</div>
                 <!-- 关注：calc-shoucang 不关注：calc-noshoucang -->
-                <div class="w30"><i @click="followToggle(item.AutoID)" class="f18 calcfont calc-noshoucang"></i></div>
+                <div class="w30"><i @click="followToggle(item.AutoID,$event)" class="f18 calcfont calc-noshoucang"></i></div>
             </div>
 
         </vue-scroll>
@@ -155,12 +155,35 @@ export default {
             this.$router.back(-1);
         },
         //关注/取消关注
-        followToggle:function(id){
+        followToggle:function(id ,e){
             var _self = this;
-            if(tool.isNullOrEmptyObject(id)){
+            var curObj = $(e.target) || '';
+
+            if(tool.isNullOrEmptyObject(id) && curObj){
                 return;
             }
+            //关注：calc-shoucang 不关注：calc-noshoucang
+            if(curObj.hasClass('calc-noshoucang')){
+                curObj.removeClass('calc-noshoucang').addClass('calc-shoucang');
+            }else{
+                curObj.removeClass('calc-shoucang').addClass('calc-noshoucang');
+            }
+        },
 
+        //点击去列表页面
+        goToList:function(id){
+          var _self = this;
+          if(tool.isNullOrEmptyObject(id)){
+              return;
+          }
+          var url = '/forumlist';
+          var parameter = {
+                  id:id
+              };
+          _self.$router.push({
+            path:url,
+            query:parameter
+          })
         }
     }
 

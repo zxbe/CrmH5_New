@@ -171,7 +171,7 @@ export default {
   methods:{
       //返回首页
       back:function(){
-          this.$router.back(-1);
+          this.$router.push('/');
       },
       //跳转标签页
       goToTags:function(){
