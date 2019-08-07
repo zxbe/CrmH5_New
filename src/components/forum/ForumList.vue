@@ -74,13 +74,13 @@ import BScroll from "better-scroll";
 import Scroll from '@/components/customPlugin/scroll/Scroll';
 import Nothing from "@/components/customPlugin/Nothing"
 export default {
+  name:'forumlist',
   components:{
       'vue-scroll':Scroll,
       'nothing': Nothing
   },
   data(){
     return{
-
         noData: false, //没数据
         pageSize:10,//一页显示多少记录
         pageNum:1,//当前页码
@@ -164,11 +164,11 @@ export default {
         ],
         tagData:[],
         scrollX:{}, //tag中的scoll对象
-
     }
   },
   created:function(){
     var _self = this;
+    _self.$store.commit('SET_ITEM', 'forumlist');
      //请求标签数据
      _self.getTagsData();
   },
@@ -450,6 +450,12 @@ export default {
 
           })
       },
+  },
+  beforeRouteLeave:function(to, from, next){
+    if(to.name == 'index'){
+        this.$store.commit('REMOVE_ITEM', 'forumlist');
+    }
+    next();
   }
 
 
