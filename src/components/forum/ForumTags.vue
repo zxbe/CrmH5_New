@@ -141,6 +141,8 @@ export default {
       lanTool.updateLanVersion();
     },
     methods:{
+
+        //手指开始按
         gotouchstart(obj,e){
           let _self = this;
           clearTimeout(_self.timeOutEvent);//清除定时器
@@ -202,21 +204,6 @@ export default {
         //返回上一页
         back:function(){
             this.$router.back(-1);
-        },
-        //关注/取消关注
-        followToggle:function(id ,e){
-            var _self = this;
-            var curObj = $(e.target) || '';
-
-            if(tool.isNullOrEmptyObject(id) || tool.isNullOrEmptyObject(curObj)){
-                return;
-            }
-            //关注：calc-shoucang 不关注：calc-noshoucang
-            if(curObj.hasClass('calc-noshoucang')){
-                curObj.removeClass('calc-noshoucang').addClass('calc-shoucang');
-            }else{
-                curObj.removeClass('calc-shoucang').addClass('calc-noshoucang');
-            }
         },
 
         //点击去列表页面
