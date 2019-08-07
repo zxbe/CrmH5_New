@@ -22,8 +22,8 @@
         :scrollbar="false" ref="scroll">
 
             <div v-for="item in listData" :key="item.AutoID" class="list-item">
-                <div class="w40"><a @click="goToList(item.AutoID)">{{item.Name}}</a></div>
-                <div class="w30">{{item.PostCount}}</div>
+                <div class="w40 f14"><a @click="goToList(item.AutoID)">{{item.Name}}</a></div>
+                <div class="w30 f14">{{item.PostCount}}</div>
                 <!-- 关注：calc-shoucang 不关注：calc-noshoucang -->
                 <div class="w30"><i @click="followToggle(item.AutoID,$event)" class="f18 calcfont calc-noshoucang"></i></div>
             </div>

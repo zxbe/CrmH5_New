@@ -3,9 +3,9 @@
     <div class="header">
         <a @click="back" class="mycalcfont calcfont calc-fanhui left" id="back"></a>
         <div class="search">
-            <div class="search-div f14">
+            <div class="search-div f14" @click="goToSearch">
               <i class="calcfont calc-sousuo search-icon"></i>
-              <span class="lanText" data-lanid="792_添加公司"></span>
+              <span class="lanText" data-lanid="1000306_你想知道什么？"></span>
             </div>
         </div>
     </div>
@@ -29,7 +29,7 @@
 
         <vue-scroll
           v-show="!noData"
-          :showToTop="false"
+          :showToTop="true"
           :options="{ pullup: true, pulldown: true }"
           :scrollbar="false" ref="scroll"
           @pulldown="pulldown"
@@ -62,6 +62,12 @@
                 </div>
         </vue-scroll>
         <nothing v-show="noData" style="padding-top:0.8rem;"></nothing>
+    </div>
+
+    <!-- 发帖按钮 -->
+    <div class="buttom-div">
+        <a @click="goToPosting" class="posting-btn f18 calcfont calc-combinedshapecopy2"></i></a>
+        <i  class="posting-btn f18 calcfont calc-tubiao102"></i></a>
     </div>
 
 </div>
@@ -177,6 +183,14 @@ export default {
       goToTags:function(){
           var _self = this;
            _self.$router.push('/forumtags');
+      },
+      //跳转发帖页面
+      goToPosting:function(){
+        this.$router.push('/forumposting');
+      },
+      //跳转搜索页面
+      goToSearch:function(){
+        this.$router.push('/forumsearch');
       },
       //跳转详情页
       goToInfo:function(id){
@@ -344,3 +358,5 @@ export default {
 <style scoped>
 @import "../../assets/css/forum/ForumList.css";
 </style>
+
+
