@@ -1,6 +1,11 @@
 <template>
 <div>
-    <Header class="header sticky" :title="title"></Header>
+    <!-- <Header class="header sticky" :title="title"></Header> -->
+    <header class="mui-bar mui-bar-nav">
+        <a @click="back" class="calcfont calc-fanhui left" id="back"></a>
+        <h1 class="mui-title f18">{{title}}</h1>
+        <a @click="search" class="calcfont calc-shaixuan2 right"></a>
+    </header>
     <div class="pageContent">
         <vue-scroll v-show="!noData" :showToTop="false" :options="{ pullup: true, pulldown: true }" :scrollbar="false" ref="scroll" @pulldown="pulldown" @pullup="pullup">
             <ul class="dataList" v-for="item in userDataList">
@@ -29,14 +34,14 @@
 </template>
 
 <script>
-import Header from "@/components/customPlugin/Listheader";
+// import Header from "@/components/customPlugin/Listheader";
 import Scroll from '@/components/customPlugin/scroll/Scroll';
 import Listrightpanel from "@/components/customPlugin/Listrightpanel";
 import Nothing from "@/components/customPlugin/Nothing";
 export default {
     name: 'userEvents',
     components: {
-        Header: Header,
+        // Header: Header,
         "list-right-panel": Listrightpanel,
         nothing: Nothing,
         'vue-scroll': Scroll,
@@ -147,7 +152,7 @@ export default {
         console.log("activated...");
         var _self = this;
         _self.queryCondictionData = eventBus.queryCondictionData;
-
+        console.log("_self.queryCondictionData>>>>"+JSON.stringify(_self.queryCondictionData));
         //获取是否是从搜索页面点击确定按钮返回来的标志
         var fromSearchBtn = eventBus.fromSearchBtn || false;
         eventBus.fromSearchBtn = false;
@@ -157,6 +162,30 @@ export default {
 
     },
     methods: {
+        //返回上一步
+        back: function () {
+            this.$router.back(-1);
+        },
+        //点击跳转到查询页面
+        search: function () {
+
+            var _self = this;
+            // console.log("_self.queryCondictionData:" + _self.queryCondictionData);
+
+            var parameter = {
+                'dataModule': _self.searchData,
+                'queryCondictionData': _self.queryCondictionData
+            };
+
+            _self.$nextTick(function () {
+                _self.$router.push({
+                    name: "searchmodule",
+                    params: {
+                        paramStr: JSON.stringify(parameter)
+                    }
+                });
+            });
+        },
         //获取用户列表
         getUserEventsList: function () {
             console.log("获取用户活动的数据");
@@ -219,6 +248,49 @@ export default {
 </script>
 
 <style scoped>
+header {
+    position: fixed;
+    z-index: 99;
+    width: 100%
+}
+
+header.mui-bar {
+    background: #f8f2dc;
+    overflow: hidden;
+}
+
+.mui-title {
+    
+    display: inline-block;
+    overflow: hidden;
+    width: calc(100% - 1.76rem);
+    /* max-width: 50%; */
+    font-size: .34rem;
+    /* margin: 0 0 0 -10px; */
+    text-overflow: ellipsis;
+    padding: 0;
+    text-align: center;
+    white-space: nowrap;
+    line-height: .88rem;
+}
+
+.calcfont {
+    font-size: 0.48rem;
+    text-align: center;
+    padding: 0.2rem 0.2rem;
+    position: relative;
+    display: inline-block;
+    text-decoration: none;
+    line-height: 1;
+}
+
+.calc-fanhui {
+    margin-left: 0;
+}
+/* .calc-shaixuan2{
+    width: 0.88rem;
+    float:right;
+} */
 .pageContent {
     position: fixed;
     top: 0.88rem;
