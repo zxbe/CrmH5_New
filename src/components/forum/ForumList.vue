@@ -66,8 +66,7 @@
 
     <!-- 发帖按钮 -->
     <div class="buttom-div">
-        <a @click="goToPosting" class="posting-btn f18 calcfont calc-combinedshapecopy2"></i></a>
-        <i  class="posting-btn f18 calcfont calc-tubiao102"></i></a>
+        <a @click="goToPosting" class="f18 calcfont calc-combinedshapecopy2"></a>
     </div>
 
 </div>

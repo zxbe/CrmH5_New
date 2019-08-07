@@ -142,17 +142,17 @@ ul,li{list-style: none;padding:0;margin: 0;}
 /*发帖按钮*/
 .buttom-div{
   position:fixed;
-  bottom:10%;right:10px;
+  bottom:calc(1rem + 46px);
+  right:10px;
   display: flex;
   flex-direction:column;
 }
 .buttom-div .calcfont{
-  padding:8px;
-  background:rgba(0,0,0,0.15);
-  border-radius: 50%;
-  color:#787878;
-  margin-top: 5px;
-}
-.buttom-div .posting-btn{
-
+    width:36px;
+    height: 36px;
+    line-height: 36px;
+    text-align: center;
+    background:rgba(0,0,0,0.15);
+    border-radius: 50%;
+    color:#787878;
 }
