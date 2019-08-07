@@ -11,15 +11,13 @@
     </div>
 
     <div class="tag">
-        <div class="tag-items">
+        <div class="tag-items" ref="personWrap">
             <ul class="">
-              <li >All Tag</li>
-              <li >Web</li>
-              <li >JS</li>
-              <li >python</li>
-              <li >C#</li>
-              <li >React</li>
-              <li >Boeing</li>
+              <li
+                v-for="item in tagData"
+                :key="item.AutoID"
+                @click="switchTag(item.AutoID, $event)"
+                >{{item.Name}}</li>
             </ul>
         </div>
         <a @click="goToTags" class="mycalcfont calcfont calc-fenlei left"></a>
@@ -72,6 +70,7 @@
 </div>
 </template>
 <script>
+import BScroll from "better-scroll";
 import Scroll from '@/components/customPlugin/scroll/Scroll';
 import Nothing from "@/components/customPlugin/Nothing"
 export default {
@@ -163,11 +162,15 @@ export default {
             "IsCurrentUserDislike": "0"
           }
         ],
+        tagData:[],
+        scrollX:{}, //tag中的scoll对象
 
     }
   },
   created:function(){
-
+    var _self = this;
+     //请求标签数据
+     _self.getTagsData();
   },
   mounted:function(){
     let _self = this;
@@ -198,14 +201,112 @@ export default {
             return;
         }
         var url = '/foruminfo/'+id;
-        // var parameter = {
-        //         id:id
-        //     };
         _self.$router.push({
-          path:url,
-          // query:parameter
+          path:url
         })
+      },
+      //标签切换
+      switchTag:function(id, e){
+          var _self = this;
+          var currObj = $(e.target) || '';
+          if(tool.isNullOrEmptyObject(id) || tool.isNullOrEmptyObject(currObj)){
+              return;
+          }
+          //1.请求数据
 
+          //2.切换页面样式
+          currObj.addClass('active').siblings('li').removeClass('active');
+          _self.scrollX.scrollToElement(e.target,300,true);
+      },
+      //请求标签数据
+      getTagsData:function(){
+        var _self = this;
+        //请求数据
+        var data = [
+          {
+            "AutoID": 1,
+            "Name": "All Tag",
+            "InternalSort": 10,
+            "PostCount": 25,
+            "IsFollow": "fa-star-o"
+          }, {
+            "AutoID": 7,
+            "Name": "Web",
+            "InternalSort": null,
+            "PostCount": 18,
+            "IsFollow": "fa-star-o"
+          }, {
+            "AutoID": 8,
+            "Name": "JS",
+            "InternalSort": null,
+            "PostCount": 8,
+            "IsFollow": "fa-star-o"
+          }, {
+            "AutoID": 11,
+            "Name": "python",
+            "InternalSort": null,
+            "PostCount": 4,
+            "IsFollow": "fa-star-o"
+          }, {
+            "AutoID": 14,
+            "Name": "C#",
+            "InternalSort": 100,
+            "PostCount": 1,
+            "IsFollow": "fa-star-o"
+          }, {
+            "AutoID": 13,
+            "Name": "React",
+            "InternalSort": null,
+            "PostCount": 2,
+            "IsFollow": "fa-star-o"
+          }, {
+            "AutoID": 4,
+            "Name": "Boeing",
+            "InternalSort": null,
+            "PostCount": 4,
+            "IsFollow": "fa-star-o"
+          }, {
+            "AutoID": 5,
+            "Name": "CALC",
+            "InternalSort": null,
+            "PostCount": 2,
+            "IsFollow": "fa-star-o"
+          }
+        ]
+        var loadingIndexClassName = tool.showLoading();
+        setTimeout(function(){
+          tool.hideLoading(loadingIndexClassName);
+          _self.tagData = data;
+          //初始化tag
+          _self.$nextTick(function(){
+              _self.initTags();
+          })
+        },1000)
+      },
+      //初始化tags
+      initTags:function(){
+          var _self = this;
+          //计算ul宽度
+          var width = 0;
+          $('.tag-items li').each(function(index,el){
+            width +=  $(el).outerWidth();
+          })
+          $('.tag-items ul').width(width);
+
+          _self.$nextTick(() => {
+            if (tool.isNullOrEmptyObject(_self.scrollX)) {
+              _self.scrollX = new BScroll(this.$refs.personWrap, {
+                startX: 0,
+                click: true,
+                scrollX: true,
+                // 忽略竖直方向的滚动
+                scrollY: false,
+                eventPassthrough: "vertical"
+              });
+            } else {
+              _self.scrollX.refresh();
+            }
+          });
       },
 
       //查询列表数据

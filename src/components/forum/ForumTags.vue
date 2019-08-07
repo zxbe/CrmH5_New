@@ -5,46 +5,37 @@
         <h1 class="title-text f18">{{title}}</h1>
     </header>
 
-    <div class="tips">
-      <span class="lanText f14" data-lanid="1000296_请选择下面的标签浏览相关问题"></span>
+    <div class="content">
+        <div class="content-title">
+          <i class="f18 calcfont calc-fenlei"></i>
+          <span class="lanText f16" data-lanid="1000295_所有标签"></span>
+        </div>
+
+        <div class="tag-list f16">
+            <!-- 字段IsFollow值为fa-star表示关注；fa-star-o表示未关注 -->
+            <div
+              v-for="item in listData"
+              :key="item.AutoID"
+              class="item left"
+              :class="{'active': item.IsFollow == 'fa-star'}"
+              @click="goToList(item.AutoID)"
+              @touchstart="gotouchstart(item, $event)"
+              @touchmove="gotouchmove(item, $event)"
+              @touchend="gotouchend(item, $event)"
+              >{{item.Name}}({{item.PostCount}})</div>
+        </div>
     </div>
 
-    <div class="list-header f16">
-        <div class="lanText w40" data-lanid="153_名称"></div>
-        <div class="lanText w30" data-lanid="1000251_发帖数"></div>
-        <div class="lanText w30" data-lanid="786_关注"></div>
-    </div>
-    <div class="list-div">
-        <vue-scroll
-        v-show="!noData"
-        :showToTop="false"
-        :options="{ pullup:false, pulldown: false }"
-        :scrollbar="false" ref="scroll">
 
-            <div v-for="item in listData" :key="item.AutoID" class="list-item">
-                <div class="w40 f14"><a @click="goToList(item.AutoID)">{{item.Name}}</a></div>
-                <div class="w30 f14">{{item.PostCount}}</div>
-                <!-- 关注：calc-shoucang 不关注：calc-noshoucang -->
-                <div class="w30"><i @click="followToggle(item.AutoID,$event)" class="f18 calcfont calc-noshoucang"></i></div>
-            </div>
-
-        </vue-scroll>
-        <nothing v-show="noData" style="padding-top:0.8rem;"></nothing>
-    </div>
 
 </div>
 </template>
 
 <script>
-import Scroll from '@/components/customPlugin/scroll/Scroll';
-import Nothing from "@/components/customPlugin/Nothing"
 export default {
-    components:{
-        'vue-scroll':Scroll,
-        'nothing': Nothing
-    },
     data(){
       return{
+        timeOutEvent:0, //定时器对象
         title:'All Tag',
         noData:false, //没数据
         listData:[
@@ -53,7 +44,7 @@ export default {
             "Name": "Web",
             "InternalSort": null,
             "PostCount": 18,
-            "IsFollow": "fa-star-o"
+            "IsFollow": "fa-star"
           }, {
             "AutoID": 8,
             "Name": "JS",
@@ -150,6 +141,64 @@ export default {
       lanTool.updateLanVersion();
     },
     methods:{
+        gotouchstart(obj,e){
+          let _self = this;
+          clearTimeout(_self.timeOutEvent);//清除定时器
+          _self.timeOutEvent = 0;
+          _self.timeOutEvent = setTimeout(function(){
+                //执行长按要执行的内容，
+                $.actions({
+                  closeText:lanTool.lanContent("111_关闭"),
+                  actions: [{
+                    text: '<div>'+ lanTool.lanContent("786_关注") +'</div>',
+                    onClick: function() {
+
+                       var curObj = $(e.target);
+                       //已关注的再点击关注无效果
+                       if(curObj.hasClass('active')){
+                          return;
+                       }
+                      //do something
+                      //1.请求数据
+                      //2.改变页面状态
+                      curObj.addClass('active');
+
+                    }
+                  },{
+                    text: '<div>'+ lanTool.lanContent("905_取消关注") +'</div>',
+                    onClick: function() {
+
+                      var curObj = $(e.target);
+                      //未关注的再点击取消关注无效果
+                      if(!curObj.hasClass('active')){
+                          return;
+                      }
+                       //do something
+
+                       curObj.removeClass('active');
+
+                    }
+                  }]
+                });
+
+          },600);//这里设置定时
+        },
+        //手释放，如果在500毫秒内就释放，则取消长按事件，此时可以执行onclick应该执行的事件
+        gotouchend(obj, e){
+            let _self = this;
+            clearTimeout(_self.timeOutEvent);
+            if(_self.timeOutEvent!=0){
+                //这里写要执行的内容（尤如onclick事件）
+            }
+        },
+        //如果手指有移动，则取消所有事件，此时说明用户只是要移动而不是长按
+        gotouchmove(obj, e){
+            let _self = this;
+            clearTimeout(_self.timeOutEvent);//清除定时器
+            _self.timeOutEvent = 0;
+        },
+
+
         //返回上一页
         back:function(){
             this.$router.back(-1);
@@ -159,7 +208,7 @@ export default {
             var _self = this;
             var curObj = $(e.target) || '';
 
-            if(tool.isNullOrEmptyObject(id) && curObj){
+            if(tool.isNullOrEmptyObject(id) || tool.isNullOrEmptyObject(curObj)){
                 return;
             }
             //关注：calc-shoucang 不关注：calc-noshoucang
@@ -205,6 +254,7 @@ export default {
 .header{
   position: fixed;
   top:0;left:0;right:0;
+  background: #fff;
 }
 .header .title-text{
     right: 40px;
@@ -222,41 +272,20 @@ export default {
     line-height: 0.88rem;
 }
 
-.tips{
-  position: fixed;top:0.88rem;left:0;right:0;
-  padding:0 15px;
-  color:#555555;
-  line-height: 0.5rem;
+.content{
+  padding:0.88rem 15px 15px;
 }
+.content-title{padding:10px 0;}
+.content-title i{margin-right: 5px;color:#8b8d8c;}
 
-/*列表*/
-.list-header{
-  position:fixed;
-  top:1.38rem;left:15px;right:15px;
-  height: 0.8rem;
-  display: flex;
-  flex-direction:row;
-  align-items:center;
+.content .item{
+  padding:8px 12px;
+  border:1px solid #e3e3e3;
+  margin: 5px 10px 5px 0;
+  border-radius: 5px;
 }
-.list-header div.w40,.list-item div.w40{width:40%;}
-.list-header div.w30,.list-item div.w30{width:30%;text-align: center;}
-.list-div{
-  position:fixed;top:2.18rem;left:0;right:0;bottom:0;
-}
-.list-item{
-  padding:0 15px;
-  display: flex;
-  flex-direction:row;
-  align-items:center;
-  height: 1rem;
-}
-/*不关注*/
-.list-item .calc-noshoucang{
-  color:#ccc;
-}
-/*关注*/
-.list-item .calc-shoucang{
-  color:#ff5a21;
+.content .item.active{
+  color:rgb(255, 90, 33);
 }
 
 </style>
