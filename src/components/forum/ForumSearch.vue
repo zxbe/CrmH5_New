@@ -8,7 +8,7 @@
             <a @click="search" class="searchBtn calcfont calc-shaixuan2"></a>
         </div>
           <div v-show="isShowdropDown" class="dropDownList">
-                <a @click="selectTitleOrTag($event)" data-type="Other" class="lanText" data-lanid="1000303_标题和内容"></a>
+                <a @click="selectTitleOrTag($event)" data-type="Other" class="selected lanText" data-lanid="1000303_标题和内容"></a>
                 <a @click="selectTitleOrTag($event)" data-type="Tag" class="lanText" data-lanid="1000302_标签"></a>
             </div>
     </header>
@@ -17,28 +17,28 @@
          
         <div class="selectFilter">
             <a @click="filterDropDown($event)" class="filterBlock">
-                <span class="filterText">Unanswered Questions</span>
+                <span class="filterText">All Questions</span>
                 <span class="zen-selectArrow"></span>
             </a>
             <ul v-show="isShowFilter" class="feedFilterby">
-                <li class="zen-checked"><span class="zen-visualization iconfont icon-dagou1"></span><a @click="selectFiltertype($event)" data-fieldval="AllQuestions" data-group="FileterGroup" href="###" class="cxfeedtype cxRECENT " title="All Questions"> All Questions</a></li>
-                <li class=""><span class="zen-visualization iconfont icon-dagou1"></span><a @click="selectFiltertype($event)" data-fieldval="MineQuestions" data-group="FileterGroup" href="###" class="cxfeedtype cxRECENT " title="Mine Questions"> Mine Questions</a></li>
-                <li class=""><span class="zen-visualization iconfont icon-dagou1"></span><a @click="selectFiltertype($event)" data-fieldval="UnansweredQuestions" data-group="FileterGroup" href="###" class="cxfeedtype cxRECENT " title="Unanswered Questions"> Unanswered Questions</a></li>
-                <li class=""><span class="zen-visualization iconfont icon-dagou1"></span><a @click="selectFiltertype($event)" data-fieldval="UnsolvedQuestions" data-group="FileterGroup" href="###" class="cxfeedtype cxRECENT " title="Unsolved Questions"> Unsolved Questions</a></li>
-                <li class=""><span class="zen-visualization iconfont icon-dagou1"></span><a @click="selectFiltertype($event)" data-fieldval="ResolvedQuestions" data-group="FileterGroup" href="###" class="cxfeedtype cxRECENT " title="Resolved Questions"> Resolved Questions</a></li>
-                <li class=""><span class="zen-visualization iconfont icon-dagou1"></span><a @click="selectFiltertype($event)" data-fieldval="InProgressQuestions" data-group="FileterGroup" href="###" class="cxfeedtype cxRECENT " title="InProgress Questions"> InProgress Questions</a></li>
-                <li class=""><span class="zen-visualization iconfont icon-dagou1"></span><a @click="selectFiltertype($event)" data-fieldval="ClosedQuestions" data-group="FileterGroup" href="###" class="cxfeedtype cxRECENT " title="Closed Questions"> Closed Questions</a></li>
+                <li ><span class="zen-visualization iconfont icon-dagou1"></span><a @click="selectFiltertype($event)" data-fieldval="AllQuestions" data-group="FileterGroup" href="###" class="cxfeedtype cxRECENT selected" title="All Questions">All Questions</a></li>
+                <li ><span class="zen-visualization iconfont icon-dagou1"></span><a @click="selectFiltertype($event)" data-fieldval="MineQuestions" data-group="FileterGroup" href="###" class="cxfeedtype cxRECENT" title="Mine Questions"> Mine Questions</a></li>
+                <li ><span class="zen-visualization iconfont icon-dagou1"></span><a @click="selectFiltertype($event)" data-fieldval="UnansweredQuestions" data-group="FileterGroup" href="###" class="cxfeedtype cxRECENT " title="Unanswered Questions"> Unanswered Questions</a></li>
+                <li ><span class="zen-visualization iconfont icon-dagou1"></span><a @click="selectFiltertype($event)" data-fieldval="UnsolvedQuestions" data-group="FileterGroup" href="###" class="cxfeedtype cxRECENT " title="Unsolved Questions"> Unsolved Questions</a></li>
+                <li ><span class="zen-visualization iconfont icon-dagou1"></span><a @click="selectFiltertype($event)" data-fieldval="ResolvedQuestions" data-group="FileterGroup" href="###" class="cxfeedtype cxRECENT " title="Resolved Questions"> Resolved Questions</a></li>
+                <li ><span class="zen-visualization iconfont icon-dagou1"></span><a @click="selectFiltertype($event)" data-fieldval="InProgressQuestions" data-group="FileterGroup" href="###" class="cxfeedtype cxRECENT " title="InProgress Questions"> InProgress Questions</a></li>
+                <li ><span class="zen-visualization iconfont icon-dagou1"></span><a @click="selectFiltertype($event)" data-fieldval="ClosedQuestions" data-group="FileterGroup" href="###" class="cxfeedtype cxRECENT " title="Closed Questions"> Closed Questions</a></li>
             </ul>
         </div>
         <div class="selectSort">
             <a @click="sortDropDown($event)" class="sortBlock">
-                <span class="sortText">Recent Activity</span>
+                <span class="sortText">Date Posted</span>
                 <span class="zen-selectArrow"></span>
             </a>
             <ul v-show="isShowSort" class="feedsortby">
-                <li class="zen-checked"><span class="zen-visualization iconfont icon-dagou1"></span><a @click="selectSorttype($event)" data-fieldval="DatePosted" data-group="SortGroup" href="###" class="cxfeedtype cxRECENT " title="Date Posted">Date Posted</a></li>
-                <li class=""><span class="zen-visualization iconfont icon-dagou1"></span><a @click="selectSorttype($event)" data-fieldval="RecentActivity" data-group="SortGroup" href="###" class="cxfeedtype cxRECENT " title="Recent Activity"> Recent Activity</a></li>
-                <li class=""><span class="zen-visualization iconfont icon-dagou1"></span><a @click="selectSorttype($event)" data-fieldval="MostPopular" data-group="SortGroup" href="###" class="cxfeedtype cxRECENT " title="Most Popular"> Most Popular</a></li>
+                <li class="zen-checked"><span class="zen-visualization iconfont icon-dagou1"></span><a @click="selectSorttype($event)" data-fieldval="DatePosted" data-group="SortGroup" href="###" class="cxfeedtype cxRECENT selected" title="Date Posted">Date Posted</a></li>
+                <li><span class="zen-visualization iconfont icon-dagou1"></span><a @click="selectSorttype($event)" data-fieldval="RecentActivity" data-group="SortGroup" href="###" class="cxfeedtype cxRECENT " title="Recent Activity"> Recent Activity</a></li>
+                <li><span class="zen-visualization iconfont icon-dagou1"></span><a @click="selectSorttype($event)" data-fieldval="MostPopular" data-group="SortGroup" href="###" class="cxfeedtype cxRECENT " title="Most Popular"> Most Popular</a></li>
             </ul>
         </div>
     </div>
@@ -46,7 +46,7 @@
 
         <vue-scroll v-show="!noData" :showToTop="true" :options="{ pullup: true, pulldown: true }" :scrollbar="false" ref="scroll" @pulldown="pulldown" @pullup="pullup">
 
-            <div v-for="item in listData" :key="item.AutoID" class="list-item">
+            <div v-for="item in listData" class="list-item">
                 <div @click="goToInfo(item.AutoID)" class="title f16">{{item.Theme}}</div>
                 <div @click="goToInfo(item.AutoID)" class="content f14">{{item.Content}}</div>
                 <div class="feeditemtag f12">
@@ -184,6 +184,8 @@ export default {
         selectTitleOrTag:function(e){
           var _self = this;
           var el = e.target;
+          $(el).addClass("selected");
+          $(el).siblings().removeClass("selected");
           var val = $(el).text();
           console.log("text:"+val);
           _self.isShowdropDown = false;
@@ -192,6 +194,9 @@ export default {
         selectFiltertype: function (e) {
             var _self = this;
             var el = e.target;
+            $(el).addClass("selected");
+            var parent = $(el).parent("li");
+            parent.siblings().find("a").removeClass("selected");
             var val = $(el).text();
             $(".filterText").eq(0).text(val);
             _self.isShowFilter = false;
@@ -201,6 +206,9 @@ export default {
         selectSorttype: function (e) {
             var _self = this;
             var el = e.target;
+            $(el).addClass("selected");
+            var parent = $(el).parent("li");
+            parent.siblings().find("a").removeClass("selected");
             var val = $(el).text();
             $(".sortText").eq(0).text(val);
             _self.isShowSort = false;
@@ -282,7 +290,7 @@ export default {
             }
 
             var responseData = [{
-                    "AutoID": "3",
+                    "AutoID": "4",
                     "TopicID": 10,
                     "TopicName": "NodeJS",
                     "TagName": "Web,JS,NodeJS",
@@ -301,7 +309,7 @@ export default {
                     "IsCurrentUserDislike": "0"
                 },
                 {
-                    "AutoID": "102",
+                    "AutoID": "103",
                     "TopicID": 7,
                     "TopicName": "Web",
                     "TagName": "Web",
@@ -320,7 +328,7 @@ export default {
                     "IsCurrentUserDislike": "0"
                 },
                 {
-                    "AutoID": "96",
+                    "AutoID": "97",
                     "TopicID": 15,
                     "TopicName": "前端",
                     "TagName": "Web,JS,前端",
@@ -339,7 +347,7 @@ export default {
                     "IsCurrentUserDislike": "0"
                 },
                 {
-                    "AutoID": "92",
+                    "AutoID": "93",
                     "TopicID": 14,
                     "TopicName": "C#",
                     "TagName": "Boeing,C#",
@@ -368,7 +376,7 @@ export default {
             setTimeout(() => {
                 tool.hideLoading(loadingIndexClassName);
                 _self.$refs.scroll.refresh();
-            }, 2000);
+            }, 500);
         },
 
         //下拉
