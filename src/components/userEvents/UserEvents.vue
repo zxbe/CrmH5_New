@@ -303,11 +303,28 @@ header.mui-bar {
     position: relative;
     display: block;
     padding: 0.2rem;
-    height: auto;
+    /* height: auto; */
     border-bottom: 1px solid beige;
     height: 1.3rem;
 }
-
+ul li{
+  list-style-type: none;
+}
+.pageContent .userMessage .calcfont{
+    padding: 0.3rem 0.1rem 0.1rem 0.1rem;
+    font-size: 0.28rem;
+    /* width: calc(50% - 0.4rem); */
+    /* max-width: 50%; */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.pageContent .userMessage .calcfont.calc-youxiang{
+  max-width: calc(60% - 0.4rem);
+}
+.pageContent .userMessage .calcfont.calc-phone{
+   max-width: calc(40% - 0.4rem);
+}
 .headImg {
     float: left;
     height: 0.8rem;

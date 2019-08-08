@@ -2,17 +2,19 @@
 <div>
     <header class="mui-bar mui-bar-nav">
         <a @click="back" class="calcfont calc-fanhui left" id="back"></a>
-        <div class="searchDiv"><input type="search" value="ddd"></div>
-        <a @click="search" class="searchBtn lanText" data-lanid="780_搜索"></a>
+        <div class="searchDiv"><input type="search" value=""></div>
+        <div class="headLeftIconDiv"> 
+            <a @click="selectDropDownType" class="dropDownBtn calcfont calc-xiala"></a>
+            <a @click="search" class="searchBtn calcfont calc-shaixuan2"></a>
+        </div>
+          <div v-show="isShowdropDown" class="dropDownList">
+                <a @click="selectTitleOrTag($event)" data-type="Other" class="lanText" data-lanid="1000303_标题和内容"></a>
+                <a @click="selectTitleOrTag($event)" data-type="Tag" class="lanText" data-lanid="1000302_标签"></a>
+            </div>
     </header>
-
+   
     <div class="searchSelectDiv">
-        <!-- <a @click="switchPage(1,$event)" class="titleSearch active lanText" data-lanid="1000303_标题和内容"></a> <span class="fenge">|</span>
-            <a @click="switchPage(1,$event)" class="tagSearch lanText" data-lanid="1000302_标签"></a> -->
-        <!-- <a class="searchBlock">
-                <span class="filterText">Title&Content</span>
-                <span class="zen-selectArrow"></span>
-            </a> -->
+         
         <div class="selectFilter">
             <a @click="filterDropDown($event)" class="filterBlock">
                 <span class="filterText">Unanswered Questions</span>
@@ -88,8 +90,9 @@ export default {
             noData: false, //没数据
             pageSize: 10, //一页显示多少记录
             pageNum: 1, //当前页码
-            isShowFilter: false,//隐藏筛选的下拉列表
-            isShowSort: false,//隐藏排序的下拉列表
+            isShowdropDown:false,//隐藏内容和标签的下拉列表
+            isShowFilter: false, //隐藏筛选的下拉列表
+            isShowSort: false, //隐藏排序的下拉列表
             listData: [{
                     "AutoID": "3",
                     "TopicID": 10,
@@ -177,6 +180,14 @@ export default {
         lanTool.updateLanVersion();
     },
     methods: {
+        //选择标题或者标签
+        selectTitleOrTag:function(e){
+          var _self = this;
+          var el = e.target;
+          var val = $(el).text();
+          console.log("text:"+val);
+          _self.isShowdropDown = false;
+        },
         //筛选选择
         selectFiltertype: function (e) {
             var _self = this;
@@ -194,10 +205,18 @@ export default {
             $(".sortText").eq(0).text(val);
             _self.isShowSort = false;
         },
+        //标题和标签下拉的展示和隐藏
+         selectDropDownType:function(){
+            var _self = this;
+             _self.isShowSort = false;
+             _self.isShowFilter = false;
+            _self.isShowdropDown = !_self.isShowdropDown;
+        },
         //筛选下拉展示隐藏
         filterDropDown: function (e) {
             var _self = this;
             _self.isShowSort = false;
+            _self.isShowdropDown = false;
             _self.isShowFilter = !_self.isShowFilter;
 
         },
@@ -205,10 +224,19 @@ export default {
         sortDropDown: function () {
             var _self = this;
             _self.isShowFilter = false;
+            _self.isShowdropDown = false;
             _self.isShowSort = !_self.isShowSort;
         },
         goToInfo: function (num) {
             console.log("跳转到详情" + num);
+            var _self = this;
+            if (tool.isNullOrEmptyObject(num)) {
+                return;
+            }
+            var url = '/foruminfo/' + num;
+            _self.$router.push({
+                path: url
+            })
         },
         switchPage: function (num, e) {
             var _self = this;
@@ -224,6 +252,7 @@ export default {
         search: function () {
             console.log("search");
         },
+       
         //查询列表数据
         queryList: function (queryType, callback) {
             let _self = this;
