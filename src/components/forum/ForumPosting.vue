@@ -25,7 +25,10 @@
         <div class="post-tag f14">
             <span class="lable lanText" data-lanid="1000302_标签"></span>
             <div class="tag-list" @click="goToTage">
-                  <span class="tag-item">web</span>
+
+                  <!-- <span class="tag-item">web</span> -->
+
+                  <i class="arrow calcfont calc-you"></i>
             </div>
         </div>
     </div>
@@ -41,7 +44,7 @@ export default {
         title:'发帖',
         postTitle:'',
         str:'',
-
+        postId:-1, // 帖子id -1：新增；非-1:编辑
     }
   },
   computed: {
@@ -53,6 +56,8 @@ export default {
   created:function(){
       var _self = this;
       _self.$store.commit('SET_ITEM', 'forumposting');
+      _self.postId = _self.$router.query.id || -1;
+
   },
   mounted:function(){
     lanTool.updateLanVersion();
@@ -162,13 +167,8 @@ export default {
       goToTage:function(){
           var _self = this;
           _self.$router.push('/selecttag');
-          // console.log(1111111);
 
       },
-      //移除某个标签
-      removeTag:function(){
-          console.log(22222222222);
-      }
 
   },
   beforeRouteLeave:function(to, from, next){
@@ -270,10 +270,14 @@ export default {
 }
 .post-tag .tag-list{
   flex: 1;
-  padding:0 5px 5px;
+  padding:0 15px 5px 5px;
   min-height: 22px;
-  border:1px solid #ccc;
-  border-radius: 5px;
+  position: relative;
+  border-bottom:1px solid #ccc;
+  /* border-radius: 5px; */
+}
+.post-tag .tag-list .arrow{
+  position: absolute;right:0;top:6px;color:#ccc;
 }
 .post-tag .tag-item{
   padding: 2px 5px;
