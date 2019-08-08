@@ -8,22 +8,25 @@
 
     <div class="content">
         <div class="post-title-div">
-            <input class="lanInputPlaceHolder post-title f16" data-lanid="1000298_请输入标题" type="text" maxlength="100"/>
-            <div class="word-number f12"><span>100/100</span></div>
+            <input v-model="postTitle" class="lanInputPlaceHolder post-title f16" data-lanid="1000298_请输入标题" type="text" maxlength="100"/>
+            <div class="word-number f12"><span>{{titleCount}}/100</span></div>
         </div>
         <div class="post-content-div">
-            <textarea class="lanInputPlaceHolder post-content f14" data-lanid="1000368_请输入内容"></textarea>
-            <!-- <div class="lanText post-content f14" contenteditable="true" data-lanid="1000368_请输入内容"></div> -->
+            <!-- <textarea class="lanInputPlaceHolder post-content f14" data-lanid="1000368_请输入内容"></textarea> -->
+            <div id="postContent" class="lanInputPlaceHolder post-content f14" contenteditable="true" data-lanid="1000368_请输入内容"></div>
         </div>
 
         <!-- @ -->
-        <div class="">
+        <div class="function">
             <span @click="selectUser">@</span>
+            <input id="innerUser" @click="innerUser"  type="button" value="@" />
         </div>
 
         <div class="post-tag f14">
-            <span>标签:</span>
-            <input id="tags" type="text" />
+            <span class="lable lanText" data-lanid="1000302_标签"></span>
+            <div class="tag-list" @click="goToTage">
+                  <span class="tag-item">web</span>
+            </div>
         </div>
     </div>
 
@@ -35,8 +38,17 @@ export default {
   name:'forumposting',
   data(){
     return{
-        title:'发帖'
+        title:'发帖',
+        postTitle:'',
+        str:'',
+
     }
+  },
+  computed: {
+      titleCount:function(){
+          var _self = this;
+          return _self.postTitle.length;
+      }
   },
   created:function(){
       var _self = this;
@@ -44,10 +56,10 @@ export default {
   },
   mounted:function(){
     lanTool.updateLanVersion();
-    this.initSelect();
+
   },
   activated:function(){
-        // console.log(eventBus.selectListData);
+        var _self = this;
         //获取选择的用户
         if(tool.isNullOrEmptyObject(eventBus.selectListData)){
             return;
@@ -55,11 +67,59 @@ export default {
         var selectUser = eventBus.selectListData;
         //清空全局变量
         eventBus.selectListData = null;
+        selectUser = selectUser.value.text.split(',');
 
+        if(selectUser==''||selectUser.length<1 ){
+            return;
+        }
         //把选择的用户插入帖子内容中
+        var str = '';
+        for(var i=0; i<selectUser.length; i++){
+          str += '<a class="targetUserName" data-username="'+ selectUser[i] +'" contenteditable="false" style="color:#048ec6;white-space: nowrap;">@'+ selectUser[i] +'</a>'
+        }
+        _self.str = str;
+
+        // $('#innerUser').trigger('click');
+         document.getElementById('postContent').focus();
+        _self.insertHtmlAtCaret(_self.str);
 
   },
   methods:{
+      //在光标处插入@用户
+      insertHtmlAtCaret:function(html) {
+
+          var sel, range;
+          if (window.getSelection) {
+              // IE9 and non-IE
+              sel = window.getSelection();
+              if (sel.getRangeAt && sel.rangeCount) {
+                  range = sel.getRangeAt(0);
+                  range.deleteContents();
+                  // Range.createContextualFragment() would be useful here but is
+                  // non-standard and not supported in all browsers (IE9, for one)
+                  var el = document.createElement("div");
+                  el.innerHTML = html;
+                  var frag = document.createDocumentFragment(), node, lastNode;
+                  while ((node = el.firstChild)) {
+                      lastNode = frag.appendChild(node);
+                      console.log(lastNode);
+                  }
+                  range.insertNode(frag);
+                  // Preserve the selection
+                  if (lastNode) {
+                      range = range.cloneRange();
+                      range.setStartAfter(lastNode);
+                      range.collapse(true);
+                      sel.removeAllRanges();
+                      sel.addRange(range);
+                  }
+              }
+          } else if (document.selection && document.selection.type != "Control") {
+              // IE < 9
+              document.selection.createRange().pasteHTML(html);
+          }
+      },
+
       //返回上一页
       back:function(){
           this.$router.back(-1);
@@ -89,48 +149,27 @@ export default {
               query: parameter
             });
       },
-      //初始化选择标签控件
-      initSelect:function(){
-        // https://www.sucaihuo.com/js/4482.html
-          $("#tags").select({
-            title: "您的爱好",
-            multi: true,
-            items: [
-              {
-                title: "画画",
-                value: 1
-              },
-              {
-                title: "打球",
-                value: 2
-              },
-              {
-                title: "唱歌",
-                value: 3
-              },
-              {
-                title: "游泳",
-                value: 4
-              },
-              {
-                title: "画画",
-                value: 5
-              },
-              {
-                title: "打球",
-                value: 6
-              },
-              {
-                title: "唱歌",
-                value: 7
-              },
-              {
-                title: "游泳",
-                value: 8
-              },
-            ]
-          });
+      //插入
+      innerUser:function(){
+        var _self = this;
+
+        _self.str = '<b contenteditable="false">InerHtml</b>'
+        document.getElementById('postContent').focus();
+        _self.insertHtmlAtCaret(_self.str);
+      },
+
+      //去选标签
+      goToTage:function(){
+          var _self = this;
+          _self.$router.push('/selecttag');
+          // console.log(1111111);
+
+      },
+      //移除某个标签
+      removeTag:function(){
+          console.log(22222222222);
       }
+
   },
   beforeRouteLeave:function(to, from, next){
     if(to.name == 'forumlist'){
@@ -191,6 +230,9 @@ export default {
   width: 100%;
   box-sizing: border-box;
 }
+.content .post-title::-webkit-input-placeholder{
+    color:lightgrey;
+}
 .content .word-number{
   display: inline-block;
   position: absolute;
@@ -211,9 +253,34 @@ export default {
   width: 100%;
   height:4rem;
   box-sizing: border-box;
+  overflow-y: auto;
 }
+.post-content:empty::before{ color:lightgrey; content:attr(placeholder); }
+.content .function{
+  padding-top:20px;
+}
+
 .post-tag{
   padding:20px 0 10px;
   display: flex;
+}
+.post-tag .lable{
+  line-height: 32px;
+  width: 0.8rem;
+}
+.post-tag .tag-list{
+  flex: 1;
+  padding:0 5px 5px;
+  min-height: 22px;
+  border:1px solid #ccc;
+  border-radius: 5px;
+}
+.post-tag .tag-item{
+  padding: 2px 5px;
+  background: #7ebbff;
+  border-radius: 3px;
+  margin: 5px 5px 0 0;
+  display: inline-block;
+
 }
 </style>

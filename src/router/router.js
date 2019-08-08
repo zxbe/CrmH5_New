@@ -146,6 +146,10 @@ const router =  new Router({
    name:'forumposting',
    component: (resolve) => require(['@/components/forum/ForumPosting'], resolve)
   },
+  { path:'/selecttag',
+   name:'selecttag',
+   component: (resolve) => require(['@/components/forum/SelectTag'], resolve)
+  },
 
 
  //用户活动

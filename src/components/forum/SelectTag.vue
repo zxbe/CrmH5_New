@@ -3,9 +3,29 @@
     <header class="header">
         <a @click="back" class="mycalcfont calcfont calc-fanhui left" id="back"></a>
         <h1 class="title-text f18">{{title}}</h1>
+        <a @click="save" class="mycalcfont calcfont calc-gou right"></a>
     </header>
 
     <div class="content">
+
+        <div v-show="showAddTag" class="add-tag">
+            <input id="addInput" type="text" class="input lanInputPlaceHolder" data-lanid="1000370_请输入标签" />
+        </div>
+
+        <div class="content-title">
+          <i class="f18 calcfont calc-fenlei"></i>
+          <span class=" f16">已选标签</span>
+        </div>
+        <div class="tag-list f14 ">
+            <div
+              v-for="item in selectTagData"
+              :key="item.AutoID"
+              class="item left"
+              >{{item.Name}}<span @click="removeTag(item.AutoID)" class="remove-tag calcfont calc-shanchu1"></span>
+              </div>
+
+              <div class="clear"></div>
+        </div>
 
         <div class="content-title">
           <i class="f18 calcfont calc-fenlei"></i>
@@ -15,19 +35,17 @@
         <div class="tag-list f14 ">
             <!-- 字段IsFollow值为fa-star表示关注；fa-star-o表示未关注 -->
             <div
-              v-for="item in listData"
+              v-for="item in allTagData"
               :key="item.AutoID"
+              :data-id="item.AutoID"
               class="item left"
-              :class="{'active': item.IsFollow == 'fa-star'}"
-              @click="goToList(item.AutoID)"
-              @touchstart="gotouchstart(item, $event)"
-              @touchmove="gotouchmove(item, $event)"
-              @touchend="gotouchend(item, $event)"
-              >{{item.Name}}({{item.PostCount}})</div>
+              @click="selectTag(item, $event)"
+              >{{item.Name}}</div>
+
+            <div v-show="!showAddTag" @click="showAdd" class="item left calcfont calc-jiahao f14"></div>
+            <div class="clear"></div>
         </div>
     </div>
-
-
 
 </div>
 </template>
@@ -36,9 +54,9 @@
 export default {
     data(){
       return{
-        timeOutEvent:0, //定时器对象
-        title:'All Tag',
-        listData:[
+        title:'选择标签',
+        showAddTag:false, //是否显示添加标签输入框
+        allTagData:[
           {
             "AutoID": 7,
             "Name": "Web",
@@ -130,6 +148,12 @@ export default {
             "PostCount": 1,
             "IsFollow": "fa-star-o"
           }
+        ],
+        selectTagData:[
+            // {
+            //   "AutoID": 7,
+            //   "Name": "Web"
+            // }
         ]
       }
     },
@@ -141,91 +165,54 @@ export default {
       lanTool.updateLanVersion();
     },
     methods:{
-
-        //手指开始按
-        gotouchstart(obj,e){
-          let _self = this;
-          clearTimeout(_self.timeOutEvent);//清除定时器
-          _self.timeOutEvent = 0;
-          _self.timeOutEvent = setTimeout(function(){
-                //执行长按要执行的内容，
-                $.actions({
-                  closeText:lanTool.lanContent("111_关闭"),
-                  actions: [{
-                    text: '<div>'+ lanTool.lanContent("786_关注") +'</div>',
-                    onClick: function() {
-
-                       var curObj = $(e.target);
-                       //已关注的再点击关注无效果
-                       if(curObj.hasClass('active')){
-                          return;
-                       }
-                      //do something
-                      //1.请求数据
-                      //2.改变页面状态
-                      curObj.addClass('active');
-
-                    }
-                  },{
-                    text: '<div>'+ lanTool.lanContent("905_取消关注") +'</div>',
-                    onClick: function() {
-
-                      var curObj = $(e.target);
-                      //未关注的再点击取消关注无效果
-                      if(!curObj.hasClass('active')){
-                          return;
-                      }
-                       //do something
-
-                       curObj.removeClass('active');
-
-                    }
-                  }]
-                });
-
-          },600);//这里设置定时
-        },
-        //手释放，如果在500毫秒内就释放，则取消长按事件，此时可以执行onclick应该执行的事件
-        gotouchend(obj, e){
-            let _self = this;
-            clearTimeout(_self.timeOutEvent);
-            if(_self.timeOutEvent!=0){
-                //这里写要执行的内容（尤如onclick事件）
-            }
-        },
-        //如果手指有移动，则取消所有事件，此时说明用户只是要移动而不是长按
-        gotouchmove(obj, e){
-            let _self = this;
-            clearTimeout(_self.timeOutEvent);//清除定时器
-            _self.timeOutEvent = 0;
-        },
-
-
         //返回上一页
         back:function(){
             this.$router.back(-1);
         },
+        //保存动作
+        save:function(){
+        },
+        //移除已选的标签
+        removeTag:function(id){
+            var _self = this;
+            if(tool.isNullOrEmptyObject(id)){
+                return;
+            }
+            //根据 id 移除 selectTagData 中的对象
+            _self.selectTagData = _self.selectTagData.filter(function(obj){
+                return obj.AutoID != id ? true : false;
+            });
 
-        //点击去列表页面
-        goToList:function(id){
-          var _self = this;
-          if(tool.isNullOrEmptyObject(id)){
-              return;
-          }
-          var url = '/forumlist';
-          var parameter = {
-                  id:id
-              };
-          _self.$router.push({
-            path:url,
-            query:parameter
-          })
+            //移除dom中的active类
+            $('div[data-id="'+id+'"]').removeClass('active');
+
+        },
+        //选择标签
+        selectTag:function(item , e){
+            var _self = this;
+            var curObj = $(e.target) || '';
+            //如果已经选择了就不做处理
+            if(curObj.hasClass('active')){
+              return ;
+            }
+            var obj = {
+              "AutoID": item.AutoID,
+              "Name": item.Name
+            }
+            if(!tool.isNullOrEmptyObject(curObj)){
+                _self.selectTagData.push(obj);
+                curObj.addClass('active');
+            }
+        },
+        //显示添加标签输入框
+        showAdd:function(){
+            var _self = this;
+            _self.showAddTag = !_self.showAddTag;
+            $('#addInput').focus();
         }
     }
-
 }
 </script>
-
 
 <style scoped>
 .mycalcfont {
@@ -258,6 +245,12 @@ export default {
     font-weight: 400;
     line-height: 0.88rem;
 }
+.header .posting-btn{
+  line-height:0.88rem;
+  padding:0 10px;
+  color:#7ebbff;
+}
+
 
 .content{
   padding:0.88rem 15px 15px;
@@ -265,16 +258,36 @@ export default {
 .content-title{padding:10px 0;}
 .content-title i{margin-right: 5px;color:#8b8d8c;}
 
+/* .content .tag-list{max-height: } */
 .content .item{
   padding:8px 12px;
   border:1px solid #e3e3e3;
   margin: 5px 10px 5px 0;
   border-radius: 5px;
+  position:relative;
 }
 .content .item.active{
   color:rgb(255, 90, 33);
 }
+.content .item .remove-tag{
+  position:absolute;right:-5px;top:-6px;
+}
 
 
+
+.add-tag{
+  padding:10px 0 0;
+  border-bottom:1px solid #ccc;
+  /* display:none */
+}
+.add-tag .input{
+    border: none;
+    outline: none;
+    line-height: 16px;
+    padding: 10px 10px 10px 0;
+    width: 100%;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
 
 </style>
