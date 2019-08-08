@@ -3625,7 +3625,7 @@ if (typeof define === 'function' && define.amd) {
                 actionsHtml +
                 '</div>'+
                 '<div class="weui-actionsheet__action">'+
-                  '<div class="weui-actionsheet__cell weui-actionsheet_cancel">取消</div>'+
+                  '<div class="weui-actionsheet__cell weui-actionsheet_cancel">'+ params.closeText +'</div>'+
                   '</div>'+
                 '</div>';
     var dialog = $(tpl).appendTo(document.body);
@@ -3671,6 +3671,7 @@ if (typeof define === 'function' && define.amd) {
   var defaults = $.actions.prototype.defaults = {
     title: undefined,
     onClose: undefined,
+    closeText:'取消'
     /*actions: [{
       text: "菜单",
       className: "color-danger",

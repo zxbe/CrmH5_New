@@ -55,7 +55,7 @@ ul,li{list-style: none;padding:0;margin: 0;}
 }
 .tag ul{
   display: flex;
-  width: 200%;
+  /* width: 200%; */
   height: 100%;
   flex-direction:row;
   flex-wrap:nowrap;
@@ -64,7 +64,20 @@ ul,li{list-style: none;padding:0;margin: 0;}
 }
 .tag li{
   padding:5px 10px;
+  position: relative;
+  white-space:nowrap;
 }
+.tag li.active::after{
+  content: "";
+  position:absolute;
+  bottom:0;
+  left:50%;
+  transform: translateX(-50%);
+  height: 2px;
+  width: 15px;
+  background:#dd4b39;
+}
+
 
 /*列表*/
 .list{
@@ -136,4 +149,23 @@ ul,li{list-style: none;padding:0;margin: 0;}
 .list-item .time{
   flex: 1;
   text-align: right;
+}
+
+
+/*发帖按钮*/
+.buttom-div{
+  position:fixed;
+  bottom:calc(1rem + 46px);
+  right:10px;
+  display: flex;
+  flex-direction:column;
+}
+.buttom-div .calcfont{
+    width:36px;
+    height: 36px;
+    line-height: 36px;
+    text-align: center;
+    background:rgba(0,0,0,0.15);
+    border-radius: 50%;
+    color:#787878;
 }

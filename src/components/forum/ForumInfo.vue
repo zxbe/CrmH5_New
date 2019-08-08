@@ -1,17 +1,103 @@
 <template>
 <div>
-  info Page
+    <Infoheader class="sticky infoheader" :isAddNew="isAddNew" :onlyView="onlyView" :operation="operation" :title="ptitle"></Infoheader>
+
+    <div class="pageContent">
+        <p class="forumTitle">什么是stream定义流的英文stream，流（Stream）是一个抽象的数据接口，Node.js中很多对象都实现了流，流是EventEmitter对象的一个实例，总之它是会冒数据（以 Buffer 为单位）</p>
+        <div class="forumContentDiv">
+            <img class="userHeadImg" src="../../assets/images/forum/default_user_img.png" alt="">
+            <span class="userName">aoniruan</span>
+            <p class="content">如果你觉得排版难看，请点击 下面链接 或者 拉到 下面关注公众号也可以吧【Vue原理】Computed - 源码版@dylanxu今天要记录 computed 的源码，有时候想，理解不就好了吗，为什么要记录一遍源码。现在终于想通了过了一段时间之后，你就会忘记你的所谓理解是怎么来的“哎，为什么会这么做，关系为什么是这样，我c…”于是，记录并简化源码，就有助我们迅速找到根源，解决我们的疑惑，还能加强我们的理解@alancheng好吧嗯，这篇文章很长很详细哦，做好阅读的准备，唔该我们重点说明，几个问题的源码实现</p>
+            <div class="containTag">
+                <span>web</span>
+                <span>JS</span>
+                <span>C#</span>
+                <span>Vue</span>
+                <span>web</span>
+                <span>JS</span>
+                <span>C#</span>
+                <span>Vue</span><span>web</span>
+                <span>JS</span>
+                <span>C#</span>
+                <span>Vue</span><span>web</span>
+                <span>JS</span>
+                <span>C#</span>
+                <span>Vue</span><span>web</span>
+                <span>JS</span>
+                <span>C#</span>
+                <span>Vue</span>
+            </div>
+              <div class="infoStatus">
+                    <span class="info-state">Unresolved</span>
+                    <span class="info-state">In Progress</span>
+                </div>
+            <div class="feeditemfooter">
+                    <span class="time">2019-08-08 13:03</span>
+                    <span class="hand">
+                        <span class="calcfont calc-zan1"></span><span>3</span>
+                    </span>
+                    <span class="hand">
+                        <span class="calcfont calc-cai"></span><span>1</span>
+                    </span>
+                    <span class="replies">
+                        <span class="lanText" data-lanid="1000350_答复"></span><span>2</span>
+                    </span>          
+            </div>
+        </div>
+        <div class="replyList">
+            <div class="replyItem">
+                <img class="replyUserImg" src="../../assets/images/forum/default_user_img.png" />
+                <span class="replyUserName">alancheng</span>
+                <p class="replyContent">说明：视频播放的这个例子，如果我们不使用管道和流动的方式，直接先从服务端加载完视频文件，然后再播放。会造成很多问题</p>
+                <div class="feeditemfooter">
+                    <span class="time">2019-08-07 22:00</span>
+                    <span class="hand">
+                        <span class="calcfont calc-zan1"></span><span>3</span>
+                    </span>
+                    <span class="hand">
+                        <span class="calcfont calc-cai"></span><span>2</span>
+                    </span>
+                    
+                </div>
+            </div>
+
+        </div>
+        
+    </div>
+     <div class="replayDiv">
+       <input class="reply" type="text" placeholder="想对Ta说点什么">
+     </div>
 </div>
 </template>
-<script>
-export default {
-  data(){
-    return{
 
+<script>
+import Infoheader from '@/components/customPlugin/Infoheader'
+export default {
+    components: {
+        Infoheader,
+    },
+    data() {
+        return {
+            isAddNew: true,
+            onlyView: true,
+            operation: false,
+            ptitle: lanTool.lanContent("1000369_论坛详情")
+        }
+    },
+    created:function(){
+
+    },
+    mounted:function(){
+      lanTool.updateLanVersion();
+    },
+    methods: {
+        back: function () {
+            this.$router.back(-1);
+        },
     }
-  }
 }
 </script>
+
 <style scoped>
 @import "../../assets/css/forum/ForumInfo.css";
 </style>

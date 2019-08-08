@@ -1,7 +1,7 @@
 <template>
 <div>
+    <Infoheader class="sticky infoheader" :isAddNew="isAddNew" :onlyView="onlyView" :operation="operation" :title="ptitle"></Infoheader>
     <div class="pageContent">
-        <Infoheader class="sticky infoheader" :isAddNew="isAddNew" :onlyView="onlyView" :operation="operation" :title="ptitle"></Infoheader>
         <div class="Container">
             <div class="divContent">
                 <div class="divContentBox">

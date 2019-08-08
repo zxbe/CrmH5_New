@@ -1,0 +1,143 @@
+.infoheader{
+    position: fixed;
+    width: 100%;
+}
+.pageContent{
+    /* padding:10px; */
+    padding-top: 0.88rem;  
+    padding-bottom: 1rem;
+}
+.pageContent .forumTitle{
+    background-color: rgb(244, 243, 248);
+    font-size: 0.3rem;
+    padding: 10px;
+    font-weight: 700;
+}
+.forumContentDiv{
+    padding:10px 10px 5px 10px;
+    /* padding-top:10px; */
+    border-bottom: solid 1px beige;
+}
+.forumContentDiv .userHeadImg{
+    width: 0.6rem;
+    height: 0.6rem;
+    border-radius: 50%;
+    float: left;
+    
+}
+.forumContentDiv .userName{
+    padding-left: 0.1rem;
+    font-size: 0.32rem;
+    color: #048ec6;
+}
+.forumContentDiv .content{
+    padding-left: 0.7rem;
+    font-size: 0.24rem;
+}
+.forumContentDiv .containTag{
+    padding-top: 10px;
+}
+.forumContentDiv .containTag span{
+    display: inline-block;
+    padding: 2px 5px;
+    background: #7ebbff;
+    border-radius: 3px;
+    margin: 0 5px 5px 0;
+    color: #fff;
+}
+.forumContentDiv .infoStatus{
+    padding-top: 5px;
+    font-size: 0.24px;
+ }
+ .forumContentDiv .infoStatus span{
+     display: inline-block;
+     width: 80px;
+     line-height: 1;
+     padding: 5px 0;
+     text-align: center;
+     background: #dd4b39;
+     color: #fff;
+     border-radius: 3px;
+     margin-right: 5px;
+ }
+.forumContentDiv .feeditemfooter{
+    padding-top: 10px;
+    padding-bottom: 3px;
+  font-size: 0.24rem;
+}
+.forumContentDiv .feeditemfooter .hand{
+    padding-bottom: 0.1rem;
+    padding-right: 15px;
+    float: right;
+}
+.forumContentDiv .calcfont,.forumContentDiv .replies .lanText
+{
+    color: rgb(4, 142, 198);
+}
+.replyList{
+    padding:0 10px;
+   padding-top: 10px;
+}
+.replyList .replyItem{
+    padding-bottom: 0.1rem;
+    border-bottom: solid 1px beige; 
+}
+.replyList .replyItem .replyUserImg{
+    width: 0.6rem;
+    height: 0.6rem;
+    border-radius: 50%;
+    float: left;
+}
+.replyList .replyItem .replyUserName{
+    padding-left: 0.1rem;
+    font-size: 0.28rem;
+    color: #048ec6;
+}
+.replyList .replyItem .replyContent{
+    padding-left: 0.7rem;
+    font-size: 0.24rem;
+}
+.replyList .replyItem .feeditemfooter{
+    font-size: 0.24rem;
+    padding-top: 10px;
+    padding-bottom: 0.1rem;
+}
+.replyList .replyItem .feeditemfooter .hand{
+    padding-right: 15px;
+    float: right;
+}
+.replyList .calcfont{
+    color: rgb(4, 142, 198)
+}
+
+.replayDiv{
+    position: fixed;
+    bottom: 0;
+    height: 0.88rem;
+    width: 100%;
+    padding:0.14rem 0.4rem;
+    box-sizing: border-box;
+    border-top: solid 1px beige;
+    background-color: #ffffff;
+}
+.replayDiv input{
+    display: inline-block;
+    height: 0.6rem;
+    overflow: hidden;
+    width: 100%;
+    font-size: .34rem;
+    background-color: rgb(241, 240, 245);
+    box-sizing: border-box;
+    border-radius: 5px;
+    text-indent: 5px;
+    outline-color: invert;
+    outline-style: none;
+    outline-width: 0px;
+    border: none;
+    border-style: none;
+    text-shadow: none;
+    -webkit-appearance: none;
+    -webkit-user-select: text;
+    outline-color: transparent;
+    box-shadow: none;
+}
