@@ -40,6 +40,7 @@ let json = {
 	"Api_MeetingNoticeHandle_Delete":"Api_MeetingNoticeHandle_Delete",
 	"Api_MeetingHandle_QueryNoUploadRecordCount":"Api_MeetingHandle_QueryNoUploadRecordCount",
 	"Api_MeetingHandle_QueryNoUploadRecord":"Api_MeetingHandle_QueryNoUploadRecord",
+	"Api_MeetingHandle_QueryRelatedMeeting":"Api_MeetingHandle_QueryRelatedMeeting",
 	"Api_DocumentsHandle_UploadDocuments2DMS":"Api_DocumentsHandle_UploadDocuments2DMS",
 	"Api_DocumentsHandle_Query":"Api_DocumentsHandle_Query",
 	"Api_DocumentsHandle_DownloadFileFromDMS":"Api_DocumentsHandle_DownloadFileFromDMS",

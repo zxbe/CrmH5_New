@@ -126,114 +126,78 @@ export default {
                 _self.pageNum = 1;
             }
             //api接口地址
-            var apiUrlTemp = '';
-            var jsonDatas = {
-                // CurrentLanguageVersion: lanTool.currentLanguageVersion,
-                // UserName: tool.UserName(),
-                // TabID: _self.tabID,
-                // CompanyID: _self.companyID,
-                // VersionID: _self.versionID,
-                // IsUsePager: true,
-                // PageSize:_self.pageSize,
-                // PageNum:_self.pageNum,
-                // QueryCondiction: _self.queryCondictionData || []
+            var urlTemp = tool.AjaxBaseUrl();
+            var controlName = tool.Api_MeetingHandle_QueryRelatedMeeting;
+            var jsonDatasTemp = {
+                CurrentLanguageVersion: lanTool.currentLanguageVersion,
+                UserName: tool.UserName(),
+                _ControlName: controlName,
+                _RegisterCode: tool.RegisterCode(),
+                IsUsePager: true,
+                PageSize:_self.pageSize,
+                PageNum:_self.pageNum,
+                QueryCondiction: _self.queryCondictionData || [],
+                FromType:_self.fromType,
+                FromID:_self.fromId
             };
+
+            console.log(JSON.stringify(jsonDatasTemp));
 
             if(tool.isNullOrEmptyObject(queryType)){
                 var loadingIndexClassName = tool.showLoading();
             }
-            // $.ajax({
-            //     async: true,
-            //     type: "post",
-            //     url: apiUrlTemp,
-            //     data: {
-            //         jsonDatas: JSON.stringify(jsonDatas)
-            //     },
-            //     success: function (data) {
-            //         tool.hideLoading(loadingIndexClassName);
-            //         data = tool.jObject(data);
-            //         if (data.Result != 1) {
-            //             tool.showText(data.Msg);
-            //             console.log(tool.getMessage(data.Msg));
-            //             return true;
-            //         }
-            //         data = data.Data || {};
 
-            //         //没有数据
-            //         if(tool.isNullOrEmptyObject(data["FleetDatailsArray"]) && _self.pageNum == 1){
-            //             _self.noData = true;
-            //             return ;
-            //         }
-            //         _self.noData = false;
+            $.ajax({
+                async: true,
+                type: "post",
+                url: urlTemp,
+                data: jsonDatasTemp,
+                success: function (data) {
+                    tool.hideLoading(loadingIndexClassName);
+                    data = tool.jObject(data);
+                    // console.log(data);
+                    if (data._ReturnStatus == false) {
+                        tool.showText(tool.getMessage(data));
+                        console.log(tool.getMessage(data));
+                        _self.noData = true;
+                        return;
+                    }
+                    data = data._OnlyOneData.Rows || [];
+                    
+                    //没有数据
+                    if((tool.isNullOrEmptyObject(data) || data.length <= 0) && _self.pageNum == 1){
+                        _self.noData = true;
+                        return ;
+                    }
 
-            //         if(queryType == 'pushLoad'){
-            //             _self.listData = _self.listData.concat(data["FleetDatailsArray"]);
-            //         }else{
-            //             _self.listData = data["FleetDatailsArray"] || [];
-            //         }
+                    _self.noData = false;
+                    if(queryType == 'pushLoad'){
+                        _self.listData = _self.listData.concat(data);
+                    }else{
+                        _self.listData = data;
+                    }
 
-            //         if(queryType == undefined || queryType == ''){
-            //             _self.$refs.scroll.isPullingDown = true;
-            //             _self.$refs.scroll.isPullingUpEnd = false;
-            //             _self.$refs.scroll.scrollTo(0, 0, 200, 'easing');
-            //         }
-            //         _self.$refs.scroll.refresh();
+                    if(queryType == undefined || queryType == ''){
+                        _self.$refs.scroll.isPullingDown = true;
+                        _self.$refs.scroll.isPullingUpEnd = false;
+                        _self.$refs.scroll.scrollTo(0, 0, 200, 'easing');
+                    }
+                    _self.$refs.scroll.refresh();
 
-            //         if(!tool.isNullOrEmptyObject(callback)){
-            //           callback(data["FleetDatailsArray"],_self.pageSize);
-            //         }
-
-            //         //渲染textarea
-            //         _self.$nextTick(function () {
-            //             $(window).scrollTop(0);
-            //             $("textarea").each(function (index, cur) {
-            //                 // $(cur).height('25');
-            //                 tool.autoTextarea(cur);
-            //             });
-            //         });
-            //     },
-            //     error: function (jqXHR, type, error) {
-            //         tool.hideLoading(loadingIndexClassName);
-            //         console.log(error);
-            //         return true;
-            //     },
-            //     complete: function () {
-            //         //隐藏虚拟键盘
-            //         document.activeElement.blur();
-            //     }
-            // });
-
-            var responseData = [
-              {
-                AutoID: 10373,
-                BeginTime: "2019-07-28T08:00:00",
-                EndTime: "2019-07-28T10:00:00",
-                LastUpdateTime: "2019-07-26T14:09:00",
-                LastUpdateUserName: "aoniruan阮毅文",
-                MeetingID: 10289,
-                MeetingTitle: "关于和中国南方航空公司的合作相关会议"
-              },
-              {
-                AutoID: 10371,
-                BeginTime: "2019-07-26T08:00:00",
-                EndTime: "2019-07-26T18:00:00",
-                LastUpdateTime: "2019-07-26T15:17:00",
-                LastUpdateUserName: "alancheng鄭兆麟",
-                MeetingID: 10287,
-                MeetingTitle: "26号1次会议"
-              },
-            ]
-
-            if(queryType == 'pushLoad'){
-                _self.listData = _self.listData.concat(responseData);
-            }else{
-                _self.listData = responseData || [];
-            }
-
-            setTimeout(() => {
-              tool.hideLoading(loadingIndexClassName);
-              _self.$refs.scroll.refresh();
-            }, 2000);
+                    if(!tool.isNullOrEmptyObject(callback)){
+                      callback(data,_self.pageSize);
+                    }
+                },
+                error: function (jqXHR, type, error) {
+                    tool.hideLoading(loadingIndexClassName);
+                    console.log(error);
+                    return true;
+                },
+                complete: function () {
+                    //隐藏虚拟键盘
+                    document.activeElement.blur();
+                }
+            });
         },
 
         //下拉
@@ -255,7 +219,6 @@ export default {
               //  else{
               //     _self.$refs.scroll.refresh();
               //  }
-
             })
         },
 
