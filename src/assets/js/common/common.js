@@ -311,6 +311,10 @@ import config from '../../configfile/config.js'
 	 * 联系人删除接口
 	 */
 	tool.Api_ContactsHandle_Delete = "Api_ContactsHandle_Delete";
+	/*
+	 * 查询关联联系人列表
+	 */
+	tool.Api_ContactsHandle_QueryRelatedContact = "Api_ContactsHandle_QueryRelatedContact";
 
 	/*
 	 * 查询数据分享接口

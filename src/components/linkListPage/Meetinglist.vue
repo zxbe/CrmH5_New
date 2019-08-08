@@ -141,7 +141,7 @@ export default {
                 FromID:_self.fromId
             };
 
-            console.log(JSON.stringify(jsonDatasTemp));
+            //console.log(JSON.stringify(jsonDatasTemp));
 
             if(tool.isNullOrEmptyObject(queryType)){
                 var loadingIndexClassName = tool.showLoading();

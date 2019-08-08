@@ -17,6 +17,7 @@ let json = {
 	"Api_ContactsHandle_QuerySingle":"Api_ContactsHandle_QuerySingle",
 	"Api_ContactsHandle_SaveOrUpdate":"Api_ContactsHandle_SaveOrUpdate",
 	"Api_ContactsHandle_Delete":"Api_ContactsHandle_Delete",
+	"Api_ContactsHandle_QueryRelatedContact":"Api_ContactsHandle_QueryRelatedContact",
 	"Api_DataShareInfHandle_Query":"Api_DataShareInfHandle_Query",
 	"Api_DataShareInfHandle_SaveOrUpdate":"Api_DataShareInfHandle_SaveOrUpdate",
 	"Api_DataShareInfHandle_HasInitiator":"Api_DataShareInfHandle_HasInitiator",

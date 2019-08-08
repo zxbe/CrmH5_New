@@ -13,19 +13,21 @@
         </div> -->
         <vue-scroll v-show="!noData" :showToTop="false" :options="{ pullup: true, pulldown: true }" :scrollbar="false" ref="scroll" @pulldown="pulldown" @pullup="pullup">
             <div v-show="!noData" id="contactsList" class="group-item-list contacts-list">
-                <div v-for="item in listData" class="group-item f14" :data-url="'/contactsinfo/'+ item.AutoID">
-                    <div class="item-user-icon calcfont calc-fuzeren1" :data-autoid="item.AutoID"></div>
-                    <div class="item-block contacts-item-block">
-                        <div class="item-div item-first-div">{{item.EnglishName}}</div>
-                        <div class="item-div">{{item.Title}}</div>
-                        <div class="item-div">
-                            <span class="left-text max60">{{item.CompanyID}}</span>
-                            <span class="right-text max35">{{item.CountryName}}</span>
+                <div v-for="item in listData" class="group-item f14" :key="item.AutoID" :data-url="'/contactsinfo/'+ item.AutoID">
+                    <div @click="goInfoPage(item,$event)">
+                        <div class="item-user-icon calcfont calc-fuzeren1" :data-autoid="item.AutoID"></div>
+                        <div class="item-block contacts-item-block">
+                            <div class="item-div item-first-div">{{item.EnglishName}}</div>
+                            <div class="item-div">{{item.Title}}</div>
+                            <div class="item-div">
+                                <span class="left-text max60">{{item.CompanyID}}</span>
+                                <span class="right-text max35">{{item.CountryName}}</span>
+                            </div>
+                            <div class="item-div">
+                                <span class="left-text">{{item.Email}}</span><span class="right-text">{{item.TelPhone}}</span>
+                            </div>
+                            <div class="item-div">{{item.BusinessType}},{{item.DepartmentName}}</div>
                         </div>
-                        <div class="item-div">
-                            <span class="left-text">{{item.Email}}</span><span class="right-text">{{item.TelPhone}}</span>
-                        </div>
-                        <div class="item-div">{{item.BusinessType}},{{item.DepartmentName}}</div>
                     </div>
                 </div>
             </div>
@@ -52,14 +54,18 @@ export default {
             companyName: '', //公司名字
             noData: false, //没数据
             listData: [],
-            pageSize: 2, //一页显示多少记录
+            pageSize: 10, //一页显示多少记录
             pageNum: 1, //当前页码
+
+            fromType:'',  //标志是用那个模块过来的；联系人:6;公司:7;会议:8;商机&交易:9;
+            fromId:'',  //dealPipelineID或者pitchesID,用于新增会议自动选择关联于商业字段
         }
     },
     created: function () {
-        this.companyID = this.$route.query.fromId || "";
-        // this.companyName = this.$route.query.companyName || "";
-        // this.title = this.$route.query.infoName || "";
+        var _self = this;
+        _self.companyID = _self.$route.query.fromId || "";
+        _self.fromType = _self.$route.query.fromType || '';
+        _self.fromId = _self.$route.query.fromId || '';
     },
     beforeRouteEnter: function (to, from, next) {
         next();
@@ -71,14 +77,10 @@ export default {
         next();
     },
     mounted: function () {
-        this.queryList();
-        lanTool.updateLanVersion();
-        document.activeElement.blur();
-
         var _self = this;
-
-        _self.getListData();
-
+        lanTool.updateLanVersion();
+        _self.queryList();
+        document.activeElement.blur();
     },
     methods: {
         //新增联系人
@@ -101,41 +103,39 @@ export default {
         //         path: urlTemp,
         //         query: parameter
         //     });
-
         // },
         //查询列表数据
         queryList: function (queryType, callback) {
             let _self = this;
-            if (queryType == 'pushLoad') {
+            if(queryType == 'pushLoad'){
                 //上拉请求
                 _self.pageNum += 1;
-            } else {
+            }else{
                 //非上拉请求
                 _self.pageNum = 1;
             }
-            var groupID = _self.companyID || "";
-            if (tool.isNullOrEmptyObject(groupID)) {
-                _self.noData = true;
-                return;
-            }
-
-            //请求地址
+            //api接口地址
             var urlTemp = tool.AjaxBaseUrl();
-            var controlName = tool.Api_ContactsHandle_GroupInnerData;
-            //传入参数
+            var controlName = tool.Api_ContactsHandle_QueryRelatedContact;
             var jsonDatasTemp = {
                 CurrentLanguageVersion: lanTool.currentLanguageVersion,
                 UserName: tool.UserName(),
                 _ControlName: controlName,
-                PageSize: _self.pageSize,
-                PageNum: _self.pageNum,
-                GroupID: groupID,
                 _RegisterCode: tool.RegisterCode(),
-                QueryCondiction: []
+                IsUsePager: true,
+                PageSize:_self.pageSize,
+                PageNum:_self.pageNum,
+                QueryCondiction: _self.queryCondictionData || [],
+                FromType:_self.fromType,
+                FromID:_self.fromId
             };
-            if (tool.isNullOrEmptyObject(queryType)) {
+
+            //console.log(JSON.stringify(jsonDatasTemp));
+
+            if(tool.isNullOrEmptyObject(queryType)){
                 var loadingIndexClassName = tool.showLoading();
             }
+
             $.ajax({
                 async: true,
                 type: "post",
@@ -151,184 +151,79 @@ export default {
                         _self.noData = true;
                         return;
                     }
-
                     data = data._OnlyOneData.Rows || [];
-                    //无数据
-                    if (data.length <= 0 && _self.pageNum == 1) {
+                    
+                    //没有数据
+                    if((tool.isNullOrEmptyObject(data) || data.length <= 0) && _self.pageNum == 1){
                         _self.noData = true;
-                        return;
+                        return ;
                     }
-                    _self.noData = false;
 
-                    if (queryType == 'pushLoad') {
-                        // _self.listData = _self.listData.concat(data);
-                    } else {
-                        _self.listData = data || [];
+                    _self.noData = false;
+                    if(queryType == 'pushLoad'){
+                        _self.listData = _self.listData.concat(data);
+                    }else{
+                        _self.listData = data;
+                    }
+
+                    if(queryType == undefined || queryType == ''){
+                        _self.$refs.scroll.isPullingDown = true;
+                        _self.$refs.scroll.isPullingUpEnd = false;
+                        _self.$refs.scroll.scrollTo(0, 0, 200, 'easing');
                     }
                     _self.$refs.scroll.refresh();
-                    //定义跳转事件
-                    _self.$nextTick(function () {
-                        $("[data-url]").off('click').on('click', function () {
-                            var curObj = $(this);
-                            if (tool.isNullOrEmptyObject(curObj)) {
-                                return;
-                            }
-                            var urlTemp = curObj.attr("data-url") || "";
-                            if (tool.isNullOrEmptyObject(urlTemp)) {
-                                return;
-                            }
 
-                            var infoName = $(this).find(".item-first-div").text() || "";
-                            var parameter = {
-                                onlyView: true,
-                                infoName: infoName,
-                                source: 'contactsof'
-                            };
-
-                            _self.$store.commit('REMOVE_ITEM', 'contactsinfo');
-                            _self.$router.push({
-                                path: urlTemp,
-                                query: parameter
-                            });
-                        });
-                    })
+                    if(!tool.isNullOrEmptyObject(callback)){
+                      callback(data,_self.pageSize);
+                    }
                 },
                 error: function (jqXHR, type, error) {
-                    console.log(error);
                     tool.hideLoading(loadingIndexClassName);
-                    return;
+                    console.log(error);
+                    return true;
                 },
                 complete: function () {
-                    //tool.hideLoading();
                     //隐藏虚拟键盘
                     document.activeElement.blur();
                 }
             });
-
-            // setTimeout(() => {
-            //     tool.hideLoading(loadingIndexClassName);
-            //     _self.$refs.scroll.refresh();
-            // }, 2000);
         },
-
-        //下拉
-        pulldown: function () {
-            console.log("下拉");
-
+       //下拉
+        pulldown:function(){
             let _self = this;
-            _self.queryList('pushRefresh', function () {
-                // _self.$refs.scroll.refresh();
+            _self.queryList('pushRefresh',function(){
             })
         },
-
         //上拉
-        pullup: function () {
-            console.log("上拉");
+        pullup:function(){
             let _self = this;
-            _self.queryList('pushLoad', function (data, pageSize) {
-
-                if (data.length < pageSize) {
-                    _self.$refs.scroll.pullupEnd();
-                }
-
+             _self.queryList('pushLoad',function(data,pageSize){
+               if(data.length < pageSize){
+                  _self.$refs.scroll.pullupEnd();
+               }
             })
         },
-
-        //获取列表数据
-        getListData: function () {
+        //点击跳转到会议详情
+        goInfoPage:function(item,e){
             var _self = this;
-
-            var groupID = _self.companyID || "";
-            if (tool.isNullOrEmptyObject(groupID)) {
-                _self.noData = true;
+            if(tool.isNullOrEmptyObject(item.AutoID)){
                 return;
             }
-
-            //请求地址
-            var urlTemp = tool.AjaxBaseUrl();
-            var controlName = tool.Api_ContactsHandle_GroupInnerData;
-            //传入参数
-            var jsonDatasTemp = {
-                CurrentLanguageVersion: lanTool.currentLanguageVersion,
-                UserName: tool.UserName(),
-                _ControlName: controlName,
-                PageSize: _self.pageSize,
-                PageNum: _self.pageNum,
-                GroupID: groupID,
-                _RegisterCode: tool.RegisterCode(),
-                QueryCondiction: []
-            };
-
-            var loadingIndexClassName = tool.showLoading();
-            $.ajax({
-                async: true,
-                type: "post",
-                url: urlTemp,
-                data: jsonDatasTemp,
-                success: function (data) {
-                    tool.hideLoading(loadingIndexClassName);
-                    data = tool.jObject(data);
-                    // console.log(data);
-                    if (data._ReturnStatus == false) {
-                        tool.showText(tool.getMessage(data));
-                        console.log(tool.getMessage(data));
-                        _self.noData = true;
-                        return;
-                    }
-
-                    data = data._OnlyOneData.Rows || [];
-                    //无数据
-                    if (data.length <= 0) {
-                        _self.noData = true;
-                        return;
-                    }
-                    _self.noData = false;
-                    _self.listData = data;
-
-                    //定义跳转事件
-                    _self.$nextTick(function () {
-                        $("[data-url]").off('click').on('click', function () {
-                            var curObj = $(this);
-                            if (tool.isNullOrEmptyObject(curObj)) {
-                                return;
-                            }
-                            var urlTemp = curObj.attr("data-url") || "";
-                            if (tool.isNullOrEmptyObject(urlTemp)) {
-                                return;
-                            }
-
-                            var infoName = $(this).find(".item-first-div").text() || "";
-                            var parameter = {
-                                onlyView: true,
-                                infoName: infoName,
-                                source: 'contactsof'
-                            };
-
-                            _self.$store.commit('REMOVE_ITEM', 'contactsinfo');
-                            _self.$router.push({
-                                path: urlTemp,
-                                query: parameter
-                            });
-                        });
-                    })
-                },
-                error: function (jqXHR, type, error) {
-                    console.log(error);
-                    tool.hideLoading(loadingIndexClassName);
-                    return;
-                },
-                complete: function () {
-                    //tool.hideLoading();
-                    //隐藏虚拟键盘
-                    document.activeElement.blur();
+            var url = "/contactsinfo/" + item.AutoID
+            var infoName = item.EnglishName || '';
+            _self.$router.push({
+                path: url,
+                query: 
+                {
+                    infoName: infoName,
+                    onlyView: true,
+                    source: 'contactsof'
                 }
             });
         },
-
         backHandler: function () {
             this.$router.back(-1);
-        },
-
+        }
     }
 }
 </script>
