@@ -13,7 +13,14 @@
         </div>
         <div class="post-content-div">
             <textarea class="lanInputPlaceHolder post-content f14" data-lanid="1000368_请输入内容"></textarea>
+            <!-- <div class="lanText post-content f14" contenteditable="true" data-lanid="1000368_请输入内容"></div> -->
         </div>
+
+        <!-- @ -->
+        <div class="">
+            <span @click="selectUser">@</span>
+        </div>
+
         <div class="post-tag f14">
             <span>标签:</span>
             <input id="tags" type="text" />
@@ -25,14 +32,32 @@
 
 <script>
 export default {
+  name:'forumposting',
   data(){
     return{
         title:'发帖'
     }
   },
+  created:function(){
+      var _self = this;
+      _self.$store.commit('SET_ITEM', 'forumposting');
+  },
   mounted:function(){
     lanTool.updateLanVersion();
     this.initSelect();
+  },
+  activated:function(){
+        // console.log(eventBus.selectListData);
+        //获取选择的用户
+        if(tool.isNullOrEmptyObject(eventBus.selectListData)){
+            return;
+        }
+        var selectUser = eventBus.selectListData;
+        //清空全局变量
+        eventBus.selectListData = null;
+
+        //把选择的用户插入帖子内容中
+
   },
   methods:{
       //返回上一页
@@ -43,8 +68,30 @@ export default {
       posting:function(){
 
       },
+      //@用户
+      selectUser:function(){
+          var _self = this;
+          var parameter = {
+              addUrl: "",
+              code: "DropDowList_AccountManager",
+              field: "Participants",
+              filter: "",
+              fromType: "",
+              linkIDField: "",
+              linkNameField: "",
+              selectType: "checkbox",
+              title: "Participants",
+              typeValue: "",
+              value: ""
+            };
+            _self.$router.push({
+              path: '/selectlist',
+              query: parameter
+            });
+      },
       //初始化选择标签控件
       initSelect:function(){
+        // https://www.sucaihuo.com/js/4482.html
           $("#tags").select({
             title: "您的爱好",
             multi: true,
@@ -84,6 +131,12 @@ export default {
             ]
           });
       }
+  },
+  beforeRouteLeave:function(to, from, next){
+    if(to.name == 'forumlist'){
+        this.$store.commit('REMOVE_ITEM', 'forumposting');
+    }
+    next();
   }
 }
 </script>
@@ -142,7 +195,7 @@ export default {
   display: inline-block;
   position: absolute;
   right:0;
-  bottom:10px;
+  bottom:15px;
   color:#ccc;
   line-height: 14px;
   height: 14px;

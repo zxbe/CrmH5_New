@@ -147,11 +147,6 @@ const router =  new Router({
    component: (resolve) => require(['@/components/forum/ForumPosting'], resolve)
   },
 
-  { path:'/test',
-   name:'test',
-   component: (resolve) => require(['@/components/customPlugin/scroll/test'], resolve)
-  },
-
 
  //用户活动
  { path:'/userEvents',name:'UserEvents',component:UserEvents},
