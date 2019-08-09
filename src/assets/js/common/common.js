@@ -475,6 +475,14 @@ import config from '../../configfile/config.js'
 	 * 同步公司和联系人数据接口
 	 */
 	tool.Api_CamcardDataHandle_SyncCompanyAndContactData = "Api_CamcardDataHandle_SyncCompanyAndContactData";
+	/*
+	 * 同步公司数据接口
+	 */
+	tool.Api_CamcardDataHandle_SyncCompanyData = "Api_CamcardDataHandle_SyncCompanyData";
+	/*
+	 * 同步联系人数据接口
+	 */
+	tool.Api_CamcardDataHandle_SyncContactData = "Api_CamcardDataHandle_SyncContactData";
 
 	/*
 	 * ADBAjaxUrl:ADB系统请求的api地址

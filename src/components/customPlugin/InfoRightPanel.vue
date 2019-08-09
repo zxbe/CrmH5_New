@@ -242,10 +242,55 @@ export default {
         },
         //同步Camcard数据
         SynchronousCamCardData: function () {
+            var _self = this;
             tool.showConfirm(
                 lanTool.lanContent("1000212_同步Camcard数据将会覆盖本地数据，是否确定同步？"),
                 function () {
-                    //点击确定后同步的逻辑
+                    //请求地址
+                    var urlTemp = tool.AjaxBaseUrl();
+                    var controlName = "";
+                    if(_self.rightPanelFromType == "6"){
+                        //联系人
+                        controlName = tool.Api_CamcardDataHandle_SyncContactData;
+                    }else if(_self.rightPanelFromType == "7"){
+                        //公司
+                        controlName = tool.Api_CamcardDataHandle_SyncCompanyData;
+                    }else{
+                        //其他
+                        return false;
+                    }
+
+                    //传入参数
+                    var jsonDatasTemp = {
+                        CurrentLanguageVersion: lanTool.currentLanguageVersion,
+                        UserName: tool.UserName(),
+                        _ControlName: controlName,
+                        _RegisterCode: tool.RegisterCode(),
+                        AutoID:_self.rightPanelFromID
+                    };
+
+                    var loadingIndexClassName = tool.showLoading();
+                    $.ajax({
+                        async: true,
+                        type: "post",
+                        url: urlTemp,
+                        data: jsonDatasTemp,
+                        success: function (data) {
+                            tool.hideLoading(loadingIndexClassName);
+                            data = tool.jObject(data);
+                            tool.showText(tool.getMessage(data));
+                            window.location.reload();
+                        },
+                        error: function (jqXHR, type, error) {
+                            tool.hideLoading(loadingIndexClassName);
+                            console.log(error);
+                            return;
+                        },
+                        complete: function () {
+                            //隐藏虚拟键盘
+                            document.activeElement.blur();
+                        }
+                    });
                 },
                 function () {}
             );

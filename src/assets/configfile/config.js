@@ -54,6 +54,8 @@ let json = {
 	"Api_MessagesToUserHandle_QueryPostCount":"Api_MessagesToUserHandle_QueryPostCount",
 	"Api_MessagesToUserHandle_QueryPostMsgList":"Api_MessagesToUserHandle_QueryPostMsgList",
 	"Api_CamcardDataHandle_SyncCompanyAndContactData":"Api_CamcardDataHandle_SyncCompanyAndContactData",
+	"Api_CamcardDataHandle_SyncCompanyData":"Api_CamcardDataHandle_SyncCompanyData",
+	"Api_CamcardDataHandle_SyncContactData":"Api_CamcardDataHandle_SyncContactData",
 	"currentLanguageVersion":"",
 	"refreshSessionTime":1200000,
 	"ADBAjaxUrl":"http://197.7.50.186:777/ADB",
