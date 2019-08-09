@@ -58,10 +58,16 @@
                         <img class="img" src="../../assets/images/forum/default_user_img.png"/>
                         <span class="name">{{item.UserName}}</span>
                         <div class="hand">
-                            <span class="calcfont calc-zan1"></span><span>{{item.LikeCount}}</span>
+                          <!-- 没赞：calc-zan1 ； 赞：calc-zan -->
+                            <span class="calcfont"
+                                  :class="[parseInt(item.IsCurrentUserLike)>=1 ? 'calc-zan' : 'calc-zan1']"
+                              ></span><span>{{item.LikeCount}}</span>
                         </div>
                         <div class="hand">
-                            <span class="calcfont calc-cai"></span><span>{{item.DislikeCount}}</span>
+                          <!-- 没踩：calc-cai ； 踩：calc-caishixin- -->
+                            <span class="calcfont"
+                                  :class="[parseInt(item.IsCurrentUserDislike)>=1 ? 'calc-caishixin-' : 'calc-cai']"
+                              ></span><span>{{item.DislikeCount}}</span>
                         </div>
                         <div class="replies">
                             <span class="lanText" data-lanid="1000350_答复"></span><span>2</span>
@@ -437,10 +443,10 @@ export default {
                 "Result": "未解决",
                 "Result_ID": 74,
                 "ReplyCount": 0,
-                "LikeCount": 0,
-                "IsCurrentUserLike": "0",
-                "DislikeCount": 0,
-                "IsCurrentUserDislike": "0"
+                "LikeCount": 1,
+                "IsCurrentUserLike": "1",
+                "DislikeCount": 1,
+                "IsCurrentUserDislike": "1"
               }, {
                 "AutoID": 102,
                 "TopicID": 7,
@@ -455,8 +461,8 @@ export default {
                 "Result": "未解决",
                 "Result_ID": 74,
                 "ReplyCount": 0,
-                "LikeCount": 0,
-                "IsCurrentUserLike": "0",
+                "LikeCount": 1,
+                "IsCurrentUserLike": "1",
                 "DislikeCount": 0,
                 "IsCurrentUserDislike": "0"
               }, {

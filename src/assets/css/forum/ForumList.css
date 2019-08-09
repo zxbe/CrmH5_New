@@ -167,6 +167,9 @@ ul,li{list-style: none;padding:0;margin: 0;}
 .list-item .hand,.list-item .replies{
   margin-right: 5px;
 }
+.list-item .hand .calc-zan, .list-item .hand .calc-caishixin-{
+  color:#048ec6;
+}
 .list-item .time{
   flex: 1;
   text-align: right;
