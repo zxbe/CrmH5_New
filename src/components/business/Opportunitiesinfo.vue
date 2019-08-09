@@ -401,8 +401,8 @@
 
             </div>
             <div class="btn-div">
-                <a href="javascript:;" class="mybtn btn-ok">确定</a>
-                <a href="javascript:;" class="mybtn btn-cancel">取消</a>
+               <a href="javascript:;" class="mybtn btn-ok lanText" data-lanid="545_确定"></a>
+                <a href="javascript:;" class="mybtn btn-cancel lanText" data-lanid="570_取消"></a>
             </div>
 
         </div>
@@ -448,8 +448,8 @@
 
             </div>
             <div class="btn-div">
-                <a href="javascript:;" class="mybtn btn-ok">确定</a>
-                <a href="javascript:;" class="mybtn btn-cancel">取消</a>
+               <a href="javascript:;" class="mybtn btn-ok lanText" data-lanid="545_确定"></a>
+                <a href="javascript:;" class="mybtn btn-cancel lanText" data-lanid="570_取消"></a>
             </div>
 
         </div>
