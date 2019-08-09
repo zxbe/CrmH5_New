@@ -68,10 +68,14 @@
                         <img class="img" src="../../assets/images/forum/default_user_img.png"/>
                         <span class="name">{{item.UserName}}</span>
                         <div class="hand">
-                            <span class="calcfont calc-zan1"></span><span>{{item.LikeCount}}</span>
+                            <span class="calcfont"
+                                  :class="[parseInt(item.IsCurrentUserLike)>=1 ? 'calc-zan' : 'calc-zan1']"
+                              ></span><span>{{item.LikeCount}}</span>
                         </div>
                         <div class="hand">
-                            <span class="calcfont calc-cai"></span><span>{{item.DislikeCount}}</span>
+                            <span class="calcfont"
+                                  :class="[parseInt(item.IsCurrentUserDislike)>=1 ? 'calc-caishixin-' : 'calc-cai']"
+                              ></span><span>{{item.DislikeCount}}</span>
                         </div>
                         <div class="replies">
                             <span class="lanText" data-lanid="1000350_答复"></span><span>2</span>

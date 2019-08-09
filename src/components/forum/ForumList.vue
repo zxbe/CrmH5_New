@@ -58,19 +58,19 @@
                         <img class="img" src="../../assets/images/forum/default_user_img.png"/>
                         <span class="name">{{item.UserName}}</span>
                         <div class="hand">
-                          <!-- 没赞：calc-zan1 ； 赞：calc-zan -->
+                          <!-- 没赞：calc-zan1  赞：calc-zan -->
                             <span class="calcfont"
                                   :class="[parseInt(item.IsCurrentUserLike)>=1 ? 'calc-zan' : 'calc-zan1']"
                               ></span><span>{{item.LikeCount}}</span>
                         </div>
                         <div class="hand">
-                          <!-- 没踩：calc-cai ； 踩：calc-caishixin- -->
+                          <!-- 没踩：calc-cai  踩：calc-caishixin- -->
                             <span class="calcfont"
                                   :class="[parseInt(item.IsCurrentUserDislike)>=1 ? 'calc-caishixin-' : 'calc-cai']"
                               ></span><span>{{item.DislikeCount}}</span>
                         </div>
                         <div class="replies">
-                            <span class="lanText" data-lanid="1000350_答复"></span><span>2</span>
+                            <span class="lanText" data-lanid="1000350_答复"></span><span>{{item.ReplyCount}}</span>
                         </div>
                         <span class="time">{{item.PostTime|MeetingTimeFormat}}</span>
                     </div>
@@ -442,7 +442,7 @@ export default {
                 "Status_ID": 70,
                 "Result": "未解决",
                 "Result_ID": 74,
-                "ReplyCount": 0,
+                "ReplyCount": 1,
                 "LikeCount": 1,
                 "IsCurrentUserLike": "1",
                 "DislikeCount": 1,
@@ -460,7 +460,7 @@ export default {
                 "Status_ID": 70,
                 "Result": "未解决",
                 "Result_ID": 74,
-                "ReplyCount": 0,
+                "ReplyCount": 2,
                 "LikeCount": 1,
                 "IsCurrentUserLike": "1",
                 "DislikeCount": 0,
