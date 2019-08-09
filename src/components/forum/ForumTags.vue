@@ -212,13 +212,12 @@ export default {
           if(tool.isNullOrEmptyObject(id)){
               return;
           }
-          var url = '/forumlist';
           var parameter = {
-                  id:id
+                 id:id
               };
           _self.$router.push({
-            path:url,
-            query:parameter
+            name:'forumlist',
+            params:parameter
           })
         }
     }

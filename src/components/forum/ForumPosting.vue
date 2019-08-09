@@ -57,6 +57,7 @@ export default {
   created:function(){
       var _self = this;
       _self.$store.commit('SET_ITEM', 'forumposting');
+
       if(!tool.isNullOrEmptyObject(_self.$route.params.id)){
           _self.postId = _self.$route.params.id;
       }
