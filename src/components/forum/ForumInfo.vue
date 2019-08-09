@@ -1,7 +1,15 @@
 <template>
 <div>
-    <Infoheader class="sticky infoheader" :isAddNew="isAddNew" :onlyView="onlyView" :operation="operation" :title="ptitle"></Infoheader>
+    <!-- <Infoheader class="sticky infoheader" :isAddNew="isAddNew" :onlyView="onlyView" :operation="operation" :title="ptitle"></!--> 
+    <header class="mui-bar mui-bar-nav">
+        <a @click="back" class="calcfont calc-fanhui left" id="back"></a>
 
+        <h1 class="mui-title f18">{{ptitle}}</h1>
+
+        <a  @click="editClick" class="calcfont calc-fa-edit right" id="gengduo"></a>
+        <a  @click="saveClick" class="calcfont calc-jieshu right" id="save"></a>
+        <a  @click="delClick" class="calcfont calc-shanchu right" id="delete"></a>
+    </header>
     <div class="pageContent">
         <p class="forumTitle">什么是stream定义流的英文stream，流（Stream）是一个抽象的数据接口，Node.js中很多对象都实现了流，流是EventEmitter对象的一个实例，总之它是会冒数据（以 Buffer 为单位）</p>
         <div class="forumContentDiv">
@@ -27,21 +35,21 @@
                 <span>C#</span>
                 <span>Vue</span>
             </div>
-              <div class="infoStatus">
-                    <span class="info-state">Unresolved</span>
-                    <span class="info-state">In Progress</span>
-                </div>
+            <div class="infoStatus">
+                <span class="info-state">Unresolved</span>
+                <span class="info-state">In Progress</span>
+            </div>
             <div class="feeditemfooter">
-                    <span class="time">2019-08-08 13:03</span>
-                    <span class="hand">
-                        <span class="calcfont calc-zan1"></span><span>3</span>
-                    </span>
-                    <span class="hand">
-                        <span class="calcfont calc-cai"></span><span>1</span>
-                    </span>
-                    <span class="replies">
-                        <span class="lanText" data-lanid="1000350_答复"></span><span>2</span>
-                    </span>          
+                <span class="time">2019-08-08 13:03</span>
+                <span class="hand">
+                    <span class="calcfont calc-zan1"></span><span>3</span>
+                </span>
+                <span class="hand">
+                    <span class="calcfont calc-cai"></span><span>1</span>
+                </span>
+                <span class="replies">
+                    <span class="lanText" data-lanid="1000350_答复"></span><span>2</span>
+                </span>
             </div>
         </div>
         <div class="replyList">
@@ -57,16 +65,47 @@
                     <span class="hand">
                         <span class="calcfont calc-cai"></span><span>2</span>
                     </span>
-                    
+
                 </div>
             </div>
 
         </div>
-        
+
     </div>
-     <div class="replayDiv">
-       <input class="reply" type="text" placeholder="想对Ta说点什么">
-     </div>
+    <div class="replayDiv">
+        <input class="reply" type="text" placeholder="想对Ta说点什么">
+    </div>
+
+       <div id="closeThis" class="elastic-layer">
+        <div class="elastic-layer-content">
+            <div class="elastic-layer-title lanText f18" data-lanid="1060_帖子结果"></div>
+
+            <div class="elastic-layer-items">
+                <div class="elastic-layer-item f14">
+                    <span class="nessesary f18">*</span>
+                    <div class="ListCellContentLeft leftContent">
+                        <div class="ListCellContentLeftText lanText" data-lanid="1060_帖子结果"></div>
+                    </div>
+                    <div class="ListCellContentRight rightContent">
+                        <input type="text"
+                              data-field="CurrentStateNew"
+                              data-lanid="1060_帖子结果"
+                              data-fieldControlType="picker"
+                              data-fieldVal=""
+                              Code="DropDowList_DtbAllTypes"
+                              TypeValue="CurrentStateNew"
+                              class="ListCellContentRightText"/>
+                    </div>
+                    <div class="ListCellRightIcon"><span class="calcfont calc-you"></span></div>
+                </div>
+            </div>
+            <div class="btn-div">
+                <a href="javascript:;" class="mybtn btn-ok lanText" data-lanid="545_确定"></a>
+                <a href="javascript:;" class="mybtn btn-cancel lanText" data-lanid="570_取消"></a>
+            </div>
+
+        </div>
+    </div>
 </div>
 </template>
 
@@ -84,20 +123,45 @@ export default {
             ptitle: lanTool.lanContent("1000369_论坛详情")
         }
     },
-    created:function(){
+    created: function () {
 
     },
-    mounted:function(){
-      lanTool.updateLanVersion();
+    mounted: function () {
+        lanTool.updateLanVersion();
     },
     methods: {
         back: function () {
             this.$router.back(-1);
         },
+        //编辑事件
+        editClick:function(){
+          console.log("编辑");
+        },
+        //保存事件
+        saveClick:function(){
+          console.log("保存");
+           var _self = this;
+            $('#closeThis').show();
+
+            //取消
+            $('#closeThis').find('a.btn-cancel').off('click').on('click',function(){
+                $('#closeThis').hide();
+            })
+
+            //确定
+            $('#closeThis').find('a.btn-ok').off('click').on('click',function(){
+                console.log("确定");
+            })
+        },
+        //删除事件
+        delClick:function(){
+          console.log("删除");
+        }
     }
 }
 </script>
 
 <style scoped>
+@import "../../assets/css/pages/calendarinfo.css";
 @import "../../assets/css/forum/ForumInfo.css";
 </style>

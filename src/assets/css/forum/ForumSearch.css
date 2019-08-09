@@ -153,10 +153,12 @@ li {
     display: block;
     text-align: left;
     box-sizing: border-box;
-    padding:0 3px;
+    /* padding:0 3px; */
+    padding-left: 10px;
 }
 .selectSort{
-    padding-right: 3px;
+    padding-left: 0;
+    padding-right: 10px;
     text-align: right;
 }
 .zen-selectArrow {
@@ -183,6 +185,7 @@ li {
     display: block;
     color: #000000;
     font-size: 0.24rem;
+    text-align: center;
 }
 /* 下拉列表a标签选中的背景颜色*/
 .selected{
