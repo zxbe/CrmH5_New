@@ -5,7 +5,8 @@ header {
 }
 
 header.mui-bar {
-    background: #f8f2dc;
+    /* background: #f8f2dc; */
+    background-color: #ffffff;
     overflow: hidden;
 }
 
@@ -33,6 +34,7 @@ input {
     border-bottom-right-radius: 0;
     border-top-right-radius: 0;
     text-indent: 5px;
+    background-color: #f1f0f6;
     outline-color: invert;
     outline-style: none;
     outline-width: 0px;
@@ -59,15 +61,15 @@ input {
     width: 1.86rem;
     height: 0.88rem;
     float: right;
-    padding-top: 0.1rem;
+    padding-top: 0.12rem;
     padding-right: 0.1rem;
     /* background-color: yellow; */
     box-sizing: border-box;
 }
 .headLeftIconDiv .searchBtn,.headLeftIconDiv .dropDownBtn {
     width: 0.88rem;
-    height: 0.64rem;
-    line-height: 0.64rem;
+    height: 0.6rem;
+    line-height: 0.6rem;
     text-align: center;
     border:solid 0.02rem rgb(232, 232, 232);
     box-sizing: border-box;
