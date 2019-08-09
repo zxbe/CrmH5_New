@@ -311,6 +311,10 @@ import config from '../../configfile/config.js'
 	 * 联系人删除接口
 	 */
 	tool.Api_ContactsHandle_Delete = "Api_ContactsHandle_Delete";
+	/*
+	 * 查询关联联系人列表
+	 */
+	tool.Api_ContactsHandle_QueryRelatedContact = "Api_ContactsHandle_QueryRelatedContact";
 
 	/*
 	 * 查询数据分享接口
@@ -365,7 +369,11 @@ import config from '../../configfile/config.js'
 	/*
 	 * 查询未上传会议记录的会议列表
 	 */
-  	tool.Api_MeetingHandle_QueryNoUploadRecord = "Api_MeetingHandle_QueryNoUploadRecord";
+	  tool.Api_MeetingHandle_QueryNoUploadRecord = "Api_MeetingHandle_QueryNoUploadRecord";
+	 /*
+	 * 查询关联会议列表
+	 */
+	tool.Api_MeetingHandle_QueryRelatedMeeting = "Api_MeetingHandle_QueryRelatedMeeting"; 
   	/*
 	 * 查询未上传会议记录的会议列表
 	 */
