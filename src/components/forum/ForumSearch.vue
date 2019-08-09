@@ -3,7 +3,7 @@
     <header class="mui-bar mui-bar-nav">
         <a @click="back" class="calcfont calc-fanhui left" id="back"></a>
         <div class="searchDiv"><input class="searchText" type="search" value=""></div>
-        <div class="headLeftIconDiv"> 
+        <div class="headLeftIconDiv">
             <a @click="selectDropDownType" class="dropDownBtn calcfont calc-xiala"></a>
             <a @click="search" class="searchBtn calcfont calc-shaixuan2"></a>
         </div>
@@ -12,9 +12,9 @@
                 <a @click="selectTitleOrTag($event)" data-type="Tag" class="lanText" data-lanid="1000302_标签"></a>
             </div>
     </header>
-   
+
     <div class="searchSelectDiv">
-         
+
         <div class="selectFilter">
             <a @click="filterDropDown($event)" class="filterBlock">
                 <span class="filterText lanText" data-lanid="1000213_所有问题">All Questions</span>
@@ -53,8 +53,16 @@
                         <span>web</span><span>JS</span><span>C#</span><span>Vue</span>
                     </div>
                     <div class="info f12">
-                        <span class="info-state">Unresolved</span>
-                        <span class="info-state">In Progress</span>
+                        <!-- "Status": "已关闭", "Status_ID": 71,
+                        "Status": "进行中", "Status_ID": 70, -->
+                        <span class="info-state"
+                              :class="{'result73':item.Result_ID == 73,'result74':item.Result_ID == 74}"
+                            >{{item.Result}}</span>
+                        <!-- "Result": "已解决", "Result_ID": 73,
+                        "Result": "未解决","Result_ID": 74, -->
+                        <span class="info-state"
+                              :class="{'status71':item.Status_ID == 71,'status70':item.Status_ID == 70}"
+                            >{{item.Status}}</span>
                     </div>
                     <div class="info f12">
                         <img class="img" src="../../assets/images/forum/default_user_img.png"/>
@@ -263,7 +271,7 @@ export default {
             var text = $(".searchText").val();
             console.log(text);
         },
-       
+
         //查询列表数据
         queryList: function (queryType, callback) {
             let _self = this;
