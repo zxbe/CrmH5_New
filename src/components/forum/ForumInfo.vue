@@ -162,6 +162,7 @@ export default {
         //编辑事件
         editClick:function(){
           console.log("编辑");
+           this.$router.push('/forumposting');
         },
         //保存事件
         saveClick:function(){
@@ -185,42 +186,7 @@ export default {
           	tool.showConfirm(
 			lanTool.lanContent("593_您确定要删除数据吗？"),
 			function() {
-				var loadingIndexClassName = tool.showLoading();
-
-				$.ajax({
-					async: true,
-					type: "post",
-					url: urlTemp,
-					data: jsonDatasTemp,
-					success: function (data) {
-						tool.hideLoading(loadingIndexClassName);
-						data = tool.jObject(data);
-						// console.log(data);
-						if (data._ReturnStatus == false) {
-							tool.showText(tool.getMessage(data));
-							console.log(tool.getMessage(data));
-							return true;
-						}
-
-						if (!tool.isNullOrEmptyObject(myCallBack)) {
-							myCallBack();
-						}
-
-						//返回到上一页
-						_self.$router.back(-1);
-					},
-					error: function (jqXHR, type, error) {
-						console.log(error);
-						tool.hideLoading(loadingIndexClassName);
-						return true;
-					},
-					complete: function () {
-						//tool.hideLoading();
-						//隐藏虚拟键盘
-						document.activeElement.blur();
-					}
-				});
-
+        //删除论坛详情的请求
 			},
 			function() {}
 		  );
