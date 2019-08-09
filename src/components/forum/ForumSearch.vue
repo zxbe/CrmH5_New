@@ -78,7 +78,7 @@
                               ></span><span>{{item.DislikeCount}}</span>
                         </div>
                         <div class="replies">
-                            <span class="lanText" data-lanid="1000350_答复"></span><span>2</span>
+                            <span class="lanText" data-lanid="1000350_答复"></span><span>{{item.ReplyCount}}</span>
                         </div>
                         <span class="time">{{item.PostTime|MeetingTimeFormat}}</span>
                     </div>
