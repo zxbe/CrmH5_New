@@ -40,6 +40,10 @@
                         <span>web</span><span>JS</span><span>C#</span><span>Vue</span>
                     </div>
                     <div class="info f12">
+                        <span class="info-state">Unresolved</span>
+                        <span class="info-state">In Progress</span>
+                    </div>
+                    <div class="info f12">
                         <img class="img" src="../../assets/images/forum/default_user_img.png"/>
                         <span class="name">{{item.UserName}}</span>
                         <div class="hand">
@@ -53,10 +57,7 @@
                         </div>
                         <span class="time">{{item.PostTime|MeetingTimeFormat}}</span>
                     </div>
-                    <div class="info f12">
-                        <span class="info-state">Unresolved</span>
-                        <span class="info-state">In Progress</span>
-                    </div>
+
                 </div>
         </vue-scroll>
         <nothing v-show="noData" style="padding-top:0.8rem;"></nothing>

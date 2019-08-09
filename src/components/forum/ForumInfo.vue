@@ -88,14 +88,24 @@
                     </div>
                     <div class="ListCellContentRight rightContent">
                         <input type="text"
-                              data-field="CurrentStateNew"
+                              data-field="BusinessType"
                               data-lanid="1060_帖子结果"
                               data-fieldControlType="picker"
                               data-fieldVal=""
-                              Code="DropDowList_DtbAllTypes"
-                              TypeValue="CurrentStateNew"
+                              Code="DropDowList_ViewBaseAllTypes"
+                              TypeValue="Companybusinesstype"
                               class="ListCellContentRightText"/>
                     </div>
+                    <!-- <div class="ListCellContentRight rightContent">
+                        <input type="text"
+                              data-field="Matter"
+                              data-lanid="947_商业事项"
+                              data-fieldControlType="picker"
+                              data-fieldVal=""
+                              Code="DropDowList_DtbAllTypes"
+                              TypeValue="Matter"
+                              class="ListCellContentRightText"/>
+                    </div> -->
                     <div class="ListCellRightIcon"><span class="calcfont calc-you"></span></div>
                 </div>
             </div>
@@ -127,7 +137,9 @@ export default {
 
     },
     mounted: function () {
+      var _self = this;
         lanTool.updateLanVersion();
+        tool.InitiateInfoPageControl(_self, _self.id, function(){});
     },
     methods: {
         back: function () {
@@ -151,12 +163,55 @@ export default {
             //确定
             $('#closeThis').find('a.btn-ok').off('click').on('click',function(){
                 console.log("确定");
+                 $('#closeThis').hide();
             })
         },
         //删除事件
         delClick:function(){
-          console.log("删除");
-        }
+          	tool.showConfirm(
+			lanTool.lanContent("593_您确定要删除数据吗？"),
+			function() {
+				var loadingIndexClassName = tool.showLoading();
+
+				$.ajax({
+					async: true,
+					type: "post",
+					url: urlTemp,
+					data: jsonDatasTemp,
+					success: function (data) {
+						tool.hideLoading(loadingIndexClassName);
+						data = tool.jObject(data);
+						// console.log(data);
+						if (data._ReturnStatus == false) {
+							tool.showText(tool.getMessage(data));
+							console.log(tool.getMessage(data));
+							return true;
+						}
+
+						if (!tool.isNullOrEmptyObject(myCallBack)) {
+							myCallBack();
+						}
+
+						//返回到上一页
+						_self.$router.back(-1);
+					},
+					error: function (jqXHR, type, error) {
+						console.log(error);
+						tool.hideLoading(loadingIndexClassName);
+						return true;
+					},
+					complete: function () {
+						//tool.hideLoading();
+						//隐藏虚拟键盘
+						document.activeElement.blur();
+					}
+				});
+
+			},
+			function() {}
+		  );
+          
+        },
     }
 }
 </script>
