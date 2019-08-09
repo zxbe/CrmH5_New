@@ -213,7 +213,8 @@ export default {
             var _self = this;
             var parameter = {
                 fromType: _self.rightPanelFromType,
-                fromId: _self.rightPanelFromID
+                fromId: _self.rightPanelFromID,
+                businessType:"29"
             };
             _self.panelToggle();
             _self.$nextTick(function () {
@@ -228,7 +229,8 @@ export default {
             var _self = this;
             var parameter = {
                 fromType: _self.rightPanelFromType,
-                fromId: _self.rightPanelFromID
+                fromId: _self.rightPanelFromID,
+                businessType:"30"
             };
             _self.panelToggle();
             _self.$nextTick(function () {

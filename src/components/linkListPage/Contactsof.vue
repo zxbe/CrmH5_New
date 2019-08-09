@@ -5,12 +5,12 @@
         <h1 class="mui-title">{{title||''}}</h1>
     </header>
     <div id="page-content" class="page-content">
-        <!-- <div class="add-btn-div">
+        <div class="add-btn-div">
             <div @click="addContacts" class="add-div" data-link="/contactsinfo/-1">
                 <span class="calcfont calc-add"></span>
                 <span class="add-text lanText" data-lanid="793_添加联系人"></span>
             </div>
-        </div> -->
+        </div>
         <vue-scroll v-show="!noData" :showToTop="false" :options="{ pullup: true, pulldown: true }" :scrollbar="false" ref="scroll" @pulldown="pulldown" @pullup="pullup">
             <div v-show="!noData" id="contactsList" class="group-item-list contacts-list">
                 <div v-for="item in listData" class="group-item f14" :key="item.AutoID" :data-url="'/contactsinfo/'+ item.AutoID">
@@ -58,7 +58,7 @@ export default {
             pageNum: 1, //当前页码
 
             fromType:'',  //标志是用那个模块过来的；联系人:6;公司:7;会议:8;商机&交易:9;
-            fromId:'',  //dealPipelineID或者pitchesID,用于新增会议自动选择关联于商业字段
+            fromId:''  //dealPipelineID或者pitchesID,用于新增会议自动选择关联于商业字段
         }
     },
     created: function () {
@@ -84,26 +84,26 @@ export default {
     },
     methods: {
         //新增联系人
-        // addContacts: function (e) {
-        //     var _self = this;
-        //     var target = $(e.target);
-        //     if (!target.hasClass('add-div')) {
-        //         target = target.parents("div.add-div:first");
-        //         if (tool.isNullOrEmptyObject(target)) {
-        //             return;
-        //         }
-        //     }
-        //     var urlTemp = target.attr('data-link') || '';
-        //     var parameter = {
-        //         onlyView: false,
-        //         companyID: _self.companyID,
-        //         companyName: _self.companyName,
-        //     };
-        //     _self.$router.push({
-        //         path: urlTemp,
-        //         query: parameter
-        //     });
-        // },
+        addContacts: function (e) {
+            var _self = this;
+            var target = $(e.target);
+            if (!target.hasClass('add-div')) {
+                target = target.parents("div.add-div:first");
+                if (tool.isNullOrEmptyObject(target)) {
+                    return;
+                }
+            }
+            var urlTemp = target.attr('data-link') || '';
+            var parameter = {
+                onlyView: false,
+                companyID: _self.companyID,
+                companyName: _self.companyName,
+            };
+            _self.$router.push({
+                path: urlTemp,
+                query: parameter
+            });
+        },
         //查询列表数据
         queryList: function (queryType, callback) {
             let _self = this;
