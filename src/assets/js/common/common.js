@@ -411,6 +411,10 @@ import config from '../../configfile/config.js'
 	 * 关闭销售机会接口
 	 */
 	tool.Api_OpportunityHandle_Close = "Api_OpportunityHandle_Close";
+	/*
+	 * 查询关联Deal或Pitch列表
+	 */
+	tool.Api_OpportunityHandle_QueryRelatedDealAndPitch = "Api_OpportunityHandle_QueryRelatedDealAndPitch";
 
 	/*
 	 * 查询会议记录明细

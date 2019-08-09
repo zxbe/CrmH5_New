@@ -36,6 +36,7 @@ let json = {
 	"Api_OpportunityHandle_UserFollow":"Api_OpportunityHandle_UserFollow",
 	"Api_OpportunityHandle_Delete":"Api_OpportunityHandle_Delete",
 	"Api_OpportunityHandle_Close":"Api_OpportunityHandle_Close",
+	"Api_OpportunityHandle_QueryRelatedDealAndPitch":"Api_OpportunityHandle_QueryRelatedDealAndPitch",
 	"Api_MeetingNoticeHandle_QuerySingle":"Api_MeetingNoticeHandle_QuerySingle",
 	"Api_MeetingNoticeHandle_SaveOrUpdate":"Api_MeetingNoticeHandle_SaveOrUpdate",
 	"Api_MeetingNoticeHandle_Delete":"Api_MeetingNoticeHandle_Delete",

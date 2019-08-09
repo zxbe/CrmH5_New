@@ -25,7 +25,7 @@
             :key="item.AutoID"
             class="group-item f14">
             <!-- :data-url="'/opportunitiesinfo/' + item.AutoID"> -->
-                    <div class="item-block" @click="goToInfo(item.AutoID)" :data-id="item.AutoID">
+                    <div class="item-block" @click="goToInfo(item,$event)" :data-id="item.AutoID">
                         <div class="item-div item-first-div blue-color">{{item.TheName}}</div>
                         <!-- <div class="item-div line-clamp2">{{item.Memo}}</div> -->
                         <div class="item-div f12 green-color padding-bottom-3 padding-top-3">
@@ -74,17 +74,18 @@ export default {
 
       fromType:'',  //标志是用那个模块过来的；联系人:6;公司:7;会议:8;商机&交易:9;
       fromId:'',
-
-
+      businessType:""
     }
   },
   created:function(){
     var _self = this;
     _self.fromType = _self.$route.query.fromType || '';
     _self.fromId = _self.$route.query.fromId || '';
+    _self.businessType = _self.$route.query.businessType || '';
 
     console.log('fromType:'+ _self.fromType);
     console.log('fromId:'+ _self.fromId);
+    console.log('businessType:'+ _self.businessType);
   },
   mounted:function(){
       lanTool.updateLanVersion();
@@ -95,21 +96,21 @@ export default {
           this.$router.back(-1);
       },
       //点击跳到详情页面
-      goToInfo:function( id ){
+      goToInfo:function(item,e){
         var _self = this;
-        if(tool.isNullOrEmptyObject(id)){
-          retrun;
+        if(tool.isNullOrEmptyObject(item.AutoID)){
+            return;
         }
-        var url = "/opportunitiesinfo/"+ id;
-        // var parameter = {
-        //     fromType: _self.fromType, //来源类型
-        //     fromId: _self.fromId //来源ID
-        // };
+        var url = "/opportunitiesinfo/" + item.AutoID;
+        var infoName = item.TheName || '';
+        var showPage = item.BusinessTypes.toString() == "29" ? "0":"1";
         _self.$router.push({
-                path: url,
-                // query: parameter
+          path: url,
+          query: {
+                  infoName: infoName,
+                  showPage: showPage
+              }
         });
-
       },
       //查询列表数据
       queryList: function (queryType, callback) {
@@ -122,130 +123,79 @@ export default {
               _self.pageNum = 1;
           }
           //api接口地址
-          var apiUrlTemp = '';
-          var jsonDatas = {
-              // CurrentLanguageVersion: lanTool.currentLanguageVersion,
-              // UserName: tool.UserName(),
-              // TabID: _self.tabID,
-              // CompanyID: _self.companyID,
-              // VersionID: _self.versionID,
-              // IsUsePager: true,
-              // PageSize:_self.pageSize,
-              // PageNum:_self.pageNum,
-              // QueryCondiction: _self.queryCondictionData || []
+          var urlTemp = tool.AjaxBaseUrl();
+          var controlName = tool.Api_OpportunityHandle_QueryRelatedDealAndPitch;
+          var jsonDatasTemp = {
+              CurrentLanguageVersion: lanTool.currentLanguageVersion,
+              UserName: tool.UserName(),
+              _ControlName: controlName,
+              _RegisterCode: tool.RegisterCode(),
+              IsUsePager: true,
+              PageSize:_self.pageSize,
+              PageNum:_self.pageNum,
+              QueryCondiction: _self.queryCondictionData || [],
+              FromType:_self.fromType,
+              FromID:_self.fromId,
+              BusinessType:_self.businessType
           };
+
+          //console.log(JSON.stringify(jsonDatasTemp));
 
           if(tool.isNullOrEmptyObject(queryType)){
               var loadingIndexClassName = tool.showLoading();
           }
-          // $.ajax({
-          //     async: true,
-          //     type: "post",
-          //     url: apiUrlTemp,
-          //     data: {
-          //         jsonDatas: JSON.stringify(jsonDatas)
-          //     },
-          //     success: function (data) {
-          //         tool.hideLoading(loadingIndexClassName);
-          //         data = tool.jObject(data);
-          //         if (data.Result != 1) {
-          //             tool.showText(data.Msg);
-          //             console.log(tool.getMessage(data.Msg));
-          //             return true;
-          //         }
-          //         data = data.Data || {};
 
-          //         //没有数据
-          //         if(tool.isNullOrEmptyObject(data["FleetDatailsArray"]) && _self.pageNum == 1){
-          //             _self.noData = true;
-          //             return ;
-          //         }
-          //         _self.noData = false;
+          $.ajax({
+              async: true,
+              type: "post",
+              url: urlTemp,
+              data: jsonDatasTemp,
+              success: function (data) {
+                  tool.hideLoading(loadingIndexClassName);
+                  data = tool.jObject(data);
+                  // console.log(data);
+                  if (data._ReturnStatus == false) {
+                      tool.showText(tool.getMessage(data));
+                      console.log(tool.getMessage(data));
+                      _self.noData = true;
+                      return;
+                  }
+                  data = data._OnlyOneData.Rows || [];
+                  
+                  //没有数据
+                  if((tool.isNullOrEmptyObject(data) || data.length <= 0) && _self.pageNum == 1){
+                      _self.noData = true;
+                      return ;
+                  }
 
-          //         if(queryType == 'pushLoad'){
-          //             _self.listData = _self.listData.concat(data["FleetDatailsArray"]);
-          //         }else{
-          //             _self.listData = data["FleetDatailsArray"] || [];
-          //         }
+                  _self.noData = false;
+                  if(queryType == 'pushLoad'){
+                      _self.listData = _self.listData.concat(data);
+                  }else{
+                      _self.listData = data;
+                  }
 
-          //         if(queryType == undefined || queryType == ''){
-          //             _self.$refs.scroll.isPullingDown = true;
-          //             _self.$refs.scroll.isPullingUpEnd = false;
-          //             _self.$refs.scroll.scrollTo(0, 0, 200, 'easing');
-          //         }
-          //         _self.$refs.scroll.refresh();
+                  if(queryType == undefined || queryType == ''){
+                      _self.$refs.scroll.isPullingDown = true;
+                      _self.$refs.scroll.isPullingUpEnd = false;
+                      _self.$refs.scroll.scrollTo(0, 0, 200, 'easing');
+                  }
+                  _self.$refs.scroll.refresh();
 
-          //         if(!tool.isNullOrEmptyObject(callback)){
-          //           callback(data["FleetDatailsArray"],_self.pageSize);
-          //         }
-
-          //         //渲染textarea
-          //         _self.$nextTick(function () {
-          //             $(window).scrollTop(0);
-          //             $("textarea").each(function (index, cur) {
-          //                 // $(cur).height('25');
-          //                 tool.autoTextarea(cur);
-          //             });
-          //         });
-          //     },
-          //     error: function (jqXHR, type, error) {
-          //         tool.hideLoading(loadingIndexClassName);
-          //         console.log(error);
-          //         return true;
-          //     },
-          //     complete: function () {
-          //         //隐藏虚拟键盘
-          //         document.activeElement.blur();
-          //     }
-          // });
-
-          var responseData = [
-            {
-              AutoID: 976,
-              BusinessTypes: 29,
-              ContactID: "南方航空公司某某",
-              CurrentState: "进行中",
-              CurrentStateHidden: 38,
-              Initiator: "aoniruan阮毅文",
-              IsFollow: 0,
-              LastUpdateTime: "2019-07-26T14:07:00",
-              LastUpdateUserName: "aoniruan阮毅文",
-              MeetingDate: "2019-07-28T08:00:00",
-              MeetingTitle: "关于和中国南方航空公司的合作相关会议",
-              Memo: "售后回租",
-              RiskTips: "技术方面要求非常高",
-              TargetCompanyID: "中国南方航空",
-              TheName: "MSN4554_ch Southern Airlines_SLB"
-            },
-            {
-              AutoID: 977,
-              BusinessTypes: 29,
-              ContactID: "员工",
-              CurrentState: "进行中",
-              CurrentStateHidden: 38,
-              Initiator: "aoniruan阮毅文",
-              IsFollow: 0,
-              LastUpdateTime: "2019-07-26T14:07:00",
-              LastUpdateUserName: "aoniruan阮毅文",
-              MeetingDate: "2019-07-28T08:00:00",
-              MeetingTitle: "关于和中国南方航空公司的合作相关会议",
-              Memo: "售后回租",
-              RiskTips: "技术方面要求非常高",
-              TargetCompanyID: "中国南方航空",
-              TheName: "MSN4554_ch Southern Airlines_SLB"
-            },
-          ]
-
-          if(queryType == 'pushLoad'){
-              _self.listData = _self.listData.concat(responseData);
-          }else{
-              _self.listData = responseData || [];
-          }
-
-          setTimeout(() => {
-            tool.hideLoading(loadingIndexClassName);
-            _self.$refs.scroll.refresh();
-          }, 2000);
+                  if(!tool.isNullOrEmptyObject(callback)){
+                    callback(data,_self.pageSize);
+                  }
+              },
+              error: function (jqXHR, type, error) {
+                  tool.hideLoading(loadingIndexClassName);
+                  console.log(error);
+                  return true;
+              },
+              complete: function () {
+                  //隐藏虚拟键盘
+                  document.activeElement.blur();
+              }
+          });
       },
 
       //下拉
@@ -253,9 +203,8 @@ export default {
           let _self = this;
           _self.queryList('pushRefresh',function(){
               // _self.$refs.scroll.refresh();
-          })
+          });
       },
-
       //上拉
       pullup:function(){
           let _self = this;
@@ -264,11 +213,7 @@ export default {
               if(data.length < pageSize){
                 _self.$refs.scroll.pullupEnd();
               }
-            //  else{
-            //     _self.$refs.scroll.refresh();
-            //  }
-
-          })
+          });
       }
   }
 

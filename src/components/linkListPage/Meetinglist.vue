@@ -105,7 +105,7 @@ export default {
             if(tool.isNullOrEmptyObject(item.AutoID)){
                 return;
             }
-            var url = "/meetinginfo/" + item.AutoID
+            var url = "/meetinginfo/" + item.AutoID;
             var infoName = item.MeetingTitle || '';
             _self.$router.push({
                 path: url,
