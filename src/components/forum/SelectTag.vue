@@ -9,12 +9,13 @@
     <div class="content">
 
         <div v-show="showAddTag" class="add-tag">
-            <input id="addInput" type="text" class="input lanInputPlaceHolder" data-lanid="1000370_请输入标签" />
+            <input v-model="newTag" id="addInput" type="text" class="input lanInputPlaceHolder" data-lanid="1000370_请输入标签" />
+            <!-- <div class="add-btn lanText" data-lanid="28_新增"></div> -->
         </div>
 
         <div class="content-title">
-          <i class="f18 calcfont calc-fenlei"></i>
-          <span class=" f16">已选标签</span>
+          <i class="f18 calcfont calc-yixuan1"></i>
+          <span class="f16 lanText" data-lanid="1000371_已选标签"></span>
         </div>
         <div class="tag-list f14 ">
             <div
@@ -56,6 +57,7 @@ export default {
       return{
         title:'选择标签',
         showAddTag:false, //是否显示添加标签输入框
+        newTag:'', //新增的标签
         allTagData:[
           {
             "AutoID": 7,
@@ -171,6 +173,18 @@ export default {
         },
         //保存动作
         save:function(){
+            var _self = this;
+            var newTag = {};
+            if(!tool.isNullOrEmptyObject(_self.newTag)){
+               //有新增的标签，组装AutoID=-1的对象
+                newTag.AutoID = -1;
+                newTag.Name = _self.newTag;
+
+                _self.selectTagData.push(newTag);
+            }
+
+            console.log(_self.selectTagData);
+
         },
         //移除已选的标签
         removeTag:function(id){
@@ -277,17 +291,25 @@ export default {
 
 .add-tag{
   padding:10px 0 0;
-  border-bottom:1px solid #ccc;
-  /* display:none */
+  display:flex;
+  align-items: center;
 }
 .add-tag .input{
+    flex: 1;
     border: none;
     outline: none;
     line-height: 16px;
     padding: 10px 10px 10px 0;
-    width: 100%;
+    /* width: 100%; */
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
+    border-bottom:1px solid #ccc;
 }
+/* .add-tag .add-btn{
+  border:1px solid #ccc;
+  border-radius: 5px;
+  padding:3px 8px;
+  margin-left: 10px;
+} */
 
 </style>
