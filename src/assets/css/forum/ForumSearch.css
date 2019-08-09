@@ -191,5 +191,6 @@ li {
 }
 /* 下拉列表a标签选中的背景颜色*/
 .selected{
-    background-color: beige
+    background-color: beige;
+    color:#7ebbff !important;
 }

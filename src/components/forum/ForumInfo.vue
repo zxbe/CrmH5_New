@@ -11,7 +11,7 @@
         <a  @click="delClick" class="calcfont calc-shanchu right" id="delete"></a>
     </header>
     <div class="pageContent">
-        <p class="forumTitle">什么是stream定义流的英文stream，流（Stream）是一个抽象的数据接口，Node.js中很多对象都实现了流，流是EventEmitter对象的一个实例，总之它是会冒数据（以 Buffer 为单位）</p>
+        <p class="forumTitle">什么是stream定义流的英文stream，流（Stream）是一个抽象的数据接口</p>
         <div class="forumContentDiv">
             <img class="userHeadImg" src="../../assets/images/forum/default_user_img.png" alt="">
             <span class="userName">aoniruan</span>
@@ -60,15 +60,29 @@
                 <div class="feeditemfooter">
                     <span class="time">2019-08-07 22:00</span>
                     <span class="hand">
-                        <span class="calcfont calc-zan1"></span><span>3</span>
+                        <span class="calcfont calc-zan1" data-autoid ="1"></span><span class="ActionCount">3</span>
                     </span>
                     <span class="hand">
-                        <span class="calcfont calc-cai"></span><span>2</span>
+                        <span class="calcfont calc-cai" data-autoid ="1"></span><span class="ActionCount">2</span>
                     </span>
 
                 </div>
             </div>
+          <div class="replyItem">
+                <img class="replyUserImg" src="../../assets/images/forum/default_user_img.png" />
+                <span class="replyUserName">alancheng</span>
+                <p class="replyContent">说明：视频播放的这个例子，如果我们不使用管道和流动的方式，直接先从服务端加载完视频文件，然后再播放。会造成很多问题</p>
+                <div class="feeditemfooter">
+                    <span class="time">2019-08-07 22:00</span>
+                    <span class="hand">
+                        <span class="calcfont calc-zan1" data-autoid ="2"></span><span class="ActionCount">3</span>
+                    </span>
+                    <span class="hand">
+                        <span class="calcfont calc-cai" data-autoid ="2"></span><span class="ActionCount">2</span>
+                    </span>
 
+                </div>
+            </div>
         </div>
 
     </div>

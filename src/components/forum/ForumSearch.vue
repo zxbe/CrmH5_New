@@ -2,7 +2,7 @@
 <div>
     <header class="mui-bar mui-bar-nav">
         <a @click="back" class="calcfont calc-fanhui left" id="back"></a>
-        <div class="searchDiv"><input type="search" value=""></div>
+        <div class="searchDiv"><input class="searchText" type="search" value=""></div>
         <div class="headLeftIconDiv"> 
             <a @click="selectDropDownType" class="dropDownBtn calcfont calc-xiala"></a>
             <a @click="search" class="searchBtn calcfont calc-shaixuan2"></a>
@@ -17,28 +17,28 @@
          
         <div class="selectFilter">
             <a @click="filterDropDown($event)" class="filterBlock">
-                <span class="filterText">All Questions</span>
+                <span class="filterText lanText" data-lanid="1000213_所有问题">All Questions</span>
                 <span class="zen-selectArrow"></span>
             </a>
             <ul v-show="isShowFilter" class="feedFilterby">
-                <li ><span class="zen-visualization iconfont icon-dagou1"></span><a @click="selectFiltertype($event)" data-fieldval="AllQuestions" data-group="FileterGroup" href="###" class="cxfeedtype cxRECENT selected" title="All Questions">All Questions</a></li>
-                <li ><span class="zen-visualization iconfont icon-dagou1"></span><a @click="selectFiltertype($event)" data-fieldval="MineQuestions" data-group="FileterGroup" href="###" class="cxfeedtype cxRECENT" title="Mine Questions"> Mine Questions</a></li>
-                <li ><span class="zen-visualization iconfont icon-dagou1"></span><a @click="selectFiltertype($event)" data-fieldval="UnansweredQuestions" data-group="FileterGroup" href="###" class="cxfeedtype cxRECENT " title="Unanswered Questions"> Unanswered Questions</a></li>
-                <li ><span class="zen-visualization iconfont icon-dagou1"></span><a @click="selectFiltertype($event)" data-fieldval="UnsolvedQuestions" data-group="FileterGroup" href="###" class="cxfeedtype cxRECENT " title="Unsolved Questions"> Unsolved Questions</a></li>
-                <li ><span class="zen-visualization iconfont icon-dagou1"></span><a @click="selectFiltertype($event)" data-fieldval="ResolvedQuestions" data-group="FileterGroup" href="###" class="cxfeedtype cxRECENT " title="Resolved Questions"> Resolved Questions</a></li>
-                <li ><span class="zen-visualization iconfont icon-dagou1"></span><a @click="selectFiltertype($event)" data-fieldval="InProgressQuestions" data-group="FileterGroup" href="###" class="cxfeedtype cxRECENT " title="InProgress Questions"> InProgress Questions</a></li>
-                <li ><span class="zen-visualization iconfont icon-dagou1"></span><a @click="selectFiltertype($event)" data-fieldval="ClosedQuestions" data-group="FileterGroup" href="###" class="cxfeedtype cxRECENT " title="Closed Questions"> Closed Questions</a></li>
+                <li ><span class="zen-visualization iconfont icon-dagou1"></span><a @click="selectFiltertype($event)" data-fieldval="AllQuestions" data-group="FileterGroup" href="###" class="cxfeedtype cxRECENT selected lanText" data-lanid="1000213_所有问题"></a></li>
+                <li ><span class="zen-visualization iconfont icon-dagou1"></span><a @click="selectFiltertype($event)" data-fieldval="MineQuestions" data-group="FileterGroup" href="###" class="cxfeedtype cxRECENT lanText" data-lanid="1000214_我的问题"></a></li>
+                <li ><span class="zen-visualization iconfont icon-dagou1"></span><a @click="selectFiltertype($event)" data-fieldval="UnansweredQuestions" data-group="FileterGroup" href="###" class="cxfeedtype cxRECENT lanText" data-lanid="1000215_未答复的问题"></a></li>
+                <li ><span class="zen-visualization iconfont icon-dagou1"></span><a @click="selectFiltertype($event)" data-fieldval="UnsolvedQuestions" data-group="FileterGroup" href="###" class="cxfeedtype cxRECENT lanText" data-lanid="1000216_未解决的问题"></a></li>
+                <li ><span class="zen-visualization iconfont icon-dagou1"></span><a @click="selectFiltertype($event)" data-fieldval="ResolvedQuestions" data-group="FileterGroup" href="###" class="cxfeedtype cxRECENT lanText" data-lanid="1000217_已解决的问题"></a></li>
+                <li ><span class="zen-visualization iconfont icon-dagou1"></span><a @click="selectFiltertype($event)" data-fieldval="InProgressQuestions" data-group="FileterGroup" href="###" class="cxfeedtype cxRECENT lanText" data-lanid="1000218_正在处理的问题"></a></li>
+                <li ><span class="zen-visualization iconfont icon-dagou1"></span><a @click="selectFiltertype($event)" data-fieldval="ClosedQuestions" data-group="FileterGroup" href="###" class="cxfeedtype cxRECENT lanText" data-lanid="1000219_已关闭的问题"></a></li>
             </ul>
         </div>
         <div class="selectSort">
             <a @click="sortDropDown($event)" class="sortBlock">
-                <span class="sortText">Date Posted</span>
+                <span class="sortText lanText" data-lanid="1000222_发布日期"></span>
                 <span class="zen-selectArrow"></span>
             </a>
             <ul v-show="isShowSort" class="feedsortby">
-                <li class="zen-checked"><span class="zen-visualization iconfont icon-dagou1"></span><a @click="selectSorttype($event)" data-fieldval="DatePosted" data-group="SortGroup" href="###" class="cxfeedtype cxRECENT selected" title="Date Posted">Date Posted</a></li>
-                <li><span class="zen-visualization iconfont icon-dagou1"></span><a @click="selectSorttype($event)" data-fieldval="RecentActivity" data-group="SortGroup" href="###" class="cxfeedtype cxRECENT " title="Recent Activity"> Recent Activity</a></li>
-                <li><span class="zen-visualization iconfont icon-dagou1"></span><a @click="selectSorttype($event)" data-fieldval="MostPopular" data-group="SortGroup" href="###" class="cxfeedtype cxRECENT " title="Most Popular"> Most Popular</a></li>
+                <li class="zen-checked"><span class="zen-visualization iconfont icon-dagou1"></span><a @click="selectSorttype($event)" data-fieldval="DatePosted" data-group="SortGroup" href="###" class="cxfeedtype cxRECENT selected lanText" data-lanid="1000222_发布日期"></a></li>
+                <li><span class="zen-visualization iconfont icon-dagou1"></span><a @click="selectSorttype($event)" data-fieldval="RecentActivity" data-group="SortGroup" href="###" class="cxfeedtype cxRECENT lanText" data-lanid="1000223_近期活动"></a></li>
+                <li><span class="zen-visualization iconfont icon-dagou1"></span><a @click="selectSorttype($event)" data-fieldval="MostPopular" data-group="SortGroup" href="###" class="cxfeedtype cxRECENT lanText" data-lanid="1000224_最受欢迎"></a></li>
             </ul>
         </div>
     </div>
@@ -46,31 +46,32 @@
 
         <vue-scroll v-show="!noData" :showToTop="true" :options="{ pullup: true, pulldown: true }" :scrollbar="false" ref="scroll" @pulldown="pulldown" @pullup="pullup">
 
-            <div v-for="item in listData" class="list-item">
-                <div @click="goToInfo(item.AutoID)" class="title f16">{{item.Theme}}</div>
-                <div @click="goToInfo(item.AutoID)" class="content f14">{{item.Content}}</div>
-                <div class="feeditemtag f12">
-                    <span>web</span><span>JS</span><span>C#</span><span>Vue</span>
-                </div>
-                <div class="info f12">
-                    <img class="img" src="../../assets/images/forum/default_user_img.png" />
-                    <span class="name">{{item.UserName}}</span>
-                    <div class="hand">
-                        <span class="calcfont calc-zan1"></span><span>{{item.LikeCount}}</span>
+             <div v-for="item in listData" :key="item.AutoID" class="list-item">
+                    <div @click="goToInfo(item.AutoID)" class="title f16">{{item.Theme}}</div>
+                    <div @click="goToInfo(item.AutoID)" class="content f14">{{item.Content}}</div>
+                    <div class="feeditemtag f12">
+                        <span>web</span><span>JS</span><span>C#</span><span>Vue</span>
                     </div>
-                    <div class="hand">
-                        <span class="calcfont calc-cai"></span><span>{{item.DislikeCount}}</span>
+                    <div class="info f12">
+                        <span class="info-state">Unresolved</span>
+                        <span class="info-state">In Progress</span>
                     </div>
-                    <div class="replies">
-                        <span class="lanText" data-lanid="1000350_答复"></span><span>2</span>
+                    <div class="info f12">
+                        <img class="img" src="../../assets/images/forum/default_user_img.png"/>
+                        <span class="name">{{item.UserName}}</span>
+                        <div class="hand">
+                            <span class="calcfont calc-zan1"></span><span>{{item.LikeCount}}</span>
+                        </div>
+                        <div class="hand">
+                            <span class="calcfont calc-cai"></span><span>{{item.DislikeCount}}</span>
+                        </div>
+                        <div class="replies">
+                            <span class="lanText" data-lanid="1000350_答复"></span><span>2</span>
+                        </div>
+                        <span class="time">{{item.PostTime|MeetingTimeFormat}}</span>
                     </div>
-                    <span class="time">{{item.PostTime|MeetingTimeFormat}}</span>
+
                 </div>
-                <div class="info f12">
-                    <span class="info-state">Unresolved</span>
-                    <span class="info-state">In Progress</span>
-                </div>
-            </div>
         </vue-scroll>
         <nothing v-show="noData" style="padding-top:0.8rem;"></nothing>
     </div>
@@ -259,6 +260,8 @@ export default {
         //搜索
         search: function () {
             console.log("search");
+            var text = $(".searchText").val();
+            console.log(text);
         },
        
         //查询列表数据
