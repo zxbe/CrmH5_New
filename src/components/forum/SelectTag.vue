@@ -1,7 +1,7 @@
 <template>
 <div>
     <header class="header">
-        <a @click="back" class="mycalcfont calcfont calc-fanhui left" id="back"></a>
+        <a @click="save" class="mycalcfont calcfont calc-fanhui left" id="back"></a>
         <h1 class="title-text f18">{{title}}</h1>
         <a @click="save" class="mycalcfont calcfont calc-gou right"></a>
     </header>
@@ -40,6 +40,7 @@
               :key="item.AutoID"
               :data-id="item.AutoID"
               class="item left"
+              :class="{'active': selectTagId.indexOf(item.AutoID) == -1 ? false : true}"
               @click="selectTag(item, $event)"
               >{{item.Name}}</div>
 
@@ -151,16 +152,25 @@ export default {
             "IsFollow": "fa-star-o"
           }
         ],
-        selectTagData:[
-            // {
-            //   "AutoID": 7,
-            //   "Name": "Web"
-            // }
+        selectTagData:[ //用户选择的标签对象
         ]
       }
     },
+    computed:{
+        selectTagId(){  //用户选择的标签id集合，用于初始化页面时标志是否已经选择
+          var _self = this;
+          var arr = [];
+          if(_self.selectTagData.length > 0){
+              $.each(_self.selectTagData,function(index, item){
+                  arr.push(item.AutoID);
+              })
+          }
+          return arr;
+        }
+    },
     created:function(){
-
+      var _self = this;
+      _self.selectTagData = _self.$route.params.selectTags || [];
     },
     mounted:function(){
       let _self = this;
@@ -168,9 +178,9 @@ export default {
     },
     methods:{
         //返回上一页
-        back:function(){
-            this.$router.back(-1);
-        },
+        // back:function(){
+        //     this.$router.back(-1);
+        // },
         //保存动作
         save:function(){
             var _self = this;
@@ -183,7 +193,10 @@ export default {
                 _self.selectTagData.push(newTag);
             }
 
-            console.log(_self.selectTagData);
+            //保存到 store 中
+            _self.$store.commit('SET_SELECT_TAGS', _self.selectTagData);
+            // _self.back();
+            _self.$router.back(-1);
 
         },
         //移除已选的标签

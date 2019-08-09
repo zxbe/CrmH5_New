@@ -14,12 +14,22 @@ const store = new Vuex.Store({
         businessShowModule:0,
         viewType:'listView', //Tripmeeting模块视图切换
 
+        selectTags:[],//论坛模块发帖子时选择的标签
+
         //只在详情页面用
         // fromType:"",//联系人:6;公司:7;会议:8;商机&交易:9;
         // businessType:"",//交易:29;商机:30
         // fromID:""  //每条记录的id
     },
     mutations: {
+        //记录发帖时选择的标签 val为空时表示清空
+        SET_SELECT_TAGS(state, val){
+            if(val == '' || val == undefined){
+              state.selectTags = []
+            }else{
+              state.selectTags = val;
+            }
+        },
 
         //设置linkPage页面需要展示的模块
         SET_LINKE_PAGE_SHOW(state, val){

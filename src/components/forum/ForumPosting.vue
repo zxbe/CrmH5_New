@@ -26,7 +26,7 @@
             <span class="lable lanText" data-lanid="1000302_标签"></span>
             <div class="tag-list" @click="goToTage">
 
-                  <!-- <span class="tag-item">web</span> -->
+                  <span v-for="item in selectTags" :key="item.AutoID" class="tag-item">{{item.Name}}</span>
 
                   <i class="arrow calcfont calc-you"></i>
             </div>
@@ -45,6 +45,7 @@ export default {
         postTitle:'',
         str:'',
         postId:-1, // 帖子id -1：新增；非-1:编辑
+        selectTags:[], //用户选择的标签
     }
   },
   computed: {
@@ -56,38 +57,49 @@ export default {
   created:function(){
       var _self = this;
       _self.$store.commit('SET_ITEM', 'forumposting');
-      _self.postId = _self.$router.query.id || -1;
+      if(!tool.isNullOrEmptyObject(_self.$route.params.id)){
+          _self.postId = _self.$route.params.id;
+      }
+
+      if( _self.postId != -1){
+          _self.getPostData();
+      }
 
   },
   mounted:function(){
     lanTool.updateLanVersion();
-
   },
   activated:function(){
         var _self = this;
-        //获取选择的用户
-        if(tool.isNullOrEmptyObject(eventBus.selectListData)){
-            return;
-        }
-        var selectUser = eventBus.selectListData;
-        //清空全局变量
-        eventBus.selectListData = null;
-        selectUser = selectUser.value.text.split(',');
 
-        if(selectUser==''||selectUser.length<1 ){
-            return;
-        }
-        //把选择的用户插入帖子内容中
-        var str = '';
-        for(var i=0; i<selectUser.length; i++){
-          str += '<a class="targetUserName" data-username="'+ selectUser[i] +'" contenteditable="false" style="color:#048ec6;white-space: nowrap;">@'+ selectUser[i] +'</a>'
-        }
-        _self.str = str;
 
-        // $('#innerUser').trigger('click');
-         document.getElementById('postContent').focus();
-        _self.insertHtmlAtCaret(_self.str);
+        //处理选择标签后返回来的逻辑
+        _self.selectTags = _self.$store.state.selectTags || [];
+        //清空store中 selectTags 变量
+        _self.$store.commit('SET_SELECT_TAGS');
 
+        //处理@功能返回来的逻辑
+        if(!tool.isNullOrEmptyObject(eventBus.selectListData)){
+
+            var selectUser = eventBus.selectListData;
+            //清空全局变量
+            eventBus.selectListData = null;
+            selectUser = selectUser.value.text.split(',');
+
+            if(selectUser==''|| selectUser.length<1 ){
+                return;
+            }
+            //把选择的用户插入帖子内容中
+            var str = '';
+            for(var i=0; i<selectUser.length; i++){
+              str += '<a class="targetUserName" data-username="'+ selectUser[i] +'" contenteditable="false" style="color:#048ec6;white-space: nowrap;">@'+ selectUser[i] +'</a>'
+            }
+            _self.str = str;
+
+            // $('#innerUser').trigger('click');
+            document.getElementById('postContent').focus();
+            _self.insertHtmlAtCaret(_self.str);
+        }
   },
   methods:{
       //在光标处插入@用户
@@ -166,9 +178,20 @@ export default {
       //去选标签
       goToTage:function(){
           var _self = this;
-          _self.$router.push('/selecttag');
+          var parameter = {
+                'selectTags': _self.selectTags
+              };
+          _self.$router.push({
+            name:'selecttag',
+            params:parameter
+          });
 
       },
+
+      //若是从修改进来，获取帖子数据
+      getPostData:function(){
+
+      }
 
   },
   beforeRouteLeave:function(to, from, next){
