@@ -61,13 +61,21 @@
                           <!-- 没赞：calc-zan1  赞：calc-zan -->
                             <span class="calcfont"
                                   :class="[parseInt(item.IsCurrentUserLike)>=1 ? 'calc-zan' : 'calc-zan1']"
-                              ></span><span>{{item.LikeCount}}</span>
+                                  :data-statusid="item.Status_ID"
+                                  :data-autoid="item.AutoID"
+                                  data-even="fabulous"
+                                  @click="fabulousEvent($event)"
+                              ></span><span class="ActionCount">{{item.LikeCount}}</span>
                         </div>
                         <div class="hand">
                           <!-- 没踩：calc-cai  踩：calc-caishixin- -->
                             <span class="calcfont"
                                   :class="[parseInt(item.IsCurrentUserDislike)>=1 ? 'calc-caishixin-' : 'calc-cai']"
-                              ></span><span>{{item.DislikeCount}}</span>
+                                  :data-statusid="item.Status_ID"
+                                  :data-autoid="item.AutoID"
+                                  data-even="unfabulous"
+                                  @click="fabulousEvent($event)"
+                              ></span><span class="ActionCount">{{item.DislikeCount}}</span>
                         </div>
                         <div class="replies">
                             <span>{{repliesText}}</span>
@@ -651,6 +659,119 @@ export default {
             //  }
 
           })
+      },
+
+      //点赞或者踩
+      fabulousEvent:function(e){
+          var _self = this;
+          var curObj = $(e.target);
+
+          var statusId = curObj.attr('data-statusid') || '';
+          //statusId:71 关闭 ；statusId:70 进行中 ,关闭状态的帖子不给点赞和踩
+          if (statusId == '71' || statusId == '') {
+              return;
+          }
+
+          //帖子ID
+          var autoID = curObj.attr("data-AutoID") || "";
+          //用户名
+          var userName = tool.getUserName();
+          //动作类型
+          var actionType = "";//(76=>Like;77=>Dislike)
+          //是否添加
+          var isAdd = "";//(0=>取消添加;1=>添加)
+
+          var dataEven = curObj.attr('data-even') || '';
+          if (tool.isNullOrEmptyObject(dataEven)) {
+              return;
+          }
+          //赞图标类名：icon-zan,icon-zan1
+          //踩图标类名：icon-caishixin- , icon-cai
+          if (dataEven == 'fabulous') {
+              actionType = "76";
+              //赞
+              if (curObj.hasClass('icon-zan')) {
+                  isAdd = "0";
+              } else {
+                  isAdd = "1";
+              }
+          } else if (dataEven == 'unfabulous') {
+              actionType = "77";
+              //踩
+              if (curObj.hasClass('icon-caishixin-')) {
+                  isAdd = "0";
+              } else {
+                  isAdd = "1";
+              }
+          }
+
+          var data = {
+              "_ControlName": tool.ControlName_ForumHandle_PostAction,
+              "AutoID": autoID,
+              "ActionType": actionType,
+              "IsAdd": isAdd,
+              "UserName": userName
+          };
+
+          var loadingIndex = tool.showLoading();
+          $.ajax({
+              type: "post",
+              cache: false,
+              url: tool.AjaxBaseUrl,
+              data: data,
+              success: function (data) {
+                  tool.hideLoading(loadingIndex);
+                  data = tool.jObject(data);
+                  if (data._ReturnStatus == false) {
+                      tool.msg(tool.getMessage(data), function (index) {
+                          tool.close(index);
+                      }, { time: 0, icon: 2, title: LanContent(586), btn: [LanContent(569)] });
+                      return false;
+                  }
+
+                  //更新数量和状态
+                  data = data._OnlyOneData;
+                  if (tool.isNullOrEmptyObject(data)) {
+                      return false;
+                  }
+                  var countTemp = data.Count.toString() || "0";//点赞/踩数量
+                  countTemp = Number(countTemp);
+                  var isCurrentUserDoTemp = data.IsCurrentUserDo.toString() || "0";//当前用户是否踩/点赞
+                  isCurrentUserDoTemp = Number(isCurrentUserDoTemp);
+
+                  //写入数量
+                  var objDest = curObj.closest(".hand");
+                  objDest.find(".ActionCount:first").text(countTemp);
+
+                  //console.log(curObj);
+                  //console.log(isCurrentUserDoTemp);
+                  //改变状态
+                  if (dataEven == 'fabulous') {
+                      //若当前是已点赞
+                      if (isCurrentUserDoTemp >= 1) {
+                          curObj.addClass('icon-zan').removeClass('icon-zan1');
+                      } else {
+                          curObj.addClass('icon-zan1').removeClass('icon-zan');
+                      }
+                  } else if (dataEven == 'unfabulous') {
+                      //踩
+                      //若当前是已踩
+                      if (isCurrentUserDoTemp >= 1) {
+                          curObj.addClass('icon-caishixin-').removeClass('icon-cai');
+                      } else {
+                          curObj.addClass('icon-cai').removeClass('icon-caishixin-');
+                      }
+                  }
+              },
+              error: function (data) {
+                  tool.hideLoading(loadingIndex);
+                  console.log(data);
+              },
+              complete: function () {
+              }
+          });
+
+
       },
   },
   beforeRouteLeave:function(to, from, next){

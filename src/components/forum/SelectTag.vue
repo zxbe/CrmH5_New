@@ -297,7 +297,9 @@ export default {
   color:rgb(255, 90, 33);
 }
 .content .item .remove-tag{
-  position:absolute;right:-5px;top:-6px;
+  position:absolute;right:-7px;top:-8px;
+  color:#e3e3e3;
+  background: #fff;
 }
 
 
