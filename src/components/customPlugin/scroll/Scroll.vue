@@ -269,7 +269,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .better-scroll {
     width: 100%;
     height: 100%;
@@ -333,6 +333,7 @@ export default {
     background:rgba(0,0,0,0.15);
     border-radius: 50%;
     color:#787878;
+    padding:0;
 }
 </style>
 

@@ -70,7 +70,8 @@
                               ></span><span>{{item.DislikeCount}}</span>
                         </div>
                         <div class="replies">
-                            <span class="lanText" data-lanid="1000350_答复"></span><span>{{item.ReplyCount}}</span>
+                            <span>{{repliesText}}</span>
+                            <span>{{item.ReplyCount}}</span>
                         </div>
                         <span class="time">{{item.PostTime|MeetingTimeFormat}}</span>
                     </div>
@@ -105,6 +106,7 @@ export default {
         listData:[],
         tagData:[],
         scrollX:{}, //tag中的scoll对象
+        repliesText:lanTool.lanContent("1000350_答复"),  //在列表通过属性配置不显示
     }
   },
   created:function(){

@@ -282,7 +282,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 /*头部*/
 header {
     position: fixed;
