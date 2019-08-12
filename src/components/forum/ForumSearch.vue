@@ -2,15 +2,15 @@
 <div>
     <header class="mui-bar mui-bar-nav">
         <a @click="back" class="calcfont calc-fanhui left" id="back"></a>
-        <div class="searchDiv"><input class="searchText" type="search" value=""></div>
+        <div class="searchDiv"><input id="searchAskInput" class="searchText" type="search" value=""></div>
         <div class="headLeftIconDiv">
             <a @click="selectDropDownType" class="dropDownBtn calcfont calc-xiala"></a>
             <a @click="search" class="searchBtn calcfont calc-shaixuan2"></a>
         </div>
-          <div v-show="isShowdropDown" class="dropDownList">
-                <a @click="selectTitleOrTag($event)" data-type="Other" class="selected lanText" data-lanid="1000303_标题和内容"></a>
-                <a @click="selectTitleOrTag($event)" data-type="Tag" class="lanText" data-lanid="1000302_标签"></a>
-            </div>
+        <div v-show="isShowdropDown" class="dropDownList">
+            <a @click="selectTitleOrTag($event)" data-type="Other" class="selected lanText" data-lanid="1000303_标题和内容"></a>
+            <a @click="selectTitleOrTag($event)" data-type="Tag" class="lanText" data-lanid="1000302_标签"></a>
+        </div>
     </header>
 
     <div class="searchSelectDiv">
@@ -21,13 +21,13 @@
                 <span class="zen-selectArrow"></span>
             </a>
             <ul v-show="isShowFilter" class="feedFilterby">
-                <li ><span class="zen-visualization iconfont icon-dagou1"></span><a @click="selectFiltertype($event)" data-fieldval="AllQuestions" data-group="FileterGroup" href="###" class="cxfeedtype cxRECENT selected lanText" data-lanid="1000213_所有问题"></a></li>
-                <li ><span class="zen-visualization iconfont icon-dagou1"></span><a @click="selectFiltertype($event)" data-fieldval="MineQuestions" data-group="FileterGroup" href="###" class="cxfeedtype cxRECENT lanText" data-lanid="1000214_我的问题"></a></li>
-                <li ><span class="zen-visualization iconfont icon-dagou1"></span><a @click="selectFiltertype($event)" data-fieldval="UnansweredQuestions" data-group="FileterGroup" href="###" class="cxfeedtype cxRECENT lanText" data-lanid="1000215_未答复的问题"></a></li>
-                <li ><span class="zen-visualization iconfont icon-dagou1"></span><a @click="selectFiltertype($event)" data-fieldval="UnsolvedQuestions" data-group="FileterGroup" href="###" class="cxfeedtype cxRECENT lanText" data-lanid="1000216_未解决的问题"></a></li>
-                <li ><span class="zen-visualization iconfont icon-dagou1"></span><a @click="selectFiltertype($event)" data-fieldval="ResolvedQuestions" data-group="FileterGroup" href="###" class="cxfeedtype cxRECENT lanText" data-lanid="1000217_已解决的问题"></a></li>
-                <li ><span class="zen-visualization iconfont icon-dagou1"></span><a @click="selectFiltertype($event)" data-fieldval="InProgressQuestions" data-group="FileterGroup" href="###" class="cxfeedtype cxRECENT lanText" data-lanid="1000218_正在处理的问题"></a></li>
-                <li ><span class="zen-visualization iconfont icon-dagou1"></span><a @click="selectFiltertype($event)" data-fieldval="ClosedQuestions" data-group="FileterGroup" href="###" class="cxfeedtype cxRECENT lanText" data-lanid="1000219_已关闭的问题"></a></li>
+                <li><span class="zen-visualization iconfont icon-dagou1"></span><a @click="selectFiltertype($event)" data-fieldval="AllQuestions" data-group="FileterGroup" href="###" class="cxfeedtype cxRECENT selected lanText" data-lanid="1000213_所有问题"></a></li>
+                <li><span class="zen-visualization iconfont icon-dagou1"></span><a @click="selectFiltertype($event)" data-fieldval="MineQuestions" data-group="FileterGroup" href="###" class="cxfeedtype cxRECENT lanText" data-lanid="1000214_我的问题"></a></li>
+                <li><span class="zen-visualization iconfont icon-dagou1"></span><a @click="selectFiltertype($event)" data-fieldval="UnansweredQuestions" data-group="FileterGroup" href="###" class="cxfeedtype cxRECENT lanText" data-lanid="1000215_未答复的问题"></a></li>
+                <li><span class="zen-visualization iconfont icon-dagou1"></span><a @click="selectFiltertype($event)" data-fieldval="UnsolvedQuestions" data-group="FileterGroup" href="###" class="cxfeedtype cxRECENT lanText" data-lanid="1000216_未解决的问题"></a></li>
+                <li><span class="zen-visualization iconfont icon-dagou1"></span><a @click="selectFiltertype($event)" data-fieldval="ResolvedQuestions" data-group="FileterGroup" href="###" class="cxfeedtype cxRECENT lanText" data-lanid="1000217_已解决的问题"></a></li>
+                <li><span class="zen-visualization iconfont icon-dagou1"></span><a @click="selectFiltertype($event)" data-fieldval="InProgressQuestions" data-group="FileterGroup" href="###" class="cxfeedtype cxRECENT lanText" data-lanid="1000218_正在处理的问题"></a></li>
+                <li><span class="zen-visualization iconfont icon-dagou1"></span><a @click="selectFiltertype($event)" data-fieldval="ClosedQuestions" data-group="FileterGroup" href="###" class="cxfeedtype cxRECENT lanText" data-lanid="1000219_已关闭的问题"></a></li>
             </ul>
         </div>
         <div class="selectSort">
@@ -46,52 +46,36 @@
 
         <vue-scroll v-show="!noData" :showToTop="true" :options="{ pullup: true, pulldown: true }" :scrollbar="false" ref="scroll" @pulldown="pulldown" @pullup="pullup">
 
-             <div v-for="item in listData" :key="item.AutoID" class="list-item">
-                    <div @click="goToInfo(item.AutoID)" class="title f16">{{item.Theme}}</div>
-                    <div @click="goToInfo(item.AutoID)" class="content f14">{{item.Content}}</div>
-                    <div class="feeditemtag f12">
-                        <span>web</span><span>JS</span><span>C#</span><span>Vue</span>
-                    </div>
-                    <div class="info f12">
-                        <!-- "Status": "已关闭", "Status_ID": 71,
-                        "Status": "进行中", "Status_ID": 70, -->
-                        <span class="info-state"
-                              :class="{'result73':item.Result_ID == 73,'result74':item.Result_ID == 74}"
-                            >{{item.Result}}</span>
-                        <!-- "Result": "已解决", "Result_ID": 73,
-                        "Result": "未解决","Result_ID": 74, -->
-                        <span class="info-state"
-                              :class="{'status71':item.Status_ID == 71,'status70':item.Status_ID == 70}"
-                            >{{item.Status}}</span>
-                    </div>
-                    <div class="info f12">
-                        <img class="img" src="../../assets/images/forum/default_user_img.png"/>
-                        <span class="name">{{item.UserName}}</span>
-                        <div class="hand">
-                            <span class="calcfont"
-                                  :class="[parseInt(item.IsCurrentUserLike)>=1 ? 'calc-zan' : 'calc-zan1']"
-                                  :data-statusid="item.Status_ID"
-                                  :data-autoid="item.AutoID"
-                                  data-even="fabulous"
-                                  @click="fabulousEvent($event)"
-                              ></span><span>{{item.LikeCount}}</span>
-                        </div>
-                        <div class="hand">
-                            <span class="calcfont"
-                                  :class="[parseInt(item.IsCurrentUserDislike)>=1 ? 'calc-caishixin-' : 'calc-cai']"
-                                  :data-statusid="item.Status_ID"
-                                  :data-autoid="item.AutoID"
-                                  data-even="unfabulous"
-                                  @click="fabulousEvent($event)"
-                              ></span><span>{{item.DislikeCount}}</span>
-                        </div>
-                        <div class="replies">
-                            <span class="lanText" data-lanid="1000350_答复"></span><span>{{item.ReplyCount}}</span>
-                        </div>
-                        <span class="time">{{item.PostTime|MeetingTimeFormat}}</span>
-                    </div>
-
+            <div v-for="item in listData" :key="item.AutoID" class="list-item">
+                <div @click="goToInfo(item.AutoID)" class="title f16">{{item.Theme}}</div>
+                <div @click="goToInfo(item.AutoID)" class="content f14">{{item.Content}}</div>
+                <div class="feeditemtag f12">
+                    <span>web</span><span>JS</span><span>C#</span><span>Vue</span>
                 </div>
+                <div class="info f12">
+                    <!-- "Status": "已关闭", "Status_ID": 71,
+                        "Status": "进行中", "Status_ID": 70, -->
+                    <span class="info-state" :class="{'result73':item.Result_ID == 73,'result74':item.Result_ID == 74}">{{item.Result}}</span>
+                    <!-- "Result": "已解决", "Result_ID": 73,
+                        "Result": "未解决","Result_ID": 74, -->
+                    <span class="info-state" :class="{'status71':item.Status_ID == 71,'status70':item.Status_ID == 70}">{{item.Status}}</span>
+                </div>
+                <div class="info f12">
+                    <img class="img" src="../../assets/images/forum/default_user_img.png" />
+                    <span class="name">{{item.UserName}}</span>
+                    <div class="hand">
+                        <span class="calcfont" :class="[parseInt(item.IsCurrentUserLike)>=1 ? 'calc-zan' : 'calc-zan1']" :data-statusid="item.Status_ID" :data-autoid="item.AutoID" data-even="fabulous" @click="fabulousEvent($event)"></span><span>{{item.LikeCount}}</span>
+                    </div>
+                    <div class="hand">
+                        <span class="calcfont" :class="[parseInt(item.IsCurrentUserDislike)>=1 ? 'calc-caishixin-' : 'calc-cai']" :data-statusid="item.Status_ID" :data-autoid="item.AutoID" data-even="unfabulous" @click="fabulousEvent($event)"></span><span>{{item.DislikeCount}}</span>
+                    </div>
+                    <div class="replies">
+                        <span class="lanText" data-lanid="1000350_答复"></span><span>{{item.ReplyCount}}</span>
+                    </div>
+                    <span class="time">{{item.PostTime|MeetingTimeFormat}}</span>
+                </div>
+
+            </div>
         </vue-scroll>
         <nothing v-show="noData" style="padding-top:0.8rem;"></nothing>
     </div>
@@ -111,7 +95,7 @@ export default {
             noData: false, //没数据
             pageSize: 10, //一页显示多少记录
             pageNum: 1, //当前页码
-            isShowdropDown:false,//隐藏内容和标签的下拉列表
+            isShowdropDown: false, //隐藏内容和标签的下拉列表
             isShowFilter: false, //隐藏筛选的下拉列表
             isShowSort: false, //隐藏排序的下拉列表
             listData: [{
@@ -199,17 +183,36 @@ export default {
     created: function () {},
     mounted: function () {
         lanTool.updateLanVersion();
+        this.returnToSearch();
     },
     methods: {
+        //点击回车触发搜索事件
+        returnToSearch: function () {
+            var _self=this;
+            $("#searchAskInput").keyup(function (e) {
+                if (e.which == 13) {
+                    var searchVal = $.trim($('#searchAskInput').val() || "");
+                    if (tool.isNullOrEmptyObject(searchVal)) {
+                        console.log("dddd....");
+                          var tips = lanTool.lanContent('933_温馨提示');
+                          var sure = lanTool.lanContent("545_确定");
+                          var alertContent = lanTool.lanContent("1000254_搜索条件不能为空");
+                        $.alert(alertContent, tips,"", sure);
+                        return;
+                    }
+                }
+               _self.search();
+            })
+        },
         //选择标题或者标签
-        selectTitleOrTag:function(e){
-          var _self = this;
-          var el = e.target;
-          $(el).addClass("selected");
-          $(el).siblings().removeClass("selected");
-          var val = $(el).text();
-          console.log("text:"+val);
-          _self.isShowdropDown = false;
+        selectTitleOrTag: function (e) {
+            var _self = this;
+            var el = e.target;
+            $(el).addClass("selected");
+            $(el).siblings().removeClass("selected");
+            var val = $(el).text();
+            console.log("text:" + val);
+            _self.isShowdropDown = false;
         },
         //筛选选择
         selectFiltertype: function (e) {
@@ -235,10 +238,10 @@ export default {
             _self.isShowSort = false;
         },
         //标题和标签下拉的展示和隐藏
-         selectDropDownType:function(){
+        selectDropDownType: function () {
             var _self = this;
-             _self.isShowSort = false;
-             _self.isShowFilter = false;
+            _self.isShowSort = false;
+            _self.isShowFilter = false;
             _self.isShowdropDown = !_self.isShowdropDown;
         },
         //筛选下拉展示隐藏
@@ -422,7 +425,7 @@ export default {
         },
 
         //点赞或者踩
-        fabulousEvent:function(e){
+        fabulousEvent: function (e) {
             var _self = this;
             var curObj = $(e.target);
 
@@ -437,9 +440,9 @@ export default {
             //用户名
             var userName = tool.getUserName();
             //动作类型
-            var actionType = "";//(76=>Like;77=>Dislike)
+            var actionType = ""; //(76=>Like;77=>Dislike)
             //是否添加
-            var isAdd = "";//(0=>取消添加;1=>添加)
+            var isAdd = ""; //(0=>取消添加;1=>添加)
 
             var dataEven = curObj.attr('data-even') || '';
             if (tool.isNullOrEmptyObject(dataEven)) {
@@ -485,7 +488,12 @@ export default {
                     if (data._ReturnStatus == false) {
                         tool.msg(tool.getMessage(data), function (index) {
                             tool.close(index);
-                        }, { time: 0, icon: 2, title: LanContent(586), btn: [LanContent(569)] });
+                        }, {
+                            time: 0,
+                            icon: 2,
+                            title: LanContent(586),
+                            btn: [LanContent(569)]
+                        });
                         return false;
                     }
 
@@ -494,9 +502,9 @@ export default {
                     if (tool.isNullOrEmptyObject(data)) {
                         return false;
                     }
-                    var countTemp = data.Count.toString() || "0";//点赞/踩数量
+                    var countTemp = data.Count.toString() || "0"; //点赞/踩数量
                     countTemp = Number(countTemp);
-                    var isCurrentUserDoTemp = data.IsCurrentUserDo.toString() || "0";//当前用户是否踩/点赞
+                    var isCurrentUserDoTemp = data.IsCurrentUserDo.toString() || "0"; //当前用户是否踩/点赞
                     isCurrentUserDoTemp = Number(isCurrentUserDoTemp);
 
                     //写入数量
@@ -527,11 +535,9 @@ export default {
                     tool.hideLoading(loadingIndex);
                     console.log(data);
                 },
-                complete: function () {
-                }
+                complete: function () {}
             });
         },
-
 
     }
 }
