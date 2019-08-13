@@ -81,17 +81,9 @@
     </div>
     <div v-show="isFocus" class="searchHotBlock">
         <div class="hotTagsBlock">
-            <p>热门搜索</p>
+            <p>热门标签</p>
             <div class="tagDiv">
-                <span @click="hotSearchClick(0,$event)" class="tagItem">人工智能</span>
-                <span @click="hotSearchClick(1,$event)" class="tagItem">大数据</span>
-                <span @click="hotSearchClick(2,$event)" class="tagItem">数据库</span>
-                <span @click="hotSearchClick(3,$event)" class="tagItem">人工智能</span>
-                <span @click="hotSearchClick(4,$event)" class="tagItem">大数据</span>
-                <span @click="hotSearchClick(5,$event)" class="tagItem">数据库</span>
-                <span @click="hotSearchClick(6,$event)" class="tagItem">人工智能</span>
-                <span @click="hotSearchClick(7,$event)" class="tagItem">大数据</span>
-                <span @click="hotSearchClick(8,$event)" class="tagItem">数据库</span>
+                <span v-for="(item, index) in hotSearchData" @click="hotSearchClick(index,$event)" :key="item.AutoID" class="tagItem">{{item.TagName}}</span>
             </div>
         </div>
         <div class="searchHistoryBlock">
@@ -100,10 +92,10 @@
                 <div @click="clearAllSearchHistory" class="clearBtn">全部清空</div>
             </div>
             <div class="hisStorySearchList">
-                <div class="hisStorySearchItem">
+                <div v-for="item in historyData" :key="item.AutoID" class="hisStorySearchItem">
                     <span class="searchIcon calcfont calc-shaixuan2"></span>
-                    <span class="searchContent"> 人工智能</span>
-                    <span @click="deleteHistoryClick" class="deleteIcon calcfont calc-guanbi"></span>
+                    <span @click="hotSearchClick(222,$event)" class="searchContent"> {{item.HistoryRecord}}</span>
+                    <span @click="deleteHistoryClick($event)" :data-AutoID="item.AutoID" class="deleteIcon calcfont calc-guanbi"></span>
                 </div>
             </div>
         </div>
@@ -131,6 +123,50 @@ export default {
             isShowFilter: false, //隐藏筛选的下拉列表
             isShowSort: false, //隐藏排序的下拉列表
             isFocus: true,
+            hotSearchData:[
+                {
+                    AutoID:"0",
+                    TagName:"人工智能"
+                },
+                 {
+                    AutoID:"2",
+                    TagName:"大数据"
+                },
+                 {
+                    AutoID:"3",
+                    TagName:"数据库"
+                },
+                 {
+                    AutoID:"4",
+                    TagName:"大数据"
+                },
+                 {
+                    AutoID:"5",
+                    TagName:"Web"
+                },
+                 {
+                    AutoID:"6",
+                    TagName:"Jq"
+                },
+                 {
+                    AutoID:"7",
+                    TagName:"C#"
+                },
+            ],
+            historyData:[
+                {
+                    AutoID:"10",
+                    HistoryRecord:"人工智能",
+                },
+                 {
+                    AutoID:"11",
+                    HistoryRecord:"大数据",
+                },
+                 {
+                    AutoID:"12",
+                    HistoryRecord:"前端",
+                }
+            ],
             listData: [{
                     "AutoID": "3",
                     "TopicID": 10,
@@ -236,10 +272,7 @@ export default {
                 _self.search();
             }
         },
-        //删除单条搜索历史
-        deleteHistoryClick: function () {
-            console.log("删除历史记录");
-        },
+       
         goToPosting: function () {
             this.$router.push('/forumposting');
         },
@@ -342,7 +375,31 @@ export default {
 
         clearAllSearchHistory: function () {
             console.log("清空历史");
-
+            var _self = this;
+            _self.historyData = [];
+        },
+         //删除单条搜索历史
+        deleteHistoryClick: function (e) {
+            console.log("删除历史记录");
+            var _self = this;
+            var el = e.target;
+            var obj = $(el);
+            if (!tool.isNullOrEmptyObject(obj)) {
+                console.log("autoID:"+obj.attr("data-AutoID"));
+                var id = obj.attr("data-AutoID");
+                for (let index = 0; index < _self.historyData.length; index++) {
+                    const element = _self.historyData[index];
+                    console.log("id:"+element.AutoID);
+                    
+                    if (element.AutoID == id) {
+                          _self.historyData.remove(element);
+                         return;
+                    }
+                    
+                }
+            }
+            
+            
         },
         //查询列表数据
         queryList: function (queryType, callback) {
