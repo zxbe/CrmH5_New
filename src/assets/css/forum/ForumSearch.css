@@ -200,3 +200,22 @@ li {
     background-color: beige;
     color:#7ebbff !important;
 }
+
+/*发帖按钮*/
+.buttom-div{
+    position:fixed;
+    bottom:calc(1rem + 46px);
+    right:10px;
+    display: flex;
+    flex-direction:column;
+  }
+  .buttom-div .calcfont{
+      width:0.72rem;
+      height: 0.72rem;
+      line-height: 0.72rem;
+      text-align: center;
+      background:rgba(0,0,0,0.15);
+      border-radius: 50%;
+      color:#787878;
+      padding:0;
+  }

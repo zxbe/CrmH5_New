@@ -16,12 +16,12 @@
             <img class="userHeadImg" src="../../assets/images/forum/default_user_img.png" alt="">
             <span class="userName">{{infoDataList.UserName}}</span>
             <p class="content">{{infoDataList.Content}}</p>
-            <div class="containTag" >
+            <div class="containTag">
                 <span v-for="tagItem in infoDataList.TagNameList" :key="tagItem.AutoID">{{tagItem.TagName}}</span>
             </div>
             <div class="infoStatus">
                 <span class="info-state">{{infoDataList.Result}}</span>
-            <span class="info-state">{{infoDataList.Status}}</span>
+                <span class="info-state">{{infoDataList.Status}}</span>
             </div>
             <div class="feeditemfooter">
                 <span class="time">{{infoDataList.PostTime}}</span>
@@ -52,14 +52,17 @@
 
                 </div>
             </div>
-           
+
         </div>
 
     </div>
-    <div class="replayDiv">
-        <input class="reply" type="text" placeholder="想对Ta说点什么">
+    <div class="replyBtnDiv">
+        <input @click="replyAskClick" class="replyBtn" type="text" readonly="readonly" placeholder="想对Ta说点什么">
     </div>
-
+    <div class="replyDiv">
+        <textarea id="ask" class="reply" placeholder="想对Ta说点什么" rows="3"></textarea>
+        <div @click="sendClick" id="sendBtn" class="send">发送</div>
+    </div>
     <div id="closeThis" class="elastic-layer">
         <div class="elastic-layer-content">
             <div class="elastic-layer-title lanText f18" data-lanid="1060_帖子结果"></div>
@@ -119,58 +122,59 @@ export default {
                 DislikeCount: "3",
                 ReplyCount: "2",
                 TagNameList: [{
-                        AutoID:1,
+                        AutoID: 1,
                         TagName: "Web"
                     },
                     {
-                         AutoID:2,
+                        AutoID: 2,
                         TagName: "C#"
                     },
                     {
-                         AutoID:3,
+                        AutoID: 3,
                         TagName: "html"
                     },
                     {
-                         AutoID:4,
+                        AutoID: 4,
                         TagName: "Mvc"
                     },
                     {
-                         AutoID:5,
+                        AutoID: 5,
                         TagName: "A320"
                     },
                     {
-                         AutoID:6,
+                        AutoID: 6,
                         TagName: "Php"
                     },
                     {
-                         AutoID:7,
+                        AutoID: 7,
                         TagName: "JS"
                     },
-    
+
                 ],
                 replyList: [{
-                    AutoID:"11",
-                    UserName: "alancheng1",
-                    Content: "视频播放的这个例子，如果我们不使用管道和流动的方式，直接先从服务端加载完视频文件，然后再播放。会造成很多问题",
-                    PostTime: "2019-08-10 22:00",
-                    LikeCount: "2",
-                    DislikeCount: "3",
-                },{
-                    AutoID:"12",
-                    UserName: "alancheng2",
-                    Content: "视频播放的这个例子，如果我们不使用管道和流动的方式，直接先从服务端加载完视频文件，然后再播放。会造成很多问题",
-                    PostTime: "2019-08-10 22:00",
-                    LikeCount: "2",
-                    DislikeCount: "3",
-                },
-                {
-                    AutoID:"13",
-                    UserName: "alancheng3",
-                    Content: "视频播放的这个例子，如果我们不使用管道和流动的方式，直接先从服务端加载完视频文件，然后再播放。会造成很多问题",
-                    PostTime: "2019-08-10 22:00",
-                    LikeCount: "2",
-                    DislikeCount: "3",
-                }]
+                        AutoID: "11",
+                        UserName: "alancheng1",
+                        Content: "视频播放的这个例子，如果我们不使用管道和流动的方式，直接先从服务端加载完视频文件，然后再播放。会造成很多问题",
+                        PostTime: "2019-08-10 22:00",
+                        LikeCount: "2",
+                        DislikeCount: "3",
+                    }, {
+                        AutoID: "12",
+                        UserName: "alancheng2",
+                        Content: "视频播放的这个例子，如果我们不使用管道和流动的方式，直接先从服务端加载完视频文件，然后再播放。会造成很多问题",
+                        PostTime: "2019-08-10 22:00",
+                        LikeCount: "2",
+                        DislikeCount: "3",
+                    },
+                    {
+                        AutoID: "13",
+                        UserName: "alancheng3",
+                        Content: "视频播放的这个例子，如果我们不使用管道和流动的方式，直接先从服务端加载完视频文件，然后再播放。会造成很多问题",
+                        PostTime: "2019-08-10 22:00",
+                        LikeCount: "2",
+                        DislikeCount: "3",
+                    }
+                ]
             }
         }
     },
@@ -182,9 +186,47 @@ export default {
         lanTool.updateLanVersion();
         //弹框选中控件初始化
         tool.InitiateInfoPageControl(_self, _self.id, function () {});
-        
+
     },
     methods: {
+        sendClick: function () {
+            
+            var sendObj = $("#sendBtn");
+            if (sendObj.hasClass("active")) {
+                console.log("send:"+ $('textarea#ask').val());
+            }
+            else{
+               console.log("no send......");
+            }
+        },
+        //回复点击事件
+        replyAskClick: function () {
+            console.log("huifu");
+            $(".replyDiv").show();
+            $('textarea#ask').focus();
+            $('textarea#ask').off('blur').on('blur', function () {
+                setTimeout(() => {
+                    console.log('blur');
+                     $(".replyDiv").hide();
+                }, 10);            
+            });
+            $("textarea#ask").keyup(function () {
+                var length = this.value.length;
+                console.log("长度：" + length);
+                var sendObj = $("#sendBtn");
+                if (length > 0) {
+                    if (!sendObj.hasClass("active")) {
+                        sendObj.addClass("active");
+                    }
+                } else {
+                    if (sendObj.hasClass("active")) {
+                        sendObj.removeClass("active");
+                    }
+
+                }
+            });
+
+        },
         back: function () {
             this.$router.back(-1);
         },

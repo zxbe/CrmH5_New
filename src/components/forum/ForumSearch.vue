@@ -79,6 +79,9 @@
         </vue-scroll>
         <nothing v-show="noData" style="padding-top:0.8rem;"></nothing>
     </div>
+    <div class="buttom-div">
+        <a @click="goToPosting" class="f18 calcfont calc-combinedshapecopy2"></a>
+    </div>
 </div>
 </template>
 
@@ -186,6 +189,9 @@ export default {
         this.returnToSearch();
     },
     methods: {
+         goToPosting:function(){
+           this.$router.push('/forumposting');
+        },
         //点击回车触发搜索事件
         returnToSearch: function () {
             var _self=this;
