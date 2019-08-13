@@ -335,30 +335,113 @@ export default {
                 });
 
                 //返回时更新selectlist控件的结果
-                tool.UpdateFieldValueFromBack(eventBus, function () {
+                tool.UpdateFieldValueFromBack(eventBus, function (curObj) {
+                    console.log(111);
+                    console.log(curObj);
+                    var dataField = curObj.attr("data-field") ||"";
+                    dataField = $.trim(dataField).toLowerCase();
+                    console.log(dataField);
+                    if(dataField == "companyid"){
+                        //请求地址
+                        var urlTemp = tool.AjaxBaseUrl();
+                        var controlName = tool.Api_OrganizationsHandle_QuerySingle;
+                        //传入参数
+                        var jsonDatasTemp = {
+                            CurrentLanguageVersion: lanTool.currentLanguageVersion,
+                            UserName: tool.UserName(),
+                            _ControlName: controlName,
+                            _RegisterCode: tool.RegisterCode(),
+                            AutoID:curObj.attr("data-fieldval") ||""
+                        };
+
+                        $.ajax({
+                            async: true,
+                            type: "post",
+                            url: urlTemp,
+                            data: jsonDatasTemp,
+                            success: function (data) {
+                                data = tool.jObject(data);
+                                if (data._ReturnStatus == false) {
+                                    //tool.showText(tool.getMessage(data));
+                                    console.log(tool.getMessage(data));
+                                    return;
+                                }
+                                data = data._OnlyOneData || {};
+                                $("[data-field='CountryID']").val(data["CountryID_Name"]||"");
+                                $("[data-field='CityID']").val(data["CityID_Name"]||"");
+                            },
+                            error: function (jqXHR, type, error) {
+                                console.log(error);
+                                return;
+                            },
+                            complete: function () {
+                                //隐藏虚拟键盘
+                                document.activeElement.blur();
+                            }
+                        });
+                    }
                     //清空全局变量
                     eventBus.selectListData = null;
-                })
+                });
             });
         });
     },
     activated: function () {
-
         //每次进入详情滚动条滚动到顶部
         // $(window).scrollTop(0);
         var _self = this;
 
         //返回时更新selectlist控件的结果
         tool.UpdateFieldValueFromBack(eventBus, function (curObj) {
+            console.log(222);
+            console.log(curObj);
             //选择公司后 国家和城市在这里跟着变动
             var dataField = curObj.attr("data-field") ||"";
-            if (dataField == "CompanyID") {
+            dataField = $.trim(dataField).toLowerCase();
+            console.log(dataField);
+            if(dataField == "companyid"){
+                //请求地址
+                var urlTemp = tool.AjaxBaseUrl();
+                var controlName = tool.Api_OrganizationsHandle_QuerySingle;
+                //传入参数
+                var jsonDatasTemp = {
+                    CurrentLanguageVersion: lanTool.currentLanguageVersion,
+                    UserName: tool.UserName(),
+                    _ControlName: controlName,
+                    _RegisterCode: tool.RegisterCode(),
+                    AutoID:curObj.attr("data-fieldval") ||""
+                };
 
+                $.ajax({
+                    async: true,
+                    type: "post",
+                    url: urlTemp,
+                    data: jsonDatasTemp,
+                    success: function (data) {
+                        data = tool.jObject(data);
+                        if (data._ReturnStatus == false) {
+                            //tool.showText(tool.getMessage(data));
+                            console.log(tool.getMessage(data));
+                            return;
+                        }
+                        data = data._OnlyOneData || {};
+                        console.log(data);
+                        $("[data-field='CountryID']").val(data["CountryID_Name"]||"");
+                        $("[data-field='CityID']").val(data["CityID_Name"]||"");
+                    },
+                    error: function (jqXHR, type, error) {
+                        console.log(error);
+                        return;
+                    },
+                    complete: function () {
+                        //隐藏虚拟键盘
+                        document.activeElement.blur();
+                    }
+                });
             }
             //清空全局变量
             eventBus.selectListData = null;
-        })
-
+        });
     },
     methods: {
         //查看有权限访问的同事跳转事件
