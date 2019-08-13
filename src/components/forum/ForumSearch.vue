@@ -2,7 +2,7 @@
 <div>
     <header class="mui-bar mui-bar-nav">
         <a @click="back" class="calcfont calc-fanhui left" id="back"></a>
-        <div class="searchDiv"><input id="searchAskInput" class="searchText" type="search" value=""></div>
+        <div class="searchDiv"><input @keyup.enter="submit" @focus="searchFocus" id="searchAskInput" class="searchText" type="search" value=""></div>
         <div class="headLeftIconDiv">
             <a @click="selectDropDownType" class="dropDownBtn calcfont calc-xiala"></a>
             <a @click="search" class="searchBtn calcfont calc-shaixuan2"></a>
@@ -13,7 +13,7 @@
         </div>
     </header>
 
-    <div class="searchSelectDiv">
+    <div v-show="!isFocus" class="searchSelectDiv">
 
         <div class="selectFilter">
             <a @click="filterDropDown($event)" class="filterBlock">
@@ -42,7 +42,7 @@
             </ul>
         </div>
     </div>
-    <div class="list">
+    <div v-show="!isFocus" class="list">
 
         <vue-scroll v-show="!noData" :showToTop="true" :options="{ pullup: true, pulldown: true }" :scrollbar="false" ref="scroll" @pulldown="pulldown" @pullup="pullup">
 
@@ -79,7 +79,36 @@
         </vue-scroll>
         <nothing v-show="noData" style="padding-top:0.8rem;"></nothing>
     </div>
-    <div class="buttom-div">
+    <div v-show="isFocus" class="searchHotBlock">
+        <div class="hotTagsBlock">
+            <p>热门搜索</p>
+            <div class="tagDiv">
+                <span @click="hotSearchClick(0,$event)" class="tagItem">人工智能</span>
+                <span @click="hotSearchClick(1,$event)" class="tagItem">大数据</span>
+                <span @click="hotSearchClick(2,$event)" class="tagItem">数据库</span>
+                <span @click="hotSearchClick(3,$event)" class="tagItem">人工智能</span>
+                <span @click="hotSearchClick(4,$event)" class="tagItem">大数据</span>
+                <span @click="hotSearchClick(5,$event)" class="tagItem">数据库</span>
+                <span @click="hotSearchClick(6,$event)" class="tagItem">人工智能</span>
+                <span @click="hotSearchClick(7,$event)" class="tagItem">大数据</span>
+                <span @click="hotSearchClick(8,$event)" class="tagItem">数据库</span>
+            </div>
+        </div>
+        <div class="searchHistoryBlock">
+            <div class="instroduciton">
+                <div class="theme">搜索历史</div>
+                <div @click="clearAllSearchHistory" class="clearBtn">全部清空</div>
+            </div>
+            <div class="hisStorySearchList">
+                <div class="hisStorySearchItem">
+                    <span class="searchIcon calcfont calc-shaixuan2"></span>
+                    <span class="searchContent"> 人工智能</span>
+                    <span @click="deleteHistoryClick" class="deleteIcon calcfont calc-guanbi"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div v-show="!isFocus" class="buttom-div">
         <a @click="goToPosting" class="f18 calcfont calc-combinedshapecopy2"></a>
     </div>
 </div>
@@ -101,6 +130,7 @@ export default {
             isShowdropDown: false, //隐藏内容和标签的下拉列表
             isShowFilter: false, //隐藏筛选的下拉列表
             isShowSort: false, //隐藏排序的下拉列表
+            isFocus: true,
             listData: [{
                     "AutoID": "3",
                     "TopicID": 10,
@@ -186,29 +216,52 @@ export default {
     created: function () {},
     mounted: function () {
         lanTool.updateLanVersion();
-        this.returnToSearch();
+
     },
     methods: {
-         goToPosting:function(){
-           this.$router.push('/forumposting');
+        //搜索聚焦事件
+        searchFocus: function () {
+            this.isFocus = true;
+        },
+        //热门搜索按钮点击事件
+        hotSearchClick: function (num, e) {
+            console.log("num:" + num);
+            var _self = this;
+            var el = e.target;
+            var obj = $(el);
+            if (!tool.isNullOrEmptyObject(obj)) {
+                var text = obj.text();
+                console.log("text:" + text);
+                $("input#searchAskInput").val(text);
+                _self.search();
+            }
+        },
+        //删除单条搜索历史
+        deleteHistoryClick: function () {
+            console.log("删除历史记录");
+        },
+        goToPosting: function () {
+            this.$router.push('/forumposting');
         },
         //点击回车触发搜索事件
-        returnToSearch: function () {
-            var _self=this;
-            $("#searchAskInput").keyup(function (e) {
-                if (e.which == 13) {
-                    var searchVal = $.trim($('#searchAskInput').val() || "");
-                    if (tool.isNullOrEmptyObject(searchVal)) {
-                        console.log("dddd....");
-                          var tips = lanTool.lanContent('933_温馨提示');
-                          var sure = lanTool.lanContent("545_确定");
-                          var alertContent = lanTool.lanContent("1000254_搜索条件不能为空");
-                        $.alert(alertContent, tips,"", sure);
-                        return;
-                    }
-                }
-               _self.search();
-            })
+        submit: function () {
+            console.log("回车");
+            var _self = this;
+            _self.search();
+        },
+        //搜索事件
+        search: function () {
+            var _self = this;
+            var searchVal = $.trim($('#searchAskInput').val() || "");
+            if (tool.isNullOrEmptyObject(searchVal)) {
+                var tips = lanTool.lanContent('933_温馨提示');
+                var sure = lanTool.lanContent("545_确定");
+                var alertContent = lanTool.lanContent("1000254_搜索条件不能为空");
+                $.alert(alertContent, tips, "", sure);
+                return;
+            } else {
+                _self.isFocus = false;
+            }
         },
         //选择标题或者标签
         selectTitleOrTag: function (e) {
@@ -286,13 +339,11 @@ export default {
         back: function () {
             this.$router.back(-1);
         },
-        //搜索
-        search: function () {
-            console.log("search");
-            var text = $(".searchText").val();
-            console.log(text);
-        },
 
+        clearAllSearchHistory: function () {
+            console.log("清空历史");
+
+        },
         //查询列表数据
         queryList: function (queryType, callback) {
             let _self = this;

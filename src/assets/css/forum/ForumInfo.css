@@ -355,3 +355,7 @@ header a {
     font-size: 0.32rem !important;
 }
 
+.forumContentDiv .infoStatus span.status71{background: #dd4b39;}
+.forumContentDiv .infoStatus span.status70{background: #00a65a;}
+.forumContentDiv .infoStatus span.result73{background: #3c8dbc;}
+.forumContentDiv .infoStatus span.result74{background: #f39c12;}

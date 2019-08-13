@@ -20,8 +20,8 @@
                 <span v-for="tagItem in infoDataList.TagNameList" :key="tagItem.AutoID">{{tagItem.TagName}}</span>
             </div>
             <div class="infoStatus">
-                <span class="info-state">{{infoDataList.Result}}</span>
-                <span class="info-state">{{infoDataList.Status}}</span>
+                <span class="info-state" :class="{'result73':infoDataList.Result_ID == 73,'result74':infoDataList.Result_ID == 74}">{{infoDataList.Result}}</span>
+                <span class="info-state" :class="{'status71':infoDataList.Status_ID == 71,'status70':infoDataList.Status_ID == 70}">{{infoDataList.Status}}</span>
             </div>
             <div class="feeditemfooter">
                 <span class="time">{{infoDataList.PostTime}}</span>
@@ -116,7 +116,9 @@ export default {
                 UserName: "aoniruan",
                 Content: "如果你觉得排版难看，请点击 下面链接 或者 拉到 下面关注公众号也可以吧【Vue原理】Computed - 源码版@dylanxu今天要记录 computed 的源码，有时候想，理解不就好了吗，为什么要记录一遍源码。现在终于想通了过了一段时间之后，你就会忘记你的所谓理解是怎么来的“哎，为什么会这么做，关系为什么是这样，我c…”于是，记录并简化源码，就有助我们迅速找到根源，解决我们的疑惑，还能加强我们的理解@alancheng好吧嗯，这篇文章很长很详细哦，做好阅读的准备，唔该我们重点说明，几个问题的源码实现",
                 Result: "Unresolved",
+                Result_ID: 74,
                 Status: "In Progress",
+                Status_ID: 70,
                 PostTime: "2019-08-08 13:03",
                 LikeCount: "2",
                 DislikeCount: "3",
@@ -201,7 +203,6 @@ export default {
         },
         //回复点击事件
         replyAskClick: function () {
-            console.log("huifu");
             $(".replyDiv").show();
             $('textarea#ask').focus();
             $('textarea#ask').off('blur').on('blur', function () {
@@ -212,8 +213,8 @@ export default {
             });
             $("textarea#ask").keyup(function () {
                 var length = this.value.length;
-                console.log("长度：" + length);
                 var sendObj = $("#sendBtn");
+                //根据输入的长度展示是否能按发送键
                 if (length > 0) {
                     if (!sendObj.hasClass("active")) {
                         sendObj.addClass("active");

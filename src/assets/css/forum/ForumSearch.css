@@ -219,3 +219,70 @@ li {
       color:#787878;
       padding:0;
   }
+
+  /* 热门搜索和搜索历史 */
+  .searchHotBlock{
+      position: fixed;
+      padding-top: 0.88rem;
+      height: 100%;
+      left: 20px;
+      right: 20px;
+      /* background-color: yellow; */
+  }
+  .hotTagsBlock{
+      padding-top: 15px;
+    font-size: 0.28rem;
+  }
+  .hotTagsBlock p{
+      font-size: 0.3rem;
+  }
+  .hotTagsBlock .tagDiv{
+      padding-top: 10px;
+  }
+  .hotTagsBlock .tagDiv .tagItem{
+    display: inline-block;
+    font-size: 0.26rem;
+    padding: 5px 5px;
+    background: #7ebbff;
+    border-radius: 3px;
+    margin: 0 5px 10px 0;
+    color: #fff;
+  }
+  .searchHistoryBlock{
+      margin-top: 10px;
+      padding: 0 5px;
+      font-size: 0.3rem;
+  }
+  .searchHistoryBlock .instroduciton{
+     display: flex;
+  }
+  .searchHistoryBlock .instroduciton .theme{
+     width:calc(100% - 2rem);
+  }
+  .searchHistoryBlock .instroduciton .clearBtn{
+    width: 2rem;
+    text-align: right;
+    color: rgb(129, 129, 129);
+  }
+  .searchHistoryBlock .hisStorySearchList .hisStorySearchItem{
+      display: flex;
+     width: 100%;
+     margin-top: 10px;
+     color: rgb(129, 130, 135);
+  }
+  .searchHistoryBlock .hisStorySearchList .hisStorySearchItem .searchIcon{
+    width: 0.5rem;
+    font-size: 0.30rem;
+    margin: auto 0;
+  }
+  .searchHistoryBlock .hisStorySearchList .hisStorySearchItem .searchContent{
+    width: calc(100% - 1rem);
+    margin: auto 0;
+    font-size: 0.24rem;
+  }
+  .searchHistoryBlock .hisStorySearchList .hisStorySearchItem .deleteIcon{
+    width:0.5rem;
+    font-size: 0.24rem !important;
+    padding: 10px 5px;
+    margin: auto 0;
+  }
