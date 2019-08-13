@@ -236,7 +236,7 @@
             </div>
 
             <!-- 状态 -->
-            <div :show="showTips" class="ListCell visible controlEdit">
+            <div v-show="showTips" class="ListCell visible controlEdit">
                 <div class="ListCellLeftIcon textLeftIcon"><span class="calcfont calc-yewujihui"></span></div>
                 <div class="ListCellLeftText">
                     <p class="textareaP">
@@ -246,7 +246,7 @@
             </div>
 
             <!-- 输单原因 -->
-            <div :show="showTips" class="ListCell visible controlEdit">
+            <div v-show="showTips" class="ListCell visible controlEdit">
                 <div class="ListCellLeftIcon textLeftIcon"><span class="calcfont calc-yewujihui"></span></div>
                 <div class="ListCellLeftText">
                     <p class="textareaP">
@@ -256,7 +256,7 @@
             </div>
 
             <!-- 输单原因其他 -->
-            <div :show="showTips" class="ListCell visible controlEdit">
+            <div v-show="showTips" class="ListCell visible controlEdit">
                 <div class="ListCellLeftIcon textLeftIcon"><span class="calcfont calc-yewujihui"></span></div>
                 <div class="ListCellLeftText">
                     <p class="textareaP">
