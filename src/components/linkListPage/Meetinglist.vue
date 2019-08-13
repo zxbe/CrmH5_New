@@ -39,8 +39,10 @@
                           <div class="item-time f12">
                             <span class="calcfont calc-gengxinshijian"></span>
                             <span class="time-text">{{item.BeginTime|MeetingTimeFormat}}~{{item.EndTime|MeetingTimeFormat}}</span>
-                            <div class="right-text">{{item.LastUpdateUserName}}</div>
+                            <span class="right-text">{{item.Realname}}</span>
                           </div>
+                          <div class="item-address">{{item.CompanyID}}</div>
+                          <div class="item-initiator">{{item.ContactsID|formatContactsID}}{{item.Title|formatTitle}}</div>
                       </div>
                   </div>
             </div>
@@ -163,7 +165,7 @@ export default {
                         return;
                     }
                     data = data._OnlyOneData.Rows || [];
-                    
+
                     //没有数据
                     if((tool.isNullOrEmptyObject(data) || data.length <= 0) && _self.pageNum == 1){
                         _self.noData = true;

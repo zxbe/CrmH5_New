@@ -118,11 +118,11 @@
                                                 <div class="item-div item-first-div blue-color">
                                                   {{item.TheName}}
                                                 </div>
+                                                <div class="item-div line-clamp2">{{item.Memo}}</div>
                                                 <div class="item-div f12 green-color padding-bottom-3 padding-top-3">
                                                   <span :class="item.className">{{item.CurrentState}}</span>
                                                   <span class="right updateTime">{{item.LastUpdateTime|abdDateFormat('dd/MM/yyyy')}}</span>
                                                 </div>
-                                                <div class="item-div line-clamp2">{{item.Memo}}</div>
                                                 <div v-if="item.IsMeetingExist.toLowerCase()!='false'" class="item-div-box">
                                                       <div class="item-new-text">{{item.meetingSysmbol}}</div>
 

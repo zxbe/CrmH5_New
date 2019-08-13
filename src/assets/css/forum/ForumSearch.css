@@ -82,6 +82,7 @@ input {
 .dropDownList{
    position: fixed;
    z-index: 100;
+   transform: translateZ(101px);
    top: 0.76rem;
    right: 0.1rem;
    width: 2.9rem;
@@ -108,7 +109,7 @@ input {
     position: fixed;
     top: 0.88rem;
     left: 0;
-    z-index: 99;
+    z-index: 20;
     width: 100%;
     height: 40px;
     background: #fff;
@@ -158,6 +159,11 @@ li {
     /* padding:0 3px; */
     padding-left: 10px;
 }
+.selectFilter a,.selectSort a{
+    display: inline-block;
+    width:100%;
+    height: 100%;
+}
 .selectSort{
     padding-left: 0;
     padding-right: 10px;
@@ -191,5 +197,25 @@ li {
 }
 /* 下拉列表a标签选中的背景颜色*/
 .selected{
-    background-color: beige
+    background-color: beige;
+    color:#7ebbff !important;
 }
+
+/*发帖按钮*/
+.buttom-div{
+    position:fixed;
+    bottom:calc(1rem + 46px);
+    right:10px;
+    display: flex;
+    flex-direction:column;
+  }
+  .buttom-div .calcfont{
+      width:0.72rem;
+      height: 0.72rem;
+      line-height: 0.72rem;
+      text-align: center;
+      background:rgba(0,0,0,0.15);
+      border-radius: 50%;
+      color:#787878;
+      padding:0;
+  }

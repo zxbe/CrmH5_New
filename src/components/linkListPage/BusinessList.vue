@@ -27,12 +27,31 @@
             <!-- :data-url="'/opportunitiesinfo/' + item.AutoID"> -->
                     <div class="item-block" @click="goToInfo(item,$event)" :data-id="item.AutoID">
                         <div class="item-div item-first-div blue-color">{{item.TheName}}</div>
-                        <!-- <div class="item-div line-clamp2">{{item.Memo}}</div> -->
+                        <div class="item-div line-clamp2">{{item.Memo}}</div>
                         <div class="item-div f12 green-color padding-bottom-3 padding-top-3">
                           <span :class="item.className">{{item.CurrentState}}</span>
                           <span class="right updateTime">{{item.Initiator}}</span>
                         </div>
-                        <div class="item-div-box">
+                        <div v-if="item.IsMeetingExist.toLowerCase()!='false'" class="item-div-box">
+                            <div class="item-new-text">{{item.meetingSysmbol}}</div>
+                            <div class="new-right">
+                              <div class="item-div">
+                                <span class="itme-div-span">{{item.MeetingTitle}}</span>
+                              </div>
+                              <div class="item-div dete-div f12">
+                                <span>{{item.BeginTime|abdDateFormat('dd/MM/yyyy HH:mm')}}</span>
+                              </div>
+                            </div>
+                        </div>
+                        <!-- "AutoID": 982,
+                        "TheName": "MSN123_9 Air_Trading",
+                        "Memo": "666",
+                        "CurrentState": "已关闭",
+                        "IsFollow": "calc-noshoucang",
+                        "IsMeetingExist": "true",
+                        "MeetingTitle": "31号1次会议",
+                        "BeginTime": "2019-07-31T08:00:00" -->
+                        <!-- <div class="item-div-box">
                             <div class="new-right">
                               <div class="item-div">
                                 <span class="itme-div-span">{{item.MeetingTitle}}</span>
@@ -41,7 +60,7 @@
                                 <span>{{item.MeetingDate|abdDateFormat('dd/MM/yyyy HH:mm')}}</span>
                               </div>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
             </div>
 
@@ -161,12 +180,18 @@ export default {
                       return;
                   }
                   data = data._OnlyOneData.Rows || [];
-                  
+
                   //没有数据
                   if((tool.isNullOrEmptyObject(data) || data.length <= 0) && _self.pageNum == 1){
                       _self.noData = true;
                       return ;
                   }
+
+                  //增加meetingSysmbol字段
+                  $.each(data, function (index, item) {
+                      var meetingSysmbol = lanTool.lanContent("1000001_最新的会议") || "new";
+                      _self.$set(item, 'meetingSysmbol', meetingSysmbol);
+                  })
 
                   _self.noData = false;
                   if(queryType == 'pushLoad'){
@@ -289,7 +314,22 @@ header.mui-bar {
 .group-item .item-div .closed{color:#ff5a21;}
 .group-item .item-div .updateTime{color:#666;}
 .group-item .item-div-box{position: relative;}
-.group-item .new-right{min-height:0.8rem;}
+.group-item .item-new-text{
+    position: absolute;
+    left: 0;
+    top: 2px;
+    color: #ff5a21;
+    border: 1px solid #ff5a21;
+    border-radius: 3px;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    width: 54px;
+    font-size: 10px!important;
+    vertical-align: middle;
+    text-align: center;
+    padding: 2px;
+}
+.group-item .new-right{min-height:0.8rem;padding-left: 60px;}
 .group-item .itme-div-span{display: block;
   width: 100%;
   overflow: hidden;

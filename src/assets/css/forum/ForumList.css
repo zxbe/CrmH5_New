@@ -30,6 +30,7 @@ ul,li{list-style: none;padding:0;margin: 0;}
     margin-top: 7px;
     border-radius: 3px;
     color:#8f8f97;
+    box-sizing: border-box;
 }
 .header .search-icon{
   vertical-align: middle;
@@ -47,9 +48,12 @@ ul,li{list-style: none;padding:0;margin: 0;}
   right: 0;
   background: #fff;
 }
+.tag .tag-scroll-box{
+
+}
 .tag .tag-items{
   flex: 1;
-  padding-left: 5px;
+  margin-left: 5px;
   align-items:center;
   overflow: hidden;
 }
@@ -89,6 +93,7 @@ ul,li{list-style: none;padding:0;margin: 0;}
 }
 .list-item{
   padding:10px 15px;
+  border-bottom:1px solid #ccc;
 }
 .list-item .title{
   padding-bottom:5px;
@@ -138,13 +143,33 @@ ul,li{list-style: none;padding:0;margin: 0;}
   display: inline-block;width:80px;line-height: 1;
   padding:5px 0;
   text-align: center;
-  background: rgb(221, 75, 57);
+  /* background: rgb(221, 75, 57); */
   color:#fff;
   border-radius: 3px;
   margin-right: 5px;
 }
+
+/*
+"Status": "已关闭",  #dd4b39
+"Status_ID": 71,
+"Status": "进行中", #00a65a
+"Status_ID": 70,
+
+"Result": "已解决",  #3c8dbc
+"Result_ID": 73,
+"Result": "未解决", #f39c12
+"Result_ID": 74,
+*/
+.list-item .status71{background: #dd4b39;}
+.list-item .status70{background: #00a65a;}
+.list-item .result73{background: #3c8dbc;}
+.list-item .result74{background: #f39c12;}
+
 .list-item .hand,.list-item .replies{
   margin-right: 5px;
+}
+.list-item .hand .calc-zan, .list-item .hand .calc-caishixin-{
+  color:#048ec6;
 }
 .list-item .time{
   flex: 1;

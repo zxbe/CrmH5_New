@@ -38,109 +38,170 @@ export default {
       return{
         timeOutEvent:0, //定时器对象
         title:'All Tag',
-        listData:[
-          {
-            "AutoID": 7,
-            "Name": "Web",
-            "InternalSort": null,
-            "PostCount": 18,
-            "IsFollow": "fa-star"
-          }, {
-            "AutoID": 8,
-            "Name": "JS",
-            "InternalSort": null,
-            "PostCount": 8,
-            "IsFollow": "fa-star-o"
-          }, {
-            "AutoID": 11,
-            "Name": "python",
-            "InternalSort": null,
-            "PostCount": 4,
-            "IsFollow": "fa-star-o"
-          }, {
-            "AutoID": 14,
-            "Name": "C#",
-            "InternalSort": 100,
-            "PostCount": 1,
-            "IsFollow": "fa-star-o"
-          }, {
-            "AutoID": 13,
-            "Name": "React",
-            "InternalSort": null,
-            "PostCount": 2,
-            "IsFollow": "fa-star-o"
-          }, {
-            "AutoID": 4,
-            "Name": "Boeing",
-            "InternalSort": null,
-            "PostCount": 4,
-            "IsFollow": "fa-star-o"
-          }, {
-            "AutoID": 5,
-            "Name": "CALC",
-            "InternalSort": null,
-            "PostCount": 2,
-            "IsFollow": "fa-star-o"
-          }, {
-            "AutoID": 10,
-            "Name": "NodeJS",
-            "InternalSort": null,
-            "PostCount": 3,
-            "IsFollow": "fa-star-o"
-          }, {
-            "AutoID": 6,
-            "Name": "M737Max",
-            "InternalSort": null,
-            "PostCount": 1,
-            "IsFollow": "fa-star-o"
-          }, {
-            "AutoID": 3,
-            "Name": "AirBus",
-            "InternalSort": null,
-            "PostCount": 1,
-            "IsFollow": "fa-star-o"
-          }, {
-            "AutoID": 15,
-            "Name": "前端",
-            "InternalSort": null,
-            "PostCount": 3,
-            "IsFollow": "fa-star-o"
-          }, {
-            "AutoID": 2,
-            "Name": "MRO",
-            "InternalSort": null,
-            "PostCount": 2,
-            "IsFollow": "fa-star-o"
-          }, {
-            "AutoID": 12,
-            "Name": "m787",
-            "InternalSort": null,
-            "PostCount": 2,
-            "IsFollow": "fa-star-o"
-          }, {
-            "AutoID": 9,
-            "Name": "Proxy",
-            "InternalSort": null,
-            "PostCount": 2,
-            "IsFollow": "fa-star-o"
-          }, {
-            "AutoID": 16,
-            "Name": "A320",
-            "InternalSort": null,
-            "PostCount": 1,
-            "IsFollow": "fa-star-o"
-          }
-        ]
+        listData:[]
       }
     },
     created:function(){
-
+        this.getTagsData();
     },
     mounted:function(){
       let _self = this;
       lanTool.updateLanVersion();
     },
     methods:{
+        // 获取数据
+        getTagsData:function(){
+          var _self = this;
+
+          //api接口地址
+          var apiUrlTemp = '';
+          var jsonDatas = {
+              // CurrentLanguageVersion: lanTool.currentLanguageVersion,
+              // UserName: tool.UserName(),
+              // TabID: _self.tabID,
+              // CompanyID: _self.companyID,
+              // VersionID: _self.versionID,
+              // IsUsePager: true,
+              // PageSize:_self.pageSize,
+              // PageNum:_self.pageNum,
+              // QueryCondiction: _self.queryCondictionData || []
+          };
+
+          var loadingIndexClassName = tool.showLoading();
+          /*
+          $.ajax({
+                async: true,
+                type: "post",
+                url: urlTemp,
+                data: jsonDatasTemp,
+                success: function (data) {
+                    tool.hideLoading(loadingIndexClassName);
+
+                    data = tool.jObject(data);
+                    // console.log(data);
+                    if (data._ReturnStatus == false) {
+                        tool.showText(tool.getMessage(data));
+                        _self.noData = true;
+                        return;
+                    }
+                    _self.listData = data._OnlyOneData.Rows || [];
+                },
+                error: function (jqXHR, type, error) {
+                    tool.hideLoading(loadingIndexClassName);
+                    console.log(error);
+                    return true;
+                },
+                complete: function () {
+                    //隐藏虚拟键盘
+                    document.activeElement.blur();
+                }
+          })
+          */
+          setTimeout(function(){
+              tool.hideLoading(loadingIndexClassName);
+              var data = [
+                    {
+                      "AutoID": 7,
+                      "Name": "Web",
+                      "InternalSort": null,
+                      "PostCount": 18,
+                      "IsFollow": "fa-star"
+                    },{
+                      "AutoID": 7,
+                      "Name": "Web",
+                      "InternalSort": null,
+                      "PostCount": 18,
+                      "IsFollow": "fa-star"
+                    }, {
+                      "AutoID": 8,
+                      "Name": "JS",
+                      "InternalSort": null,
+                      "PostCount": 8,
+                      "IsFollow": "fa-star-o"
+                    }, {
+                      "AutoID": 11,
+                      "Name": "python",
+                      "InternalSort": null,
+                      "PostCount": 4,
+                      "IsFollow": "fa-star"
+                    }, {
+                      "AutoID": 14,
+                      "Name": "C#",
+                      "InternalSort": 100,
+                      "PostCount": 1,
+                      "IsFollow": "fa-star-o"
+                    }, {
+                      "AutoID": 13,
+                      "Name": "React",
+                      "InternalSort": null,
+                      "PostCount": 2,
+                      "IsFollow": "fa-star-o"
+                    }, {
+                      "AutoID": 4,
+                      "Name": "Boeing",
+                      "InternalSort": null,
+                      "PostCount": 4,
+                      "IsFollow": "fa-star-o"
+                    }, {
+                      "AutoID": 5,
+                      "Name": "CALC",
+                      "InternalSort": null,
+                      "PostCount": 2,
+                      "IsFollow": "fa-star"
+                    }, {
+                      "AutoID": 10,
+                      "Name": "NodeJS",
+                      "InternalSort": null,
+                      "PostCount": 3,
+                      "IsFollow": "fa-star-o"
+                    }, {
+                      "AutoID": 6,
+                      "Name": "M737Max",
+                      "InternalSort": null,
+                      "PostCount": 1,
+                      "IsFollow": "fa-star-o"
+                    }, {
+                      "AutoID": 3,
+                      "Name": "AirBus",
+                      "InternalSort": null,
+                      "PostCount": 1,
+                      "IsFollow": "fa-star-o"
+                    }, {
+                      "AutoID": 15,
+                      "Name": "前端",
+                      "InternalSort": null,
+                      "PostCount": 3,
+                      "IsFollow": "fa-star-o"
+                    }, {
+                      "AutoID": 2,
+                      "Name": "MRO",
+                      "InternalSort": null,
+                      "PostCount": 2,
+                      "IsFollow": "fa-star-o"
+                    }, {
+                      "AutoID": 12,
+                      "Name": "m787",
+                      "InternalSort": null,
+                      "PostCount": 2,
+                      "IsFollow": "fa-star-o"
+                    }, {
+                      "AutoID": 9,
+                      "Name": "Proxy",
+                      "InternalSort": null,
+                      "PostCount": 2,
+                      "IsFollow": "fa-star-o"
+                    }, {
+                      "AutoID": 16,
+                      "Name": "A320",
+                      "InternalSort": null,
+                      "PostCount": 1,
+                      "IsFollow": "fa-star-o"
+                    }
+              ]
+              _self.listData = data;
+          },500)
+
+        },
 
         //手指开始按
         gotouchstart(obj,e){
@@ -200,7 +261,6 @@ export default {
             _self.timeOutEvent = 0;
         },
 
-
         //返回上一页
         back:function(){
             this.$router.back(-1);
@@ -212,13 +272,12 @@ export default {
           if(tool.isNullOrEmptyObject(id)){
               return;
           }
-          var url = '/forumlist';
           var parameter = {
-                  id:id
+                 id:id
               };
           _self.$router.push({
-            path:url,
-            query:parameter
+            name:'forumlist',
+            params:parameter
           })
         }
     }

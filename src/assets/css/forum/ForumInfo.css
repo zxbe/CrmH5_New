@@ -101,6 +101,7 @@ header a {
     border-radius: 3px;
     margin: 0 5px 5px 0;
     color: #fff;
+    font-size: 0.24rem;
 }
 .forumContentDiv .infoStatus{
     padding-top: 5px;
@@ -111,6 +112,7 @@ header a {
      width: 80px;
      line-height: 1;
      padding: 5px 0;
+     font-size: 0.24rem;
      text-align: center;
      background: #dd4b39;
      color: #fff;
@@ -136,10 +138,11 @@ header a {
 }
 .replyList{
     padding:0 10px;
-   padding-top: 10px;
+   /* padding-top: 10px; */
 }
 .replyList .replyItem{
     padding-bottom: 0.1rem;
+    padding-top: 0.2rem;
     border-bottom: solid 1px beige; 
 }
 .replyList .replyItem .replyUserImg{
@@ -173,22 +176,23 @@ header a {
     color: rgb(4, 142, 198)
 }
 
-.replayDiv{
+.replyBtnDiv{
     position: fixed;
     bottom: 0;
     height: 0.88rem;
     width: 100%;
+    z-index: 20;
     padding:0.14rem 0.4rem;
     box-sizing: border-box;
     border-top: solid 1px beige;
     background-color: #ffffff;
 }
-.replayDiv input{
+.replyBtnDiv input{
     display: inline-block;
     height: 0.6rem;
     overflow: hidden;
     width: 100%;
-    font-size: .34rem;
+    font-size: .24rem;
     background-color: rgb(241, 240, 245);
     box-sizing: border-box;
     border-radius: 5px;
@@ -204,7 +208,40 @@ header a {
     outline-color: transparent;
     box-shadow: none;
 }
-
+.replyDiv{
+    position: fixed;
+    display: none;
+    bottom: 0;
+    height: 2.38rem;
+    width: 100%;
+    z-index: 20;
+    padding:0.14rem 0.4rem;
+    box-sizing: border-box;
+    border-top: solid 1px beige;
+    background-color: #ffffff;
+}
+.replyDiv .reply{
+    display: inline-block;
+    height: 1.44rem;
+    line-height: 0.48rem;
+    width: 100%;
+    font-size: .24rem;
+    background-color: rgb(241, 240, 245);
+    box-sizing: border-box;
+    border-radius: 5px;
+    text-indent: 5px;
+}
+.replyDiv .send{
+    float: right;
+    height: 0.6rem;
+    color: rgb(217, 217, 219);
+    /* color: #048ec6; */
+    font-size: 0.28rem;
+    padding: 5px 0 5px 20px;
+}
+.replyDiv .send.active{
+    color: #048ec6;
+}
 /*关闭论坛*/
 .elastic-layer{
     position:fixed;
@@ -317,3 +354,4 @@ header a {
   .calcfont.calc-you{
     font-size: 0.32rem !important;
 }
+
