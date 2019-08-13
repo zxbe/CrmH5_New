@@ -476,6 +476,10 @@ import config from '../../configfile/config.js'
 	 */
 	tool.Api_CamcardDataHandle_SyncCompanyAndContactData = "Api_CamcardDataHandle_SyncCompanyAndContactData";
 	/*
+	 * 同步新的公司和联系人数据接口
+	 */
+	tool.Api_CamcardDataHandle_SyncNewCompanyAndContactData = "Api_CamcardDataHandle_SyncNewCompanyAndContactData";
+	/*
 	 * 同步公司数据接口
 	 */
 	tool.Api_CamcardDataHandle_SyncCompanyData = "Api_CamcardDataHandle_SyncCompanyData";

@@ -54,6 +54,7 @@ let json = {
 	"Api_MessagesToUserHandle_QueryPostCount":"Api_MessagesToUserHandle_QueryPostCount",
 	"Api_MessagesToUserHandle_QueryPostMsgList":"Api_MessagesToUserHandle_QueryPostMsgList",
 	"Api_CamcardDataHandle_SyncCompanyAndContactData":"Api_CamcardDataHandle_SyncCompanyAndContactData",
+	"Api_CamcardDataHandle_SyncNewCompanyAndContactData":"Api_CamcardDataHandle_SyncNewCompanyAndContactData",
 	"Api_CamcardDataHandle_SyncCompanyData":"Api_CamcardDataHandle_SyncCompanyData",
 	"Api_CamcardDataHandle_SyncContactData":"Api_CamcardDataHandle_SyncContactData",
 	"currentLanguageVersion":"",

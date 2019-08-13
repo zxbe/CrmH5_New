@@ -254,6 +254,7 @@
             </div>
           </div> -->
                 <div @click="SynchronousCamcardData" class="block-item item-border-top btnsynchronouscamcard lanText" data-lanid="1000193_同步CamCard数据"></div>
+                <div @click="SynchronousNewCamCarddata" class="block-item item-border-top SynchronousNewCamCarddata lanText" data-lanid="1000372_同步新的CamCard数据"></div>
                 <div @click="ClearCache" class="block-item item-border-top lanText" data-lanid="776_清除缓存"></div>
             </div>
         </div>
@@ -525,6 +526,49 @@ export default {
                     //请求地址
                     var urlTemp = tool.AjaxBaseUrl();
                     var controlName = tool.Api_CamcardDataHandle_SyncCompanyAndContactData;
+                    //传入参数
+                    var jsonDatasTemp = {
+                        CurrentLanguageVersion: lanTool.currentLanguageVersion,
+                        UserName: tool.UserName(),
+                        _ControlName: controlName,
+                        _RegisterCode: tool.RegisterCode()
+                    };
+
+                    var loadingIndexClassName = tool.showLoading();
+                    $.ajax({
+                        async: true,
+                        type: "post",
+                        url: urlTemp,
+                        data: jsonDatasTemp,
+                        success: function (data) {
+                            tool.hideLoading(loadingIndexClassName);
+                            data = tool.jObject(data);
+                            tool.showText(tool.getMessage(data));
+                            window.location.reload();
+                        },
+                        error: function (jqXHR, type, error) {
+                            tool.hideLoading(loadingIndexClassName);
+                            console.log(error);
+                            return;
+                        },
+                        complete: function () {
+                            //隐藏虚拟键盘
+                            document.activeElement.blur();
+                        }
+                    });
+                },
+                function () {}
+            );
+        },
+        //同步新的Camcard的数据
+        SynchronousNewCamCarddata: function () {
+
+            tool.showConfirm(
+                lanTool.lanContent("1000373_同步新的Camcard数据将会覆盖本地数据，是否确定同步？"),
+                function () {
+                    //请求地址
+                    var urlTemp = tool.AjaxBaseUrl();
+                    var controlName = tool.Api_CamcardDataHandle_SyncNewCompanyAndContactData;
                     //传入参数
                     var jsonDatasTemp = {
                         CurrentLanguageVersion: lanTool.currentLanguageVersion,
