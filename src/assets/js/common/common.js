@@ -2519,7 +2519,7 @@ import config from '../../configfile/config.js'
 			var controlName = tool.CommonDataServiceHandle_Query;
 			var code = _curObj.attr("Code") || "";
 			var typeValue = _curObj.attr("TypeValue") || "";
-
+			var filter = _curObj.attr("Filter") || "";
 			if (tool.isNullOrEmptyObject(code)) {
 				return true;
 			}
@@ -2531,7 +2531,8 @@ import config from '../../configfile/config.js'
 				_ControlName: controlName,
 				_RegisterCode: tool.RegisterCode(),
 				Code: code,
-				TypeValue: typeValue
+				TypeValue: typeValue,
+				Filter:filter
 			};
 			var loadingIndexClassName = tool.showLoading();
 

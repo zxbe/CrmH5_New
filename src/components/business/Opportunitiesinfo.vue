@@ -9,7 +9,7 @@
 
     <div class="scroll-div">
         <div class="box">
-            <!-- <div data-field="BusinessTypes" data-fieldControlType="hideDivText">{{showPage}}</div> -->
+            <div data-field="BusinessTypes" data-fieldControlType="hideDivText">{{businessType}}</div>
 
             <div v-show="showTips" class="tipBox">
                 <div class="tipContent f12">
@@ -34,7 +34,7 @@
                     <div class="ListSpecialCell" id="LOIIDClickObj">
                         <div class="ListSpecialCellField">
                             <div class="ListSpecialCellLeftIcon"><span class="calcfont calc-profile"></span></div>
-                            <div class="ListSpecialCellFieldContent lanText" data-lanid="	1000227_LOI单号"></div>
+                            <div class="ListSpecialCellFieldContent lanText" data-lanid="1000227_LOI单号"></div>
                             <div class="ListSpecialCellRightIcon"><span class="calcfont calc-you"></span></div>
                         </div>
                         <div
@@ -147,7 +147,7 @@
                                 data-fieldcontroltype="picker"
                                 data-fieldVal
                                 code="DropDowList_DtbAllTypes"
-                                TypeValue="Accessabletype"
+                                TypeValue="SourceFrom"
                                 class="ListCellContentRightText"
                             ></div>
                             <div class="ListCellRightIcon">
@@ -155,7 +155,7 @@
                             </div>
                         </div>
                 </div>
-                <div class="ListCell visible controlEdit initiatorObj">
+                <div class="ListCell visible controlEdit SourceFromObj">
                     <div class="ListCellLeftIcon textLeftIcon"><span class="calcfont calc-qita1"></span></div>
                     <div class="ListCellLeftText">
                         <p class="textareaP">
@@ -361,14 +361,14 @@
                         <div class="ListCellContentLeftText lanText" data-lanid="728_状态"></div>
                     </div>
                     <div class="ListCellContentRight rightContent">
-                      <!-- data-field="CurrentStateNew" -->
                         <input type="text"
-                              data-field="CurrentStateNew"
+                              data-field="CurrentState"
                               data-lanid="728_状态"
                               data-fieldControlType="picker"
                               data-fieldVal=""
                               Code="DropDowList_DtbAllTypes"
-                              TypeValue="CurrentStateNew"
+                              TypeValue="CurrentState"
+                              Filter="38"
                               class="ListCellContentRightText"/>
                     </div>
                     <div class="ListCellRightIcon"><span class="calcfont calc-you"></span></div>
@@ -495,36 +495,34 @@ export default {
             MeetingNotice:[],
             //文档数据
             documentData:[
-              {
-                AddTime: "2019-07-31 18:31:00",
-                AddUserName: "dylanxu",
-                AutoID: "765411",
-                FileLength: "54768",
-                ObjectName: "Project Management - CRM_PC(20190625)_V6_19073118305794.xlsx",
-                ObjectRemark: "test",
-              },
-              {
-                AddTime: "2019-07-26 14:09:00",
-                AddUserName: "ceshi",
-                AutoID: "765386",
-                FileLength: "240704",
-                ObjectName: "t01ecab926fd33d8055_19072614092088.jpg",
-                ObjectRemark: ""
-              },
-              {
-                AddTime: "2019-07-26 13:57:00",
-                AddUserName: "alancheng",
-                AutoID: "765385",
-                FileLength: "1022368",
-                ObjectName: "MYXJ_20150716224149_save_19072613564350.png",
-                ObjectRemark: ""
-              }
+            //   {
+            //     AddTime: "2019-07-31 18:31:00",
+            //     AddUserName: "dylanxu",
+            //     AutoID: "765411",
+            //     FileLength: "54768",
+            //     ObjectName: "Project Management - CRM_PC(20190625)_V6_19073118305794.xlsx",
+            //     ObjectRemark: "test",
+            //   },
+            //   {
+            //     AddTime: "2019-07-26 14:09:00",
+            //     AddUserName: "ceshi",
+            //     AutoID: "765386",
+            //     FileLength: "240704",
+            //     ObjectName: "t01ecab926fd33d8055_19072614092088.jpg",
+            //     ObjectRemark: ""
+            //   },
+            //   {
+            //     AddTime: "2019-07-26 13:57:00",
+            //     AddUserName: "alancheng",
+            //     AutoID: "765385",
+            //     FileLength: "1022368",
+            //     ObjectName: "MYXJ_20150716224149_save_19072613564350.png",
+            //     ObjectRemark: ""
+            //   }
             ],
             seeMore:"",
             isInitiator:false,//是否当前记录的负责人（PS：只有负责人才可以操作单据）
-
             enableGoRecord:false  //控制会议记录是否可点击
-
         }
     },
 
@@ -599,7 +597,7 @@ export default {
 
             //控制BusinessTypes字段不可修改
             _self.controlBusinessTypes();
-            //控制TheName字段 在 Deal Pipeline 下不可修改
+            //控制TheName字段 在 Deal Pipeline下不可修改
             if(_self.showPage == '0'){
                 $("[data-field='TheName']").addClass('disable color6').closest('.ListCell').removeClass('visible');
             }else{
@@ -618,6 +616,9 @@ export default {
 
                 //渲染会议记录列表
                 // _self.iniMeetingNoteList();
+
+                //渲染文档列表
+                _self.InitDocList(_self.id);
 
                 //处理联动字段
                 tool.linkageField(_self, 'TargetCompanyID', 'ContactID');
@@ -669,10 +670,10 @@ export default {
                   return;
               }
               var fieldval = curObj.attr("data-fieldval");
-              if (fieldval == "23") {
-                  curObj.closest('.shareBlock').find(".initiatorObj").hide();
+              if (fieldval != "109") {
+                  curObj.closest('.shareBlock').find(".SourceFromObj").hide();
               } else {
-                  curObj.closest('.shareBlock').find(".initiatorObj").show();
+                  curObj.closest('.shareBlock').find(".SourceFromObj").show();
               }
           });
           //控制data-field="MatterOther"显示和隐藏
@@ -690,13 +691,13 @@ export default {
               }
           });
           //控制data-field="LoseReason"显示和隐藏
-          $("[data-field='CurrentStateNew']").off('change input').on('change input', function () {
+          $("[data-field='CurrentState']").off('change input').on('change input', function () {
               var curObj = $(this);
               if (tool.isNullOrEmptyObject(curObj)) {
                   return;
               }
               var fieldval = curObj.attr("data-fieldval");
-              if (fieldval == "113") {
+              if (fieldval == "101") {
                   $("#LoseReason-div").show();
               } else {
                   $("#LoseReason-div").hide();
@@ -1155,7 +1156,49 @@ export default {
                 }
             });
         },
+        //渲染文档列表
+        InitDocList:function(fromIDTemp){
+            var _self = this;
+            var urlTemp = tool.AjaxBaseUrl();
+            var controlName = tool.Api_DocumentsHandle_Query;
 
+            //清空文档数据
+            _self.documentData = [];
+
+            //传入参数
+            var jsonDatasTemp = {
+                CurrentLanguageVersion: lanTool.currentLanguageVersion,
+                UserName: tool.UserName(),
+                _ControlName: controlName,
+                _RegisterCode: tool.RegisterCode(),
+                FromTypeID : "9",
+                FromID: fromIDTemp
+            };
+            $.ajax({
+                async: true,
+                type: "post",
+                url: urlTemp,
+                data: jsonDatasTemp,
+                success: function (data) {
+                    data = tool.jObject(data);
+                    if (data._ReturnStatus == false) {
+                        tool.showText(tool.getMessage(data));
+                        console.log(tool.getMessage(data));
+                        return true;
+                    }
+                    data = data._OnlyOneData || {};
+                    _self.documentData = data.Rows || [];
+                },
+                error: function (jqXHR, type, error) {
+                    console.log(error);
+                    return true;
+                },
+                complete: function () {
+                    //隐藏虚拟键盘
+                    document.activeElement.blur();
+                }
+            });
+        }
     },
     beforeRouteLeave:function(to, from, next){
         if(to.name == 'businessCategories'){
