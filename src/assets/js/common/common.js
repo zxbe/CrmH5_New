@@ -415,6 +415,10 @@ import config from '../../configfile/config.js'
 	 * 查询关联Deal或Pitch列表
 	 */
 	tool.Api_OpportunityHandle_QueryRelatedDealAndPitch = "Api_OpportunityHandle_QueryRelatedDealAndPitch";
+	/*
+	 * Pitch转换成Deal
+	 */
+	tool.Api_OpportunityHandle_ChangeToDeal = "Api_OpportunityHandle_ChangeToDeal";
 
 	/*
 	 * 查询会议记录明细
@@ -2324,9 +2328,13 @@ import config from '../../configfile/config.js'
 
                             var meetingSysmbol = lanTool.lanContent("1000001_最新的会议") || "new";
                             var className = '';
-                            if(dataItem.CurrentState == lanTool.lanContent("955_已关闭")){
+                            // if(dataItem.CurrentState == lanTool.lanContent("955_已关闭")){
+                            //     className = 'closed'
+							// }
+							//若不是进行中
+							if(dataItem.CurrentStateNew.toString() != "38"){
                                 className = 'closed'
-                            }
+							}
                             vueObj.$set(dataItem, 'className', className);
                             vueObj.$set(dataItem, 'meetingSysmbol', meetingSysmbol);
                          })

@@ -235,6 +235,36 @@
                 </div>
             </div>
 
+            <!-- 状态 -->
+            <div :show="showTips" class="ListCell visible controlEdit">
+                <div class="ListCellLeftIcon textLeftIcon"><span class="calcfont calc-yewujihui"></span></div>
+                <div class="ListCellLeftText">
+                    <p class="textareaP">
+                          <textarea data-field="CurrentState_Name" data-fieldControlType="textareaInput" class="lanInputPlaceHolder" data-lanid="728_状态"></textarea>
+                    </p>
+                </div>
+            </div>
+
+            <!-- 输单原因 -->
+            <div :show="showTips" class="ListCell visible controlEdit">
+                <div class="ListCellLeftIcon textLeftIcon"><span class="calcfont calc-yewujihui"></span></div>
+                <div class="ListCellLeftText">
+                    <p class="textareaP">
+                          <textarea data-field="LoseReason_Name" data-fieldControlType="textareaInput" class="lanInputPlaceHolder" data-lanid="1000311_输单原因"></textarea>
+                    </p>
+                </div>
+            </div>
+
+            <!-- 输单原因其他 -->
+            <div :show="showTips" class="ListCell visible controlEdit">
+                <div class="ListCellLeftIcon textLeftIcon"><span class="calcfont calc-yewujihui"></span></div>
+                <div class="ListCellLeftText">
+                    <p class="textareaP">
+                          <textarea data-field="LoseReasonOther" data-fieldControlType="textareaInput" class="lanInputPlaceHolder" data-lanid="1000312_其他原因"></textarea>
+                    </p>
+                </div>
+            </div>
+
             <!-- 关注 -->
             <!-- <div v-show="!isAddNew" class="ListCell controlEdit">
                 <div class="ListCellLeftIcon textLeftIcon" @click="followToggle">
@@ -362,7 +392,7 @@
                     </div>
                     <div class="ListCellContentRight rightContent">
                         <input type="text"
-                              data-field="CurrentState"
+                              data-field="CurrentStateNew"
                               data-lanid="728_状态"
                               data-fieldControlType="picker"
                               data-fieldVal=""
@@ -381,7 +411,7 @@
                     </div>
                     <div class="ListCellContentRight rightContent">
                         <input type="text"
-                              data-field="LoseReason"
+                              data-field="LoseReasonNew"
                               data-lanid="1152_输单原因"
                               data-fieldControlType="picker"
                               data-fieldVal=""
@@ -395,7 +425,7 @@
                 <div id="LoseReasonOther-div">
                   <div class="elastic-layer-item f14">
                       <span class="nessesary f18">*</span>
-                      <textarea data-field="LoseReasonOther" data-fieldControlType="textareaInput" class="lanInputPlaceHolder" data-lanid="1000312_其他原因"></textarea>
+                      <textarea data-field="LoseReasonOtherNew" data-fieldControlType="textareaInput" class="lanInputPlaceHolder" data-lanid="1000312_其他原因"></textarea>
                   </div>
                 </div>
 
@@ -418,7 +448,7 @@
 
                 <div class="elastic-layer-item f14">
                     <span class="MSN_lable lanText" data-lanid="956_MSN"></span>
-                    <textarea data-field="MSN" data-fieldControlType="textareaInput" class="lanInputPlaceHolder" data-lanid="956_MSN"></textarea>
+                    <textarea data-field="MSNNew" data-fieldControlType="textareaInput" class="lanInputPlaceHolder" data-lanid="956_MSN"></textarea>
                 </div>
 
                 <div id="Matter-div" class="elastic-layer-item f14">
@@ -428,7 +458,7 @@
                     </div>
                     <div class="ListCellContentRight rightContent">
                         <input type="text"
-                              data-field="Matter"
+                              data-field="MatterNew"
                               data-lanid="947_商业事项"
                               data-fieldControlType="picker"
                               data-fieldVal=""
@@ -442,7 +472,7 @@
                 <div id="MatterOther-div">
                     <div class="elastic-layer-item f14">
                         <span class="nessesary f18">*</span>
-                        <textarea data-field="MatterOther" data-fieldControlType="textareaInput" class="lanInputPlaceHolder" data-lanid="1000312_其他原因"></textarea>
+                        <textarea data-field="MatterOtherNew" data-fieldControlType="textareaInput" class="lanInputPlaceHolder" data-lanid="1000312_其他原因"></textarea>
                     </div>
                 </div>
 
@@ -691,7 +721,7 @@ export default {
               }
           });
           //控制data-field="LoseReason"显示和隐藏
-          $("[data-field='CurrentState']").off('change input').on('change input', function () {
+          $("[data-field='CurrentStateNew']").off('change input').on('change input', function () {
               var curObj = $(this);
               if (tool.isNullOrEmptyObject(curObj)) {
                   return;
@@ -704,7 +734,7 @@ export default {
               }
           });
           //控制data-field="LoseReasonOther"显示和隐藏
-          $("[data-field='LoseReason']").off('change input').on('change input', function () {
+          $("[data-field='LoseReasonNew']").off('change input').on('change input', function () {
             var curObj = $(this);
             if (tool.isNullOrEmptyObject(curObj)) {
                 return;
@@ -717,7 +747,7 @@ export default {
             }
           });
           //控制data-field="MatterOther"显示和隐藏
-          $("[data-field='Matter']").off('change input').on('change input', function () {
+          $("[data-field='MatterNew']").off('change input').on('change input', function () {
             var curObj = $(this);
             if (tool.isNullOrEmptyObject(curObj)) {
                 return;
@@ -819,6 +849,13 @@ export default {
         rightPanelCloseThis:function(){
             var _self = this;
             var id = _self.id;
+
+            //清空控件数据
+            $("[data-field='CurrentStateNew'").val("").attr("data-fieldVal", "").trigger('change');
+            $("[data-field='LoseReasonNew'").val("").attr("data-fieldVal", "").trigger('change');
+            $("[data-field='LoseReasonOtherNew'").val("");
+
+            //显示弹框
             $('#closeThis').show();
 
             //取消
@@ -828,56 +865,75 @@ export default {
 
             //确定
             $('#closeThis').find('a.btn-ok').off('click').on('click',function(){
-                  // var fromType = "Opportunitiesinfo";
-                  var urlTemp = tool.AjaxBaseUrl();
-                  var controlName = tool.Api_OpportunityHandle_Close;
-                  //传入参数
-                  var jsonDatasTemp = {
-                      CurrentLanguageVersion: lanTool.currentLanguageVersion,
-                      UserName: tool.UserName(),
-                      _ControlName: controlName,
-                      _RegisterCode: tool.RegisterCode(),
-                      AutoID: id
-                  };
-                  var loadingIndexClassName = tool.showLoading();
+                var urlTemp = tool.AjaxBaseUrl();
+                var controlName = tool.Api_OpportunityHandle_Close;
+                //传入参数
+                var jsonDatasTemp = {
+                    CurrentLanguageVersion: lanTool.currentLanguageVersion,
+                    UserName: tool.UserName(),
+                    _ControlName: controlName,
+                    _RegisterCode: tool.RegisterCode()
+                };
+                jsonDatasTemp["CurrentState"] = $("[data-field='CurrentStateNew'").attr("data-fieldVal") || "";
+                jsonDatasTemp["LoseReason"] = $("[data-field='LoseReasonNew'").attr("data-fieldVal") || "";
+                jsonDatasTemp["LoseReasonOther"] = $("[data-field='LoseReasonOtherNew'").val() || "";
+                jsonDatasTemp["AutoID"] = id;
+                
+                //console.log(jsonDatasTemp);
+                var loadingIndexClassName = tool.showLoading();
+
                   $.ajax({
-                    async: true,
-                    type: "post",
-                    url: urlTemp,
-                    data: jsonDatasTemp,
-                    success: function (data) {
-                        tool.hideLoading(loadingIndexClassName);
-                        data = tool.jObject(data);
-                        if (data._ReturnStatus == false) {
-                            tool.showText(tool.getMessage(data));
+                        async: true,
+                        type: "post",
+                        url: urlTemp,
+                        data: jsonDatasTemp,
+                        success: function (data) {
+                            try {
+                                tool.hideLoading(loadingIndexClassName);
+                                data = tool.jObject(data);
+                                if (data._ReturnStatus == false) {
+                                    tool.showText(tool.getMessage(data));
+                                    return true;
+                                }
+
+                                //将当前详情页设置为非keep-alive
+                                _self.$store.commit('REMOVE_ITEM', 'opportunitiesinfo');
+                                //将列表页设置为非keep-alive
+                                _self.$store.commit('REMOVE_ITEM', 'businessCategories');
+                                //返回到上一页
+                                _self.$router.back(-1);
+                            }
+                            catch (err) {
+                                tool.hideLoading(loadingIndexClassName);
+                                console.log(err);
+                            } finally {
+                                
+                            }  
+                        },
+                        error: function (jqXHR, type, error) {
+                            console.log(error);
+                            tool.hideLoading(loadingIndexClassName);
                             return true;
+                        },
+                        complete: function () {
+                            //隐藏虚拟键盘
+                            document.activeElement.blur();
                         }
-                        _self.$store.commit('REMOVE_ITEM', 'businessCategories');
-                        //返回到上一页
-                        _self.$router.back(-1);
-                    },
-                    error: function (jqXHR, type, error) {
-                        console.log(error);
-                        tool.hideLoading(loadingIndexClassName);
-                        return true;
-                    },
-                    complete: function () {
-                        //tool.hideLoading();
-                        //隐藏虚拟键盘
-                        document.activeElement.blur();
-                    }
                   });
-
-                  //调子组件 收起侧滑方法
-                  _self.$refs.rightPanel.panelToggle();
-
-            })
+            });
         },
 
         //右侧点击转化为交易
         rightPanelTransformTo:function(){
             var _self = this;
             var id = _self.id;
+
+            //清空控件数据
+            $("[data-field='MSNNew'").val("");
+            $("[data-field='MatterNew'").val("").attr("data-fieldVal", "").trigger('change');
+            $("[data-field='MatterOtherNew'").val("");
+
+            //显示弹框
             $('#transformTo').show();
 
             //取消
@@ -887,53 +943,90 @@ export default {
 
             //确定
             $('#transformTo').find('a.btn-ok').off('click').on('click',function(){
-                  // var fromType = "Opportunitiesinfo";
-                  /*
-                  var urlTemp = tool.AjaxBaseUrl();
-                  var controlName = tool.Api_OpportunityHandle_Close;
-                  //传入参数
-                  var jsonDatasTemp = {
-                      CurrentLanguageVersion: lanTool.currentLanguageVersion,
-                      UserName: tool.UserName(),
-                      _ControlName: controlName,
-                      _RegisterCode: tool.RegisterCode(),
-                      AutoID: id
-                  };
-                  var loadingIndexClassName = tool.showLoading();
+                var urlTemp = tool.AjaxBaseUrl();
+                var controlName = tool.Api_OpportunityHandle_ChangeToDeal;
+                //传入参数
+                var jsonDatasTemp = {
+                    CurrentLanguageVersion: lanTool.currentLanguageVersion,
+                    UserName: tool.UserName(),
+                    _ControlName: controlName,
+                    _RegisterCode: tool.RegisterCode()
+                };
+                jsonDatasTemp["MSN"] = $("[data-field='MSNNew'").val() || "";
+                jsonDatasTemp["Matter"] = $("[data-field='MatterNew'").attr("data-fieldVal") || "";
+                jsonDatasTemp["MatterOther"] = $("[data-field='MatterOtherNew'").val() || "";
+                jsonDatasTemp["TargetCompanyID"] = $("[data-field='TargetCompanyID'").attr("data-fieldVal") || "";
+                jsonDatasTemp["FromOppID"] = id;
+                
+                console.log(jsonDatasTemp);
+                return;
+
+                var loadingIndexClassName = tool.showLoading();
+
                   $.ajax({
-                    async: true,
-                    type: "post",
-                    url: urlTemp,
-                    data: jsonDatasTemp,
-                    success: function (data) {
-                        tool.hideLoading(loadingIndexClassName);
-                        data = tool.jObject(data);
-                        if (data._ReturnStatus == false) {
-                            tool.showText(tool.getMessage(data));
+                        async: true,
+                        type: "post",
+                        url: urlTemp,
+                        data: jsonDatasTemp,
+                        success: function (data) {
+                            try {
+                                data = tool.jObject(data);
+                                if (data._ReturnStatus == false) {
+                                    tool.hideLoading(loadingIndexClassName);
+                                    tool.showText(tool.getMessage(data));
+                                    return true;
+                                }
+                                data = data._OnlyOneData || {};
+                                console.log(data);
+                                var dealID = data["AutoID"] || "";
+                                var theName = data["TheName"] || "";
+
+                                //构造Deal详情页的跳转地址
+                                var path = "/opportunitiesinfo/" + dealID;
+                                var queryParam = 
+                                {
+                                    showPage : "0",
+                                    infoName : theName
+                                };
+                                //将当前详情页设置为非keep-alive
+                                _self.$store.commit('REMOVE_ITEM', 'opportunitiesinfo');
+                                //将列表页设置为非keep-alive
+                                _self.$store.commit('REMOVE_ITEM', 'businessCategories');
+                                
+                                //隐藏弹窗
+                                $('#transformTo').hide();
+                                //调用子组件收起侧滑方法
+                                _self.$refs.rightPanel.panelToggle();
+
+                                _self.$router.replace({
+                                    path: path,
+                                    query: queryParam
+                                });
+                                
+                                //保证地址替换后再刷新
+                                setTimeout(function(){
+                                    tool.hideLoading(loadingIndexClassName);
+                                    window.location.reload();
+                                },80);
+                            }
+                            catch (err) {
+                                tool.hideLoading(loadingIndexClassName);
+                                console.log(err);
+                            } finally {
+                                
+                            }  
+                        },
+                        error: function (jqXHR, type, error) {
+                            console.log(error);
+                            tool.hideLoading(loadingIndexClassName);
                             return true;
+                        },
+                        complete: function () {
+                            //隐藏虚拟键盘
+                            document.activeElement.blur();
                         }
-                        _self.$store.commit('REMOVE_ITEM', 'businessCategories');
-                        //返回到上一页
-                        _self.$router.back(-1);
-                    },
-                    error: function (jqXHR, type, error) {
-                        console.log(error);
-                        tool.hideLoading(loadingIndexClassName);
-                        return true;
-                    },
-                    complete: function () {
-                        //tool.hideLoading();
-                        //隐藏虚拟键盘
-                        document.activeElement.blur();
-                    }
                   });
-                  */
-
-                  $('#transformTo').hide();
-                  //调子组件 收起侧滑方法
-                  _self.$refs.rightPanel.panelToggle();
-
-            })
+            });
         },
 
         //获取成交对象
@@ -1131,8 +1224,8 @@ export default {
             //是否指定记录的负责人
             tool.IsHasInitiator(fromType,fromID,function(data){
                 _self.isInitiator = data;
-
-                if(currentState == "39"){
+                //若当前记录的状态为关闭
+                if(currentState == "39" || currentState == "100" || currentState == "101"){
                     //显示提示
                     _self.showTips = true;
                     //头部按钮
