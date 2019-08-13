@@ -61,9 +61,7 @@ export default {
             noData: false, //没数据
             pageSize:10,//一页显示多少记录
             pageNum:1,//当前页码
-
             radioValue:'',
-
             fromType:'',  //标志是用那个模块过来的；联系人:6;公司:7;会议:8;商机&交易:9;
             fromId:'',  //dealPipelineID或者pitchesID,用于新增会议自动选择关联于商业字段
         }
@@ -91,143 +89,85 @@ export default {
                 //非上拉请求
                 _self.pageNum = 1;
             }
+            
             //api接口地址
-            var apiUrlTemp = '';
-            var jsonDatas = {
-                // CurrentLanguageVersion: lanTool.currentLanguageVersion,
-                // UserName: tool.UserName(),
-                // TabID: _self.tabID,
-                // CompanyID: _self.companyID,
-                // VersionID: _self.versionID,
-                // IsUsePager: true,
-                // PageSize:_self.pageSize,
-                // PageNum:_self.pageNum,
-                // QueryCondiction: _self.queryCondictionData || []
+            var urlTemp = tool.AjaxBaseUrl();
+            var controlName = tool.Api_MeetingHandle_PopUpQuery;
+            var jsonDatasTemp = {
+                CurrentLanguageVersion: lanTool.currentLanguageVersion,
+                UserName: tool.UserName(),
+                _ControlName: controlName,
+                _RegisterCode: tool.RegisterCode(),
+                IsUsePager: true,
+                PageSize:_self.pageSize,
+                PageNum:_self.pageNum,
+                QueryCondiction: _self.queryCondictionData || []
             };
+
+            //console.log(JSON.stringify(jsonDatasTemp));
 
             if(tool.isNullOrEmptyObject(queryType)){
                 var loadingIndexClassName = tool.showLoading();
             }
-            // $.ajax({
-            //     async: true,
-            //     type: "post",
-            //     url: apiUrlTemp,
-            //     data: {
-            //         jsonDatas: JSON.stringify(jsonDatas)
-            //     },
-            //     success: function (data) {
-            //         tool.hideLoading(loadingIndexClassName);
-            //         data = tool.jObject(data);
-            //         if (data.Result != 1) {
-            //             tool.showText(data.Msg);
-            //             console.log(tool.getMessage(data.Msg));
-            //             return true;
-            //         }
-            //         data = data.Data || {};
 
-            //         //没有数据
-            //         if(tool.isNullOrEmptyObject(data["FleetDatailsArray"]) && _self.pageNum == 1){
-            //             _self.noData = true;
-            //             return ;
-            //         }
-            //         _self.noData = false;
+            $.ajax({
+                async: true,
+                type: "post",
+                url: urlTemp,
+                data: jsonDatasTemp,
+                success: function (data) {
+                    tool.hideLoading(loadingIndexClassName);
+                    data = tool.jObject(data);
+                    // console.log(data);
+                    if (data._ReturnStatus == false) {
+                        tool.showText(tool.getMessage(data));
+                        console.log(tool.getMessage(data));
+                        _self.noData = true;
+                        return;
+                    }
+                    data = data._OnlyOneData.Rows || [];
 
-            //         if(queryType == 'pushLoad'){
-            //             _self.listData = _self.listData.concat(data["FleetDatailsArray"]);
-            //         }else{
-            //             _self.listData = data["FleetDatailsArray"] || [];
-            //         }
+                    //没有数据
+                    if((tool.isNullOrEmptyObject(data) || data.length <= 0) && _self.pageNum == 1){
+                        _self.noData = true;
+                        return ;
+                    }
 
-            //         if(queryType == undefined || queryType == ''){
-            //             _self.$refs.scroll.isPullingDown = true;
-            //             _self.$refs.scroll.isPullingUpEnd = false;
-            //             _self.$refs.scroll.scrollTo(0, 0, 200, 'easing');
-            //         }
-            //         _self.$refs.scroll.refresh();
+                    _self.noData = false;
+                    if(queryType == 'pushLoad'){
+                        _self.listData = _self.listData.concat(data);
+                    }else{
+                        _self.listData = data;
+                    }
 
-            //         if(!tool.isNullOrEmptyObject(callback)){
-            //           callback(data["FleetDatailsArray"],_self.pageSize);
-            //         }
+                    if(queryType == undefined || queryType == ''){
+                        _self.$refs.scroll.isPullingDown = true;
+                        _self.$refs.scroll.isPullingUpEnd = false;
+                        _self.$refs.scroll.scrollTo(0, 0, 200, 'easing');
+                    }
+                    _self.$refs.scroll.refresh();
 
-            //         //渲染textarea
-            //         _self.$nextTick(function () {
-            //             $(window).scrollTop(0);
-            //             $("textarea").each(function (index, cur) {
-            //                 // $(cur).height('25');
-            //                 tool.autoTextarea(cur);
-            //             });
-            //         });
-            //     },
-            //     error: function (jqXHR, type, error) {
-            //         tool.hideLoading(loadingIndexClassName);
-            //         console.log(error);
-            //         return true;
-            //     },
-            //     complete: function () {
-            //         //隐藏虚拟键盘
-            //         document.activeElement.blur();
-            //     }
-            // });
-
-            var responseData = [
-              {
-                AddUserName: "alancheng鄭兆麟",
-                AutoID: 10218,
-                BeginTime: "2019-05-27T09:15:00",
-                CompanyID: "9 Air",
-                ContactsID: "员工姓氏",
-                EndTime: "2019-05-27T17:15:00",
-                LastUpdateTime: "2019-05-24T09:10:00",
-                MeetingTitle: "27号会议",
-                MeetingType: null,
-                Remark: null
-              },
-              {
-                AddUserName: "alancheng鄭兆麟",
-                AutoID: 10216,
-                BeginTime: "2019-05-22T16:15:00",
-                CompanyID: "9 Air",
-                ContactsID: "纳尼",
-                EndTime: "2019-05-22T16:45:00",
-                LastUpdateTime: "2019-05-22T16:16:00",
-                MeetingTitle: "半年总结",
-                MeetingType: null,
-                Remark: null
-              },
-              {
-                AddUserName: "alancheng鄭兆麟",
-                AutoID: 10212,
-                BeginTime: "2019-05-25T16:15:00",
-                CompanyID: "9 Air",
-                ContactsID: "15中机租联系人_1",
-                EndTime: "2019-05-25T19:15:00",
-                LastUpdateTime: "2019-05-22T16:25:00",
-                MeetingTitle: "25号会议",
-                MeetingType: null,
-                Remark: null
-              }
-            ]
-
-            if(queryType == 'pushLoad'){
-                _self.listData = _self.listData.concat(responseData);
-            }else{
-                _self.listData = responseData || [];
-            }
-
-            setTimeout(() => {
-              tool.hideLoading(loadingIndexClassName);
-              _self.$refs.scroll.refresh();
-            }, 2000);
+                    if(!tool.isNullOrEmptyObject(callback)){
+                      callback(data,_self.pageSize);
+                    }
+                },
+                error: function (jqXHR, type, error) {
+                    tool.hideLoading(loadingIndexClassName);
+                    console.log(error);
+                    return true;
+                },
+                complete: function () {
+                    //隐藏虚拟键盘
+                    document.activeElement.blur();
+                }
+            });
         },
-
         //下拉
         pulldown:function(){
             let _self = this;
             _self.queryList('pushRefresh',function(){
-                // _self.$refs.scroll.refresh();
             })
         },
-
         //上拉
         pullup:function(){
             let _self = this;
@@ -236,13 +176,8 @@ export default {
                if(data.length < pageSize){
                   _self.$refs.scroll.pullupEnd();
                }
-              //  else{
-              //     _self.$refs.scroll.refresh();
-              //  }
-
             })
         },
-
         //关联会议动作
         relationAction:function(){
           var _self = this;
@@ -250,14 +185,49 @@ export default {
               tool.showText(lanTool.lanContent("592_请选择数据！"));
               return;
           }
-          // 请求接口去关联
-          console.log(_self.radioValue);
-
-
+          // console.log(_self.radioValue);
+          //api接口地址
+          var urlTemp = tool.AjaxBaseUrl();
+          var controlName = tool.Api_MeetingNoticeHandle_SaveOrUpdateNew;
+          var jsonDatasTemp = {
+              CurrentLanguageVersion: lanTool.currentLanguageVersion,
+              UserName: tool.UserName(),
+              _ControlName: controlName,
+              _RegisterCode: tool.RegisterCode(),
+              ScheduleID:_self.radioValue,
+              OppID:_self.fromId
+          };
+          var loadingIndexClassName = tool.showLoading();
+          $.ajax({
+                async: true,
+                type: "post",
+                url: urlTemp,
+                data: jsonDatasTemp,
+                success: function (data) {
+                    tool.hideLoading(loadingIndexClassName);
+                    data = tool.jObject(data);
+                    if (data._ReturnStatus == false) {
+                        tool.showText(tool.getMessage(data));
+                        console.log(tool.getMessage(data));
+                        return;
+                    }
+                    
+                    //回到上一页
+                    _self.$router.back(-1);
+                },
+                error: function (jqXHR, type, error) {
+                    tool.hideLoading(loadingIndexClassName);
+                    console.log(error);
+                    return true;
+                },
+                complete: function () {
+                    //隐藏虚拟键盘
+                    document.activeElement.blur();
+                }
+            });
+          
         }
     }
-
-
 }
 </script>
 

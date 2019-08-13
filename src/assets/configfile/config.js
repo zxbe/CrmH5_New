@@ -41,6 +41,8 @@ let json = {
 	"Api_MeetingNoticeHandle_QuerySingle":"Api_MeetingNoticeHandle_QuerySingle",
 	"Api_MeetingNoticeHandle_SaveOrUpdate":"Api_MeetingNoticeHandle_SaveOrUpdate",
 	"Api_MeetingNoticeHandle_Delete":"Api_MeetingNoticeHandle_Delete",
+	"Api_MeetingHandle_PopUpQuery":"Api_MeetingHandle_PopUpQuery",
+	"Api_MeetingNoticeHandle_SaveOrUpdateNew":"Api_MeetingNoticeHandle_SaveOrUpdateNew",
 	"Api_MeetingHandle_QueryNoUploadRecordCount":"Api_MeetingHandle_QueryNoUploadRecordCount",
 	"Api_MeetingHandle_QueryNoUploadRecord":"Api_MeetingHandle_QueryNoUploadRecord",
 	"Api_MeetingHandle_QueryRelatedMeeting":"Api_MeetingHandle_QueryRelatedMeeting",

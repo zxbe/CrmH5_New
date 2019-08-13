@@ -28,11 +28,11 @@
                 <div
                   v-show="!noData"
                   v-for="item in listData"
-                  :key="item.AutoID"
+                  :key="item.MeetingNoticeAutoID"
                   class="data-events-item f14 "
                   :class="{'selectable': fromType=='9'}">
                       <label class="checkbox-label" v-if="fromType=='9'">
-                          <input type="checkbox" name="meetinglist" :value="item.AutoID" v-model="checkboxValue"/><i class="checkbox"></i>
+                          <input type="checkbox" name="meetinglist" :value="item.MeetingNoticeAutoID" v-model="checkboxValue"/><i class="checkbox"></i>
                       </label>
                       <div @click="goInfoPage(item,$event)">
                           <div class="item-title">{{item.MeetingTitle}}</div>
@@ -231,13 +231,21 @@ export default {
               tool.showText(lanTool.lanContent("709_请选择要删除的记录！"));
               return;
           }
-          // console.log(_self.checkboxValue);
+        //   console.log(JSON.stringify(_self.checkboxValue));
+        //   return;
           tool.showConfirm(
               lanTool.lanContent("593_您确定要删除数据吗？"),
               function() {
+                var urlTemp = tool.AjaxBaseUrl();
+                var controlName = tool.Api_MeetingNoticeHandle_Delete;
+                var jsonDatasTemp = {
+                    CurrentLanguageVersion: lanTool.currentLanguageVersion,
+                    UserName: tool.UserName(),
+                    _ControlName: controlName,
+                    _RegisterCode: tool.RegisterCode(),
+                    AutoID:JSON.stringify(_self.checkboxValue)
+                };
                 var loadingIndexClassName = tool.showLoading();
-                var jsonDatasTemp = {};
-                var urlTemp = '';
                 $.ajax({
                   async: true,
                   type: "post",
@@ -248,9 +256,11 @@ export default {
                     data = tool.jObject(data);
                     if (data._ReturnStatus == false) {
                       tool.showText(tool.getMessage(data));
-                      // console.log(tool.getMessage(data));
                       return true;
                     }
+
+                    //刷新当前页面
+                    _self.pulldown();
                   },
                   error: function (jqXHR, type, error) {
                     console.log(error);
@@ -258,7 +268,6 @@ export default {
                     return true;
                   },
                   complete: function () {
-                    //tool.hideLoading();
                     //隐藏虚拟键盘
                     document.activeElement.blur();
                   }
@@ -279,8 +288,8 @@ export default {
                 fromId: _self.fromId //来源ID
             };
             _self.$router.push({
-                    path: url,
-                    query: parameter
+                path: url,
+                query: parameter
             });
         },
 

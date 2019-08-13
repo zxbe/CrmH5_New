@@ -432,6 +432,14 @@ import config from '../../configfile/config.js'
 	 * 删除会议记录
 	 */
 	tool.Api_MeetingNoticeHandle_Delete = "Api_MeetingNoticeHandle_Delete";
+	/*
+	 * 绑定会议列表的查询
+	 */
+	tool.Api_MeetingHandle_PopUpQuery = "Api_MeetingHandle_PopUpQuery";
+	/*
+	 * 绑定会议记录
+	 */
+	tool.Api_MeetingNoticeHandle_SaveOrUpdateNew = "Api_MeetingNoticeHandle_SaveOrUpdateNew";
 
 	/*
 	 * 上传文档
