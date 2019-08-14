@@ -52,7 +52,7 @@
                         <div class="weui-grid__icon intelligence-icon">
                             <span class="calcfont calc-lianxiren1"></span>
                         </div>
-                        <p class="f12 weui-grid__label lanText" data-lanid="784_商业智能"></p>
+                        <p class="f12 weui-grid__label lanText" data-lanid="1054_论坛"></p>
                     </div>
                 </div>
                 <div class="weui-grid">
