@@ -100,6 +100,12 @@ const router =  new Router({
     //商业类别
     { path: '/businessCategories',name:'businessCategories', component:BusinessCategories},
     { path:'/opportunitiesinfo/:id',name:'opportunitiesinfo',component:Opportunitiesinfo},
+    //LOI单详情
+    { path:'/loiinfo/:id',
+      name:'loiinfo',
+      component: (resolve) => require(['@/components/business/LOIinfo'], resolve)
+    },
+
 
     { path:'/selectlist',name:'selectlist',component:Selectlist},
     { path:'/sharelist',name:'sharelist',component:Sharelist},

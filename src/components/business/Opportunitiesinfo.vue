@@ -376,6 +376,7 @@
       :isShowSend="isShowSendBtn"
       :rightPanelFromType="rightPanelFromType"
       :rightPanelFromID="rightPanelFromID"
+      :loi="loi"
       :businessType="businessType"></InfoRightPanel>
 
 
@@ -520,6 +521,7 @@ export default {
             closeThisContent:"",
 
             id:'', //dealPipeline id
+            loi:'',  //LOI单号
             showTips:false,
             //会议记录数据
             MeetingNotice:[],
@@ -657,7 +659,12 @@ export default {
                 tool.UpdateFieldValueFromBack(eventBus, function(){
                     //清空全局变量
                     eventBus.selectListData = null;
-                })
+                });
+
+                //LOI
+                if(_self.showPage == 0){
+                    _self.loi = data.LOIID || '';
+                }
 
             });
         })
@@ -1027,6 +1034,15 @@ export default {
                         }
                   });
             });
+        },
+
+        //右侧点击跳转到LOI详情
+        rightPanelToLoi:function(){
+           var _self = this;
+           if(tool.isNullOrEmptyObject(_self.loi)){
+              return;
+           }
+           _self.$router.push('/loiinfo/'+ _self.loi);
         },
 
         //获取成交对象
