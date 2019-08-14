@@ -99,7 +99,11 @@ export default {
         },
         //点击跳转到loi单号详情
         goToLoiinfo:function(){
-            this.$parent.rightPanelToLoi();
+          var _self = this;
+          _self.panelToggle();
+          _self.$nextTick(function () {
+              _self.$parent.rightPanelToLoi();
+          })
         },
 
         //侧滑
