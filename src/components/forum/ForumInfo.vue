@@ -26,11 +26,12 @@
             <div class="feeditemfooter">
                 <span class="time">{{infoDataList.PostTime}}</span>
                 <span class="hand">
-                    <span class="calcfont calc-zan1"></span><span>{{infoDataList.LikeCount}}</span>
+                    <span class="calcfont" :class="[parseInt(infoDataList.IsCurrentUserDislike)>=1 ? 'calc-caishixin-' : 'calc-cai']" :data-statusid="infoDataList.Status_ID" :data-autoid="infoDataList.AutoID" data-even="unfabulous" @click="fabulousEvent($event)"></span><span>{{infoDataList.DislikeCount}}</span>
                 </span>
                 <span class="hand">
-                    <span class="calcfont calc-cai"></span><span>{{infoDataList.DislikeCount}}</span>
+                    <span class="calcfont" :class="[parseInt(infoDataList.IsCurrentUserLike)>=1 ? 'calc-zan' : 'calc-zan1']" :data-statusid="infoDataList.Status_ID" :data-autoid="infoDataList.AutoID" data-even="fabulous" @click="fabulousEvent($event)"></span><span>{{infoDataList.LikeCount}}</span>
                 </span>
+
                 <span class="replies">
                     <span class="lanText" data-lanid="1000350_答复"></span><span>{{infoDataList.ReplyCount}}</span>
                 </span>
@@ -43,13 +44,12 @@
                 <p class="replyContent">{{replyItem.Content}}</p>
                 <div class="feeditemfooter">
                     <span class="time">{{replyItem.PostTime}}</span>
-                    <span class="hand">
-                        <span class="calcfont calc-zan1" data-autoid="1"></span><span class="ActionCount">{{replyItem.LikeCount}}</span>
+                     <span class="hand">
+                        <span class="calcfont" :class="[parseInt(replyItem.IsCurrentUserDislike)>=1 ? 'calc-caishixin-' : 'calc-cai']" :data-statusid="replyItem.Status_ID" :data-autoid="replyItem.AutoID" data-even="unfabulous" @click="fabulousEvent($event)"></span><span class="ActionCount">{{replyItem.DislikeCount}}</span>
                     </span>
                     <span class="hand">
-                        <span class="calcfont calc-cai" data-autoid="1"></span><span class="ActionCount">{{replyItem.DislikeCount}}</span>
+                        <span class="calcfont" :class="[parseInt(replyItem.IsCurrentUserLike)>=1 ? 'calc-zan' : 'calc-zan1']" :data-statusid="replyItem.Status_ID" :data-autoid="replyItem.AutoID" data-even="fabulous" @click="fabulousEvent($event)"></span><span class="ActionCount">{{replyItem.LikeCount}}</span>
                     </span>
-
                 </div>
             </div>
 
@@ -120,7 +120,9 @@ export default {
                 Status: "In Progress",
                 Status_ID: 70,
                 PostTime: "2019-08-08 13:03",
+                IsCurrentUserLike: "0",
                 LikeCount: "2",
+                IsCurrentUserDislike: "1",
                 DislikeCount: "3",
                 ReplyCount: "2",
                 TagNameList: [{
@@ -158,14 +160,18 @@ export default {
                         UserName: "alancheng1",
                         Content: "视频播放的这个例子，如果我们不使用管道和流动的方式，直接先从服务端加载完视频文件，然后再播放。会造成很多问题",
                         PostTime: "2019-08-10 22:00",
+                        IsCurrentUserLike: "1",
                         LikeCount: "2",
+                        IsCurrentUserDislike: "1",
                         DislikeCount: "3",
                     }, {
                         AutoID: "12",
                         UserName: "alancheng2",
                         Content: "视频播放的这个例子，如果我们不使用管道和流动的方式，直接先从服务端加载完视频文件，然后再播放。会造成很多问题",
                         PostTime: "2019-08-10 22:00",
+                        IsCurrentUserLike: "1",
                         LikeCount: "2",
+                        IsCurrentUserDislike: "0",
                         DislikeCount: "3",
                     },
                     {
@@ -173,7 +179,9 @@ export default {
                         UserName: "alancheng3",
                         Content: "视频播放的这个例子，如果我们不使用管道和流动的方式，直接先从服务端加载完视频文件，然后再播放。会造成很多问题",
                         PostTime: "2019-08-10 22:00",
+                        IsCurrentUserLike: "0",
                         LikeCount: "2",
+                        IsCurrentUserDislike: "1",
                         DislikeCount: "3",
                     }
                 ]
@@ -191,14 +199,129 @@ export default {
 
     },
     methods: {
+         //点踩或者点赞
+          fabulousEvent: function (e) {
+            var _self = this;
+            var curObj = $(e.target);
+
+            var statusId = curObj.attr('data-statusid') || '';
+            //statusId:71 关闭 ；statusId:70 进行中 ,关闭状态的帖子不给点赞和踩
+            if (statusId == '71' || statusId == '') {
+                return;
+            }
+
+            //帖子ID
+            var autoID = curObj.attr("data-AutoID") || "";
+            //用户名
+            // var userName = tool.getUserName();
+            //动作类型
+            var actionType = ""; //(76=>Like;77=>Dislike)
+            //是否添加
+            var isAdd = ""; //(0=>取消添加;1=>添加)
+
+            var dataEven = curObj.attr('data-even') || '';
+            if (tool.isNullOrEmptyObject(dataEven)) {
+                return;
+            }
+            //赞图标类名：icon-zan,icon-zan1
+            //踩图标类名：icon-caishixin- , icon-cai
+            if (dataEven == 'fabulous') {
+                actionType = "76";
+                //赞
+                if (curObj.hasClass('icon-zan')) {
+                    isAdd = "0";
+                } else {
+                    isAdd = "1";
+                }
+            } else if (dataEven == 'unfabulous') {
+                actionType = "77";
+                //踩
+                if (curObj.hasClass('icon-caishixin-')) {
+                    isAdd = "0";
+                } else {
+                    isAdd = "1";
+                }
+            }
+
+            var data = {
+                // "_ControlName": tool.ControlName_ForumHandle_PostAction,
+                // "AutoID": autoID,
+                // "ActionType": actionType,
+                // "IsAdd": isAdd,
+                // "UserName": userName
+            };
+
+            var loadingIndex = tool.showLoading();
+            $.ajax({
+                type: "post",
+                cache: false,
+                url: tool.AjaxBaseUrl,
+                data: data,
+                success: function (data) {
+                    tool.hideLoading(loadingIndex);
+                    data = tool.jObject(data);
+                    if (data._ReturnStatus == false) {
+                        tool.msg(tool.getMessage(data), function (index) {
+                            tool.close(index);
+                        }, {
+                            time: 0,
+                            icon: 2,
+                            title: LanContent(586),
+                            btn: [LanContent(569)]
+                        });
+                        return false;
+                    }
+
+                    //更新数量和状态
+                    data = data._OnlyOneData;
+                    if (tool.isNullOrEmptyObject(data)) {
+                        return false;
+                    }
+                    var countTemp = data.Count.toString() || "0"; //点赞/踩数量
+                    countTemp = Number(countTemp);
+                    var isCurrentUserDoTemp = data.IsCurrentUserDo.toString() || "0"; //当前用户是否踩/点赞
+                    isCurrentUserDoTemp = Number(isCurrentUserDoTemp);
+
+                    //写入数量
+                    var objDest = curObj.closest(".hand");
+                    objDest.find(".ActionCount:first").text(countTemp);
+
+                    //console.log(curObj);
+                    //console.log(isCurrentUserDoTemp);
+                    //改变状态
+                    if (dataEven == 'fabulous') {
+                        //若当前是已点赞
+                        if (isCurrentUserDoTemp >= 1) {
+                            curObj.addClass('icon-zan').removeClass('icon-zan1');
+                        } else {
+                            curObj.addClass('icon-zan1').removeClass('icon-zan');
+                        }
+                    } else if (dataEven == 'unfabulous') {
+                        //踩
+                        //若当前是已踩
+                        if (isCurrentUserDoTemp >= 1) {
+                            curObj.addClass('icon-caishixin-').removeClass('icon-cai');
+                        } else {
+                            curObj.addClass('icon-cai').removeClass('icon-caishixin-');
+                        }
+                    }
+                },
+                error: function (data) {
+                    tool.hideLoading(loadingIndex);
+                    console.log(data);
+                },
+                complete: function () {}
+            });
+
+        },
+        //发送事件
         sendClick: function () {
-            
+
             var sendObj = $("#sendBtn");
             if (sendObj.hasClass("active")) {
-                console.log("send:"+ $('textarea#ask').val());
-            }
-            else{
-               console.log("no send......");
+                console.log("send:" + $('textarea#ask').val());
+            } else {
+                console.log("no send......");
             }
         },
         //回复点击事件
@@ -208,8 +331,8 @@ export default {
             $('textarea#ask').off('blur').on('blur', function () {
                 setTimeout(() => {
                     console.log('blur');
-                     $(".replyDiv").hide();
-                }, 10);            
+                    $(".replyDiv").hide();
+                }, 10);
             });
             $("textarea#ask").keyup(function () {
                 var length = this.value.length;
