@@ -50,15 +50,15 @@
                     <!-- <div @click.stop="gotoUrl($event)" url="/airlineDatabase" class="js_grid"> -->
                     <div @click.stop="gotoUrl($event)" url="/forumlist" class="js_grid">
                         <div class="weui-grid__icon intelligence-icon">
-                            <span class="calcfont calc-lianxiren1"></span>
+                            <span class="calcfont calc-luntan"></span>
                         </div>
-                        <p class="f12 weui-grid__label lanText" data-lanid="784_商业智能"></p>
+                        <p class="f12 weui-grid__label lanText" data-lanid="1054_论坛"></p>
                     </div>
                 </div>
                 <div class="weui-grid">
                     <div @click.stop="gotoUrl($event)" url="/userEvents" class="js_grid">
                         <div class="weui-grid__icon UserManagement-icon">
-                            <span class="calcfont calc-yonghu"></span>
+                            <span class="calcfont calc-yonghuqun"></span>
                         </div>
                         <p class="f12 weui-grid__label lanText" data-lanid="1000304_用户活动"></p>
                     </div>

@@ -4,7 +4,7 @@
         <a @click="back" class="calcfont calc-fanhui left" id="back"></a>
         <div class="searchDiv"><input @keyup.enter="submit" @focus="searchFocus" id="searchAskInput" class="searchText" type="search" value=""></div>
         <div class="headLeftIconDiv">
-            <a @click="selectDropDownType" class="dropDownBtn calcfont calc-xiala"></a>
+            <a @click.stop="selectDropDownType" class="dropDownBtn calcfont calc-xiala"></a>
             <a @click="search" class="searchBtn calcfont calc-shaixuan2"></a>
         </div>
         <div v-show="isShowdropDown" class="dropDownList">
@@ -249,12 +249,25 @@ export default {
     beforeRouteEnter: function (to, from, next) {
         next();
     },
-    created: function () {},
-    mounted: function () {
-        lanTool.updateLanVersion();
+    created: function () {
 
     },
+    mounted: function () {
+        lanTool.updateLanVersion();
+        this.hideDropdownList();
+    },
     methods: {
+        //点击空白处隐藏下拉列表
+        hideDropdownList:function(){
+            console.log("xiala");
+            var _self = this;
+           $(document).on('click',function (e) {
+               _self.isShowSort = false;
+            _self.isShowFilter = false;
+            _self.isShowdropDown = false;
+             
+           });
+        },
         //搜索聚焦事件
         searchFocus: function () {
             this.isFocus = true;
@@ -331,6 +344,7 @@ export default {
         },
         //标题和标签下拉的展示和隐藏
         selectDropDownType: function () {
+            window.event ? window.event.cancelBubble = true : e.stopPropagation();
             var _self = this;
             _self.isShowSort = false;
             _self.isShowFilter = false;
@@ -338,6 +352,7 @@ export default {
         },
         //筛选下拉展示隐藏
         filterDropDown: function (e) {
+            window.event ? window.event.cancelBubble = true : e.stopPropagation();
             var _self = this;
             _self.isShowSort = false;
             _self.isShowdropDown = false;
@@ -346,6 +361,7 @@ export default {
         },
         //排序下拉列表展示和隐藏
         sortDropDown: function () {
+            window.event ? window.event.cancelBubble = true : e.stopPropagation();
             var _self = this;
             _self.isShowFilter = false;
             _self.isShowdropDown = false;
