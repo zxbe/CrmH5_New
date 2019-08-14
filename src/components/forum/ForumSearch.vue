@@ -21,13 +21,13 @@
                 <span class="zen-selectArrow"></span>
             </a>
             <ul v-show="isShowFilter" class="feedFilterby">
-                <li><span class="zen-visualization iconfont icon-dagou1"></span><a @click="selectFiltertype($event)" data-fieldval="AllQuestions" data-group="FileterGroup" href="###" class="cxfeedtype cxRECENT selected lanText" data-lanid="1000213_所有问题"></a></li>
-                <li><span class="zen-visualization iconfont icon-dagou1"></span><a @click="selectFiltertype($event)" data-fieldval="MineQuestions" data-group="FileterGroup" href="###" class="cxfeedtype cxRECENT lanText" data-lanid="1000214_我的问题"></a></li>
-                <li><span class="zen-visualization iconfont icon-dagou1"></span><a @click="selectFiltertype($event)" data-fieldval="UnansweredQuestions" data-group="FileterGroup" href="###" class="cxfeedtype cxRECENT lanText" data-lanid="1000215_未答复的问题"></a></li>
-                <li><span class="zen-visualization iconfont icon-dagou1"></span><a @click="selectFiltertype($event)" data-fieldval="UnsolvedQuestions" data-group="FileterGroup" href="###" class="cxfeedtype cxRECENT lanText" data-lanid="1000216_未解决的问题"></a></li>
-                <li><span class="zen-visualization iconfont icon-dagou1"></span><a @click="selectFiltertype($event)" data-fieldval="ResolvedQuestions" data-group="FileterGroup" href="###" class="cxfeedtype cxRECENT lanText" data-lanid="1000217_已解决的问题"></a></li>
-                <li><span class="zen-visualization iconfont icon-dagou1"></span><a @click="selectFiltertype($event)" data-fieldval="InProgressQuestions" data-group="FileterGroup" href="###" class="cxfeedtype cxRECENT lanText" data-lanid="1000218_正在处理的问题"></a></li>
-                <li><span class="zen-visualization iconfont icon-dagou1"></span><a @click="selectFiltertype($event)" data-fieldval="ClosedQuestions" data-group="FileterGroup" href="###" class="cxfeedtype cxRECENT lanText" data-lanid="1000219_已关闭的问题"></a></li>
+                <li><a @click="selectFiltertype($event)" data-fieldval="AllQuestions" data-group="FileterGroup" href="###" class="cxfeedtype cxRECENT selected"><i class="zen-visualization calcfont calc-gou"></i><span class="lanText" data-lanid="1000213_所有问题"></span></a></li>
+                <li><a @click="selectFiltertype($event)" data-fieldval="MineQuestions" data-group="FileterGroup" href="###" class="cxfeedtype cxRECENT"><i class="zen-visualization calcfont calc-gou"></i><span class ="lanText" data-lanid="1000214_我的问题"></span></a></li>
+                <li><a @click="selectFiltertype($event)" data-fieldval="UnansweredQuestions" data-group="FileterGroup" href="###" class="cxfeedtype cxRECENT"><i class="zen-visualization calcfont calc-gou"></i><span class ="lanText" data-lanid="1000215_未答复的问题"></span></a></li>
+                <li><a @click="selectFiltertype($event)" data-fieldval="UnsolvedQuestions" data-group="FileterGroup" href="###" class="cxfeedtype cxRECENT"><i class="zen-visualization calcfont calc-gou"></i><span class="lanText" data-lanid="1000216_未解决的问题"></span></a></li>
+                <li><a @click="selectFiltertype($event)" data-fieldval="ResolvedQuestions" data-group="FileterGroup" href="###" class="cxfeedtype cxRECENT"><i class="zen-visualization calcfont calc-gou"></i><span class="lanText" data-lanid="1000217_已解决的问题"></span></a></li>
+                <li><a @click="selectFiltertype($event)" data-fieldval="InProgressQuestions" data-group="FileterGroup" href="###" class="cxfeedtype cxRECENT"><i class="zen-visualization calcfont calc-gou"></i><span class="lanText" data-lanid="1000218_正在处理的问题"></span></a></li>
+                <li><a @click="selectFiltertype($event)" data-fieldval="ClosedQuestions" data-group="FileterGroup" href="###" class="cxfeedtype cxRECENT"><i class="zen-visualization calcfont calc-gou"></i><span class="lanText" data-lanid="1000219_已关闭的问题"></span></a></li>
             </ul>
         </div>
         <div class="selectSort">
@@ -36,9 +36,9 @@
                 <span class="zen-selectArrow"></span>
             </a>
             <ul v-show="isShowSort" class="feedsortby">
-                <li class="zen-checked"><span class="zen-visualization iconfont icon-dagou1"></span><a @click="selectSorttype($event)" data-fieldval="DatePosted" data-group="SortGroup" href="###" class="cxfeedtype cxRECENT selected lanText" data-lanid="1000222_发布日期"></a></li>
-                <li><span class="zen-visualization iconfont icon-dagou1"></span><a @click="selectSorttype($event)" data-fieldval="RecentActivity" data-group="SortGroup" href="###" class="cxfeedtype cxRECENT lanText" data-lanid="1000223_近期活动"></a></li>
-                <li><span class="zen-visualization iconfont icon-dagou1"></span><a @click="selectSorttype($event)" data-fieldval="MostPopular" data-group="SortGroup" href="###" class="cxfeedtype cxRECENT lanText" data-lanid="1000224_最受欢迎"></a></li>
+                <li class="zen-checked"><a @click="selectSorttype($event)" data-fieldval="DatePosted" data-group="SortGroup" href="###" class="cxfeedtype cxRECENT selected"><i class="zen-visualization calcfont calc-gou"></i><span class="lanText" data-lanid="1000222_发布日期"></span></a></li>
+                <li><a @click="selectSorttype($event)" data-fieldval="RecentActivity" data-group="SortGroup" href="###" class="cxfeedtype cxRECENT"><i class="zen-visualization calcfont calc-gou"></i><span class="lanText" data-lanid="1000223_近期活动"></span></a></li>
+                <li><a @click="selectSorttype($event)" data-fieldval="MostPopular" data-group="SortGroup" href="###" class="cxfeedtype cxRECENT"><i class="zen-visualization calcfont calc-gou"></i><span class="lanText" data-lanid="1000224_最受欢迎"></span></a></li>
             </ul>
         </div>
     </div>
@@ -323,10 +323,16 @@ export default {
         selectFiltertype: function (e) {
             var _self = this;
             var el = e.target;
-            $(el).addClass("selected");
-            var parent = $(el).parent("li");
+            var obj;
+            if (e.target === e.currentTarget) {
+               obj = $(el);
+            }else{
+               obj = $(el).parent("a");
+            }    
+            obj.addClass("selected");
+            var parent = obj.parent("li");
             parent.siblings().find("a").removeClass("selected");
-            var val = $(el).text();
+            var val = obj.find("span").text();
             $(".filterText").eq(0).text(val);
             _self.isShowFilter = false;
 
@@ -335,10 +341,16 @@ export default {
         selectSorttype: function (e) {
             var _self = this;
             var el = e.target;
-            $(el).addClass("selected");
-            var parent = $(el).parent("li");
+            var obj;
+            if (e.target === e.currentTarget) {
+               obj = $(el);
+            }else{
+               obj = $(el).parent("a");
+            }    
+            obj.addClass("selected");
+            var parent = obj.parent("li");
             parent.siblings().find("a").removeClass("selected");
-            var val = $(el).text();
+            var val = obj.find("span").text();
             $(".sortText").eq(0).text(val);
             _self.isShowSort = false;
         },
