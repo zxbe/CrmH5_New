@@ -1496,7 +1496,7 @@ export default {
           var str = '';
           $.each(_self.userList, function (index, item) {
               if( _self.checkboxValue.indexOf(item.id) != -1){
-                  str += '<a class="targetUserName" data-username="'+ item.text +'" contenteditable="false" style="color:#048ec6;white-space: nowrap;">@'+ item.text +'</a>'
+                  str += '<a class="targetUserName" data-username="'+ item.text +'" contenteditable="false" style="color:#048ec6;">@'+ item.text +'</a>'
               }
           })
           _self.insertHtmlAtCaret(str);
