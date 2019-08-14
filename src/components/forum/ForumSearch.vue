@@ -86,7 +86,7 @@
                 <span v-for="(item, index) in hotSearchData" @click="hotSearchClick(index,$event)" :key="item.AutoID" class="tagItem">{{item.TagName}}</span>
             </div>
         </div>
-        <div class="searchHistoryBlock">
+        <!-- <div class="searchHistoryBlock">
             <div class="instroduciton">
                 <div class="theme">搜索历史</div>
                 <div @click="clearAllSearchHistory" class="clearBtn">全部清空</div>
@@ -98,7 +98,7 @@
                     <span @click="deleteHistoryClick($event)" :data-AutoID="item.AutoID" class="deleteIcon calcfont calc-guanbi"></span>
                 </div>
             </div>
-        </div>
+        </div> -->
     </div>
     <div v-show="!isFocus" class="buttom-div">
         <a @click="goToPosting" class="f18 calcfont calc-combinedshapecopy2"></a>
@@ -153,20 +153,20 @@ export default {
                     TagName:"C#"
                 },
             ],
-            historyData:[
-                {
-                    AutoID:"10",
-                    HistoryRecord:"人工智能",
-                },
-                 {
-                    AutoID:"11",
-                    HistoryRecord:"大数据",
-                },
-                 {
-                    AutoID:"12",
-                    HistoryRecord:"前端",
-                }
-            ],
+            // historyData:[
+            //     {
+            //         AutoID:"10",
+            //         HistoryRecord:"人工智能",
+            //     },
+            //      {
+            //         AutoID:"11",
+            //         HistoryRecord:"大数据",
+            //     },
+            //      {
+            //         AutoID:"12",
+            //         HistoryRecord:"前端",
+            //     }
+            // ],
             listData: [{
                     "AutoID": "3",
                     "TopicID": 10,
@@ -344,7 +344,6 @@ export default {
         },
         //标题和标签下拉的展示和隐藏
         selectDropDownType: function () {
-            window.event ? window.event.cancelBubble = true : e.stopPropagation();
             var _self = this;
             _self.isShowSort = false;
             _self.isShowFilter = false;
@@ -388,35 +387,35 @@ export default {
         back: function () {
             this.$router.back(-1);
         },
-
-        clearAllSearchHistory: function () {
-            console.log("清空历史");
-            var _self = this;
-            _self.historyData = [];
-        },
+       //清空搜索历史
+        // clearAllSearchHistory: function () {
+        //     console.log("清空历史");
+        //     var _self = this;
+        //     _self.historyData = [];
+        // },
          //删除单条搜索历史
-        deleteHistoryClick: function (e) {
-            console.log("删除历史记录");
-            var _self = this;
-            var el = e.target;
-            var obj = $(el);
-            if (!tool.isNullOrEmptyObject(obj)) {
-                console.log("autoID:"+obj.attr("data-AutoID"));
-                var id = obj.attr("data-AutoID");
-                for (let index = 0; index < _self.historyData.length; index++) {
-                    const element = _self.historyData[index];
-                    console.log("id:"+element.AutoID);
+        // deleteHistoryClick: function (e) {
+        //     console.log("删除历史记录");
+        //     var _self = this;
+        //     var el = e.target;
+        //     var obj = $(el);
+        //     if (!tool.isNullOrEmptyObject(obj)) {
+        //         console.log("autoID:"+obj.attr("data-AutoID"));
+        //         var id = obj.attr("data-AutoID");
+        //         for (let index = 0; index < _self.historyData.length; index++) {
+        //             const element = _self.historyData[index];
+        //             console.log("id:"+element.AutoID);
                     
-                    if (element.AutoID == id) {
-                          _self.historyData.remove(element);
-                         return;
-                    }
+        //             if (element.AutoID == id) {
+        //                   _self.historyData.remove(element);
+        //                  return;
+        //             }
                     
-                }
-            }
+        //         }
+        //     }
             
             
-        },
+        // },
         //查询列表数据
         queryList: function (queryType, callback) {
             let _self = this;
