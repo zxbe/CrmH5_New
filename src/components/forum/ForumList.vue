@@ -29,13 +29,13 @@
                 <span class="zen-selectArrow"></span>
             </a>
             <ul v-show="isShowFilter" class="feedFilterby">
-                <li><a @click="selectFiltertype($event)" data-fieldval="AllQuestions" data-group="FileterGroup" href="###" class="cxfeedtype cxRECENT selected"><i class="zen-visualization calcfont calc-gou" style="font-size:14px"></i><span class="lanText" data-lanid="1000213_所有问题"></span></a></li>
-                <li><a @click="selectFiltertype($event)" data-fieldval="MineQuestions" data-group="FileterGroup" href="###" class="cxfeedtype cxRECENT"><i class="zen-visualization calcfont calc-gou"></i><span class ="lanText" data-lanid="1000214_我的问题"></span></a></li>
-                <li><a @click="selectFiltertype($event)" data-fieldval="UnansweredQuestions" data-group="FileterGroup" href="###" class="cxfeedtype cxRECENT"><i class="zen-visualization calcfont calc-gou"></i><span class ="lanText" data-lanid="1000215_未答复的问题"></span></a></li>
-                <li><a @click="selectFiltertype($event)" data-fieldval="UnsolvedQuestions" data-group="FileterGroup" href="###" class="cxfeedtype cxRECENT"><i class="zen-visualization calcfont calc-gou"></i><span class="lanText" data-lanid="1000216_未解决的问题"></span></a></li>
-                <li><a @click="selectFiltertype($event)" data-fieldval="ResolvedQuestions" data-group="FileterGroup" href="###" class="cxfeedtype cxRECENT"><i class="zen-visualization calcfont calc-gou"></i><span class="lanText" data-lanid="1000217_已解决的问题"></span></a></li>
-                <li><a @click="selectFiltertype($event)" data-fieldval="InProgressQuestions" data-group="FileterGroup" href="###" class="cxfeedtype cxRECENT"><i class="zen-visualization calcfont calc-gou"></i><span class="lanText" data-lanid="1000218_正在处理的问题"></span></a></li>
-                <li><a @click="selectFiltertype($event)" data-fieldval="ClosedQuestions" data-group="FileterGroup" href="###" class="cxfeedtype cxRECENT"><i class="zen-visualization calcfont calc-gou"></i><span class="lanText" data-lanid="1000219_已关闭的问题"></span></a></li>
+                <li><a @click="selectFiltertype($event)" data-fieldval="AllQuestions" data-group="FileterGroup" href="" class="cxfeedtype cxRECENT selected"><i class="zen-visualization calcfont calc-gou" style="font-size:14px"></i><span class="lanText" data-lanid="1000213_所有问题"></span></a></li>
+                <li><a @click="selectFiltertype($event)" data-fieldval="MineQuestions" data-group="FileterGroup" href="" class="cxfeedtype cxRECENT"><i class="zen-visualization calcfont calc-gou"></i><span class ="lanText" data-lanid="1000214_我的问题"></span></a></li>
+                <li><a @click="selectFiltertype($event)" data-fieldval="UnansweredQuestions" data-group="FileterGroup" href="" class="cxfeedtype cxRECENT"><i class="zen-visualization calcfont calc-gou"></i><span class ="lanText" data-lanid="1000215_未答复的问题"></span></a></li>
+                <li><a @click="selectFiltertype($event)" data-fieldval="UnsolvedQuestions" data-group="FileterGroup" href="" class="cxfeedtype cxRECENT"><i class="zen-visualization calcfont calc-gou"></i><span class="lanText" data-lanid="1000216_未解决的问题"></span></a></li>
+                <li><a @click="selectFiltertype($event)" data-fieldval="ResolvedQuestions" data-group="FileterGroup" href="" class="cxfeedtype cxRECENT"><i class="zen-visualization calcfont calc-gou"></i><span class="lanText" data-lanid="1000217_已解决的问题"></span></a></li>
+                <li><a @click="selectFiltertype($event)" data-fieldval="InProgressQuestions" data-group="FileterGroup" href="" class="cxfeedtype cxRECENT"><i class="zen-visualization calcfont calc-gou"></i><span class="lanText" data-lanid="1000218_正在处理的问题"></span></a></li>
+                <li><a @click="selectFiltertype($event)" data-fieldval="ClosedQuestions" data-group="FileterGroup" href="" class="cxfeedtype cxRECENT"><i class="zen-visualization calcfont calc-gou"></i><span class="lanText" data-lanid="1000219_已关闭的问题"></span></a></li>
             </ul>
         </div>
         <div class="selectSort">
@@ -58,7 +58,7 @@
                 <div @click="goToInfo(item.AutoID)" class="title f16">{{item.Theme}}</div>
                 <div @click="goToInfo(item.AutoID)" class="content f14">{{item.Content}}</div>
                 <div class="feeditemtag f12">
-                    <span v-for="i in item.TagName">{{i}}</span>
+                    <span v-for="i in item.TagName" :key="i">{{i}}</span>
                 </div>
                 <div class="info f12">
                     <!-- "Status": "已关闭", "Status_ID": 71,
@@ -118,7 +118,7 @@ export default {
             tagData: [],
             scrollX: {}, //tag中的scoll对象
             repliesText: lanTool.lanContent("1000350_答复"), //在列表通过属性配置不显示
-              isShowFilter: false, //隐藏筛选的下拉列表
+            isShowFilter: false, //隐藏筛选的下拉列表
             isShowSort: false, //隐藏排序的下拉列表
         }
     },
