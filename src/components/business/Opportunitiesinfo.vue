@@ -237,7 +237,7 @@
 
             <!-- 状态 -->
             <div v-show="showTips" class="ListCell visible controlEdit">
-                <div class="ListCellLeftIcon textLeftIcon"><span class="calcfont calc-yewujihui"></span></div>
+                <div class="ListCellLeftIcon textLeftIcon"><span class="calcfont calc-zhuangtai"></span></div>
                 <div class="ListCellLeftText">
                     <p class="textareaP">
                           <textarea data-field="CurrentState_Name" data-fieldControlType="textareaInput" class="lanInputPlaceHolder" data-lanid="728_状态"></textarea>
@@ -247,7 +247,7 @@
 
             <!-- 输单原因 -->
             <div v-show="showTips" class="ListCell visible controlEdit">
-                <div class="ListCellLeftIcon textLeftIcon"><span class="calcfont calc-yewujihui"></span></div>
+                <div class="ListCellLeftIcon textLeftIcon"><span class="calcfont calc-yuanyin"></span></div>
                 <div class="ListCellLeftText">
                     <p class="textareaP">
                           <textarea data-field="LoseReason_Name" data-fieldControlType="textareaInput" class="lanInputPlaceHolder" data-lanid="1000311_输单原因"></textarea>
@@ -257,7 +257,7 @@
 
             <!-- 输单原因其他 -->
             <div v-show="showTips" class="ListCell visible controlEdit">
-                <div class="ListCellLeftIcon textLeftIcon"><span class="calcfont calc-yewujihui"></span></div>
+                <div class="ListCellLeftIcon textLeftIcon"><span class="calcfont calc-yuanyin"></span></div>
                 <div class="ListCellLeftText">
                     <p class="textareaP">
                           <textarea data-field="LoseReasonOther" data-fieldControlType="textareaInput" class="lanInputPlaceHolder" data-lanid="1000312_其他原因"></textarea>
@@ -878,7 +878,7 @@ export default {
                 jsonDatasTemp["LoseReason"] = $("[data-field='LoseReasonNew'").attr("data-fieldVal") || "";
                 jsonDatasTemp["LoseReasonOther"] = $("[data-field='LoseReasonOtherNew'").val() || "";
                 jsonDatasTemp["AutoID"] = id;
-                
+
                 //console.log(jsonDatasTemp);
                 var loadingIndexClassName = tool.showLoading();
 
@@ -907,8 +907,8 @@ export default {
                                 tool.hideLoading(loadingIndexClassName);
                                 console.log(err);
                             } finally {
-                                
-                            }  
+
+                            }
                         },
                         error: function (jqXHR, type, error) {
                             console.log(error);
@@ -957,7 +957,7 @@ export default {
                 jsonDatasTemp["MatterOther"] = $("[data-field='MatterOtherNew'").val() || "";
                 jsonDatasTemp["TargetCompanyID"] = $("[data-field='TargetCompanyID'").attr("data-fieldVal") || "";
                 jsonDatasTemp["FromOppID"] = id;
-                
+
                 console.log(jsonDatasTemp);
                 return;
 
@@ -983,7 +983,7 @@ export default {
 
                                 //构造Deal详情页的跳转地址
                                 var path = "/opportunitiesinfo/" + dealID;
-                                var queryParam = 
+                                var queryParam =
                                 {
                                     showPage : "0",
                                     infoName : theName
@@ -992,7 +992,7 @@ export default {
                                 _self.$store.commit('REMOVE_ITEM', 'opportunitiesinfo');
                                 //将列表页设置为非keep-alive
                                 _self.$store.commit('REMOVE_ITEM', 'businessCategories');
-                                
+
                                 //隐藏弹窗
                                 $('#transformTo').hide();
                                 //调用子组件收起侧滑方法
@@ -1002,7 +1002,7 @@ export default {
                                     path: path,
                                     query: queryParam
                                 });
-                                
+
                                 //保证地址替换后再刷新
                                 setTimeout(function(){
                                     tool.hideLoading(loadingIndexClassName);
@@ -1013,8 +1013,8 @@ export default {
                                 tool.hideLoading(loadingIndexClassName);
                                 console.log(err);
                             } finally {
-                                
-                            }  
+
+                            }
                         },
                         error: function (jqXHR, type, error) {
                             console.log(error);
