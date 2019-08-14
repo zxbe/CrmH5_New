@@ -40,7 +40,7 @@
                     <div @click="goToInfo(item.AutoID)" class="title f16">{{item.Theme}}</div>
                     <div @click="goToInfo(item.AutoID)" class="content f14">{{item.Content}}</div>
                     <div class="feeditemtag f12">
-                        <span v-for="i in item.TagName">{{i}}</span>
+                        <span v-for="i in item.TagName" :key="i">{{i}}</span>
                     </div>
                     <div class="info f12">
                         <!-- "Status": "已关闭", "Status_ID": 71,
