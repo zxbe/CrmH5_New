@@ -52,24 +52,6 @@
     </div>
     <div class="list">
 
-<<<<<<< HEAD
-        <vue-scroll
-          v-show="!noData"
-          :showToTop="true"
-          :options="{ pullup: true, pulldown: true }"
-          :scrollbar="false" ref="scroll"
-          @pulldown="pulldown"
-          @pullup="pullup">
-
-                <div v-for="item in listData" :key="item.AutoID" class="list-item">
-                    <div @click="goToInfo(item.AutoID)" class="title f16">{{item.Theme}}</div>
-                    <div @click="goToInfo(item.AutoID)" class="content f14">{{item.Content}}</div>
-                    <div class="feeditemtag f12">
-                        <span v-for="i in item.TagName" :key="i">{{i}}</span>
-                    </div>
-                    <div class="info f12">
-                        <!-- "Status": "已关闭", "Status_ID": 71,
-=======
         <vue-scroll v-show="!noData" :showToTop="true" :options="{ pullup: true, pulldown: true }" :scrollbar="false" ref="scroll" @pulldown="pulldown" @pullup="pullup">
 
             <div v-for="item in listData" :key="item.AutoID" class="list-item">
@@ -80,7 +62,6 @@
                 </div>
                 <div class="info f12">
                     <!-- "Status": "已关闭", "Status_ID": 71,
->>>>>>> a4fb8b17e8584cd612ddb8c93d0ca8f97c3f96b7
                         "Status": "进行中", "Status_ID": 70, -->
                     <span class="info-state" :class="{'result73':item.Result_ID == 73,'result74':item.Result_ID == 74}">{{item.Result}}</span>
                     <!-- "Result": "已解决", "Result_ID": 73,
