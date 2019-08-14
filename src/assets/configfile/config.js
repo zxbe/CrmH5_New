@@ -60,6 +60,8 @@ let json = {
 	"Api_CamcardDataHandle_SyncNewCompanyAndContactData":"Api_CamcardDataHandle_SyncNewCompanyAndContactData",
 	"Api_CamcardDataHandle_SyncCompanyData":"Api_CamcardDataHandle_SyncCompanyData",
 	"Api_CamcardDataHandle_SyncContactData":"Api_CamcardDataHandle_SyncContactData",
+	"Api_ForumHandle_TagQuery":"Api_ForumHandle_TagQuery",
+	"Api_ForumHandle_UserFollowTag":"Api_ForumHandle_UserFollowTag",
 	"currentLanguageVersion":"",
 	"refreshSessionTime":1200000,
 	"ADBAjaxUrl":"http://197.7.50.186:777/ADB",

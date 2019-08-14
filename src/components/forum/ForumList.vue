@@ -122,7 +122,6 @@ export default {
     _self.$store.commit('SET_ITEM', 'forumlist');
      //请求标签数据
      _self.getTagsData();
-
   },
   mounted:function(){
     let _self = this;
@@ -179,16 +178,6 @@ export default {
       //标签切换
       switchTag:function(){
           var _self = this;
-          /*
-          var currObj = $(e.target) || '';
-          if(tool.isNullOrEmptyObject(id) || tool.isNullOrEmptyObject(currObj)){
-              return;
-          }
-          //1.请求数据
-          //2.切换页面样式
-          currObj.addClass('active').siblings('li').removeClass('active');
-          _self.scrollX.scrollToElement(e.target,300,true);
-          */
           $(".tag-items").on("click","li",function(event){
                 var target = $(event.target);
                 var id = target.attr('data-id') || '';
@@ -212,120 +201,58 @@ export default {
       //请求标签数据
       getTagsData:function(){
         var _self = this;
-        //请求数据
-        var data = [
-          {
-            "AutoID": 1,
-            "Name": "All Tag",
-            "InternalSort": 10,
-            "PostCount": 25,
-            "IsFollow": "fa-star-o"
-          },{
-            "AutoID": 7,
-            "Name": "Web",
-            "InternalSort": null,
-            "PostCount": 18,
-            "IsFollow": "fa-star"
-          }, {
-            "AutoID": 8,
-            "Name": "JS",
-            "InternalSort": null,
-            "PostCount": 8,
-            "IsFollow": "fa-star-o"
-          }, {
-            "AutoID": 11,
-            "Name": "python",
-            "InternalSort": null,
-            "PostCount": 4,
-            "IsFollow": "fa-star-o"
-          }, {
-            "AutoID": 14,
-            "Name": "C#",
-            "InternalSort": 100,
-            "PostCount": 1,
-            "IsFollow": "fa-star-o"
-          }, {
-            "AutoID": 13,
-            "Name": "React",
-            "InternalSort": null,
-            "PostCount": 2,
-            "IsFollow": "fa-star-o"
-          }, {
-            "AutoID": 4,
-            "Name": "Boeing",
-            "InternalSort": null,
-            "PostCount": 4,
-            "IsFollow": "fa-star-o"
-          }, {
-            "AutoID": 5,
-            "Name": "CALC",
-            "InternalSort": null,
-            "PostCount": 2,
-            "IsFollow": "fa-star-o"
-          }, {
-            "AutoID": 10,
-            "Name": "NodeJS",
-            "InternalSort": null,
-            "PostCount": 3,
-            "IsFollow": "fa-star-o"
-          }, {
-            "AutoID": 6,
-            "Name": "M737Max",
-            "InternalSort": null,
-            "PostCount": 1,
-            "IsFollow": "fa-star-o"
-          }, {
-            "AutoID": 3,
-            "Name": "AirBus",
-            "InternalSort": null,
-            "PostCount": 1,
-            "IsFollow": "fa-star-o"
-          }, {
-            "AutoID": 15,
-            "Name": "前端",
-            "InternalSort": null,
-            "PostCount": 3,
-            "IsFollow": "fa-star-o"
-          }, {
-            "AutoID": 2,
-            "Name": "MRO",
-            "InternalSort": null,
-            "PostCount": 2,
-            "IsFollow": "fa-star-o"
-          }, {
-            "AutoID": 12,
-            "Name": "m787",
-            "InternalSort": null,
-            "PostCount": 2,
-            "IsFollow": "fa-star-o"
-          }, {
-            "AutoID": 9,
-            "Name": "Proxy",
-            "InternalSort": null,
-            "PostCount": 2,
-            "IsFollow": "fa-star-o"
-          }, {
-            "AutoID": 16,
-            "Name": "A320",
-            "InternalSort": null,
-            "PostCount": 1,
-            "IsFollow": "fa-star-o"
-          }
-        ]
+        //api接口地址
+        var urlTemp = tool.AjaxBaseUrl();
+        var controlName = tool.Api_ForumHandle_TagQuery;
+        var jsonDatasTemp = {
+            CurrentLanguageVersion: lanTool.currentLanguageVersion,
+            UserName: tool.UserName(),
+            _ControlName: controlName,
+            _RegisterCode: tool.RegisterCode(),
+            IsUsePager: false,
+            PageSize:1,
+            PageNum:10,
+            QueryCondiction: [],
+            IsContainAll:true
+        };
         var loadingIndexClassName = tool.showLoading();
-        setTimeout(function(){
-          tool.hideLoading(loadingIndexClassName);
-          _self.tagData = data;
-          //初始化tag
-          _self.$nextTick(function(){
-              _self.initTags(function(){
-                  //注册事件
-                  _self.switchTag();
-                  //模拟点击第一个主题
-                  $('.tag-items li:first').trigger('click');
-              });
-          })
-        },500)
+        $.ajax({
+            async: true,
+            type: "post",
+            url: urlTemp,
+            data: jsonDatasTemp,
+            success: function (data) {
+                tool.hideLoading(loadingIndexClassName);
+                data = tool.jObject(data);
+                // console.log(data);
+                if (data._ReturnStatus == false) {
+                    tool.showText(tool.getMessage(data));
+                    console.log(tool.getMessage(data));
+                    _self.noData = true;
+                    return;
+                }
+                data = data._OnlyOneData.Rows || [];
+                _self.tagData = data;
+                //初始化tag
+                _self.$nextTick(function(){
+                    _self.initTags(function(){
+                        //注册事件
+                        _self.switchTag();
+                        //模拟点击第一个主题
+                        $('.tag-items li:first').trigger('click');
+                    });
+                })
+            },
+            error: function (jqXHR, type, error) {
+                tool.hideLoading(loadingIndexClassName);
+                console.log(error);
+                return true;
+            },
+            complete: function () {
+                //隐藏虚拟键盘
+                document.activeElement.blur();
+            }
+        });
       },
       //初始化tags
       initTags:function(callback){
@@ -343,7 +270,7 @@ export default {
                 startX: 0,
                 click: true,
                 scrollX: true,
-                // 忽略竖直方向的滚动
+                //忽略竖直方向的滚动
                 scrollY: false,
                 eventPassthrough: "vertical"
               });

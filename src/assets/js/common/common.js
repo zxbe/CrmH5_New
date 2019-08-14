@@ -501,6 +501,15 @@ import config from '../../configfile/config.js'
 	tool.Api_CamcardDataHandle_SyncContactData = "Api_CamcardDataHandle_SyncContactData";
 
 	/*
+	 * 帖子标签列表
+	 */
+	tool.Api_ForumHandle_TagQuery = "Api_ForumHandle_TagQuery";
+	/*
+	 * 关注/取消关注标签
+	 */
+	tool.Api_ForumHandle_UserFollowTag = "Api_ForumHandle_UserFollowTag";
+
+	/*
 	 * ADBAjaxUrl:ADB系统请求的api地址
 	 */
 	tool.config_ADBAjaxUrl = "ADBAjaxUrl";
