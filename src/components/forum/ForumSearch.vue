@@ -8,8 +8,8 @@
             <a @click="search" class="searchBtn calcfont calc-shaixuan2"></a>
         </div>
         <div v-show="isShowdropDown" class="dropDownList">
-            <a @click="selectTitleOrTag($event)" data-type="Other" class="selected lanText" data-lanid="1000303_标题和内容"></a>
-            <a @click="selectTitleOrTag($event)" data-type="Tag" class="lanText" data-lanid="1000302_标签"></a>
+            <a @click="selectTitleOrTag($event)" data-type="Other" class="selected"><i class="zen-visualization calcfont calc-gou"></i><span class="lanText" data-lanid="1000303_标题和内容"></span></a>
+            <a @click="selectTitleOrTag($event)" data-type="Tag"><i class="zen-visualization calcfont calc-gou"></i><span class="lanText" data-lanid="1000302_标签"></span></a>
         </div>
     </header>
 
@@ -22,8 +22,8 @@
             </a>
             <ul v-show="isShowFilter" class="feedFilterby">
                 <li><a @click="selectFiltertype($event)" data-fieldval="AllQuestions" data-group="FileterGroup" href="###" class="cxfeedtype cxRECENT selected"><i class="zen-visualization calcfont calc-gou"></i><span class="lanText" data-lanid="1000213_所有问题"></span></a></li>
-                <li><a @click="selectFiltertype($event)" data-fieldval="MineQuestions" data-group="FileterGroup" href="###" class="cxfeedtype cxRECENT"><i class="zen-visualization calcfont calc-gou"></i><span class ="lanText" data-lanid="1000214_我的问题"></span></a></li>
-                <li><a @click="selectFiltertype($event)" data-fieldval="UnansweredQuestions" data-group="FileterGroup" href="###" class="cxfeedtype cxRECENT"><i class="zen-visualization calcfont calc-gou"></i><span class ="lanText" data-lanid="1000215_未答复的问题"></span></a></li>
+                <li><a @click="selectFiltertype($event)" data-fieldval="MineQuestions" data-group="FileterGroup" href="###" class="cxfeedtype cxRECENT"><i class="zen-visualization calcfont calc-gou"></i><span class="lanText" data-lanid="1000214_我的问题"></span></a></li>
+                <li><a @click="selectFiltertype($event)" data-fieldval="UnansweredQuestions" data-group="FileterGroup" href="###" class="cxfeedtype cxRECENT"><i class="zen-visualization calcfont calc-gou"></i><span class="lanText" data-lanid="1000215_未答复的问题"></span></a></li>
                 <li><a @click="selectFiltertype($event)" data-fieldval="UnsolvedQuestions" data-group="FileterGroup" href="###" class="cxfeedtype cxRECENT"><i class="zen-visualization calcfont calc-gou"></i><span class="lanText" data-lanid="1000216_未解决的问题"></span></a></li>
                 <li><a @click="selectFiltertype($event)" data-fieldval="ResolvedQuestions" data-group="FileterGroup" href="###" class="cxfeedtype cxRECENT"><i class="zen-visualization calcfont calc-gou"></i><span class="lanText" data-lanid="1000217_已解决的问题"></span></a></li>
                 <li><a @click="selectFiltertype($event)" data-fieldval="InProgressQuestions" data-group="FileterGroup" href="###" class="cxfeedtype cxRECENT"><i class="zen-visualization calcfont calc-gou"></i><span class="lanText" data-lanid="1000218_正在处理的问题"></span></a></li>
@@ -123,34 +123,33 @@ export default {
             isShowFilter: false, //隐藏筛选的下拉列表
             isShowSort: false, //隐藏排序的下拉列表
             isFocus: true,
-            hotSearchData:[
+            hotSearchData: [{
+                    AutoID: "0",
+                    TagName: "人工智能"
+                },
                 {
-                    AutoID:"0",
-                    TagName:"人工智能"
+                    AutoID: "2",
+                    TagName: "大数据"
                 },
-                 {
-                    AutoID:"2",
-                    TagName:"大数据"
+                {
+                    AutoID: "3",
+                    TagName: "数据库"
                 },
-                 {
-                    AutoID:"3",
-                    TagName:"数据库"
+                {
+                    AutoID: "4",
+                    TagName: "大数据"
                 },
-                 {
-                    AutoID:"4",
-                    TagName:"大数据"
+                {
+                    AutoID: "5",
+                    TagName: "Web"
                 },
-                 {
-                    AutoID:"5",
-                    TagName:"Web"
+                {
+                    AutoID: "6",
+                    TagName: "Jq"
                 },
-                 {
-                    AutoID:"6",
-                    TagName:"Jq"
-                },
-                 {
-                    AutoID:"7",
-                    TagName:"C#"
+                {
+                    AutoID: "7",
+                    TagName: "C#"
                 },
             ],
             // historyData:[
@@ -258,15 +257,15 @@ export default {
     },
     methods: {
         //点击空白处隐藏下拉列表
-        hideDropdownList:function(){
+        hideDropdownList: function () {
             console.log("xiala");
             var _self = this;
-           $(document).on('click',function (e) {
-               _self.isShowSort = false;
-            _self.isShowFilter = false;
-            _self.isShowdropDown = false;
-             
-           });
+            $(document).on('click', function (e) {
+                _self.isShowSort = false;
+                _self.isShowFilter = false;
+                _self.isShowdropDown = false;
+
+            });
         },
         //搜索聚焦事件
         searchFocus: function () {
@@ -285,7 +284,7 @@ export default {
                 _self.search();
             }
         },
-       
+
         goToPosting: function () {
             this.$router.push('/forumposting');
         },
@@ -313,10 +312,15 @@ export default {
         selectTitleOrTag: function (e) {
             var _self = this;
             var el = e.target;
-            $(el).addClass("selected");
-            $(el).siblings().removeClass("selected");
-            var val = $(el).text();
-            console.log("text:" + val);
+             var obj;
+            if (e.target === e.currentTarget) {
+                obj = $(el);
+            } else {
+                obj = $(el).parent("a");
+            }
+           obj.addClass("selected");
+           obj.siblings().removeClass("selected");
+            var val = obj.find("span").text();
             _self.isShowdropDown = false;
         },
         //筛选选择
@@ -325,10 +329,10 @@ export default {
             var el = e.target;
             var obj;
             if (e.target === e.currentTarget) {
-               obj = $(el);
-            }else{
-               obj = $(el).parent("a");
-            }    
+                obj = $(el);
+            } else {
+                obj = $(el).parent("a");
+            }
             obj.addClass("selected");
             var parent = obj.parent("li");
             parent.siblings().find("a").removeClass("selected");
@@ -343,10 +347,10 @@ export default {
             var el = e.target;
             var obj;
             if (e.target === e.currentTarget) {
-               obj = $(el);
-            }else{
-               obj = $(el).parent("a");
-            }    
+                obj = $(el);
+            } else {
+                obj = $(el).parent("a");
+            }
             obj.addClass("selected");
             var parent = obj.parent("li");
             parent.siblings().find("a").removeClass("selected");
@@ -399,13 +403,13 @@ export default {
         back: function () {
             this.$router.back(-1);
         },
-       //清空搜索历史
+        //清空搜索历史
         // clearAllSearchHistory: function () {
         //     console.log("清空历史");
         //     var _self = this;
         //     _self.historyData = [];
         // },
-         //删除单条搜索历史
+        //删除单条搜索历史
         // deleteHistoryClick: function (e) {
         //     console.log("删除历史记录");
         //     var _self = this;
@@ -417,16 +421,15 @@ export default {
         //         for (let index = 0; index < _self.historyData.length; index++) {
         //             const element = _self.historyData[index];
         //             console.log("id:"+element.AutoID);
-                    
+
         //             if (element.AutoID == id) {
         //                   _self.historyData.remove(element);
         //                  return;
         //             }
-                    
+
         //         }
         //     }
-            
-            
+
         // },
         //查询列表数据
         queryList: function (queryType, callback) {

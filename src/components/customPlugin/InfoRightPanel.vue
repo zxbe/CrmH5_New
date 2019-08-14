@@ -20,6 +20,7 @@
                 <div class="right-content-list-cell" v-show="isShowDealLink" @click="goToOpportunityListPage"><span class="mui-icon calcfont calc-jiezhishijianicon lanText" data-lanid="649_商业机会"></span></div>
                 <div class="right-content-list-cell" v-show="isShowSynchronizeLink" @click="SynchronousCamCardData"><span class="mui-icon calcfont calc-exchange lanText" data-lanid="1000193_同步CamCard数据"></span></div>
                 <div class="right-content-list-cell" v-show="isShowTransformLink" @click="transformTo"><span class="mui-icon calcfont calc-exchange lanText" data-lanid="1000239_转为交易"></span></div>
+                <div class="right-content-list-cell" v-show="loi !=''" @click="goToLoiinfo"><span class="mui-icon calcfont calc-profile lanText" data-lanid="1000227_LOI单号"></span></div>
             </div>
         </div>
     </div>
@@ -40,10 +41,10 @@ export default {
             isShowPowerUserLink: false,
             isShowDealLink: false,
             isShowSynchronizeLink: false,
-            isShowTransformLink: false
+            isShowTransformLink: false,
         }
     },
-    props: ['isShowSend', 'isShowClose', 'closeThisContent', 'rightPanelFromType', 'rightPanelFromID', 'businessType'],
+    props: ['isShowSend', 'isShowClose', 'closeThisContent', 'rightPanelFromType', 'rightPanelFromID', 'businessType', 'loi'],
 
     created: function () {
         var _self = this;
@@ -86,6 +87,7 @@ export default {
         this.panelToggle(false);
     },
     activated: function () {},
+
     methods: {
         //点击关闭
         closeThis: function () {
@@ -94,6 +96,10 @@ export default {
         //点击转换为交易
         transformTo: function () {
             this.$parent.rightPanelTransformTo();
+        },
+        //点击跳转到loi单号详情
+        goToLoiinfo:function(){
+            this.$parent.rightPanelToLoi();
         },
 
         //侧滑

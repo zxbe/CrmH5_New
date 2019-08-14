@@ -95,9 +95,10 @@ input {
     display: block; 
     height: 0.8rem;
     line-height: 0.8rem;
-    text-align:center;
+    text-align:left;
     font-size: 0.24rem;
-    border-bottom: solid 1px rgb(217,217,217);
+    padding-left: 20px;
+    /* border-bottom: solid 1px rgb(217,217,217); */
 }
 .calc-fanhui {
     margin-left: 0;
