@@ -508,6 +508,23 @@ import config from '../../configfile/config.js'
 	 * 关注/取消关注标签
 	 */
 	tool.Api_ForumHandle_UserFollowTag = "Api_ForumHandle_UserFollowTag";
+	/*
+	 * 帖子列表查询
+	 */
+	tool.Api_ForumHandle_PostQuery = "Api_ForumHandle_PostQuery";
+	/*
+	 * 帖子详情查询
+	 */
+	tool.Api_ForumHandle_PostQuerySingle = "Api_ForumHandle_PostQuerySingle";
+	/*
+	 * 帖子保存
+	 */
+	tool.Api_ForumHandle_PostSaveOrUpdate = "Api_ForumHandle_PostSaveOrUpdate";
+
+	/*
+	 * LOI单详情查询
+	 */
+	tool.Api_OALOIHandle_QuerySingle = "Api_OALOIHandle_QuerySingle";
 
 	/*
 	 * ADBAjaxUrl:ADB系统请求的api地址

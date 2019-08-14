@@ -44,10 +44,10 @@
                             data-lanid="1000227_LOI单号"
                             data-fieldval=""
                             data-selecttype="radio"
-                            code="DropDowList_ViewBaseCompanyBaseInfHasContact"
+                            code="DropDowList_LOI"
                             typevalue=""
                             data-clickObj="LOIIDClickObj"
-                            data-addUrl="/organizationsinfo"></div>
+                            data-addUrl=""></div>
                     </div>
 
                     <!-- 商业事项 -->
