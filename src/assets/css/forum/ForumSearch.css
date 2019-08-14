@@ -87,7 +87,9 @@ input {
    right: 0.1rem;
    width: 2.9rem;
    height: 1.6rem;
-   background-color: rgb(235, 235, 235);
+   background-color: #fff;
+   border: 1px solid #e2e2e2;
+   border-radius: 4px;
 }
 .dropDownList a{
     display: block; 
@@ -95,6 +97,7 @@ input {
     line-height: 0.8rem;
     text-align:center;
     font-size: 0.24rem;
+    border-bottom: solid 1px rgb(217,217,217);
 }
 .calc-fanhui {
     margin-left: 0;
@@ -102,7 +105,7 @@ input {
 
 .list {
     position: fixed;
-    padding-top: 0;
+    top: 1.76rem;
 }
 
 .searchSelectDiv {
@@ -184,20 +187,39 @@ li {
 }
 
 .searchSelectDiv .feedsortby,.searchSelectDiv .feedFilterby{
-    border-bottom-left-radius: 6px;
-    border-bottom-right-radius: 6px;
-    background-color: rgb(235, 235, 235);
+    margin-top: 5px;
+    background-color: #fff;
+    border: solid 1px rgb(226,226,226);
+    border-radius: 4px;
 }
-
+.searchSelectDiv .feedFilterby{
+    width: 110%;
+}
+.feedsortby li,.feedFilterby li{
+    position: relative;
+}
 .feedsortby li a,.feedFilterby li a{
     display: block;
     color: #000000;
     font-size: 0.24rem;
-    text-align: center;
+    text-align: left;
+    /* border-bottom: solid 1px rgb(217,217,217); */
+    box-sizing: border-box;
+    padding-left: 20px;
+}
+i.zen-visualization{
+    position: absolute;
+    left: 0.1rem;
+    /* top: 0.26rem; */
+    font-size: 0.28rem;
+    display: none;
+}
+.selected i.zen-visualization{
+    display: inline;
 }
 /* 下拉列表a标签选中的背景颜色*/
 .selected{
-    background-color: beige;
+    /* background-color: #f1f0f6; */
     color:#7ebbff !important;
 }
 
