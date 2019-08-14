@@ -310,11 +310,9 @@ span.calcfont.calc-shoucang {
   position:absolute;
   top:50%;left:50%;
   transform: translate(-50%,-50%);
-  /* padding:15px; */
 }
 .elastic-layer-title{
   padding:20px 15px 10px 15px;
-  /* border-bottom: 1px solid #ccc; */
   position: relative;
 }
 .elastic-layer-title::after{
@@ -332,22 +330,54 @@ span.calcfont.calc-shoucang {
   transform: scaleY(.5);
 }
 .elastic-layer-items{
-  padding:9px .3rem 25px;
+  padding:9px .3rem 20px;
 }
 .elastic-layer-item{
   display: flex;
   padding:9px 0;
   position: relative;
 }
-/* .elastic-layer-item::after{
+.elastic-layer-item .icon-left{font-size:.44rem!important;margin-right: 5px;}
+.elastic-layer-item .item-right{flex:1;}
+.elastic-layer-item .item-row{
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+.border-bottom::after{
   position: absolute;
   content: "";
-  left:0;
-  right:0;
+  left: 0rem;
+  right: 0rem;
   bottom: 0;
   height: 1px;
-  background-color:#f6e78b;
-} */
+  background-color: #f6e78b;
+}
+.border-bottom.not-required::after{
+  background-color: #ddddde;
+}
+.elastic-layer-item .item-row .label-text{flex: 1;padding-top:5px;}
+.elastic-layer-item .item-row .ListCellContentRight{width:100%;padding-bottom: 5px;}
+.elastic-layer-item .item-row  input{
+  text-align: left;
+  outline: none;
+  text-align: left;
+  border: none;
+  font-size: .28rem;
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  position: relative;
+}
+
+.elastic-layer-item .item-row .rightContent{
+  width:100%!important;
+}
+.elastic-layer-item .item-row .calcfont{
+  color: #cdcdcd;
+  font-size: .32rem;
+}
 .nessesary {
   color: red;
   padding-right: 5px;
@@ -360,6 +390,8 @@ span.calcfont.calc-shoucang {
   padding:0 5px;
 }
 
+
+/*按钮*/
 .btn-div{
   position: relative;
   line-height: 48px;
