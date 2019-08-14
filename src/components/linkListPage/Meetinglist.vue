@@ -284,8 +284,9 @@ export default {
             var _self = this;
             var url = "/meetinginfo/-1";
             var parameter = {
-                fromType: _self.fromType, //来源类型
-                fromId: _self.fromId //来源ID
+                // fromType: _self.fromType, //来源类型
+                // fromId: _self.fromId //来源ID
+                dealOppID:_self.fromId
             };
             _self.$router.push({
                 path: url,

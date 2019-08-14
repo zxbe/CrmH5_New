@@ -297,6 +297,7 @@ export default {
             //     ObjectRemark: ""
             //   }
             ],
+            dealOppID:"",
         }
     },
     beforeRouteEnter: function (to, from, next) {
@@ -309,6 +310,8 @@ export default {
         _self.ptitle = _self.$route.query.infoName || lanTool.lanContent("914_添加会议");
         _self.defaultDateTime = _self.$route.query.defaultDateTime||"";
         _self.id = _self.$route.params.id;
+        _self.dealOppID = _self.$route.query.dealOppID||"";
+        // console.log("dealOppID:"+_self.dealOppID);
     },
     mounted: function () {
         let _self = this;
@@ -331,7 +334,11 @@ export default {
         $("[data-field='ContactsID']").text("").attr("data-fieldVal", "").off('click');
         //渲染控件
         tool.InitiateInfoPageControl(_self, _self.id, function () {
+            //初始化时间
             _self.initDefaultDateTime();
+            //通过DealOppID初始化字段值
+            _self.initDefaultFieldValByDealOppOD();
+
             //渲染textarea
             $("textarea").each(function (index, cur) {
                 $(cur).height('25');
@@ -547,6 +554,70 @@ export default {
                     _self.documentData = data.Rows || [];
                 },
                 error: function (jqXHR, type, error) {
+                    console.log(error);
+                    return true;
+                },
+                complete: function () {
+                    //隐藏虚拟键盘
+                    document.activeElement.blur();
+                }
+            });
+        },
+        //通过DealOppID初始化字段值
+        initDefaultFieldValByDealOppOD:function(){
+            let _self = this;
+            if(tool.isNullOrEmptyObject(_self.dealOppID)){
+                return false;
+            }
+
+            //api接口地址
+            var urlTemp = tool.AjaxBaseUrl();
+            var controlName = tool.Api_OpportunityHandle_QuerySingle;
+            var jsonDatasTemp = {
+                CurrentLanguageVersion: lanTool.currentLanguageVersion,
+                UserName: tool.UserName(),
+                _ControlName: controlName,
+                _RegisterCode: tool.RegisterCode(),
+                AutoID:_self.dealOppID
+            };
+            var loadingIndexClassName = tool.showLoading();
+            $.ajax({
+                async: true,
+                type: "post",
+                url: urlTemp,
+                data: jsonDatasTemp,
+                success: function (data) {
+                    tool.hideLoading(loadingIndexClassName);
+                    data = tool.jObject(data);
+                    // console.log(data);
+                    if (data._ReturnStatus == false) {
+                        tool.showText(tool.getMessage(data));
+                        console.log(tool.getMessage(data));
+                        _self.noData = true;
+                        return;
+                    }
+                    data = data._OnlyOneData || {};
+                    // console.log(data);
+
+                    //标题
+                    $("[data-field='MeetingTitle']").val(data["TheName"]||"");
+                    //MeetingType
+                    $("[data-field='MeetingType']").val(lanTool.lanContent("1078_机会")).attr("data-fieldVal", "90").trigger('change');
+                    //MeetingType
+                    $("[data-field='CAAL']").val(lanTool.lanContent("798_是")).attr("data-fieldVal","20" ).trigger('change');
+                    //CompanyID
+                    $("[data-field='CompanyID']").text(data["TargetCompanyID_Name"]||"").attr("data-fieldVal",data["TargetCompanyID"]||"").trigger('change');
+                    //ContactsID
+                    $("[data-field='ContactsID']").text(data["ContactID_Name"]||"").attr("data-fieldVal",data["ContactID"]||"").trigger('change');
+                    //IsFirstMeeting
+                    $("[data-field='IsFirstMeeting']").val(lanTool.lanContent("798_是")).attr("data-fieldVal","20" ).trigger('change');
+                    //CurrentState
+                    $("[data-field='CurrentState']").val(lanTool.lanContent("1172_准备与会")).attr("data-fieldVal","115" ).trigger('change');
+                    //Participants
+                    $("[data-field='Participants']").text(data["Initiator_Name"]||"").attr("data-fieldVal",data["Initiator"]||"" ).trigger('change');
+                },
+                error: function (jqXHR, type, error) {
+                    tool.hideLoading(loadingIndexClassName);
                     console.log(error);
                     return true;
                 },
