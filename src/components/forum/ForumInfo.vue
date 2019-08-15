@@ -577,7 +577,10 @@ body {
     margin: 0px !important;
 }
 .vue-html5-editor>.toolbar>ul{
-  border-bottom: none;
+  border-bottom: none!important;
+}
+.vue-html5-editor>.toolbar::before{
+  height: 0;
 }
 </style>
 

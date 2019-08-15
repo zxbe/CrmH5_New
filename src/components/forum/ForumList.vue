@@ -171,7 +171,7 @@ export default {
                obj = $(el);
             }else{
                obj = $(el).parent("a");
-            }    
+            }
             obj.addClass("selected");
             var parent = obj.parent("li");
             parent.siblings().find("a").removeClass("selected");
@@ -192,7 +192,7 @@ export default {
                obj = $(el);
             }else{
                obj = $(el).parent("a");
-            }    
+            }
             obj.addClass("selected");
             var parent = obj.parent("li");
             parent.siblings().find("a").removeClass("selected");
@@ -430,8 +430,8 @@ export default {
 
                     //把标签字段值转换为数组
                     $.each(data, function (i, ietem) {
-                        var tagsArr = 
-                        tool.isNullOrEmptyObject(ietem.TagName) 
+                        var tagsArr =
+                        tool.isNullOrEmptyObject(ietem.TagName)
                         ? []
                         : ietem.TagName.toString().split(',');
                         ietem.TagName = tagsArr;
@@ -562,7 +562,7 @@ export default {
                         console.log(tool.getMessage(data));
                         return;
                     }
-                    
+
                     //更新数量和状态
                     data = data._OnlyOneData;
                     if (tool.isNullOrEmptyObject(data)) {
