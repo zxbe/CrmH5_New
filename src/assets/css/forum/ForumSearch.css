@@ -106,7 +106,8 @@ input {
 
 .list {
     position: fixed;
-    top: 1.76rem;
+    /* top: 1.76rem; */
+    top:0.88rem;
 }
 
 .searchSelectDiv {
