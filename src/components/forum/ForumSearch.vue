@@ -2,7 +2,7 @@
 <div>
     <header class="mui-bar mui-bar-nav">
         <a @click="back" class="calcfont calc-fanhui left" id="back"></a>
-        <div class="searchDiv"><input @keyup.enter="submit" @focus="searchFocus" id="searchAskInput" class="searchText" type="search" value=""></div>
+        <div class="searchDiv"><input @keyup.enter="submit" @focus="searchFocus" id="searchAskInput" class="searchText f14" type="search" value=""></div>
         <div class="headLeftIconDiv">
             <a @click.stop="selectDropDownType" class="dropDownBtn calcfont calc-xiala"></a>
             <a @click="search" class="searchBtn calcfont calc-shaixuan2"></a>
