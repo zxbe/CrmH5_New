@@ -469,7 +469,9 @@
                             <div class="lanText label-text" data-lanid="956_MSN"></div>
                         </div>
                         <div class="item-row border-bottom not-required">
+                          <div class="ListCellContentRight">
                             <textarea data-field="MSNNew" data-fieldControlType="textareaInput" class="lanInputPlaceHolder" data-lanid="956_MSN"></textarea>
+                          </div>
                         </div>
                     </div>
                 </div>
@@ -767,7 +769,7 @@ export default {
               if (fieldval == "101") {
                   $("#LoseReason-div").show();
               } else {
-                  $("#LoseReason-div").hide();
+                  $("#LoseReason-div,#LoseReasonOther-div").hide();
               }
           });
           //控制data-field="LoseReasonOther"显示和隐藏

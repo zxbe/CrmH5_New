@@ -357,7 +357,7 @@ span.calcfont.calc-shoucang {
   background-color: #ddddde;
 }
 .elastic-layer-item .item-row .label-text{flex: 1;padding-top:5px;}
-.elastic-layer-item .item-row .ListCellContentRight{width:100%;padding-bottom: 5px;}
+.elastic-layer-item .item-row .ListCellContentRight{width:100%;padding: 5px 0;}
 .elastic-layer-item .item-row  input{
   text-align: left;
   outline: none;
