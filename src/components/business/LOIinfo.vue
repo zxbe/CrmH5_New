@@ -11,21 +11,21 @@
             <div class="label">
                 <span class="lanText" data-lanid="563_编号"></span><span>:</span>
             </div>
-            <div class="item-value" v-html="dataModel.bianh"></div>
+            <div class="item-value auto-line-feed" v-html="dataModel.bianh"></div>
         </div>
 
         <div class="item f14">
             <div class="label">
                 <span class="lanText" data-lanid="710_标题"></span><span>:</span>
             </div>
-            <div class="item-value" v-html="dataModel.requestname"></div>
+            <div class="item-value auto-line-feed" v-html="dataModel.requestname"></div>
         </div>
 
         <div class="item f14">
             <div class="label">
                 <span class="lanText" data-lanid="1000257_提交人"></span><span>:</span>
             </div>
-            <div class="item-value" v-html="dataModel.loginid"></div>
+            <div class="item-value auto-line-feed" v-html="dataModel.loginid"></div>
         </div>
 
         <div class="item f14">
@@ -39,56 +39,56 @@
             <div class="label">
                 <span class="lanText" data-lanid="1000259_职务"></span><span>:</span>
             </div>
-            <div class="item-value" v-html="dataModel.jobtitlename"></div>
+            <div class="item-value auto-line-feed" v-html="dataModel.jobtitlename"></div>
         </div>
 
         <div class="item f14">
             <div class="label">
                 <span class="lanText" data-lanid="1000260_所属部门"></span><span>:</span>
             </div>
-            <div class="item-value" v-html="dataModel.departmentname"></div>
+            <div class="item-value auto-line-feed" v-html="dataModel.departmentname"></div>
         </div>
 
         <div class="item f14">
             <div class="label">
                 <span class="lanText" data-lanid="1000277_项目名称"></span><span>:</span>
             </div>
-            <div class="item-value" v-html="dataModel.xiangmmc"></div>
+            <div class="item-value auto-line-feed" v-html="dataModel.xiangmmc"></div>
         </div>
 
         <div class="item f14">
             <div class="label">
                 <span class="lanText" data-lanid="1000261_计划签署日期"></span><span>:</span>
             </div>
-            <div class="item-value" v-html="dataModel.jihqsrq"></div>
+            <div class="item-value auto-line-feed" v-html="dataModel.jihqsrq"></div>
         </div>
 
         <div class="item f14">
             <div class="label">
                 <span class="lanText" data-lanid="1000262_项目亮点及航空公司背景简介"></span><span>:</span>
             </div>
-            <div class="item-value" v-html="dataModel.xiangmldjbj"></div>
+            <div class="item-value auto-line-feed" v-html="dataModel.xiangmldjbj"></div>
         </div>
 
         <div class="item f14">
             <div class="label">
                 <span class="lanText" data-lanid="1000263_交付部审阅意见"></span><span>:</span>
             </div>
-            <div class="item-value" v-html="dataModel.jiaofbyj"></div>
+            <div class="item-value auto-line-feed" v-html="dataModel.jiaofbyj"></div>
         </div>
 
         <div class="item f14">
             <div class="label">
                 <span class="lanText" data-lanid="1000264_工程部审阅意见"></span><span>:</span>
             </div>
-            <div class="item-value" v-html="dataModel.gongcbyj"></div>
+            <div class="item-value auto-line-feed" v-html="dataModel.gongcbyj"></div>
         </div>
 
         <div class="item f14">
             <div class="label">
                 <span class="lanText" data-lanid="1000265_法务部审阅意见"></span><span>:</span>
             </div>
-            <div class="item-value" v-html="dataModel.fawbyj"></div>
+            <div class="item-value auto-line-feed" v-html="dataModel.fawbyj"></div>
         </div>
 
         <div class="item f14">
@@ -132,28 +132,28 @@
             <div class="label">
                 <span class="lanText" data-lanid="1000269_税务团队审阅意见"></span><span>:</span>
             </div>
-            <div class="item-value" v-html="dataModel.shuiwtdyj"></div>
+            <div class="item-value auto-line-feed" v-html="dataModel.shuiwtdyj"></div>
         </div>
 
         <div class="item f14">
             <div class="label">
                 <span class="lanText" data-lanid="1000270_首席运营官审阅意见"></span><span>:</span>
             </div>
-            <div class="item-value" v-html="dataModel.shouxyygyj"></div>
+            <div class="item-value auto-line-feed" v-html="dataModel.shouxyygyj"></div>
         </div>
 
         <div class="item f14">
             <div class="label">
                 <span class="lanText" data-lanid="1000271_首席商务官审批"></span><span>:</span>
             </div>
-            <div class="item-value" v-html="dataModel.shouxswg"></div>
+            <div class="item-value auto-line-feed" v-html="dataModel.shouxswg"></div>
         </div>
 
         <div class="item f14">
             <div class="label">
                 <span class="lanText" data-lanid="1000272_飞机租赁总监意见"></span><span>:</span>
             </div>
-            <div class="item-value" v-html="dataModel.feijzlzjyj"></div>
+            <div class="item-value auto-line-feed" v-html="dataModel.feijzlzjyj"></div>
         </div>
 
         <div class="item f14">
@@ -197,7 +197,7 @@
                     <span class="lanText" data-lanid="1000275_合同签署日期"></span>
                     <span v-html="dataModel.hetqsrq"></span>
                   </div>
-                  <div v-html="dataModel.shenhyj"></div>
+                  <div class="auto-line-feed" v-html="dataModel.shenhyj"></div>
             </div>
         </div>
 
@@ -319,7 +319,7 @@ export default {
                 document.activeElement.blur();
             }
         });
-       
+
       }
   }
 }
@@ -371,6 +371,10 @@ header.mui-bar {
 }
 .item-value{
     color:#545454;
+}
+.auto-line-feed{
+    word-wrap: break-word;
+    word-break: normal;
 }
 
 .item-value label{
