@@ -280,7 +280,7 @@ export default {
                     objDest.find(".ActionCount:first").text(countTemp);
 
                     //改变状态
-                    if (dataEven == 'fabulous') {
+                     if (dataEven == 'fabulous') {
                         //若当前是已点赞
                         if (isCurrentUserDoTemp >= 1) {
                             curObj.addClass('calc-zan').removeClass('calc-zan1');

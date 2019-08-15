@@ -6,7 +6,7 @@
             <!-- <a @click="relationAction" class="calcfont calc-gou right" id=""></a> -->
     </header>
 
-    <div class="page-content">
+    <div class="page-content disable">
         <div class="item f14">
             <div class="label">
                 <span class="lanText" data-lanid="563_编号"></span><span>:</span>
@@ -360,11 +360,28 @@ header.mui-bar {
     line-height: 0.88rem;
 }
 
+
+.disable {
+    pointer-events: none;
+}
+
 .page-content{
   padding-top:0.88rem;
   padding:1rem 10px 10px 10px;
 }
-
+.item{
+    position: relative;
+    padding-bottom:10px;
+}
+.item::after{
+    position: absolute;
+    content: "";
+    left: 0;
+    right:0;
+    bottom: 0;
+    height: 1px;
+    background-color: beige;
+}
 .label{
   padding:8px 0;
   color:#000;
