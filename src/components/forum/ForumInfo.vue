@@ -175,7 +175,7 @@ export default {
                         return;
                     }
                     data = data._OnlyOneData || {};
-                    console.log("data>>>>" + JSON.stringify(data));
+                    // console.log("data>>>>" + JSON.stringify(data));
 
                     //处理帖子标签
                     var tarName = data.TagName || "";
@@ -575,7 +575,10 @@ body {
     margin: 0px !important;
 }
 .vue-html5-editor>.toolbar>ul{
-  border-bottom: none;
+  border-bottom: none!important;
+}
+.vue-html5-editor>.toolbar::before{
+  height: 0;
 }
 </style>
 
