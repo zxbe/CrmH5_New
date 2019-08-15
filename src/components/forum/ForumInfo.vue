@@ -57,7 +57,7 @@
         <input @click="replyAskClick" class="replyBtn" type="text" readonly="readonly" placeholder="想对Ta说点什么">
     </div>
     <div class="replyDiv">
-        <textarea id="ask" class="reply" placeholder="想对Ta说点什么" rows="3"></textarea>
+        <textarea id="ask" class="reply replyContent" placeholder="想对Ta说点什么" rows="3"></textarea>
         <div @click="sendClick" id="sendBtn" class="send">发送</div>
     </div>
     <div id="closeThis" class="elastic-layer">
@@ -310,20 +310,70 @@ export default {
         },
         //发送事件
         sendClick: function () {
+            let _self = this;
             var sendObj = $("#sendBtn");
-            if (sendObj.hasClass("active")) {
-                console.log("send:" + $('textarea#ask').val());
-            } else {
-                console.log("no send......");
+            if (!sendObj.hasClass("active")) {
+                return false;
             }
+
+            var urlTemp = tool.AjaxBaseUrl();
+            var controlName = tool.Api_ForumHandle_ReplyPostSaveOrUpdate;
+            //传入参数
+            var jsonDatasTemp = {
+                CurrentLanguageVersion: lanTool.currentLanguageVersion,
+                UserName: tool.UserName(),
+                _ControlName: controlName,
+                _RegisterCode: tool.RegisterCode(),
+                ParentID:_self.id,
+                HtmlContent:$("textarea.replyContent").val()||"",
+                Content:$("textarea.replyContent").val()||"",
+                AutoID:-1,
+            };
+            //console.log(jsonDatasTemp);
+            var loadingIndexClassName = tool.showLoading();
+            $.ajax({
+                async: true,
+                type: "post",
+                url: urlTemp,
+                data: jsonDatasTemp,
+                success: function (data) {
+                    try {
+                        tool.hideLoading(loadingIndexClassName);
+                        data = tool.jObject(data);
+                        if (data._ReturnStatus == false) {
+                            tool.showText(tool.getMessage(data));
+                            return true;
+                        }
+
+                        //重新查询当前记录
+                        _self.QueryPost();
+                    }
+                    catch (err) {
+                        tool.hideLoading(loadingIndexClassName);
+                        console.log(err);
+                    } finally {
+
+                    }
+                },
+                error: function (jqXHR, type, error) {
+                    console.log(error);
+                    tool.hideLoading(loadingIndexClassName);
+                    return true;
+                },
+                complete: function () {
+                    //隐藏虚拟键盘
+                    document.activeElement.blur();
+                }
+            });
         },
         //回复点击事件
         replyAskClick: function () {
-            $(".replyDiv").show();
+
+            $(".replyDiv").show().find("textarea#ask").val("");
             $('textarea#ask').focus();
             $('textarea#ask').off('blur').on('blur', function () {
                 setTimeout(() => {
-                    console.log('blur');
+                    // console.log('blur');
                     $(".replyDiv").hide();
                 }, 10);
             });
