@@ -373,7 +373,7 @@ import config from '../../configfile/config.js'
 	 /*
 	 * 查询关联会议列表
 	 */
-	tool.Api_MeetingHandle_QueryRelatedMeeting = "Api_MeetingHandle_QueryRelatedMeeting"; 
+	tool.Api_MeetingHandle_QueryRelatedMeeting = "Api_MeetingHandle_QueryRelatedMeeting";
   	/*
 	 * 查询未上传会议记录的会议列表
 	 */
@@ -2642,7 +2642,7 @@ import config from '../../configfile/config.js'
 							}
 						});
 
-					}, 100);
+					}, 300);
 
 				},
 				error: function (jqXHR, type, error) {
