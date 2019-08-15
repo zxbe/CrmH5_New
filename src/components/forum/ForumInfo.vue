@@ -7,7 +7,7 @@
         <a v-show="!isClose" @click="closeClick" class="calcfont calc-jieshu right" :data-AutoID="infoDataList.AutoID" id="close"></a>
         <a v-show="!isClose" @click="delClick" class="calcfont calc-shanchu right" :data-AutoID="infoDataList.AutoID" id="delete"></a>
     </header>
-    <div class="pageContent">
+    <div v-show="!noData" class="pageContent">
         <p class="forumTitle" :data-AutoID="infoDataList.AutoID" :data-TagID="infoDataList.TagID">{{infoDataList.Theme}}</p>
         <div class="forumContentDiv">
             <img class="userHeadImg" src="../../assets/images/forum/default_user_img.png" alt="">
@@ -65,30 +65,46 @@
         <textarea id="ask" class="reply replyContent" placeholder="想对Ta说点什么" rows="3"></textarea>
         <div @click="sendClick" id="sendBtn" class="send">发送</div>
     </div>
+    <!-- 关闭弹层 -->
     <div id="closeThis" class="elastic-layer">
         <div class="elastic-layer-content">
             <div class="elastic-layer-title lanText f18" data-lanid="1060_帖子结果"></div>
 
             <div class="elastic-layer-items">
                 <div class="elastic-layer-item f14">
-                    <span class="nessesary f18">*</span>
-                    <div class="ListCellContentLeft leftContent">
+
+                    <!-- <div class="ListCellContentLeft leftContent">
                         <div class="ListCellContentLeftText lanText" data-lanid="1060_帖子结果"></div>
-                    </div>
-                    <div class="ListCellContentRight rightContent">
-                        <input type="text" data-field="Result" data-lanid="1060_帖子结果" data-fieldControlType="picker" data-fieldVal="" Code="DropDowList_DtbAllTypes" TypeValue="PostResult" class="ListCellContentRightText" />
-                    </div>
-                    <!-- <div class="ListCellContentRight rightContent">
-                        <input type="text"
-                              data-field="Matter"
-                              data-lanid="947_商业事项"
-                              data-fieldControlType="picker"
-                              data-fieldVal=""
-                              Code="DropDowList_DtbAllTypes"
-                              TypeValue="Matter"
-                              class="ListCellContentRightText"/>
                     </div> -->
-                    <div class="ListCellRightIcon"><span class="calcfont calc-you"></span></div>
+                    <!-- <div class="ListCellContentRight rightContent">
+                        <input type="text" data-field="Result" data-lanid="1060_帖子结果"
+                        data-fieldControlType="picker" data-fieldVal="" Code="DropDowList_DtbAllTypes"
+                        TypeValue="PostResult" class="ListCellContentRightText" />
+                    </div>
+                    <div class="ListCellRightIcon"><span class="calcfont calc-you"></span></div> -->
+
+
+                    <span class="calcfont calc-jieguo icon-left"></span>
+                    <div class="item-right">
+                        <div class="item-row">
+                            <div class="lanText label-text" data-lanid="1060_帖子结果"></div>
+                        </div>
+                        <div class="item-row border-bottom">
+                            <div class="ListCellContentRight">
+                                <input type="text"
+                                      data-field="Result"
+                                      data-lanid="1060_帖子结果"
+                                      data-fieldControlType="picker"
+                                      data-fieldVal=""
+                                      Code="DropDowList_DtbAllTypes"
+                                      TypeValue="PostResult"
+                                      class="ListCellContentRightText"/>
+                            </div>
+                            <span class="calcfont calc-you"></span>
+                        </div>
+                    </div>
+
+
                 </div>
             </div>
             <div class="btn-div">
@@ -123,6 +139,7 @@ export default {
             isClose: false, //当前帖子是否关闭
             isEdit:true,//当前帖子是否可编辑
             infoDataList: {},
+            noData:true,
         }
     },
     created: function () {
@@ -174,6 +191,7 @@ export default {
                         console.log(tool.getMessage(data));
                         return;
                     }
+                    _self.noData = false;
                     data = data._OnlyOneData || {};
                     // console.log("data>>>>" + JSON.stringify(data));
 
@@ -575,7 +593,10 @@ body {
     margin: 0px !important;
 }
 .vue-html5-editor>.toolbar>ul{
-  border-bottom: none;
+  border-bottom: none!important;
+}
+.vue-html5-editor>.toolbar::before{
+  height: 0;
 }
 .vue-html5-editor .content{
     min-height: 80px !important;

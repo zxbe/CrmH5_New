@@ -378,17 +378,17 @@ span.calcfont.calc-shoucang {
   color: #cdcdcd;
   font-size: .32rem;
 }
-.nessesary {
+/* .nessesary {
   color: red;
   padding-right: 5px;
-}
+} */
 
 #LoseReason-div,#LoseReasonOther-div,#MatterOther-div{display: none;}
 .ListCellRightIcon .calcfont{color:#cdcdcd;}
-.MSN_lable::after{
+/* .MSN_lable::after{
   content: ":";
   padding:0 5px;
-}
+} */
 
 
 /*按钮*/

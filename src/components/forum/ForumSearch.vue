@@ -2,7 +2,7 @@
 <div>
     <header class="mui-bar mui-bar-nav">
         <a @click="back" class="calcfont calc-fanhui left" id="back"></a>
-        <div class="searchDiv"><input @keyup.enter="submit" @focus="searchFocus" id="searchAskInput" class="searchText" type="search" value=""></div>
+        <div class="searchDiv"><input @keyup.enter="submit" @focus="searchFocus" id="searchAskInput" class="searchText f14" type="search" value=""></div>
         <div class="headLeftIconDiv">
             <a @click.stop="selectDropDownType" class="dropDownBtn calcfont calc-xiala"></a>
             <a @click="search" class="searchBtn calcfont calc-shaixuan2"></a>
@@ -12,7 +12,7 @@
         <a @click="selectTitleOrTag($event)" data-type="Other" class="selected"><i class="zen-visualization calcfont calc-gou"></i><span class="lanText" data-lanid="1000303_标题和内容"></span></a>
         <a @click="selectTitleOrTag($event)" data-type="Tag"><i class="zen-visualization calcfont calc-gou"></i><span class="lanText" data-lanid="1000302_标签"></span></a>
     </div>
-    <div v-show="!isFocus" class="searchSelectDiv">
+    <!-- <div v-show="!isFocus" class="searchSelectDiv">
 
         <div class="selectFilter">
             <a @click="filterDropDown($event)" class="filterBlock">
@@ -40,7 +40,7 @@
                 <li><a @click="selectSorttype($event)" data-fieldval="MostPopular" data-group="SortGroup" href="###" class="cxfeedtype cxRECENT"><i class="zen-visualization calcfont calc-gou"></i><span class="lanText" data-lanid="1000224_最受欢迎"></span></a></li>
             </ul>
         </div>
-    </div>
+    </div> -->
     <div v-show="!isFocus" class="list">
 
         <vue-scroll v-show="!noData" :showToTop="true" :options="{ pullup: true, pulldown: true }" :scrollbar="false" ref="scroll" @pulldown="pulldown" @pullup="pullup">
@@ -119,8 +119,8 @@ export default {
             pageSize: 10, //一页显示多少记录
             pageNum: 1, //当前页码
             isShowdropDown: false, //隐藏内容和标签的下拉列表
-            isShowFilter: false, //隐藏筛选的下拉列表
-            isShowSort: false, //隐藏排序的下拉列表
+            // isShowFilter: false, //隐藏筛选的下拉列表
+            // isShowSort: false, //隐藏排序的下拉列表
             isFocus: true,
             hotSearchData: [{
                     AutoID: "0",
@@ -260,8 +260,8 @@ export default {
             console.log("xiala");
             var _self = this;
             $(document).on('click', function (e) {
-                _self.isShowSort = false;
-                _self.isShowFilter = false;
+                // _self.isShowSort = false;
+                // _self.isShowFilter = false;
                 _self.isShowdropDown = false;
 
             });
@@ -323,64 +323,64 @@ export default {
             _self.isShowdropDown = false;
         },
         //筛选选择
-        selectFiltertype: function (e) {
-            var _self = this;
-            var el = e.target;
-            var obj;
-            if (e.target === e.currentTarget) {
-                obj = $(el);
-            } else {
-                obj = $(el).parent("a");
-            }
-            obj.addClass("selected");
-            var parent = obj.parent("li");
-            parent.siblings().find("a").removeClass("selected");
-            var val = obj.find("span").text();
-            $(".filterText").eq(0).text(val);
-            _self.isShowFilter = false;
+        // selectFiltertype: function (e) {
+        //     var _self = this;
+        //     var el = e.target;
+        //     var obj;
+        //     if (e.target === e.currentTarget) {
+        //         obj = $(el);
+        //     } else {
+        //         obj = $(el).parent("a");
+        //     }
+        //     obj.addClass("selected");
+        //     var parent = obj.parent("li");
+        //     parent.siblings().find("a").removeClass("selected");
+        //     var val = obj.find("span").text();
+        //     $(".filterText").eq(0).text(val);
+        //     _self.isShowFilter = false;
 
-        },
+        // },
         //排序选择
-        selectSorttype: function (e) {
-            var _self = this;
-            var el = e.target;
-            var obj;
-            if (e.target === e.currentTarget) {
-                obj = $(el);
-            } else {
-                obj = $(el).parent("a");
-            }
-            obj.addClass("selected");
-            var parent = obj.parent("li");
-            parent.siblings().find("a").removeClass("selected");
-            var val = obj.find("span").text();
-            $(".sortText").eq(0).text(val);
-            _self.isShowSort = false;
-        },
+        // selectSorttype: function (e) {
+        //     var _self = this;
+        //     var el = e.target;
+        //     var obj;
+        //     if (e.target === e.currentTarget) {
+        //         obj = $(el);
+        //     } else {
+        //         obj = $(el).parent("a");
+        //     }
+        //     obj.addClass("selected");
+        //     var parent = obj.parent("li");
+        //     parent.siblings().find("a").removeClass("selected");
+        //     var val = obj.find("span").text();
+        //     $(".sortText").eq(0).text(val);
+        //     _self.isShowSort = false;
+        // },
         //标题和标签下拉的展示和隐藏
         selectDropDownType: function () {
             var _self = this;
-            _self.isShowSort = false;
-            _self.isShowFilter = false;
+            // _self.isShowSort = false;
+            // _self.isShowFilter = false;
             _self.isShowdropDown = !_self.isShowdropDown;
         },
         //筛选下拉展示隐藏
-        filterDropDown: function (e) {
-            window.event ? window.event.cancelBubble = true : e.stopPropagation();
-            var _self = this;
-            _self.isShowSort = false;
-            _self.isShowdropDown = false;
-            _self.isShowFilter = !_self.isShowFilter;
+        // filterDropDown: function (e) {
+        //     window.event ? window.event.cancelBubble = true : e.stopPropagation();
+        //     var _self = this;
+        //     _self.isShowSort = false;
+        //     _self.isShowdropDown = false;
+        //     _self.isShowFilter = !_self.isShowFilter;
 
-        },
+        // },
         //排序下拉列表展示和隐藏
-        sortDropDown: function () {
-            window.event ? window.event.cancelBubble = true : e.stopPropagation();
-            var _self = this;
-            _self.isShowFilter = false;
-            _self.isShowdropDown = false;
-            _self.isShowSort = !_self.isShowSort;
-        },
+        // sortDropDown: function () {
+        //     window.event ? window.event.cancelBubble = true : e.stopPropagation();
+        //     var _self = this;
+        //     _self.isShowFilter = false;
+        //     _self.isShowdropDown = false;
+        //     _self.isShowSort = !_self.isShowSort;
+        // },
         goToInfo: function (num) {
             console.log("跳转到详情" + num);
             var _self = this;
