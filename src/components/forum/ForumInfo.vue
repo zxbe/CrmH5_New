@@ -7,7 +7,7 @@
         <a v-show="!isClose" @click="closeClick" class="calcfont calc-jieshu right" :data-AutoID="infoDataList.AutoID" id="close"></a>
         <a v-show="!isClose" @click="delClick" class="calcfont calc-shanchu right" :data-AutoID="infoDataList.AutoID" id="delete"></a>
     </header>
-    <div class="pageContent">
+    <div v-show="!noData" class="pageContent">
         <p class="forumTitle" :data-AutoID="infoDataList.AutoID" :data-TagID="infoDataList.TagID">{{infoDataList.Theme}}</p>
         <div class="forumContentDiv">
             <img class="userHeadImg" src="../../assets/images/forum/default_user_img.png" alt="">
@@ -123,6 +123,7 @@ export default {
             isClose: false, //当前帖子是否关闭
             isEdit:true,//当前帖子是否可编辑
             infoDataList: {},
+            noData:true,
         }
     },
     created: function () {
@@ -174,6 +175,7 @@ export default {
                         console.log(tool.getMessage(data));
                         return;
                     }
+                    _self.noData = false;
                     data = data._OnlyOneData || {};
                     // console.log("data>>>>" + JSON.stringify(data));
 
