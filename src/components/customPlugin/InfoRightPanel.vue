@@ -20,7 +20,7 @@
                 <div class="right-content-list-cell" v-show="isShowDealLink" @click="goToOpportunityListPage"><span class="mui-icon calcfont calc-jiezhishijianicon lanText" data-lanid="649_商业机会"></span></div>
                 <div class="right-content-list-cell" v-show="isShowSynchronizeLink" @click="SynchronousCamCardData"><span class="mui-icon calcfont calc-exchange lanText" data-lanid="1000193_同步CamCard数据"></span></div>
                 <div class="right-content-list-cell" v-show="isShowTransformLink" @click="transformTo"><span class="mui-icon calcfont calc-exchange lanText" data-lanid="1000239_转为交易"></span></div>
-                <div class="right-content-list-cell" v-show="loi !=''" @click="goToLoiinfo"><span class="mui-icon calcfont calc-profile lanText" data-lanid="1000227_LOI单号"></span></div>
+                <div class="right-content-list-cell" v-show="loi !='' && loi !=undefined && loi !=null" @click="goToLoiinfo"><span class="mui-icon calcfont calc-profile lanText" data-lanid="1000227_LOI单号"></span></div>
             </div>
         </div>
     </div>
