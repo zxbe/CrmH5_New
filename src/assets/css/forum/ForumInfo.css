@@ -65,8 +65,8 @@ header a {
     padding-bottom: 1rem;
 }
 .pageContent .forumTitle{
-    background-color: rgb(244, 243, 248);
-    font-size: 0.3rem;
+    /* background-color: rgb(244, 243, 248); */
+    font-size: 0.34rem;
     padding: 10px;
     font-weight: 700;
 }

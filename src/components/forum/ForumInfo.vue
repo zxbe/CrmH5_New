@@ -53,7 +53,7 @@
         </div>
 
     </div>
-    <div v-show="!isClose" class="replyBtnDiv">
+    <div v-show="isEdit" class="replyBtnDiv">
         <input @click="replyAskClick" class="replyBtn" type="text" readonly="readonly" placeholder="想对Ta说点什么">
     </div>
     <div class="replyDiv">
@@ -104,12 +104,13 @@ export default {
     },
     data() {
         return {
-            id:'',
+            id: '',
             isAddNew: true,
             onlyView: true,
             operation: false,
             ptitle: lanTool.lanContent("1000369_论坛详情"),
-            isClose:false,//当前帖子是否关闭
+            isClose: false, //当前帖子是否关闭
+            isEdit:true,//当前帖子是否可编辑
             infoDataList: {}
         }
     },
@@ -125,17 +126,17 @@ export default {
             _self.QueryPost();
         });
     },
-    beforeRouteLeave:function(to, from, next){
+    beforeRouteLeave: function (to, from, next) {
         //若从详情页回到论坛列表，则刷新论坛列表，
         //详情页可能操作了点赞，回帖，结帖，删帖等操作
-        if(to.name == 'forumlist'){
+        if (to.name == 'forumlist') {
             this.$store.commit('REMOVE_ITEM', 'forumlist');
         }
         next();
     },
     methods: {
         //查询帖子详情
-        QueryPost:function(){
+        QueryPost: function () {
             let _self = this;
             //api接口地址
             var urlTemp = tool.AjaxBaseUrl();
@@ -163,12 +164,14 @@ export default {
                         return;
                     }
                     data = data._OnlyOneData || {};
+                    console.log("data>>>>" + JSON.stringify(data));
+
                     //处理帖子标签
-                    var tarName = data.TagName||"";
+                    var tarName = data.TagName || "";
                     var tarNameArray = new Array();
-                    if(!tool.isNullOrEmptyObject(tarName)){
-                        var tarNameArrayTemp = tarName.split(",");                        
-                        for(var i=0;i<tarNameArrayTemp.length;i++){
+                    if (!tool.isNullOrEmptyObject(tarName)) {
+                        var tarNameArrayTemp = tarName.split(",");
+                        for (var i = 0; i < tarNameArrayTemp.length; i++) {
                             var obj = {
                                 AutoID: tarNameArrayTemp[i],
                                 TagName: tarNameArrayTemp[i],
@@ -178,6 +181,19 @@ export default {
                     }
                     data.TagNameList = tarNameArray;
                     _self.infoDataList = data;
+                    //控制编辑按钮逻辑
+                    var isCanEdit = (data["IsCanEdit"] || "false").toString();
+                    isCanEdit = $.trim(isCanEdit.toLowerCase());
+                    if (isCanEdit !== "true") {
+                       _self.isClose = true;
+                       _self.isEdit = true;
+                    }
+                    if (data.Status_ID == "71") {
+                        _self.isClose = true;
+                        _self.isEdit = false;
+                    }
+                    console.log("_self.infoDataList>>>" + JSON.stringify(_self.infoDataList.IsCanEdit));
+
                 },
                 error: function (jqXHR, type, error) {
                     tool.hideLoading(loadingIndexClassName);
@@ -261,7 +277,7 @@ export default {
                         console.log(tool.getMessage(data));
                         return;
                     }
-                    
+
                     //更新数量和状态
                     data = data._OnlyOneData;
                     if (tool.isNullOrEmptyObject(data)) {
@@ -280,7 +296,7 @@ export default {
                     objDest.find(".ActionCount:first").text(countTemp);
 
                     //改变状态
-                     if (dataEven == 'fabulous') {
+                    if (dataEven == 'fabulous') {
                         //若当前是已点赞
                         if (isCurrentUserDoTemp >= 1) {
                             curObj.addClass('calc-zan').removeClass('calc-zan1');
@@ -324,10 +340,10 @@ export default {
                 UserName: tool.UserName(),
                 _ControlName: controlName,
                 _RegisterCode: tool.RegisterCode(),
-                ParentID:_self.id,
-                HtmlContent:$("textarea.replyContent").val()||"",
-                Content:$("textarea.replyContent").val()||"",
-                AutoID:-1,
+                ParentID: _self.id,
+                HtmlContent: $("textarea.replyContent").val() || "",
+                Content: $("textarea.replyContent").val() || "",
+                AutoID: -1,
             };
             //console.log(jsonDatasTemp);
             var loadingIndexClassName = tool.showLoading();
@@ -347,8 +363,7 @@ export default {
 
                         //重新查询当前记录
                         _self.QueryPost();
-                    }
-                    catch (err) {
+                    } catch (err) {
                         tool.hideLoading(loadingIndexClassName);
                         console.log(err);
                     } finally {
@@ -401,18 +416,18 @@ export default {
         //编辑事件
         editClick: function () {
             var tagID = ($(".forumTitle").attr("data-TagID") || "");
-            var postID = ($(".forumTitle").attr("data-AutoID") || "");            
+            var postID = ($(".forumTitle").attr("data-AutoID") || "");
             var forumTitle = $(".forumTitle").text() || "";
             var content = $(".forumContentDiv p.content").text() || "";
             var parameter = {
-                tagID:tagID,
-                postID:postID,
-                forumTitle:forumTitle,
-                content:content,
-            };            
+                tagID: tagID,
+                postID: postID,
+                forumTitle: forumTitle,
+                content: content,
+            };
             this.$router.push({
-                path:'/forumposting',
-                query:parameter
+                path: '/forumposting',
+                query: parameter
             });
         },
         //关闭事件
@@ -464,8 +479,7 @@ export default {
 
                             //重新查询当前记录
                             _self.QueryPost();
-                        }
-                        catch (err) {
+                        } catch (err) {
                             tool.hideLoading(loadingIndexClassName);
                             console.log(err);
                         } finally {
@@ -500,7 +514,7 @@ export default {
                         UserName: tool.UserName(),
                         _ControlName: controlName,
                         _RegisterCode: tool.RegisterCode(),
-                        AutoID:JSON.stringify(autoIDArray)
+                        AutoID: JSON.stringify(autoIDArray)
                     };
                     //console.log(jsonDatasTemp);
                     var loadingIndexClassName = tool.showLoading();
@@ -520,8 +534,7 @@ export default {
 
                                 //返回列表页
                                 _self.$router.back(-1);
-                            }
-                            catch (err) {
+                            } catch (err) {
                                 tool.hideLoading(loadingIndexClassName);
                                 console.log(err);
                             } finally {
@@ -550,7 +563,7 @@ export default {
 @import "../../assets/css/pages/calendarinfo.css";
 @import "../../assets/css/forum/ForumInfo.css";
 
-body{
-margin: 0px !important;
+body {
+    margin: 0px !important;
 }
 </style>
