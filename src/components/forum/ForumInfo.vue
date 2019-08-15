@@ -6,9 +6,9 @@
 
         <h1 class="mui-title f18">{{ptitle}}</h1>
 
-        <a @click="editClick" class="calcfont calc-fa-edit right" :data-AutoID="infoDataList.AutoID" id="edit"></a>
-        <a @click="closeClick" class="calcfont calc-jieshu right" :data-AutoID="infoDataList.AutoID" id="close"></a>
-        <a @click="delClick" class="calcfont calc-shanchu right" :data-AutoID="infoDataList.AutoID" id="delete"></a>
+        <a v-show="!isClose" @click="editClick" class="calcfont calc-fa-edit right" :data-AutoID="infoDataList.AutoID" id="edit"></a>
+        <a v-show="!isClose" @click="closeClick" class="calcfont calc-jieshu right" :data-AutoID="infoDataList.AutoID" id="close"></a>
+        <a v-show="!isClose" @click="delClick" class="calcfont calc-shanchu right" :data-AutoID="infoDataList.AutoID" id="delete"></a>
     </header>
     <div class="pageContent">
         <p class="forumTitle" :data-AutoID="infoDataList.AutoID" :data-TagID="infoDataList.TagID">{{infoDataList.Theme}}</p>
@@ -56,7 +56,7 @@
         </div>
 
     </div>
-    <div class="replyBtnDiv">
+    <div v-show="!isClose" class="replyBtnDiv">
         <input @click="replyAskClick" class="replyBtn" type="text" readonly="readonly" placeholder="想对Ta说点什么">
     </div>
     <div class="replyDiv">
@@ -111,6 +111,7 @@ export default {
             onlyView: true,
             operation: false,
             ptitle: lanTool.lanContent("1000369_论坛详情"),
+            isClose:false,//当前帖子是否关闭
             infoDataList: {
                 AutoID: "3",
                 TagID: "1,2,3,4,5,6,7",
@@ -358,7 +359,6 @@ export default {
         },
         //编辑事件
         editClick: function () {
-            console.log("编辑");
             var tagID = ($(".forumTitle").attr("data-TagID") || "");
             var postID = ($(".forumTitle").attr("data-AutoID") || "");            
             var forumTitle = $(".forumTitle").text() || "";
