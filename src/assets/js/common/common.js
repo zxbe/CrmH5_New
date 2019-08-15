@@ -228,6 +228,20 @@
     }
   };
 
+  /**
+   * 按照数组内指定对象的属性排序
+  */
+  Array.prototype.SortObj = function(pro,sortOrder){
+	  return this.sort( 
+	  function(obj1,obj2){
+		  sortOrder = (sortOrder == null || sortOrder == undefined || sortOrder == "")?"asc":sortOrder;
+		  sortOrder = $.trim(sortOrder).toLowerCase();
+		  var val1 = obj1[pro] == null ? "" : obj1[pro];
+		  var val2 = obj2[pro] == null ? "" : obj2[pro];
+		  return sortOrder == "asc" ? val1>=val2 : val1<val2;
+	  });
+  }
+
 }(jQuery, window));
 
 
@@ -541,6 +555,11 @@ import config from '../../configfile/config.js'
 	 * LOI单详情查询
 	 */
 	tool.Api_OALOIHandle_QuerySingle = "Api_OALOIHandle_QuerySingle";
+
+	/*
+	 * 用户列表查询
+	 */
+	tool.Api_BaseUserBaseInfHandle_Query = "Api_BaseUserBaseInfHandle_Query";
 
 	/*
 	 * ADBAjaxUrl:ADB系统请求的api地址

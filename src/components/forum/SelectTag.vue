@@ -77,8 +77,9 @@ export default {
     },
     created:function(){
       var _self = this;
+      //获取已选择的标签
       _self.selectTagData = _self.$route.params.selectTags || [];
-
+      //获取全部标签
       _self.getAllTag();
     },
     mounted:function(){
@@ -101,12 +102,10 @@ export default {
 
                 _self.selectTagData.push(newTag);
             }
-
             //保存到 store 中 ,先清空再保存
             _self.$store.commit('SET_SELECT_TAGS');
             _self.$store.commit('SET_SELECT_TAGS', _self.selectTagData);
             _self.$router.back(-1);
-
         },
         //移除已选的标签
         removeTag:function(id){
@@ -118,7 +117,6 @@ export default {
             _self.selectTagData = _self.selectTagData.filter(function(obj){
                 return obj.AutoID != id ? true : false;
             });
-
             //移除dom中的active类
             $('div[data-id="'+id+'"]').removeClass('active');
 
@@ -150,117 +148,55 @@ export default {
         //获取所有标签
         getAllTag:function(){
           var _self = this;
-          //1.去请求接口
-
+          //api接口地址
+          var urlTemp = tool.AjaxBaseUrl();
+          var controlName = tool.Api_ForumHandle_TagQuery;
+          var jsonDatasTemp = {
+              CurrentLanguageVersion: lanTool.currentLanguageVersion,
+              UserName: tool.UserName(),
+              _ControlName: controlName,
+              _RegisterCode: tool.RegisterCode(),
+              IsUsePager: false,
+              PageSize: 1,
+              PageNum: 10,
+              QueryCondiction: [],
+              IsContainAll: false
+          };
           var loadingIndexClassName = tool.showLoading();
-          var data = [
-                {
-                  "AutoID": 7,
-                  "Name": "Web",
-                  "InternalSort": null,
-                  "PostCount": 18,
-                  "IsFollow": "fa-star"
-                }, {
-                  "AutoID": 8,
-                  "Name": "JS",
-                  "InternalSort": null,
-                  "PostCount": 8,
-                  "IsFollow": "fa-star-o"
-                }, {
-                  "AutoID": 11,
-                  "Name": "python",
-                  "InternalSort": null,
-                  "PostCount": 4,
-                  "IsFollow": "fa-star-o"
-                }, {
-                  "AutoID": 14,
-                  "Name": "C#",
-                  "InternalSort": 100,
-                  "PostCount": 1,
-                  "IsFollow": "fa-star-o"
-                }, {
-                  "AutoID": 13,
-                  "Name": "React",
-                  "InternalSort": null,
-                  "PostCount": 2,
-                  "IsFollow": "fa-star-o"
-                }, {
-                  "AutoID": 4,
-                  "Name": "Boeing",
-                  "InternalSort": null,
-                  "PostCount": 4,
-                  "IsFollow": "fa-star-o"
-                }, {
-                  "AutoID": 5,
-                  "Name": "CALC",
-                  "InternalSort": null,
-                  "PostCount": 2,
-                  "IsFollow": "fa-star-o"
-                }, {
-                  "AutoID": 10,
-                  "Name": "NodeJS",
-                  "InternalSort": null,
-                  "PostCount": 3,
-                  "IsFollow": "fa-star-o"
-                }, {
-                  "AutoID": 6,
-                  "Name": "M737Max",
-                  "InternalSort": null,
-                  "PostCount": 1,
-                  "IsFollow": "fa-star-o"
-                }, {
-                  "AutoID": 3,
-                  "Name": "AirBus",
-                  "InternalSort": null,
-                  "PostCount": 1,
-                  "IsFollow": "fa-star-o"
-                }, {
-                  "AutoID": 15,
-                  "Name": "前端",
-                  "InternalSort": null,
-                  "PostCount": 3,
-                  "IsFollow": "fa-star-o"
-                }, {
-                  "AutoID": 2,
-                  "Name": "MRO",
-                  "InternalSort": null,
-                  "PostCount": 2,
-                  "IsFollow": "fa-star-o"
-                }, {
-                  "AutoID": 12,
-                  "Name": "m787",
-                  "InternalSort": null,
-                  "PostCount": 2,
-                  "IsFollow": "fa-star-o"
-                }, {
-                  "AutoID": 9,
-                  "Name": "Proxy",
-                  "InternalSort": null,
-                  "PostCount": 2,
-                  "IsFollow": "fa-star-o"
-                }, {
-                  "AutoID": 16,
-                  "Name": "A320",
-                  "InternalSort": null,
-                  "PostCount": 1,
-                  "IsFollow": "fa-star-o"
-                }
-          ]
-
-          //2.请求成功后，把用户已选的标签AutoID为-1的增加到data中
-          setTimeout(function(){
-
-              //循环selectTagData找出AutoID为-1
-              $.each(_self.selectTagData, function(index, item){
-                  if(item.AutoID == -1){
-                      data.push(item);
+          $.ajax({
+              async: true,
+              type: "post",
+              url: urlTemp,
+              data: jsonDatasTemp,
+              success: function (data) {
+                  tool.hideLoading(loadingIndexClassName);
+                  data = tool.jObject(data);
+                  // console.log(data);
+                  if (data._ReturnStatus == false) {
+                      tool.showText(tool.getMessage(data));
+                      console.log(tool.getMessage(data));
+                      return;
                   }
-              })
-              _self.allTagData = data;
-              tool.hideLoading(loadingIndexClassName);
-
-          },500)
-
+                  data = data._OnlyOneData.Rows || [];
+                  
+                  //循环selectTagData找出AutoID为-1
+                  $.each(_self.selectTagData, function(index, item){
+                      if(item.AutoID <= -1){
+                          data.push(item);
+                      }
+                  })
+                  _self.allTagData = data;
+              },
+              error: function (jqXHR, type, error) {
+                  tool.hideLoading(loadingIndexClassName);
+                  console.log(error);
+                  return true;
+              },
+              complete: function () {
+                  //隐藏虚拟键盘
+                  document.activeElement.blur();
+              }
+          });
         }
     }
 }

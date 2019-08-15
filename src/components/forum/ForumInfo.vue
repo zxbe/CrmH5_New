@@ -577,6 +577,9 @@ body {
 .vue-html5-editor>.toolbar>ul{
   border-bottom: none;
 }
+.vue-html5-editor .content{
+    min-height: 80px !important;
+}
 </style>
 
 <style scoped>
@@ -585,5 +588,4 @@ body {
 .vue-html5-editor{
   border: none;
 }
-
 </style>

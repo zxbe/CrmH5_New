@@ -60,9 +60,9 @@
                 :scrollbar="false" ref="scroll">
                     <!-- 列表 -->
                     <div class="dataList checkboxList">
-                        <div v-for="item in userList" :key="item.id" class="item-div">
+                        <div v-for="item in userList" :key="item.AutoID" class="item-div">
                             <label class="checkbox-label">
-                            <input type="checkbox" name="checkbox" :value="item.id" v-model="checkboxValue"/><i class="checkbox"></i><span class="radios f14">{{item.text}}</span>
+                            <input type="checkbox" name="checkbox" :value="item.AutoID" v-model="checkboxValue"/><i class="checkbox"></i><span class="radios f14">{{item.Realname}}</span>
                         </label>
                         </div>
                     </div>
@@ -103,1250 +103,19 @@ export default {
         selectTags:[], //用户选择的标签
         sel:{},
         range:{},
-
         showLayer:false, //是否显示弹出选择@用户
         noData: false, //没数据
         userList: [
-          {
-            "id": 52,
-            "text": "abeyeung楊舒雅"
-          }, {
-            "id": 558,
-            "text": "ada kwong"
-          }, {
-            "id": 398,
-            "text": "Ada Wong"
-          }, {
-            "id": 410,
-            "text": "Alan Foley"
-          }, {
-            "id": 11,
-            "text": "alancheng鄭兆麟"
-          }, {
-            "id": 560,
-            "text": "Alexandre Ly"
-          }, {
-            "id": 269,
-            "text": "alfredho何漢麟"
-          }, {
-            "id": 32,
-            "text": "alikaleung梁芷殷"
-          }, {
-            "id": 279,
-            "text": "AlisaXiong熊嶺"
-          }, {
-            "id": 335,
-            "text": "Alistair"
-          }, {
-            "id": 420,
-            "text": "Amanda Ng"
-          }, {
-            "id": 40,
-            "text": "amilia song"
-          }, {
-            "id": 19,
-            "text": "amy kung"
-          }, {
-            "id": 229,
-            "text": "amysong宋江南"
-          }, {
-            "id": 300,
-            "text": "Andrew Pan"
-          }, {
-            "id": 110,
-            "text": "andyfu付宇宸"
-          }, {
-            "id": 377,
-            "text": "ani tang"
-          }, {
-            "id": 67,
-            "text": "anita tian"
-          }, {
-            "id": 359,
-            "text": "Anita Wong"
-          }, {
-            "id": 545,
-            "text": "anna lu"
-          }, {
-            "id": 89,
-            "text": "annalu盧鑫"
-          }, {
-            "id": 127,
-            "text": "annazhang張爭娜"
-          }, {
-            "id": 281,
-            "text": "AnnaZhao趙二娜"
-          }, {
-            "id": 228,
-            "text": "anniezeng曾文芳"
-          }, {
-            "id": 78,
-            "text": "annyliu劉靜"
-          }, {
-            "id": 139,
-            "text": "aoniruan阮毅文"
-          }, {
-            "id": 185,
-            "text": "aven yu"
-          }, {
-            "id": 3,
-            "text": "barry mok"
-          }, {
-            "id": 183,
-            "text": "belinda li"
-          }, {
-            "id": 276,
-            "text": "BellaZhang張丹華"
-          }, {
-            "id": 339,
-            "text": "BettyChu"
-          }, {
-            "id": 41,
-            "text": "bill hui"
-          }, {
-            "id": 501,
-            "text": "BK_BackAdmin测试"
-          }, {
-            "id": 440,
-            "text": "bobby Nishi"
-          }, {
-            "id": 375,
-            "text": "Brenda Mawson"
-          }, {
-            "id": 155,
-            "text": "brendan hoare"
-          }, {
-            "id": 277,
-            "text": "Brian Connolly"
-          }, {
-            "id": 373,
-            "text": "Brian Tchang"
-          }, {
-            "id": 212,
-            "text": "brightmu穆春光"
-          }, {
-            "id": 233,
-            "text": "brucelee郦韦臻"
-          }, {
-            "id": 255,
-            "text": "btchang"
-          }, {
-            "id": 342,
-            "text": "CandyLeung"
-          }, {
-            "id": 191,
-            "text": "carlostse謝嘉傑"
-          }, {
-            "id": 331,
-            "text": "CarmenYau"
-          }, {
-            "id": 126,
-            "text": "cassiewu吳琳芸"
-          }, {
-            "id": 267,
-            "text": "cbrewer"
-          }, {
-            "id": 383,
-            "text": "CCOtest"
-          }, {
-            "id": 329,
-            "text": "CeciliaLau"
-          }, {
-            "id": 500,
-            "text": "ceshi测试用"
-          }, {
-            "id": 219,
-            "text": "championchang常平"
-          }, {
-            "id": 434,
-            "text": "Chan Kam Lai"
-          }, {
-            "id": 435,
-            "text": "Chan Man Ting"
-          }, {
-            "id": 451,
-            "text": "Chan Mei Yuk"
-          }, {
-            "id": 409,
-            "text": "Chan San Hei Alan"
-          }, {
-            "id": 419,
-            "text": "Chan Wai Shan"
-          }, {
-            "id": 456,
-            "text": "Chan Yick Huen"
-          }, {
-            "id": 90,
-            "text": "charles zhou"
-          }, {
-            "id": 190,
-            "text": "cheeseho何詠姿"
-          }, {
-            "id": 129,
-            "text": "cheryl xiong"
-          }, {
-            "id": 21,
-            "text": "chester wong"
-          }, {
-            "id": 436,
-            "text": "Cheuk Shan Shan"
-          }, {
-            "id": 130,
-            "text": "chirstang唐敏"
-          }, {
-            "id": 145,
-            "text": "christian mccormick"
-          }, {
-            "id": 318,
-            "text": "ChristianMcCormick"
-          }, {
-            "id": 143,
-            "text": "christine koch"
-          }, {
-            "id": 38,
-            "text": "christy wong"
-          }, {
-            "id": 26,
-            "text": "colin tang"
-          }, {
-            "id": 382,
-            "text": "COOTest"
-          }, {
-            "id": 161,
-            "text": "Corley Matt"
-          }, {
-            "id": 149,
-            "text": "craig steinberg"
-          }, {
-            "id": 316,
-            "text": "CraigSteinberg"
-          }, {
-            "id": 282,
-            "text": "crm admin"
-          }, {
-            "id": 258,
-            "text": "cstotts"
-          }, {
-            "id": 387,
-            "text": "Cyrus Wan"
-          }, {
-            "id": 461,
-            "text": "darren lee"
-          }, {
-            "id": 86,
-            "text": "davide li"
-          }, {
-            "id": 151,
-            "text": "davidmorris"
-          }, {
-            "id": 244,
-            "text": "DefmondLin"
-          }, {
-            "id": 234,
-            "text": "deniselin林环丹"
-          }, {
-            "id": 152,
-            "text": "dennis christopher"
-          }, {
-            "id": 380,
-            "text": "Department01"
-          }, {
-            "id": 381,
-            "text": "department02"
-          }, {
-            "id": 444,
-            "text": "Derek Lam"
-          }, {
-            "id": 345,
-            "text": "DerekChan"
-          }, {
-            "id": 226,
-            "text": "dianachen陈旭"
-          }, {
-            "id": 80,
-            "text": "dicyzhang張敏楠"
-          }, {
-            "id": 257,
-            "text": "dlowry"
-          }, {
-            "id": 321,
-            "text": "DoloresMalone"
-          }, {
-            "id": 273,
-            "text": "DouglasTam譚志良"
-          }, {
-            "id": 70,
-            "text": "du lea"
-          }, {
-            "id": 133,
-            "text": "dylanxu許少峰"
-          }, {
-            "id": 336,
-            "text": "EdmundLee"
-          }, {
-            "id": 222,
-            "text": "emilyli李淑燕"
-          }, {
-            "id": 378,
-            "text": "engineertest01"
-          }, {
-            "id": 379,
-            "text": "engineertest02"
-          }, {
-            "id": 422,
-            "text": "Enoch Ling"
-          }, {
-            "id": 271,
-            "text": "eric kong"
-          }, {
-            "id": 338,
-            "text": "EricNg"
-          }, {
-            "id": 66,
-            "text": "ethel lu"
-          }, {
-            "id": 333,
-            "text": "EvaTong"
-          }, {
-            "id": 220,
-            "text": "fabioliang梁晓龙"
-          }, {
-            "id": 12,
-            "text": "fanny kwok"
-          }, {
-            "id": 122,
-            "text": "fionafei費雯麗"
-          }, {
-            "id": 136,
-            "text": "fisherqu曲學洋"
-          }, {
-            "id": 134,
-            "text": "flyliao廖久飛"
-          }, {
-            "id": 203,
-            "text": "Frank huang"
-          }, {
-            "id": 218,
-            "text": "frankli李国峰"
-          }, {
-            "id": 439,
-            "text": "Franky Lai"
-          }, {
-            "id": 413,
-            "text": "Fung Kai Chuen"
-          }, {
-            "id": 550,
-            "text": "gabrielle du"
-          }, {
-            "id": 240,
-            "text": "gangyu虞刚"
-          }, {
-            "id": 235,
-            "text": "gavinwang王志刚"
-          }, {
-            "id": 453,
-            "text": "Geoffrey Dillon Leetch"
-          }, {
-            "id": 259,
-            "text": "ghill"
-          }, {
-            "id": 327,
-            "text": "GinaLai"
-          }, {
-            "id": 280,
-            "text": "GraceSun孫立媛"
-          }, {
-            "id": 108,
-            "text": "gracezhang張旭"
-          }, {
-            "id": 266,
-            "text": "gramdas"
-          }, {
-            "id": 56,
-            "text": "hannahchan陳允祈"
-          }, {
-            "id": 401,
-            "text": "hatty cheung"
-          }, {
-            "id": 201,
-            "text": "helen zhang"
-          }, {
-            "id": 176,
-            "text": "henrymok莫永佳"
-          }, {
-            "id": 170,
-            "text": "hilary tang"
-          }, {
-            "id": 559,
-            "text": "irene lo"
-          }, {
-            "id": 169,
-            "text": "Irene Yeung 楊凱欣"
-          }, {
-            "id": 91,
-            "text": "irene zhang"
-          }, {
-            "id": 205,
-            "text": "irisyang杨帆"
-          }, {
-            "id": 561,
-            "text": "ITAdmin"
-          }, {
-            "id": 274,
-            "text": "IvanLui呂雲浩"
-          }, {
-            "id": 236,
-            "text": "ivanyin尹元"
-          }, {
-            "id": 79,
-            "text": "ivyliu劉會娟"
-          }, {
-            "id": 27,
-            "text": "jack choi"
-          }, {
-            "id": 14,
-            "text": "jackpan潘耀文"
-          }, {
-            "id": 117,
-            "text": "james hou"
-          }, {
-            "id": 178,
-            "text": "jameschan陳浚軒"
-          }, {
-            "id": 393,
-            "text": "Janice Hui"
-          }, {
-            "id": 82,
-            "text": "jasenzhang張傑"
-          }, {
-            "id": 340,
-            "text": "JasmineTsang"
-          }, {
-            "id": 131,
-            "text": "jasonlin林劍"
-          }, {
-            "id": 230,
-            "text": "jasonxiao肖好锋"
-          }, {
-            "id": 346,
-            "text": "JasonZeng"
-          }, {
-            "id": 365,
-            "text": "Jeff Sabo"
-          }, {
-            "id": 358,
-            "text": "Jenny Yip"
-          }, {
-            "id": 177,
-            "text": "jennypow鮑玉珊"
-          }, {
-            "id": 162,
-            "text": "Jens Dunker"
-          }, {
-            "id": 35,
-            "text": "jessica lok"
-          }, {
-            "id": 81,
-            "text": "jessicali李雅倩"
-          }, {
-            "id": 65,
-            "text": "jessie zhao"
-          }, {
-            "id": 264,
-            "text": "jgravois"
-          }, {
-            "id": 332,
-            "text": "JimmyWoo"
-          }, {
-            "id": 251,
-            "text": "john leech"
-          }, {
-            "id": 17,
-            "text": "john wragg"
-          }, {
-            "id": 74,
-            "text": "jose shan"
-          }, {
-            "id": 256,
-            "text": "jsabo"
-          }, {
-            "id": 272,
-            "text": "judy chan"
-          }, {
-            "id": 64,
-            "text": "julia zhu"
-          }, {
-            "id": 73,
-            "text": "julie qi"
-          }, {
-            "id": 10,
-            "text": "kamen au"
-          }, {
-            "id": 442,
-            "text": "Kan Ki Chun Kelvin"
-          }, {
-            "id": 403,
-            "text": "Katherine Siu"
-          }, {
-            "id": 347,
-            "text": "KathyTsang"
-          }, {
-            "id": 551,
-            "text": "kelik wong"
-          }, {
-            "id": 242,
-            "text": "kelvindavidson"
-          }, {
-            "id": 61,
-            "text": "kelvinshing盛寶東"
-          }, {
-            "id": 59,
-            "text": "kelvintsang tsang"
-          }, {
-            "id": 270,
-            "text": "KennethLi李朝俊"
-          }, {
-            "id": 252,
-            "text": "keri"
-          }, {
-            "id": 231,
-            "text": "keriwright"
-          }, {
-            "id": 135,
-            "text": "kikizhu朱瑛"
-          }, {
-            "id": 83,
-            "text": "kittyyu於菁菁"
-          }, {
-            "id": 261,
-            "text": "kwilliams"
-          }, {
-            "id": 428,
-            "text": "Kwong Hei Man"
-          }, {
-            "id": 445,
-            "text": "Law Ka Ho"
-          }, {
-            "id": 394,
-            "text": "Lee Lai San"
-          }, {
-            "id": 447,
-            "text": "Lee Whelan"
-          }, {
-            "id": 371,
-            "text": "LegalteamTest"
-          }, {
-            "id": 71,
-            "text": "leon shen"
-          }, {
-            "id": 216,
-            "text": "leozhang張國明"
-          }, {
-            "id": 448,
-            "text": "Leung Chun Yin"
-          }, {
-            "id": 446,
-            "text": "lim adeline"
-          }, {
-            "id": 554,
-            "text": "lina chang"
-          }, {
-            "id": 53,
-            "text": "lindalam林嘉燕"
-          }, {
-            "id": 455,
-            "text": "Ling Ngai"
-          }, {
-            "id": 417,
-            "text": "Ling Siu Man Louise"
-          }, {
-            "id": 69,
-            "text": "lisa jiang"
-          }, {
-            "id": 237,
-            "text": "lisalai来依莎"
-          }, {
-            "id": 215,
-            "text": "liuyu刘宇"
-          }, {
-            "id": 141,
-            "text": "liying李營"
-          }, {
-            "id": 202,
-            "text": "lizhimin李志敏"
-          }, {
-            "id": 418,
-            "text": "Lo Chong Shing"
-          }, {
-            "id": 416,
-            "text": "Lo Sze Wan"
-          }, {
-            "id": 159,
-            "text": "lorrainemurphy"
-          }, {
-            "id": 137,
-            "text": "luoqingteng羅慶騰"
-          }, {
-            "id": 248,
-            "text": "Lvkun吕昆"
-          }, {
-            "id": 208,
-            "text": "lynnsun孙成林"
-          }, {
-            "id": 363,
-            "text": "Magdalena Szostok"
-          }, {
-            "id": 72,
-            "text": "maggie ma"
-          }, {
-            "id": 262,
-            "text": "mbrady"
-          }, {
-            "id": 87,
-            "text": "melody zhang"
-          }, {
-            "id": 364,
-            "text": "Michael Cairo"
-          }, {
-            "id": 227,
-            "text": "michael zhou"
-          }, {
-            "id": 225,
-            "text": "michaelzhao赵广毅"
-          }, {
-            "id": 144,
-            "text": "michela cera"
-          }, {
-            "id": 366,
-            "text": "Mike Kenney"
-          }, {
-            "id": 542,
-            "text": "mike poon"
-          }, {
-            "id": 211,
-            "text": "mikeli李春晖"
-          }, {
-            "id": 194,
-            "text": "mingchow周丽明"
-          }, {
-            "id": 42,
-            "text": "mirandawong王雅蘋"
-          }, {
-            "id": 263,
-            "text": "mkenney"
-          }, {
-            "id": 223,
-            "text": "nancybai白晓倩"
-          }, {
-            "id": 250,
-            "text": "nancyzhuang莊林"
-          }, {
-            "id": 396,
-            "text": "Nathan Chow"
-          }, {
-            "id": 441,
-            "text": "Ng Mun Ling Olivia"
-          }, {
-            "id": 146,
-            "text": "nicolas leopold"
-          }, {
-            "id": 148,
-            "text": "nicolas metzger"
-          }, {
-            "id": 319,
-            "text": "NicolasLeopold"
-          }, {
-            "id": 320,
-            "text": "NicolasMetzger"
-          }, {
-            "id": 24,
-            "text": "niel liebenberg"
-          }, {
-            "id": 88,
-            "text": "nolan pan"
-          }, {
-            "id": 167,
-            "text": "oscar qiu"
-          }, {
-            "id": 356,
-            "text": "overseatest"
-          }, {
-            "id": 357,
-            "text": "overseatest2"
-          }, {
-            "id": 140,
-            "text": "owenye葉國棟"
-          }, {
-            "id": 23,
-            "text": "patrick moh"
-          }, {
-            "id": 421,
-            "text": "Patrick Neo-M"
-          }, {
-            "id": 154,
-            "text": "patrick trant"
-          }, {
-            "id": 349,
-            "text": "PatrickNeo"
-          }, {
-            "id": 60,
-            "text": "patricksin冼子恩"
-          }, {
-            "id": 209,
-            "text": "pearlli李惠萍"
-          }, {
-            "id": 438,
-            "text": "peng thomas"
-          }, {
-            "id": 114,
-            "text": "peter xiong"
-          }, {
-            "id": 351,
-            "text": "petralai"
-          }, {
-            "id": 553,
-            "text": "petrina lam"
-          }, {
-            "id": 174,
-            "text": "ph chan"
-          }, {
-            "id": 13,
-            "text": "phillip siu"
-          }, {
-            "id": 355,
-            "text": "PhullaraWong"
-          }, {
-            "id": 221,
-            "text": "piaolongjie朴龙杰"
-          }, {
-            "id": 5,
-            "text": "pitney tang"
-          }, {
-            "id": 51,
-            "text": "pollytang鄧寶莉"
-          }, {
-            "id": 370,
-            "text": "PricingteamTest"
-          }, {
-            "id": 343,
-            "text": "PrisinnaLok"
-          }, {
-            "id": 367,
-            "text": "Projectpresenter"
-          }, {
-            "id": 557,
-            "text": "qin martin"
-          }, {
-            "id": 111,
-            "text": "qing fang"
-          }, {
-            "id": 147,
-            "text": "reinhard brissier"
-          }, {
-            "id": 330,
-            "text": "ReymondChung"
-          }, {
-            "id": 552,
-            "text": "richard luo"
-          }, {
-            "id": 549,
-            "text": "richard rong"
-          }, {
-            "id": 460,
-            "text": "richard spaulding"
-          }, {
-            "id": 556,
-            "text": "ridzuan ahmad"
-          }, {
-            "id": 171,
-            "text": "ringoyip叶文达"
-          }, {
-            "id": 199,
-            "text": "robertcai蔡逢春"
-          }, {
-            "id": 118,
-            "text": "rush li"
-          }, {
-            "id": 543,
-            "text": "Russell Hubbard"
-          }, {
-            "id": 341,
-            "text": "RussellHubbard"
-          }, {
-            "id": 153,
-            "text": "sally tang"
-          }, {
-            "id": 245,
-            "text": "samuelchow"
-          }, {
-            "id": 175,
-            "text": "samuelng吳大鵬"
-          }, {
-            "id": 360,
-            "text": "samueltpng"
-          }, {
-            "id": 350,
-            "text": "SarahYan"
-          }, {
-            "id": 449,
-            "text": "satrina ip"
-          }, {
-            "id": 156,
-            "text": "sean farnan"
-          }, {
-            "id": 306,
-            "text": "secretary"
-          }, {
-            "id": 253,
-            "text": "shawn"
-          }, {
-            "id": 232,
-            "text": "shawnkling"
-          }, {
-            "id": 22,
-            "text": "sherry han"
-          }, {
-            "id": 116,
-            "text": "shining shen"
-          }, {
-            "id": 397,
-            "text": "Shirley Yip"
-          }, {
-            "id": 15,
-            "text": "shuman kong"
-          }, {
-            "id": 334,
-            "text": "SimonLee"
-          }, {
-            "id": 210,
-            "text": "simonzhao赵欣明"
-          }, {
-            "id": 268,
-            "text": "sleathers"
-          }, {
-            "id": 132,
-            "text": "smilezhou周龙矩"
-          }, {
-            "id": 317,
-            "text": "StephaneDepeyre"
-          }, {
-            "id": 109,
-            "text": "summerzhang張智慧"
-          }, {
-            "id": 429,
-            "text": "Tan Wong"
-          }, {
-            "id": 369,
-            "text": "TaxteamTest"
-          }, {
-            "id": 458,
-            "text": "tba"
-          }, {
-            "id": 368,
-            "text": "TechnicalteamTest"
-          }, {
-            "id": 180,
-            "text": "tellywoo胡思穎"
-          }, {
-            "id": 544,
-            "text": "teresa chan"
-          }, {
-            "id": 18,
-            "text": "terry choi"
-          }, {
-            "id": 521,
-            "text": "test123"
-          }, {
-            "id": 541,
-            "text": "test123456"
-          }, {
-            "id": 173,
-            "text": "thomas tang"
-          }, {
-            "id": 376,
-            "text": "Tim Leo"
-          }, {
-            "id": 241,
-            "text": "timzhang张铭"
-          }, {
-            "id": 25,
-            "text": "tina zhang"
-          }, {
-            "id": 165,
-            "text": "Tina 吴亦玲"
-          }, {
-            "id": 62,
-            "text": "tkshing謝國成"
-          }, {
-            "id": 181,
-            "text": "tomtsui崔文謙"
-          }, {
-            "id": 348,
-            "text": "TomWong"
-          }, {
-            "id": 166,
-            "text": "Tony LI"
-          }, {
-            "id": 112,
-            "text": "tony yang"
-          }, {
-            "id": 57,
-            "text": "tramylee李翠微"
-          }, {
-            "id": 450,
-            "text": "Tse Chi Wai"
-          }, {
-            "id": 249,
-            "text": "ulricasun孫偉"
-          }, {
-            "id": 8,
-            "text": "vanessalau劉澧延"
-          }, {
-            "id": 9,
-            "text": "vera leung"
-          }, {
-            "id": 459,
-            "text": "victor chow"
-          }, {
-            "id": 326,
-            "text": "vikkilaw"
-          }, {
-            "id": 123,
-            "text": "vincent xu"
-          }, {
-            "id": 275,
-            "text": "VivianLam林向欣"
-          }, {
-            "id": 207,
-            "text": "vivianli李威"
-          }, {
-            "id": 213,
-            "text": "vivienliu刘曦"
-          }, {
-            "id": 214,
-            "text": "wangbinhong王滨洪"
-          }, {
-            "id": 84,
-            "text": "wangfei王飛"
-          }, {
-            "id": 224,
-            "text": "wangxin王鑫"
-          }, {
-            "id": 85,
-            "text": "wangzheng王征"
-          }, {
-            "id": 254,
-            "text": "wdavenport"
-          }, {
-            "id": 314,
-            "text": "WendyJi"
-          }, {
-            "id": 20,
-            "text": "william lim"
-          }, {
-            "id": 68,
-            "text": "william qi"
-          }, {
-            "id": 204,
-            "text": "williamli李育澤"
-          }, {
-            "id": 16,
-            "text": "wilson lau"
-          }, {
-            "id": 278,
-            "text": "WinkiLi李婉琦"
-          }, {
-            "id": 4,
-            "text": "winnie liu"
-          }, {
-            "id": 36,
-            "text": "winnie lo"
-          }, {
-            "id": 239,
-            "text": "winniewhlo勞詠嫻"
-          }, {
-            "id": 430,
-            "text": "Wong Wai Ying"
-          }, {
-            "id": 260,
-            "text": "wsmith"
-          }, {
-            "id": 412,
-            "text": "Wu Kun"
-          }, {
-            "id": 443,
-            "text": "Wu Yuen Ying"
-          }, {
-            "id": 138,
-            "text": "wubiao吳彪"
-          }, {
-            "id": 142,
-            "text": "wxduan段文秀"
-          }, {
-            "id": 172,
-            "text": "wyniesiu蕭詠茵"
-          }, {
-            "id": 457,
-            "text": "Yeung Kwan Yee (Gladys)"
-          }, {
-            "id": 200,
-            "text": "yu alvin"
-          }, {
-            "id": 374,
-            "text": "Yu WANG"
-          }, {
-            "id": 555,
-            "text": "yu wang"
-          }, {
-            "id": 247,
-            "text": "Yuanzhao趙遠"
-          }, {
-            "id": 217,
-            "text": "zanglihua臧丽华"
-          }, {
-            "id": 113,
-            "text": "zhang eliza"
-          }, {
-            "id": 206,
-            "text": "zhangyue"
-          }, {
-            "id": 385,
-            "text": "Zhao Jin"
-          }, {
-            "id": 414,
-            "text": "Zhu Haoyu"
-          }, {
-            "id": 128,
-            "text": "zinan liu"
-          }, {
-            "id": 150,
-            "text": "zoe lafforgue"
-          }, {
-            "id": 322,
-            "text": "ZoeLafforgue"
-          }, {
-            "id": 115,
-            "text": "zork zhu"
-          }, {
-            "id": 238,
-            "text": "zzyhzcnc张志源"
-          }, {
-            "id": 425,
-            "text": "白萌baimeng"
-          }, {
-            "id": 287,
-            "text": "蔡达英jackychoi"
-          }, {
-            "id": 352,
-            "text": "曹思平tonycao"
-          }, {
-            "id": 310,
-            "text": "测试财务demo3"
-          }, {
-            "id": 311,
-            "text": "测试出纳demo4"
-          }, {
-            "id": 308,
-            "text": "测试账户demo"
-          }, {
-            "id": 309,
-            "text": "测试主管demo2"
-          }, {
-            "id": 400,
-            "text": "陈爱珠wendychan"
-          }, {
-            "id": 353,
-            "text": "陈虹志chenhongzhi"
-          }, {
-            "id": 291,
-            "text": "陈晶ailsachen"
-          }, {
-            "id": 454,
-            "text": "陈茜子nancychan"
-          }, {
-            "id": 424,
-            "text": "丁博识dingboshi"
-          }, {
-            "id": 423,
-            "text": "丁之媛kellyding"
-          }, {
-            "id": 384,
-            "text": "董欢echodong"
-          }, {
-            "id": 289,
-            "text": "杜泳儀wingto"
-          }, {
-            "id": 354,
-            "text": "段文秀wenxiuduan"
-          }, {
-            "id": 283,
-            "text": "段晓革duanxg"
-          }, {
-            "id": 312,
-            "text": "高佩珠graceko"
-          }, {
-            "id": 392,
-            "text": "郭永红lisaguo"
-          }, {
-            "id": 399,
-            "text": "韩娇jessiehan"
-          }, {
-            "id": 284,
-            "text": "黄淑瑜joanwong"
-          }, {
-            "id": 452,
-            "text": "黄文莉huangwenli"
-          }, {
-            "id": 315,
-            "text": "黄晓鹏paihuang"
-          }, {
-            "id": 411,
-            "text": "黄云lemonhuang"
-          }, {
-            "id": 388,
-            "text": "黄振国calvinhuang"
-          }, {
-            "id": 433,
-            "text": "姜惠君huijunjiang"
-          }, {
-            "id": 294,
-            "text": "矫铭martinjiao"
-          }, {
-            "id": 415,
-            "text": "金临丰linfengjin"
-          }, {
-            "id": 288,
-            "text": "赖洋茵yanelai"
-          }, {
-            "id": 324,
-            "text": "雷文娟lillianlei"
-          }, {
-            "id": 313,
-            "text": "黎靖中brucelai"
-          }, {
-            "id": 325,
-            "text": "李丽吟peggylee"
-          }, {
-            "id": 395,
-            "text": "李平kingli"
-          }, {
-            "id": 305,
-            "text": "李妍kellyli"
-          }, {
-            "id": 302,
-            "text": "李子农zinongli"
-          }, {
-            "id": 303,
-            "text": "梁婧如emilyliang"
-          }, {
-            "id": 344,
-            "text": "梁穎lillianliang"
-          }, {
-            "id": 295,
-            "text": "刘红liuhong"
-          }, {
-            "id": 307,
-            "text": "刘洪朴liuhongpu"
-          }, {
-            "id": 292,
-            "text": "刘慧tracyliu"
-          }, {
-            "id": 405,
-            "text": "刘庆伟alexliu"
-          }, {
-            "id": 285,
-            "text": "刘秀娟alicelau"
-          }, {
-            "id": 299,
-            "text": "劉安麗liuanli"
-          }, {
-            "id": 408,
-            "text": "罗辰angelaluo"
-          }, {
-            "id": 297,
-            "text": "马宁maning"
-          }, {
-            "id": 301,
-            "text": "馬鐘文albertma"
-          }, {
-            "id": 391,
-            "text": "宁磊ninglei"
-          }, {
-            "id": 298,
-            "text": "彭建梅skypeng"
-          }, {
-            "id": 243,
-            "text": "裘 佳"
-          }, {
-            "id": 431,
-            "text": "沈泉samshen"
-          }, {
-            "id": 426,
-            "text": "孙江吉sunjiangji"
-          }, {
-            "id": 427,
-            "text": "陶继苹taojiping"
-          }, {
-            "id": 328,
-            "text": "田琳annatian"
-          }, {
-            "id": 337,
-            "text": "田明jackytian"
-          }, {
-            "id": 407,
-            "text": "王跃英kathywang"
-          }, {
-            "id": 286,
-            "text": "吴家耀jerryng"
-          }, {
-            "id": 296,
-            "text": "蕭志鵬paulsiu"
-          }, {
-            "id": 389,
-            "text": "杨明youngyang"
-          }, {
-            "id": 323,
-            "text": "杨笑梅helenyang"
-          }, {
-            "id": 402,
-            "text": "杨悦yangyue"
-          }, {
-            "id": 304,
-            "text": "袁媛verayuan"
-          }, {
-            "id": 290,
-            "text": "曾桂芬natalietsang"
-          }, {
-            "id": 406,
-            "text": "张琦qizhang"
-          }, {
-            "id": 432,
-            "text": "张文宝wenbaozhang"
-          }, {
-            "id": 437,
-            "text": "张旭densonzhang"
-          }, {
-            "id": 390,
-            "text": "张贞brucezhang"
-          }, {
-            "id": 386,
-            "text": "赵源edwardzhao"
-          }, {
-            "id": 246,
-            "text": "正 王"
-          }, {
-            "id": 362,
-            "text": "周朝芳elinazhou"
-          }, {
-            "id": 361,
-            "text": "周紧zhoujin"
-          }, {
-            "id": 404,
-            "text": "周祥静helenzhou"
-          }, {
-            "id": 293,
-            "text": "朱瑾karenzhu"
-          }
+          // {
+          //   "id": 52,
+          //   "text": "abeyeung楊舒雅"
+          // }, {
+          //   "id": 558,
+          //   "text": "ada kwong"
+          // }, {
+          //   "id": 398,
+          //   "text": "Ada Wong"
+          // }
         ], //存放用户列表数据
         checkboxValue: [],//选择@的用户
     }
@@ -1359,35 +128,74 @@ export default {
   },
   created:function(){
       var _self = this;
+      //设置为Keep-Alive页面
       _self.$store.commit('SET_ITEM', 'forumposting');
-
       if(!tool.isNullOrEmptyObject(_self.$route.params.id)){
           _self.postId = _self.$route.params.id;
       }
-
       if( _self.postId != -1){
           _self.getPostData();
       }
-
   },
   mounted:function(){
     var _self = this;
     lanTool.updateLanVersion();
     //监听搜索
     _self.search();
+    //查询用户列表
+    _self.queryUserList();
   },
   activated:function(){
-        var _self = this;
-
-        //处理选择标签后返回来的逻辑
-        _self.selectTags = _self.$store.state.selectTags || [];
-
-        console.log(_self.selectTags);
-        //清空store中 selectTags 变量
-        // _self.$store.commit('SET_SELECT_TAGS');
-
+      var _self = this;
+      //处理选择标签后返回来的逻辑
+      _self.selectTags = _self.$store.state.selectTags || [];
   },
   methods:{
+    //查询用户列表
+    queryUserList:function(){
+      let _self = this;
+      //api接口地址
+      var urlTemp = tool.AjaxBaseUrl();
+      var controlName = tool.Api_BaseUserBaseInfHandle_Query;
+      var jsonDatasTemp = {
+          CurrentLanguageVersion: lanTool.currentLanguageVersion,
+          UserName: tool.UserName(),
+          _ControlName: controlName,
+          _RegisterCode: tool.RegisterCode(),
+          IsUsePager: false,
+          PageSize: 1,
+          PageNum: 10,
+          QueryCondiction: []
+      };
+      var loadingIndexClassName = tool.showLoading();
+      $.ajax({
+          async: true,
+          type: "post",
+          url: urlTemp,
+          data: jsonDatasTemp,
+          success: function (data) {
+              tool.hideLoading(loadingIndexClassName);
+              data = tool.jObject(data);
+              // console.log(data);
+              if (data._ReturnStatus == false) {
+                  tool.showText(tool.getMessage(data));
+                  console.log(tool.getMessage(data));
+                  return;
+              }
+              data = data._OnlyOneData.Rows||[];
+              _self.userList = data;
+          },
+          error: function (jqXHR, type, error) {
+              tool.hideLoading(loadingIndexClassName);
+              console.log(error);
+              return true;
+          },
+          complete: function () {
+              //隐藏虚拟键盘
+              document.activeElement.blur();
+          }
+      });
+    },
       //在光标处插入@用户
       insertHtmlAtCaret:function(html) {
           var _self = this;
@@ -1435,13 +243,62 @@ export default {
       posting:function(){
         var _self = this;
         //获取内容
-        var content = $('#postContent').text();
         var htmlContent = $('#postContent').html();
-        if(tool.isNullOrEmptyObject(content) || tool.isNullOrEmptyObject(htmlContent)){
-
-            return;
+        var content = $('#postContent').text();
+        var tagID = "";
+        var tagIDArray = _self.selectTags || [];
+        for(var i=0;i<tagIDArray.length;i++){
+          if(tagIDArray[i]["AutoID"]<=-1){
+            tagID += tagIDArray[i]["Name"] + ",";
+          }else{
+            tagID += tagIDArray[i]["AutoID"] + ",";
+          }
         }
+        tagID = tool.isNullOrEmptyObject(tagID)?"":tagID.substring(0,tagID.length-1);
+        var theName = $("input.post-title").val() || "";
 
+        //api接口地址
+        var urlTemp = tool.AjaxBaseUrl();
+        var controlName = tool.Api_ForumHandle_PostSaveOrUpdate;
+        var jsonDatasTemp = {
+            CurrentLanguageVersion: lanTool.currentLanguageVersion,
+            UserName: tool.UserName(),
+            _ControlName: controlName,
+            _RegisterCode: tool.RegisterCode(),
+            TagID:tagID,
+            Theme:theName,
+            HtmlContent:htmlContent,
+            Content:content,
+            AutoID:_self.postId || -1
+        };
+        var loadingIndexClassName = tool.showLoading();
+        $.ajax({
+            async: true,
+            type: "post",
+            url: urlTemp,
+            data: jsonDatasTemp,
+            success: function (data) {
+                tool.hideLoading(loadingIndexClassName);
+                data = tool.jObject(data);
+                // console.log(data);
+                if (data._ReturnStatus == false) {
+                    tool.showText(tool.getMessage(data));
+                    console.log(tool.getMessage(data));
+                    return;
+                }
+                _self.$store.commit('REMOVE_ITEM', 'forumlist');
+                _self.$router.back(-1);
+            },
+            error: function (jqXHR, type, error) {
+                tool.hideLoading(loadingIndexClassName);
+                console.log(error);
+                return true;
+            },
+            complete: function () {
+                //隐藏虚拟键盘
+                document.activeElement.blur();
+            }
+        });
 
       },
       //@用户
@@ -1459,6 +316,8 @@ export default {
                   _self.sel = sel;
 
                  //显示弹出
+                 //清除模糊查询的值
+                 $("#searchInput").val("").trigger("input");
                  _self.showLayer = true;
               }
           }else if (document.selection && document.selection.type != "Control") {
@@ -1466,7 +325,6 @@ export default {
               document.selection.createRange().pasteHTML(html);
           }
       },
-
       //去选标签
       goToTage:function(){
           var _self = this;
@@ -1477,14 +335,10 @@ export default {
             name:'selecttag',
             params:parameter
           });
-
       },
-
       //若是从修改进来，获取帖子数据
       getPostData:function(){
-
       },
-
       //弹层的返回按钮事件
       layerBack:function(){
           var _self = this;
@@ -1497,8 +351,8 @@ export default {
           //组装插入编辑框的str
           var str = '';
           $.each(_self.userList, function (index, item) {
-              if( _self.checkboxValue.indexOf(item.id) != -1){
-                  str += '<a class="targetUserName" data-username="'+ item.text +'" contenteditable="false" style="color:#048ec6;">@'+ item.text +'</a>'
+              if( _self.checkboxValue.indexOf(item.AutoID) != -1){
+                  str += '<a class="targetUserName" data-username="'+ item.UserName +'" contenteditable="false" style="color:#048ec6;">@'+ item.Realname +'</a>'
               }
           })
           _self.insertHtmlAtCaret(str);
@@ -1538,7 +392,6 @@ export default {
               })
           });
       }
-
   },
   beforeRouteLeave:function(to, from, next){
     if(to.name == 'forumlist'){
