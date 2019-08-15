@@ -191,27 +191,25 @@
                         </div>
                 </div>
 
-                <div class="ListCell visible initiatorObj">
-                    <div class="ListCellLeftIcon"><span class="calcfont calc-fuzerenicon"></span></div>
-                    <div class="ListCellContent">
-                        <div class="ListCellContentLeft leftContent">
-                            <div class="ListCellContentLeft lanText" data-lanid="825_负责人"></div>
-                        </div>
-                        <div class="ListCellContentRight rightContent">
-                            <div
-                              class="ListCellContentRightText"
-                              data-field="Initiator"
-                              data-fieldcontroltype="groupSelectList"
-                              data-lanid="825_负责人"
-                              data-fieldval=""
-                              data-selecttype="checkbox"
-                              code="DropDowList_PopedomTeamVsUser"
-                              typevalue=""
-                              data-fromType="6"
-                            ></div>
-                        </div>
-                        <div class="ListCellRightIcon"><span class="calcfont calc-you"></span></div>
+                <!-- 负责人 -->
+                <div class="ListSpecialCell visible initiatorObj" id="InitiatorClickObj">
+                    <div class="ListSpecialCellField">
+                        <div class="ListSpecialCellLeftIcon"><span class="calcfont calc-fuzerenicon"></span></div>
+                        <div class="ListSpecialCellFieldContent lanText" data-lanid="825_负责人"></div>
+                        <div class="ListSpecialCellRightIcon"><span class="calcfont calc-you"></span></div>
                     </div>
+                    <div
+                        class="ListSpecialCellContent"
+                        data-field="Initiator"
+                        data-fieldcontroltype="groupSelectList"
+                        data-lanid="825_负责人"
+                        data-fieldval=""
+                        data-selecttype="checkbox"
+                        code="DropDowList_PopedomTeamVsUser"
+                        typevalue=""
+                        data-fromType="6"
+                        data-clickObj="InitiatorClickObj"
+                      ></div>
                 </div>
             </div>
 

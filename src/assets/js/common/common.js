@@ -2782,41 +2782,42 @@ import config from '../../configfile/config.js'
 				query: parameter
 			});
 		});
-		//4-2>不同一行的groupSelectList
-		$("#"+$("[data-fieldControlType='groupSelectList'][data-clickObj]").attr("data-clickObj")).off('click').on('click',function(){
-			//查找子类
-			var _curObjTextdataFieldName = ($(this).attr('id') || "").ReplaceAll("ClickObj","");
-			var _curObj = $("[data-field='"+ _curObjTextdataFieldName +"']:first");
-			if(tool.isNullOrEmptyObject(_curObj)){
-				return;
-			}
-			// console.log(_curObj);
+    //4-2>不同一行的groupSelectList
+    $("[data-fieldControlType='groupSelectList'][data-clickObj]").each(function(index, obj){
+        $("#"+$(obj).attr("data-clickObj")).off('click').on('click',function(){
+            //查找子类
+            var _curObjTextdataFieldName = ($(this).attr('id') || "").ReplaceAll("ClickObj","");
+            var _curObj = $("[data-field='"+ _curObjTextdataFieldName +"']:first");
+            if(tool.isNullOrEmptyObject(_curObj)){
+              return;
+            }
+            var dataField = _curObj.attr("data-field") ||"";
+            var code = _curObj.attr("Code") ||"";
+            var filter = _curObj.attr("Filter") ||"";
+            var typeValue = _curObj.attr("TypeValue") ||"";
+            var value = _curObj.attr("data-fieldVal") ||"";
+            var selectType = _curObj.attr("data-selectType") ||"";
+            var title = lanTool.lanContent(_curObj.attr("data-lanid") ||"");
+            var fromType = _curObj.attr("data-fromType") ||"";
 
-			var dataField = _curObj.attr("data-field") ||"";
-			var code = _curObj.attr("Code") ||"";
-			var filter = _curObj.attr("Filter") ||"";
-			var typeValue = _curObj.attr("TypeValue") ||"";
-			var value = _curObj.attr("data-fieldVal") ||"";
-			var selectType = _curObj.attr("data-selectType") ||"";
-			var title = lanTool.lanContent(_curObj.attr("data-lanid") ||"");
-			var fromType = _curObj.attr("data-fromType") ||"";
+            var parameter = {
+              'field':dataField,
+              'code':code,
+              "typeValue":typeValue,
+              'title':title,
+              'value':value,//已经选择的值
+              'selectType':selectType,
+              'fromType':fromType,
+              'fromID':id,
+              "filter":filter
+            };
 
-			var parameter = {
-				'field':dataField,
-				'code':code,
-				"typeValue":typeValue,
-				'title':title,
-				'value':value,//已经选择的值
-				'selectType':selectType,
-				'fromType':fromType,
-				'fromID':id,
-				"filter":filter
-			};
-			self.$router.push({
-				path: '/groupselectlist',
-				query: parameter
-			});
-		});
+            self.$router.push({
+              path: '/groupselectlist',
+              query: parameter
+            });
+        })
+    })
 
 		//5>渲染linkedPage
 		//5-1>同一行的linkedPage

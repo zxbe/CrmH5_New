@@ -364,7 +364,19 @@ header.mui-bar {
   padding-top:0.88rem;
   padding:1rem 10px 10px 10px;
 }
-
+.item{
+    position: relative;
+    padding-bottom:10px;
+}
+.item::after{
+    position: absolute;
+    content: "";
+    left: .9rem;
+    right: .3rem;
+    bottom: 0;
+    height: 1px;
+    background-color: beige;
+}
 .label{
   padding:8px 0;
   color:#000;
