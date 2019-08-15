@@ -1,4 +1,4 @@
-  
+
 header {
     position: fixed;
     width: 100%;
@@ -62,7 +62,7 @@ header a {
 }
 .pageContent{
     /* padding:10px; */
-    padding-top: 0.88rem;  
+    padding-top: 0.88rem;
     padding-bottom: 1rem;
 }
 .pageContent .forumTitle{
@@ -81,7 +81,7 @@ header a {
     height: 0.6rem;
     border-radius: 50%;
     float: left;
-    
+
 }
 .forumContentDiv .userName{
     padding-left: 0.1rem;
@@ -144,7 +144,7 @@ header a {
 .replyList .replyItem{
     padding-bottom: 0.1rem;
     padding-top: 0.2rem;
-    border-bottom: solid 1px beige; 
+    border-bottom: solid 1px beige;
 }
 .replyList .replyItem .replyUserImg{
     width: 0.6rem;
@@ -243,7 +243,8 @@ header a {
 .replyDiv .send.active{
     color: #048ec6;
 }
-/*关闭论坛*/
+
+/*关闭帖子*/
 .elastic-layer{
     position:fixed;
     z-index: 110;
@@ -260,11 +261,9 @@ header a {
     position:absolute;
     top:50%;left:50%;
     transform: translate(-50%,-50%);
-    /* padding:15px; */
   }
   .elastic-layer-title{
     padding:20px 15px 10px 15px;
-    /* border-bottom: 1px solid #ccc; */
     position: relative;
   }
   .elastic-layer-title::after{
@@ -282,26 +281,75 @@ header a {
     transform: scaleY(.5);
   }
   .elastic-layer-items{
-    padding:9px .3rem 25px;
+    padding:9px .3rem 20px;
   }
   .elastic-layer-item{
     display: flex;
     padding:9px 0;
     position: relative;
   }
-  .nessesary {
+
+  .elastic-layer-item .icon-left{
+      font-size:.44rem!important;margin-right: 5px;
+      margin-left:0px;padding:0;
+  }
+  .elastic-layer-item .item-right{flex:1;}
+  .elastic-layer-item .item-row{
+    display: flex;
+    align-items: center;
+    position: relative;
+  }
+  .border-bottom::after{
+    position: absolute;
+    content: "";
+    left: 0rem;
+    right: 0rem;
+    bottom: 0;
+    height: 1px;
+    background-color: #f6e78b;
+  }
+  .border-bottom.not-required::after{
+    background-color: #ddddde;
+  }
+  .elastic-layer-item .item-row .label-text{flex: 1;padding-top:5px;}
+  .elastic-layer-item .item-row .ListCellContentRight{width:100%;padding: 5px 0;}
+  .elastic-layer-item .item-row  input{
+    text-align: left;
+    outline: none;
+    text-align: left;
+    border: none;
+    font-size: .28rem;
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    position: relative;
+  }
+
+  .elastic-layer-item .item-row .rightContent{
+    width:100%!important;
+  }
+  .elastic-layer-item .item-row .calcfont{
+    color: #cdcdcd;
+    font-size: .32rem;
+    padding:0;
+  }
+  /* .nessesary {
     color: red;
     padding-right: 5px;
     margin:auto;
-  }
-  
-  #LoseReason-div,#LoseReasonOther-div,#MatterOther-div{display: none;}
-  .ListCellRightIcon .calcfont{color:#cdcdcd;}
-  .MSN_lable::after{
+  } */
+
+  /* #LoseReason-div,#LoseReasonOther-div,#MatterOther-div{display: none;} */
+  /* .ListCellRightIcon .calcfont{color:#cdcdcd;} */
+  /* .MSN_lable::after{
     content: ":";
     padding:0 5px;
-  }
-  
+  } */
+
+
+
+
   .btn-div{
     position: relative;
     line-height: 48px;

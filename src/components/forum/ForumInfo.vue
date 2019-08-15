@@ -65,30 +65,46 @@
         <textarea id="ask" class="reply replyContent" placeholder="想对Ta说点什么" rows="3"></textarea>
         <div @click="sendClick" id="sendBtn" class="send">发送</div>
     </div>
+    <!-- 关闭弹层 -->
     <div id="closeThis" class="elastic-layer">
         <div class="elastic-layer-content">
             <div class="elastic-layer-title lanText f18" data-lanid="1060_帖子结果"></div>
 
             <div class="elastic-layer-items">
                 <div class="elastic-layer-item f14">
-                    <span class="nessesary f18">*</span>
-                    <div class="ListCellContentLeft leftContent">
+
+                    <!-- <div class="ListCellContentLeft leftContent">
                         <div class="ListCellContentLeftText lanText" data-lanid="1060_帖子结果"></div>
-                    </div>
-                    <div class="ListCellContentRight rightContent">
-                        <input type="text" data-field="Result" data-lanid="1060_帖子结果" data-fieldControlType="picker" data-fieldVal="" Code="DropDowList_DtbAllTypes" TypeValue="PostResult" class="ListCellContentRightText" />
-                    </div>
-                    <!-- <div class="ListCellContentRight rightContent">
-                        <input type="text"
-                              data-field="Matter"
-                              data-lanid="947_商业事项"
-                              data-fieldControlType="picker"
-                              data-fieldVal=""
-                              Code="DropDowList_DtbAllTypes"
-                              TypeValue="Matter"
-                              class="ListCellContentRightText"/>
                     </div> -->
-                    <div class="ListCellRightIcon"><span class="calcfont calc-you"></span></div>
+                    <!-- <div class="ListCellContentRight rightContent">
+                        <input type="text" data-field="Result" data-lanid="1060_帖子结果"
+                        data-fieldControlType="picker" data-fieldVal="" Code="DropDowList_DtbAllTypes"
+                        TypeValue="PostResult" class="ListCellContentRightText" />
+                    </div>
+                    <div class="ListCellRightIcon"><span class="calcfont calc-you"></span></div> -->
+
+
+                    <span class="calcfont calc-jieguo icon-left"></span>
+                    <div class="item-right">
+                        <div class="item-row">
+                            <div class="lanText label-text" data-lanid="1060_帖子结果"></div>
+                        </div>
+                        <div class="item-row border-bottom">
+                            <div class="ListCellContentRight">
+                                <input type="text"
+                                      data-field="Result"
+                                      data-lanid="1060_帖子结果"
+                                      data-fieldControlType="picker"
+                                      data-fieldVal=""
+                                      Code="DropDowList_DtbAllTypes"
+                                      TypeValue="PostResult"
+                                      class="ListCellContentRightText"/>
+                            </div>
+                            <span class="calcfont calc-you"></span>
+                        </div>
+                    </div>
+
+
                 </div>
             </div>
             <div class="btn-div">
