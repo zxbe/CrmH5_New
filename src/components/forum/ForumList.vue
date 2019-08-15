@@ -281,7 +281,6 @@ export default {
                     if (data._ReturnStatus == false) {
                         tool.showText(tool.getMessage(data));
                         console.log(tool.getMessage(data));
-                        _self.noData = true;
                         return;
                     }
                     data = data._OnlyOneData.Rows || [];
