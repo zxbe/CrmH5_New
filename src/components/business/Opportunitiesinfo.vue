@@ -997,8 +997,8 @@ export default {
                 jsonDatasTemp["TargetCompanyID"] = $("[data-field='TargetCompanyID'").attr("data-fieldVal") || "";
                 jsonDatasTemp["FromOppID"] = id;
 
-                console.log(jsonDatasTemp);
-                return;
+                // console.log(jsonDatasTemp);
+                // return;
 
                 var loadingIndexClassName = tool.showLoading();
 
