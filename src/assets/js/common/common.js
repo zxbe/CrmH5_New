@@ -520,6 +520,22 @@ import config from '../../configfile/config.js'
 	 * 帖子保存
 	 */
 	tool.Api_ForumHandle_PostSaveOrUpdate = "Api_ForumHandle_PostSaveOrUpdate";
+	/*
+	 * 保存回帖
+	 */
+	tool.Api_ForumHandle_ReplyPostSaveOrUpdate = "Api_ForumHandle_ReplyPostSaveOrUpdate";
+	/*
+	 * 赞/踩帖子
+	 */
+	tool.Api_ForumHandle_PostAction = "Api_ForumHandle_PostAction";
+	/*
+	 * 结帖
+	 */
+	tool.Api_ForumHandle_PostClose = "Api_ForumHandle_PostClose";
+	/*
+	 * 删帖
+	 */
+	tool.Api_ForumHandle_PostDelete = "Api_ForumHandle_PostDelete";
 
 	/*
 	 * LOI单详情查询

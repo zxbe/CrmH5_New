@@ -498,13 +498,13 @@ export default {
             var statusId = curObj.attr('data-statusid') || '';
             //statusId:71 关闭 ；statusId:70 进行中 ,关闭状态的帖子不给点赞和踩
             if (statusId == '71' || statusId == '') {
-                return;
+                return false;
             }
 
             //帖子ID
             var autoID = curObj.attr("data-AutoID") || "";
             //用户名
-            var userName = tool.getUserName();
+            var userName = tool.UserName();
             //动作类型
             var actionType = ""; //(76=>Like;77=>Dislike)
             //是否添加
@@ -512,14 +512,14 @@ export default {
 
             var dataEven = curObj.attr('data-even') || '';
             if (tool.isNullOrEmptyObject(dataEven)) {
-                return;
+                return false;
             }
-            //赞图标类名：icon-zan,icon-zan1
-            //踩图标类名：icon-caishixin- , icon-cai
+            //赞图标类名：calc-zan,calc-zan1
+            //踩图标类名：calc-caishixin- , calc-cai
             if (dataEven == 'fabulous') {
                 actionType = "76";
                 //赞
-                if (curObj.hasClass('icon-zan')) {
+                if (curObj.hasClass('calc-zan')) {
                     isAdd = "0";
                 } else {
                     isAdd = "1";
@@ -527,44 +527,47 @@ export default {
             } else if (dataEven == 'unfabulous') {
                 actionType = "77";
                 //踩
-                if (curObj.hasClass('icon-caishixin-')) {
+                if (curObj.hasClass('calc-caishixin-')) {
                     isAdd = "0";
                 } else {
                     isAdd = "1";
                 }
             }
 
-            var data = {
-                "_ControlName": tool.ControlName_ForumHandle_PostAction,
-                "AutoID": autoID,
-                "ActionType": actionType,
-                "IsAdd": isAdd,
-                "UserName": userName
+            //api接口地址
+            var urlTemp = tool.AjaxBaseUrl();
+            var controlName = tool.Api_ForumHandle_PostAction;
+            var jsonDatasTemp = {
+                CurrentLanguageVersion: lanTool.currentLanguageVersion,
+                UserName: tool.UserName(),
+                _ControlName: controlName,
+                _RegisterCode: tool.RegisterCode(),
+                AutoID: autoID,
+                ActionType: actionType,
+                IsAdd: isAdd
             };
 
-            var loadingIndex = tool.showLoading();
+            var loadingIndexClassName = tool.showLoading();
             $.ajax({
+                async: true,
                 type: "post",
-                cache: false,
-                url: tool.AjaxBaseUrl,
-                data: data,
+                url: urlTemp,
+                data: jsonDatasTemp,
                 success: function (data) {
-                    tool.hideLoading(loadingIndex);
+                    tool.hideLoading(loadingIndexClassName);
                     data = tool.jObject(data);
+                    //console.log(data);
                     if (data._ReturnStatus == false) {
-                        tool.msg(tool.getMessage(data), function (index) {
-                            tool.close(index);
-                        }, {
-                            time: 0,
-                            icon: 2,
-                            title: LanContent(586),
-                            btn: [LanContent(569)]
-                        });
-                        return false;
+                        tool.showText(tool.getMessage(data));
+                        console.log(tool.getMessage(data));
+                        return;
                     }
-
+                    
                     //更新数量和状态
                     data = data._OnlyOneData;
+                    if (tool.isNullOrEmptyObject(data)) {
+                        return false;
+                    }
                     if (tool.isNullOrEmptyObject(data)) {
                         return false;
                     }
@@ -577,33 +580,34 @@ export default {
                     var objDest = curObj.closest(".hand");
                     objDest.find(".ActionCount:first").text(countTemp);
 
-                    //console.log(curObj);
-                    //console.log(isCurrentUserDoTemp);
                     //改变状态
                     if (dataEven == 'fabulous') {
                         //若当前是已点赞
                         if (isCurrentUserDoTemp >= 1) {
-                            curObj.addClass('icon-zan').removeClass('icon-zan1');
+                            curObj.addClass('calc-zan').removeClass('calc-zan1');
                         } else {
-                            curObj.addClass('icon-zan1').removeClass('icon-zan');
+                            curObj.addClass('calc-zan1').removeClass('calc-zan');
                         }
                     } else if (dataEven == 'unfabulous') {
                         //踩
                         //若当前是已踩
                         if (isCurrentUserDoTemp >= 1) {
-                            curObj.addClass('icon-caishixin-').removeClass('icon-cai');
+                            curObj.addClass('calc-caishixin-').removeClass('calc-cai');
                         } else {
-                            curObj.addClass('icon-cai').removeClass('icon-caishixin-');
+                            curObj.addClass('calc-cai').removeClass('calc-caishixin-');
                         }
                     }
                 },
-                error: function (data) {
-                    tool.hideLoading(loadingIndex);
-                    console.log(data);
+                error: function (jqXHR, type, error) {
+                    tool.hideLoading(loadingIndexClassName);
+                    console.log(error);
+                    return true;
                 },
-                complete: function () {}
+                complete: function () {
+                    //隐藏虚拟键盘
+                    document.activeElement.blur();
+                }
             });
-
         },
     },
     beforeRouteLeave: function (to, from, next) {

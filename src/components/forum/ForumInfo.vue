@@ -216,7 +216,7 @@ export default {
             //帖子ID
             var autoID = curObj.attr("data-AutoID") || "";
             //用户名
-            // var userName = tool.getUserName();
+            var userName = tool.UserName();
             //动作类型
             var actionType = ""; //(76=>Like;77=>Dislike)
             //是否添加
@@ -226,12 +226,12 @@ export default {
             if (tool.isNullOrEmptyObject(dataEven)) {
                 return;
             }
-            //赞图标类名：icon-zan,icon-zan1
-            //踩图标类名：icon-caishixin- , icon-cai
+          //赞图标类名：calc-zan,calc-zan1
+            //踩图标类名：calc-caishixin- , calc-cai
             if (dataEven == 'fabulous') {
                 actionType = "76";
                 //赞
-                if (curObj.hasClass('icon-zan')) {
+                if (curObj.hasClass('calc-zan')) {
                     isAdd = "0";
                 } else {
                     isAdd = "1";
@@ -239,7 +239,7 @@ export default {
             } else if (dataEven == 'unfabulous') {
                 actionType = "77";
                 //踩
-                if (curObj.hasClass('icon-caishixin-')) {
+                if (curObj.hasClass('calc-caishixin-')) {
                     isAdd = "0";
                 } else {
                     isAdd = "1";
@@ -292,20 +292,20 @@ export default {
                     //console.log(curObj);
                     //console.log(isCurrentUserDoTemp);
                     //改变状态
-                    if (dataEven == 'fabulous') {
+                     if (dataEven == 'fabulous') {
                         //若当前是已点赞
                         if (isCurrentUserDoTemp >= 1) {
-                            curObj.addClass('icon-zan').removeClass('icon-zan1');
+                            curObj.addClass('calc-zan').removeClass('calc-zan1');
                         } else {
-                            curObj.addClass('icon-zan1').removeClass('icon-zan');
+                            curObj.addClass('calc-zan1').removeClass('calc-zan');
                         }
                     } else if (dataEven == 'unfabulous') {
                         //踩
                         //若当前是已踩
                         if (isCurrentUserDoTemp >= 1) {
-                            curObj.addClass('icon-caishixin-').removeClass('icon-cai');
+                            curObj.addClass('calc-caishixin-').removeClass('calc-cai');
                         } else {
-                            curObj.addClass('icon-cai').removeClass('icon-caishixin-');
+                            curObj.addClass('calc-cai').removeClass('calc-caishixin-');
                         }
                     }
                 },
