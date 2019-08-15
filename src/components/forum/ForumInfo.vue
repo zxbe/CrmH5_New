@@ -3,7 +3,7 @@
     <header class="mui-bar mui-bar-nav">
         <a @click="back" class="calcfont calc-fanhui left" id="back"></a>
         <h1 class="mui-title f18">{{ptitle}}</h1>
-        <a v-show="!isClose" @click="editClick" class="calcfont calc-fa-edit right" :data-AutoID="infoDataList.AutoID" id="edit"></a>
+        <!-- <a v-show="!isClose" @click="editClick" class="calcfont calc-fa-edit right" :data-AutoID="infoDataList.AutoID" id="edit"></a> -->
         <a v-show="!isClose" @click="closeClick" class="calcfont calc-jieshu right" :data-AutoID="infoDataList.AutoID" id="close"></a>
         <a v-show="!isClose" @click="delClick" class="calcfont calc-shanchu right" :data-AutoID="infoDataList.AutoID" id="delete"></a>
     </header>
@@ -175,7 +175,7 @@ export default {
                         return;
                     }
                     data = data._OnlyOneData || {};
-                    console.log("data>>>>" + JSON.stringify(data));
+                    // console.log("data>>>>" + JSON.stringify(data));
 
                     //处理帖子标签
                     var tarName = data.TagName || "";
