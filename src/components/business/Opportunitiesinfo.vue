@@ -84,7 +84,7 @@
             </div>
 
             <!-- 公司 -->
-            <div class="ListSpecialCell visible" id="TargetCompanyIDClickObj">
+            <div class="ListSpecialCell visible controlEdit" id="TargetCompanyIDClickObj">
                 <div class="ListSpecialCellField">
                     <div class="ListSpecialCellLeftIcon"><span class="calcfont calc-gongsixinxi"></span></div>
                     <div class="ListSpecialCellFieldContent lanText" data-lanid="790_公司"></div>
@@ -104,7 +104,7 @@
             </div>
 
             <!-- 联系人 -->
-            <div class="ListCell visible">
+            <div class="ListCell visible controlEdit">
                 <div class="ListCellLeftIcon"><span class="calcfont calc-fuzerenicon"></span></div>
                 <div class="ListCellContent">
                     <div class="ListCellContentLeft leftContent">
