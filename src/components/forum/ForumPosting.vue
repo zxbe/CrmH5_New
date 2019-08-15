@@ -1381,8 +1381,10 @@ export default {
 
         //处理选择标签后返回来的逻辑
         _self.selectTags = _self.$store.state.selectTags || [];
+
+        console.log(_self.selectTags);
         //清空store中 selectTags 变量
-        _self.$store.commit('SET_SELECT_TAGS');
+        // _self.$store.commit('SET_SELECT_TAGS');
 
   },
   methods:{

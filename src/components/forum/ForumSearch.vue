@@ -7,12 +7,11 @@
             <a @click.stop="selectDropDownType" class="dropDownBtn calcfont calc-xiala"></a>
             <a @click="search" class="searchBtn calcfont calc-shaixuan2"></a>
         </div>
-        <div v-show="isShowdropDown" class="dropDownList">
-            <a @click="selectTitleOrTag($event)" data-type="Other" class="selected"><i class="zen-visualization calcfont calc-gou"></i><span class="lanText" data-lanid="1000303_标题和内容"></span></a>
-            <a @click="selectTitleOrTag($event)" data-type="Tag"><i class="zen-visualization calcfont calc-gou"></i><span class="lanText" data-lanid="1000302_标签"></span></a>
-        </div>
     </header>
-
+    <div v-show="isShowdropDown" class="dropDownList">
+        <a @click="selectTitleOrTag($event)" data-type="Other" class="selected"><i class="zen-visualization calcfont calc-gou"></i><span class="lanText" data-lanid="1000303_标题和内容"></span></a>
+        <a @click="selectTitleOrTag($event)" data-type="Tag"><i class="zen-visualization calcfont calc-gou"></i><span class="lanText" data-lanid="1000302_标签"></span></a>
+    </div>
     <div v-show="!isFocus" class="searchSelectDiv">
 
         <div class="selectFilter">
@@ -46,9 +45,9 @@
 
         <vue-scroll v-show="!noData" :showToTop="true" :options="{ pullup: true, pulldown: true }" :scrollbar="false" ref="scroll" @pulldown="pulldown" @pullup="pullup">
 
-            <div v-for="item in listData" :key="item.AutoID" class="list-item">
-                <div @click="goToInfo(item.AutoID)" class="title f16">{{item.Theme}}</div>
-                <div @click="goToInfo(item.AutoID)" class="content f14">{{item.Content}}</div>
+            <div v-for="item in listData" @click="goToInfo(item.AutoID)" :key="item.AutoID" class="list-item">
+                <div class="title f16">{{item.Theme}}</div>
+                <div class="content f14">{{item.Content}}</div>
                 <div class="feeditemtag f12">
                     <span>web</span><span>JS</span><span>C#</span><span>Vue</span>
                 </div>
@@ -81,7 +80,7 @@
     </div>
     <div v-show="isFocus" class="searchHotBlock">
         <div class="hotTagsBlock">
-            <p>热门标签</p>
+            <p class="lanText" data-lanid="1000292_热门标签"></p>
             <div class="tagDiv">
                 <span v-for="(item, index) in hotSearchData" @click="hotSearchClick(index,$event)" :key="item.AutoID" class="tagItem">{{item.TagName}}</span>
             </div>
@@ -312,14 +311,14 @@ export default {
         selectTitleOrTag: function (e) {
             var _self = this;
             var el = e.target;
-             var obj;
+            var obj;
             if (e.target === e.currentTarget) {
                 obj = $(el);
             } else {
                 obj = $(el).parent("a");
             }
-           obj.addClass("selected");
-           obj.siblings().removeClass("selected");
+            obj.addClass("selected");
+            obj.siblings().removeClass("selected");
             var val = obj.find("span").text();
             _self.isShowdropDown = false;
         },
@@ -582,7 +581,7 @@ export default {
             //帖子ID
             var autoID = curObj.attr("data-AutoID") || "";
             //用户名
-            var userName = tool.getUserName();
+            // var userName = tool.getUserName();
             //动作类型
             var actionType = ""; //(76=>Like;77=>Dislike)
             //是否添加
@@ -613,11 +612,11 @@ export default {
             }
 
             var data = {
-                "_ControlName": tool.ControlName_ForumHandle_PostAction,
-                "AutoID": autoID,
-                "ActionType": actionType,
-                "IsAdd": isAdd,
-                "UserName": userName
+                // "_ControlName": tool.ControlName_ForumHandle_PostAction,
+                // "AutoID": autoID,
+                // "ActionType": actionType,
+                // "IsAdd": isAdd,
+                // "UserName": userName
             };
 
             var loadingIndex = tool.showLoading();

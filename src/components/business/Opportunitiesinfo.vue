@@ -386,47 +386,62 @@
             <div class="elastic-layer-title lanText f18" data-lanid="845_关闭交易"></div>
 
             <div class="elastic-layer-items">
+
                 <div class="elastic-layer-item f14">
-                    <span class="nessesary f18">*</span>
-                    <div class="ListCellContentLeft leftContent">
-                        <div class="ListCellContentLeftText lanText" data-lanid="728_状态"></div>
+                    <span class="calcfont calc-zhuangtai icon-left"></span>
+                    <div class="item-right">
+                        <div class="item-row">
+                            <div class="lanText label-text" data-lanid="728_状态"></div>
+                        </div>
+                        <div class="item-row border-bottom">
+                            <div class="ListCellContentRight">
+                                <input type="text"
+                                      data-field="CurrentStateNew"
+                                      data-lanid="728_状态"
+                                      data-fieldControlType="picker"
+                                      data-fieldVal=""
+                                      Code="DropDowList_DtbAllTypes"
+                                      TypeValue="CurrentState"
+                                      Filter="38"
+                                      class="ListCellContentRightText"/>
+                            </div>
+                            <span class="calcfont calc-you"></span>
+                        </div>
                     </div>
-                    <div class="ListCellContentRight rightContent">
-                        <input type="text"
-                              data-field="CurrentStateNew"
-                              data-lanid="728_状态"
-                              data-fieldControlType="picker"
-                              data-fieldVal=""
-                              Code="DropDowList_DtbAllTypes"
-                              TypeValue="CurrentState"
-                              Filter="38"
-                              class="ListCellContentRightText"/>
-                    </div>
-                    <div class="ListCellRightIcon"><span class="calcfont calc-you"></span></div>
                 </div>
 
-                <div id="LoseReason-div" class="elastic-layer-item f14">
-                    <span class="nessesary f18">*</span>
-                    <div class="ListCellContentLeft leftContent">
-                        <div class="ListCellContentLeftText lanText" data-lanid="1152_输单原因"></div>
+                <div id="LoseReason-div">
+                    <div  class="elastic-layer-item f14">
+                        <span class="calcfont calc-yuanyin icon-left"></span>
+                        <div class="item-right">
+                            <div class="item-row">
+                                <div class="lanText label-text" data-lanid="1152_输单原因"></div>
+                            </div>
+                            <div class="item-row border-bottom">
+                                <div class="ListCellContentRight">
+                                    <input type="text"
+                                          data-field="LoseReasonNew"
+                                          data-lanid="1152_输单原因"
+                                          data-fieldControlType="picker"
+                                          data-fieldVal=""
+                                          Code="DropDowList_DtbAllTypes"
+                                          TypeValue="LoseReason"
+                                          class="ListCellContentRightText"/>
+                                </div>
+                                <span class="calcfont calc-you"></span>
+                            </div>
+                        </div>
                     </div>
-                    <div class="ListCellContentRight rightContent">
-                        <input type="text"
-                              data-field="LoseReasonNew"
-                              data-lanid="1152_输单原因"
-                              data-fieldControlType="picker"
-                              data-fieldVal=""
-                              Code="DropDowList_DtbAllTypes"
-                              TypeValue="LoseReason"
-                              class="ListCellContentRightText"/>
-                    </div>
-                    <div class="ListCellRightIcon"><span class="calcfont calc-you"></span></div>
                 </div>
 
                 <div id="LoseReasonOther-div">
                   <div class="elastic-layer-item f14">
-                      <span class="nessesary f18">*</span>
-                      <textarea data-field="LoseReasonOtherNew" data-fieldControlType="textareaInput" class="lanInputPlaceHolder" data-lanid="1000312_其他原因"></textarea>
+                      <span class="calcfont calc-yuanyin icon-left"></span>
+                      <div class="item-right">
+                        <div class="item-row border-bottom" style="margin-top:5px;">
+                            <textarea data-field="LoseReasonOtherNew" data-fieldControlType="textareaInput" class="lanInputPlaceHolder" data-lanid="1000312_其他原因"></textarea>
+                        </div>
+                      </div>
                   </div>
                 </div>
 
@@ -448,33 +463,48 @@
             <div class="elastic-layer-items">
 
                 <div class="elastic-layer-item f14">
-                    <span class="MSN_lable lanText" data-lanid="956_MSN"></span>
-                    <textarea data-field="MSNNew" data-fieldControlType="textareaInput" class="lanInputPlaceHolder" data-lanid="956_MSN"></textarea>
+                    <span class="calcfont calc-zhuangtai icon-left"></span>
+                    <div class="item-right">
+                        <div class="item-row">
+                            <div class="lanText label-text" data-lanid="956_MSN"></div>
+                        </div>
+                        <div class="item-row border-bottom not-required">
+                            <textarea data-field="MSNNew" data-fieldControlType="textareaInput" class="lanInputPlaceHolder" data-lanid="956_MSN"></textarea>
+                        </div>
+                    </div>
                 </div>
 
                 <div id="Matter-div" class="elastic-layer-item f14">
-                    <span class="nessesary f18">*</span>
-                    <div class="ListCellContentLeft leftContent">
-                        <div class="ListCellContentLeftText lanText" data-lanid="947_商业事项"></div>
+                    <span class="calcfont calc-shixiang icon-left"></span>
+                    <div class="item-right">
+                        <div class="item-row">
+                            <div class="lanText label-text" data-lanid="947_商业事项"></div>
+                        </div>
+                        <div class="item-row border-bottom">
+                            <div class="ListCellContentRight">
+                                <input type="text"
+                                      data-field="MatterNew"
+                                      data-lanid="947_商业事项"
+                                      data-fieldControlType="picker"
+                                      data-fieldVal=""
+                                      Code="DropDowList_DtbAllTypes"
+                                      TypeValue="Matter"
+                                      class="ListCellContentRightText"/>
+                            </div>
+                            <span class="calcfont calc-you"></span>
+                        </div>
                     </div>
-                    <div class="ListCellContentRight rightContent">
-                        <input type="text"
-                              data-field="MatterNew"
-                              data-lanid="947_商业事项"
-                              data-fieldControlType="picker"
-                              data-fieldVal=""
-                              Code="DropDowList_DtbAllTypes"
-                              TypeValue="Matter"
-                              class="ListCellContentRightText"/>
-                    </div>
-                    <div class="ListCellRightIcon"><span class="calcfont calc-you"></span></div>
                 </div>
 
                 <div id="MatterOther-div">
-                    <div class="elastic-layer-item f14">
-                        <span class="nessesary f18">*</span>
-                        <textarea data-field="MatterOtherNew" data-fieldControlType="textareaInput" class="lanInputPlaceHolder" data-lanid="1000312_其他原因"></textarea>
-                    </div>
+                  <div class="elastic-layer-item f14">
+                      <span class="calcfont calc-qita1 icon-left"></span>
+                      <div class="item-right">
+                        <div class="item-row border-bottom" style="margin-top:5px;">
+                            <textarea data-field="MatterOtherNew" data-fieldControlType="textareaInput" class="lanInputPlaceHolder" data-lanid="1000312_其他原因"></textarea>
+                        </div>
+                      </div>
+                  </div>
                 </div>
 
             </div>

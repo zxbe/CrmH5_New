@@ -1,7 +1,7 @@
 <template>
 <div>
     <header class="header">
-        <a @click="save" class="mycalcfont calcfont calc-fanhui left" id="back"></a>
+        <a @click="back" class="mycalcfont calcfont calc-fanhui left" id="back"></a>
         <h1 class="title-text f18">{{title}}</h1>
         <a @click="save" class="mycalcfont calcfont calc-gou right"></a>
     </header>
@@ -59,101 +59,8 @@ export default {
         title:'选择标签',
         showAddTag:false, //是否显示添加标签输入框
         newTag:'', //新增的标签
-        allTagData:[
-          {
-            "AutoID": 7,
-            "Name": "Web",
-            "InternalSort": null,
-            "PostCount": 18,
-            "IsFollow": "fa-star"
-          }, {
-            "AutoID": 8,
-            "Name": "JS",
-            "InternalSort": null,
-            "PostCount": 8,
-            "IsFollow": "fa-star-o"
-          }, {
-            "AutoID": 11,
-            "Name": "python",
-            "InternalSort": null,
-            "PostCount": 4,
-            "IsFollow": "fa-star-o"
-          }, {
-            "AutoID": 14,
-            "Name": "C#",
-            "InternalSort": 100,
-            "PostCount": 1,
-            "IsFollow": "fa-star-o"
-          }, {
-            "AutoID": 13,
-            "Name": "React",
-            "InternalSort": null,
-            "PostCount": 2,
-            "IsFollow": "fa-star-o"
-          }, {
-            "AutoID": 4,
-            "Name": "Boeing",
-            "InternalSort": null,
-            "PostCount": 4,
-            "IsFollow": "fa-star-o"
-          }, {
-            "AutoID": 5,
-            "Name": "CALC",
-            "InternalSort": null,
-            "PostCount": 2,
-            "IsFollow": "fa-star-o"
-          }, {
-            "AutoID": 10,
-            "Name": "NodeJS",
-            "InternalSort": null,
-            "PostCount": 3,
-            "IsFollow": "fa-star-o"
-          }, {
-            "AutoID": 6,
-            "Name": "M737Max",
-            "InternalSort": null,
-            "PostCount": 1,
-            "IsFollow": "fa-star-o"
-          }, {
-            "AutoID": 3,
-            "Name": "AirBus",
-            "InternalSort": null,
-            "PostCount": 1,
-            "IsFollow": "fa-star-o"
-          }, {
-            "AutoID": 15,
-            "Name": "前端",
-            "InternalSort": null,
-            "PostCount": 3,
-            "IsFollow": "fa-star-o"
-          }, {
-            "AutoID": 2,
-            "Name": "MRO",
-            "InternalSort": null,
-            "PostCount": 2,
-            "IsFollow": "fa-star-o"
-          }, {
-            "AutoID": 12,
-            "Name": "m787",
-            "InternalSort": null,
-            "PostCount": 2,
-            "IsFollow": "fa-star-o"
-          }, {
-            "AutoID": 9,
-            "Name": "Proxy",
-            "InternalSort": null,
-            "PostCount": 2,
-            "IsFollow": "fa-star-o"
-          }, {
-            "AutoID": 16,
-            "Name": "A320",
-            "InternalSort": null,
-            "PostCount": 1,
-            "IsFollow": "fa-star-o"
-          }
-        ],
-        selectTagData:[ //用户选择的标签对象
-        ]
+        allTagData:[],
+        selectTagData:[],  //用户选择的标签对象
       }
     },
     computed:{
@@ -171,6 +78,8 @@ export default {
     created:function(){
       var _self = this;
       _self.selectTagData = _self.$route.params.selectTags || [];
+
+      _self.getAllTag();
     },
     mounted:function(){
       let _self = this;
@@ -178,9 +87,9 @@ export default {
     },
     methods:{
         //返回上一页
-        // back:function(){
-        //     this.$router.back(-1);
-        // },
+        back:function(){
+            this.$router.back(-1);
+        },
         //保存动作
         save:function(){
             var _self = this;
@@ -193,9 +102,9 @@ export default {
                 _self.selectTagData.push(newTag);
             }
 
-            //保存到 store 中
+            //保存到 store 中 ,先清空再保存
+            _self.$store.commit('SET_SELECT_TAGS');
             _self.$store.commit('SET_SELECT_TAGS', _self.selectTagData);
-            // _self.back();
             _self.$router.back(-1);
 
         },
@@ -236,6 +145,122 @@ export default {
             var _self = this;
             _self.showAddTag = !_self.showAddTag;
             $('#addInput').focus();
+        },
+
+        //获取所有标签
+        getAllTag:function(){
+          var _self = this;
+          //1.去请求接口
+
+          var loadingIndexClassName = tool.showLoading();
+          var data = [
+                {
+                  "AutoID": 7,
+                  "Name": "Web",
+                  "InternalSort": null,
+                  "PostCount": 18,
+                  "IsFollow": "fa-star"
+                }, {
+                  "AutoID": 8,
+                  "Name": "JS",
+                  "InternalSort": null,
+                  "PostCount": 8,
+                  "IsFollow": "fa-star-o"
+                }, {
+                  "AutoID": 11,
+                  "Name": "python",
+                  "InternalSort": null,
+                  "PostCount": 4,
+                  "IsFollow": "fa-star-o"
+                }, {
+                  "AutoID": 14,
+                  "Name": "C#",
+                  "InternalSort": 100,
+                  "PostCount": 1,
+                  "IsFollow": "fa-star-o"
+                }, {
+                  "AutoID": 13,
+                  "Name": "React",
+                  "InternalSort": null,
+                  "PostCount": 2,
+                  "IsFollow": "fa-star-o"
+                }, {
+                  "AutoID": 4,
+                  "Name": "Boeing",
+                  "InternalSort": null,
+                  "PostCount": 4,
+                  "IsFollow": "fa-star-o"
+                }, {
+                  "AutoID": 5,
+                  "Name": "CALC",
+                  "InternalSort": null,
+                  "PostCount": 2,
+                  "IsFollow": "fa-star-o"
+                }, {
+                  "AutoID": 10,
+                  "Name": "NodeJS",
+                  "InternalSort": null,
+                  "PostCount": 3,
+                  "IsFollow": "fa-star-o"
+                }, {
+                  "AutoID": 6,
+                  "Name": "M737Max",
+                  "InternalSort": null,
+                  "PostCount": 1,
+                  "IsFollow": "fa-star-o"
+                }, {
+                  "AutoID": 3,
+                  "Name": "AirBus",
+                  "InternalSort": null,
+                  "PostCount": 1,
+                  "IsFollow": "fa-star-o"
+                }, {
+                  "AutoID": 15,
+                  "Name": "前端",
+                  "InternalSort": null,
+                  "PostCount": 3,
+                  "IsFollow": "fa-star-o"
+                }, {
+                  "AutoID": 2,
+                  "Name": "MRO",
+                  "InternalSort": null,
+                  "PostCount": 2,
+                  "IsFollow": "fa-star-o"
+                }, {
+                  "AutoID": 12,
+                  "Name": "m787",
+                  "InternalSort": null,
+                  "PostCount": 2,
+                  "IsFollow": "fa-star-o"
+                }, {
+                  "AutoID": 9,
+                  "Name": "Proxy",
+                  "InternalSort": null,
+                  "PostCount": 2,
+                  "IsFollow": "fa-star-o"
+                }, {
+                  "AutoID": 16,
+                  "Name": "A320",
+                  "InternalSort": null,
+                  "PostCount": 1,
+                  "IsFollow": "fa-star-o"
+                }
+          ]
+
+          //2.请求成功后，把用户已选的标签AutoID为-1的增加到data中
+          setTimeout(function(){
+
+              //循环selectTagData找出AutoID为-1
+              $.each(_self.selectTagData, function(index, item){
+                  if(item.AutoID == -1){
+                      data.push(item);
+                  }
+              })
+              _self.allTagData = data;
+              tool.hideLoading(loadingIndexClassName);
+
+          },500)
+
         }
     }
 }
