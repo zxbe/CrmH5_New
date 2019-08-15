@@ -26,7 +26,6 @@
           @pullup="pullup">
             <div class="group-item-list meeting-list">
                 <div
-                  v-show="!noData"
                   v-for="item in listData"
                   :key="item.MeetingNoticeAutoID"
                   class="data-events-item f14 "
@@ -376,7 +375,7 @@ header.mui-bar {
   padding:8px 10px 8px 36px;
 }
 .meeting-list .checkbox-label{
-  position: absolute;top:20px;left:10px;
+  position: absolute;top:8px;left:10px;
 }
 
 

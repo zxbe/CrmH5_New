@@ -19,7 +19,6 @@
           @pullup="pullup">
             <div class="group-item-list meeting-list">
                 <div
-                  v-show="!noData"
                   v-for="item in listData"
                   :key="item.AutoID"
                   class="data-events-item f14 selectable">
@@ -32,9 +31,10 @@
                           <div class="item-time f12">
                             <span class="calcfont calc-gengxinshijian"></span>
                             <span class="time-text">{{item.BeginTime|MeetingTimeFormat}}~{{item.EndTime|MeetingTimeFormat}}</span>
-                            <div class="right-text">{{item.ContactsID}}</div>
+                            <div class="right-text">{{item.Realname}}</div>
                           </div>
-                          <div class="item-company">{{item.CompanyID}}</div>
+                          <div class="item-address">{{item.CompanyID}}</div>
+                          <div class="item-initiator">{{item.ContactsID|formatContactsID}}{{item.Title|formatTitle}}</div>
                       </div>
                   </div>
             </div>
@@ -89,7 +89,7 @@ export default {
                 //非上拉请求
                 _self.pageNum = 1;
             }
-            
+
             //api接口地址
             var urlTemp = tool.AjaxBaseUrl();
             var controlName = tool.Api_MeetingHandle_PopUpQuery;
@@ -211,7 +211,7 @@ export default {
                         console.log(tool.getMessage(data));
                         return;
                     }
-                    
+
                     //回到上一页
                     _self.$router.back(-1);
                 },
@@ -225,7 +225,7 @@ export default {
                     document.activeElement.blur();
                 }
             });
-          
+
         }
     }
 }
@@ -276,7 +276,7 @@ header.mui-bar {
   padding:8px 10px 8px 36px;
 }
 .meeting-list .radios-label{
-  position: absolute;top:30px;left:10px;
+  position: absolute;top:8px;left:10px;
 }
 .meeting-list .item-company{
     width: 100%;
