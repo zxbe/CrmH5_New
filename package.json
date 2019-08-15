@@ -17,6 +17,7 @@
     "pdfjs-dist": "^2.0.943",
     "vue": "^2.5.2",
     "vue-drawer-layout": "^0.3.1",
+    "vue-html5-editor": "^1.1.1",
     "vue-router": "^3.0.1",
     "vue-svg-icon": "^1.2.9",
     "vuex": "^3.1.1"

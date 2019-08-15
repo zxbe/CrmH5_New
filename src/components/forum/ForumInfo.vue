@@ -12,7 +12,12 @@
         <div class="forumContentDiv">
             <img class="userHeadImg" src="../../assets/images/forum/default_user_img.png" alt="">
             <span class="userName">{{infoDataList.UserName}}</span>
-            <p class="content">{{infoDataList.Content}}</p>
+            <!-- <p class="content">{{infoDataList.Content}}</p> -->
+
+            <div style="pointer-events: none;">
+                <editor :content="infoDataList.HtmlContent" :auto-height="true" :show-module-name="false"></editor>
+            </div>
+
             <div class="containTag">
                 <span v-for="tagItem in infoDataList.TagNameList" :key="tagItem.AutoID">{{tagItem.TagName}}</span>
             </div>
@@ -98,9 +103,15 @@
 
 <script>
 import Infoheader from '@/components/customPlugin/Infoheader'
+import VueHtml5Editor from 'vue-html5-editor'
+var editor = new VueHtml5Editor({
+  showModuleName:false,
+  visibleModules:[]
+})
 export default {
     components: {
         Infoheader,
+        editor
     },
     data() {
         return {
@@ -111,7 +122,7 @@ export default {
             ptitle: lanTool.lanContent("1000369_论坛详情"),
             isClose: false, //当前帖子是否关闭
             isEdit:true,//当前帖子是否可编辑
-            infoDataList: {}
+            infoDataList: {},
         }
     },
     created: function () {
@@ -559,11 +570,20 @@ export default {
 }
 </script>
 
-<style scoped>
-@import "../../assets/css/pages/calendarinfo.css";
-@import "../../assets/css/forum/ForumInfo.css";
-
+<style>
 body {
     margin: 0px !important;
 }
+.vue-html5-editor>.toolbar>ul{
+  border-bottom: none;
+}
+</style>
+
+<style scoped>
+@import "../../assets/css/pages/calendarinfo.css";
+@import "../../assets/css/forum/ForumInfo.css";
+.vue-html5-editor{
+  border: none;
+}
+
 </style>
