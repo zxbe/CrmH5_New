@@ -221,7 +221,7 @@ export default {
                         _self.isClose = true;
                         _self.isEdit = false;
                     }
-                    console.log("_self.infoDataList>>>" + JSON.stringify(_self.infoDataList.IsCanEdit));
+                    // console.log("_self.infoDataList>>>" + JSON.stringify(_self.infoDataList.IsCanEdit));
 
                 },
                 error: function (jqXHR, type, error) {
