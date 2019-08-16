@@ -560,6 +560,14 @@ import config from '../../configfile/config.js'
 	 * 用户列表查询
 	 */
 	tool.Api_BaseUserBaseInfHandle_Query = "Api_BaseUserBaseInfHandle_Query";
+	/*
+	 * 用户列表查询
+	 */
+	tool.Api_BaseUserBaseInfHandle_QueryNew = "Api_BaseUserBaseInfHandle_QueryNew";
+	/*
+	 * 用户明细查询
+	 */
+	tool.Api_BaseUserBaseInfHandle_QuerySingle = "Api_BaseUserBaseInfHandle_QuerySingle";
 
 	/*
 	 * ADBAjaxUrl:ADB系统请求的api地址
