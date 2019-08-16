@@ -74,19 +74,19 @@
                 <div class="nav-border"></div>
             </div>
             <div v-show="showPage == 0" class="group-title">
-                <div class="title-text f12 lanText" data-lanid="1000177_最近要参加的会议"></div>
+                <div class="title-text f12"><span class="lanText" data-lanid="1000177_最近要参加的会议"></span><span>{{meetingDateInterval}}</span></div>
                 <router-link to="/tripmeeting" class="check-all right f14 a">
                     <span class="lanText" data-lanid="936_更多"></span>&gt;&gt;
                 </router-link>
             </div>
             <div v-show="showPage == 1" class="group-title">
-                <div class="title-text f12 lanText" data-lanid="1000347_最近的交易"></div>
+                <div class="title-text f12" ><span class="lanText" data-lanid="1000347_最近的交易"></span><span>{{dealDateInterVal}}</span></div>
                 <router-link to="/businessCategories" class="check-all right f14 a">
                     <span class="lanText" data-lanid="936_更多"></span>&gt;&gt;
                 </router-link>
             </div>
             <div v-show="showPage == 2" class="group-title">
-                <div class="title-text f12 lanText" data-lanid="1000346_最近的商业机会"></div>
+                <div class="title-text f12" ><span class="lanText" data-lanid="1000346_最近的商业机会"></span><span>{{dealDateInterVal}}</span></div>
                 <router-link to="/businessCategories" class="check-all right f14 a">
                     <span class="lanText" data-lanid="936_更多"></span>&gt;&gt;
                 </router-link>
@@ -285,6 +285,8 @@ export default {
             noData: false, //没有数据
             showPanel: false,
             groupData: [], //7天的数据
+            meetingDateInterval:"",
+            dealDateInterVal:"",
             dealData:
             [
                 // {
@@ -334,6 +336,7 @@ export default {
             forumMessageCount: 0, //论坛消息的数量
             showPage: 0,
             isFromSingleSignOn: false, //是否来源于单点登陆
+            recentMeetingDay:5,
             recentDealAndPitchDay:30,//查询最近30天的Deal和Pitch记录
         };
     },
@@ -349,6 +352,7 @@ export default {
             _self.$route.query.IsFromSingleSignOn;
 
         lanTool.updateLanVersion();
+        _self.recentDate();
         //侧滑
         eventBus.$on("showIndexRightPanelEvent", _self.panelToggle);
 
@@ -382,6 +386,19 @@ export default {
         _self.watchScroll();
     },
     methods: {
+        //获取最近七天要参加的会议，获取最近一个月的交易和商业机会日期
+        recentDate:function(){
+            var _self = this;
+            var dateTimeFormatStr = "dd/MM/yyyy";
+            var date = new Date();
+            var dateStr = date.FormatNew(dateTimeFormatStr);
+            var startDate = new Date();
+            var isFormat = true;
+            var startDateStr = tool.SetDate(startDate, 0, 0, -_self.recentDealAndPitchDay, isFormat, dateTimeFormatStr);
+            var meetingEndDateStr = tool.SetDate(startDate, 0, 0, _self.recentMeetingDay, isFormat, dateTimeFormatStr);
+            _self.dealDateInterVal = "("+startDateStr+"-"+dateStr+")";
+            _self.meetingDateInterval = "("+dateStr+"-"+meetingEndDateStr+")";
+        },
         switchPage: function (num, e) {
             var _self = this;
             _self.groupData = [];
