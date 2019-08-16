@@ -114,7 +114,7 @@ ul,li{list-style: none;padding:0;margin: 0;}
   -webkit-box-orient: vertical;
 }
 .list-item .feeditemtag{
-  display: flex;
+  /* display: flex; */
   padding-top:5px;
 }
 .list-item .feeditemtag span{
