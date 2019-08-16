@@ -336,7 +336,7 @@ export default {
             forumMessageCount: 0, //论坛消息的数量
             showPage: 0,
             isFromSingleSignOn: false, //是否来源于单点登陆
-            recentMeetingDay:5,
+            recentMeetingDay:6,
             recentDealAndPitchDay:30,//查询最近30天的Deal和Pitch记录
         };
     },
