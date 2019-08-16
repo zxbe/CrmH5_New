@@ -73,17 +73,6 @@
             <div class="elastic-layer-items">
                 <div class="elastic-layer-item f14">
 
-                    <!-- <div class="ListCellContentLeft leftContent">
-                        <div class="ListCellContentLeftText lanText" data-lanid="1060_帖子结果"></div>
-                    </div> -->
-                    <!-- <div class="ListCellContentRight rightContent">
-                        <input type="text" data-field="Result" data-lanid="1060_帖子结果"
-                        data-fieldControlType="picker" data-fieldVal="" Code="DropDowList_DtbAllTypes"
-                        TypeValue="PostResult" class="ListCellContentRightText" />
-                    </div>
-                    <div class="ListCellRightIcon"><span class="calcfont calc-you"></span></div> -->
-
-
                     <span class="calcfont calc-jieguo icon-left"></span>
                     <div class="item-right">
                         <div class="item-row">
@@ -136,8 +125,8 @@ export default {
             onlyView: true,
             operation: false,
             ptitle: lanTool.lanContent("1000369_论坛详情"),
-            isClose: false, //当前帖子是否关闭
-            isEdit:true,//当前帖子是否可编辑
+            isClose: true, //当前帖子是否关闭
+            isEdit:false,//当前帖子是否可编辑
             infoDataList: {},
             noData:true,
         }
@@ -193,6 +182,7 @@ export default {
                     }
                     _self.noData = false;
                     data = data._OnlyOneData || {};
+                    console.log(data);
                     // console.log("data>>>>" + JSON.stringify(data));
 
                     //处理帖子标签
@@ -213,15 +203,19 @@ export default {
                     //控制编辑按钮逻辑
                     var isCanEdit = (data["IsCanEdit"] || "false").toString();
                     isCanEdit = $.trim(isCanEdit.toLowerCase());
-                    if (isCanEdit !== "true") {
-                       _self.isClose = true;
-                       _self.isEdit = true;
-                    }
-                    if (data.Status_ID == "71") {
+
+                    // "已关闭", "Status_ID": 71,
+                    //  "进行中", "Status_ID": 70,
+                    if(data.Status_ID == "70" && isCanEdit == 'true'){
+                        _self.isClose = false;
+                    }else{
                         _self.isClose = true;
-                        _self.isEdit = false;
                     }
-                    // console.log("_self.infoDataList>>>" + JSON.stringify(_self.infoDataList.IsCanEdit));
+                    if(data.Status_ID == "71"){
+                        _self.isEdit = false;
+                    }else{
+                        _self.isEdit = true;
+                    }
 
                 },
                 error: function (jqXHR, type, error) {
