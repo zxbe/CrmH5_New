@@ -59,11 +59,11 @@
 
     </div>
     <div v-show="isEdit" class="replyBtnDiv">
-        <input @click="replyAskClick" class="replyBtn" type="text" readonly="readonly" placeholder="想对Ta说点什么">
+        <input @click="replyAskClick" class="replyBtn" type="text" readonly="readonly" :placeholder="placeholderText">
     </div>
     <div class="replyDiv">
-        <textarea id="ask" class="reply replyContent" placeholder="想对Ta说点什么" rows="3"></textarea>
-        <div @click="sendClick" id="sendBtn" class="send">发送</div>
+        <textarea id="ask" class="reply replyContent" :placeholder="placeholderText" rows="3"></textarea>
+        <div @click="sendClick" id="sendBtn" class="send lanText" data-lanid="1000375_发送"></div>
     </div>
     <!-- 关闭弹层 -->
     <div id="closeThis" class="elastic-layer">
@@ -125,6 +125,7 @@ export default {
             onlyView: true,
             operation: false,
             ptitle: lanTool.lanContent("1000369_论坛详情"),
+            placeholderText:lanTool.lanContent("1000376_想说点什么..."),
             isClose: true, //当前帖子是否关闭
             isEdit:false,//当前帖子是否可编辑
             infoDataList: {},

@@ -25,7 +25,7 @@
 
         <div class="selectFilter">
             <a @click="filterDropDown($event)" class="filterBlock">
-                <span class="filterText lanText" data-lanid="1000213_所有问题">All Questions</span>
+                <span class="filterText lanText" data-lanid="1000213_所有问题"></span>
                 <span class="zen-selectArrow"></span>
             </a>
             <ul v-show="isShowFilter" class="feedFilterby">

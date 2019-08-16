@@ -37,7 +37,7 @@
     <div v-show="showLayer" class="layer selectList">
         <header class="header sticky">
             <a @click="layerBack" class="calcfont calc-fanhui left"></a>
-            <h1 class="mui-title">选择用户</h1>
+            <h1 class="mui-title lanText" data-lanid="1000377_请选择用户"></h1>
             <a @click="layerSave" class="calc-gou  calcfont right" id="save"></a>
             <a @click="layerClear" class="calc-shanchu  calcfont right" id="clear"></a>
         </header>
@@ -75,7 +75,7 @@
             <div class="item-div">
                 <label class="checkbox-label">
                     <input @click="layerSelectAll" type="checkbox" name="sex"/><i class="checkbox checkAll"></i>
-                    <span>all</span>
+                    <span class="lanText"	data-lanid="595_全部">all</span>
                 </label>
             </div>
         </div>

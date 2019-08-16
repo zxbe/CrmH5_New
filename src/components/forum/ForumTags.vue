@@ -38,7 +38,7 @@ export default {
     data(){
       return{
         timeOutEvent:0, //定时器对象
-        title:'All Tag',
+        title:lanTool.lanContent('1000295_所有标签'),
         listData:[]
       }
     },
