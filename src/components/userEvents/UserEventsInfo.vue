@@ -28,14 +28,14 @@
             <div class="systemMessage">
                <div class="divContentBox">
                     <div class="field"><span class="calcfont calc-_chuangjianzhe"></span><label class="lanText" data-lanid="833_创建者"></label></div>
-                    <div class="content"><span data-bid="AddUserName">{{userDetailData.AddUserName|formatUserName}}</span><span data-bid="AddTime">{{userDetailData.AddTime|MeetingTimeFormat}}</span></div>
+                    <div class="content"><span data-bid="AddUserName">{{userDetailData.AddUserName|formatUserName(userDetailData.AddTime)}}</span><span data-bid="AddTime">{{userDetailData.AddTime|MeetingTimeFormat}}</span></div>
                 </div>
                 <div class="divContentBox">
                     <div class="field">
                         <span class="calcfont calc-dq-user">
                             </span><label class="lanText" data-lanid="805_更新者"></label></div>
                     <div class="content" >
-                        <span data-bid="LastUpdateUserName">{{userDetailData.LastUpdateUserName|formatUserName}}</span>
+                        <span data-bid="LastUpdateUserName">{{userDetailData.LastUpdateUserName|formatUserName(userDetailData.LastUpdateTime)}}</span>
                         <span data-bid="LastUpdateTime">{{userDetailData.LastUpdateTime|MeetingTimeFormat}}</span></div>
                 </div>
             </div>
@@ -58,12 +58,15 @@ export default {
     },
     filters:{
         //格式化用户名
-        formatUserName:function(val){
-            if(tool.isNullOrEmptyObject(val)){
+        formatUserName:function(val1,val2){
+            if(tool.isNullOrEmptyObject(val1) || (tool.isNullOrEmptyObject(val1) && tool.isNullOrEmptyObject(val2))){
                 return "";
             }
-            
-            return val + ",";
+            else if(tool.isNullOrEmptyObject(val2)){
+                return val1;
+            }else{
+                return val1 + ",";
+            }
         }
     },
     data() {
