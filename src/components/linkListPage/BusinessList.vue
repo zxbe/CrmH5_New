@@ -122,7 +122,7 @@ export default {
         }
         var url = "/opportunitiesinfo/" + item.AutoID;
         var infoName = item.TheName || '';
-        var showPage = item.BusinessTypes.toString() == "29" ? "0":"1";
+        var showPage = (item.BusinessTypes == undefined || item.BusinessTypes.toString() == "29") ? "0":"1";
         _self.$router.push({
           path: url,
           query: {

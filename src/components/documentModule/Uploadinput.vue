@@ -44,7 +44,7 @@
               </div>
           </div> -->
 
-          <div class="ListCell">
+          <div class="ListCell not-required">
                 <div class="ListCellLeftIcon textLeftIcon"><span class=" calcfont calc-bianji1"></span></div>
                 <div class="ListCellLeftText">
                     <p class="textareaP">
@@ -267,5 +267,9 @@ header a {
 
 .page-content{padding-top: 0.88rem;}
 .rightContent .ListCellContentRightText{height:0.4rem;}
+
+.not-required::after{
+  background-color:#eceaea;
+}
 
 </style>
