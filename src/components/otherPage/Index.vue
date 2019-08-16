@@ -63,6 +63,14 @@
                         <p class="f12 weui-grid__label lanText" data-lanid="1000304_用户活动"></p>
                     </div>
                 </div>
+                 <div class="weui-grid">
+                    <div @click.stop="gotoUrl($event)" url="/bIShareMaterials" class="js_grid">
+                        <div class="weui-grid__icon biShare-icon">
+                            <span class="calcfont calc-wj-gxwj"></span>
+                        </div>
+                        <p class="f12 weui-grid__label lanText" data-lanid="1080_共享文件"></p>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="occupy-position"></div>

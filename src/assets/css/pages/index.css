@@ -75,6 +75,9 @@
 .UserManagement-icon{
   background-color: rgb(18, 150, 219);
 }
+.biShare-icon{
+  background-color: rgb(146, 102, 249);
+}
 .weui-grid__label{
   /* line-height:16px; */
   line-height: 0.5rem;

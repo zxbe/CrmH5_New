@@ -43,7 +43,8 @@ import Linkedpage from '@/components/customPlugin/Linkedpage'
 //用户活动
 import UserEvents from '@/components/userEvents/UserEvents'
 import UserEventsInfo from '@/components/userEvents/UserEventsInfo'
-
+//共享文件
+import BIShareMaterials from '@/components/bIShareMaterials/BIShareMaterials'
 
 // import Report from '@/components/pages/Report'
 // import PrCalendarinfo from '@/components/pages/PrCalendarinfo'
@@ -161,6 +162,8 @@ const router =  new Router({
  //用户活动
  { path:'/userEvents',name:'UserEvents',component:UserEvents},
  { path:'/userEventsInfo/:id',name:'userEventsInfo',component:UserEventsInfo},
+ //共享文件
+ { path:'/bIShareMaterials',name:'BIShareMaterials',component:BIShareMaterials},
   ]
 });
 
