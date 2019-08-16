@@ -15,8 +15,8 @@
                         <h4>
                             <div class="userName">{{item.Realname}}</div>
                         </h4>
-                        <div class="position">{{item.PositionID}}</div>
-                        <div class="department">{{item.DepartmentID}}</div>
+                        <div class="position" ><span class="positionIcon calcfont" :class="[item.PositionID !='' ? 'calc-zhiwei' : '']"></span>{{item.PositionID}}</div>
+                        <div class="department" ><span class="departmentIcon calcfont" :class="[item.DepartmentID !='' ? 'calc-zuzhibumen' : '']"></span>{{item.DepartmentID}}</div>
                         <div>
                             <span :class="[item.Email !='' ? 'calc-youxiang' : '']" class="userEmail pullLeft calcfont">{{item.Email}}</span>
                         </div>
@@ -330,7 +330,7 @@ header.mui-bar {
     line-height: .88rem;
 }
 
-.calcfont {
+.mui-bar .calcfont {
     font-size: 0.48rem;
     text-align: center;
     padding: 0.2rem 0.2rem;
@@ -361,12 +361,12 @@ header.mui-bar {
     padding: 0.2rem;
     /* height: auto; */
     border-bottom: 1px solid beige;
-    height: 1.5rem;
+    height: 1.56rem;
 }
 ul li{
   list-style-type: none;
 }
-.pageContent .userMessage .calcfont{
+.pageContent .userMessage .calcfont.calc-youxiang,.pageContent .userMessage .calcfont.calc-phone{
     padding: 0.3rem 0.1rem 0.1rem 0.1rem;
     font-size: 0.28rem;
     /* width: calc(50% - 0.4rem); */
@@ -411,6 +411,11 @@ ul li{
     white-space: nowrap;
 
 }
+.departmentIcon,
+.positionIcon{
+    font-size: 0.25rem;
+    padding-right: 2px;
+}
 .department{
     font-size: 0.24rem;
     padding-left: 10px;
@@ -419,6 +424,9 @@ ul li{
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+}
+.department::after{
+
 }
 .pullLeft {
     clear: left;

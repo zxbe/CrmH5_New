@@ -56,7 +56,7 @@
 export default {
     data(){
       return{
-        title:'选择标签',
+        title:lanTool.lanContent('1000374_选择标签'),
         showAddTag:false, //是否显示添加标签输入框
         newTag:'', //新增的标签
         allTagData:[],

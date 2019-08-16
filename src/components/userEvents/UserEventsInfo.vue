@@ -27,12 +27,12 @@
             </div>
             <div class="systemMessage">
                <div class="divContentBox">
-                    <div class="field"><span class="calcfont calc-yonghu"></span><label class="lanText" data-lanid="833_创建者"></label></div>
+                    <div class="field"><span class="calcfont calc-_chuangjianzhe"></span><label class="lanText" data-lanid="833_创建者"></label></div>
                     <div class="content"><span data-bid="AddUserName">{{userDetailData.AddUserName|formatUserName}}</span><span data-bid="AddTime">{{userDetailData.AddTime|MeetingTimeFormat}}</span></div>
                 </div>
                 <div class="divContentBox">
                     <div class="field">
-                        <span class="calcfont calc-yonghu1">
+                        <span class="calcfont calc-dq-user">
                             </span><label class="lanText" data-lanid="805_更新者"></label></div>
                     <div class="content" >
                         <span data-bid="LastUpdateUserName">{{userDetailData.LastUpdateUserName|formatUserName}}</span>

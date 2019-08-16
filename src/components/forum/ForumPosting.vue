@@ -96,7 +96,7 @@ export default {
   },
   data(){
     return{
-        title:'发帖',
+        title:lanTool.lanContent('1000244_发帖'),
         postTitle:'',
         str:'',
         postId:-1, // 帖子id -1：新增；非-1:编辑
