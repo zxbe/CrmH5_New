@@ -160,7 +160,7 @@ const router =  new Router({
 
  //用户活动
  { path:'/userEvents',name:'UserEvents',component:UserEvents},
- { path:'/userEventsInfo',name:'UserEvents',component:UserEventsInfo},
+ { path:'/userEventsInfo/:id',name:'userEventsInfo',component:UserEventsInfo},
   ]
 });
 
