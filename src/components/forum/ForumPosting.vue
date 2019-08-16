@@ -183,6 +183,9 @@ export default {
                   return;
               }
               data = data._OnlyOneData.Rows||[];
+              data = data.filter(function(item){
+                  return item.UserName != tool.UserName();
+              })
               _self.userList = data;
           },
           error: function (jqXHR, type, error) {
