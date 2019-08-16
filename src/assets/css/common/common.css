@@ -380,6 +380,7 @@ label.radios-label input:disabled:checked + .radios:after {
 .opportunities-list .green-color{color:#009979;}
 .opportunities-list .padding-bottom-5{padding-bottom: 5px;}
 .opportunities-list .padding-top-5{padding-top: 5px;}
+.opportunities-list .icon{margin-right: 3px;}
 
 
 

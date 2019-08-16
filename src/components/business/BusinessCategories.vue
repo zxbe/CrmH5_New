@@ -128,12 +128,12 @@
                                                 </div>
 
                                                 <div class="item-div f12 padding-bottom-3 padding-top-3">
-                                                  <i class="calcfont calc-zhuangtai"></i>
+                                                  <i class="calcfont calc-zhuangtai icon"></i>
                                                   <span class="green-color" :class="item.className">{{item.CurrentState}}</span>
                                                   <!-- <span class="right updateTime">{{item.LastUpdateTime|abdDateFormat('dd/MM/yyyy')}}</span> -->
                                                 </div>
                                                 <div class="item-div" v-show="(item.Memo =='' || item.Memo == null) ? false : true">
-                                                  <i class="calcfont calc-beiwanglu"></i>
+                                                  <i class="calcfont calc-beiwanglu icon"></i>
                                                   <div class="line-clamp2">{{item.Memo}}</div>
                                                 </div>
                                                 <div v-if="item.IsMeetingExist.toLowerCase()!='false'" class="item-div-box">
