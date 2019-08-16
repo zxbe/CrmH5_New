@@ -49,7 +49,7 @@
                 <div class="title f16">{{item.Theme}}</div>
                 <div class="content f14">{{item.Content}}</div>
                 <div class="feeditemtag f12">
-                    <span>web</span><span>JS</span><span>C#</span><span>Vue</span>
+                    <span v-for="i in item.TagName" :key="i">{{i}}</span>
                 </div>
                 <div class="info f12">
                     <!-- "Status": "已关闭", "Status_ID": 71,
