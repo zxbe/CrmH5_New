@@ -16,6 +16,7 @@
                             <div class="userName">{{item.UserName}}</div>
                         </h4>
                         <div class="position">{{item.PositionID}}</div>
+                        <div class="department">{{item.DepartmentID}}</div>
                         <div>
                             <span class="userEmail pullLeft calcfont calc-youxiang">{{item.Email}}</span>
                         </div>
@@ -305,7 +306,7 @@ header.mui-bar {
     padding: 0.2rem;
     /* height: auto; */
     border-bottom: 1px solid beige;
-    height: 1.3rem;
+    height: 1.5rem;
 }
 ul li{
   list-style-type: none;
@@ -327,8 +328,8 @@ ul li{
 }
 .headImg {
     float: left;
-    height: 0.8rem;
-    width: 0.8rem;
+    height: 1rem;
+    width: 1rem;
 }
 
 .headImg img {
@@ -348,14 +349,22 @@ ul li{
 .position {
     font-size: 0.24rem;
     padding-left: 10px;
-    padding-top: 0.1rem;
+    /* padding-top: 0.1rem; */
     color: #888888;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
 
 }
-
+.department{
+    font-size: 0.24rem;
+    padding-left: 10px;
+    /* padding-top: 0.1rem; */
+    color: #888888;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
 .pullLeft {
     clear: left;
     float: left;
