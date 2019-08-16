@@ -46,20 +46,6 @@ export default {
             //     userName: "aoniruan阮毅文",
             //     dateTime: "2019-07-31 18:20",
             //     dataId:"1"
-            // }, {
-            //     imgUrl: "",
-            //     title: "python--爬虫--爬虫学习路线指南",
-            //     content: "爬虫是入门Python最好的方式，没有之一。Python有很多应用的方向，比如后台开发、web开发、科学计算等等，但爬虫对于初学者而言更友好，原理简单，几行代码就能实现基本的爬虫，学习的过程更加平滑，你能体会更大的成就感。",
-            //     userName: "aoniruan阮毅文",
-            //     dateTime: "2019-07-31 19:30",
-            //     dataId:"2"
-            // }, {
-            //     imgUrl: "",
-            //     title: "python--爬虫--爬虫学习路线指南",
-            //     content: "爬虫是入门Python最好的方式，没有之一。Python有很多应用的方向，比如后台开发、web开发、科学计算等等，但爬虫对于初学者而言更友好，原理简单，几行代码就能实现基本的爬虫，学习的过程更加平滑，你能体会更大的成就感。",
-            //     userName: "aoniruan阮毅文",
-            //     dateTime: "2019-07-31 20:20",
-            //     dataId:"3"
             // }
             ],
         }
@@ -259,24 +245,19 @@ export default {
                 function() {}
             );
         },
-        //跳转到详情 TODO逻辑待完善
+        //跳转到详情
         goInfoPage:function(data){
+            if(tool.isNullOrEmptyObject(data.FromID)){
+              return;
+            }
             var _self = this;
-            var infoName = "";
-            var url = "";
-            var parameter = {
-                "infoName":data["Theme"]||""
-            };
-
-            //url = "/contactsinfo/" + fromID;
-
+            var url = "/foruminfo/" + data.FromID;
             //设置记录为已读
             _self.setCurRead(data);
             //页面跳转
-            // _self.$router.push({
-            //     path: url,
-            //     query: parameter
-            // });
+            _self.$router.push({
+                path: url,
+            });
         }
     }
 }
