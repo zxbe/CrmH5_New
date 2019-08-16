@@ -109,6 +109,7 @@
 import Scroll from '@/components/customPlugin/scroll/Scroll';
 import Nothing from "@/components/customPlugin/Nothing"
 export default {
+    name:'forumsearch',
     components: {
         'vue-scroll': Scroll,
         'nothing': Nothing
