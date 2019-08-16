@@ -24,7 +24,7 @@
    <div class="searchSelectDiv">
 
         <div class="selectFilter">
-            <a @click="filterDropDown($event)" class="filterBlock">
+            <a @click.stop="filterDropDown($event)" class="filterBlock">
                 <span class="filterText lanText" data-lanid="1000213_所有问题"></span>
                 <span class="zen-selectArrow"></span>
             </a>
@@ -39,7 +39,7 @@
             </ul>
         </div>
         <div class="selectSort">
-            <a @click="sortDropDown($event)" class="sortBlock">
+            <a @click.stop="sortDropDown($event)" class="sortBlock">
                 <span class="sortText lanText" data-lanid="1000222_发布日期"></span>
                 <span class="zen-selectArrow"></span>
             </a>
@@ -131,6 +131,7 @@ export default {
     mounted: function () {
         let _self = this;
         lanTool.updateLanVersion();
+        _self.hideDropdownList();
     },
     activated: function () {
         var _self = this;
@@ -148,6 +149,14 @@ export default {
         }
     },
     methods: {
+        //点击空白处隐藏下拉列表
+        hideDropdownList: function () {
+            var _self = this;
+            $(document).on('click', function (e) {
+                _self.isShowSort = false;
+                _self.isShowFilter = false;
+            });
+        },
         //排序下拉列表展示和隐藏
         sortDropDown: function () {
             var _self = this;
