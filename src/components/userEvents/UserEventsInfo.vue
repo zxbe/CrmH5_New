@@ -28,15 +28,15 @@
             <div class="systemMessage">
                <div class="divContentBox">
                     <div class="field"><span class="calcfont calc-yonghu"></span><label class="lanText" data-lanid="833_创建者"></label></div>
-                    <div class="content"><span data-bid="AddUserName">{{userDetailData.AddUserName}}</span>,<span data-bid="AddTime">{{userDetailData.AddTime}}</span></div>
+                    <div class="content"><span data-bid="AddUserName">{{userDetailData.AddUserName|formatUserName}}</span><span data-bid="AddTime">{{userDetailData.AddTime|MeetingTimeFormat}}</span></div>
                 </div>
                 <div class="divContentBox">
                     <div class="field">
                         <span class="calcfont calc-yonghu1">
                             </span><label class="lanText" data-lanid="805_更新者"></label></div>
                     <div class="content" >
-                        <span data-bid="LastUpdateUserName">{{userDetailData.LastUpdateUserName}}</span>
-                        ,<span data-bid="LastUpdateTime">{{userDetailData.LastUpdateTime}}</span></div>
+                        <span data-bid="LastUpdateUserName">{{userDetailData.LastUpdateUserName|formatUserName}}</span>
+                        <span data-bid="LastUpdateTime">{{userDetailData.LastUpdateTime|MeetingTimeFormat}}</span></div>
                 </div>
             </div>
         </div>
@@ -50,15 +50,26 @@ import Infoheader from '@/components/customPlugin/Infoheader'
 import InfoRightPanel from '@/components/customPlugin/InfoRightPanel'
 import Infofooter from '@/components/customPlugin/infoFooter'
 export default {
-    name: 'UserEventsInfo',
+    name: 'userEventsInfo',
     components: {
         Infoheader,
         Infofooter,
         InfoRightPanel
     },
+    filters:{
+        //格式化用户名
+        formatUserName:function(val){
+            if(tool.isNullOrEmptyObject(val)){
+                return "";
+            }
+            
+            return val + ",";
+        }
+    },
     data() {
         return {
-            ptitle: lanTool.lanContent("1000205_用户详情"),
+            ptitle: "",
+            id: '',
             isAddNew: true,
             onlyView: true,
             operation: true,
@@ -67,29 +78,80 @@ export default {
             rightPanelFromType: "", //传给右侧菜单用的参数
             rightPanelFromID: "", //传给右侧菜单用的参数
             userDetailData:{
-                UserName:"abeyeung",
-                DepartmentID:"人力资源与管理",
-                PositionID:"前端工程师",
-                Phone:"852 6210 8352",
-                Email:"alancheng@fpigp.com alancheng@fpigp.com alancheng@fpigp.com alancheng@fpigp.com alancheng@fpigp.com",
-                AddUserName:"aoniruan阮毅文",
-                AddTime:"2019/08/05 10:00",
-                LastUpdateUserName:"abeyeung2",
-                LastUpdateTime:"2019/08/20 13:30"
+                // UserName:"abeyeung",
+                // DepartmentID:"人力资源与管理",
+                // PositionID:"前端工程师",
+                // Phone:"852 6210 8352",
+                // Email:"alancheng@fpigp.com alancheng@fpigp.com alancheng@fpigp.com alancheng@fpigp.com alancheng@fpigp.com",
+                // AddUserName:"aoniruan阮毅文",
+                // AddTime:"2019/08/05 10:00",
+                // LastUpdateUserName:"abeyeung2",
+                // LastUpdateTime:"2019/08/20 13:30"
             }
         }
     },
     created: function () {
         var _self = this;
+        _self.id = _self.$route.params.id || "";
+        //从列表获取详情名
+        _self.ptitle = _self.$route.query.infoName || lanTool.lanContent("1000205_用户详情");
         _self.rightPanelFromType = "11";
+        _self.rightPanelFromID = _self.$route.params.id || "";
     },
     mounted: function () {
+        let _self = this;
+        lanTool.updateLanVersion();
+        document.activeElement.blur();
+        $(window).scrollTop(0);
 
+        _self.queryUser();
     },
     methods: {
-
+        //查询用户明细
+        queryUser:function(){
+            let _self = this;
+            //请求地址
+            var urlTemp = tool.AjaxBaseUrl();
+            var controlName = tool.Api_BaseUserBaseInfHandle_QuerySingle;
+            //传入参数
+            var jsonDatasTemp = {
+                CurrentLanguageVersion: lanTool.currentLanguageVersion,
+                UserName: tool.UserName(),
+                _ControlName: controlName,
+                _RegisterCode: tool.RegisterCode(),
+                AutoID:_self.id
+            };
+            var loadingIndexClassName = tool.showLoading();
+            $.ajax({
+                async: true,
+                type: "post",
+                url: urlTemp,
+                data: jsonDatasTemp,
+                success: function (data) {
+                    tool.hideLoading(loadingIndexClassName);
+                    data = tool.jObject(data);
+                    if (data._ReturnStatus == false) {
+                        tool.showText(tool.getMessage(data));
+                        console.log(tool.getMessage(data));
+                        return;
+                    }
+                    data = data._OnlyOneData || {};
+                    _self.userDetailData = data;
+                },
+                error: function (jqXHR, type, error) {
+                    tool.hideLoading(loadingIndexClassName);
+                    console.log(error);
+                    return;
+                },
+                complete: function () {
+                    //隐藏虚拟键盘
+                    document.activeElement.blur();
+                }
+            });
+        }
     }
 }
+
 </script>
 
 <style scoped>

@@ -218,8 +218,9 @@ export default {
                 PageNum:_self.pageNum,
                 SortName:"",
                 SortOrder:"",
-                QueryCondiction: _self.queryCondictionData || []
+                QueryCondiction: JSON.stringify(_self.queryCondictionData || [])
             };
+            console.log(jsonDatasTemp);
             var loadingIndexClassName = tool.showLoading();
             $.ajax({
                 async: true,
