@@ -36,14 +36,22 @@
                           <div v-if="group.items.length > 0" class="group-item-list meeting-list">
                               <div v-for="item in group.items" :key="item.AutoID"
                               class="data-events-item f14" :data-url="'/meetinginfo/' + item.AutoID">
-                                      <div class="item-title">{{item.MeetingTitle}}</div>
+                                      <div class="flex">
+                                        <i style="margin-right: 3px;" class="calcfont calc-T icon"></i><div class="item-title">{{item.MeetingTitle}}</div>
+                                      </div>
                                       <div class="item-time f12">
                                             <span class="calcfont calc-gengxinshijian"></span>
                                             <span class="time-text">{{item.BeginTime|MeetingTimeFormat}}~{{item.EndTime|MeetingTimeFormat}}</span>
                                             <span class="right-text">{{item.Realname}}</span>
                                       </div>
-                                      <div class="item-address">{{item.CompanyID}}</div>
-                                      <div class="item-initiator">{{item.ContactsID|formatContactsID}}{{item.Title|formatTitle}}</div>
+                                      <div class="flex pdtb">
+                                          <i :class="[item.CompanyID !='' ? 'calc-gongsixinxi' : '']" class="icon calcfont "></i>
+                                          <div class="item-address">{{item.CompanyID}}</div>
+                                      </div>
+                                      <div class="flex">
+                                          <i :class="[item.ContactsID !='' ? 'calc-kehulianxiren' : '']" class="icon calcfont "></i>
+                                          <div class="item-initiator">{{item.ContactsID|formatContactsID}}{{item.Title|formatTitle}}</div>
+                                      </div>
                               </div>
                           </div>
                       </div>

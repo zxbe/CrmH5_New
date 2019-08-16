@@ -90,12 +90,12 @@
                                 <div class="ListCellRightIcon"><span class="mui-icon calcfont calc-you"></span></div>
                             </div>
                         </div>
-                        <div class="ListCell HideWhenNew">
+                        <!-- <div class="ListCell HideWhenNew">
                             <div class="ListCellLeftIcon textLeftIcon" @click="followToggle"><span data-field="IsFollow" data-fieldControlType="icon" data-fieldVal="{'true':'calc-shoucang','false':'calc-noshoucang'}" data-defaultVal="false" class="mui-icon calcfont guanZhu"></span></div>
                             <div class="ListCellLeftText">
                                 <p class="textareaP lanText" data-lanid="786_关注"></p>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
                     <div class="showMoreList" style="display:block">
                         <div class="MoreList">
@@ -369,6 +369,7 @@ export default {
                 query: parameter
             });
        },
+       /*
         followToggle: function (e) {
             var _self = this;
             var autoID = _self.$route.params.id;
@@ -392,6 +393,7 @@ export default {
                 }
             });
         },
+        */
 
         savePageData: function (e) {
             var _self = this;

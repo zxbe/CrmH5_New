@@ -68,22 +68,30 @@
                                                       <div class="item-div item-first-div blue-color">
                                                       {{item.TheName}}
                                                       </div>
-                                                      <div class="item-div line-clamp2">{{item.Memo}}</div>
-                                                      <div class="item-div f12 green-color padding-bottom-3 padding-top-3">
-                                                        <span :class="item.className">{{item.CurrentState}}</span>
-                                                        <span class="right updateTime">{{item.LastUpdateTime|abdDateFormat('dd/MM/yyyy')}}</span>
+                                                      <div class="item-div f12">
+                                                        <i class="calcfont calc-zhuangtai icon"></i>
+                                                        <span class="green-color" :class="item.className">{{item.CurrentState}}</span>
+                                                        <!-- <span class="right updateTime">{{item.LastUpdateTime|abdDateFormat('dd/MM/yyyy')}}</span> -->
                                                       </div>
+                                                      <div class="item-div" v-show="(item.Memo =='' || item.Memo == null) ? false : true">
+                                                        <i class="calcfont calc-beiwanglu icon"></i>
+                                                        <div class="line-clamp2">{{item.Memo}}</div>
+                                                      </div>
+
                                                       <div v-if="item.IsMeetingExist.toLowerCase()!='false'" class="item-div-box">
                                                           <div class="item-new-text">{{item.meetingSysmbol}}</div>
                                                           <div class="new-right">
                                                             <div class="item-div">
-                                                              <span class="itme-div-span">{{item.MeetingTitle}}</span>
+                                                              <i class="calcfont calc-huiyi  icon"></i><span class="itme-div-span">{{item.MeetingTitle}}</span>
                                                             </div>
                                                             <div class="item-div dete-div f12">
+                                                              <i class="calcfont calc-gengxinshijian  icon"></i>
                                                               <span>{{item.BeginTime|abdDateFormat('dd/MM/yyyy HH:mm')}}</span>
                                                             </div>
                                                           </div>
                                                       </div>
+
+
                                                   </div>
                               </div>
                               </div>
@@ -118,19 +126,24 @@
                                                 <div class="item-div item-first-div blue-color">
                                                   {{item.TheName}}
                                                 </div>
-                                                <div class="item-div line-clamp2">{{item.Memo}}</div>
-                                                <div class="item-div f12 green-color padding-bottom-3 padding-top-3">
-                                                  <span :class="item.className">{{item.CurrentState}}</span>
-                                                  <span class="right updateTime">{{item.LastUpdateTime|abdDateFormat('dd/MM/yyyy')}}</span>
+
+                                                <div class="item-div f12 padding-bottom-3 padding-top-3">
+                                                  <i class="calcfont calc-zhuangtai"></i>
+                                                  <span class="green-color" :class="item.className">{{item.CurrentState}}</span>
+                                                  <!-- <span class="right updateTime">{{item.LastUpdateTime|abdDateFormat('dd/MM/yyyy')}}</span> -->
+                                                </div>
+                                                <div class="item-div" v-show="(item.Memo =='' || item.Memo == null) ? false : true">
+                                                  <i class="calcfont calc-beiwanglu"></i>
+                                                  <div class="line-clamp2">{{item.Memo}}</div>
                                                 </div>
                                                 <div v-if="item.IsMeetingExist.toLowerCase()!='false'" class="item-div-box">
                                                       <div class="item-new-text">{{item.meetingSysmbol}}</div>
-
                                                       <div class="new-right">
                                                           <div class="item-div">
-                                                            <span class="itme-div-span">{{item.MeetingTitle}}</span>
+                                                            <i class="calcfont calc-huiyi  icon"></i><span class="itme-div-span">{{item.MeetingTitle}}</span>
                                                           </div>
                                                           <div class="item-div dete-div f12">
+                                                            <i class="calcfont calc-gengxinshijian  icon"></i>
                                                             <span>{{item.BeginTime|abdDateFormat('dd/MM/yyyy HH:mm')}}</span>
                                                           </div>
                                                       </div>
