@@ -127,7 +127,7 @@
                                                   {{item.TheName}}
                                                 </div>
 
-                                                <div class="item-div f12 padding-bottom-3 padding-top-3">
+                                                <div class="item-div f12">
                                                   <i class="calcfont calc-zhuangtai icon"></i>
                                                   <span class="green-color" :class="item.className">{{item.CurrentState}}</span>
                                                   <!-- <span class="right updateTime">{{item.LastUpdateTime|abdDateFormat('dd/MM/yyyy')}}</span> -->

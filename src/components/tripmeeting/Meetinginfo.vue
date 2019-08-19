@@ -300,31 +300,15 @@ export default {
             defaultDateTime: "", //新建单据时候的初始时间
             id: '', //会议id
             //文档数据
-            documentData: [
-                //   {
-                //     AddTime: "2019-07-31 18:31:00",
-                //     AddUserName: "dylanxu",
-                //     AutoID: "765411",
-                //     FileLength: "54768",
-                //     ObjectName: "Project Management - CRM_PC(20190625)_V6_19073118305794.xlsx",
-                //     ObjectRemark: "test",
-                //   },
-                //   {
-                //     AddTime: "2019-07-26 14:09:00",
-                //     AddUserName: "ceshi",
-                //     AutoID: "765386",
-                //     FileLength: "240704",
-                //     ObjectName: "t01ecab926fd33d8055_19072614092088.jpg",
-                //     ObjectRemark: ""
-                //   },
-                //   {
-                //     AddTime: "2019-07-26 13:57:00",
-                //     AddUserName: "alancheng",
-                //     AutoID: "765385",
-                //     FileLength: "1022368",
-                //     ObjectName: "MYXJ_20150716224149_save_19072613564350.png",
-                //     ObjectRemark: ""
-                //   }
+            documentData:[
+            //   {
+            //     AddTime: "2019-07-31 18:31:00",
+            //     AddUserName: "dylanxu",
+            //     AutoID: "765411",
+            //     FileLength: "54768",
+            //     ObjectName: "Project Management - CRM_PC(20190625)_V6_19073118305794.xlsx",
+            //     ObjectRemark: "test",
+            //   }
             ],
             dealOppID: "",
             rightPanelFromType: "", //传给右侧菜单用的参数

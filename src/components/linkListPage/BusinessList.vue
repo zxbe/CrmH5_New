@@ -20,15 +20,14 @@
           @pulldown="pulldown"
           @pullup="pullup">
 
-            <div
+            <!-- <div
             v-for="item in listData"
             :key="item.AutoID"
             class="group-item f14">
-            <!-- :data-url="'/opportunitiesinfo/' + item.AutoID"> -->
                     <div class="item-block" @click="goToInfo(item,$event)" :data-id="item.AutoID">
                         <div class="item-div item-first-div blue-color">{{item.TheName}}</div>
                         <div class="item-div line-clamp2">{{item.Memo}}</div>
-                        <div class="item-div f12 green-color padding-bottom-3 padding-top-3">
+                        <div class="item-div f12 green-color">
                           <span :class="item.className">{{item.CurrentState}}</span>
                           <span class="right updateTime">{{item.Initiator}}</span>
                         </div>
@@ -43,25 +42,38 @@
                               </div>
                             </div>
                         </div>
-                        <!-- "AutoID": 982,
-                        "TheName": "MSN123_9 Air_Trading",
-                        "Memo": "666",
-                        "CurrentState": "已关闭",
-                        "IsFollow": "calc-noshoucang",
-                        "IsMeetingExist": "true",
-                        "MeetingTitle": "31号1次会议",
-                        "BeginTime": "2019-07-31T08:00:00" -->
-                        <!-- <div class="item-div-box">
-                            <div class="new-right">
-                              <div class="item-div">
-                                <span class="itme-div-span">{{item.MeetingTitle}}</span>
-                              </div>
-                              <div class="item-div dete-div f12">
-                                <span>{{item.MeetingDate|abdDateFormat('dd/MM/yyyy HH:mm')}}</span>
-                              </div>
-                            </div>
-                        </div> -->
                     </div>
+            </div> -->
+
+            <div v-for="item in listData"
+                :key="item.AutoID"
+                class=" group-item f14">
+                      <!-- <div class="item-stars-icon calcfont" :class="item.IsFollow" :data-autoid="item.AutoID"></div> -->
+                      <div class="item-block" @click="goToInfo(item,$event)" :data-id="item.AutoID">
+                          <div class="item-div item-first-div blue-color">
+                            {{item.TheName}}
+                          </div>
+                          <div class="item-div f12">
+                            <i class="calcfont calc-zhuangtai icon"></i>
+                            <span class="green-color" :class="item.className">{{item.CurrentState}}</span>
+                          </div>
+                          <div class="item-div" v-show="(item.Memo =='' || item.Memo == null) ? false : true">
+                            <i class="calcfont calc-beiwanglu icon"></i>
+                            <div class="line-clamp2">{{item.Memo}}</div>
+                          </div>
+                          <div v-if="item.IsMeetingExist.toLowerCase()!='false'" class="item-div-box">
+                                <div class="item-new-text">{{item.meetingSysmbol}}</div>
+                                <div class="new-right">
+                                    <div class="item-div">
+                                      <i class="calcfont calc-huiyi  icon"></i><span class="itme-div-span">{{item.MeetingTitle}}</span>
+                                    </div>
+                                    <div class="item-div dete-div f12">
+                                      <i class="calcfont calc-gengxinshijian  icon"></i>
+                                      <span>{{item.BeginTime|abdDateFormat('dd/MM/yyyy HH:mm')}}</span>
+                                    </div>
+                                </div>
+                          </div>
+                      </div>
             </div>
 
         </vue-scroll>
@@ -296,14 +308,20 @@ header.mui-bar {
 .group-item .item-block {
     padding: 5px 10px;
 }
-.group-item .item-first-div {
+/* .group-item .item-first-div {
     font-weight: 700;
-    padding: 5px 0 3px;
+    padding: 5px 0 0px;
     color: #3cadf9;
-}
+} */
 
 .group-item:first-child::after{background:#ffffff;}
-.group-item .item-div{line-height:0.4rem;}
+.group-item .item-div{
+  line-height:0.4rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  padding-top: 5px;
+}
 .group-item .line-clamp2{
   display: -webkit-box;
   -webkit-box-orient: vertical;
@@ -315,7 +333,7 @@ header.mui-bar {
 .group-item .item-div .updateTime{color:#666;}
 .group-item .item-div-box{position: relative;}
 .group-item .item-new-text{
-    position: absolute;
+    /* position: absolute;
     left: 0;
     top: 2px;
     color: #ff5a21;
@@ -327,9 +345,18 @@ header.mui-bar {
     font-size: 10px!important;
     vertical-align: middle;
     text-align: center;
-    padding: 2px;
+    padding: 2px; */
+
+    color: #ff5a21;
+    border-radius: 3px;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    display: inline-block;
+    vertical-align: middle;
+    text-align: center;
+    padding-top: 5px;
 }
-.group-item .new-right{min-height:0.8rem;padding-left: 60px;}
+.group-item .new-right{min-height:0.8rem;}
 .group-item .itme-div-span{display: block;
   width: 100%;
   overflow: hidden;
@@ -337,7 +364,7 @@ header.mui-bar {
   text-overflow: ellipsis;}
 .group-item .item-first-div{
   font-weight:bold;width: 100%;
-  padding:5px 0 3px;display:block;
+  padding:5px 0 0px;display:block;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -348,6 +375,7 @@ header.mui-bar {
 .group-item .padding-bottom-3{padding-bottom: 3px;}
 .group-item .padding-top-3{padding-top: 3px;}
 
+.group-item .icon{margin-right: 3px;}
 
 /*列表style ---end--*/
 
