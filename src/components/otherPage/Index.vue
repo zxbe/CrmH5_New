@@ -112,16 +112,25 @@
                         <div class="occupy-div"></div>
                         <div v-if="group.items.length > 0" class="group-item-list meeting-list index-meeting-list">
 
-                            <div v-for="item in group.items" :key="item.AutoID" class="data-events-item f14" :data-url="'/meetinginfo/'+ item.AutoID">
-                                <div class="item-title">{{item.MeetingTitle}}</div>
-                                <div class="item-time f12">
-                                    <span class="calcfont calc-gengxinshijian"></span>
-                                    <span class="time-text">{{item.BeginTime|MeetingTimeFormat}}~{{item.EndTime|MeetingTimeFormat}}</span>
-                                    <span class="right-text">{{item.Realname}}</span>
-                                </div>
-                                <div class="item-address">{{item.CompanyID}}</div>
-                                <div class="item-initiator">{{item.ContactsID|formatContactsID}}{{item.Title|formatTitle}}</div>
-                            </div>
+                            <div v-for="item in group.items" :key="item.AutoID"
+                              class="data-events-item f14" :data-url="'/meetinginfo/' + item.AutoID">
+                                      <div class="flex">
+                                        <i style="margin-right: 3px;" class="calcfont calc-T icon"></i><div class="item-title">{{item.MeetingTitle}}</div>
+                                      </div>
+                                      <div class="item-time f12">
+                                            <span class="calcfont calc-gengxinshijian"></span>
+                                            <span class="time-text">{{item.BeginTime|MeetingTimeFormat}}~{{item.EndTime|MeetingTimeFormat}}</span>
+                                            <span class="right-text">{{item.Realname}}</span>
+                                      </div>
+                                      <div class="flex pdtb">
+                                          <i :class="[item.CompanyID !='' ? 'calc-gongsixinxi' : '']" class="icon calcfont "></i>
+                                          <div class="item-address">{{item.CompanyID}}</div>
+                                      </div>
+                                      <div class="flex">
+                                          <i :class="[item.ContactsID !='' ? 'calc-kehulianxiren' : '']" class="icon calcfont "></i>
+                                          <div class="item-initiator">{{item.ContactsID|formatContactsID}}{{item.Title|formatTitle}}</div>
+                                      </div>
+                              </div>
 
                         </div>
                     </div>
@@ -141,30 +150,40 @@
                         <div class="occupy-div"></div>
 
                         <div v-if="group.items.length > 0" class="group-item-list dealPipeline-list">
-                            <div v-for="item in group.items" :key="item.AutoID" class=" group-item f14" :data-url="'/opportunitiesinfo/' + item.AutoID">
-                                <div class="item-stars-icon calcfont" :class="item.IsFollow" :data-autoid="item.AutoID"></div>
-                                <div class="item-block">
-                                    <div class="item-div item-first-div blue-color">
-                                        {{item.TheName}}
-                                    </div>
-                                    <div class="item-div line-clamp2">{{item.Memo}}</div>
-                                    <div class="item-div f12 green-color padding-bottom-3 padding-top-3">
-                                        <span :class="item.className">{{item.CurrentState}}</span>
-                                        <span class="right updateTime">{{item.LastUpdateTime|abdDateFormat('dd/MM/yyyy')}}</span>
-                                    </div>
-                                    <div v-if="item.IsMeetingExist!='false'" class="item-div-box">
-                                        <div class="item-new-text">{{item.meetingSysmbol}}</div>
-                                        <div class="new-right">
+
+                            <div v-for="item in group.items" :key="item.AutoID"
+                              class=" group-item f14"
+                              :data-url="'/opportunitiesinfo/' + item.AutoID">
+                                  <div class="item-stars-icon calcfont" :class="item.IsFollow" :data-autoid="item.AutoID"></div>
+                                  <div class="item-block">
+                                      <div class="item-div item-first-div blue-color">
+                                      {{item.TheName}}
+                                      </div>
+                                      <div class="item-div f12">
+                                        <i class="calcfont calc-zhuangtai icon"></i>
+                                        <span class="green-color" :class="item.className">{{item.CurrentState}}</span>
+
+                                      </div>
+                                      <div class="item-div" v-show="(item.Memo =='' || item.Memo == null) ? false : true">
+                                        <i class="calcfont calc-beiwanglu icon"></i>
+                                        <div class="line-clamp2">{{item.Memo}}</div>
+                                      </div>
+
+                                      <div v-if="item.IsMeetingExist.toLowerCase()!='false'" class="item-div-box">
+                                          <div class="item-new-text">{{item.meetingSysmbol}}</div>
+                                          <div class="new-right">
                                             <div class="item-div">
-                                                <span class="itme-div-span">{{item.MeetingTitle}}</span>
+                                              <i class="calcfont calc-huiyi  icon"></i><span class="itme-div-span">{{item.MeetingTitle}}</span>
                                             </div>
                                             <div class="item-div dete-div f12">
-                                                <span>{{item.BeginTime|abdDateFormat('dd/MM/yyyy HH:mm')}}</span>
+                                              <i class="calcfont calc-gengxinshijian  icon"></i>
+                                              <span>{{item.BeginTime|abdDateFormat('dd/MM/yyyy HH:mm')}}</span>
                                             </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                          </div>
+                                      </div>
+                                  </div>
                             </div>
+
                         </div>
                     </div>
                 </div>
@@ -182,31 +201,40 @@
                         <div class="occupy-div"></div>
 
                         <div v-if="group.items.length > 0" class="group-item-list opportunities-list">
-                            <div v-for="item in group.items" :key="item.AutoID" class=" group-item f14" :data-url="'/opportunitiesinfo/' + item.AutoID">
-                                <div class="item-stars-icon calcfont" :class="item.IsFollow" :data-autoid="item.AutoID"></div>
-                                <div class="item-block">
-                                    <div class="item-div item-first-div blue-color">
-                                        {{item.TheName}}
-                                    </div>
-                                    <div class="item-div f12 green-color padding-bottom-3 padding-top-3">
-                                        <span :class="item.className">{{item.CurrentState}}</span>
-                                        <span class="right updateTime">{{item.LastUpdateTime|abdDateFormat('dd/MM/yyyy')}}</span>
-                                    </div>
-                                    <div class="item-div line-clamp2">{{item.Memo}}</div>
-                                    <div v-if="item.IsMeetingExist!='false'" class="item-div-box">
-                                        <div class="item-new-text">{{item.meetingSysmbol}}</div>
 
-                                        <div class="new-right">
-                                            <div class="item-div">
-                                                <span class="itme-div-span">{{item.MeetingTitle}}</span>
+                            <div v-for="item in group.items" :key="item.AutoID"
+                              class=" group-item f14"
+                              :data-url="'/opportunitiesinfo/' + item.AutoID">
+                                  <div class="item-stars-icon calcfont" :class="item.IsFollow" :data-autoid="item.AutoID"></div>
+                                  <div class="item-block">
+                                      <div class="item-div item-first-div blue-color">
+                                        {{item.TheName}}
+                                      </div>
+
+                                      <div class="item-div f12 padding-bottom-3 padding-top-3">
+                                        <i class="calcfont calc-zhuangtai icon"></i>
+                                        <span class="green-color" :class="item.className">{{item.CurrentState}}</span>
+                                      </div>
+                                      <div class="item-div" v-show="(item.Memo =='' || item.Memo == null) ? false : true">
+                                        <i class="calcfont calc-beiwanglu icon"></i>
+                                        <div class="line-clamp2">{{item.Memo}}</div>
+                                      </div>
+                                      <div v-if="item.IsMeetingExist.toLowerCase()!='false'" class="item-div-box">
+                                            <div class="item-new-text">{{item.meetingSysmbol}}</div>
+                                            <div class="new-right">
+                                                <div class="item-div">
+                                                  <i class="calcfont calc-huiyi  icon"></i><span class="itme-div-span">{{item.MeetingTitle}}</span>
+                                                </div>
+                                                <div class="item-div dete-div f12">
+                                                  <i class="calcfont calc-gengxinshijian  icon"></i>
+                                                  <span>{{item.BeginTime|abdDateFormat('dd/MM/yyyy HH:mm')}}</span>
+                                                </div>
                                             </div>
-                                            <div class="item-div dete-div f12">
-                                                <span>{{item.BeginTime|abdDateFormat('dd/MM/yyyy HH:mm')}}</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                      </div>
+                                  </div>
                             </div>
+
+
                         </div>
                     </div>
                 </div>

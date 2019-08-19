@@ -27,14 +27,31 @@
                           <input type="radio" name="relationMeeting" :value="item.AutoID" v-model="radioValue"/><i class="radios"></i>
                       </label>
                       <div>
-                          <div class="item-title">{{item.MeetingTitle}}</div>
-                          <div class="item-time f12">
+                          <!-- <div class="item-title">{{item.MeetingTitle}}</div> -->
+                          <div class="flex">
+                            <i style="margin-right: 3px;" class="calcfont calc-T icon"></i>
+                            <div class="item-title">{{item.MeetingTitle}}</div>
+                          </div>
+                          <!-- <div class="item-time f12">
                             <span class="calcfont calc-gengxinshijian"></span>
                             <span class="time-text">{{item.BeginTime|MeetingTimeFormat}}~{{item.EndTime|MeetingTimeFormat}}</span>
                             <div class="right-text">{{item.Realname}}</div>
+                          </div> -->
+                          <div class="item-time f12">
+                                <span class="calcfont calc-gengxinshijian"></span>
+                                <span class="time-text">{{item.BeginTime|MeetingTimeFormat}}~{{item.EndTime|MeetingTimeFormat}}</span>
+                                <span class="right-text">{{item.Realname}}</span>
                           </div>
-                          <div class="item-address">{{item.CompanyID}}</div>
-                          <div class="item-initiator">{{item.ContactsID|formatContactsID}}{{item.Title|formatTitle}}</div>
+                          <!-- <div class="item-address">{{item.CompanyID}}</div>
+                          <div class="item-initiator">{{item.ContactsID|formatContactsID}}{{item.Title|formatTitle}}</div> -->
+                          <div class="flex pdtb">
+                              <i :class="[item.CompanyID !='' ? 'calc-gongsixinxi' : '']" class="icon calcfont "></i>
+                              <div class="item-address">{{item.CompanyID}}</div>
+                          </div>
+                          <div class="flex">
+                              <i :class="[item.ContactsID !='' ? 'calc-kehulianxiren' : '']" class="icon calcfont "></i>
+                              <div class="item-initiator">{{item.ContactsID|formatContactsID}}{{item.Title|formatTitle}}</div>
+                          </div>
                       </div>
                   </div>
             </div>
@@ -56,7 +73,7 @@ export default {
     },
     data(){
         return{
-            title:'关联会议',
+            title:lanTool.lanContent('1000313_选择会议'),
             listData:[],
             noData: false, //没数据
             pageSize:10,//一页显示多少记录

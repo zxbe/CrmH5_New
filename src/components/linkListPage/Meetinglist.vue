@@ -27,23 +27,33 @@
             <div class="group-item-list meeting-list">
                 <div
                   v-for="item in listData"
-                  :key="item.MeetingNoticeAutoID"
+                  :key="item.AutoID"
                   class="data-events-item f14 "
                   :class="{'selectable': fromType=='9'}">
                       <label class="checkbox-label" v-if="fromType=='9'">
-                          <input type="checkbox" name="meetinglist" :value="item.MeetingNoticeAutoID" v-model="checkboxValue"/><i class="checkbox"></i>
+                          <input type="checkbox" name="meetinglist" :value="item.AutoID" v-model="checkboxValue"/><i class="checkbox"></i>
                       </label>
                       <div @click="goInfoPage(item,$event)">
-                          <div class="item-title">{{item.MeetingTitle}}</div>
-                          <div class="item-time f12">
-                            <span class="calcfont calc-gengxinshijian"></span>
-                            <span class="time-text">{{item.BeginTime|MeetingTimeFormat}}~{{item.EndTime|MeetingTimeFormat}}</span>
-                            <span class="right-text">{{item.Realname}}</span>
+                          <div class="flex">
+                            <i style="margin-right: 3px;" class="calcfont calc-T icon"></i>
+                            <div class="item-title">{{item.MeetingTitle}}</div>
                           </div>
-                          <div class="item-address">{{item.CompanyID}}</div>
-                          <div class="item-initiator">{{item.ContactsID|formatContactsID}}{{item.Title|formatTitle}}</div>
+                          <div class="item-time f12">
+                                <span class="calcfont calc-gengxinshijian"></span>
+                                <span class="time-text">{{item.BeginTime|MeetingTimeFormat}}~{{item.EndTime|MeetingTimeFormat}}</span>
+                                <span class="right-text">{{item.Realname}}</span>
+                          </div>
+                          <div class="flex pdtb">
+                              <i :class="[item.CompanyID !='' ? 'calc-gongsixinxi' : '']" class="icon calcfont "></i>
+                              <div class="item-address">{{item.CompanyID}}</div>
+                          </div>
+                          <div class="flex">
+                              <i :class="[item.ContactsID !='' ? 'calc-kehulianxiren' : '']" class="icon calcfont "></i>
+                              <div class="item-initiator">{{item.ContactsID|formatContactsID}}{{item.Title|formatTitle}}</div>
+                          </div>
                       </div>
-                  </div>
+                </div>
+
             </div>
 
         </vue-scroll>
@@ -63,12 +73,10 @@
 </template>
 
 <script>
-// import Header from '../common/Header'
 import Scroll from '@/components/customPlugin/scroll/Scroll';
 import Nothing from "@/components/customPlugin/Nothing"
 export default {
     components:{
-        // 'Header':Header,
         'vue-scroll':Scroll,
         'nothing': Nothing
     },
@@ -230,8 +238,6 @@ export default {
               tool.showText(lanTool.lanContent("709_请选择要删除的记录！"));
               return;
           }
-        //   console.log(JSON.stringify(_self.checkboxValue));
-        //   return;
           tool.showConfirm(
               lanTool.lanContent("593_您确定要删除数据吗？"),
               function() {
@@ -287,6 +293,7 @@ export default {
                 // fromId: _self.fromId //来源ID
                 dealOppID:_self.fromId
             };
+            _self.$store.commit('REMOVE_ITEM', 'meetinginfo');
             _self.$router.push({
                 path: url,
                 query: parameter
@@ -305,7 +312,6 @@ export default {
                     path: url,
                     query: parameter
             });
-
         },
 
         //选择全部
