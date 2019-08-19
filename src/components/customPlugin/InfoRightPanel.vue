@@ -20,6 +20,7 @@
                 <div class="right-content-list-cell" v-show="isShowDealLink" @click="goToOpportunityListPage"><span class="mui-icon calcfont calc-jiezhishijianicon lanText" data-lanid="649_商业机会"></span></div>
                 <div class="right-content-list-cell" v-show="isShowSynchronizeLink" @click="SynchronousCamCardData"><span class="mui-icon calcfont calc-exchange lanText" data-lanid="1000193_同步CamCard数据"></span></div>
                 <div class="right-content-list-cell" v-show="isShowTransformLink" @click="transformTo"><span class="mui-icon calcfont calc-exchange lanText" data-lanid="1000239_转为交易"></span></div>
+                <div class="right-content-list-cell" v-show="isShowPitchTransformLink" @click="transformTo"><span class="mui-icon calcfont calc-exchange lanText" data-lanid="1000366_转为商机"></span></div>
                 <div class="right-content-list-cell" v-show="loi !='' && loi !=undefined && loi !=null" @click="goToLoiinfo"><span class="mui-icon calcfont calc-profile lanText" data-lanid="1000227_LOI单号"></span></div>
             </div>
         </div>
@@ -42,6 +43,7 @@ export default {
             isShowDealLink: false,
             isShowSynchronizeLink: false,
             isShowTransformLink: false,
+            isShowPitchTransformLink:false,
         }
     },
     props: ['isShowSend', 'isShowClose', 'closeThisContent', 'rightPanelFromType', 'rightPanelFromID', 'businessType', 'loi'],
@@ -62,6 +64,9 @@ export default {
                 _self.isShowDealLink = true;
                 _self.isShowSynchronizeLink = true;
                 _self.isShowContactsLink = true;
+                break;
+            case "8":
+                _self.isShowPitchTransformLink = true;
                 break;
             case "9":
                 _self.isShowMeetingLink = true;
@@ -98,12 +103,12 @@ export default {
             this.$parent.rightPanelTransformTo();
         },
         //点击跳转到loi单号详情
-        goToLoiinfo:function(){
-          var _self = this;
-          _self.panelToggle();
-          _self.$nextTick(function () {
-              _self.$parent.rightPanelToLoi();
-          })
+        goToLoiinfo: function () {
+            var _self = this;
+            _self.panelToggle();
+            _self.$nextTick(function () {
+                _self.$parent.rightPanelToLoi();
+            })
         },
 
         //侧滑
@@ -224,7 +229,7 @@ export default {
             var parameter = {
                 fromType: _self.rightPanelFromType,
                 fromId: _self.rightPanelFromID,
-                businessType:"29"
+                businessType: "29"
             };
             _self.panelToggle();
             _self.$nextTick(function () {
@@ -240,7 +245,7 @@ export default {
             var parameter = {
                 fromType: _self.rightPanelFromType,
                 fromId: _self.rightPanelFromID,
-                businessType:"30"
+                businessType: "30"
             };
             _self.panelToggle();
             _self.$nextTick(function () {
@@ -259,13 +264,13 @@ export default {
                     //请求地址
                     var urlTemp = tool.AjaxBaseUrl();
                     var controlName = "";
-                    if(_self.rightPanelFromType == "6"){
+                    if (_self.rightPanelFromType == "6") {
                         //联系人
                         controlName = tool.Api_CamcardDataHandle_SyncContactData;
-                    }else if(_self.rightPanelFromType == "7"){
+                    } else if (_self.rightPanelFromType == "7") {
                         //公司
                         controlName = tool.Api_CamcardDataHandle_SyncCompanyData;
-                    }else{
+                    } else {
                         //其他
                         return false;
                     }
@@ -276,7 +281,7 @@ export default {
                         UserName: tool.UserName(),
                         _ControlName: controlName,
                         _RegisterCode: tool.RegisterCode(),
-                        AutoID:_self.rightPanelFromID
+                        AutoID: _self.rightPanelFromID
                     };
 
                     var loadingIndexClassName = tool.showLoading();

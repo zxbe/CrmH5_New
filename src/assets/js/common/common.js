@@ -2854,7 +2854,6 @@ import config from '../../configfile/config.js'
               'fromID':id,
               "filter":filter
             };
-
             self.$router.push({
               path: '/groupselectlist',
               query: parameter
@@ -4003,14 +4002,20 @@ import config from '../../configfile/config.js'
       if(tool.isNullOrEmptyObject(eventBus.selectListData)){
           return;
       }
-
       var curObj = $("[data-field='" + eventBus.selectListData.field + "']");
       if (tool.isNullOrEmptyObject(curObj)) {
           return;
-      }
-      curObj.attr("data-fieldval", eventBus.selectListData.value.id);
-      curObj.text(eventBus.selectListData.value.text);
-
+	  }
+	  curObj.attr("data-fieldval", eventBus.selectListData.value.id);
+	  //判断元素是否是input，是的话用val来赋值
+	  if(curObj.is('input'))
+		{
+			curObj.val(eventBus.selectListData.value.text);
+		}
+		else{
+			curObj.text(eventBus.selectListData.value.text);
+		}
+     
       if (!tool.isNullOrEmptyObject(callback)) {
           callback(curObj);
       }
