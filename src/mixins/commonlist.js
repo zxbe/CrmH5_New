@@ -135,7 +135,10 @@ export default{
                 .addClass("active-item")
                 .siblings()
                 .removeClass("active-item");
-            _self.changePos();
+            //会议列表没有切换 所以不用调用这个方法    
+            if(!tool.isNullOrEmptyObject(el)){
+                _self.changePos();
+            }
 
             //获取来源页
             var fromPage = tool.getSessionStorageItem("fromPage") || "";
