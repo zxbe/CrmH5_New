@@ -40,11 +40,6 @@ import Groupselectlist from '@/components/customPlugin/Groupselectlist'
 import Poweruser from '@/components/customPlugin/Poweruser'
 import Linkedpage from '@/components/customPlugin/Linkedpage'
 
-//用户活动
-import UserEvents from '@/components/userEvents/UserEvents'
-import UserEventsInfo from '@/components/userEvents/UserEventsInfo'
-//共享文件
-import BIShareMaterials from '@/components/bIShareMaterials/BIShareMaterials'
 
 // import Report from '@/components/pages/Report'
 // import PrCalendarinfo from '@/components/pages/PrCalendarinfo'
@@ -129,41 +124,55 @@ const router =  new Router({
 
 
    //database
- { path:'/airlineDatabase',name:'airlineDatabase',component:AirlineDatabase},
- { path:'/fleetDetailsList',name:'fleetDetailsList',component:FleetDetailsList},
- //论坛
- { path:'/forumNotification',name:'ForumNotification',component:ForumNotification},
- { path:'/forumlist',
-   name:'forumlist',
-   component: (resolve) => require(['@/components/forum/ForumList'], resolve)
-  },
-  { path:'/foruminfo/:id',
-   name:'foruminfo',
-   component: (resolve) => require(['@/components/forum/ForumInfo'], resolve)
-  },
-  { path:'/forumtags',
-   name:'forumtags',
-   component: (resolve) => require(['@/components/forum/ForumTags'], resolve)
-  },
-  { path:'/forumsearch',
-   name:'forumsearch',
-   component: (resolve) => require(['@/components/forum/ForumSearch'], resolve)
-  },
-  { path:'/forumposting',
-   name:'forumposting',
-   component: (resolve) => require(['@/components/forum/ForumPosting'], resolve)
-  },
-  { path:'/selecttag',
-   name:'selecttag',
-   component: (resolve) => require(['@/components/forum/SelectTag'], resolve)
-  },
+    { path:'/airlineDatabase',name:'airlineDatabase',component:AirlineDatabase},
+    { path:'/fleetDetailsList',name:'fleetDetailsList',component:FleetDetailsList},
+    //论坛
+    { path:'/forumNotification',name:'ForumNotification',component:ForumNotification},
+    { path:'/forumlist',
+      name:'forumlist',
+      component: (resolve) => require(['@/components/forum/ForumList'], resolve)
+    },
+    { path:'/foruminfo/:id',
+    name:'foruminfo',
+    component: (resolve) => require(['@/components/forum/ForumInfo'], resolve)
+    },
+    { path:'/forumtags',
+    name:'forumtags',
+    component: (resolve) => require(['@/components/forum/ForumTags'], resolve)
+    },
+    { path:'/forumsearch',
+    name:'forumsearch',
+    component: (resolve) => require(['@/components/forum/ForumSearch'], resolve)
+    },
+    { path:'/forumposting',
+    name:'forumposting',
+    component: (resolve) => require(['@/components/forum/ForumPosting'], resolve)
+    },
+    { path:'/selecttag',
+    name:'selecttag',
+    component: (resolve) => require(['@/components/forum/SelectTag'], resolve)
+    },
+
+    //用户活动
+    { path:'/userEvents',
+      name:'userEvents',
+      component: (resolve) => require(['@/components/userEvents/UserEvents'], resolve)
+    },
+    { path:'/userEventsInfo/:id',
+      name:'userEventsInfo',
+      component: (resolve) => require(['@/components/userEvents/UserEventsInfo'], resolve)
+    },
+    //共享文件
+    { path:'/bIShareMaterials',
+      name:'bIShareMaterials',
+      component: (resolve) => require(['@/components/bIShareMaterials/BIShareMaterials'], resolve)
+    },
+    { path:'/bilist',
+      name:'bilist',
+      component: (resolve) => require(['@/components/bIShareMaterials/BIList'], resolve)
+    },
 
 
- //用户活动
- { path:'/userEvents',name:'UserEvents',component:UserEvents},
- { path:'/userEventsInfo/:id',name:'userEventsInfo',component:UserEventsInfo},
- //共享文件
- { path:'/bIShareMaterials',name:'BIShareMaterials',component:BIShareMaterials},
   ]
 });
 
