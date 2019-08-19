@@ -37,19 +37,19 @@
                                         <!-- <span class="right-text right">{{item.ICAOCode}}</span> -->
                                       </div>
                                       <div class="item-div">
-                                        <div class="left-text">
-                                          <i :class="[(item.BusinessType =='' || item.BusinessType == null) ? '' : 'calc-yewu']" class="calcfont icon"></i><span >{{item.BusinessType}}</span>
+                                        <div class="left-text" v-show="(item.BusinessType =='' || item.BusinessType == null) ? false : true">
+                                          <i class="calcfont icon calc-yewu"></i><span >{{item.BusinessType}}</span>
                                         </div>
-                                        <div class="right-text">
-                                          <i :class="[(item.AccountManager =='' || item.AccountManager == null) ? '' : 'calc-chengshijingli']" class="calcfont icon"></i><span>{{item.AccountManager}}</span>
+                                        <div class="right-text" v-show="(item.AccountManager =='' || item.AccountManager == null) ? false : true">
+                                          <i class="calcfont icon calc-chengshijingli"></i><span>{{item.AccountManager}}</span>
                                         </div>
                                       </div>
                                       <div class="item-div">
-                                        <div class="left-text">
-                                          <i :class="[(item.CountryName =='' || item.CountryName == null) ? '' : 'calc-nationaarea']" class="calcfont icon"></i><span>{{item.CountryName}}</span>
+                                        <div class="left-text" v-show="(item.CountryName =='' || item.CountryName == null) ? false : true">
+                                          <i class="calcfont icon calc-nationaarea"></i><span>{{item.CountryName}}</span>
                                         </div>
-                                        <div class="right-text">
-                                          <i :class="[(item.CityName =='' || item.CityName == null) ? '' : 'calc-diqiuquanqiu']" class="calcfont icon"></i><span>{{item.CityName}}</span>
+                                        <div class="right-text" v-show="(item.CityName =='' || item.CityName == null) ? false : true">
+                                          <i class="calcfont icon calc-diqiuquanqiu"></i><span>{{item.CityName}}</span>
                                         </div>
                                       </div>
                                   </div>
@@ -91,32 +91,32 @@
                                       <div v-for="company in companys.items" :key="company.AutoID"
                                         :data-url="'/contactsinfo/' + company.AutoID"
                                         class="group-item data-events-item f14">
-                                              <!-- <div class="item-user-icon calcfont calc-fuzeren1" :data-autoid="company.AutoID"></div> -->
-                                              <div class="item-user-icon"><img src="../../assets/images/default_user_img.png" alt=""></div>
-                                              <div class="item-block contacts-item-block">
-                                                      <div class="item-div item-first-div">{{company.EnglishName}}</div>
-                                                      <div class="item-div">
-                                                          <i :class="[(company.Title =='' || company.Title == null) ? '' : 'calc-zhiwei']" class="calcfont icon"></i><span>{{company.Title}}</span>
-                                                      </div>
-                                                      <div class="item-div">
-                                                          <div class="left-text max60">
-                                                              <i :class="[(company.CompanyID =='' || company.CompanyID == null) ? '' : 'calc-gongsixinxi']" class="calcfont icon"></i><span >{{company.CompanyID}}</span>
-                                                          </div>
-                                                          <div class="right-text max35">
-                                                              <i :class="[(company.CountryName =='' || company.CountryName == null) ? '' : 'calc-nationaarea']" class="calcfont icon"></i><span>{{company.CountryName}}</span>
-                                                          </div>
-                                                      </div>
-                                                      <div class="item-div">
-                                                         <div class="left-text max60">
-                                                            <i :class="[(company.Email =='' || company.Email == null) ? '' : 'calc-mailbox']" class="calcfont icon"></i><span>{{company.Email}}</span>
-                                                         </div>
-                                                         <div class="right-text max35">
-                                                            <i :class="[(company.TelPhone =='' || company.TelPhone == null) ? '' : 'calc-mobilephone']" class="calcfont icon"></i><span>{{company.TelPhone}}</span>
-                                                         </div>
-                                                      </div>
-                                                      <!-- <div class="item-div">{{company.BusinessType}},{{company.DepartmentName}}</div> -->
-                                              </div>
-                                        </div>
+                                            <!-- <div class="item-user-icon calcfont calc-fuzeren1" :data-autoid="company.AutoID"></div> -->
+                                            <div class="item-user-icon"><img src="../../assets/images/default_user_img.png" alt=""></div>
+                                            <div class="item-block contacts-item-block">
+                                                    <div class="item-div item-first-div">{{company.EnglishName}}</div>
+                                                    <div class="item-div" style="padding-top:5px;">
+                                                        <i :class="[(company.Title =='' || company.Title == null) ? '' : 'calc-zhiwei']" class="calcfont icon"></i><span>{{company.Title}}</span>
+                                                    </div>
+                                                    <div class="item-div">
+                                                        <div class="left-text max60" v-show="(company.CompanyID =='' || company.CompanyID == null) ? false : true">
+                                                            <i class="calcfont icon calc-gongsixinxi"></i><span >{{company.CompanyID}}</span>
+                                                        </div>
+                                                        <div class="right-text max35" v-show="(company.CountryName =='' || company.CountryName == null) ? false : true">
+                                                            <i class="calcfont icon calc-nationaarea"></i><span>{{company.CountryName}}</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="item-div">
+                                                        <div class="left-text max60" v-show="(company.Email =='' || company.Email == null) ? false : true">
+                                                          <i class="calcfont icon calc-mailbox"></i><span>{{company.Email}}</span>
+                                                        </div>
+                                                        <div class="right-text max35" v-show="(company.TelPhone =='' || company.TelPhone == null) ? false : true">
+                                                          <i class="calcfont icon calc-mobilephone"></i><span>{{company.TelPhone}}</span>
+                                                        </div>
+                                                    </div>
+                                                    <!-- <div class="item-div">{{company.BusinessType}},{{company.DepartmentName}}</div> -->
+                                            </div>
+                                      </div>
                                 </div>
                           </div>
                       </div>

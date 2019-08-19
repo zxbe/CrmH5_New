@@ -169,7 +169,7 @@
                                         <div class="line-clamp2">{{item.Memo}}</div>
                                       </div>
 
-                                      <div v-if="item.IsMeetingExist.toLowerCase()!='false'" class="item-div-box">
+                                      <div v-if="item.IsMeetingExist !='false'" class="item-div-box">
                                           <div class="item-new-text">{{item.meetingSysmbol}}</div>
                                           <div class="new-right">
                                             <div class="item-div">
@@ -219,7 +219,7 @@
                                         <i class="calcfont calc-beiwanglu icon"></i>
                                         <div class="line-clamp2">{{item.Memo}}</div>
                                       </div>
-                                      <div v-if="item.IsMeetingExist.toLowerCase()!='false'" class="item-div-box">
+                                      <div v-if="item.IsMeetingExist !='false'" class="item-div-box">
                                             <div class="item-new-text">{{item.meetingSysmbol}}</div>
                                             <div class="new-right">
                                                 <div class="item-div">
@@ -330,18 +330,6 @@ export default {
                 //     "GroupName": "測試銷售組1",
                 //     "GroupRowCount": 15,
                 //     "items": []
-                // },
-                // {
-                //     "GroupID": 1,
-                //     "GroupName": "測試銷售組2",
-                //     "GroupRowCount": 53,
-                //     "items": []
-                // },
-                // {
-                //     "GroupID": 3,
-                //     "GroupName": "測試銷售組3",
-                //     "GroupRowCount": 8,
-                //     "items": []
                 // }
             ],
             pitchesData: [
@@ -349,21 +337,6 @@ export default {
             //     "GroupID": 13,
             //     "GroupName": "IT Team",
             //     "GroupRowCount": 7,
-            //     "items": []
-            // }, {
-            //     "GroupID": 2,
-            //     "GroupName": "Test Sales Team1",
-            //     "GroupRowCount": 10,
-            //     "items": [],
-            // }, {
-            //     "GroupID": 1,
-            //     "GroupName": "Test Sales Team2",
-            //     "GroupRowCount": 34,
-            //     "items": []
-            // }, {
-            //     "GroupID": 3,
-            //     "GroupName": "Test Sales Team3",
-            //     "GroupRowCount": 4,
             //     "items": []
             // }
             ],
@@ -769,7 +742,6 @@ export default {
                     }
 
                     var groupID = target.find("span[data-groupid]:first").attr("data-groupid") || "";
-
                     if (tool.isNullOrEmptyObject(groupID)) {
                         return;
                     }

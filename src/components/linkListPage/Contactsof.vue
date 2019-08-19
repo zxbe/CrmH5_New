@@ -13,23 +13,36 @@
         </div>
         <vue-scroll v-show="!noData" :showToTop="false" :options="{ pullup: true, pulldown: true }" :scrollbar="false" ref="scroll" @pulldown="pulldown" @pullup="pullup">
             <div v-show="!noData" id="contactsList" class="group-item-list contacts-list">
-                <div v-for="item in listData" class="group-item f14" :key="item.AutoID" :data-url="'/contactsinfo/'+ item.AutoID">
-                    <div @click="goInfoPage(item,$event)">
-                        <div class="item-user-icon calcfont calc-fuzeren1" :data-autoid="item.AutoID"></div>
-                        <div class="item-block contacts-item-block">
-                            <div class="item-div item-first-div">{{item.EnglishName}}</div>
-                            <div class="item-div">{{item.Title}}</div>
-                            <div class="item-div">
-                                <span class="left-text max60">{{item.CompanyID}}</span>
-                                <span class="right-text max35">{{item.CountryName}}</span>
-                            </div>
-                            <div class="item-div">
-                                <span class="left-text">{{item.Email}}</span><span class="right-text">{{item.TelPhone}}</span>
-                            </div>
-                            <div class="item-div">{{item.BusinessType}},{{item.DepartmentName}}</div>
-                        </div>
-                    </div>
+
+                <div v-for="item in listData" :key="item.AutoID"
+                  :data-url="'/contactsinfo/' + item.AutoID"
+                  class="group-item data-events-item f14"
+                  @click="goInfoPage(item,$event)">
+                      <div class="item-user-icon"><img src="../../assets/images/default_user_img.png" alt=""></div>
+                      <div class="item-block contacts-item-block">
+                              <div class="item-div item-first-div">{{item.EnglishName}}</div>
+                              <div class="item-div" style="padding-top:5px;">
+                                  <i :class="[(item.Title =='' || item.Title == null) ? '' : 'calc-zhiwei']" class="calcfont icon"></i><span>{{item.Title}}</span>
+                              </div>
+                              <div class="item-div">
+                                  <div class="left-text max60" v-show="(item.CompanyID =='' || item.CompanyID == null) ? false : true">
+                                      <i class="calcfont icon calc-gongsixinxi"></i><span >{{item.CompanyID}}</span>
+                                  </div>
+                                  <div class="right-text max35" v-show="(item.CountryName =='' || item.CountryName == null) ? false : true">
+                                      <i class="calcfont icon calc-nationaarea"></i><span>{{item.CountryName}}</span>
+                                  </div>
+                              </div>
+                              <div class="item-div">
+                                  <div class="left-text max60" v-show="(item.Email =='' || item.Email == null) ? false : true">
+                                    <i class="calcfont icon calc-mailbox"></i><span>{{item.Email}}</span>
+                                  </div>
+                                  <div class="right-text max35" v-show="(item.TelPhone =='' || item.TelPhone == null) ? false : true">
+                                    <i class="calcfont icon calc-mobilephone"></i><span>{{item.TelPhone}}</span>
+                                  </div>
+                              </div>
+                      </div>
                 </div>
+
             </div>
         </vue-scroll>
         <nothing v-show="noData" style="padding-top:0.8rem;"></nothing>
@@ -152,7 +165,7 @@ export default {
                         return;
                     }
                     data = data._OnlyOneData.Rows || [];
-                    
+
                     //没有数据
                     if((tool.isNullOrEmptyObject(data) || data.length <= 0) && _self.pageNum == 1){
                         _self.noData = true;
@@ -213,7 +226,7 @@ export default {
             var infoName = item.EnglishName || '';
             _self.$router.push({
                 path: url,
-                query: 
+                query:
                 {
                     infoName: infoName,
                     onlyView: true,
