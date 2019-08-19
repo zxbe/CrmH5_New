@@ -31,7 +31,7 @@
                   class="data-events-item f14 "
                   :class="{'selectable': fromType=='9'}">
                       <label class="checkbox-label" v-if="fromType=='9'">
-                          <input type="checkbox" name="meetinglist" :value="item.AutoID" v-model="checkboxValue"/><i class="checkbox"></i>
+                          <input type="checkbox" name="meetinglist" :value="item.MeetingNoticeAutoID" v-model="checkboxValue"/><i class="checkbox"></i>
                       </label>
                       <div @click="goInfoPage(item,$event)">
                           <div class="flex">
@@ -288,10 +288,13 @@ export default {
         addMeeting:function(){
             var _self = this;
             var url = "/meetinginfo/-1";
+            // var timeArray = tool.GetTimeArray('special');
+            // var defaultDateTime = timeArray[2] + "/" + timeArray[1] + "/" + timeArray[0]+" "+ timeArray[3] +":" + timeArray[4];
             var parameter = {
                 // fromType: _self.fromType, //来源类型
                 // fromId: _self.fromId //来源ID
-                dealOppID:_self.fromId
+                dealOppID:_self.fromId,
+                // defaultDateTime: defaultDateTime
             };
             _self.$store.commit('REMOVE_ITEM', 'meetinginfo');
             _self.$router.push({
@@ -321,7 +324,7 @@ export default {
                 t = $(e.target).is(":checked");
             if (t) {
                 $.each(self.listData, function (index, item) {
-                    self.checkboxValue.push(item.AutoID);
+                    self.checkboxValue.push(item.MeetingNoticeAutoID);
                 })
             } else {
                 self.checkboxValue = [];
