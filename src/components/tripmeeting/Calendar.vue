@@ -12,11 +12,11 @@
             </div>
 
             <!-- tab切换 -->
-            <div class="calendar-nav">
+            <!-- <div class="calendar-nav">
                 <div @click="switchPage(0,$event)" class="nav-item f16 active-item lanText" data-lanid="818_会议"></div>
                 <div style="color:#ccc;" class="nav-item f16 lanText" data-lanid="819_出差"></div>
                 <div class="calendar-nav-border"></div>
-            </div>
+            </div> -->
 
             <div>
                 <div v-show="showPage==0" class="pageList">
@@ -119,7 +119,7 @@ export default {
     mounted: function () {
         let _self = this;
         lanTool.updateLanVersion();
-        _self.changePos();
+        // _self.changePos();
 
         eventBus.$on('updataCalendarEvent', function () {
             _self.setCalendarEvent(_self.calendarObjGlobal);
@@ -238,20 +238,20 @@ export default {
             var el = e.target;
             if (num === undefined) return;
             $(el).addClass('active-item').siblings().removeClass('active-item');
-            _self.changePos();
+            // _self.changePos();
             _self.showPage = num;
         },
 
         //table底部横条过渡效果
-        changePos: function () {
-            this.$nextTick(function () {
-                var activePos = $('.calendar-nav .active-item').position();
-                $('.calendar-nav-border').stop().css({
-                    left: activePos.left,
+        // changePos: function () {
+        //     this.$nextTick(function () {
+        //         var activePos = $('.calendar-nav .active-item').position();
+        //         $('.calendar-nav-border').stop().css({
+        //             left: activePos.left,
                     // width: $('.calendar-nav .active-item').width()
-                });
-            })
-        },
+        //         });
+        //     })
+        // },
 
         //初始化日历
         initCalendar: function () {

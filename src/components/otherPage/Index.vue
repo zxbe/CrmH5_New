@@ -404,7 +404,9 @@ export default {
             var startDate = new Date();
             var isFormat = true;
             var startDateStr = tool.SetDate(startDate, 0, 0, -_self.recentDealAndPitchDay, isFormat, dateTimeFormatStr);
+            tool.SetDate(startDate, 0, 0, _self.recentDealAndPitchDay, isFormat, dateTimeFormatStr);
             var meetingEndDateStr = tool.SetDate(startDate, 0, 0, _self.recentMeetingDay, isFormat, dateTimeFormatStr);
+            // console.log("meetingEndDateStr:"+meetingEndDateStr);
             _self.dealDateInterVal = "("+startDateStr+"-"+dateStr+")";
             _self.meetingDateInterval = "("+dateStr+"-"+meetingEndDateStr+")";
         },

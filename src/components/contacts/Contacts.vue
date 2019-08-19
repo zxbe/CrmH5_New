@@ -359,6 +359,7 @@ export default {
         _self.queryCondiction.push(returnObj.defaultQueryCondition);
 
         _self.showPage = _self.$store.state.contactsShowModule;
+         _self.showPage = 1;
         if(_self.showPage == 0){
             _self.searchData = _self.OrganizationsSearch;
             $("#companySwitchPage").trigger("click");
@@ -624,7 +625,7 @@ export default {
     beforeRouteLeave:function(to, from, next){
       if(to.name == 'index'){
           this.$store.commit('REMOVE_ITEM', 'contacts');
-          this.$store.commit('SET_CONTACTS_SHOW_MODULE', 0);
+          this.$store.commit('SET_CONTACTS_SHOW_MODULE', 1);
       }
       next();
     }
