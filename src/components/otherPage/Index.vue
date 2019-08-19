@@ -4,12 +4,12 @@
 
     <div id="page-content" class="page-content">
         <!-- 搜索 -->
-        <div class="search-box" style="display:none">
+        <!-- <div class="search-box" style="display:none">
             <div @click="goSearch" class="search" id="searchBtn">
                 <span class="search-icon mui-icon calcfont calc-sousuo"></span>
                 <label class="f16 search-label lanText" data-lanid="780_搜索"></label>
             </div>
-        </div>
+        </div> -->
 
         <div id="nav" class="sticky">
             <div class="weui-grids">
@@ -673,11 +673,11 @@ export default {
 
             $(window).unbind('scroll').bind('scroll', function () {
 
-                if ($(".month-event").length <= 0) return;
+                if ($(".group-div").length <= 0) return;
                 // var scrollTop = $(this).scrollTop();
                 var scrollTop = $(document).scrollTop() || $(window).scrollTop();
 
-                $(".month-event").each(function () {
+                $(".group-div").each(function () {
                     if (
                         $(this).offset().top - scrollTop <=
                         navH + headerH

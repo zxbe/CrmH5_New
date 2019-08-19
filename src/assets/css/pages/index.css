@@ -88,12 +88,15 @@
   font-size: 0.5rem;
   color:#fff;
 }
-.occupy-position{height:calc(1.4rem + 20px);overflow: hidden;}
+.occupy-position{
+  height:calc(2.8rem + 40px + 0.76rem);
+  overflow: hidden;
+}
 .pageListContent{
   position: relative;
   height: auto;
   background-color: white;
-  padding-top:2.6rem;
+  /* padding-top:2.6rem; */
 }
 .nav.sticky{
   position: fixed;
