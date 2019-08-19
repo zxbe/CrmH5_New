@@ -8,11 +8,11 @@
       <div class="content-div">
           <div class="row-div">
               <div class="item-div" data-url="https://www.planespotters.net/deliveries" @click="router($event)">
-                  <i class="calcfont calc-gongsixinxi"></i>
+                  <i class="calcfont calc-lianjie"></i>
                   <p class="lanText f14" data-lanid="1000321_A/C Delivery Schedule"></p>
               </div>
               <div class="item-div" data-url="/bilist" data-type="outlook" @click="router($event)">
-                  <i class="calcfont calc-gongsixinxi"></i>
+                  <i class="calcfont calc-lianjie"></i>
                   <p class="lanText f14" data-lanid="1000327_Market Outlook"></p>
               </div>
 
@@ -20,11 +20,11 @@
 
           <div class="row-div">
               <div class="item-div" data-url="/bilist" data-type="materials" @click="router($event)">
-                  <i class="calcfont calc-gongsixinxi"></i>
+                  <i class="calcfont calc-lianjie"></i>
                   <p class="lanText f14" data-lanid="1000351_Pitching Materials"></p>
               </div>
               <div class="item-div" data-url="/bilist" data-type="memberships" @click="router($event)">
-                  <i class="calcfont calc-gongsixinxi"></i>
+                  <i class="calcfont calc-lianjie"></i>
                   <p class="lanText f14" data-lanid="1000352_News / Memberships"></p>
               </div>
 
