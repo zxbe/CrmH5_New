@@ -19,10 +19,19 @@
 </template>
 
 <script>
+
+function CalcDomain(){
+    var ajaxUrl = tool.AjaxBaseUrl();
+    if(!tool.isNullOrEmptyObject(ajaxUrl)){
+      return ajaxUrl.substring(0,ajaxUrl.indexOf('/crm'));
+    }
+}
+
 export default {
     data(){
       return{
           title:'',
+          domain:'123',
           outlook:[
              {
                text:lanTool.lanContent("1123_Boeing"),
@@ -44,19 +53,19 @@ export default {
           materials:[
              {
                text:lanTool.lanContent("1000363_集团简介2019年7月"),
-               url:'/FileUpload/CompanyPresentationMaterials/PitchingMaterials/20190717_CALC Group Corporate Presentation_CN.pdf'
+               url: CalcDomain() + '/FileUpload/CompanyPresentationMaterials/PitchingMaterials/20190717_CALC Group Corporate Presentation_CN.pdf'
              },
              {
                text:lanTool.lanContent("1000362_Corporate Presentation July 2019"),
-               url:'/FileUpload/CompanyPresentationMaterials/PitchingMaterials/20190717_CALC Group Corporate Presentation_EN.pdf'
+               url:CalcDomain() +'/FileUpload/CompanyPresentationMaterials/PitchingMaterials/20190717_CALC Group Corporate Presentation_EN.pdf'
              },
              {
                text:lanTool.lanContent("1000364_2018年度企业简介2019年6月"),
-               url:'/FileUpload/CompanyPresentationMaterials/PitchingMaterials/CALC 2018AR PPT_Chi.pdf'
+               url:CalcDomain() +'/FileUpload/CompanyPresentationMaterials/PitchingMaterials/CALC 2018AR PPT_Chi.pdf'
              },
              {
                text:lanTool.lanContent("1000365_2018 Annual Results Presentation | June 2019"),
-               url:'/FileUpload/CompanyPresentationMaterials/PitchingMaterials/CALC 2018AR PPT_Eng.pdf'
+               url:CalcDomain() +'/FileUpload/CompanyPresentationMaterials/PitchingMaterials/CALC 2018AR PPT_Eng.pdf'
              }
           ],
           memberships:[
@@ -126,6 +135,7 @@ export default {
                 break;
        }
 
+         //console.log(_self.materials[0].url);
     },
     mounted:function(){
         var _self = this;
@@ -144,7 +154,6 @@ export default {
         }
         console.log(obj.url);
         window.open(obj.url,"_blank");
-
       }
     }
 
