@@ -388,6 +388,10 @@ import config from '../../configfile/config.js'
 	 * 查询关联会议列表
 	 */
 	tool.Api_MeetingHandle_QueryRelatedMeeting = "Api_MeetingHandle_QueryRelatedMeeting";
+	 /*
+	 * Meeting转换成Pitch
+	 */
+	tool.Api_MeetingHandle_ChangeToPitch = "Api_MeetingHandle_ChangeToPitch";
   	/*
 	 * 查询未上传会议记录的会议列表
 	 */

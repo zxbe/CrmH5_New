@@ -208,6 +208,21 @@
             <div class="elastic-layer-title lanText f18" data-lanid="1000239_转为交易"></div>
 
             <div class="elastic-layer-items">
+
+                <div class="elastic-layer-item f14">
+                    <span class="calcfont calc-zhuangtai icon-left"></span>
+                    <div class="item-right">
+                        <div class="item-row">
+                            <div class="lanText label-text" data-lanid="1000353_商机名称"></div>
+                        </div>
+                        <div class="item-row border-bottom">
+                            <div class="ListCellContentRight">
+                            <textarea data-field="TheName" data-fieldControlType="textareaInput" class="lanInputPlaceHolder" data-lanid="1000353_商机名称"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <div id="SourceFrom-div" class="elastic-layer-item f14">
                     <span class="calcfont calc-laiyuanqingkuang icon-left"></span>
                     <div class="item-right">
@@ -495,6 +510,7 @@ export default {
                 }
             }
         },
+        //生成
         rightPanelTransformTo: function () {
             console.log("转化为商机");
             var _self = this;
@@ -521,11 +537,12 @@ export default {
             //取消
             $('#transformTo').find('a.btn-cancel').off('click').on('click', function () {
                 $('#transformTo').hide();
+                return;
             })
             //确定
             $('#transformTo').find('a.btn-ok').off('click').on('click', function () {
                 var urlTemp = tool.AjaxBaseUrl();
-                var controlName = tool.Api_OpportunityHandle_ChangeToDeal;
+                var controlName = tool.Api_MeetingHandle_ChangeToPitch;
                 //传入参数
                 var jsonDatasTemp = {
                     CurrentLanguageVersion: lanTool.currentLanguageVersion,
@@ -533,79 +550,78 @@ export default {
                     _ControlName: controlName,
                     _RegisterCode: tool.RegisterCode()
                 };
+                jsonDatasTemp["TheName"] = $("[data-field='TheName'").val() || "";
                 jsonDatasTemp["SourceFrom"] = $("[data-field='SourceFrom'").attr("data-fieldVal") || "";
                 jsonDatasTemp["SourceFromOther"] = $("[data-field='SourceFromOther'").val() || "";
-                jsonDatasTemp["IsPublic"] = $("[data-field='IsPublic'").val() || "";
+                jsonDatasTemp["IsPublic"] = $("[data-field='IsPublic'").attr("data-fieldVal") || "";
                 jsonDatasTemp["Initiator"] = $("[data-field='Initiator'").val() || "";
-                // jsonDatasTemp["TargetCompanyID"] = $("[data-field='TargetCompanyID'").attr("data-fieldVal") || "";
-                // jsonDatasTemp["FromOppID"] = id;
-
+                jsonDatasTemp["FromScheduleID"] = id;
                 // console.log(jsonDatasTemp);
                 // return;
 
-                // var loadingIndexClassName = tool.showLoading();
+                var loadingIndexClassName = tool.showLoading();
 
-                // $.ajax({
-                //     async: true,
-                //     type: "post",
-                //     url: urlTemp,
-                //     data: jsonDatasTemp,
-                //     success: function (data) {
-                //         try {
-                //             data = tool.jObject(data);
-                //             if (data._ReturnStatus == false) {
-                //                 tool.hideLoading(loadingIndexClassName);
-                //                 tool.showText(tool.getMessage(data));
-                //                 return true;
-                //             }
-                //             data = data._OnlyOneData || {};
-                //             console.log(data);
-                //             var dealID = data["AutoID"] || "";
-                //             var theName = data["TheName"] || "";
+                $.ajax({
+                    async: true,
+                    type: "post",
+                    url: urlTemp,
+                    data: jsonDatasTemp,
+                    success: function (data) {
+                        try {
+                            data = tool.jObject(data);
+                            if (data._ReturnStatus == false) {
+                                tool.hideLoading(loadingIndexClassName);
+                                tool.showText(tool.getMessage(data));
+                                return true;
+                            }
+                            data = data._OnlyOneData || {};
+                            console.log(data);
+                            var dealID = data["AutoID"] || "";
+                            var theName = data["TheName"] || "";
 
-                //             //构造Deal详情页的跳转地址
-                //             var path = "/opportunitiesinfo/" + dealID;
-                //             var queryParam = {
-                //                 showPage: "0",
-                //                 infoName: theName
-                //             };
-                //             //将当前详情页设置为非keep-alive
-                //             _self.$store.commit('REMOVE_ITEM', 'opportunitiesinfo');
-                //             //将列表页设置为非keep-alive
-                //             _self.$store.commit('REMOVE_ITEM', 'businessCategories');
+                            //构造Pitch详情页的跳转地址
+                            var path = "/opportunitiesinfo/" + dealID;
+                            var queryParam = {
+                                showPage: "1",
+                                infoName: theName
+                            };
+                            //将当前详情页设置为非keep-alive
+                            _self.$store.commit('REMOVE_ITEM', 'opportunitiesinfo');
+                            //将列表页设置为非keep-alive
+                            _self.$store.commit('REMOVE_ITEM', 'businessCategories');
 
-                //             //隐藏弹窗
-                //             $('#transformTo').hide();
-                //             //调用子组件收起侧滑方法
-                //             _self.$refs.rightPanel.panelToggle();
+                            //隐藏弹窗
+                            $('#transformTo').hide();
+                            //调用子组件收起侧滑方法
+                            _self.$refs.rightPanel.panelToggle();
 
-                //             _self.$router.replace({
-                //                 path: path,
-                //                 query: queryParam
-                //             });
+                            _self.$router.replace({
+                                path: path,
+                                query: queryParam
+                            });
 
-                //             //保证地址替换后再刷新
-                //             setTimeout(function () {
-                //                 tool.hideLoading(loadingIndexClassName);
-                //                 window.location.reload();
-                //             }, 80);
-                //         } catch (err) {
-                //             tool.hideLoading(loadingIndexClassName);
-                //             console.log(err);
-                //         } finally {
+                            //保证地址替换后再刷新
+                            setTimeout(function () {
+                                tool.hideLoading(loadingIndexClassName);
+                                window.location.reload();
+                            }, 80);
+                        } catch (err) {
+                            tool.hideLoading(loadingIndexClassName);
+                            console.log(err);
+                        } finally {
 
-                //         }
-                //     },
-                //     error: function (jqXHR, type, error) {
-                //         console.log(error);
-                //         tool.hideLoading(loadingIndexClassName);
-                //         return true;
-                //     },
-                //     complete: function () {
-                //         //隐藏虚拟键盘
-                //         document.activeElement.blur();
-                //     }
-                // });
+                        }
+                    },
+                    error: function (jqXHR, type, error) {
+                        console.log(error);
+                        tool.hideLoading(loadingIndexClassName);
+                        return true;
+                    },
+                    complete: function () {
+                        //隐藏虚拟键盘
+                        document.activeElement.blur();
+                    }
+                });
             });
         },
         //渲染查看会议记录模块
