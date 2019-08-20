@@ -94,7 +94,7 @@
                                             <!-- <div class="item-user-icon calcfont calc-fuzeren1" :data-autoid="company.AutoID"></div> -->
                                             <div class="item-user-icon"><img src="../../assets/images/default_user_img.png" alt=""></div>
                                             <div class="item-block contacts-item-block">
-                                                    <div class="item-div item-first-div">{{company.EnglishName}}</div>
+                                                    <div class="item-div item-first-div"><span>{{company.EnglishName}}</span></div>
                                                     <div class="item-div" style="padding-top:5px;">
                                                         <i :class="[(company.Title =='' || company.Title == null) ? '' : 'calc-zhiwei']" class="calcfont icon"></i><span>{{company.Title}}</span>
                                                     </div>
