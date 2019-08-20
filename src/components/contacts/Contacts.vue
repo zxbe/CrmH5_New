@@ -359,7 +359,7 @@ export default {
         _self.queryCondiction.push(returnObj.defaultQueryCondition);
 
         _self.showPage = _self.$store.state.contactsShowModule;
-         _self.showPage = 1;
+        //  _self.showPage = 1;
         if(_self.showPage == 0){
             _self.searchData = _self.OrganizationsSearch;
             $("#companySwitchPage").trigger("click");
