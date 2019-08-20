@@ -134,7 +134,7 @@
                 </div>
 
                 <!-- 状态 -->
-                <div class="ListCell">
+                <div class="ListCell visible">
                     <div class="ListCellLeftIcon"><span class="calcfont calc-zhuangtai"></span></div>
                     <div class="ListCellContent">
                         <div class="ListCellContentLeft leftContent">
@@ -217,7 +217,7 @@
                         </div>
                         <div class="item-row border-bottom">
                             <div class="ListCellContentRight">
-                            <textarea data-field="TheName" data-fieldControlType="textareaInput" class="lanInputPlaceHolder" data-lanid="1000353_商机名称"></textarea>
+                                <textarea data-field="TheName" data-fieldControlType="textareaInput" class="lanInputPlaceHolder" data-lanid="1000353_商机名称"></textarea>
                             </div>
                         </div>
                     </div>
@@ -248,7 +248,7 @@
                         </div>
                     </div>
                 </div>
-              <div id="IsPublic-div" class="elastic-layer-item f14">
+                <div id="IsPublic-div" class="elastic-layer-item f14">
                     <span class="calcfont calc-yidu icon-left"></span>
                     <div class="item-right">
                         <div class="item-row">
@@ -315,15 +315,15 @@ export default {
             defaultDateTime: "", //新建单据时候的初始时间
             id: '', //会议id
             //文档数据
-            documentData:[
-            //   {
-            //     AddTime: "2019-07-31 18:31:00",
-            //     AddUserName: "dylanxu",
-            //     AutoID: "765411",
-            //     FileLength: "54768",
-            //     ObjectName: "Project Management - CRM_PC(20190625)_V6_19073118305794.xlsx",
-            //     ObjectRemark: "test",
-            //   }
+            documentData: [
+                //   {
+                //     AddTime: "2019-07-31 18:31:00",
+                //     AddUserName: "dylanxu",
+                //     AutoID: "765411",
+                //     FileLength: "54768",
+                //     ObjectName: "Project Management - CRM_PC(20190625)_V6_19073118305794.xlsx",
+                //     ObjectRemark: "test",
+                //   }
             ],
             dealOppID: "",
             rightPanelFromType: "", //传给右侧菜单用的参数
@@ -379,17 +379,28 @@ export default {
             });
             //控制字段显示隐藏
             _self.controlFieldShowOrhide();
-         
-           
+            if (_self.isAddNew) {
+                var textTemp = lanTool.lanContent("1172_准备与会");
+                var idTemp = "115";
+                var obj = {
+                    id: idTemp,
+                    text: textTemp
+                };
+                $("[data-field='CurrentState']")
+                    .val(obj.text || "")
+                    .attr("data-fieldVal", obj.id)
+                    .trigger("change");
+            }
+
             //渲染数据
             tool.IniInfoData(fromType, _self.id, function (data) {
-                  var fieldval = $('[data-field="CurrentState"]').attr("data-fieldval");
-                  //状态为完成时，fieldval为116 才能转为商机
-                  if(fieldval == "116"){
+                var fieldval = $('[data-field="CurrentState"]').attr("data-fieldval");
+                //状态为完成时，fieldval为116 才能转为商机
+                if (fieldval == "116") {
                     _self.operation = true;
-                  }else{
-                      _self.operation = false;
-                  }
+                } else {
+                    _self.operation = false;
+                }
                 //渲染文档列表
                 _self.InitDocList(_self.id);
 
@@ -448,10 +459,10 @@ export default {
                 if (fieldval == "23") {
                     $("#InitiatorClickObj").hide();
                 } else {
-                     $("#InitiatorClickObj").show();
+                    $("#InitiatorClickObj").show();
                 }
             });
-         
+
             //控制data-field="MatterOther"显示和隐藏
             $("[data-field='SourceFrom']").off('change input').on('change input', function () {
                 var curObj = $(this);
@@ -523,13 +534,13 @@ export default {
             $("[data-field='Initiator'").val("").attr("data-fieldVal", "").trigger('change');
 
             // 默认给data-field="Initiator"赋予23(公开)
-             var publicObj = tool.GetPublicObj();
-                if (!tool.isNullOrEmptyObject(publicObj)) {
-                    $("[data-field='IsPublic']")
-                        .val(publicObj.text || "")
-                        .attr("data-fieldVal", publicObj.id)
-                        .trigger("change");
-                }
+            var publicObj = tool.GetPublicObj();
+            if (!tool.isNullOrEmptyObject(publicObj)) {
+                $("[data-field='IsPublic']")
+                    .val(publicObj.text || "")
+                    .attr("data-fieldVal", publicObj.id)
+                    .trigger("change");
+            }
             //显示弹框
             $('#transformTo').show();
 
@@ -960,7 +971,7 @@ export default {
 
 #LoseReason-div,
 #LoseReasonOther-div,
-#SourceFromOther-div{
+#SourceFromOther-div {
     display: none;
 }
 
