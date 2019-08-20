@@ -888,9 +888,9 @@ export default {
             var id = _self.id;
 
             //清空控件数据
-            $("[data-field='CurrentStateNew'").val("").attr("data-fieldVal", "").trigger('change');
-            $("[data-field='LoseReasonNew'").val("").attr("data-fieldVal", "").trigger('change');
-            $("[data-field='LoseReasonOtherNew'").val("");
+            $("input[data-field='CurrentStateNew']").val("").attr("data-fieldVal", "").trigger('change');
+            $("[data-field='LoseReasonNew']").val("").attr("data-fieldVal", "").trigger('change');
+            $("[data-field='LoseReasonOtherNew']").val("");
 
             //显示弹框
             $('#closeThis').show();
@@ -966,9 +966,9 @@ export default {
             var id = _self.id;
 
             //清空控件数据
-            $("[data-field='MSNNew'").val("");
-            $("[data-field='MatterNew'").val("").attr("data-fieldVal", "").trigger('change');
-            $("[data-field='MatterOtherNew'").val("");
+            $("[data-field='MSNNew']").val("");
+            $("[data-field='MatterNew']").val("").attr("data-fieldVal", "").trigger('change');
+            $("[data-field='MatterOtherNew']").val("");
 
             //显示弹框
             $('#transformTo').show();
