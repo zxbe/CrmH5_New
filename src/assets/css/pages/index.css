@@ -102,7 +102,7 @@
 }
 .nav.sticky{
   position: fixed;
-  top: 4.44rem;/*调整列表距离顶部的距离*/
+  top: 4.48rem;/*调整列表距离顶部的距离*/
   left: 0;
   z-index: 99;
   width: 100%;
