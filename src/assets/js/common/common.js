@@ -2413,7 +2413,7 @@ import config from '../../configfile/config.js'
                             //     className = 'closed'
 							// }
 							//若不是进行中
-							if(dataItem.CurrentStateNew.toString() != "38"){
+							if(dataItem.CurrentStateNew != null && dataItem.CurrentStateNew != undefined && dataItem.CurrentStateNew.toString() != "38"){
                                 className = 'closed'
 							}
                             vueObj.$set(dataItem, 'className', className);
