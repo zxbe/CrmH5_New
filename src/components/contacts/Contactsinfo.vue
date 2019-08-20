@@ -41,6 +41,16 @@
                 </div>
                 <div class="ListCell">
                     <div class="ListCellLeftIcon textLeftIcon">
+                        <span class="calcfont calc-zuzhibumen"></span>
+                    </div>
+                    <div class="ListCellLeftText">
+                        <p class="textareaP">
+                            <textarea data-field="DepartmentName" data-fieldcontroltype="textareaInput" class="lanInputPlaceHolder" data-lanid="567_部门"></textarea>
+                        </p>
+                    </div>
+                </div>
+                <div class="ListCell">
+                    <div class="ListCellLeftIcon textLeftIcon">
                         <span class="calcfont calc-zhiwei"></span>
                     </div>
                     <div class="ListCellLeftText">
@@ -89,16 +99,7 @@
                         </p>
                     </div>
                 </div>
-                <div class="ListCell">
-                    <div class="ListCellLeftIcon textLeftIcon">
-                        <span class="calcfont calc-zuzhibumen"></span>
-                    </div>
-                    <div class="ListCellLeftText">
-                        <p class="textareaP">
-                            <textarea data-field="DepartmentName" data-fieldcontroltype="textareaInput" class="lanInputPlaceHolder" data-lanid="567_部门"></textarea>
-                        </p>
-                    </div>
-                </div>
+
                 <div class="ListCell">
                     <div class="ListCellLeftIcon textLeftIcon">
                         <span class="calcfont calc-chuanzhen"></span>
@@ -138,7 +139,8 @@
                 </div>
                 <!-- 负责人 -->
                 <div class="initiatorObj">
-                    <div class="ListCell visible">
+
+                    <!-- <div class="ListCell visible">
                         <div class="ListCellLeftIcon">
                             <span class="calcfont calc-fuzerenicon"></span>
                         </div>
@@ -147,13 +149,42 @@
                                 <div class="ListCellContentLeftText lanText" data-lanid="825_负责人"></div>
                             </div>
                             <div class="ListCellContentRight rightContent">
-                                <div class="ListCellContentRightText" data-field="Initiator" data-fieldcontroltype="groupSelectList" data-lanid="825_负责人" data-fieldval="" data-selecttype="checkbox" code="DropDowList_PopedomTeamVsUser" typevalue="" data-fromType="6"></div>
+                                <div class="ListCellContentRightText"
+                                     data-field="Initiator"
+                                     data-fieldcontroltype="groupSelectList"
+                                     data-lanid="825_负责人"
+                                     data-fieldval=""
+                                     data-selecttype="checkbox"
+                                     code="DropDowList_PopedomTeamVsUser"
+                                     typevalue=""
+                                     data-fromType="6"></div>
                             </div>
                             <div class="ListCellRightIcon">
                                 <span class="calcfont calc-you"></span>
                             </div>
                         </div>
+                    </div> -->
+
+                    <div class="ListSpecialCell visible initiatorObj" id="InitiatorClickObj">
+                        <div class="ListSpecialCellField">
+                            <div class="ListSpecialCellLeftIcon"><span class="calcfont calc-fuzerenicon"></span></div>
+                            <div class="ListSpecialCellFieldContent lanText" data-lanid="825_负责人"></div>
+                            <div class="ListSpecialCellRightIcon"><span class="calcfont calc-you"></span></div>
+                        </div>
+                        <div
+                            class="ListSpecialCellContent"
+                            data-field="Initiator"
+                            data-fieldcontroltype="groupSelectList"
+                            data-lanid="825_负责人"
+                            data-fieldval=""
+                            data-selecttype="checkbox"
+                            code="DropDowList_PopedomTeamVsUser"
+                            typevalue=""
+                            data-fromType="6"
+                            data-clickObj="InitiatorClickObj"
+                          ></div>
                     </div>
+
                     <div class="ListCell tip ">
                         <div class="tipBox">
                             <p class="f14">
