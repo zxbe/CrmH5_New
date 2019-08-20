@@ -911,9 +911,9 @@ export default {
                     _ControlName: controlName,
                     _RegisterCode: tool.RegisterCode()
                 };
-                jsonDatasTemp["CurrentState"] = $("[data-field='CurrentStateNew'").attr("data-fieldVal") || "";
-                jsonDatasTemp["LoseReason"] = $("[data-field='LoseReasonNew'").attr("data-fieldVal") || "";
-                jsonDatasTemp["LoseReasonOther"] = $("[data-field='LoseReasonOtherNew'").val() || "";
+                jsonDatasTemp["CurrentState"] = $("[data-field='CurrentStateNew']").attr("data-fieldVal") || "";
+                jsonDatasTemp["LoseReason"] = $("[data-field='LoseReasonNew']").attr("data-fieldVal") || "";
+                jsonDatasTemp["LoseReasonOther"] = $("[data-field='LoseReasonOtherNew']").val() || "";
                 jsonDatasTemp["AutoID"] = id;
 
                 //console.log(jsonDatasTemp);

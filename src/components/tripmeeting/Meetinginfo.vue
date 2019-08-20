@@ -561,11 +561,11 @@ export default {
                     _ControlName: controlName,
                     _RegisterCode: tool.RegisterCode()
                 };
-                jsonDatasTemp["TheName"] = $("[data-field='TheName'").val() || "";
-                jsonDatasTemp["SourceFrom"] = $("[data-field='SourceFrom'").attr("data-fieldVal") || "";
-                jsonDatasTemp["SourceFromOther"] = $("[data-field='SourceFromOther'").val() || "";
-                jsonDatasTemp["IsPublic"] = $("[data-field='IsPublic'").attr("data-fieldVal") || "";
-                jsonDatasTemp["Initiator"] = $("[data-field='Initiator'").attr("data-fieldVal") || "";
+                jsonDatasTemp["TheName"] = $("[data-field='TheName']").val() || "";
+                jsonDatasTemp["SourceFrom"] = $("[data-field='SourceFrom']").attr("data-fieldVal") || "";
+                jsonDatasTemp["SourceFromOther"] = $("[data-field='SourceFromOther']").val() || "";
+                jsonDatasTemp["IsPublic"] = $("[data-field='IsPublic']").attr("data-fieldVal") || "";
+                jsonDatasTemp["Initiator"] = $("[data-field='Initiator']").attr("data-fieldVal") || "";
                 jsonDatasTemp["FromScheduleID"] = id;
                 // console.log(jsonDatasTemp);
                 // return;
