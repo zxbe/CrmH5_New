@@ -367,11 +367,10 @@ export default {
 
                 //返回时更新selectlist控件的结果
                 tool.UpdateFieldValueFromBack(eventBus, function (curObj) {
-                    console.log(111);
-                    console.log(curObj);
+
                     var dataField = curObj.attr("data-field") ||"";
                     dataField = $.trim(dataField).toLowerCase();
-                    console.log(dataField);
+
                     if(dataField == "companyid"){
                         //请求地址
                         var urlTemp = tool.AjaxBaseUrl();
@@ -424,12 +423,11 @@ export default {
 
         //返回时更新selectlist控件的结果
         tool.UpdateFieldValueFromBack(eventBus, function (curObj) {
-            console.log(222);
-            console.log(curObj);
+
             //选择公司后 国家和城市在这里跟着变动
             var dataField = curObj.attr("data-field") ||"";
             dataField = $.trim(dataField).toLowerCase();
-            console.log(dataField);
+
             if(dataField == "companyid"){
                 //请求地址
                 var urlTemp = tool.AjaxBaseUrl();
@@ -456,7 +454,6 @@ export default {
                             return;
                         }
                         data = data._OnlyOneData || {};
-                        console.log(data);
                         $("[data-field='CountryID']").val(data["CountryID_Name"]||"");
                         $("[data-field='CityID']").val(data["CityID_Name"]||"");
                     },

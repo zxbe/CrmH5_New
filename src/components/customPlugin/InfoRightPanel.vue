@@ -182,16 +182,17 @@ export default {
         //跳转到联系人列表
         goToContactsList: function () {
             var _self = this;
-            var parameter = {
-                fromType: _self.rightPanelFromType,
-                fromId: _self.rightPanelFromID
-            };
+            // var parameter = {
+            //     fromType: _self.rightPanelFromType,
+            //     fromId: _self.rightPanelFromID
+            // };
             _self.panelToggle();
             _self.$nextTick(function () {
-                _self.$router.push({
-                    path: "/contactsof",
-                    query: parameter
-                });
+                _self.$parent.goToContactsPage();
+                // _self.$router.push({
+                //     path: "/contactsof",
+                //     query: parameter
+                // });
             })
         },
         //跳转到公司详情
