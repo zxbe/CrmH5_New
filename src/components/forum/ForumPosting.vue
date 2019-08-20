@@ -491,7 +491,12 @@ export default {
   padding-top:20px;
 }
 .content .function .btn-item{
-  background:#fff;outline: none;border:none;color:#ccc;
+  background-color: transparent;
+  background:#fff;
+  outline: none;
+  border:none;
+  border: 0;
+  color:#333;
 }
 .post-tag{
   padding:20px 0 10px;
