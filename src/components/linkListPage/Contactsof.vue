@@ -79,6 +79,7 @@ export default {
         _self.companyID = _self.$route.query.fromId || "";
         _self.fromType = _self.$route.query.fromType || '';
         _self.fromId = _self.$route.query.fromId || '';
+        _self.companyName = _self.$route.query.companyName || '';
     },
     beforeRouteEnter: function (to, from, next) {
         next();
@@ -112,6 +113,8 @@ export default {
                 companyID: _self.companyID,
                 companyName: _self.companyName,
             };
+
+            _self.$store.commit('REMOVE_ITEM', 'contactsinfo');
             _self.$router.push({
                 path: urlTemp,
                 query: parameter
