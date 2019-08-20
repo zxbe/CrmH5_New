@@ -517,11 +517,10 @@ export default {
             var id = _self.id;
 
             //清空控件数据
-            
             $("[data-field='SourceFrom'").val("").attr("data-fieldVal", "").trigger('change');
             $("[data-field='SourceFromOther'").val("");
-             $("[data-field='IsPublic'").val("").attr("data-fieldVal", "").trigger('change');
-            $("[data-field='Initiator'").val("");
+            $("[data-field='IsPublic'").val("").attr("data-fieldVal", "").trigger('change');
+            $("[data-field='Initiator'").val("").attr("data-fieldVal", "").trigger('change');
 
             // 默认给data-field="Initiator"赋予23(公开)
              var publicObj = tool.GetPublicObj();
@@ -554,7 +553,7 @@ export default {
                 jsonDatasTemp["SourceFrom"] = $("[data-field='SourceFrom'").attr("data-fieldVal") || "";
                 jsonDatasTemp["SourceFromOther"] = $("[data-field='SourceFromOther'").val() || "";
                 jsonDatasTemp["IsPublic"] = $("[data-field='IsPublic'").attr("data-fieldVal") || "";
-                jsonDatasTemp["Initiator"] = $("[data-field='Initiator'").val() || "";
+                jsonDatasTemp["Initiator"] = $("[data-field='Initiator'").attr("data-fieldVal") || "";
                 jsonDatasTemp["FromScheduleID"] = id;
                 // console.log(jsonDatasTemp);
                 // return;
