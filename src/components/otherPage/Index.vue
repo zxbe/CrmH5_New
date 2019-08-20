@@ -18,7 +18,7 @@
                         <div class="weui-grid__icon trip-meeting-icon">
                             <span class="mui-icon calcfont calc-kehu"></span>
                         </div>
-                        <p class="f12 weui-grid__label lanText" data-lanid="781_出差&会议"></p>
+                        <p class="f12 weui-grid__label lanText" data-lanid="1149_会议"></p>
                     </div>
                 </div>
                 <div class="weui-grid">
