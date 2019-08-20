@@ -104,7 +104,7 @@ export default {
     },
     data() {
         return {
-            title: lanTool.lanContent('781_出差&会议'),
+            title: lanTool.lanContent('1149_会议'),
             // viewType: 'calendarView', //展示视图类型  calendarView, listView
 
             //侧滑数据模型
