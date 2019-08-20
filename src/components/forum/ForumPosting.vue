@@ -19,6 +19,7 @@
         <!-- @ -->
         <div class="function">
             <input class="btn-item f18" id="" @click="selectUser" type="button" value="@" />
+            <!-- <div class="btn-item f18" id="" @click="selectUser">@</div> -->
         </div>
 
         <div class="post-tag f14">
@@ -446,7 +447,7 @@ export default {
 .content{
   padding:0.88rem 15px 0 15px;
 }
-.post-title-div{position: relative;}
+.post-title-div{position: relative;border-bottom:1px solid #ccc;}
 .content .post-title{
   border:none;
   outline: none;
