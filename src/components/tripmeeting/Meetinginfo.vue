@@ -205,7 +205,7 @@
     <!-- 转换为交易弹框 -->
     <div id="transformTo" class="elastic-layer">
         <div class="elastic-layer-content">
-            <div class="elastic-layer-title lanText f18" data-lanid="1000239_转为交易"></div>
+            <div class="elastic-layer-title lanText f18" data-lanid="1000367_转为商机"></div>
 
             <div class="elastic-layer-items">
 
@@ -379,6 +379,7 @@ export default {
             });
             //控制字段显示隐藏
             _self.controlFieldShowOrhide();
+            //给状态一个默认值
             if (_self.isAddNew) {
                 var textTemp = lanTool.lanContent("1172_准备与会");
                 var idTemp = "115";
