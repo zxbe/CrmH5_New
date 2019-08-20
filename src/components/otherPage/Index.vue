@@ -260,7 +260,11 @@
     <div id="mask" class="mask" @click="panelToggle" v-show="showPanel"></div>
     <div id="right-content" class="right-content">
         <div class="user-info f14">
-            <icon name="user" scale="10"></icon>
+            <!-- <icon name="user" scale="10"></icon> -->
+
+            <div class="user-icon">
+              <i class="calcfont calc-feiji3"></i>
+            </div>
             <div class="userName"></div>
             <div class="userTitle"></div>
             <div class="userDepartment"></div>

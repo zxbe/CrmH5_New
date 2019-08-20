@@ -197,6 +197,11 @@
   display:inline-block;margin: 0.2rem auto 8px;
   width: 1.5rem;height: 1.5rem;
 }
+.user-icon{
+  margin:5px auto;width:1.8rem;height:1.8rem;display:flex;align-items: center;
+  justify-content: center;background:#00c0ef;border-radius:50%;
+}
+.user-icon i{font-size:1rem;color:#fff;}
 .userName{font-weight: 600;padding-bottom:5px;}
 /* .user-position{padding-bottom: 5px;} */
 
