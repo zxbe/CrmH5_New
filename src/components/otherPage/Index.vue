@@ -75,7 +75,7 @@
         </div>
         <div class="occupy-position"></div>
         <div class="pageListContent">
-            <div class="nav sticky">
+            <div class="nav sticky" id="switchDiv">
                 <div id="meetingSwitchPage" @click="switchPage(0,$event)" class="nav-item f16 active-item lanText" data-lanid="619_会议"></div>
                 <div id="dealsSwitchPage" @click="switchPage(1,$event)" class="nav-item f16 lanText" data-lanid="817_交易"></div>
                 <div id="opportunitiesSwitchPage" @click="switchPage(2,$event)" class="nav-item f16 lanText" data-lanid="649_商业机会"></div>
@@ -671,8 +671,10 @@ export default {
             var _self = this;
             var headerH = parseFloat($("header").innerHeight());
             // var searchH = parseFloat($("#searchBtn").innerHeight()) + 16;
-            var navH = parseFloat($(".occupy-position").innerHeight());
-
+            // var navH = parseFloat($(".occupy-position").innerHeight());
+             var switchDivH = parseFloat($("#switchDiv").innerHeight());
+             var gridsH =  parseFloat($("#nav").innerHeight());
+             var navH = switchDivH + gridsH;
             $(window).unbind('scroll').bind('scroll', function () {
 
                 if ($(".group-div").length <= 0) return;

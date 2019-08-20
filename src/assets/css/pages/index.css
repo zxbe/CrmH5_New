@@ -33,6 +33,8 @@
   background: #fff;
   width: 100%;
   z-index:90;
+  height: 3.6rem;
+  box-sizing: border-box;
 }
 .weui-grids::before{display:none!important;}
 .weui-grid{
@@ -89,7 +91,7 @@
   color:#fff;
 }
 .occupy-position{
-  height:calc(2.8rem + 40px + 0.76rem);
+  height:calc(3.6rem + 40px);
   overflow: hidden;
 }
 .pageListContent{
@@ -107,8 +109,9 @@
   height: 40px;
   background: #fff;
   -webkit-box-orient: horizontal;
-  display: -moz-box;
-  display: -webkit-box;
+  /* display: -moz-box; */
+  /* display: -webkit-box; */
+  display: flex;
   border-top: 1px solid beige;
   border-bottom: 1px solid beige;
 }
