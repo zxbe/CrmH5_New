@@ -35,6 +35,7 @@
   </div>
 </template>
 <script>
+import '@/assets/js/common/RootFontSize.js'
 export default {
     data(){
       return{

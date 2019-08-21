@@ -26,7 +26,7 @@ function CalcDomain(){
       return ajaxUrl.substring(0,ajaxUrl.indexOf('/crm'));
     }
 }
-
+import '@/assets/js/common/RootFontSize.js'
 export default {
     data(){
       return{
@@ -137,6 +137,20 @@ export default {
 
          //console.log(_self.materials[0].url);
     },
+    // beforeRouteEnter:function(to, from, next){
+        // console.log(to);
+        // console.log(from);
+      // if (from.name == 'bIShareMaterials') {
+      //     this.$router.replace({
+      //         path: '/bIShareMaterials'
+      //     });
+      //     //保证地址替换后再刷新
+      //     setTimeout(function () {
+      //         window.location.reload();
+      //     }, 80);
+      // }
+    //   next();
+    // },
     mounted:function(){
         var _self = this;
         lanTool.updateLanVersion();
