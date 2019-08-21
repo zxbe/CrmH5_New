@@ -341,7 +341,6 @@ export default {
         _self.defaultDateTime = _self.$route.query.defaultDateTime || "";
         _self.id = _self.$route.params.id;
         _self.dealOppID = _self.$route.query.dealOppID || "";
-        // console.log("dealOppID:"+_self.dealOppID);
         _self.rightPanelFromType = "8";
         _self.rightPanelFromID = _self.$route.params.id || "";
 
@@ -766,7 +765,7 @@ export default {
             if (tool.isNullOrEmptyObject(_self.dealOppID)) {
                 return false;
             }
-
+console.log(_self.dealOppID);
             //api接口地址
             var urlTemp = tool.AjaxBaseUrl();
             var controlName = tool.Api_OpportunityHandle_QuerySingle;
@@ -786,7 +785,6 @@ export default {
                 success: function (data) {
                     tool.hideLoading(loadingIndexClassName);
                     data = tool.jObject(data);
-                    // console.log(data);
                     if (data._ReturnStatus == false) {
                         tool.showText(tool.getMessage(data));
                         console.log(tool.getMessage(data));
@@ -794,7 +792,7 @@ export default {
                         return;
                     }
                     data = data._OnlyOneData || {};
-                    // console.log(data);
+                    console.log(data);
 
                     //标题
                     $("[data-field='MeetingTitle']").val(data["TheName"] || "");
@@ -812,6 +810,9 @@ export default {
                     $("[data-field='CurrentState']").val(lanTool.lanContent("1172_准备与会")).attr("data-fieldVal", "115").trigger('change');
                     //Participants
                     $("[data-field='Participants']").text(data["Initiator_Name"] || "").attr("data-fieldVal", data["Initiator"] || "").trigger('change');
+                    //OppIDTemp
+                    $("[data-field='OppIDTemp']").text(data["TheName"] || "").attr("data-fieldVal", data["AutoID"] || "").trigger('change');
+
                 },
                 error: function (jqXHR, type, error) {
                     tool.hideLoading(loadingIndexClassName);
