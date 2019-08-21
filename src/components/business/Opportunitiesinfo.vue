@@ -244,7 +244,7 @@
             </div>
 
             <!-- 输单原因 -->
-            <div v-show="showTips" class="ListCell visible controlEdit">
+            <div v-show="showTips && !isWinClose" class="ListCell visible controlEdit">
                 <div class="ListCellLeftIcon textLeftIcon"><span class="calcfont calc-yuanyin"></span></div>
                 <div class="ListCellLeftText">
                     <p class="textareaP">
@@ -254,7 +254,7 @@
             </div>
 
             <!-- 输单原因其他 -->
-            <div v-show="showTips" class="ListCell visible controlEdit">
+            <div v-show="showTips && !isWinClose && hasOtherReason" class="ListCell visible controlEdit">
                 <div class="ListCellLeftIcon textLeftIcon"><span class="calcfont calc-yuanyin"></span></div>
                 <div class="ListCellLeftText">
                     <p class="textareaP">
@@ -553,6 +553,8 @@ export default {
             id:'', //dealPipeline id
             loi:'',  //LOI单号
             showTips:false,
+            isWinClose:true,//是否赢单关闭
+            hasOtherReason:false, //是否有其他原因
             //会议记录数据
             MeetingNotice:[],
             //文档数据
@@ -564,22 +566,6 @@ export default {
             //     FileLength: "54768",
             //     ObjectName: "Project Management - CRM_PC(20190625)_V6_19073118305794.xlsx",
             //     ObjectRemark: "test",
-            //   },
-            //   {
-            //     AddTime: "2019-07-26 14:09:00",
-            //     AddUserName: "ceshi",
-            //     AutoID: "765386",
-            //     FileLength: "240704",
-            //     ObjectName: "t01ecab926fd33d8055_19072614092088.jpg",
-            //     ObjectRemark: ""
-            //   },
-            //   {
-            //     AddTime: "2019-07-26 13:57:00",
-            //     AddUserName: "alancheng",
-            //     AutoID: "765385",
-            //     FileLength: "1022368",
-            //     ObjectName: "MYXJ_20150716224149_save_19072613564350.png",
-            //     ObjectRemark: ""
             //   }
             ],
             seeMore:"",
@@ -668,6 +654,7 @@ export default {
 
             //渲染数据
             tool.IniInfoData(fromType, _self.id, function(data){
+              // console.log(data);
                 //渲染textarea
                 $("textarea").each(function (index, cur) {
                     $(cur).height('25');
@@ -694,6 +681,19 @@ export default {
                 //LOI
                 if(_self.showPage == 0){
                     _self.loi = data.LOIID || '';
+                }
+
+                //关闭原因字段处理  100：赢单关闭；101：输单关闭
+                if(data.CurrentState == 100){
+                  _self.isWinClose = true;
+                }else{
+                  _self.isWinClose = false;
+                  // 111:竞争对手;112:"报价过高";113:其他
+                  if(data.LoseReason == 113){
+                    _self.hasOtherReason = true;
+                  }else{
+                    _self.hasOtherReason = false;
+                  }
                 }
 
             });
