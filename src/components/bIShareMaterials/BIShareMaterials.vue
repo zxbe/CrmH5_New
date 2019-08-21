@@ -52,7 +52,7 @@ export default {
             var _self = this;
             // this.$router.back(-1);
             _self.$router.replace({
-                path: '/'
+                path: '/index'
             });
             //保证地址替换后再刷新
             setTimeout(function () {
