@@ -2,7 +2,7 @@
   <div>
       <header class="header">
           <a @click="back" class="mycalcfont calcfont calc-fanhui left" id="back"></a>
-          <h1 class="title-text f18">{{title}}</h1>
+          <h1 class="title-text">{{title}}</h1>
       </header>
 
       <div class="weui-cells">
@@ -26,7 +26,7 @@ function CalcDomain(){
       return ajaxUrl.substring(0,ajaxUrl.indexOf('/crm'));
     }
 }
-import '@/assets/js/common/RootFontSize.js'
+// import '@/assets/js/common/RootFontSize.js'
 export default {
     data(){
       return{
@@ -185,9 +185,9 @@ export default {
 
 <style scoped>
 .mycalcfont {
-  font-size: 0.48rem;
+  font-size: 24px;
   text-align: center;
-  padding: 0.2rem 10px;
+  padding: 10px;
   position: relative;
   z-index: 20;
   display: inline-block;
@@ -213,12 +213,13 @@ export default {
     text-align: center;
     white-space: nowrap;
     font-weight: 400;
-    line-height: 0.88rem;
+    font-size: 18px;
+    line-height: 44px;
 }
 
 
 .weui-cells{
-  margin-top:0.88rem;
+  margin-top:44px;
 }
 
 
