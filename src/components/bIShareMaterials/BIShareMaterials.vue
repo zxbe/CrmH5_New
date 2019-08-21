@@ -49,7 +49,16 @@ export default {
 
         //返回上一页
         back:function(){
-            this.$router.back(-1);
+            var _self = this;
+            // this.$router.back(-1);
+            _self.$router.replace({
+                path: '/'
+            });
+            //保证地址替换后再刷新
+            setTimeout(function () {
+                window.location.reload();
+            }, 80);
+
         },
         //跳转
         router:function(event){

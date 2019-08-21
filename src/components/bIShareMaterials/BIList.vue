@@ -144,7 +144,15 @@ export default {
     methods:{
       //返回上一页
       back:function(){
-          this.$router.back(-1);
+          // this.$router.back(-1);
+          var _self = this;
+            _self.$router.replace({
+                path: '/bIShareMaterials'
+            });
+            //保证地址替换后再刷新
+            setTimeout(function () {
+                window.location.reload();
+            }, 80);
       },
       //页面跳转
       goPage:function(obj){
