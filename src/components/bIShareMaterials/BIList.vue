@@ -154,7 +154,7 @@ export default {
         }
         // console.log(obj.url);
         // window.open(obj.url,"_blank");
-        window.location.href = url;
+        window.location.href = obj.url;
       }
     }
 
