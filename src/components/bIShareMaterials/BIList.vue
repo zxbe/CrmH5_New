@@ -152,8 +152,9 @@ export default {
         if(tool.isNullOrEmptyObject(obj.url)){
             return;
         }
-        console.log(obj.url);
-        window.open(obj.url,"_blank");
+        // console.log(obj.url);
+        // window.open(obj.url,"_blank");
+        window.location.href = url;
       }
     }
 
