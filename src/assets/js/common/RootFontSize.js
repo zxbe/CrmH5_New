@@ -37,11 +37,11 @@
 		}
 	}, false);
 
-	if (doc.readyState === "complete") {
-		doc.body.style.fontSize = "16px";
-	} else {
-		doc.addEventListener("DOMContentLoaded", function(e) {
-			doc.body.style.fontSize = "16px";
-		}, false);
-	}
+	// if (doc.readyState === "complete") {
+	// 	doc.body.style.fontSize = "16px";
+	// } else {
+	// 	doc.addEventListener("DOMContentLoaded", function(e) {
+	// 		doc.body.style.fontSize = "16px";
+	// 	}, false);
+	// }
 })(750,828);
