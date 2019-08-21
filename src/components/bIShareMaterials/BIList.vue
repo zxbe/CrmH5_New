@@ -218,7 +218,7 @@ export default {
 
 
 .weui-cells{
-  margin-top: 1rem;
+  margin-top:0.88rem;
 }
 
 
