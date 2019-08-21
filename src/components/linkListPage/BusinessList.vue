@@ -97,7 +97,7 @@ export default {
   },
   data(){
     return{
-      title:'交易',
+      title:lanTool.lanContent('820_交易'),
       listData:[],
       noData: false, //没数据
       pageSize:10,//一页显示多少记录
@@ -117,6 +117,11 @@ export default {
     console.log('fromType:'+ _self.fromType);
     console.log('fromId:'+ _self.fromId);
     console.log('businessType:'+ _self.businessType);
+    if (_self.businessType == "29") {
+      _self.title = lanTool.lanContent('820_交易');
+    } else {
+      _self.title = lanTool.lanContent('1000033_商业机会');
+    }
   },
   mounted:function(){
       lanTool.updateLanVersion();

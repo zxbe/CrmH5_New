@@ -64,7 +64,7 @@
         <div class="item-div">
             <label class="checkbox-label">
                       <input @click="selectAll" type="checkbox" name="sex"/><i class="checkbox checkAll"></i>
-                      <span>all</span>
+                      <span class="lanText" data-lanid="857_全部"></span>
         </label>
         </div>
     </div>
