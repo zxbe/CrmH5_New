@@ -459,7 +459,7 @@ export default {
             var _self = this;
             var id = _self.id;
             //清空数据
-            $("[data-field='Result'").val("").attr("data-fieldVal", "").trigger('change');
+            $("[data-field='Result']").val("").attr("data-fieldVal", "").trigger('change');
             //显示弹框
             $('#closeThis').show();
 
@@ -479,7 +479,7 @@ export default {
                     _ControlName: controlName,
                     _RegisterCode: tool.RegisterCode()
                 };
-                jsonDatasTemp["Result"] = $("[data-field='Result'").attr("data-fieldVal") || "";
+                jsonDatasTemp["Result"] = $("[data-field='Result']").attr("data-fieldVal") || "";
                 jsonDatasTemp["AutoID"] = id;
 
                 //console.log(jsonDatasTemp);

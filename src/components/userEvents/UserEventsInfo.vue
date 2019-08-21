@@ -121,7 +121,7 @@ export default {
                 fromType:_self.rightPanelFromType,
                 companyName: companyName
             };
-            console.log("parameter:"+JSON.stringify(parameter));
+            // console.log("parameter:"+JSON.stringify(parameter));
             
             _self.$router.push({
                 path: urlTemp,
