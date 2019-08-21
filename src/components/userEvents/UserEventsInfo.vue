@@ -110,6 +110,24 @@ export default {
         _self.queryUser();
     },
     methods: {
+         //跳转到联系人界面事件
+        goToContactsPage: function () {
+            var _self = this;
+            var companyName = $('[data-field="ShortNameEN"]').val() || '';
+            var urlTemp = "/contactsof";
+            // var infoName = lanTool.lanContent("791_联系人") || "";
+            var parameter = {
+                fromId: _self.id,
+                fromType:_self.rightPanelFromType,
+                companyName: companyName
+            };
+            console.log("parameter:"+JSON.stringify(parameter));
+            
+            _self.$router.push({
+                path: urlTemp,
+                query: parameter
+            });
+        },
         //查询用户明细
         queryUser:function(){
             let _self = this;
