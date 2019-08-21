@@ -381,7 +381,7 @@
     <!-- 关闭交易/商业机会弹框 -->
     <div id="closeThis" class="elastic-layer">
         <div class="elastic-layer-content">
-            <div class="elastic-layer-title lanText f18" data-lanid="845_关闭交易"></div>
+            <div class="elastic-layer-title f18">{{closeTitle}}</div>
 
             <div class="elastic-layer-items">
 
@@ -555,6 +555,7 @@ export default {
             showTips:false,
             isWinClose:true,//是否赢单关闭
             hasOtherReason:false, //是否有其他原因
+            closeTitle:'',
             //会议记录数据
             MeetingNotice:[],
             //文档数据
@@ -586,10 +587,12 @@ export default {
             _self.closeThisContent = lanTool.lanContent('944_关闭这个商业机会');
             _self.ptitle = this.$route.query.infoName || lanTool.lanContent('885_增加机会');
             _self.businessType = '30';
+            _self.closeTitle = lanTool.lanContent('828_关闭商业机会');
         } else {
             _self.closeThisContent = lanTool.lanContent('945_关闭这个交易');
             _self.ptitle =this.$route.query.infoName || lanTool.lanContent('884_增加交易');
             _self.businessType = '29';
+            _self.closeTitle = lanTool.lanContent('845_关闭交易');
         }
 
     },
