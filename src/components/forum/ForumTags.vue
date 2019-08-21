@@ -20,7 +20,6 @@
               class="item left"
               :data-id="item.AutoID"
               :class="{'active': item.IsFollow == 'fa-star'}"
-              @click="goToList(item.AutoID)"
               @touchstart="gotouchstart(item, $event)"
               @touchmove="gotouchmove(item, $event)"
               @touchend="gotouchend(item, $event)"
@@ -37,7 +36,8 @@
 export default {
     data(){
       return{
-        timeOutEvent:0, //定时器对象
+        timer:{},//定时器对象
+        timeOutEvent:0,
         title:lanTool.lanContent('1000295_所有标签'),
         listData:[]
       }
@@ -49,6 +49,12 @@ export default {
     mounted:function(){
       let _self = this;
       lanTool.updateLanVersion();
+
+
+      // $(".tag-list").on("contextmenu","div.item",function(event){
+      //     event.preventDefault();
+      // })
+
     },
     methods:{
         // 获取数据
@@ -100,10 +106,11 @@ export default {
 
         //手指开始按
         gotouchstart(obj,e){
+          e.preventDefault();
           let _self = this;
-          clearTimeout(_self.timeOutEvent);//清除定时器
-          _self.timeOutEvent = 0;
-          _self.timeOutEvent = setTimeout(function(){
+          clearTimeout(_self.timer);//清除定时器
+          _self.timer = setTimeout(function(){
+                _self.timeOutEvent = 1;
                 //执行长按要执行的内容，
                 $.actions({
                   closeText:lanTool.lanContent("111_关闭"),
@@ -220,19 +227,28 @@ export default {
                   }]
                 });
           },600);//这里设置定时
+
+
+
         },
         //手释放，如果在500毫秒内就释放，则取消长按事件，此时可以执行onclick应该执行的事件
         gotouchend(obj, e){
+            e.preventDefault();
             let _self = this;
-            clearTimeout(_self.timeOutEvent);
-            if(_self.timeOutEvent!=0){
+            clearTimeout(_self.timer);
+            if(_self.timeOutEvent == 0 ){
+
+              _self.goToList(obj.AutoID);
                 //这里写要执行的内容（尤如onclick事件）
+            }else{
+                _self.timeOutEvent = 0;
             }
         },
         //如果手指有移动，则取消所有事件，此时说明用户只是要移动而不是长按
         gotouchmove(obj, e){
+            e.preventDefault();
             let _self = this;
-            clearTimeout(_self.timeOutEvent);//清除定时器
+            clearTimeout(_self.timer);//清除定时器
             _self.timeOutEvent = 0;
         },
 
@@ -304,6 +320,15 @@ export default {
   border:1px solid #e3e3e3;
   margin: 5px 10px 5px 0;
   border-radius: 5px;
+
+  /* -webkit-touch-callout: none;
+
+  -webkit-touch-callout:none;
+  -webkit-user-select:none;
+  -khtml-user-select:none;
+  -moz-user-select:none;
+  -ms-user-select:none;
+  user-select:none; */
 }
 .content .item.active{
   color:rgb(255, 90, 33);
