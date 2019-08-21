@@ -317,4 +317,7 @@ header a {
     vertical-align: middle;
     color: #ff5a21;
 }
+.better-scroll{
+  height: calc(100% - 38px);
+}
 </style>
