@@ -109,6 +109,7 @@ export default {
   top:0;left:0;right:0;
   background:#f8f2dc;
   z-index: 9;
+  height: 44px!important;
 }
 .header .title-text{
     right: 40px;
