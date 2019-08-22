@@ -343,11 +343,12 @@ export default {
             var _self = this;
             var searchVal = $.trim($('#searchAskInput').val() || "");
             if (tool.isNullOrEmptyObject(searchVal)) {
+                 document.activeElement.blur();
                 var tips = lanTool.lanContent('933_温馨提示');
                 var sure = lanTool.lanContent("545_确定");
                 var alertContent = lanTool.lanContent("1000254_搜索条件不能为空");
                 $.alert(alertContent, tips, "", sure);
-                return false;s
+                return false;
             } else {
                 //下拉刷新
                 _self.queryList('',function(){
