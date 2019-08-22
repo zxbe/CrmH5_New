@@ -323,7 +323,7 @@ export default {
                  //显示弹出
                  _self.showLayer = true;
                  //清除模糊查询的值
-                 $("#searchInput").val("").trigger("click");
+                 $("#searchInput").val("").trigger("input");
                  document.getElementById('postContent').blur();
               }
           }else if (document.selection && document.selection.type != "Control") {
