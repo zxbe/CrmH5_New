@@ -152,54 +152,55 @@ export default {
       _self.selectTags = _self.$store.state.selectTags || [];
   },
   methods:{
-    //查询用户列表
-    queryUserList:function(){
-      let _self = this;
-      //api接口地址
-      var urlTemp = tool.AjaxBaseUrl();
-      var controlName = tool.Api_BaseUserBaseInfHandle_Query;
-      var jsonDatasTemp = {
-          CurrentLanguageVersion: lanTool.currentLanguageVersion,
-          UserName: tool.UserName(),
-          _ControlName: controlName,
-          _RegisterCode: tool.RegisterCode(),
-          IsUsePager: false,
-          PageSize: 1,
-          PageNum: 10,
-          QueryCondiction: []
-      };
-      var loadingIndexClassName = tool.showLoading();
-      $.ajax({
-          async: true,
-          type: "post",
-          url: urlTemp,
-          data: jsonDatasTemp,
-          success: function (data) {
-              tool.hideLoading(loadingIndexClassName);
-              data = tool.jObject(data);
-              // console.log(data);
-              if (data._ReturnStatus == false) {
-                  tool.showText(tool.getMessage(data));
-                  console.log(tool.getMessage(data));
-                  return;
-              }
-              data = data._OnlyOneData.Rows||[];
-              data = data.filter(function(item){
-                  return item.UserName != tool.UserName();
-              })
-              _self.userList = data;
-          },
-          error: function (jqXHR, type, error) {
-              tool.hideLoading(loadingIndexClassName);
-              console.log(error);
-              return true;
-          },
-          complete: function () {
-              //隐藏虚拟键盘
-              document.activeElement.blur();
-          }
-      });
-    },
+      //查询用户列表
+      queryUserList:function(){
+        let _self = this;
+        //api接口地址
+        var urlTemp = tool.AjaxBaseUrl();
+        var controlName = tool.Api_BaseUserBaseInfHandle_Query;
+        var jsonDatasTemp = {
+            CurrentLanguageVersion: lanTool.currentLanguageVersion,
+            UserName: tool.UserName(),
+            _ControlName: controlName,
+            _RegisterCode: tool.RegisterCode(),
+            IsUsePager: false,
+            PageSize: 1,
+            PageNum: 10,
+            QueryCondiction: []
+        };
+        var loadingIndexClassName = tool.showLoading();
+        $.ajax({
+            async: true,
+            type: "post",
+            url: urlTemp,
+            data: jsonDatasTemp,
+            success: function (data) {
+                tool.hideLoading(loadingIndexClassName);
+                data = tool.jObject(data);
+                // console.log(data);
+                if (data._ReturnStatus == false) {
+                    tool.showText(tool.getMessage(data));
+                    console.log(tool.getMessage(data));
+                    return;
+                }
+                data = data._OnlyOneData.Rows||[];
+                data = data.filter(function(item){
+                    return item.UserName != tool.UserName();
+                })
+                _self.userList = data;
+                console.log(_self.userList);
+            },
+            error: function (jqXHR, type, error) {
+                tool.hideLoading(loadingIndexClassName);
+                console.log(error);
+                return true;
+            },
+            complete: function () {
+                //隐藏虚拟键盘
+                document.activeElement.blur();
+            }
+        });
+      },
       //在光标处插入@用户
       insertHtmlAtCaret:function(html) {
           var _self = this;
@@ -320,9 +321,10 @@ export default {
                   _self.sel = sel;
 
                  //显示弹出
-                 //清除模糊查询的值
-                 $("#searchInput").val("").trigger("input");
                  _self.showLayer = true;
+                 //清除模糊查询的值
+                 $("#searchInput").val("").trigger("click");
+                 document.getElementById('postContent').blur();
               }
           }else if (document.selection && document.selection.type != "Control") {
               // IE < 9
@@ -375,8 +377,9 @@ export default {
               t = $(e.target).is(":checked");
           if (t) {
               $.each(self.userList, function (index, item) {
-                  self.checkboxValue.push(item.id);
+                  self.checkboxValue.push(item.AutoID);
               })
+              console.log(self.checkboxValue);
           } else {
               self.checkboxValue = [];
           }
@@ -497,6 +500,7 @@ export default {
   border:none;
   border: 0;
   color:#333;
+  -webkit-appearance:none;
 }
 .post-tag{
   padding:20px 0 10px;
