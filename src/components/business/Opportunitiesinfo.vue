@@ -992,10 +992,10 @@ export default {
                     _ControlName: controlName,
                     _RegisterCode: tool.RegisterCode()
                 };
-                jsonDatasTemp["MSN"] = $("[data-field='MSNNew'").val() || "";
-                jsonDatasTemp["Matter"] = $("[data-field='MatterNew'").attr("data-fieldVal") || "";
-                jsonDatasTemp["MatterOther"] = $("[data-field='MatterOtherNew'").val() || "";
-                jsonDatasTemp["TargetCompanyID"] = $("[data-field='TargetCompanyID'").attr("data-fieldVal") || "";
+                jsonDatasTemp["MSN"] = $("[data-field='MSNNew']").val() || "";
+                jsonDatasTemp["Matter"] = $("[data-field='MatterNew']").attr("data-fieldVal") || "";
+                jsonDatasTemp["MatterOther"] = $("[data-field='MatterOtherNew']").val() || "";
+                jsonDatasTemp["TargetCompanyID"] = $("[data-field='TargetCompanyID']").attr("data-fieldVal") || "";
                 jsonDatasTemp["FromOppID"] = id;
 
                 // console.log(jsonDatasTemp);
