@@ -4124,10 +4124,6 @@ import config from '../../configfile/config.js'
 
 
   }
-
-
-
-
 }(top.window.tool = {}, jQuery));
 
 

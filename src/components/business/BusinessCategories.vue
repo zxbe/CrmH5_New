@@ -712,7 +712,7 @@ export default {
             // console.log(dateRangeStr);
             _self.dateRangeJObject = {
                 "Type": "DateTime",
-                "Format": "yyyy-MM-dd HH:mm:ss",
+                "Format": "dd/MM/yyyy HH:mm:ss",
                 "Field": "AddTime",
                 "Relation": "and",
                 "Comparison": "between",
