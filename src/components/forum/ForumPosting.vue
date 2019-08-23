@@ -401,7 +401,7 @@ export default {
       }
   },
   beforeRouteLeave:function(to, from, next){
-    if(to.name == 'forumlist'){
+    if(to.name == 'forumlist' || to.name == 'forumsearch'){
         this.$store.commit('REMOVE_ITEM', 'forumposting');
     }
     next();
