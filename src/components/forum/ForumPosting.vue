@@ -427,8 +427,8 @@ export default {
   background: #fff;
 }
 .header .title-text{
-    right: 40px;
-    left: 40px;
+    right: 1.6rem;
+    left: 1.6rem;
     display: inline-block;
     overflow: hidden;
     width: auto;
