@@ -188,7 +188,6 @@ export default {
                     return item.UserName != tool.UserName();
                 })
                 _self.userList = data;
-                console.log(_self.userList);
             },
             error: function (jqXHR, type, error) {
                 tool.hideLoading(loadingIndexClassName);
@@ -324,7 +323,12 @@ export default {
                  _self.showLayer = true;
                  //清除模糊查询的值
                  $("#searchInput").val("").trigger("click");
-                 document.getElementById('postContent').blur();
+
+                  //ios下需要失去焦点，不然在选择用户的时候还看到光标
+                 if (tool.getSystem() == 'ios') {
+                    document.getElementById('postContent').blur();
+                 }
+
               }
           }else if (document.selection && document.selection.type != "Control") {
               // IE < 9
