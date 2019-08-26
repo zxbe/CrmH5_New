@@ -308,7 +308,7 @@ export default {
       //@用户
       selectUser:function(){
           var _self = this;
-          document.getElementById('postContent').focus();
+          $('#postContent').focus();
           var sel, range;
           if (window.getSelection) {
               // IE9 and non-IE
@@ -325,9 +325,9 @@ export default {
                  $("#searchInput").val("").trigger("click");
 
                   //ios下需要失去焦点，不然在选择用户的时候还看到光标
-                 if (tool.getSystem() == 'ios') {
-                    document.getElementById('postContent').blur();
-                 }
+                //  if (tool.getSystem() == 'ios') {
+                    $('#postContent').blur();
+                //  }
 
               }
           }else if (document.selection && document.selection.type != "Control") {
