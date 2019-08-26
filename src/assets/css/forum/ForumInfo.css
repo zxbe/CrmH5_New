@@ -64,6 +64,7 @@ header a {
     /* padding:10px; */
     padding-top: 0.88rem;
     padding-bottom: 1rem;
+    overflow-x: hidden;
 }
 .pageContent .forumTitle{
     /* background-color: rgb(244, 243, 248); */
@@ -230,7 +231,8 @@ header a {
     background-color: rgb(241, 240, 245);
     box-sizing: border-box;
     border-radius: 5px;
-    text-indent: 5px;
+    padding-left: 5px;
+    /* text-indent: 5px; */
 }
 .replyDiv .send{
     float: right;

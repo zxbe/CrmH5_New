@@ -397,7 +397,12 @@ export default {
                 var fieldval = $('[data-field="CurrentState"]').attr("data-fieldval");
                 //状态为完成时，fieldval为116 才能转为商机
                 if (fieldval == "116") {
-                    _self.operation = true;
+                    var oppIDTemp = data["OppIDTemp"]||"";
+                    if(tool.isNullOrEmptyObject(oppIDTemp)){
+                        _self.operation = true;
+                    }else{
+                        _self.operation = false;
+                    }
                 } else {
                     _self.operation = false;
                 }

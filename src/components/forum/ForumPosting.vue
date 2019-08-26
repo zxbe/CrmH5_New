@@ -405,7 +405,7 @@ export default {
       }
   },
   beforeRouteLeave:function(to, from, next){
-    if(to.name == 'forumlist'){
+    if(to.name == 'forumlist' || to.name == 'forumsearch'){
         this.$store.commit('REMOVE_ITEM', 'forumposting');
     }
     next();
@@ -431,8 +431,8 @@ export default {
   background: #fff;
 }
 .header .title-text{
-    right: 40px;
-    left: 40px;
+    right: 1.6rem;
+    left: 1.6rem;
     display: inline-block;
     overflow: hidden;
     width: auto;

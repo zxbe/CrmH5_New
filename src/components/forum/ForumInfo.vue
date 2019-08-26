@@ -43,7 +43,10 @@
             <div class="replyItem" v-for="replyItem in infoDataList.ReplyPosts" :key="replyItem.AutoID">
                 <img class="replyUserImg" src="../../assets/images/forum/default_user_img.png" />
                 <span class="replyUserName">{{replyItem.UserName}}</span>
-                <p class="replyContent">{{replyItem.Content}}</p>
+                <!-- <span class="replyContent">{{replyItem.Content}}</div> -->
+                 <div style="pointer-events: none;">
+                <editor :content="replyItem.Content" :auto-height="true" :show-module-name="false"></editor>
+            </div>
                 <div class="feeditemfooter">
                     <span class="time">{{replyItem.PostTime|MeetingTimeFormat}}</span>
                     <span class="hand">
