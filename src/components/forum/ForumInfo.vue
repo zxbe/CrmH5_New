@@ -410,7 +410,9 @@ export default {
         },
         //回复点击事件
         replyAskClick: function () {
-
+           //滚动到底部
+            var scrollHeight = $(document).height();
+            $(window).scrollTop(scrollHeight);
             $(".replyDiv").show().find("textarea#ask").val("");
             $('textarea#ask').focus();
             $('textarea#ask').off('blur').on('blur', function () {
