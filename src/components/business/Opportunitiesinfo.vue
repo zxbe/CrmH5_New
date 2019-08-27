@@ -897,6 +897,9 @@ export default {
 
             //显示弹框
             $('#closeThis').show();
+            $('#closeThis').off('touchmove').on('touchmove',function(e){
+                e.preventDefault();
+            })
 
             //取消
             $('#closeThis').find('a.btn-cancel').off('click').on('click',function(){
@@ -975,6 +978,9 @@ export default {
 
             //显示弹框
             $('#transformTo').show();
+            $('#transformTo').off('touchmove').on('touchmove',function(e){
+                e.preventDefault();
+            })
 
             //取消
             $('#transformTo').find('a.btn-cancel').off('click').on('click',function(){

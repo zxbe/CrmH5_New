@@ -528,7 +528,7 @@ export default {
         },
         //生成
         rightPanelTransformTo: function () {
-            console.log("转化为商机");
+            // console.log("转化为商机");
             var _self = this;
             var id = _self.id;
 
@@ -548,6 +548,9 @@ export default {
             }
             //显示弹框
             $('#transformTo').show();
+            $('#transformTo').off('touchmove').on('touchmove',function(e){
+                e.preventDefault();
+            })
 
             //取消
             $('#transformTo').find('a.btn-cancel').off('click').on('click', function () {
