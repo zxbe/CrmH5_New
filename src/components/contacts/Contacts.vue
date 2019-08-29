@@ -599,7 +599,7 @@ export default {
 
                 //点击列表是获取到属性名传给详情
                 var infoName = null;
-                    infoName = $(this).find(".item-first-div").text() || "";
+                    infoName = $(this).find(".item-first-div span").eq(0).text() || "";
                 var parameter = {
                     showPage: _self.showPage,
                     infoName:infoName
