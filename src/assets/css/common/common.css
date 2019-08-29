@@ -452,6 +452,13 @@ top:0px;position:absolute;}
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
 }
+.organizations-list .item-first-div span.short-name{
+  flex: 1;
+}
+.organizations-list .item-first-div span.icao-code{
+  color:#333;
+  font-weight: 100;
+}
 /* .organizations-list .item-first-div .right{font-weight: 100;} */
 .organizations-list .item-div .left-text{display:inline-block;max-width:70%;
   overflow: hidden;

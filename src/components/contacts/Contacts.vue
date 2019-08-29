@@ -33,8 +33,8 @@
                                   <div class="item-stars-icon calcfont" :class="item.IsFollow" :data-autoid="item.AutoID"></div>
                                   <div class="item-block f14">
                                       <div class="item-div item-first-div">
-                                        <span class="">{{item.ShortName}}</span>
-                                        <!-- <span class="right-text right">{{item.ICAOCode}}</span> -->
+                                        <span class="short-name">{{item.ShortName}}</span>
+                                        <span class="icao-code f12">{{item.ICAOCode}}</span>
                                       </div>
                                       <div class="item-div">
                                         <div class="left-text" v-show="(item.BusinessType =='' || item.BusinessType == null) ? false : true">
