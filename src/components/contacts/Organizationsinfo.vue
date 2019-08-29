@@ -85,7 +85,7 @@
                                 <div class="ListCellContentLeftText lanText" data-lanid="787_是否为现有客户"></div>
                             </div>
                             <div class="ListCellContentRight rightContent">
-                                <input type="text" data-field="ExistingCustomer" data-fieldControlType="picker" data-fieldVal="" Code="DropDowList_DtbAllTypes" TypeValue="YesOrNo" class="ListCellContentRightText"/>
+                                <input type="text" data-field="ExistingCustomer" data-fieldControlType="picker" data-fieldVal="" Code="DropDowList_ViewBaseAllTypes" TypeValue="YesOrNo" class="ListCellContentRightText"/>
                         </div>
                                 <div class="ListCellRightIcon"><span class="mui-icon calcfont calc-you"></span></div>
                             </div>
