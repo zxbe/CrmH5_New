@@ -4224,16 +4224,31 @@ import config from '../../configfile/config.js'
 		if (tool.isNullOrEmptyObject(id)) {
 			return '';
 		}
+
+		//是否整数
+		var isNum = tool.isPositiveInteger(id);
+
 		for (var i = 0, dataLen = lan.Data.length; i < dataLen; i++) {
-			if (tool.isPositiveInteger(id)) {
-				if (lan.Data[i].id !== id) {
-					continue;
-				}
-			} else {
-        id = $.trim(id);
-				if (("_" + lan.Data[i].AliasNameAuto).indexOf("_" + id) < 0) {
-					continue;
-				}
+			// if (tool.isPositiveInteger(id)) {
+			// 	if (lan.Data[i].id !== id) {
+			// 		continue;
+			// 	}
+			// } else {
+        	// 	id = $.trim(id);
+			// 	if (("_" + lan.Data[i].AliasNameAuto).indexOf("_" + id) < 0) {
+			// 		continue;
+			// 	}
+			// }
+
+			if(!isNum){
+				//解析出多语言ID，如1000379_Contacts_Modify(ContainDelete)	
+				id = $.trim(id);
+				var idArray = id.split("_");
+				id = Number($.trim(idArray[0]));
+			}
+
+			if (lan.Data[i].id !== id) {
+				continue;
 			}
 
 			switch (parseInt(lan.currentLanguageVersion)) {
