@@ -43,12 +43,12 @@
                                 <span class="time-text">{{item.BeginTime|MeetingTimeFormat}}~{{item.EndTime|MeetingTimeFormat}}</span>
                                 <span class="right-text">{{item.Realname}}</span>
                           </div>
-                          <div class="flex pdtb">
-                              <i :class="[item.CompanyID !='' ? 'calc-gongsixinxi' : '']" class="icon calcfont "></i>
+                          <div class="flex pdtb" v-show="(item.CompanyID =='' || item.CompanyID == null) ? false : true">
+                              <i class="icon calcfont calc-gongsixinxi"></i>
                               <div class="item-address">{{item.CompanyID}}</div>
                           </div>
-                          <div class="flex">
-                              <i :class="[item.ContactsID !='' ? 'calc-kehulianxiren' : '']" class="icon calcfont "></i>
+                          <div class="flex" v-show="(item.ContactsID =='' || item.ContactsID == null) ? false : true">
+                              <i class="icon calcfont calc-kehulianxiren"></i>
                               <div class="item-initiator">{{item.ContactsID|formatContactsID}}{{item.Title|formatTitle}}</div>
                           </div>
                       </div>
