@@ -232,7 +232,7 @@
    * 按照数组内指定对象的属性排序
   */
   Array.prototype.SortObj = function(pro,sortOrder){
-	  return this.sort( 
+	  return this.sort(
 	  function(obj1,obj2){
 		  sortOrder = (sortOrder == null || sortOrder == undefined || sortOrder == "")?"asc":sortOrder;
 		  sortOrder = $.trim(sortOrder).toLowerCase();
@@ -4019,7 +4019,7 @@ import config from '../../configfile/config.js'
 		else{
 			curObj.text(eventBus.selectListData.value.text);
 		}
-     
+
       if (!tool.isNullOrEmptyObject(callback)) {
           callback(curObj);
       }
@@ -4218,8 +4218,8 @@ import config from '../../configfile/config.js'
 	//根据多语言自动别名获取当前语言内容
 	win.lanContent = lan.lanContent = function (id) {
 
-		// console.log(id);
-		// console.log(lan.Data);
+		console.log(id);
+		//console.log(lan.Data);
 
 		if (tool.isNullOrEmptyObject(id)) {
 			return '';
@@ -4227,6 +4227,15 @@ import config from '../../configfile/config.js'
 
 		//是否整数
 		var isNum = tool.isPositiveInteger(id);
+    console.log(isNum);
+
+    if(!isNum){
+      //解析出多语言ID，如772_请输入密码
+      id = $.trim(id);
+      var idArray = id.split("_");
+      id = Number($.trim(idArray[0]));
+      console.log(id);
+    }
 
 		for (var i = 0, dataLen = lan.Data.length; i < dataLen; i++) {
 			// if (tool.isPositiveInteger(id)) {
@@ -4240,16 +4249,11 @@ import config from '../../configfile/config.js'
 			// 	}
 			// }
 
-			if(!isNum){
-				//解析出多语言ID，如1000379_Contacts_Modify(ContainDelete)	
-				id = $.trim(id);
-				var idArray = id.split("_");
-				id = Number($.trim(idArray[0]));
-			}
+			if (lan.Data[i].AutoID !== id) {
+				  continue;
+      }
 
-			if (lan.Data[i].id !== id) {
-				continue;
-			}
+      console.log(lan.Data[i]);
 
 			switch (parseInt(lan.currentLanguageVersion)) {
 				case 2:
