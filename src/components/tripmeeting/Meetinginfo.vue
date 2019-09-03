@@ -58,7 +58,7 @@
                 </div>
 
                 <!-- 会议性质 -->
-                <div class="ListCell visible">
+                <!-- <div class="ListCell visible">
                     <div class="ListCellLeftIcon"><span class="calcfont calc-shuxing"></span></div>
                     <div class="ListCellContent">
                         <div class="ListCellContentLeft leftContent">
@@ -69,7 +69,7 @@
                         </div>
                         <div class="ListCellRightIcon"><span class="calcfont calc-you"></span></div>
                     </div>
-                </div>
+                </div> -->
 
                 <!-- CAAL -->
                 <div class="ListCell visible">
@@ -110,7 +110,7 @@
                 </div>
 
                 <!-- 是否首次会议 -->
-                <div class="ListCell visible">
+                <!-- <div class="ListCell visible">
                     <div class="ListCellLeftIcon"><span class="calcfont calc-zhuanjifenshoucishezhinicheng"></span></div>
                     <div class="ListCellContent">
                         <div class="ListCellContentLeft leftContent">
@@ -121,7 +121,7 @@
                         </div>
                         <div class="ListCellRightIcon"><span class="calcfont calc-you"></span></div>
                     </div>
-                </div>
+                </div> -->
 
                 <!-- 关联于商业 -->
                 <div class="ListSpecialCell" id="OppIDTempClickObj">

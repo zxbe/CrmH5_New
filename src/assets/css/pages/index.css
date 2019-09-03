@@ -35,11 +35,12 @@
   z-index:90;
   height: 3.6rem;
   box-sizing: border-box;
+  padding-top:10px;
 }
 .weui-grids::before{display:none!important;}
 .weui-grid{
  text-align: center;
- padding:10px;
+ padding:0px 10px 10px 10px;
  width:25%;
 }
 .js_grid{
@@ -81,10 +82,16 @@
   background-color: rgb(146, 102, 249);
 }
 .weui-grid__label{
-  /* line-height:16px; */
-  line-height: 0.5rem;
+  line-height:1.3;
   margin-top: 0!important;
-  overflow: visible;
+  word-wrap:break-word;
+  white-space:normal;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+
 }
 .weui-grid .calcfont{
   font-size: 0.5rem;

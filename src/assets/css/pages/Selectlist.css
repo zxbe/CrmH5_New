@@ -22,7 +22,7 @@ header {
     display: inline-block;
     overflow: hidden;
     width: auto;
-    max-width: 72%;
+    max-width: 60%;
     font-size: 0.34rem;
     margin: 0 0 0 -10px;
     text-overflow: ellipsis;

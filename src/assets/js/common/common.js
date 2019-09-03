@@ -4253,8 +4253,6 @@ import config from '../../configfile/config.js'
 				  continue;
       }
 
-      console.log(lan.Data[i]);
-
 			switch (parseInt(lan.currentLanguageVersion)) {
 				case 2:
 					return lan.Data[i].SimplifiedChinese;
