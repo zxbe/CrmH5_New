@@ -4218,7 +4218,7 @@ import config from '../../configfile/config.js'
 	//根据多语言自动别名获取当前语言内容
 	win.lanContent = lan.lanContent = function (id) {
 
-		console.log(id);
+		// console.log(id);
 		//console.log(lan.Data);
 
 		if (tool.isNullOrEmptyObject(id)) {
@@ -4227,14 +4227,14 @@ import config from '../../configfile/config.js'
 
 		//是否整数
 		var isNum = tool.isPositiveInteger(id);
-    console.log(isNum);
+    // console.log(isNum);
 
     if(!isNum){
       //解析出多语言ID，如772_请输入密码
       id = $.trim(id);
       var idArray = id.split("_");
       id = Number($.trim(idArray[0]));
-      console.log(id);
+      // console.log(id);
     }
 
 		for (var i = 0, dataLen = lan.Data.length; i < dataLen; i++) {
