@@ -54,9 +54,9 @@
 
         <vue-scroll v-show="!noData" :showToTop="true" :options="{ pullup: true, pulldown: true }" :scrollbar="false" ref="scroll" @pulldown="pulldown" @pullup="pullup">
 
-            <div v-for="item in listData" :key="item.AutoID" class="list-item">
-                <div @click="goToInfo(item.AutoID)" class="title f16">{{item.Theme}}</div>
-                <div @click="goToInfo(item.AutoID)" class="content f14">{{item.Content}}</div>
+            <div v-for="item in listData" :key="item.AutoID" class="list-item" @click="goToInfo(item.AutoID)">
+                <div class="title f16">{{item.Theme}}</div>
+                <div class="content f14">{{item.Content}}</div>
                 <div class="feeditemtag f12">
                     <span v-for="i in item.TagName" :key="i">{{i}}</span>
                 </div>
@@ -73,11 +73,11 @@
                     <span class="name">{{item.UserName}}</span>
                     <div class="hand">
                         <!-- 没赞：calc-zan1  赞：calc-zan -->
-                        <span class="calcfont" :class="[parseInt(item.IsCurrentUserLike)>=1 ? 'calc-zan' : 'calc-zan1']" :data-statusid="item.Status_ID" :data-autoid="item.AutoID" data-even="fabulous" @click="fabulousEvent($event)"></span><span class="ActionCount">{{item.LikeCount}}</span>
+                        <span class="calcfont" :class="[parseInt(item.IsCurrentUserLike)>=1 ? 'calc-zan' : 'calc-zan1']" :data-statusid="item.Status_ID" :data-autoid="item.AutoID" data-even="fabulous" @click.stop="fabulousEvent($event)"></span><span class="ActionCount">{{item.LikeCount}}</span>
                     </div>
                     <div class="hand">
                         <!-- 没踩：calc-cai  踩：calc-caishixin- -->
-                        <span class="calcfont" :class="[parseInt(item.IsCurrentUserDislike)>=1 ? 'calc-caishixin-' : 'calc-cai']" :data-statusid="item.Status_ID" :data-autoid="item.AutoID" data-even="unfabulous" @click="fabulousEvent($event)"></span><span class="ActionCount">{{item.DislikeCount}}</span>
+                        <span class="calcfont" :class="[parseInt(item.IsCurrentUserDislike)>=1 ? 'calc-caishixin-' : 'calc-cai']" :data-statusid="item.Status_ID" :data-autoid="item.AutoID" data-even="unfabulous" @click.stop="fabulousEvent($event)"></span><span class="ActionCount">{{item.DislikeCount}}</span>
                     </div>
                     <div class="replies">
                         <span>{{repliesText}}</span>

@@ -20,10 +20,12 @@
               class="item left"
               :data-id="item.AutoID"
               :class="{'active': item.IsFollow == 'fa-star'}"
-              @touchstart="gotouchstart(item, $event)"
-              @touchmove="gotouchmove(item, $event)"
-              @touchend="gotouchend(item, $event)"
+              @click="clickEvent(item, $event)"
               >{{item.Name}}({{item.PostCount}})</div>
+
+                <!-- @touchstart="gotouchstart(item, $event)"
+              @touchmove="gotouchmove(item, $event)"
+              @touchend="gotouchend(item, $event)" -->
         </div>
     </div>
 
@@ -105,6 +107,7 @@ export default {
         },
 
         //手指开始按
+        /*
         gotouchstart(obj,e){
           e.preventDefault();
           let _self = this;
@@ -113,8 +116,6 @@ export default {
                 _self.timeOutEvent = 1;
                 //执行长按要执行的内容，
                 $.actions({
-                  closeText:lanTool.lanContent("111_关闭"),
-                  actions: [{
                     text: '<div>'+ lanTool.lanContent("786_关注") +'</div>',
                     onClick: function() {
                       var curObj = $(e.target);
@@ -231,6 +232,130 @@ export default {
 
 
         },
+        */
+        clickEvent(obj, e){
+            let _self = this;
+            $.actions({
+                  closeText:lanTool.lanContent("111_关闭"),
+                  actions: [{
+                    text: '<div>'+ lanTool.lanContent('1000300_返回列表')+'</div>',
+                    onClick: function() {
+                        _self.goToList(obj.AutoID);
+                    }
+                  },{
+                    text: '<div>'+ lanTool.lanContent("786_关注") +'</div>',
+                    onClick: function() {
+                      var curObj = $(e.target);
+                      if(tool.isNullOrEmptyObject(curObj)){
+                        return false;
+                      }
+                      //已关注的再点击关注无效果
+                      if(curObj.hasClass('active')){
+                        return;
+                      }
+                      var autoID = curObj.attr("data-id")||"";
+                      if(tool.isNullOrEmptyObject(autoID)){
+                        return false;
+                      }
+                      //api接口地址
+                      var urlTemp = tool.AjaxBaseUrl();
+                      var controlName = tool.Api_ForumHandle_UserFollowTag;
+                      var jsonDatasTemp = {
+                          CurrentLanguageVersion: lanTool.currentLanguageVersion,
+                          UserName: tool.UserName(),
+                          _ControlName: controlName,
+                          _RegisterCode: tool.RegisterCode(),
+                          AutoID:autoID,
+                          ActionType:"1",  //(0=>取消关注;1=>添加关注)
+                      };
+                      var loadingIndexClassName = tool.showLoading();
+                      $.ajax({
+                          async: true,
+                          type: "post",
+                          url: urlTemp,
+                          data: jsonDatasTemp,
+                          success: function (data) {
+                              tool.hideLoading(loadingIndexClassName);
+                              data = tool.jObject(data);
+                              //console.log(data);
+                              if (data._ReturnStatus == false) {
+                                  tool.showText(tool.getMessage(data));
+                                  console.log(tool.getMessage(data));
+                                  return;
+                              }
+                              //改变标签状态
+                              curObj.addClass('active');
+                          },
+                          error: function (jqXHR, type, error) {
+                              tool.hideLoading(loadingIndexClassName);
+                              console.log(error);
+                              return true;
+                          },
+                          complete: function () {
+                              //隐藏虚拟键盘
+                              document.activeElement.blur();
+                          }
+                      });
+                    }
+                  },{
+                    text: '<div>'+ lanTool.lanContent("905_取消关注") +'</div>',
+                    onClick: function() {
+                      var curObj = $(e.target);
+                      if(tool.isNullOrEmptyObject(curObj)){
+                        return false;
+                      }
+                      //未关注的再点击取消关注无效果
+                      if(!curObj.hasClass('active')){
+                          return;
+                      }
+                      var autoID = curObj.attr("data-id")||"";
+                      if(tool.isNullOrEmptyObject(autoID)){
+                        return false;
+                      }
+                      //api接口地址
+                      var urlTemp = tool.AjaxBaseUrl();
+                      var controlName = tool.Api_ForumHandle_UserFollowTag;
+                      var jsonDatasTemp = {
+                          CurrentLanguageVersion: lanTool.currentLanguageVersion,
+                          UserName: tool.UserName(),
+                          _ControlName: controlName,
+                          _RegisterCode: tool.RegisterCode(),
+                          AutoID:autoID,
+                          ActionType:"0",  //(0=>取消关注;1=>添加关注)
+                      };
+                      var loadingIndexClassName = tool.showLoading();
+                      $.ajax({
+                          async: true,
+                          type: "post",
+                          url: urlTemp,
+                          data: jsonDatasTemp,
+                          success: function (data) {
+                              tool.hideLoading(loadingIndexClassName);
+                              data = tool.jObject(data);
+                              //console.log(data);
+                              if (data._ReturnStatus == false) {
+                                  tool.showText(tool.getMessage(data));
+                                  console.log(tool.getMessage(data));
+                                  return;
+                              }
+                              //改变标签状态
+                              curObj.removeClass('active');
+                          },
+                          error: function (jqXHR, type, error) {
+                              tool.hideLoading(loadingIndexClassName);
+                              console.log(error);
+                              return true;
+                          },
+                          complete: function () {
+                              //隐藏虚拟键盘
+                              document.activeElement.blur();
+                          }
+                      });
+                    }
+                  }]
+                });
+        },
+        /*
         //手释放，如果在500毫秒内就释放，则取消长按事件，此时可以执行onclick应该执行的事件
         gotouchend(obj, e){
             e.preventDefault();
@@ -251,6 +376,7 @@ export default {
             clearTimeout(_self.timer);//清除定时器
             _self.timeOutEvent = 0;
         },
+        */
 
         //返回上一页
         back:function(){
