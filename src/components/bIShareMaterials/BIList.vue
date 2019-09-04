@@ -23,7 +23,8 @@
 function CalcDomain(){
     var ajaxUrl = tool.AjaxBaseUrl();
     if(!tool.isNullOrEmptyObject(ajaxUrl)){
-      return ajaxUrl.substring(0,ajaxUrl.indexOf('/crm'));
+      console.log(ajaxUrl.substring(0,ajaxUrl.indexOf('/crm/ApiHome')));
+      return ajaxUrl.substring(0,ajaxUrl.indexOf('/crm/ApiHome'));
     }
 }
 // import '@/assets/js/common/RootFontSize.js'
