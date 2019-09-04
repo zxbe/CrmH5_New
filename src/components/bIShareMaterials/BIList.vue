@@ -66,6 +66,14 @@ export default {
              {
                text:lanTool.lanContent("1000365_2018 Annual Results Presentation | June 2019"),
                url:CalcDomain() +'/FileUpload/CompanyPresentationMaterials/PitchingMaterials/CALC 2018AR PPT_Eng.pdf'
+             },
+             {
+               text:lanTool.lanContent("1000408_CALC简报"),
+               url:CalcDomain() +'/FileUpload/CompanyPresentationMaterials/PitchingMaterials/Factsheet_Chi.pdf'
+             },
+             {
+               text:lanTool.lanContent("1000407_CALC Factsheet"),
+               url:CalcDomain() +'/FileUpload/CompanyPresentationMaterials/PitchingMaterials/Factsheet_Eng.pdf'
              }
           ],
           memberships:[
@@ -174,9 +182,10 @@ export default {
         if(tool.isNullOrEmptyObject(obj.url)){
             return;
         }
-        // console.log(obj.url);
-        // window.open(obj.url,"_blank");
-        window.location.href = obj.url;
+        //console.log(obj.url);
+        //return;
+        window.open(obj.url,"_blank");
+        //window.location.href = obj.url;
       }
     }
 
