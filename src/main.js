@@ -196,11 +196,6 @@ new Vue({
   template: '<App/>'
 });
 
- //iOS 里有一组双指手势操作的事件：gesturestart、gesturechange、gestureend
-document.addEventListener('gesturestart', function (event) {
-    event.preventDefault();
-});
-
 
 if (tool.getSystem() == 'ios') {
 
@@ -212,11 +207,20 @@ if (tool.getSystem() == 'ios') {
         event.preventDefault();
       }
       lastTouchEnd = now;
+    // }, { passive: false });
     }, false);
 
     document.addEventListener('touchmove', function (event) {
-      if (event.scale !== 1) { event.preventDefault(); }
+      if (event.scale !== 1) {
+        event.preventDefault();
+      }
+    // }, { passive: false });
     }, false);
+
+    //iOS 里有一组双指手势操作的事件：gesturestart、gesturechange、gestureend
+    document.addEventListener('gesturestart', function (event) {
+      event.preventDefault();
+    });
 
 }
 
