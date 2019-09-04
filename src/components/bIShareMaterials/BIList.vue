@@ -23,7 +23,7 @@
 function CalcDomain(){
     var ajaxUrl = tool.AjaxBaseUrl();
     if(!tool.isNullOrEmptyObject(ajaxUrl)){
-      console.log(ajaxUrl.substring(0,ajaxUrl.indexOf('/crm/ApiHome')));
+      //console.log(ajaxUrl.substring(0,ajaxUrl.indexOf('/crm/ApiHome')));
       return ajaxUrl.substring(0,ajaxUrl.indexOf('/crm/ApiHome'));
     }
 }
