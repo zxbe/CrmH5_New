@@ -123,6 +123,14 @@ export default {
           var _userName = data["UserName"] || "";
           tool.setSessionStorageItem(tool.cache_UserName, _userName);
 
+          //用户真实姓名
+          var _realname = data["Realname"] || "";
+          tool.setSessionStorageItem(tool.cache_Realname, _realname);
+
+          //用户AutoID
+          var _userAutoID = data["AutoID"] || "";
+          tool.setSessionStorageItem(tool.cache_UserAutoID, _userAutoID);
+
           //登陆对象
           tool.setSessionStorageItem(tool.cache_CurUser, JSON.stringify(data));
 

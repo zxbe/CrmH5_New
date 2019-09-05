@@ -620,6 +620,14 @@ import config from '../../configfile/config.js'
 	 */
 	tool.cache_UserName = "_UserName";
 	/*
+	 * cache_Realname:用户真实姓名在缓存中的Key
+	 */
+	tool.cache_Realname = "_Realname";
+	/*
+	 * cache_UserAutoID:用户AutoID在缓存中的Key
+	 */
+	tool.cache_UserAutoID = "_UserAutoID";
+	/*
 	 * cache_CurUser:当前用户在缓存中的Key
 	 */
 	tool.cache_CurUser = "_CurUser";
@@ -1715,6 +1723,14 @@ import config from '../../configfile/config.js'
 	//用户名
 	tool.UserName = function () {
 		return tool.getSessionStorageItem(tool.cache_UserName) || "";
+	};
+	//用户真实姓名
+	tool.Realname = function () {
+		return tool.getSessionStorageItem(tool.cache_Realname) || "";
+	};
+	//用户AutoID
+	tool.UserAutoID = function () {
+		return tool.getSessionStorageItem(tool.cache_UserAutoID) || "";
 	};
 /*
 	//模板
@@ -3896,6 +3912,19 @@ import config from '../../configfile/config.js'
 		var curLV = lanTool.currentLanguageVersion;
 		var textTemp =  lanTool.lanContent("811_公开的");
 		var idTemp = 23;
+		var obj = {
+			id : idTemp,
+			text : textTemp
+		};
+
+		return obj;
+	};
+
+	//获取Private对象
+	tool.GetPrivateObj = function(){
+		var curLV = lanTool.currentLanguageVersion;
+		var textTemp =  lanTool.lanContent("812_私有的");
+		var idTemp = 24;
 		var obj = {
 			id : idTemp,
 			text : textTemp

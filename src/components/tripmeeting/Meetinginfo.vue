@@ -533,19 +533,31 @@ export default {
             var id = _self.id;
 
             //清空控件数据
+            $("[data-field='TheName']").val("");
             $("[data-field='SourceFrom']").val("").attr("data-fieldVal", "").trigger('change');
             $("[data-field='SourceFromOther']").val("");
             $("[data-field='IsPublic']").val("").attr("data-fieldVal", "").trigger('change');
-            $("[data-field='Initiator']").val("").attr("data-fieldVal", "").trigger('change');
+            $("[data-field='Initiator']").val("").attr("data-fieldVal", "");
+            
 
             // 默认给data-field="Initiator"赋予23(公开)
-            var publicObj = tool.GetPublicObj();
-            if (!tool.isNullOrEmptyObject(publicObj)) {
+            // var publicObj = tool.GetPublicObj();
+            // if (!tool.isNullOrEmptyObject(publicObj)) {
+            //     $("[data-field='IsPublic']")
+            //         .val(publicObj.text || "")
+            //         .attr("data-fieldVal", publicObj.id)
+            //         .trigger("change");
+            // }
+            var privateObj = tool.GetPrivateObj();
+            if (!tool.isNullOrEmptyObject(privateObj)) {
+                $("[data-field='Initiator']").attr("data-fieldval",tool.UserAutoID()).val(tool.Realname());
                 $("[data-field='IsPublic']")
-                    .val(publicObj.text || "")
-                    .attr("data-fieldVal", publicObj.id)
+                    .val(privateObj.text || "")
+                    .attr("data-fieldVal", privateObj.id)
                     .trigger("change");
+                
             }
+
             //显示弹框
             $('#transformTo').show();
             $('#transformTo').off('touchmove').on('touchmove',function(e){
@@ -773,7 +785,7 @@ export default {
             if (tool.isNullOrEmptyObject(_self.dealOppID)) {
                 return false;
             }
-console.log(_self.dealOppID);
+            // console.log(_self.dealOppID);
             //api接口地址
             var urlTemp = tool.AjaxBaseUrl();
             var controlName = tool.Api_OpportunityHandle_QuerySingle;

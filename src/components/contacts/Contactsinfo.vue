@@ -331,12 +331,23 @@ export default {
 
             // 如是新增状态 默认给data-field="Initiator"赋予23(公开)
             if (_self.isAddNew) {
-                var publicObj = tool.GetPublicObj();
-                if (!tool.isNullOrEmptyObject(publicObj)) {
+                //modify by Dylan 20190905 修改成默认赋予24(私有),并且将当前用户作为负责人
+                // var publicObj = tool.GetPublicObj();
+                // if (!tool.isNullOrEmptyObject(publicObj)) {
+                //     $("[data-field='IsPublic']")
+                //         .val(publicObj.text || "")
+                //         .attr("data-fieldVal", publicObj.id)
+                //         .trigger("change");
+                // }
+
+                var privateObj = tool.GetPrivateObj();
+                if (!tool.isNullOrEmptyObject(privateObj)) {
+                    $("[data-field='Initiator']").attr("data-fieldval",tool.UserAutoID()).text(tool.Realname());
                     $("[data-field='IsPublic']")
-                        .val(publicObj.text || "")
-                        .attr("data-fieldVal", publicObj.id)
+                        .val(privateObj.text || "")
+                        .attr("data-fieldVal", privateObj.id)
                         .trigger("change");
+                    
                 }
             }
 
