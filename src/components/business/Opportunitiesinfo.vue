@@ -11,12 +11,12 @@
         <div class="box">
             <div data-field="BusinessTypes" data-fieldControlType="hideDivText">{{businessType}}</div>
 
-            <div v-show="showTips" class="tipBox">
+            <!-- <div v-show="showTips" class="tipBox">
                 <div class="tipContent f12">
                     <span class="red">*</span>
                     <p class="zhuyi lanText" data-lanid="897_请注意，该记录已关闭，仅允许被查看。"></p>
                 </div>
-            </div>
+            </div> -->
 
             <!-- 名称 -->
             <div class="ListCell visible controlEdit">
@@ -213,6 +213,19 @@
                 </div>
             </div>
 
+            <div class="ListCell visible">
+                <div class="ListCellLeftIcon"><span class="calcfont calc-shixiang"></span></div>
+                <div class="ListCellContent">
+                    <div class="ListCellContentLeft leftContent">
+                        <div class="ListCellContentLeftText lanText" data-lanid="953_状态"></div>
+                    </div>
+                    <div class="ListCellContentRight rightContent">
+                        <input type="text" data-field="CurrentState" data-lanid="953_状态" data-fieldControlType="picker" data-fieldVal="" Code="DropDowList_DtbAllTypes" TypeValue="CurrentState" class="ListCellContentRightText"/>
+                    </div>
+                    <div class="ListCellRightIcon"><span class="calcfont calc-you"></span></div>
+                </div>
+            </div>
+
             <!-- 风险提示 -->
             <div class="ListCell controlEdit">
                 <div class="ListCellLeftIcon textLeftIcon"><span class="calcfont calc-fengxianyujing"></span></div>
@@ -234,34 +247,34 @@
             </div>
 
             <!-- 状态 -->
-            <div v-show="showTips" class="ListCell visible controlEdit">
+            <!-- <div v-show="showTips" class="ListCell visible controlEdit">
                 <div class="ListCellLeftIcon textLeftIcon"><span class="calcfont calc-zhuangtai"></span></div>
                 <div class="ListCellLeftText">
                     <p class="textareaP">
                           <textarea data-field="CurrentState_Name" data-fieldControlType="textareaInput" class="lanInputPlaceHolder" data-lanid="728_状态"></textarea>
                     </p>
                 </div>
-            </div>
+            </div> -->
 
             <!-- 输单原因 -->
-            <div v-show="showTips && !isWinClose" class="ListCell visible controlEdit">
+            <!-- <div v-show="showTips && !isWinClose" class="ListCell visible controlEdit">
                 <div class="ListCellLeftIcon textLeftIcon"><span class="calcfont calc-yuanyin"></span></div>
                 <div class="ListCellLeftText">
                     <p class="textareaP">
                           <textarea data-field="LoseReason_Name" data-fieldControlType="textareaInput" class="lanInputPlaceHolder" data-lanid="1000311_输单原因"></textarea>
                     </p>
                 </div>
-            </div>
+            </div> -->
 
             <!-- 输单原因其他 -->
-            <div v-show="showTips && !isWinClose && hasOtherReason" class="ListCell visible controlEdit">
+            <!-- <div v-show="showTips && !isWinClose && hasOtherReason" class="ListCell visible controlEdit">
                 <div class="ListCellLeftIcon textLeftIcon"><span class="calcfont calc-yuanyin"></span></div>
                 <div class="ListCellLeftText">
                     <p class="textareaP">
                           <textarea data-field="LoseReasonOther" data-fieldControlType="textareaInput" class="lanInputPlaceHolder" data-lanid="1000312_其他原因"></textarea>
                     </p>
                 </div>
-            </div>
+            </div> -->
 
             <!-- 关注 -->
             <!-- <div v-show="!isAddNew" class="ListCell controlEdit">
@@ -367,6 +380,7 @@
 
         </div>
     </div>
+
     <InfoRightPanel
       ref="rightPanel"
       :isShowClose="isShowClose"
@@ -546,7 +560,8 @@ export default {
             rightPanelFromType:"9",//传给右侧菜单用的参数
             rightPanelFromID:"",//传给右侧菜单用的参数
             isShowSendBtn: true,  //侧滑是否显示分享给同事选项
-            isShowClose:true, //侧滑是否显示关闭这个商业机会选项
+            //isShowClose:true, //侧滑是否显示关闭这个商业机会选项
+            isShowClose:false, //侧滑是否显示关闭这个商业机会选项
             businessType:'',  //侧滑 交易:29;商机:30
             closeThisContent:"",
 
@@ -652,6 +667,15 @@ export default {
                         .trigger("change");
                 }
 
+                //新建单据的状态为进行中
+                var inProgressObj = tool.GetInProgressObj();
+                if (!tool.isNullOrEmptyObject(inProgressObj)) {
+                    $("[data-field='CurrentState']")
+                        .val(inProgressObj.text || "")
+                        .attr("data-fieldVal", inProgressObj.id)
+                        .trigger("change");
+                }
+                
                 $("[data-field='SourceFrom']").trigger("change");
             }
 
@@ -1293,7 +1317,7 @@ export default {
                     //显示提示
                     _self.showTips = true;
                     //头部按钮
-                    _self.onlyView = true;
+                    //_self.onlyView = true;
                     _self.controlEdit();
                 }else{
                     //必须是当前单据的负责人才可以操作单据

@@ -3933,6 +3933,19 @@ import config from '../../configfile/config.js'
 		return obj;
 	};
 
+	//获取InProgress对象
+	tool.GetInProgressObj = function(){
+		var curLV = lanTool.currentLanguageVersion;
+		var textTemp =  lanTool.lanContent("954_进行中");
+		var idTemp = 38;
+		var obj = {
+			id : idTemp,
+			text : textTemp
+		};
+
+		return obj;
+	};
+
 	/*
 	* 是否指定记录的负责人
 	*/
