@@ -230,8 +230,26 @@ export default {
                         queryComparison: "="
                     },
                     {
-                        text: lanTool.lanContent("955_已关闭"),
-                        queryfield: "Closed",
+                        text: lanTool.lanContent("1142_赢单"),
+                        queryfield: "Won",
+                        queryType: "string",
+                        queryFormat: "",
+                        queryRelation: "and",
+                        queryValue: "",
+                        queryComparison: "="
+                    },
+                    {
+                        text: lanTool.lanContent("1143_输单"),
+                        queryfield: "Lost",
+                        queryType: "string",
+                        queryFormat: "",
+                        queryRelation: "and",
+                        queryValue: "",
+                        queryComparison: "="
+                    },
+                    {
+                        text: lanTool.lanContent("1000409_取回"),
+                        queryfield: "Withdrew",
                         queryType: "string",
                         queryFormat: "",
                         queryRelation: "and",
