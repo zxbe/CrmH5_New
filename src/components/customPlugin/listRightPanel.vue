@@ -9,7 +9,7 @@
             <div class="right-block-title">{{item.groupText}}</div>
 
             <div v-if="item.type=='radio' && item.groupName =='view'" class="right-block-items">
-                <div v-for="radio in item.items" class="radios-div" >
+                <div v-for="radio in item.items" :key="radio.value" class="radios-div" >
                       <label class="radios-label">
                           <input type="radio" :name="item.groupName" :value="radio.value" v-model="viewValue"/><i class="radios"></i><span>{{radio.text}}</span>
                       </label>
@@ -17,7 +17,7 @@
             </div>
 
             <div v-if="item.type=='radio' && item.groupName =='dataFilter'" class="right-block-items">
-                <div v-for="radio in item.items" class="radios-div">
+                <div v-for="radio in item.items" :key="radio.queryfield" class="radios-div">
                           <label class="radios-label">
                               <input type="radio" :name="item.groupName"
                               :data-queryfield="radio.queryfield"  :data-queryType="radio.queryType"
