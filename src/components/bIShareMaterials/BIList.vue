@@ -76,6 +76,36 @@ export default {
                text:lanTool.lanContent("1000407_CALC Factsheet"),
                url:CalcDomain() +'/FileUpload/CompanyPresentationMaterials/PitchingMaterials/Factsheet_Eng.pdf'
              }
+
+             ,
+             {
+               text:lanTool.lanContent("1000410_Daiwa Capital Markets_China Aircraft Leasing Group Stable earnings with attractive yield"),
+               url:CalcDomain() +'/FileUpload/CompanyPresentationMaterials/PitchingMaterials/Daiwa Capital Markets_China Aircraft Leasing Group Stable earnings with attractive yield.pdf'
+             },
+             {
+               text:lanTool.lanContent("1000411_CICC_China Aircraft Leasing Group_190829_Fleet expansion under pressure in 2019; fleet management still strong"),
+               url:CalcDomain() +'/FileUpload/CompanyPresentationMaterials/PitchingMaterials/CICC_China Aircraft Leasing Group_190829_Fleet.pdf'
+             },
+             {
+               text:lanTool.lanContent("1000412_China Aircraft Leasing_28-Aug-2019_HK_CG (results)"),
+               url:CalcDomain() +'/FileUpload/CompanyPresentationMaterials/PitchingMaterials/China Aircraft Leasing_28-Aug-2019_HK_CG (results).pdf'
+             },
+             {
+               text:lanTool.lanContent("1000413_BOCOM 1848_HK-190828e"),
+               url:CalcDomain() +'/FileUpload/CompanyPresentationMaterials/PitchingMaterials/BOCOM 1848_HK-190828e.pdf'
+             },
+             {
+               text:lanTool.lanContent("1000414_20190827-Daiwa-China Aircraft Leasing Group (1848 HK)"),
+               url:CalcDomain() +'/FileUpload/CompanyPresentationMaterials/PitchingMaterials/20190827-Daiwa-China Aircraft Leasing Group (1848 HK).pdf'
+             },
+             {
+               text:lanTool.lanContent("1000415_CALC 2019 Interims Results"),
+               url:CalcDomain() +'/FileUpload/CompanyPresentationMaterials/PitchingMaterials/20190827 CALC 2019IR PPT (eng).pptx'
+             },
+             {
+               text:lanTool.lanContent("1000416_CALC 2019年中期业绩"),
+               url:CalcDomain() +'/FileUpload/CompanyPresentationMaterials/PitchingMaterials/20190827 CALC 2019IR PPT (chi).pptx'
+             }
           ],
           memberships:[
             {
