@@ -706,7 +706,7 @@ export default {
                 // _self.iniMeetingNoteList();
 
                 //渲染文档列表
-                _self.InitDocList(_self.id);
+                _self.InitDocList(_self.id,"9");
 
                 //处理联动字段
                 tool.linkageField(_self, 'TargetCompanyID', 'ContactID');
@@ -1341,7 +1341,7 @@ export default {
             });
         },
         //渲染文档列表
-        InitDocList:function(fromIDTemp){
+        InitDocList:function(fromIDTemp,fromTypeIDTemp){
             var _self = this;
             var urlTemp = tool.AjaxBaseUrl();
             var controlName = tool.Api_DocumentsHandle_Query;
@@ -1355,7 +1355,7 @@ export default {
                 UserName: tool.UserName(),
                 _ControlName: controlName,
                 _RegisterCode: tool.RegisterCode(),
-                FromTypeID : "9",
+                FromTypeID: fromTypeIDTemp,
                 FromID: fromIDTemp
             };
             $.ajax({

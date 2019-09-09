@@ -407,7 +407,7 @@ export default {
                     _self.operation = false;
                 }
                 //渲染文档列表
-                _self.InitDocList(_self.id);
+                _self.InitDocList(_self.id,"8");
 
                 _self.meetingNoticeID = data["MeetingNoticeID"];
 
@@ -737,7 +737,7 @@ export default {
             }
         },
         //渲染文档列表
-        InitDocList: function (meetingID) {
+        InitDocList: function (fromIDTemp,fromTypeIDTemp) {
             var _self = this;
             var urlTemp = tool.AjaxBaseUrl();
             var controlName = tool.Api_DocumentsHandle_Query;
@@ -751,8 +751,8 @@ export default {
                 UserName: tool.UserName(),
                 _ControlName: controlName,
                 _RegisterCode: tool.RegisterCode(),
-                FromTypeID: "8",
-                FromID: meetingID
+                FromTypeID: fromTypeIDTemp,
+                FromID: fromIDTemp
             };
             $.ajax({
                 async: true,

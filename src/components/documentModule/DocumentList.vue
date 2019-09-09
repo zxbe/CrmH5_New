@@ -103,7 +103,7 @@ export default {
                         // _self.iniMeetingNoteList();
 
                         //渲染会议记录列表
-                        _self.$parent.InitDocList(_self.meetingId);
+                        _self.$parent.InitDocList(_self.fromID,_self.fromTypeID);
                     },
                     error: function (jqXHR, type, error) {
                         console.log(error);
