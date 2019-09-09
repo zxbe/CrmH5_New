@@ -323,6 +323,8 @@
               addible="true"
               deletable="true"
               :source-id="id"
+              :fromTypeID="9" 
+              :fromID="id"
             ></DocumentList>
             <!-- <div v-show="!isAddNew">
 

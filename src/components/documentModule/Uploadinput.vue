@@ -178,7 +178,7 @@ export default {
             jsonDatasTemp["fileBase64Str"] = _self.file;
             //end modify
 
-            console.log(jsonDatasTemp);
+            //console.log(jsonDatasTemp);
 
             var loadingIndexClassName = tool.showLoading();
             $.ajax({
@@ -198,7 +198,12 @@ export default {
                         return true;
                     }
                     //_self.$store.commit('REMOVE_ITEM', 'meetingNoteinfo');
-                    _self.$store.commit('REMOVE_ITEM', 'meetinginfo');
+                    if(_self.fromType == "8"){
+                        _self.$store.commit('REMOVE_ITEM', 'meetinginfo');
+                    }else if(_self.fromType == "9"){
+                        _self.$store.commit('REMOVE_ITEM', 'opportunitiesinfo');
+                    }
+                    
                     //返回到上一页
                     _self.$router.back(-1);
                 },

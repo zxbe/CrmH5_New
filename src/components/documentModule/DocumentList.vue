@@ -63,7 +63,8 @@ export default {
         var autoIDArray = new Array();
         var obj = {
             AutoID:autoID,
-            FromID:fileItem["FromID"]||""
+            FromID:fileItem["FromID"]||"",
+            ObjectName:fileItem["ObjectName"]||"",
         };
         autoIDArray.push(obj);
 
@@ -82,7 +83,7 @@ export default {
                     AutoID: JSON.stringify(autoIDArray),
                     FromID: _self.fromID||""
                 };
-                
+
                 $.ajax({
                     async: true,
                     type: "post",
