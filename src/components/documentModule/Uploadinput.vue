@@ -94,11 +94,10 @@ export default {
         document.activeElement.blur();
 
         var _self = this;
-        _self.fromID = _self.$route.query.fromID;
-        _self.fromType = _self.$route.query.fromType;
-        _self.scheduleID = _self.$route.query.scheduleID||"";
+        _self.fromID = _self.$route.query.FromID;
+        _self.fromType = _self.$route.query.FromTypeID;
 
-        console.log(_self.$route.query);
+        // console.log(_self.$route.query);
 
         //清空页面数据
         tool.ClearControlData(function(){
@@ -170,8 +169,7 @@ export default {
                 _ControlName: controlName,
                 _RegisterCode: tool.RegisterCode(),
                 FromTypeID:_self.fromType,
-                FromID:_self.fromID,
-                ScheduleID:_self.scheduleID
+                FromID:_self.fromID
             };
 
             jsonDatasTemp["FileName"] = $("#curFileName").text()||"";

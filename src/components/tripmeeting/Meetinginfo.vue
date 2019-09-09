@@ -178,7 +178,7 @@
                 </div>
 
                 <!-- 会议文档 -->
-                <DocumentList v-show="!isAddNew" :document-data="documentData" addible="true" deletable="true" :source-id="id"></DocumentList>
+                <DocumentList v-show="!isAddNew" :document-data="documentData" addible="true" deletable="true" :source-id="id" :fromTypeID="8" :fromID="id"></DocumentList>
 
             </div>
 

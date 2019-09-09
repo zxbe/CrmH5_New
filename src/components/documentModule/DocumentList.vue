@@ -9,7 +9,7 @@
       <div data-lanid="750_文档" class="headerBlockContent f16 lanText"></div>
 
       <div v-show="addible=='true'" class="headerBlockRightIcon controlEdit">
-        <span @click="goUpload($event, sourceId)" data-url="/MeetingNoteinfo/-1" class="calcfont calc-jia"></span>
+        <span @click="goUpload($event)" data-url="/MeetingNoteinfo/-1" class="calcfont calc-jia"></span>
       </div>
 
     </div>
@@ -24,7 +24,7 @@
         <div class="docListCellRight">
             <div class="docListCellRightContent">{{fileItem.AddTime|MeetingTimeFormat}}</div>
         </div>
-        <div v-show="deletable=='true'" class="headerDivRightDelete controlEdit"  @click="deleteFile(fileItem.AutoID,$event)" >
+        <div v-show="deletable=='true'" class="headerDivRightDelete controlEdit"  @click="deleteFile(fileItem,$event)" >
             <span class="calcfont calc-delete"></span>
         </div>
     </div>
@@ -41,7 +41,7 @@ export default {
 
     }
   },
-  props:['documentData','addible','deletable','sourceId'],
+  props:['documentData','addible','deletable','sourceId','fromTypeID','fromID'],
   created:function(){
   },
   methods:{
@@ -53,13 +53,19 @@ export default {
         this.$router.push({path:'/previewfile', query: data});
     },
     //删除文件
-    deleteFile:function(AutoID,e){
+    deleteFile:function(fileItem,e){
         var _self = this;
-        if(tool.isNullOrEmptyObject(AutoID)){
+        var autoID = fileItem.AutoID||"";
+        if(tool.isNullOrEmptyObject(autoID)){
           return;
         }
+
         var autoIDArray = new Array();
-        autoIDArray.push(AutoID);
+        var obj = {
+            AutoID:autoID,
+            FromID:fileItem["FromID"]||""
+        };
+        autoIDArray.push(obj);
 
         tool.showConfirm(
             lanTool.lanContent("593_您确定要删除数据吗？"),
@@ -73,8 +79,10 @@ export default {
                     UserName: tool.UserName(),
                     _ControlName: controlName,
                     _RegisterCode: tool.RegisterCode(),
-                    AutoID: JSON.stringify(autoIDArray)
+                    AutoID: JSON.stringify(autoIDArray),
+                    FromID: _self.fromID||""
                 };
+                
                 $.ajax({
                     async: true,
                     type: "post",
@@ -114,16 +122,15 @@ export default {
 
     },
     //点击去上传页面
-    goUpload: function (e,AutoID) {
+    goUpload: function (e) {
         var _self = this;
-        if(tool.isNullOrEmptyObject(AutoID)){
+        if(tool.isNullOrEmptyObject(_self.fromID)){
           return;
         }
         var url = "/uploadinput";
         var parameter = {
-            fromID:AutoID,
-            fromType:"8",
-            scheduleID:AutoID
+            FromID:_self.fromID,
+            FromTypeID:_self.fromTypeID||""
         };
         _self.$router.push({
             path: url,
@@ -131,7 +138,6 @@ export default {
         });
     }
   }
-
 }
 </script>
 
