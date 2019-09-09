@@ -4291,7 +4291,7 @@ import config from '../../configfile/config.js'
 			// 	}
 			// }
 
-			if (lan.Data[i].AutoID !== id) {
+			if (lan.Data[i].AutoID != id) {
 				  continue;
       }
 
