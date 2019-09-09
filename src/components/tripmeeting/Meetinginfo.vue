@@ -178,7 +178,7 @@
                 </div>
 
                 <!-- 会议文档 -->
-                <DocumentList v-show="!isAddNew" :document-data="documentData" addible="true" deletable="true" :meeting-id="id"></DocumentList>
+                <DocumentList v-show="!isAddNew" :document-data="documentData" addible="true" deletable="true" :source-id="id"></DocumentList>
 
             </div>
 
@@ -538,7 +538,7 @@ export default {
             $("[data-field='SourceFromOther']").val("");
             $("[data-field='IsPublic']").val("").attr("data-fieldVal", "").trigger('change');
             $("[data-field='Initiator']").val("").attr("data-fieldVal", "");
-            
+
 
             // 默认给data-field="Initiator"赋予23(公开)
             // var publicObj = tool.GetPublicObj();
@@ -555,7 +555,7 @@ export default {
                     .val(privateObj.text || "")
                     .attr("data-fieldVal", privateObj.id)
                     .trigger("change");
-                
+
             }
 
             //显示弹框

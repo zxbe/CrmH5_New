@@ -320,8 +320,9 @@
             <DocumentList
               v-show="!isAddNew"
               :document-data="documentData"
-              addible="false"
-              deletable="false"
+              addible="true"
+              deletable="true"
+              :source-id="id"
             ></DocumentList>
             <!-- <div v-show="!isAddNew">
 
@@ -675,7 +676,7 @@ export default {
                         .attr("data-fieldVal", inProgressObj.id)
                         .trigger("change");
                 }
-                
+
                 $("[data-field='SourceFrom']").trigger("change");
             }
 

@@ -9,7 +9,7 @@
       <div data-lanid="750_文档" class="headerBlockContent f16 lanText"></div>
 
       <div v-show="addible=='true'" class="headerBlockRightIcon controlEdit">
-        <span @click="goUpload($event, meetingId)" data-url="/MeetingNoteinfo/-1" class="calcfont calc-jia"></span>
+        <span @click="goUpload($event, sourceId)" data-url="/MeetingNoteinfo/-1" class="calcfont calc-jia"></span>
       </div>
 
     </div>
@@ -41,7 +41,7 @@ export default {
 
     }
   },
-  props:['documentData','addible','deletable','meetingId'],
+  props:['documentData','addible','deletable','sourceId'],
   created:function(){
   },
   methods:{
