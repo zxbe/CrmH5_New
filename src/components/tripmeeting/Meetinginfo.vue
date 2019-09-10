@@ -380,6 +380,16 @@ export default {
             _self.controlFieldShowOrhide();
             //给状态一个默认值
             if (_self.isAddNew) {
+                var caalTemp = lanTool.lanContent("799_否");
+                var caalIdTemp = "21";
+                var caalobj = {
+                    id: caalIdTemp,
+                    text: caalTemp
+                };
+                $("[data-field='CAAL']")
+                    .val(caalobj.text || "")
+                    .attr("data-fieldVal", caalobj.id)
+                    .trigger("change");
                 var textTemp = lanTool.lanContent("1172_准备与会");
                 var idTemp = "115";
                 var obj = {
@@ -397,17 +407,17 @@ export default {
                 var fieldval = $('[data-field="CurrentState"]').attr("data-fieldval");
                 //状态为完成时，fieldval为116 才能转为商机
                 if (fieldval == "116") {
-                    var oppIDTemp = data["OppIDTemp"]||"";
-                    if(tool.isNullOrEmptyObject(oppIDTemp)){
+                    var oppIDTemp = data["OppIDTemp"] || "";
+                    if (tool.isNullOrEmptyObject(oppIDTemp)) {
                         _self.operation = true;
-                    }else{
+                    } else {
                         _self.operation = false;
                     }
                 } else {
                     _self.operation = false;
                 }
                 //渲染文档列表
-                _self.InitDocList(_self.id,"8");
+                _self.InitDocList(_self.id, "8");
 
                 _self.meetingNoticeID = data["MeetingNoticeID"];
 
@@ -539,7 +549,6 @@ export default {
             $("[data-field='IsPublic']").val("").attr("data-fieldVal", "").trigger('change');
             $("[data-field='Initiator']").val("").attr("data-fieldVal", "");
 
-
             // 默认给data-field="Initiator"赋予23(公开)
             // var publicObj = tool.GetPublicObj();
             // if (!tool.isNullOrEmptyObject(publicObj)) {
@@ -550,7 +559,7 @@ export default {
             // }
             var privateObj = tool.GetPrivateObj();
             if (!tool.isNullOrEmptyObject(privateObj)) {
-                $("[data-field='Initiator']").attr("data-fieldval",tool.UserAutoID()).val(tool.Realname());
+                $("[data-field='Initiator']").attr("data-fieldval", tool.UserAutoID()).val(tool.Realname());
                 $("[data-field='IsPublic']")
                     .val(privateObj.text || "")
                     .attr("data-fieldVal", privateObj.id)
@@ -560,7 +569,7 @@ export default {
 
             //显示弹框
             $('#transformTo').show();
-            $('#transformTo').off('touchmove').on('touchmove',function(e){
+            $('#transformTo').off('touchmove').on('touchmove', function (e) {
                 e.preventDefault();
             })
 
@@ -737,7 +746,7 @@ export default {
             }
         },
         //渲染文档列表
-        InitDocList: function (fromIDTemp,fromTypeIDTemp) {
+        InitDocList: function (fromIDTemp, fromTypeIDTemp) {
             var _self = this;
             var urlTemp = tool.AjaxBaseUrl();
             var controlName = tool.Api_DocumentsHandle_Query;
