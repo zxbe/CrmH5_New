@@ -202,7 +202,7 @@
         </div>
     </div>
     <InfoRightPanel ref="rightPanel" :rightPanelFromType="rightPanelFromType" :rightPanelFromID="rightPanelFromID"></InfoRightPanel>
-    <!-- 转换为交易弹框 -->
+    <!-- 转换为商机弹框 -->
     <div id="transformTo" class="elastic-layer">
         <div class="elastic-layer-content">
             <div class="elastic-layer-title lanText f18" data-lanid="1000367_转为商机"></div>
@@ -284,7 +284,89 @@
 
         </div>
     </div>
+    
+     <!-- 转换为交易弹框 -->
+    <div id="pipelinetransformTo" class="elastic-layer">
+        <div class="elastic-layer-content">
+            <div class="elastic-layer-title lanText f18" data-lanid="1000430_转为交易"></div>
 
+            <div class="elastic-layer-items">
+
+                <div class="elastic-layer-item f14">
+                    <span class="calcfont calc-feiji2 icon-left"></span>
+                    <div class="item-right">
+                        <div class="item-row">
+                            <div class="lanText label-text" data-lanid="956_MSN"></div>
+                        </div>
+                        <div class="item-row border-bottom">
+                            <div class="ListCellContentRight">
+                                <textarea data-field="MSN" data-fieldControlType="textareaInput" class="lanInputPlaceHolder" data-lanid="956_MSN"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="SourceFrom-div" class="elastic-layer-item f14">
+                    <span class="calcfont calc-shixiang icon-left"></span>
+                    <div class="item-right">
+                        <div class="item-row">
+                            <div class="lanText label-text" data-lanid="947_商业事项"></div>
+                        </div>
+                        <div class="item-row border-bottom">
+                            <div class="ListCellContentRight">
+                                <input type="text" data-field="Matter" data-lanid="947_商业事项" data-fieldControlType="picker" data-fieldVal="" Code="DropDowList_DtbAllTypes" TypeValue="Matter" class="ListCellContentRightText" />
+                            </div>
+                            <span class="calcfont calc-you"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="MatterOther-div">
+                    <div class="elastic-layer-item f14">
+                        <span class="calcfont calc-qita1 icon-left"></span>
+                        <div class="item-right">
+                            <div class="item-row border-bottom" style="margin-top:5px;">
+                                <textarea data-field="MatterOther" data-fieldControlType="textareaInput" class="lanInputPlaceHolder" data-lanid="1155_其他"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="IsPublic-divT" class="elastic-layer-item f14">
+                    <span class="calcfont calc-yidu icon-left"></span>
+                    <div class="item-right">
+                        <div class="item-row">
+                            <div class="lanText label-text" data-lanid="803_可访问"></div>
+                        </div>
+                        <div class="item-row border-bottom">
+                            <div class="ListCellContentRight">
+                                <input type="text" data-field="IsPublic" data-lanid="803_可访问" data-fieldControlType="picker" data-fieldVal="23" Code="DropDowList_DtbAllTypes" TypeValue="Accessabletype" class="ListCellContentRightText" />
+                            </div>
+                            <span class="calcfont calc-you"></span>
+                        </div>
+                    </div>
+                </div>
+                <div id="dealInitiatorClickObj" class="elastic-layer-item  f14" style="display:none">
+                    <span class="calcfont calc-fuzerenicon icon-left"></span>
+                    <div class="item-right">
+                        <div class="item-row">
+                            <div class="lanText label-text" data-lanid="825_负责人"></div>
+                        </div>
+                        <div class="item-row border-bottom">
+                            <div class="ListCellContentRight">
+                                <input type="text" data-field="dealInitiator" data-lanid="825_负责人" data-fieldControlType="groupSelectList" data-fieldVal="" data-selecttype="checkbox" Code="DropDowList_PopedomTeamVsUser" TypeValue="" data-fromType="8" data-clickObj="dealInitiatorClickObj" class="ListCellContentRightText" />
+                            </div>
+                            <span class="calcfont calc-you"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="btn-div">
+                <a href="javascript:;" class="mybtn btn-ok lanText" data-lanid="545_确定"></a>
+                <a href="javascript:;" class="mybtn btn-cancel lanText" data-lanid="570_取消"></a>
+            </div>
+
+        </div>
+    </div>
 </div>
 </template>
 
@@ -472,8 +554,10 @@ export default {
                 }
                 var fieldval = curObj.attr("data-fieldval");
                 if (fieldval == "23") {
+                    $("#dealInitiatorClickObj").hide();
                     $("#InitiatorClickObj").hide();
                 } else {
+                    $("#dealInitiatorClickObj").show();
                     $("#InitiatorClickObj").show();
                 }
             });
@@ -489,6 +573,20 @@ export default {
                     $("#SourceFromOther-div").show();
                 } else {
                     $("#SourceFromOther-div").hide();
+                }
+            });
+
+             //控制data-field="MatterOther"显示和隐藏
+            $("[data-field='Matter']").off('change input').on('change input', function () {
+                var curObj = $(this);
+                if (tool.isNullOrEmptyObject(curObj)) {
+                    return;
+                }
+                var fieldval = curObj.attr("data-fieldval");
+                if (fieldval == "36") {
+                    $("#MatterOther-div").show();
+                } else {
+                    $("#MatterOther-div").hide();
                 }
             });
         },
@@ -536,8 +634,138 @@ export default {
                 }
             }
         },
-        //生成
-        rightPanelTransformTo: function () {
+        //生成交易
+        rightPanelTransformTo:function(){
+           console.log("转化为交易");
+               var _self = this;
+            var id = _self.id;
+
+            //清空控件数据
+            $("[data-field='MSN']").val("");
+            $("[data-field='Matter']").val("").attr("data-fieldVal", "").trigger('change');
+            $("[data-field='MatterOther']").val("");
+            $("[data-field='IsPublic']").val("").attr("data-fieldVal", "").trigger('change');
+            $("[data-field='dealInitiator']").val("").attr("data-fieldVal", "");
+
+            // 默认给data-field="Initiator"赋予23(公开)
+            // var publicObj = tool.GetPublicObj();
+            // if (!tool.isNullOrEmptyObject(publicObj)) {
+            //     $("[data-field='IsPublic']")
+            //         .val(publicObj.text || "")
+            //         .attr("data-fieldVal", publicObj.id)
+            //         .trigger("change");
+            // }
+            var privateObj = tool.GetPrivateObj();
+            if (!tool.isNullOrEmptyObject(privateObj)) {
+                $("[data-field='dealInitiator']").attr("data-fieldval", tool.UserAutoID()).val(tool.Realname());
+                $("[data-field='IsPublic']")
+                    .val(privateObj.text || "")
+                    .attr("data-fieldVal", privateObj.id)
+                    .trigger("change");
+
+            }
+
+            //显示弹框
+            $('#pipelinetransformTo').show();
+            $('#pipelinetransformTo').off('touchmove').on('touchmove', function (e) {
+                e.preventDefault();
+            })
+
+            //取消
+            $('#pipelinetransformTo').find('a.btn-cancel').off('click').on('click', function () {
+                $('#pipelinetransformTo').hide();
+                return;
+            })
+            //确定
+            $('#pipelinetransformTo').find('a.btn-ok').off('click').on('click', function () {
+                var urlTemp = tool.AjaxBaseUrl();
+                var controlName = tool.Api_MeetingHandle_ChangeToDeal;
+                //传入参数
+                var jsonDatasTemp = {
+                    CurrentLanguageVersion: lanTool.currentLanguageVersion,
+                    UserName: tool.UserName(),
+                    _ControlName: controlName,
+                    _RegisterCode: tool.RegisterCode()
+                };
+                jsonDatasTemp["MSN"] = $("[data-field='MSN']").val() || "";
+                jsonDatasTemp["Matter"] = $("[data-field='Matter']").attr("data-fieldVal") || "";
+                jsonDatasTemp["MatterOther"] = $("[data-field='MatterOther']").val() || "";
+                jsonDatasTemp["IsPublic"] = $("[data-field='IsPublic']").attr("data-fieldVal") || "";
+                jsonDatasTemp["Initiator"] = $("[data-field='dealInitiator']").attr("data-fieldVal") || "";
+                jsonDatasTemp["CompanyID"] = $("[data-field='CompanyID']").attr("data-fieldVal") || "";
+                jsonDatasTemp["FromScheduleID"] = id;
+                console.log("jsonDatasTemp"+JSON.stringify(jsonDatasTemp));
+                // return;
+           
+                var loadingIndexClassName = tool.showLoading();
+
+                $.ajax({
+                    async: true,
+                    type: "post",
+                    url: urlTemp,
+                    data: jsonDatasTemp,
+                    success: function (data) {
+                        console.log("data"+JSON.stringify(data));
+                        try {
+                            data = tool.jObject(data);
+                            if (data._ReturnStatus == false) {
+                                tool.hideLoading(loadingIndexClassName);
+                                tool.showText(tool.getMessage(data));
+                                return true;
+                            }
+                            
+                            data = data._OnlyOneData || {};
+                            console.log("data"+JSON.stringify(data));
+                            var dealID = data["AutoID"] || "";
+                            var theName = data["TheName"] || "";
+
+                            //构造Pitch详情页的跳转地址
+                            var path = "/opportunitiesinfo/" + dealID;
+                            var queryParam = {
+                                showPage: "0",
+                                infoName: theName
+                            };
+                            //将当前详情页设置为非keep-alive
+                            _self.$store.commit('REMOVE_ITEM', 'opportunitiesinfo');
+                            //将列表页设置为非keep-alive
+                            _self.$store.commit('REMOVE_ITEM', 'businessCategories');
+
+                            //隐藏弹窗
+                            $('#pipelinetransformTo').hide();
+                            //调用子组件收起侧滑方法
+                            _self.$refs.rightPanel.panelToggle();
+
+                            _self.$router.replace({
+                                path: path,
+                                query: queryParam
+                            });
+
+                            //保证地址替换后再刷新
+                            setTimeout(function () {
+                                tool.hideLoading(loadingIndexClassName);
+                                window.location.reload();
+                            }, 80);
+                        } catch (err) {
+                            tool.hideLoading(loadingIndexClassName);
+                            console.log(err);
+                        } finally {
+
+                        }
+                    },
+                    error: function (jqXHR, type, error) {
+                        console.log(error);
+                        tool.hideLoading(loadingIndexClassName);
+                        return true;
+                    },
+                    complete: function () {
+                        //隐藏虚拟键盘
+                        document.activeElement.blur();
+                    }
+                });
+            });
+        },
+        //生成商机
+        rightPanelPitchTransformTo: function () {
             // console.log("转化为商机");
             var _self = this;
             var id = _self.id;

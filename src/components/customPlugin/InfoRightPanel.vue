@@ -20,7 +20,7 @@
                 <div class="right-content-list-cell" v-show="isShowDealLink" @click="goToOpportunityListPage"><span class="mui-icon calcfont calc-jiezhishijianicon lanText" data-lanid="649_商业机会"></span></div>
                 <div class="right-content-list-cell" v-show="isShowSynchronizeLink" @click="SynchronousCamCardData"><span class="mui-icon calcfont calc-exchange lanText" data-lanid="1000193_同步CamCard数据"></span></div>
                 <div class="right-content-list-cell" v-show="isShowTransformLink" @click="transformTo"><span class="mui-icon calcfont calc-exchange lanText" data-lanid="1000239_转为交易"></span></div>
-                <div class="right-content-list-cell" v-show="isShowPitchTransformLink" @click="transformTo"><span class="mui-icon calcfont calc-exchange lanText" data-lanid="1000366_转为商机"></span></div>
+                <div class="right-content-list-cell" v-show="isShowPitchTransformLink" @click="pitchTrantransformTo"><span class="mui-icon calcfont calc-exchange lanText" data-lanid="1000366_转为商机"></span></div>
                 <div class="right-content-list-cell" v-show="loi !='' && loi !=undefined && loi !=null" @click="goToLoiinfo"><span class="mui-icon calcfont calc-profile lanText" data-lanid="1000227_LOI单号"></span></div>
             </div>
         </div>
@@ -67,6 +67,7 @@ export default {
                 break;
             case "8":
                 _self.isShowPitchTransformLink = true;
+                _self.isShowTransformLink = true;
                 break;
             case "9":
                 _self.isShowMeetingLink = true;
@@ -101,6 +102,10 @@ export default {
         //点击转换为交易
         transformTo: function () {
             this.$parent.rightPanelTransformTo();
+        },
+        //点击转为商机
+        pitchTrantransformTo:function(){
+           this.$parent.rightPanelPitchTransformTo();
         },
         //点击跳转到loi单号详情
         goToLoiinfo: function () {
