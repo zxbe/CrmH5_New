@@ -298,7 +298,7 @@
                         <div class="item-row">
                             <div class="lanText label-text" data-lanid="956_MSN"></div>
                         </div>
-                        <div class="item-row border-bottom">
+                        <div class="item-row border-bottom not-required">
                             <div class="ListCellContentRight">
                                 <textarea data-field="MSN" data-fieldControlType="textareaInput" class="lanInputPlaceHolder" data-lanid="956_MSN"></textarea>
                             </div>
