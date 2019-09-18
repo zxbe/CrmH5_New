@@ -206,17 +206,12 @@
 
         </div>
     </div>
-<<<<<<< HEAD
     <InfoRightPanel
       ref="rightPanel"
       :isShowSend="isShowSend"
       :rightPanelFromType="rightPanelFromType"
       :rightPanelFromID="rightPanelFromID"></InfoRightPanel>
     <!-- 转换为交易弹框 -->
-=======
-    <InfoRightPanel ref="rightPanel" :rightPanelFromType="rightPanelFromType" :rightPanelFromID="rightPanelFromID"></InfoRightPanel>
-    <!-- 转换为商机弹框 -->
->>>>>>> b24bf4cee8f09d2b080b7c8cc1b6bf7d4e135414
     <div id="transformTo" class="elastic-layer">
         <div class="elastic-layer-content">
             <div class="elastic-layer-title lanText f18" data-lanid="1000367_转为商机"></div>
@@ -298,7 +293,7 @@
 
         </div>
     </div>
-    
+
      <!-- 转换为交易弹框 -->
     <div id="pipelinetransformTo" class="elastic-layer">
         <div class="elastic-layer-content">
@@ -711,7 +706,7 @@ export default {
                 jsonDatasTemp["FromScheduleID"] = id;
                 console.log("jsonDatasTemp"+JSON.stringify(jsonDatasTemp));
                 // return;
-           
+
                 var loadingIndexClassName = tool.showLoading();
 
                 $.ajax({
@@ -728,7 +723,7 @@ export default {
                                 tool.showText(tool.getMessage(data));
                                 return true;
                             }
-                            
+
                             data = data._OnlyOneData || {};
                             console.log("data"+JSON.stringify(data));
                             var dealID = data["AutoID"] || "";
