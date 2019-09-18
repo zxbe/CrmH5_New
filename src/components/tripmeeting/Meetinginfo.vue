@@ -1,6 +1,11 @@
 <template>
 <div>
-    <Infoheader class="sticky infoheader" :isAddNew="isAddNew" :onlyView="onlyView" :operation="operation" :title="ptitle"></Infoheader>
+    <Infoheader
+        class="sticky infoheader"
+        :isAddNew="isAddNew"
+        :onlyView="onlyView"
+        :operation="operation"
+        :title="ptitle"></Infoheader>
 
     <div class="scroll-div">
         <div class="box">
@@ -201,7 +206,11 @@
 
         </div>
     </div>
-    <InfoRightPanel ref="rightPanel" :rightPanelFromType="rightPanelFromType" :rightPanelFromID="rightPanelFromID"></InfoRightPanel>
+    <InfoRightPanel
+      ref="rightPanel"
+      :isShowSend="isShowSend"
+      :rightPanelFromType="rightPanelFromType"
+      :rightPanelFromID="rightPanelFromID"></InfoRightPanel>
     <!-- 转换为交易弹框 -->
     <div id="transformTo" class="elastic-layer">
         <div class="elastic-layer-content">
@@ -328,6 +337,7 @@ export default {
             dealOppID: "",
             rightPanelFromType: "", //传给右侧菜单用的参数
             rightPanelFromID: "", //传给右侧菜单用的参数
+            isShowSend:true,
         }
     },
     beforeRouteEnter: function (to, from, next) {

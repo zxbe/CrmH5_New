@@ -29,15 +29,25 @@
                     </div>
                     <!-- meeting list -->
                     <div v-show="!notMeeting" id="calendarMeetingList" class="list meeting-list">
-                        <div v-for="meetingData in meetingDatas" :key="meetingData.AutoID" class="data-events-item f14" @click.stop="goInfoPage(meetingData.AutoID,$event)">
-                            <div class="item-title">{{meetingData.MeetingTitle}}</div>
-                            <div class="item-time f12">
-                                <span class="calcfont calc-gengxinshijian"></span>
-                                <span class="time-text">{{meetingData.BeginTime|MeetingTimeFormat}}~{{meetingData.EndTime|MeetingTimeFormat}}</span>
-                                <span class="right-text">{{meetingData.Realname}}</span>
-                            </div>
-                            <div class="item-address">{{meetingData.CompanyID}}</div>
-                            <div class="item-initiator">{{meetingData.ContactsID|formatContactsID}}{{meetingData.Title|formatTitle}}</div>
+
+                        <div v-for="item in meetingDatas" :key="item.AutoID"
+                        class="data-events-item f14" @click.stop="goInfoPage(item.AutoID,$event)" >
+                                <div class="flex">
+                                  <i style="margin-right: 3px;" class="calcfont calc-T icon"></i><div class="item-title">{{item.MeetingTitle}}</div>
+                                </div>
+                                <div class="item-time f12">
+                                      <span class="calcfont calc-gengxinshijian"></span>
+                                      <span class="time-text">{{item.BeginTime|MeetingTimeFormat}}~{{item.EndTime|MeetingTimeFormat}}</span>
+                                      <span class="right-text">{{item.Realname}}</span>
+                                </div>
+                                <div class="flex pdtb" v-show="(item.CompanyID =='' || item.CompanyID == null) ? false : true">
+                                    <i class="icon calcfont calc-gongsixinxi"></i>
+                                    <div class="item-address">{{item.CompanyID}}</div>
+                                </div>
+                                <div class="flex" v-show="(item.ContactsID =='' || item.ContactsID == null) ? false : true">
+                                    <i class="icon calcfont calc-kehulianxiren"></i>
+                                    <div class="item-initiator">{{item.ContactsID|formatContactsID}}{{item.Title|formatTitle}}</div>
+                                </div>
                         </div>
                     </div>
                     <nothing v-show="notMeeting" style="padding-top:0.8rem;"></nothing>

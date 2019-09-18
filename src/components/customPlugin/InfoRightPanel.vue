@@ -50,6 +50,7 @@ export default {
 
     created: function () {
         var _self = this;
+        console.log(_self.rightPanelFromType);
         //联系人:6;公司:7;会议:8;商机&交易:9; 用户管理：11；
         switch (_self.rightPanelFromType) {
             case "6":
@@ -64,9 +65,11 @@ export default {
                 _self.isShowDealLink = true;
                 _self.isShowSynchronizeLink = true;
                 _self.isShowContactsLink = true;
+
                 break;
             case "8":
                 _self.isShowPitchTransformLink = true;
+                _self.isShowPowerUserLink = true;
                 break;
             case "9":
                 _self.isShowMeetingLink = true;
