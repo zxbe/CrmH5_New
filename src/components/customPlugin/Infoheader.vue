@@ -9,7 +9,7 @@
         <div v-if="isAddNew" class="leftView right">
             <a v-if="!onlyView" @click="save" class="calcfont calc-gou right" id="save"></a>
             <!-- 针对用户详情做的只展示更新icon -->
-            <a v-if="onlyView && operation" @click="moreClick" class="calcfont calc-gengduo right" id="gengduo"></a>
+            <!-- <a v-if="onlyView && operation" @click="moreClick" class="calcfont calc-gengduo right" id="gengduo"></a> -->
         </div>
         <!-- 编辑状态头部icon显示   -->
         <div v-else class="leftView right">

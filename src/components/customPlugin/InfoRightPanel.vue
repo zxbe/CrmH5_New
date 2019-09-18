@@ -19,8 +19,16 @@
                 <div class="right-content-list-cell" v-show="isShowDealLink" @click="goToDealListPage"><span class="mui-icon calcfont calc-handshake-o lanText" data-lanid="817_交易"></span></div>
                 <div class="right-content-list-cell" v-show="isShowDealLink" @click="goToOpportunityListPage"><span class="mui-icon calcfont calc-jiezhishijianicon lanText" data-lanid="649_商业机会"></span></div>
                 <div class="right-content-list-cell" v-show="isShowSynchronizeLink" @click="SynchronousCamCardData"><span class="mui-icon calcfont calc-exchange lanText" data-lanid="1000193_同步CamCard数据"></span></div>
-                <div class="right-content-list-cell" v-show="isShowTransformLink" @click="transformTo"><span class="mui-icon calcfont calc-exchange lanText" data-lanid="1000239_转为交易"></span></div>
-                <div class="right-content-list-cell" v-show="isShowPitchTransformLink" @click="pitchTrantransformTo"><span class="mui-icon calcfont calc-exchange lanText" data-lanid="1000366_转为商机"></span></div>
+
+                <div v-if="rightPanelFromType != '8'">
+                  <div class="right-content-list-cell" v-show="isShowTransformLink" @click="transformTo"><span class="mui-icon calcfont calc-exchange lanText" data-lanid="1000239_转为交易"></span></div>
+                  <div class="right-content-list-cell" v-show="isShowPitchTransformLink" @click="pitchTrantransformTo"><span class="mui-icon calcfont calc-exchange lanText" data-lanid="1000366_转为商机"></span></div>
+                </div>
+                <div v-else>
+                  <div class="right-content-list-cell" v-show="transformation" @click="transformTo"><span class="mui-icon calcfont calc-exchange lanText" data-lanid="1000239_转为交易"></span></div>
+                  <div class="right-content-list-cell" v-show="transformation" @click="pitchTrantransformTo"><span class="mui-icon calcfont calc-exchange lanText" data-lanid="1000366_转为商机"></span></div>
+                </div>
+
                 <div class="right-content-list-cell" v-show="loi !='' && loi !=undefined && loi !=null" @click="goToLoiinfo"><span class="mui-icon calcfont calc-profile lanText" data-lanid="1000227_LOI单号"></span></div>
             </div>
         </div>
@@ -46,7 +54,9 @@ export default {
             isShowPitchTransformLink:false,
         }
     },
-    props: ['isShowSend', 'isShowClose', 'closeThisContent', 'rightPanelFromType', 'rightPanelFromID', 'businessType', 'loi'],
+    props: ['isShowSend', 'isShowClose', 'closeThisContent', 'rightPanelFromType', 'rightPanelFromID', 'businessType', 'loi',
+          'transformation' //只有meeting模块用到，控制是否可转换为机会或交易
+        ],
 
     created: function () {
         var _self = this;
@@ -66,8 +76,9 @@ export default {
                 _self.isShowContactsLink = true;
                 break;
             case "8":
-                _self.isShowPitchTransformLink = true;
-                _self.isShowTransformLink = true;
+                _self.isShowPowerUserLink = true;
+                // _self.isShowPitchTransformLink = false;
+                // _self.isShowTransformLink = false;
                 break;
             case "9":
                 _self.isShowMeetingLink = true;

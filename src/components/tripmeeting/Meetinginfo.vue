@@ -11,7 +11,7 @@
         <div class="box">
             <div class="MeetingList">
                 <!-- 会议标题 -->
-                <div class="ListCell visible">
+                <div class="ListCell visible controlEdit">
                     <div class="ListCellLeftIcon textLeftIcon"><span class="calcfont calc-T"></span></div>
                     <div class="ListCellLeftText">
                         <p class="textareaP">
@@ -21,7 +21,7 @@
                 </div>
 
                 <!-- 开始时间 -->
-                <div class="ListCell visible">
+                <div class="ListCell visible controlEdit">
                     <div class="ListCellLeftIcon"><span class="calcfont calc-shijian"></span></div>
                     <div class="ListCellContent">
                         <div class="ListCellContentLeft leftContent">
@@ -35,7 +35,7 @@
                 </div>
 
                 <!-- 结束时间 -->
-                <div class="ListCell visible">
+                <div class="ListCell visible controlEdit">
                     <div class="ListCellLeftIcon"><span class="calcfont calc-time"></span></div>
                     <div class="ListCellContent">
                         <div class="ListCellContentLeft leftContent">
@@ -49,7 +49,7 @@
                 </div>
 
                 <!-- 会议类型 -->
-                <div class="ListCell visible">
+                <div class="ListCell visible controlEdit">
                     <div class="ListCellLeftIcon"><span class="calcfont calc-17"></span></div>
                     <div class="ListCellContent">
                         <div class="ListCellContentLeft leftContent">
@@ -77,7 +77,7 @@
                 </div> -->
 
                 <!-- CAAL -->
-                <div class="ListCell visible">
+                <div class="ListCell visible controlEdit">
                     <div class="ListCellLeftIcon"><span class="calcfont calc-woshimaijia2"></span></div>
                     <div class="ListCellContent">
                         <div class="ListCellContentLeft leftContent">
@@ -91,7 +91,7 @@
                 </div>
 
                 <!-- 公司 -->
-                <div class="ListSpecialCell visible" id="CompanyIDClickObj">
+                <div class="ListSpecialCell visible controlEdit" id="CompanyIDClickObj">
                     <div class="ListSpecialCellField">
                         <div class="ListSpecialCellLeftIcon"><span class="calcfont calc-gongsixinxi"></span></div>
                         <div class="ListSpecialCellFieldContent lanText" data-lanid="790_公司"></div>
@@ -101,7 +101,7 @@
                 </div>
 
                 <!-- 联系人 -->
-                <div class="ListCell visible">
+                <div class="ListCell visible controlEdit">
                     <div class="ListCellLeftIcon"><span class="calcfont calc-kehulianxiren"></span></div>
                     <div class="ListCellContent">
                         <div class="ListCellContentLeft leftContent">
@@ -129,7 +129,7 @@
                 </div> -->
 
                 <!-- 关联于商业 -->
-                <div class="ListSpecialCell" id="OppIDTempClickObj">
+                <div class="ListSpecialCell controlEdit" id="OppIDTempClickObj">
                     <div class="ListSpecialCellField">
                         <div class="ListSpecialCellLeftIcon"><span class="calcfont calc-yewujihui"></span></div>
                         <div class="ListSpecialCellFieldContent lanText" data-lanid="832_关联于商业"></div>
@@ -139,7 +139,7 @@
                 </div>
 
                 <!-- 状态 -->
-                <div class="ListCell visible">
+                <div class="ListCell visible controlEdit">
                     <div class="ListCellLeftIcon"><span class="calcfont calc-zhuangtai"></span></div>
                     <div class="ListCellContent">
                         <div class="ListCellContentLeft leftContent">
@@ -153,7 +153,7 @@
                 </div>
 
                 <!-- 与会人员 -->
-                <div class="ListSpecialCell" id="ParticipantsClickObj">
+                <div class="ListSpecialCell controlEdit" id="ParticipantsClickObj">
                     <div class="ListSpecialCellField">
                         <div class="ListSpecialCellLeftIcon"><span class="calcfont calc-huiyi"></span></div>
                         <div class="ListSpecialCellFieldContent lanText" data-lanid="1000288_与会人员"></div>
@@ -163,7 +163,7 @@
                 </div>
 
                 <!-- 目标 -->
-                <div class="ListCell visible">
+                <div class="ListCell visible controlEdit">
                     <div class="ListCellLeftIcon textLeftIcon"><span class="calcfont calc-mubiao"></span></div>
                     <div class="ListCellLeftText">
                         <p class="textareaP">
@@ -173,7 +173,7 @@
                 </div>
 
                 <!-- 会议总结 -->
-                <div class="ListCell">
+                <div class="ListCell controlEdit">
                     <div class="ListCellLeftIcon textLeftIcon"><span class="calcfont calc-beiwanglu"></span></div>
                     <div class="ListCellLeftText">
                         <p class="textareaP">
@@ -209,8 +209,10 @@
 
     <InfoRightPanel
       ref="rightPanel"
-      :rightPanelFromType="rightPanelFromType"
-      :rightPanelFromID="rightPanelFromID"></InfoRightPanel>
+      :isShowSend = "isShowSend"
+      :rightPanelFromType = "rightPanelFromType"
+      :transformation = "transformation"
+      :rightPanelFromID = "rightPanelFromID"></InfoRightPanel>
     <!-- 转换为商机弹框 -->
     <div id="transformTo" class="elastic-layer">
         <div class="elastic-layer-content">
@@ -406,19 +408,13 @@ export default {
             defaultDateTime: "", //新建单据时候的初始时间
             id: '', //会议id
             //文档数据
-            documentData: [
-                //   {
-                //     AddTime: "2019-07-31 18:31:00",
-                //     AddUserName: "dylanxu",
-                //     AutoID: "765411",
-                //     FileLength: "54768",
-                //     ObjectName: "Project Management - CRM_PC(20190625)_V6_19073118305794.xlsx",
-                //     ObjectRemark: "test",
-                //   }
-            ],
+            documentData: [],
             dealOppID: "",
             rightPanelFromType: "", //传给右侧菜单用的参数
             rightPanelFromID: "", //传给右侧菜单用的参数
+            isShowSend:true,
+            transformation:false, //控制会议是否可以转成机会或交易
+            isInitiator:false,//是否当前记录的负责人（PS：只有负责人才可以操作单据）
         }
     },
     beforeRouteEnter: function (to, from, next) {
@@ -495,18 +491,23 @@ export default {
 
             //渲染数据
             tool.IniInfoData(fromType, _self.id, function (data) {
+                //查询判断当前用户是否有操作单据的权限
+                _self.initUserAccess(data);
+
                 var fieldval = $('[data-field="CurrentState"]').attr("data-fieldval");
                 //状态为完成时，fieldval为116 才能转为商机
                 if (fieldval == "116") {
                     var oppIDTemp = data["OppIDTemp"] || "";
                     if (tool.isNullOrEmptyObject(oppIDTemp)) {
-                        _self.operation = true;
+                        _self.transformation = true;
                     } else {
-                        _self.operation = false;
+                        _self.transformation = false;
                     }
                 } else {
-                    _self.operation = false;
+                    _self.transformation = false;
                 }
+
+
                 //渲染文档列表
                 _self.InitDocList(_self.id, "8");
 
@@ -910,6 +911,42 @@ export default {
                 _self.accessMeetingNote = true;
             }
         },
+        //判断当前用户是否可以操作当前单据
+        initUserAccess:function(oldData,myCallBack){
+            var _self = this;
+            var fromType = "8";
+            var fromID = _self.$route.params.id;
+            var currentState = oldData["CurrentState"];
+            //是否指定记录的负责人
+            tool.IsHasInitiator(fromType,fromID,function(data){
+                _self.isInitiator = data;
+                //必须是当前单据的负责人才可以操作单据
+                if(_self.isInitiator){
+                    //头部按钮
+                    _self.onlyView = false;
+                    _self.controlEdit();
+                }else{
+                    //头部按钮
+                    _self.onlyView = true;
+                    _self.controlEdit();
+                }
+
+            });
+        },
+        //只查看的情况 控制元素是否可修改
+        controlEdit:function(){
+            var _self = this;
+            if(_self.onlyView){
+                _self.$nextTick(function(){
+                    $('.controlEdit').addClass('disable');
+                })
+            }else{
+                _self.$nextTick(function(){
+                    $('.controlEdit').removeClass('disable');
+                })
+            }
+        },
+        /*
         //跳转到会议记录页面
         viewMeetingNote: function (e) {
             var _self = this;
@@ -975,6 +1012,7 @@ export default {
                 }
             })
         },
+        */
         //新建时初始化时间
         initDefaultDateTime: function () {
             var _self = this;
