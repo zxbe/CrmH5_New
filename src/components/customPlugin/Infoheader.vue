@@ -25,8 +25,6 @@
 </template>
 
 <script>
-// import event from './Event.js'
-// import eventBus from './Event.js';
 export default {
     name:'infoheader',
     data() {
@@ -61,16 +59,11 @@ export default {
     },
     created:function(){
         var _self = this;
-
-        // console.log(_self.onlyView);
     },
-    //props:['title','isAddNew','operation'],
     mounted: function () {
 
     },
     activated:function(){
-        // console.log("onlyView:"+this.onlyView);
-        // console.log("type:"+typeof(this.onlyView));
     },
     methods: {
 
@@ -111,7 +104,6 @@ header.mui-bar {
 .leftView {
     position: absolute;
     height: 0.88rem;
-    /* width: 2.1rem; */
     right: 0;
     top:0;
 }

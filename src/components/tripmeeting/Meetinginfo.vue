@@ -544,7 +544,7 @@ export default {
 
         //返回时更新selectlist控件的结果
         tool.UpdateFieldValueFromBack(eventBus, function (obj) {
-            //    $("[data-field='Initiator'").val("hello world");
+
             //渲染会议记录模块
             _self.initMeetingNote();
 
