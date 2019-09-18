@@ -47,6 +47,7 @@ let json = {
 	"Api_MeetingHandle_QueryNoUploadRecord":"Api_MeetingHandle_QueryNoUploadRecord",
 	"Api_MeetingHandle_QueryRelatedMeeting":"Api_MeetingHandle_QueryRelatedMeeting",
 	"Api_MeetingHandle_ChangeToPitch":"Api_MeetingHandle_ChangeToPitch",
+	"Api_MeetingHandle_ChangeToDeal":"Api_MeetingHandle_ChangeToDeal",
 	"Api_DocumentsHandle_UploadDocuments2DMS":"Api_DocumentsHandle_UploadDocuments2DMS",
 	"Api_DocumentsHandle_Query":"Api_DocumentsHandle_Query",
 	"Api_DocumentsHandle_DownloadFileFromDMS":"Api_DocumentsHandle_DownloadFileFromDMS",

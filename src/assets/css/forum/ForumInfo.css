@@ -126,16 +126,19 @@ header a {
 .forumContentDiv .feeditemfooter{
     padding-top: 10px;
     padding-bottom: 3px;
-  font-size: 0.24rem;
+    font-size: 0.24rem;
+    display: flex;
+    align-items: center;
 }
+.forumContentDiv .feeditemfooter .replies{flex: 1;}
 .forumContentDiv .feeditemfooter .hand{
-    padding-bottom: 0.1rem;
+    /* padding-bottom: 0.1rem; */
     padding-right: 15px;
-    float: right;
+    /* float: right; */
 }
 .forumContentDiv .calcfont,.forumContentDiv .replies .lanText
 {
-    margin-top: 5px;
+    /* margin-top: 5px; */
     font-size: 0.28rem;
     padding: 0 0 0 10px;
     color: rgb(4, 142, 198);
@@ -412,3 +415,8 @@ header a {
 .forumContentDiv .infoStatus span.status70{background: #00a65a;}
 .forumContentDiv .infoStatus span.result73{background: #3c8dbc;}
 .forumContentDiv .infoStatus span.result74{background: #f39c12;}
+
+/*附件*/
+.file-list{}
+.file-item{display: flex;align-items: center; color: #333;padding: 5px 0;}
+.file-item span{padding:0 5px;}

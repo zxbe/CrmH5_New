@@ -21,21 +21,25 @@
             <div class="containTag">
                 <span v-for="tagItem in infoDataList.TagNameList" :key="tagItem.AutoID">{{tagItem.TagName}}</span>
             </div>
+            <div class="file-list">
+                 <a v-for="item in fileData" class="file-item f12" @click="lookFile(item.lastModified)">
+                    <i class="calcfont calc-ziyuan1"></i><span>{{item.name}}</span><i @click.stop="downloadFile(item.lastModified)" class="calcfont calc-xiazai1 f14"></i>
+                 </a>
+            </div>
             <div class="infoStatus">
                 <span class="info-state" :class="{'result73':infoDataList.Result_ID == 73,'result74':infoDataList.Result_ID == 74}">{{infoDataList.Result}}</span>
                 <span class="info-state" :class="{'status71':infoDataList.Status_ID == 71,'status70':infoDataList.Status_ID == 70}">{{infoDataList.Status}}</span>
             </div>
             <div class="feeditemfooter">
                 <span class="time">{{infoDataList.PostTime|MeetingTimeFormat}}</span>
+                <span class="replies">
+                    <span class="lanText" data-lanid="1000350_答复"></span><span>{{infoDataList.ReplyCount}}</span>
+                </span>
                 <span class="hand">
                     <span class="calcfont" :class="[parseInt(infoDataList.IsCurrentUserDislike)>=1 ? 'calc-caishixin-' : 'calc-cai']" :data-statusid="infoDataList.Status_ID" :data-autoid="infoDataList.AutoID" data-even="unfabulous" @click="fabulousEvent($event)"></span><span class="ActionCount">{{infoDataList.DislikeCount}}</span>
                 </span>
                 <span class="hand">
                     <span class="calcfont" :class="[parseInt(infoDataList.IsCurrentUserLike)>=1 ? 'calc-zan' : 'calc-zan1']" :data-statusid="infoDataList.Status_ID" :data-autoid="infoDataList.AutoID" data-even="fabulous" @click="fabulousEvent($event)"></span><span class="ActionCount">{{infoDataList.LikeCount}}</span>
-                </span>
-
-                <span class="replies">
-                    <span class="lanText" data-lanid="1000350_答复"></span><span>{{infoDataList.ReplyCount}}</span>
                 </span>
             </div>
         </div>
@@ -133,6 +137,18 @@ export default {
             isEdit:false,//当前帖子是否可编辑
             infoDataList: {},
             noData:true,
+            fileData:[  //附件数据
+                {
+                  lastModified: 1564378396744,
+                  name: "模拟数据123.xlsx",
+                  size: 56596
+                },
+                {
+                  lastModified: 1564378396744,
+                  name: "模拟数据123.xlsx",
+                  size: 56596
+                }
+            ],
         }
     },
     created: function () {
@@ -583,6 +599,28 @@ export default {
                 },
                 function () {}
             );
+        },
+        //查看附件
+        lookFile:function(id){
+            var _self = this;
+          if(tool.isNullOrEmptyObject(id)){
+              return;
+          }
+          var urlTemp = "https://crmpc.calc.com.hk/FileUpload/CompanyPresentationMaterials/PitchingMaterials/CALC%202018AR%20PPT_Eng.pdf";
+          window.open(urlTemp);
+        },
+        //附件下载
+        downloadFile:function(id){
+          var _self = this;
+          if(tool.isNullOrEmptyObject(id)){
+              return;
+          }
+          var urlTemp = "https://crmpc.calc.com.hk/FileUpload/CompanyPresentationMaterials/PitchingMaterials/CALC%202018AR%20PPT_Eng.pdf";
+          var iframe = document.createElement('iframe');
+          iframe.style.display = 'none';
+          iframe.src = "javascript: '<script>window.location.href=\"" + urlTemp + "\"<\/script>'";
+          document.getElementsByTagName('body')[0].appendChild(iframe);
+
         }
     }
 }

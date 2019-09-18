@@ -392,6 +392,10 @@ import config from '../../configfile/config.js'
 	 * Meeting转换成Pitch
 	 */
 	tool.Api_MeetingHandle_ChangeToPitch = "Api_MeetingHandle_ChangeToPitch";
+	 /*
+	 * Meeting转换成Deal
+	 */
+	tool.Api_MeetingHandle_ChangeToDeal = "Api_MeetingHandle_ChangeToDeal";
   	/*
 	 * 查询未上传会议记录的会议列表
 	 */
