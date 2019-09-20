@@ -42,9 +42,9 @@
                         <div v-else-if="item.FromType=='6'" class="item-div">
                             <span>{{companyLV}}</span><div class="item-div-text">{{item.Title}}</div>
                         </div>
-                        <div v-if="item.FromType=='8'" class="item-div">
+                        <!-- <div v-if="item.FromType=='8'" class="item-div">
                             <span>{{timeLV}}</span><div class="item-div-text">{{item.BeginTime}}</div>
-                        </div>
+                        </div> -->
                         <div v-if="item.FromType!='6'" class="item-div">
                             <span>{{remarkLV}}</span><span>{{item.Remark}}</span>
                         </div>
@@ -254,7 +254,8 @@ export default {
             }else if(fromType == "7"){
 
             }else if(fromType == "8"){
-
+                infoName = data["Title"] || "";
+                url = "/meetinginfo/" + fromID;
             }else if(fromType == "9"){
                 infoName = data["Title"] || "";
                 url = "/opportunitiesinfo/" + fromID;
