@@ -76,15 +76,15 @@
                     </div>
                 </div> -->
 
-                <!-- CAAL -->
+                <!-- BlackList -->
                 <div class="ListCell visible controlEdit">
                     <div class="ListCellLeftIcon"><span class="calcfont calc-woshimaijia2"></span></div>
                     <div class="ListCellContent">
                         <div class="ListCellContentLeft leftContent">
-                            <div class="ListCellContentLeftText lanText" data-lanid="1000289_CAAL"></div>
+                            <div class="ListCellContentLeftText lanText" data-lanid="1000388_Black List"></div>
                         </div>
                         <div class="ListCellContentRight rightContent">
-                            <input type="text" data-field="CAAL" data-fieldControlType="picker" data-fieldVal="" Code="DropDowList_DtbAllTypes" TypeValue="YesOrNo" class="ListCellContentRightText" />
+                            <input type="text" data-field="BlackList" data-fieldControlType="picker" data-fieldVal="" Code="DropDowList_ViewBaseAllTypes" TypeValue="YesOrNo" class="ListCellContentRightText" />
                         </div>
                         <div class="ListCellRightIcon"><span class="calcfont calc-you"></span></div>
                     </div>
@@ -473,10 +473,10 @@ export default {
                     id: caalIdTemp,
                     text: caalTemp
                 };
-                $("[data-field='CAAL']")
-                    .val(caalobj.text || "")
-                    .attr("data-fieldVal", caalobj.id)
-                    .trigger("change");
+                // $("[data-field='CAAL']")
+                //     .val(caalobj.text || "")
+                //     .attr("data-fieldVal", caalobj.id)
+                //     .trigger("change");
                 var textTemp = lanTool.lanContent("1172_准备与会");
                 var idTemp = "115";
                 var obj = {
@@ -527,8 +527,17 @@ export default {
 
                 //返回时更新selectlist控件的结果
                 tool.UpdateFieldValueFromBack(eventBus, function () {
-                    //清空全局变量
-                    eventBus.selectListData = null;
+                    var fieldTemp = eventBus.selectListData["field"] ||"";
+                    if(tool.isNullOrEmptyObject(fieldTemp) && fieldTemp != "CompanyID"){
+                        //清空全局变量
+                        eventBus.selectListData = null;
+                    }else{    
+                        //联动BlackList值
+                        _self.linkBlackList(eventBus.selectListData["value"]["id"]||"",function(){
+                            //清空全局变量
+                            eventBus.selectListData = null;
+                        });
+                    }
                 });
             });
         });
@@ -546,10 +555,22 @@ export default {
         tool.UpdateFieldValueFromBack(eventBus, function (obj) {
 
             //渲染会议记录模块
-            _self.initMeetingNote();
+            //_self.initMeetingNote();
 
             //清空全局变量
-            eventBus.selectListData = null;
+            //eventBus.selectListData = null;
+
+            var fieldTemp = eventBus.selectListData["field"] ||"";
+            if(tool.isNullOrEmptyObject(fieldTemp) && fieldTemp != "CompanyID"){
+                //清空全局变量
+                eventBus.selectListData = null;
+            }else{    
+                //联动BlackList值
+                _self.linkBlackList(eventBus.selectListData["value"]["id"]||"",function(){
+                    //清空全局变量
+                    eventBus.selectListData = null;
+                });
+            }
         })
     },
     methods: {
@@ -715,7 +736,7 @@ export default {
                     url: urlTemp,
                     data: jsonDatasTemp,
                     success: function (data) {
-                        console.log("data"+JSON.stringify(data));
+                        // console.log("data"+JSON.stringify(data));
                         try {
                             data = tool.jObject(data);
                             if (data._ReturnStatus == false) {
@@ -725,7 +746,7 @@ export default {
                             }
 
                             data = data._OnlyOneData || {};
-                            console.log("data"+JSON.stringify(data));
+                            // console.log("data"+JSON.stringify(data));
                             var dealID = data["AutoID"] || "";
                             var theName = data["TheName"] || "";
 
@@ -939,11 +960,15 @@ export default {
             if(_self.onlyView){
                 _self.$nextTick(function(){
                     $('.controlEdit').addClass('disable');
+                    //禁用BlackLIst
+                    $("[data-field='BlackList']").closest(".controlEdit").addClass("disable");
                 })
             }else{
                 _self.$nextTick(function(){
                     $('.controlEdit').removeClass('disable');
-                })
+                    //禁用BlackLIst
+                    $("[data-field='BlackList']").closest(".controlEdit").addClass("disable");
+                });
             }
         },
         /*
@@ -1102,8 +1127,8 @@ export default {
                     $("[data-field='MeetingTitle']").val(data["TheName"] || "");
                     //MeetingType
                     $("[data-field='MeetingType']").val(lanTool.lanContent("1078_机会")).attr("data-fieldVal", "90").trigger('change');
-                    //MeetingType
-                    $("[data-field='CAAL']").val(lanTool.lanContent("798_是")).attr("data-fieldVal", "20").trigger('change');
+                    // //CAAL
+                    // $("[data-field='CAAL']").val(lanTool.lanContent("798_是")).attr("data-fieldVal", "20").trigger('change');
                     //CompanyID
                     $("[data-field='CompanyID']").text(data["TargetCompanyID_Name"] || "").attr("data-fieldVal", data["TargetCompanyID"] || "").trigger('change');
                     //ContactsID
@@ -1128,7 +1153,57 @@ export default {
                     document.activeElement.blur();
                 }
             });
-        }
+        },
+        //联动修改BlackList
+        //companyID:公司ID
+        linkBlackList:function(companyID,callback){
+            let _self = this;
+            if(tool.isNullOrEmptyObject(companyID)){
+                return;
+            }
+            var urlTemp = tool.AjaxBaseUrl();
+            var controlName = tool.Api_OrganizationsHandle_QuerySingle;
+            //传入参数
+            var jsonDatasTemp = {
+                CurrentLanguageVersion: lanTool.currentLanguageVersion,
+                UserName: tool.UserName(),
+                _ControlName: controlName,
+                _RegisterCode: tool.RegisterCode(),
+                AutoID:companyID
+            };
+            // var loadingIndexClassName = tool.showLoading();
+            $.ajax({
+                async: true,
+                type: "post",
+                url: urlTemp,
+                data: jsonDatasTemp,
+                success: function (data) {
+                    // tool.hideLoading(loadingIndexClassName);
+                    data = tool.jObject(data);
+                    if (data._ReturnStatus == false) {
+                        tool.showText(tool.getMessage(data));
+                        return true;
+                    }
+                    data = data._OnlyOneData || {};
+                    console.log(data);
+
+                    //为BlackList赋值
+                    $('[data-field="BlackList"]').attr("data-fieldval",(data["BlackList"]||"")).val((data["BlackList_Name"]||""));
+                },
+                error: function (jqXHR, type, error) {
+                    console.log(error);
+                    // tool.hideLoading(loadingIndexClassName);
+                    return true;
+                },
+                complete: function () {
+                    //隐藏虚拟键盘
+                    document.activeElement.blur();
+                    if (!tool.isNullOrEmptyObject(callback) && typeof(callback) == "function") {
+                        callback();
+                    }
+                }
+            });
+        },
     },
     beforeRouteLeave: function (to, from, next) {
         if (to.name == 'tripmeeting' || to.name == 'index') {

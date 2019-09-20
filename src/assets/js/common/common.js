@@ -4043,7 +4043,6 @@ import config from '../../configfile/config.js'
       return value;
   };
 
-
   /**
    *  详情页面从Selectlist/Groupselectlist返回时更新数据
    */
@@ -4066,12 +4065,10 @@ import config from '../../configfile/config.js'
 			curObj.text(eventBus.selectListData.value.text);
 		}
 
-      if (!tool.isNullOrEmptyObject(callback)) {
-          callback(curObj);
-      }
-
+		if (!tool.isNullOrEmptyObject(callback) && typeof(callback) == "function") {
+			callback(curObj);
+		}
   }
-
 
   /**
    * 两个联动字段逻辑处理
@@ -4121,8 +4118,9 @@ import config from '../../configfile/config.js'
                   query: parameter
               });
           });
-      }
-
+	  }
+	  
+	//   console.log(eventBus.selectListData);
       if(tool.isNullOrEmptyObject(eventBus.selectListData)){
           return;
       }
@@ -4165,10 +4163,7 @@ import config from '../../configfile/config.js'
                   query: parameter
               });
           });
-
       }
-
-
   }
 }(top.window.tool = {}, jQuery));
 
