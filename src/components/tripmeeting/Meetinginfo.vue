@@ -98,7 +98,7 @@
                         <div class="ListCellContentRight rightContent">
                             <input type="text" data-field="BlackList" data-fieldControlType="picker" data-fieldVal="" Code="DropDowList_ViewBaseAllTypes" TypeValue="YesOrNo" class="ListCellContentRightText" />
                         </div>
-                        <div class="ListCellRightIcon"><span class="calcfont calc-you"></span></div>
+                        <!-- <div class="ListCellRightIcon"><span class="calcfont calc-you"></span></div> -->
                     </div>
                 </div>
 
