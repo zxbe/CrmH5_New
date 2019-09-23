@@ -15,6 +15,7 @@
     "img-vuer": "^0.15.5",
     "jquery": "^3.3.1",
     "pdfjs-dist": "^2.0.943",
+    "swiper": "^3.4.2",
     "vue": "^2.5.2",
     "vue-drawer-layout": "^0.3.1",
     "vue-html5-editor": "^1.1.1",
