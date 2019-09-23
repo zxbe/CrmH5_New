@@ -33,7 +33,7 @@ export default {
   },
   data(){
     return{
-        isFirst:true,
+        isFirst:false,
         pageArray:[
             { src: 'https://www.17sucai.com/preview/859324/2018-07-24/tu/img/a1.png' },
             { src: 'https://www.17sucai.com/preview/859324/2018-07-24/tu/img/a2.png' },
