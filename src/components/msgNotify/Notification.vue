@@ -65,7 +65,7 @@
                             <span>{{companyLV}}</span><div class="item-div-text">{{item.Title}}</div>
                         </div>
                         <div v-if="item.FromType=='8'" class="item-div">
-                            <span>{{timeLV}}</span><div class="item-div-text">{{item.BeginTime}}</div>
+                            <span>{{timeLV}}</span><div class="item-div-text">{{item.AddTime |abdDateFormat('dd/MM/yyyy HH:mm')}}</div>
                         </div>
                         <div v-if="item.FromType!='6'" class="item-div">
                             <span>{{remarkLV}}</span><span>{{item.Remark}}</span>
