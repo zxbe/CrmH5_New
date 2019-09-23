@@ -22,8 +22,8 @@
                 <span v-for="tagItem in infoDataList.TagNameList" :key="tagItem.AutoID">{{tagItem.TagName}}</span>
             </div>
             <div class="file-list">
-                 <a v-for="item in fileData" class="file-item f12" @click="lookFile(item.lastModified)">
-                    <i class="calcfont calc-ziyuan1"></i><span>{{item.name}}</span><i @click.stop="downloadFile(item.lastModified)" class="calcfont calc-xiazai1 f14"></i>
+                 <a v-for="(item,index) in fileData" :key="index" class="file-item f12" @click="lookFile(item)">
+                    <i class="calcfont calc-ziyuan1"></i><span>{{item.name}}</span>
                  </a>
             </div>
             <div class="infoStatus">
@@ -602,27 +602,15 @@ export default {
         },
 
         //查看附件
-        lookFile:function(id){
+        lookFile:function(data){
             var _self = this;
-          if(tool.isNullOrEmptyObject(id)){
+          if(tool.isNullOrEmptyObject(data)){
               return;
           }
-          var urlTemp = "https://crmpc.calc.com.hk/FileUpload/CompanyPresentationMaterials/PitchingMaterials/CALC%202018AR%20PPT_Eng.pdf";
-          window.open(urlTemp);
-        },
-        //附件下载
-        downloadFile:function(id){
-          var _self = this;
-          if(tool.isNullOrEmptyObject(id)){
-              return;
-          }
-          var urlTemp = "https://crmpc.calc.com.hk/FileUpload/CompanyPresentationMaterials/PitchingMaterials/CALC%202018AR%20PPT_Eng.pdf";
-          var iframe = document.createElement('iframe');
-          iframe.style.display = 'none';
-          iframe.src = "javascript: '<script>window.location.href=\"" + urlTemp + "\"<\/script>'";
-          document.getElementsByTagName('body')[0].appendChild(iframe);
 
-        }
+          _self.$router.push({path:'/previewfile', query: data});
+
+        },
 
     }
 }
