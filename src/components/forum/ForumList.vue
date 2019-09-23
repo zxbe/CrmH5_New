@@ -69,14 +69,7 @@
                     <span class="info-state" :class="{'status71':item.Status_ID == 71,'status70':item.Status_ID == 70}">{{item.Status}}</span>
                 </div>
                 <div class="info f12">
-                    <div class="hand">
-                        <!-- 没赞：calc-zan1  赞：calc-zan -->
-                        <span class="calcfont" :class="[parseInt(item.IsCurrentUserLike)>=1 ? 'calc-zan' : 'calc-zan1']" :data-statusid="item.Status_ID" :data-autoid="item.AutoID" data-even="fabulous" @click.stop="fabulousEvent($event)"></span><span class="ActionCount">{{item.LikeCount}}</span>
-                    </div>
-                    <div class="hand">
-                        <!-- 没踩：calc-cai  踩：calc-caishixin- -->
-                        <span class="calcfont" :class="[parseInt(item.IsCurrentUserDislike)>=1 ? 'calc-caishixin-' : 'calc-cai']" :data-statusid="item.Status_ID" :data-autoid="item.AutoID" data-even="unfabulous" @click.stop="fabulousEvent($event)"></span><span class="ActionCount">{{item.DislikeCount}}</span>
-                    </div>
+
                     <div class="replies">
                         <span>{{repliesText}}</span>
                         <span>{{item.ReplyCount}}</span>
@@ -84,6 +77,14 @@
                     <div>
                         <i class="calcfont calc-ziyuan1"></i>
                         <span>{{item.ReplyCount}}</span>
+                    </div>
+                    <div class="hand">
+                        <!-- 没赞：calc-zan1  赞：calc-zan -->
+                        <span class="calcfont" :class="[parseInt(item.IsCurrentUserLike)>=1 ? 'calc-zan' : 'calc-zan1']" :data-statusid="item.Status_ID" :data-autoid="item.AutoID" data-even="fabulous" @click.stop="fabulousEvent($event)"></span><span class="ActionCount">{{item.LikeCount}}</span>
+                    </div>
+                    <div class="hand">
+                        <!-- 没踩：calc-cai  踩：calc-caishixin- -->
+                        <span class="calcfont" :class="[parseInt(item.IsCurrentUserDislike)>=1 ? 'calc-caishixin-' : 'calc-cai']" :data-statusid="item.Status_ID" :data-autoid="item.AutoID" data-even="unfabulous" @click.stop="fabulousEvent($event)"></span><span class="ActionCount">{{item.DislikeCount}}</span>
                     </div>
                 </div>
                 <div class="info f12">

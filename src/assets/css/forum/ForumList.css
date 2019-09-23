@@ -166,7 +166,10 @@ ul,li{list-style: none;padding:0;margin: 0;}
 .list-item .result73{background: #3c8dbc;}
 .list-item .result74{background: #f39c12;}
 
-.list-item .hand,.list-item .replies{
+.list-item .hand{
+  margin-left: 5px;
+}
+.list-item .replies{
   margin-right: 5px;
 }
 .list-item .hand .calc-zan, .list-item .hand .calc-caishixin-{
