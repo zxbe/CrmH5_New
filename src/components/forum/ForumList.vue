@@ -69,8 +69,6 @@
                     <span class="info-state" :class="{'status71':item.Status_ID == 71,'status70':item.Status_ID == 70}">{{item.Status}}</span>
                 </div>
                 <div class="info f12">
-                    <img class="img" src="../../assets/images/forum/default_user_img.png" />
-                    <span class="name">{{item.UserName}}</span>
                     <div class="hand">
                         <!-- 没赞：calc-zan1  赞：calc-zan -->
                         <span class="calcfont" :class="[parseInt(item.IsCurrentUserLike)>=1 ? 'calc-zan' : 'calc-zan1']" :data-statusid="item.Status_ID" :data-autoid="item.AutoID" data-even="fabulous" @click.stop="fabulousEvent($event)"></span><span class="ActionCount">{{item.LikeCount}}</span>
@@ -83,6 +81,15 @@
                         <span>{{repliesText}}</span>
                         <span>{{item.ReplyCount}}</span>
                     </div>
+                    <div>
+                        <i class="calcfont calc-ziyuan1"></i>
+                        <span>{{item.ReplyCount}}</span>
+                    </div>
+                </div>
+                <div class="info f12">
+                    <img class="img" src="../../assets/images/forum/default_user_img.png" />
+                    <span class="name">{{item.UserName}}</span>
+
                     <span class="time">{{item.PostTime|MeetingTimeFormat}}</span>
                 </div>
 
