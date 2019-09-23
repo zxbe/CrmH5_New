@@ -76,7 +76,7 @@
                     </div>
                     <div>
                         <i class="calcfont calc-ziyuan1"></i>
-                        <span>{{item.ReplyCount}}</span>
+                        <span>{{item.AttachmentCount}}</span>
                     </div>
                     <div class="hand">
                         <!-- 没赞：calc-zan1  赞：calc-zan -->

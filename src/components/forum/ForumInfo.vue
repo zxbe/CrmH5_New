@@ -22,8 +22,8 @@
                 <span v-for="tagItem in infoDataList.TagNameList" :key="tagItem.AutoID">{{tagItem.TagName}}</span>
             </div>
             <div class="file-list">
-                 <a v-for="(item,index) in fileData" :key="index" class="file-item f12" @click="lookFile(item)">
-                    <i class="calcfont calc-ziyuan1"></i><span>{{item.name}}</span>
+                 <a v-for="(item,index) in infoDataList.Attachments" :key="index" class="file-item f12" @click="PreviewFile(item)">
+                    <i class="calcfont calc-ziyuan1"></i><span>{{item.FileName}}</span>
                  </a>
             </div>
             <div class="infoStatus">
@@ -602,16 +602,13 @@ export default {
         },
 
         //查看附件
-        lookFile:function(data){
+        PreviewFile:function(data){
             var _self = this;
           if(tool.isNullOrEmptyObject(data)){
               return;
           }
-
           _self.$router.push({path:'/previewfile', query: data});
-
-        },
-
+        }
     }
 }
 </script>
@@ -627,7 +624,7 @@ body {
   height: 0;
 }
 .vue-html5-editor .content{
-    min-height: 80px !important;
+    min-height: 55px !important;
 }
 </style>
 
