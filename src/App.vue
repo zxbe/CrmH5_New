@@ -35,9 +35,9 @@ export default {
     return{
         isFirst:true,
         pageArray:[
-            { src: 'https://www.17sucai.com/preview/859324/2018-07-24/tu/img/a1.png' },
-            { src: 'https://www.17sucai.com/preview/859324/2018-07-24/tu/img/a2.png' },
-            { src: 'https://www.17sucai.com/preview/859324/2018-07-24/tu/img/a3.png' }
+            { src: 'http://197.7.50.139:6060/img/QQ1.png' },
+            { src: 'http://197.7.50.139:6060/img/QQ2.png' },
+            { src: 'http://197.7.50.139:6060/img/QQ3.png' }
         ]
     }
   },
