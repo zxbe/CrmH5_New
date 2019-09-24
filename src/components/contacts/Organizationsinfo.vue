@@ -42,7 +42,7 @@
                             <div class="ListCellRightIcon"><span class="mui-icon calcfont calc-you"></span></div>
                         </div>
                     </div>
-                    <div class="ListCell visible">
+                    <div class="ListCell">
                         <div class="ListCellLeftIcon"><span class="mui-icon calcfont calc-nationaarea"></span></div>
                         <div class="ListCellContent">
                             <div class="ListCellContentLeft leftContent">
@@ -54,7 +54,7 @@
                             <div class="ListCellRightIcon"><span class="mui-icon calcfont calc-you"></span></div>
                         </div>
                     </div>
-                    <div class="ListCell visible">
+                    <div class="ListCell">
                         <div class="ListCellLeftIcon"><span class="mui-icon calcfont calc-diqiuquanqiu"></span></div>
                         <div class="ListCellContent">
                             <div class="ListCellContentLeft leftContent">
