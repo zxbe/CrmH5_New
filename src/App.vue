@@ -33,7 +33,7 @@ export default {
   },
   data(){
     return{
-        isFirst:true,
+        isFirst:false,
         pageArray:[
             { src: 'http://197.7.50.139:6060/img/QQ1.png' },
             { src: 'http://197.7.50.139:6060/img/QQ2.png' },

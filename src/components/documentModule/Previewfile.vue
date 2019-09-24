@@ -33,7 +33,7 @@
                                             <label class="lanText" data-lanid= '837_上传者'></label>
                                             <p data-field="creator">{{data.AddUserName}}</p>
                                         </li>
-                                        <li>
+                                        <li v-show="data.FileSystem=='DMS'">
                                             <label class="lanText" data-lanid= '985_描述'></label>
                                             <p  data-field="notecontent">{{data.ObjectRemark}}</p>
                                         </li>
@@ -95,7 +95,6 @@ export default {
             // showDownload:false, //显示下载按钮（只有文件类型是图片或视频才显示）
             isImg:false,
             imgSrc:'',
-
             scale:0.6, //pdf放大倍数
             maxScale:1.2,
             minScale:0.6,
@@ -106,26 +105,33 @@ export default {
     created:function(){
         var _self = this;
         _self.data = _self.$route.query;
+        console.log(_self.data);
     },
     mounted:function(){
         lanTool.updateLanVersion();
         var $this = this;
 
         //若是安卓系统，则显示下载按钮，否则不显示
-        // console.log(tool.getSystem());
         if(tool.getSystem() == 'ios') {
             $this.isShowDownloadBtn = false;
         }else{
             $this.isShowDownloadBtn = true;
         }
 
-
         //传入参数
         var urlTemp = tool.AjaxBaseUrl();
 
-        //console.log($this.data);
+        var controlName = "";
+        var fileSystem = $this.data.FileSystem || "DMS";
+        fileSystem = fileSystem.trim().toUpperCase();
+        if(fileSystem == "DMS"){
+            controlName = tool.Api_DocumentsHandle_DownloadFileFromDMS;
+        }else if(fileSystem == "CRM"){
+            controlName = tool.Api_AllFileHandle_DownloadOrPreview;
+        }else {
+            controlName = tool.Api_DocumentsHandle_DownloadFileFromDMS;
+        }
 
-        var controlName = tool.Api_DocumentsHandle_DownloadFileFromDMS;
         var jsonDatasTemp = {
             CurrentLanguageVersion: lanTool.currentLanguageVersion,
             UserName: tool.UserName(),
@@ -196,7 +202,6 @@ export default {
                         // 图片压缩
                         context.drawImage(img, 0, 0, targetWidth, targetHeight);
 
-
                         //显示图片
                         var url = canvas.toDataURL();
                         $this.imgSrc = url;
@@ -212,8 +217,7 @@ export default {
 
                     tool.hideLoading(loadingIndexClassName);
                     return ;
-                }else
-                if(tool.isFileVideo($this.data.ObjectName)){
+                }else if(tool.isFileVideo($this.data.ObjectName)){
                     //data = decodeURIComponent(data);
                     //console.log(data);
                     // $this.showDownload = true;
@@ -306,31 +310,6 @@ export default {
 
     },
     methods:{
-        // clickToShow:function(data){
-        //   if(tool.isNullOrEmptyObject(data)){
-        //     return;
-        //   }
-        //   var _self = this;
-
-        //     _self.photo = $.photoBrowser({
-        //       items: [
-        //           {
-        //               image: data
-        //           }
-        //       ],
-        //       onOpen:function(){
-        //           _self.isOpen = true;
-
-        //           // if(this.config.items.length < 2){
-        //           //     $('.swiper-pagination').hide();
-        //           // }
-        //       },
-        //       onClose:function(){
-        //           _self.isOpen = false;
-        //       }
-        //   });
-
-        // },
         back:function(){
             this.$router.back(-1);
         },
@@ -347,9 +326,7 @@ export default {
             if(self.thePDF == null) {
                 return false;
             }
-
             self.thePDF.getPage(numPage).then(function getData(page) {
-
                 // Prepare canvas using PDF page dimensions
                 // $(".drawerFile_content").html(
                 //     `<canvas class="canvas" id="the-canvas` + self.currPage + `" ></canvas>
@@ -422,7 +399,18 @@ export default {
             var _self = this;
             //传入参数
             var urlTemp = tool.AjaxBaseUrl();
-            var controlName = tool.Api_DocumentsHandle_DownloadFileFromDMS;
+
+            var controlName = "";
+            var fileSystem = $this.data.FileSystem || "DMS";
+            fileSystem = fileSystem.trim().toUpperCase();
+            if(fileSystem == "DMS"){
+                controlName = tool.Api_DocumentsHandle_DownloadFileFromDMS;
+            }else if(fileSystem == "CRM"){
+                controlName = tool.Api_AllFileHandle_DownloadOrPreview;
+            }else {
+                controlName = tool.Api_DocumentsHandle_DownloadFileFromDMS;
+            }
+            
             var jsonDatasTemp = {
                 CurrentLanguageVersion: lanTool.currentLanguageVersion,
                 UserName: tool.UserName(),
@@ -451,10 +439,7 @@ export default {
     }
 }
 
-
 </script>
-
-
 
 <style scoped>
 
