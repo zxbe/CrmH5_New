@@ -578,6 +578,11 @@ import config from '../../configfile/config.js'
 	tool.Api_BaseUserBaseInfHandle_QuerySingle = "Api_BaseUserBaseInfHandle_QuerySingle";
 
 	/*
+	 * 文件下载/预览
+	 */
+	tool.Api_AllFileHandle_DownloadOrPreview = "Api_AllFileHandle_DownloadOrPreview";
+
+	/*
 	 * ADBAjaxUrl:ADB系统请求的api地址
 	 */
 	tool.config_ADBAjaxUrl = "ADBAjaxUrl";
@@ -1328,6 +1333,7 @@ import config from '../../configfile/config.js'
 	};
 
 	//拼接文件Base64字符串
+	//只拼接图片文件
 	tool.combineBase64StrWithFileType = function(base64Str,fileName){
 		if(tool.isNullOrEmptyObject(fileName)){
 			return base64Str;

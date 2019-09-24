@@ -75,6 +75,7 @@ let json = {
 	"Api_BaseUserBaseInfHandle_Query":"Api_BaseUserBaseInfHandle_Query",
 	"Api_BaseUserBaseInfHandle_QueryNew":"Api_BaseUserBaseInfHandle_QueryNew",
 	"Api_BaseUserBaseInfHandle_QuerySingle":"Api_BaseUserBaseInfHandle_QuerySingle",
+	"Api_AllFileHandle_DownloadOrPreview":"Api_AllFileHandle_DownloadOrPreview",
 	"currentLanguageVersion":"",
 	"refreshSessionTime":1200000,
 	"ADBAjaxUrl":"http://197.7.50.186:777/ADB",
