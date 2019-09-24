@@ -60,17 +60,27 @@
                     <span class="info-state" :class="{'status71':item.Status_ID == 71,'status70':item.Status_ID == 70}">{{item.Status}}</span>
                 </div>
                 <div class="info f12">
+                    <div class="replies">
+                        <span>{{repliesText}}</span>
+                        <span>{{item.ReplyCount}}</span>
+                    </div>
+                    <div>
+                        <i class="calcfont calc-ziyuan1"></i>
+                        <span>{{item.AttachmentCount}}</span>
+                    </div>
+                    <div class="hand">
+                        <!-- 没赞：calc-zan1  赞：calc-zan -->
+                        <span class="calcfont" :class="[parseInt(item.IsCurrentUserLike)>=1 ? 'calc-zan' : 'calc-zan1']" :data-statusid="item.Status_ID" :data-autoid="item.AutoID" data-even="fabulous" @click.stop="fabulousEvent($event)"></span><span class="ActionCount">{{item.LikeCount}}</span>
+                    </div>
+                    <div class="hand">
+                        <!-- 没踩：calc-cai  踩：calc-caishixin- -->
+                        <span class="calcfont" :class="[parseInt(item.IsCurrentUserDislike)>=1 ? 'calc-caishixin-' : 'calc-cai']" :data-statusid="item.Status_ID" :data-autoid="item.AutoID" data-even="unfabulous" @click.stop="fabulousEvent($event)"></span><span class="ActionCount">{{item.DislikeCount}}</span>
+                    </div>
+                </div>
+                <div class="info f12">
                     <img class="img" src="../../assets/images/forum/default_user_img.png" />
                     <span class="name">{{item.UserName}}</span>
-                    <div class="hand">
-                        <span class="calcfont" :class="[parseInt(item.IsCurrentUserLike)>=1 ? 'calc-zan' : 'calc-zan1']" :data-statusid="item.Status_ID" :data-autoid="item.AutoID" data-even="fabulous" @click.stop="fabulousEvent($event)"></span><span>{{item.LikeCount}}</span>
-                    </div>
-                    <div class="hand">
-                        <span class="calcfont" :class="[parseInt(item.IsCurrentUserDislike)>=1 ? 'calc-caishixin-' : 'calc-cai']" :data-statusid="item.Status_ID" :data-autoid="item.AutoID" data-even="unfabulous" @click.stop="fabulousEvent($event)"></span><span>{{item.DislikeCount}}</span>
-                    </div>
-                    <div class="replies">
-                        <span>{{repliesText}}</span><span>{{item.ReplyCount}}</span>
-                    </div>
+
                     <span class="time">{{item.PostTime|MeetingTimeFormat}}</span>
                 </div>
 
@@ -109,7 +119,7 @@
 import Scroll from '@/components/customPlugin/scroll/Scroll';
 import Nothing from "@/components/customPlugin/Nothing"
 export default {
-    name:'forumsearch',
+    name: 'forumsearch',
     components: {
         'vue-scroll': Scroll,
         'nothing': Nothing
@@ -153,8 +163,7 @@ export default {
                     TagName: "C#"
                 },
             ],
-            listData: [
-            ],
+            listData: [],
         }
     },
     beforeRouteEnter: function (to, from, next) {
@@ -173,7 +182,7 @@ export default {
         this.hideDropdownList();
     },
     beforeRouteLeave: function (to, from, next) {
-        if(to.name == 'forumlist'){
+        if (to.name == 'forumlist') {
             this.$store.commit('REMOVE_ITEM', 'forumsearch');
         }
         next();
@@ -343,7 +352,7 @@ export default {
             var _self = this;
             var searchVal = $.trim($('#searchAskInput').val() || "");
             if (tool.isNullOrEmptyObject(searchVal)) {
-                 document.activeElement.blur();
+                document.activeElement.blur();
                 var tips = lanTool.lanContent('933_温馨提示');
                 var sure = lanTool.lanContent("545_确定");
                 var alertContent = lanTool.lanContent("1000254_搜索条件不能为空");
@@ -351,7 +360,7 @@ export default {
                 return false;
             } else {
                 //下拉刷新
-                _self.queryList('',function(){
+                _self.queryList('', function () {
                     _self.isFocus = false;
                 });
             }
@@ -377,7 +386,7 @@ export default {
             //构造查询类型
             var searchType = $(".dropDownList>a.selected").eq(0).attr("data-type") || "Other";
             searchType = $.trim(searchType);
-            var autoValue = $("#searchAskInput").val()||"";
+            var autoValue = $("#searchAskInput").val() || "";
 
             var jsonDatasTemp = {
                 CurrentLanguageVersion: lanTool.currentLanguageVersion,
@@ -385,13 +394,13 @@ export default {
                 _ControlName: controlName,
                 _RegisterCode: tool.RegisterCode(),
                 IsUsePager: true,
-                PageSize:_self.pageSize,
-                PageNum:_self.pageNum,
-                SortName:sortName,
-                SortOrder:sortOrder,
+                PageSize: _self.pageSize,
+                PageNum: _self.pageNum,
+                SortName: sortName,
+                SortOrder: sortOrder,
                 QueryCondiction: JSON.stringify(queryCondictionDataArray),
-                SearchType:searchType,
-                AutoValue:autoValue
+                SearchType: searchType,
+                AutoValue: autoValue
             };
             var loadingIndexClassName = tool.showLoading();
             $.ajax({
@@ -412,36 +421,36 @@ export default {
                     data = data._OnlyOneData.Rows || [];
 
                     //没有数据
-                    if((tool.isNullOrEmptyObject(data) || data.length <= 0) && _self.pageNum == 1){
+                    if ((tool.isNullOrEmptyObject(data) || data.length <= 0) && _self.pageNum == 1) {
                         _self.noData = true;
-                        return ;
+                        return;
                     }
 
                     //把标签字段值转换为数组
                     $.each(data, function (i, ietem) {
                         var tagsArr =
-                        tool.isNullOrEmptyObject(ietem.TagName)
-                        ? []
-                        : ietem.TagName.toString().split(',');
+                            tool.isNullOrEmptyObject(ietem.TagName) ?
+                            [] :
+                            ietem.TagName.toString().split(',');
                         ietem.TagName = tagsArr;
                     });
 
                     _self.noData = false;
-                    if(queryType == 'pushLoad'){
+                    if (queryType == 'pushLoad') {
                         _self.listData = _self.listData.concat(data);
-                    }else{
+                    } else {
                         _self.listData = data;
                     }
 
-                    if(queryType == undefined || queryType == ''){
+                    if (queryType == undefined || queryType == '') {
                         _self.$refs.scroll.isPullingDown = true;
                         _self.$refs.scroll.isPullingUpEnd = false;
                         _self.$refs.scroll.scrollTo(0, 0, 200, 'easing');
                     }
                     _self.$refs.scroll.refresh();
 
-                    if(!tool.isNullOrEmptyObject(callback)){
-                      callback(data,_self.pageSize);
+                    if (!tool.isNullOrEmptyObject(callback)) {
+                        callback(data, _self.pageSize);
                     }
                 },
                 error: function (jqXHR, type, error) {

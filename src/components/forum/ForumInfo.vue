@@ -70,17 +70,6 @@
           <span class="hand">
             <span
               class="calcfont"
-              :class="[parseInt(infoDataList.IsCurrentUserDislike)>=1 ? 'calc-caishixin-' : 'calc-cai']"
-              :data-statusid="infoDataList.Status_ID"
-              :data-autoid="infoDataList.AutoID"
-              data-even="unfabulous"
-              @click="fabulousEvent($event)"
-            ></span>
-            <span class="ActionCount">{{infoDataList.DislikeCount}}</span>
-          </span>
-          <span class="hand">
-            <span
-              class="calcfont"
               :class="[parseInt(infoDataList.IsCurrentUserLike)>=1 ? 'calc-zan' : 'calc-zan1']"
               :data-statusid="infoDataList.Status_ID"
               :data-autoid="infoDataList.AutoID"
@@ -89,6 +78,18 @@
             ></span>
             <span class="ActionCount">{{infoDataList.LikeCount}}</span>
           </span>
+          <span class="hand">
+            <span
+              class="calcfont"
+              :class="[parseInt(infoDataList.IsCurrentUserDislike)>=1 ? 'calc-caishixin-' : 'calc-cai']"
+              :data-statusid="infoDataList.Status_ID"
+              :data-autoid="infoDataList.AutoID"
+              data-even="unfabulous"
+              @click="fabulousEvent($event)"
+            ></span>
+            <span class="ActionCount">{{infoDataList.DislikeCount}}</span>
+          </span>
+          
         </div>
       </div>
       <div class="replyList">
