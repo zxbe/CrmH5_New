@@ -295,6 +295,7 @@
           </div> -->
                 <div @click="SynchronousCamcardData" class="block-item item-border-top btnsynchronouscamcard lanText" data-lanid="1000193_同步CamCard数据"></div>
                 <div @click="SynchronousNewCamCarddata" class="block-item item-border-top SynchronousNewCamCarddata lanText" data-lanid="1000372_同步新的CamCard数据"></div>
+                <div @click="FunctionalGuidance" class="block-item item-border-top lanText" data-lanid="1000461_功能引导"></div>
                 <div @click="ClearCache" class="block-item item-border-top lanText" data-lanid="776_清除缓存"></div>
             </div>
         </div>
@@ -310,7 +311,7 @@
             v-for="(item, index) in pageArray"
             :key="index"
             class="swiper-slide"
-            :style="{'background':'url('+ item.src +') no-repeat center','background-size':'cover'}"
+            :style="{'background':'url('+ item.FileBase64 +') no-repeat center','background-size':'cover'}"
           ></div>
         </div>
         <div class="swiper-pagination"></div>
@@ -370,7 +371,7 @@ export default {
 
         lanTool.updateLanVersion();
         //引导页
-        _self.queryFunGuid();
+        _self.queryFunGuid(false);
 
         _self.recentDate();
         //侧滑
@@ -406,8 +407,15 @@ export default {
         _self.watchScroll();
     },
     methods: {
+        //显示功能引导页
+        FunctionalGuidance:function(){
+            var _self = this;
+            _self.panelToggle();
+            _self.queryFunGuid(true);
+        },
         //查询功能引导页
-        queryFunGuid: function() {
+        queryFunGuid: function(isAlwaysShow) {
+          isAlwaysShow = (isAlwaysShow == null || isAlwaysShow == undefined) ? false : isAlwaysShow;
           var _self = this;
           var urlTemp = tool.AjaxBaseUrl();
           var controlName = tool.Api_FunctionBootHandle_MasterPageQuery;
@@ -417,7 +425,7 @@ export default {
             UserName: tool.UserName(),
             _ControlName: controlName,
             _RegisterCode: tool.RegisterCode(),
-            IsAlwaysShow:false
+            IsAlwaysShow:isAlwaysShow
           };
           $.ajax({
             async: true,
@@ -433,6 +441,7 @@ export default {
                   return true;
                 }
                 _self.pageArray = data._OnlyOneData.Rows || [];
+                console.log(_self.pageArray);
                 var mySwiper = new Swiper(".swiper-container", {
                       direction: "horizontal",
                       loop: false,
