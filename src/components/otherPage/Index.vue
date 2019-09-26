@@ -318,7 +318,7 @@
       </div>
       <div
         @click="startUse"
-        class="use-start weui-btn weui-btn_default lanText"
+        class="use-start weui-btn lanText"
         data-lanid="1000460_开始使用"
       ></div>
     </div>
@@ -352,10 +352,11 @@ export default {
             recentMeetingDay:7,
             recentDealAndPitchDay:30,//查询最近30天的Deal和Pitch记录
             pageArray: [
-              // { src: "http://197.7.50.139:6060/img/QQ1.png" },
-              // { src: "http://197.7.50.139:6060/img/QQ2.png" },
-              // { src: "http://197.7.50.139:6060/img/QQ3.png" }
+              // { FileBase64: "http://197.7.50.139:6060/img/QQ1.png" },
+              // { FileBase64: "http://197.7.50.139:6060/img/QQ2.png" },
+              // { FileBase64: "http://197.7.50.139:6060/img/QQ3.png" }
             ],
+            mySwiper:null
         };
     },
     created: function () {
@@ -435,18 +436,28 @@ export default {
             success: function(data) {
               try {
                 data = tool.jObject(data);
-                // console.log(data);
                 if (data._ReturnStatus == false) {
                   tool.showText(tool.getMessage(data));
                   return true;
                 }
                 _self.pageArray = data._OnlyOneData.Rows || [];
-                console.log(_self.pageArray);
-                var mySwiper = new Swiper(".swiper-container", {
+
+                if(_self.pageArray.length<=0){
+                  return false;
+                }
+
+                if(_self.mySwiper != null && _self.mySwiper != undefined){
+                      _self.mySwiper.slideTo(0);//切换到第一个slide，速度为1秒
+                      $('.guideContent').show();
+                }else{
+                      _self.$nextTick(function(){
+                      _self.mySwiper = new Swiper(".swiper-container", {
                       direction: "horizontal",
                       loop: false,
                       resistanceRatio : 0,
                       pagination: ".swiper-pagination",
+                      onInit:function(){
+                      },
                       onSlideChangeStart: function(swiper) {
                         var index = swiper.activeIndex + 1;
                         if (index == _self.pageArray.length) {
@@ -460,11 +471,14 @@ export default {
                       onSlideChangeEnd: function(swiper) {}
                     });
 
+                });
+                }
               } catch (err) {
                 _self.pageArray = [];
                 console.log(err);
               } finally {
               }
+
             },
             error: function(jqXHR, type, error) {
               console.log(error);
@@ -1238,6 +1252,11 @@ export default {
 };
 </script>
 
+<style>
+.swiper-pagination-bullet-active{
+    background:#007aff;
+}
+</style>
 <style scoped>
 /* @import "../assets/css/common/commonlist.css"; */
 @import "swiper/dist/css/swiper.css";
@@ -1252,6 +1271,7 @@ export default {
 .swiper-container {
   height: 100%;
 }
+
 .use-start {
   display: none;
   position: absolute;
@@ -1261,6 +1281,8 @@ export default {
   -moz-transform: translate(-50%, 0);
   transform: translate(-50%, 0);
   bottom: 10vh;
+  background-color: #00a65a;
+  border-color: #008d4c;
 }
 .use-start::after{
   border: 2px solid rgba(0,0,0,.2);
