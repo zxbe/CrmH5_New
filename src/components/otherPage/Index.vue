@@ -301,17 +301,32 @@
 
         <div @click="logout" class="logout-btn lanText" data-lanid="777_注销"></div>
     </div>
+
+    <!-- 引导层 -->
+    <div class="guideContent" v-show="pageArray.length>0">
+      <div class="swiper-container">
+        <div class="swiper-wrapper">
+          <div
+            v-for="(item, index) in pageArray"
+            :key="index"
+            class="swiper-slide"
+            :style="{'background':'url('+ item.src +') no-repeat center','background-size':'cover'}"
+          ></div>
+        </div>
+        <div class="swiper-pagination"></div>
+      </div>
+      <div
+        @click="startUse"
+        class="use-start weui-btn weui-btn_default lanText"
+        data-lanid="1000460_开始使用"
+      ></div>
+    </div>
 </div>
 </template>
 
-<style>
-.test-div {
-    height: 50px;
-    line-height: 50px;
-}
-</style>
-
 <script>
+import Swiper from "swiper";
+import "swiper/dist/css/swiper.css";
 import Header from "@/components/customPlugin/Header"
 import Nothing from "@/components/customPlugin/Nothing"
 export default {
@@ -327,23 +342,8 @@ export default {
             groupData: [], //7天的数据
             meetingDateInterval:"",
             dealDateInterVal:"",
-            dealData:
-            [
-                // {
-                //     "GroupID": 2,
-                //     "GroupName": "測試銷售組1",
-                //     "GroupRowCount": 15,
-                //     "items": []
-                // }
-            ],
-            pitchesData: [
-            // {
-            //     "GroupID": 13,
-            //     "GroupName": "IT Team",
-            //     "GroupRowCount": 7,
-            //     "items": []
-            // }
-            ],
+            dealData:[],
+            pitchesData: [],
             meetingCount: 0, //未上传会议记录的会议数量
             messageCount: 0, //消息数量
             forumMessageCount: 0, //论坛消息的数量
@@ -351,6 +351,11 @@ export default {
             isFromSingleSignOn: false, //是否来源于单点登陆
             recentMeetingDay:7,
             recentDealAndPitchDay:30,//查询最近30天的Deal和Pitch记录
+            pageArray: [
+              { src: "http://197.7.50.139:6060/img/QQ1.png" },
+              { src: "http://197.7.50.139:6060/img/QQ2.png" },
+              { src: "http://197.7.50.139:6060/img/QQ3.png" }
+            ],
         };
     },
     created: function () {
@@ -365,6 +370,9 @@ export default {
             _self.$route.query.IsFromSingleSignOn;
 
         lanTool.updateLanVersion();
+        //引导页
+        _self.queryFunGuid();
+
         _self.recentDate();
         //侧滑
         eventBus.$on("showIndexRightPanelEvent", _self.panelToggle);
@@ -399,6 +407,73 @@ export default {
         _self.watchScroll();
     },
     methods: {
+        //查询功能引导页
+        queryFunGuid: function() {
+          var _self = this;
+          var urlTemp = tool.AjaxBaseUrl();
+          var controlName = tool.Api_FunctionBootHandle_MasterPageQuery;
+          //传入参数
+          var jsonDatasTemp = {
+            CurrentLanguageVersion: lanTool.currentLanguageVersion,
+            UserName: tool.UserName(),
+            _ControlName: controlName,
+            _RegisterCode: tool.RegisterCode(),
+            IsAlwaysShow:false
+          };
+          $.ajax({
+            async: true,
+            type: "post",
+            url: urlTemp,
+            data: jsonDatasTemp,
+            success: function(data) {
+              // console.log("data"+JSON.stringify(data));
+              try {
+                data = tool.jObject(data);
+                console.log(data);
+                if (data._ReturnStatus == false) {
+                  tool.showText(tool.getMessage(data));
+                  return true;
+                }
+                // _self.pageArray = data._OnlyOneData.Rows || [];
+                var mySwiper = new Swiper(".swiper-container", {
+                      direction: "horizontal",
+                      loop: false,
+                      resistanceRatio : 0,
+                      pagination: ".swiper-pagination",
+                      onSlideChangeStart: function(swiper) {
+                        var index = swiper.activeIndex + 1;
+                        if (index == _self.pageArray.length) {
+                          // $('.swiper-pagination').hide();
+                          $(".use-start").show();
+                        } else {
+                          // $('.swiper-pagination').show();
+                          $(".use-start").hide();
+                        }
+                      },
+                      onSlideChangeEnd: function(swiper) {}
+                    });
+
+              } catch (err) {
+                _self.pageArray = [];
+                console.log(err);
+              } finally {
+              }
+            },
+            error: function(jqXHR, type, error) {
+              console.log(error);
+              return true;
+            },
+            complete: function() {
+              //隐藏虚拟键盘
+              document.activeElement.blur();
+            }
+          });
+        },
+        //开始使用
+        startUse: function() {
+           var _self = this;
+            $('.guideContent').hide();
+        },
         //获取最近七天要参加的会议，获取最近一个月的交易和商业机会日期
         recentDate:function(){
             var _self = this;
@@ -1159,4 +1234,27 @@ export default {
 <style scoped>
 /* @import "../assets/css/common/commonlist.css"; */
 @import "../../assets/css/pages/index.css";
+
+.guideContent {
+  position: fixed;
+  top:0;left:0;bottom:0;right:0;
+  z-index: 100;
+}
+.swiper-container {
+  height: 100%;
+}
+.use-start {
+  display: none;
+  position: absolute;
+  z-index: 1;
+  left: 50%;
+  -webkit-transform: translate(-50%, 0);
+  -moz-transform: translate(-50%, 0);
+  transform: translate(-50%, 0);
+  bottom: 10vh;
+}
+.use-start::after{
+  border: 2px solid rgba(0,0,0,.2);
+}
+
 </style>
