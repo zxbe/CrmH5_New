@@ -326,7 +326,6 @@
 
 <script>
 import Swiper from "swiper";
-import "swiper/dist/css/swiper.css";
 import Header from "@/components/customPlugin/Header"
 import Nothing from "@/components/customPlugin/Nothing"
 export default {
@@ -352,9 +351,9 @@ export default {
             recentMeetingDay:7,
             recentDealAndPitchDay:30,//查询最近30天的Deal和Pitch记录
             pageArray: [
-              { src: "http://197.7.50.139:6060/img/QQ1.png" },
-              { src: "http://197.7.50.139:6060/img/QQ2.png" },
-              { src: "http://197.7.50.139:6060/img/QQ3.png" }
+              // { src: "http://197.7.50.139:6060/img/QQ1.png" },
+              // { src: "http://197.7.50.139:6060/img/QQ2.png" },
+              // { src: "http://197.7.50.139:6060/img/QQ3.png" }
             ],
         };
     },
@@ -426,15 +425,14 @@ export default {
             url: urlTemp,
             data: jsonDatasTemp,
             success: function(data) {
-              // console.log("data"+JSON.stringify(data));
               try {
                 data = tool.jObject(data);
-                console.log(data);
+                // console.log(data);
                 if (data._ReturnStatus == false) {
                   tool.showText(tool.getMessage(data));
                   return true;
                 }
-                // _self.pageArray = data._OnlyOneData.Rows || [];
+                _self.pageArray = data._OnlyOneData.Rows || [];
                 var mySwiper = new Swiper(".swiper-container", {
                       direction: "horizontal",
                       loop: false,
@@ -1233,7 +1231,9 @@ export default {
 
 <style scoped>
 /* @import "../assets/css/common/commonlist.css"; */
+@import "swiper/dist/css/swiper.css";
 @import "../../assets/css/pages/index.css";
+
 
 .guideContent {
   position: fixed;
