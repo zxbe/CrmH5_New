@@ -1253,7 +1253,7 @@ export default {
 </script>
 
 <style>
-.swiper-pagination-bullet-active{
+.swiper-pagination .swiper-pagination-bullet-active{
     background:#007aff;
 }
 </style>
