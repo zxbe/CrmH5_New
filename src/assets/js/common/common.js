@@ -583,6 +583,11 @@ import config from '../../configfile/config.js'
 	tool.Api_AllFileHandle_DownloadOrPreview = "Api_AllFileHandle_DownloadOrPreview";
 
 	/*
+	 * 引导页查询
+	 */
+	tool.Api_FunctionBootHandle_MasterPageQuery = "Api_FunctionBootHandle_MasterPageQuery";
+
+	/*
 	 * ADBAjaxUrl:ADB系统请求的api地址
 	 */
 	tool.config_ADBAjaxUrl = "ADBAjaxUrl";
