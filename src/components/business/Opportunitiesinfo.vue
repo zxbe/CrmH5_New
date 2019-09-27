@@ -237,7 +237,7 @@
             </div>
 
             <!-- 备忘 -->
-            <div class="ListCell controlEdit">
+            <div class="ListCell controlEdit visible">
                 <div class="ListCellLeftIcon textLeftIcon"><span class="calcfont calc-beiwanglu"></span></div>
                 <div class="ListCellLeftText">
                     <p class="textareaP">
