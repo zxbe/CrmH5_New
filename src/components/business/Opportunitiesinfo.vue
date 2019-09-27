@@ -490,7 +490,6 @@
                         </div>
                     </div>
                 </div>
-
                 <div id="Matter-div" class="elastic-layer-item f14">
                     <span class="calcfont calc-shixiang icon-left"></span>
                     <div class="item-right">
@@ -522,6 +521,20 @@
                         </div>
                       </div>
                   </div>
+                </div>
+
+                 <div class="elastic-layer-item f14">
+                    <span class="calcfont calc-beiwanglu icon-left"></span>
+                    <div class="item-right">
+                        <div class="item-row">
+                            <div class="lanText label-text" data-lanid="719_备忘"></div>
+                        </div>
+                        <div class="item-row border-bottom not-required">
+                            <div class="ListCellContentRight">
+                                <textarea data-field="DealMemo" data-fieldControlType="textareaInput" class="lanInputPlaceHolder" data-lanid="719_备忘"></textarea>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
             </div>
@@ -1011,6 +1024,7 @@ export default {
             $("[data-field='MSNNew']").val("");
             $("[data-field='MatterNew']").val("").attr("data-fieldVal", "").trigger('change');
             $("[data-field='MatterOtherNew']").val("");
+            $("[data-field='DealMemo']").val(($("[data-field='Memo']").val()||""));
 
             //显示弹框
             $('#transformTo').show();
@@ -1039,6 +1053,7 @@ export default {
                 jsonDatasTemp["MatterOther"] = $("[data-field='MatterOtherNew']").val() || "";
                 jsonDatasTemp["TargetCompanyID"] = $("[data-field='TargetCompanyID']").attr("data-fieldVal") || "";
                 jsonDatasTemp["FromOppID"] = id;
+                jsonDatasTemp["Memo"] = $("[data-field='DealMemo']").val() || "";
 
                 // console.log(jsonDatasTemp);
                 // return;
