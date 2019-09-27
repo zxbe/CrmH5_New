@@ -215,6 +215,7 @@
       :rightPanelFromType = "rightPanelFromType"
       :transformation = "transformation"
       :rightPanelFromID = "rightPanelFromID"></InfoRightPanel>
+
     <!-- 转换为商机弹框 -->
     <div id="transformTo" class="elastic-layer">
         <div class="elastic-layer-content">
@@ -286,6 +287,19 @@
                                 <input type="text" data-field="Initiator" data-lanid="825_负责人" data-fieldControlType="groupSelectList" data-fieldVal="" data-selecttype="checkbox" Code="DropDowList_PopedomTeamVsUser" TypeValue="" data-fromType="8" data-clickObj="InitiatorClickObj" class="ListCellContentRightText" />
                             </div>
                             <span class="calcfont calc-you"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="elastic-layer-item f14">
+                    <span class="calcfont calc-beiwanglu icon-left"></span>
+                    <div class="item-right">
+                        <div class="item-row">
+                            <div class="lanText label-text" data-lanid="719_备忘"></div>
+                        </div>
+                        <div class="item-row border-bottom not-required">
+                            <div class="ListCellContentRight">
+                                <textarea data-field="Memo" data-fieldControlType="textareaInput" class="lanInputPlaceHolder" data-lanid="719_备忘"></textarea>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -369,6 +383,19 @@
                                 <input type="text" data-field="dealInitiator" data-lanid="825_负责人" data-fieldControlType="groupSelectList" data-fieldVal="" data-selecttype="checkbox" Code="DropDowList_PopedomTeamVsUser" TypeValue="" data-fromType="8" data-clickObj="dealInitiatorClickObj" class="ListCellContentRightText" />
                             </div>
                             <span class="calcfont calc-you"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="elastic-layer-item f14">
+                    <span class="calcfont calc-beiwanglu icon-left"></span>
+                    <div class="item-right">
+                        <div class="item-row">
+                            <div class="lanText label-text" data-lanid="719_备忘"></div>
+                        </div>
+                        <div class="item-row border-bottom not-required">
+                            <div class="ListCellContentRight">
+                                <textarea data-field="DealMemo" data-fieldControlType="textareaInput" class="lanInputPlaceHolder" data-lanid="719_备忘"></textarea>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -669,8 +696,8 @@ export default {
         },
         //生成交易
         rightPanelTransformTo:function(){
-           console.log("转化为交易");
-               var _self = this;
+           //console.log("转化为交易");
+            var _self = this;
             var id = _self.id;
 
             //清空控件数据
@@ -679,6 +706,7 @@ export default {
             $("[data-field='MatterOther']").val("");
             $("[data-field='IsPublic']").val("").attr("data-fieldVal", "").trigger('change');
             $("[data-field='dealInitiator']").val("").attr("data-fieldVal", "");
+            $("[data-field='DealMemo']").val("").attr("data-fieldVal", "");
 
             // 默认给data-field="Initiator"赋予23(公开)
             // var publicObj = tool.GetPublicObj();
@@ -727,7 +755,8 @@ export default {
                 jsonDatasTemp["Initiator"] = $("[data-field='dealInitiator']").attr("data-fieldVal") || "";
                 jsonDatasTemp["CompanyID"] = $("[data-field='CompanyID']").attr("data-fieldVal") || "";
                 jsonDatasTemp["FromScheduleID"] = id;
-                console.log("jsonDatasTemp"+JSON.stringify(jsonDatasTemp));
+                jsonDatasTemp["Memo"] = $("[data-field='DealMemo']").val() || "";
+                //console.log("jsonDatasTemp"+JSON.stringify(jsonDatasTemp));
                 // return;
 
                 var loadingIndexClassName = tool.showLoading();
@@ -809,6 +838,7 @@ export default {
             $("[data-field='SourceFromOther']").val("");
             $("[data-field='IsPublic']").val("").attr("data-fieldVal", "").trigger('change');
             $("[data-field='Initiator']").val("").attr("data-fieldVal", "");
+            $("[data-field='Memo']").val("").attr("data-fieldVal", "");
 
             // 默认给data-field="Initiator"赋予23(公开)
             // var publicObj = tool.GetPublicObj();
@@ -856,6 +886,7 @@ export default {
                 jsonDatasTemp["IsPublic"] = $("[data-field='IsPublic']").attr("data-fieldVal") || "";
                 jsonDatasTemp["Initiator"] = $("[data-field='Initiator']").attr("data-fieldVal") || "";
                 jsonDatasTemp["FromScheduleID"] = id;
+                jsonDatasTemp["Memo"] = $("[data-field='Memo']").val() || "";
                 // console.log(jsonDatasTemp);
                 // return;
 
