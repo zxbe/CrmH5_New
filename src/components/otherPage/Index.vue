@@ -473,7 +473,6 @@ export default {
                       },
                       onSlideChangeEnd: function(swiper) {}
                     });
-
                 });
                 }
               } catch (err) {
