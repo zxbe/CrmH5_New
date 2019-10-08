@@ -457,6 +457,9 @@ export default {
                       resistanceRatio : 0,
                       pagination: ".swiper-pagination",
                       onInit:function(){
+                        if(_self.pageArray.length == 1){
+                            $(".use-start").show();
+                        }
                       },
                       onSlideChangeStart: function(swiper) {
                         var index = swiper.activeIndex + 1;
