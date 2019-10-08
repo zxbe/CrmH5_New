@@ -2018,7 +2018,7 @@ import config from '../../configfile/config.js'
 	};
 
     if(pageSource != undefined && pageSource == 'index'){
-        jsonDatasTemp.RecentDay = 7;
+        jsonDatasTemp.RecentDay = 6;
     }else{
         jsonDatasTemp.GroupBy = groupBy;
     }
