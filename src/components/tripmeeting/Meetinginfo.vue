@@ -296,7 +296,7 @@
                         <div class="item-row">
                             <div class="lanText label-text" data-lanid="719_备忘"></div>
                         </div>
-                        <div class="item-row border-bottom not-required">
+                        <div class="item-row border-bottom">
                             <div class="ListCellContentRight">
                                 <textarea data-field="Memo" data-fieldControlType="textareaInput" class="lanInputPlaceHolder" data-lanid="719_备忘"></textarea>
                             </div>
@@ -392,7 +392,7 @@
                         <div class="item-row">
                             <div class="lanText label-text" data-lanid="719_备忘"></div>
                         </div>
-                        <div class="item-row border-bottom not-required">
+                        <div class="item-row border-bottom">
                             <div class="ListCellContentRight">
                                 <textarea data-field="DealMemo" data-fieldControlType="textareaInput" class="lanInputPlaceHolder" data-lanid="719_备忘"></textarea>
                             </div>
