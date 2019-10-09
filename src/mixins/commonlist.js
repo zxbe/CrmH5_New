@@ -135,7 +135,7 @@ export default{
                 .addClass("active-item")
                 .siblings()
                 .removeClass("active-item");
-            //会议列表没有切换 所以不用调用这个方法    
+            //会议列表没有切换 所以不用调用这个方法
             if(!tool.isNullOrEmptyObject(el)){
                 _self.changePos();
             }
@@ -204,9 +204,7 @@ export default{
          *  id1 , id2 :只模块id
          */
         groupToggleHandle:function(id1, id2){
-
             var _self = this;
-
             $("#"+ id1 +",#"+id2).off("click", "div.date-div").on(
                 "click",
                 "div.date-div",
@@ -221,7 +219,6 @@ export default{
                     }
                     var fromType = target.parents("div[data-fromtype]").attr("data-fromtype") || "";
                     var groupID = target.find("span[data-groupid]:first").attr("data-groupid") || "";
-
 
                     if (tool.isNullOrEmptyObject(groupID)) {
                         return;
@@ -251,16 +248,19 @@ export default{
                         }
 
                         let groupBy = _self.groupBy == undefined ? '' : _self.groupBy;
-                        console.log(_self.showPage);
 
                         tool.InitInnerDataList(_self, fromType, groupID, allQueryData, function(){
                             _self.$nextTick(function () {
                                 target.addClass("open")
                                     .siblings(".group-item-list")
                                     .slideDown(500);
-
+                                //联系人二级展开收起
                                 if(!tool.isNullOrEmptyObject(_self.contactsToggle)){
                                   _self.contactsToggle();
+                                }
+                                //分组模式会议 二级展开收起
+                                if(!tool.isNullOrEmptyObject(_self.meetingToggle)){
+                                  _self.meetingToggle();
                                 }
                             })
                         }, '', groupBy, _self.showPage);
@@ -280,7 +280,6 @@ export default{
               return;
             }
             var num = _self.showPage;
-            // var container = null;
             var fromType = "";
 
             $.each(data, function(index, item){

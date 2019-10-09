@@ -22,8 +22,8 @@
                         <span class="add-text lanText" data-lanid="886_新增会议"></span>
                     </div>
                 </div>
-                <!-- 列表 -->
-                <div v-show="!noData" id="meetingList" data-fromtype="meeting">
+                <!-- 列表  Date模式 -->
+                <div v-show="!noData && groupBy=='date'" id="meetingList" data-fromtype="meeting">
                       <div v-for="group in groupData" :key="group.GroupID"
                        class="list-group-div group-div">
                           <div class="date-div">
@@ -33,7 +33,7 @@
                           </div>
                           <div class="occupy-div"></div>
 
-                          <div v-if="group.items.length > 0" class="group-item-list meeting-list">
+                          <div v-if="group.items && group.items.length > 0" class="group-item-list meeting-list">
                               <div v-for="item in group.items" :key="item.AutoID"
                               class="data-events-item f14" :data-url="'/meetinginfo/' + item.AutoID">
                                       <div class="flex">
@@ -56,6 +56,63 @@
                           </div>
                       </div>
                 </div>
+
+                <!-- 列表  分组 模式 -->
+                <div v-show="!noData && groupBy=='popedomTeamInf'" id="meetingListOfGroup" data-fromtype="meeting">
+                      <div v-for="group in groupData" :key="group.GroupID" class="list-group-div group-div">
+                          <div class="date-div">
+                              <span class="calcfont calc-business"></span>
+                              <span class="group-name" :data-groupid="group.GroupID">{{group.GroupName}}</span>
+                              <span class="right">（{{group.GroupRowCount}}）</span>
+                          </div>
+                          <div class="occupy-div"></div>
+
+                          <div v-if="group.items && group.items.length > 0" class="group-item-list contacts-list">
+                                  <div v-for="dateGroup in group.items" :key="dateGroup.AutoID" class="company_item">
+                                    <div class="company_item_tit f14" >
+                                        <span class="calcfont calc-gongsixinxi"></span>
+                                        <div class="company_name" :data-groupid="dateGroup.AutoID">{{dateGroup.ShortName}}</div>
+                                        <div>（{{dateGroup.GroupRowCount}}）</div>
+                                    </div>
+                                    <div class="occupy-div"></div>
+
+                                    <div v-if="dateGroup.items && dateGroup.items.length > 0" class="contact_list">
+                                          <div v-for="meetingData in dateGroup.items" :key="meetingData.AutoID"
+                                            :data-url="'/contactsinfo/' + meetingData.AutoID"
+                                            class="group-item data-events-item f14">
+
+                                                <div class="item-user-icon"><img src="../../assets/images/default_user_img.png" alt=""></div>
+                                                <div class="item-block contacts-item-block">
+                                                        <div class="item-div item-first-div"><span>{{meetingData.EnglishName}}</span></div>
+                                                        <div class="item-div" style="padding-top:5px;">
+                                                            <i :class="[(meetingData.Title =='' || meetingData.Title == null) ? '' : 'calc-zhiwei']" class="calcfont icon"></i><span>{{company.Title}}</span>
+                                                        </div>
+                                                        <div class="item-div">
+                                                            <div class="left-text max60" v-show="(meetingData.CompanyID =='' || meetingData.CompanyID == null) ? false : true">
+                                                                <i class="calcfont icon calc-gongsixinxi"></i><span >{{meetingData.CompanyID}}</span>
+                                                            </div>
+                                                            <div class="right-text max35" v-show="(meetingData.CountryName =='' || meetingData.CountryName == null) ? false : true">
+                                                                <i class="calcfont icon calc-nationaarea"></i><span>{{meetingData.CountryName}}</span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="item-div">
+                                                            <div class="left-text max60" v-show="(meetingData.Email =='' || meetingData.Email == null) ? false : true">
+                                                              <i class="calcfont icon calc-mailbox"></i><span>{{meetingData.Email}}</span>
+                                                            </div>
+                                                            <div class="right-text max35" v-show="(meetingData.TelPhone =='' || meetingData.TelPhone == null) ? false : true">
+                                                              <i class="calcfont icon calc-mobilephone"></i><span>{{meetingData.TelPhone}}</span>
+                                                            </div>
+                                                        </div>
+
+                                                </div>
+                                          </div>
+                                    </div>
+                              </div>
+                          </div>
+                      </div>
+                </div>
+
+
                 <nothing v-show="noData" style="padding-top:0.8rem;"></nothing>
             </div>
 
@@ -105,6 +162,7 @@ export default {
     data() {
         return {
             title: lanTool.lanContent('1149_会议'),
+            groupBy:"date",//分组模式
             // viewType: 'calendarView', //展示视图类型  calendarView, listView
 
             //侧滑数据模型
@@ -155,7 +213,22 @@ export default {
                             queryRelation: "and",
                             queryValue: "otherData",
                             queryComparison: "="
-
+                        }
+                    ]
+                },
+                {
+                    groupText: lanTool.lanContent("1000004_分组模式"),
+                    groupName: 'modelDataFilter',
+                    type: "radio",
+                    default: "date",
+                    items: [
+                        {
+                            id: "date",
+                            text: lanTool.lanContent("907_日期"),
+                        },
+                        {
+                            id: "popedomTeamInf",
+                            text: lanTool.lanContent("769_业务组")
                         }
                     ]
                 },
@@ -337,16 +410,75 @@ export default {
         }
     },
     methods: {
-        //切换
-        // switchPage:function(num,$event){
-        //     let _self = this;
-        //     _self.switchPageHandle(num, $event ,'SET_TRIPMEETING_SHOW_MODULE');
-        // },
 
-        //列表展开收起
+        //设置分组模式
+        setGroupBy:function(data){
+            var _self = this;
+            _self.groupBy = data;
+            //执行监听的这个动作
+            _self.RefreshCurPageGroupData();
+        },
+
+        //列表展开收起(一级)
         groupToggle: function () {
             var _self = this;
-            _self.groupToggleHandle('meetingList','tripList');
+            _self.groupToggleHandle('meetingList','meetingListOfGroup');
+        },
+
+        //分组模式会议 二级展开收起
+        meetingToggle:function(){
+            let _self = this;
+            $('#meetingListOfGroup').off('click','.company_item_tit').on(
+              'click',
+              '.company_item_tit',
+              function(event){
+                  event.preventDefault();
+                  var target = $(event.target);
+                  if (!target.hasClass('company_item_tit')) {
+                      target = target.parents("div.company_item_tit:first");
+                      if (tool.isNullOrEmptyObject(target)) {
+                          return;
+                      }
+                  }
+                  var categoryID = target.closest('.contacts-list')
+                                  .siblings('div.date-div')
+                                  .find("span[data-groupid]:first")
+                                  .attr("data-groupid") || "";
+                  var fromType = "contacts";
+                  var companyID = target.find("div[data-groupid]:first").attr("data-groupid") || "";
+                  if (tool.isNullOrEmptyObject(categoryID) || tool.isNullOrEmptyObject(companyID)) {
+                        return;
+                  }
+                  //若是展开
+                    if (target.hasClass("open")) {
+                        target
+                            .removeClass("open")
+                            .siblings(".contact_list")
+                            .slideUp(500, function () {
+                                //清空items数据
+                                $.each(_self.groupData, function (index, item) {
+                                    if (item.GroupID == categoryID) {
+                                        $.each(item.items, function(i, companyData){
+                                            if(companyData.AutoID == companyID){
+                                                companyData.items = [];
+                                            }
+                                        })
+                                    }
+                                })
+                            });
+                    }else{
+                        //若是收起
+                        _self.getContacts(categoryID, companyID, function(){
+                            _self.$nextTick(function () {
+                                target.addClass("open")
+                                    .siblings(".contact_list")
+                                    .slideDown(500);
+                            })
+                        });
+                    }
+
+
+              })
         },
 
         //刷新当前激活的page的分组数据
