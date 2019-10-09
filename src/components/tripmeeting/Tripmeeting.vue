@@ -468,7 +468,7 @@ export default {
                             });
                     }else{
                         //若是收起
-                        _self.getContacts(categoryID, companyID, function(){
+                        _self.getMeetings(categoryID, companyID, function(){
                             _self.$nextTick(function () {
                                 target.addClass("open")
                                     .siblings(".contact_list")
@@ -479,6 +479,75 @@ export default {
 
 
               })
+        },
+
+        //根据日期获取会议
+        getMeetings:function(categoryID, companyID, callBack){
+            let _self = this;
+            if(tool.isNullOrEmptyObject(categoryID) || tool.isNullOrEmptyObject(companyID)){
+              return;
+            }
+            //筛选条件
+            var allQueryData = tool.combineArray(_self.queryCondictionData, _self.queryCondiction, "Field");
+            // console.log(allQueryData);
+            //请求地址
+            var urlTemp = tool.AjaxBaseUrl();
+            var controlName = tool.Api_MeetingHandle_GroupInnerData;
+            //传入参数
+            var jsonDatasTemp = {
+                CurrentLanguageVersion: lanTool.currentLanguageVersion,
+                UserName: tool.UserName(),
+                _ControlName: controlName,
+                GroupID: companyID,
+                _RegisterCode: tool.RegisterCode(),
+                QueryCondiction:JSON.stringify(allQueryData),
+                PageType: 0
+            };
+            var loadingIndexClassName = tool.showLoading();
+            $.ajax({
+                async: true,
+                type: "post",
+                url: urlTemp,
+                data: jsonDatasTemp,
+                success: function (data) {
+                    tool.hideLoading(loadingIndexClassName);
+                    data = tool.jObject(data);
+                    if (data._ReturnStatus == false) {
+                        tool.showText(tool.getMessage(data));
+                        console.log(tool.getMessage(data));
+                        _self.noData = true;
+                        return;
+                    }
+                    data = data._OnlyOneData.Rows || [];
+                    console.log(data);
+                    //无数据
+                    if (data.length <= 0) {
+                        return;
+                    }
+                    $.each(_self.groupData, function (index, item) {
+                        if (item.GroupID == categoryID) {
+                            $.each(item.items, function(i, companyData){
+                                if(companyData.AutoID == companyID){
+                                    companyData.items = data;
+                                }
+                            })
+                        }
+                    })
+                    if (!tool.isNullOrEmptyObject(callBack)) {
+                        callBack();
+                    }
+                },
+                error: function (jqXHR, type, error) {
+                    console.log(error);
+                    tool.hideLoading(loadingIndexClassName);
+                    return;
+                },
+                complete: function () {
+                    //隐藏虚拟键盘
+                    document.activeElement.blur();
+                }
+            });
+
         },
 
         //刷新当前激活的page的分组数据
