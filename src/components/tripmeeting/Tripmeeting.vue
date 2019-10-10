@@ -497,7 +497,8 @@ export default {
                 GroupID: companyID,
                 _RegisterCode: tool.RegisterCode(),
                 QueryCondiction:JSON.stringify(allQueryData),
-                PageType: 1
+                PageType: 1,
+                TeamID:categoryID
             };
             var loadingIndexClassName = tool.showLoading();
             $.ajax({
