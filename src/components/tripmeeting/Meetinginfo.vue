@@ -76,7 +76,7 @@
                     </div>
                 </div> -->
 
-                
+
 
                 <!-- 公司 -->
                 <div class="ListSpecialCell visible controlEdit" id="CompanyIDClickObj">
@@ -89,7 +89,7 @@
                 </div>
 
                 <!-- BlackList -->
-                <div class="ListCell visible controlEdit">
+                <div class="ListCell visible controlEdit disable">
                     <div class="ListCellLeftIcon"><span class="calcfont calc-woshimaijia2"></span></div>
                     <div class="ListCellContent">
                         <div class="ListCellContentLeft leftContent">
@@ -560,7 +560,7 @@ export default {
                     if(tool.isNullOrEmptyObject(fieldTemp) && fieldTemp != "CompanyID"){
                         //清空全局变量
                         eventBus.selectListData = null;
-                    }else{    
+                    }else{
                         //联动BlackList值
                         _self.linkBlackList(eventBus.selectListData["value"]["id"]||"",function(){
                             //清空全局变量
@@ -593,7 +593,7 @@ export default {
             if(tool.isNullOrEmptyObject(fieldTemp) && fieldTemp != "CompanyID"){
                 //清空全局变量
                 eventBus.selectListData = null;
-            }else{    
+            }else{
                 //联动BlackList值
                 _self.linkBlackList(eventBus.selectListData["value"]["id"]||"",function(){
                     //清空全局变量
