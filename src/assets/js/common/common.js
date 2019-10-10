@@ -2426,7 +2426,10 @@ import config from '../../configfile/config.js'
                   return;
               }
               data = data._OnlyOneData.Rows || [];
-
+// console.log(data);
+// console.log(groupID);
+// console.log(vueObj.groupData);
+console.log(fromType);
               //无数据
               if (data.length <= 0) {
                   return;
@@ -2440,26 +2443,22 @@ import config from '../../configfile/config.js'
 
                             var meetingSysmbol = lanTool.lanContent("1000001_最新的会议") || "new";
                             var className = '';
-                            // if(dataItem.CurrentState == lanTool.lanContent("955_已关闭")){
-                            //     className = 'closed'
-							// }
-							//若不是进行中
-							if(dataItem.CurrentStateNew != null && dataItem.CurrentStateNew != undefined && dataItem.CurrentStateNew.toString() != "38"){
-                                className = 'closed'
-							}
+
+                            if(dataItem.CurrentStateNew != null && dataItem.CurrentStateNew != undefined && dataItem.CurrentStateNew.toString() != "38"){
+                                              className = 'closed'
+                            }
                             vueObj.$set(dataItem, 'className', className);
                             vueObj.$set(dataItem, 'meetingSysmbol', meetingSysmbol);
                          })
                       }
-                      //若是organizations
-                      if(fromType == 'organizations'){
+                      //若是organizations || meeting
+                      if(fromType == 'organizations' || fromType == 'meeting'){
                         $.each(item.items,function(index, companyData){
                             vueObj.$set(companyData, 'items', []);
                         })
                       }
                   }
               })
-
               if (!tool.isNullOrEmptyObject(myCallBack)) {
                   myCallBack();
               }
@@ -4130,7 +4129,7 @@ import config from '../../configfile/config.js'
               });
           });
 	  }
-	  
+
 	//   console.log(eventBus.selectListData);
       if(tool.isNullOrEmptyObject(eventBus.selectListData)){
           return;

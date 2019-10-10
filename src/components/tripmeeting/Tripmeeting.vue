@@ -68,19 +68,40 @@
                           <div class="occupy-div"></div>
 
                           <div v-if="group.items && group.items.length > 0" class="group-item-list contacts-list">
-                                  <div v-for="dateGroup in group.items" :key="dateGroup.AutoID" class="company_item">
+                                  <div v-for="dateGroup in group.items" :key="dateGroup.GroupID" class="company_item">
                                     <div class="company_item_tit f14" >
                                         <span class="calcfont calc-gongsixinxi"></span>
-                                        <div class="company_name" :data-groupid="dateGroup.AutoID">{{dateGroup.ShortName}}</div>
+                                        <div class="company_name" :data-groupid="dateGroup.GroupID">{{dateGroup.GroupID}}</div>
                                         <div>（{{dateGroup.GroupRowCount}}）</div>
                                     </div>
                                     <div class="occupy-div"></div>
 
-                                    <div v-if="dateGroup.items && dateGroup.items.length > 0" class="contact_list">
+                                    <div v-if="dateGroup.items && dateGroup.items.length > 0" class="meeting-list">
+                                          <div v-for="item in dateGroup.items" :key="item.AutoID"
+                                              class="data-events-item f14" :data-url="'/meetinginfo/' + item.AutoID">
+                                                  <div class="flex">
+                                                    <i style="margin-right: 3px;" class="calcfont calc-T icon"></i><div class="item-title">{{item.MeetingTitle}}</div>
+                                                  </div>
+                                                  <div class="item-time f12">
+                                                        <span class="calcfont calc-gengxinshijian"></span>
+                                                        <span class="time-text">{{item.BeginTime|MeetingTimeFormat}}~{{item.EndTime|MeetingTimeFormat}}</span>
+                                                        <span class="right-text">{{item.Realname}}</span>
+                                                  </div>
+                                                  <div class="flex pdtb" v-show="(item.CompanyID =='' || item.CompanyID == null) ? false : true">
+                                                      <i class="icon calcfont calc-gongsixinxi"></i>
+                                                      <div class="item-address">{{item.CompanyID}}</div>
+                                                  </div>
+                                                  <div class="flex" v-show="(item.ContactsID =='' || item.ContactsID == null) ? false : true">
+                                                      <i class="icon calcfont calc-kehulianxiren"></i>
+                                                      <div class="item-initiator">{{item.ContactsID|formatContactsID}}{{item.Title|formatTitle}}</div>
+                                                  </div>
+                                          </div>
+
+
+<!--
                                           <div v-for="meetingData in dateGroup.items" :key="meetingData.AutoID"
                                             :data-url="'/contactsinfo/' + meetingData.AutoID"
                                             class="group-item data-events-item f14">
-
                                                 <div class="item-user-icon"><img src="../../assets/images/default_user_img.png" alt=""></div>
                                                 <div class="item-block contacts-item-block">
                                                         <div class="item-div item-first-div"><span>{{meetingData.EnglishName}}</span></div>
@@ -103,9 +124,10 @@
                                                               <i class="calcfont icon calc-mobilephone"></i><span>{{meetingData.TelPhone}}</span>
                                                             </div>
                                                         </div>
-
                                                 </div>
                                           </div>
+-->
+
                                     </div>
                               </div>
                           </div>
@@ -450,32 +472,32 @@ export default {
                         return;
                   }
                   //若是展开
-                    if (target.hasClass("open")) {
-                        target
-                            .removeClass("open")
-                            .siblings(".contact_list")
-                            .slideUp(500, function () {
-                                //清空items数据
-                                $.each(_self.groupData, function (index, item) {
-                                    if (item.GroupID == categoryID) {
-                                        $.each(item.items, function(i, companyData){
-                                            if(companyData.AutoID == companyID){
-                                                companyData.items = [];
-                                            }
-                                        })
-                                    }
-                                })
-                            });
-                    }else{
-                        //若是收起
-                        _self.getMeetings(categoryID, companyID, function(){
-                            _self.$nextTick(function () {
-                                target.addClass("open")
-                                    .siblings(".contact_list")
-                                    .slideDown(500);
-                            })
-                        });
-                    }
+                  if (target.hasClass("open")) {
+                      target
+                          .removeClass("open")
+                          .siblings(".meeting-list")
+                          .slideUp(500, function () {
+                              //清空items数据
+                              $.each(_self.groupData, function (index, item) {
+                                  if (item.GroupID == categoryID) {
+                                      $.each(item.items, function(i, companyData){
+                                          if(companyData.AutoID == companyID){
+                                              companyData.items = [];
+                                          }
+                                      })
+                                  }
+                              })
+                          });
+                  }else{
+                      //若是收起
+                      _self.getMeetings(categoryID, companyID, function(){
+                          _self.$nextTick(function () {
+                              target.addClass("open")
+                                  .siblings(".meeting-list")
+                                  .slideDown(500);
+                          })
+                      });
+                  }
 
 
               })
@@ -519,20 +541,24 @@ export default {
                         return;
                     }
                     data = data._OnlyOneData.Rows || [];
-                    console.log(data);
+
                     //无数据
                     if (data.length <= 0) {
                         return;
                     }
+
                     $.each(_self.groupData, function (index, item) {
                         if (item.GroupID == categoryID) {
                             $.each(item.items, function(i, companyData){
-                                if(companyData.AutoID == companyID){
+                                if(companyData.GroupID == companyID){
                                     companyData.items = data;
                                 }
                             })
                         }
                     })
+                     console.log(_self.groupData);
+                    // console.log(categoryID);
+                    console.log(data);
                     if (!tool.isNullOrEmptyObject(callBack)) {
                         callBack();
                     }
@@ -573,7 +599,7 @@ export default {
         //点击跳转到详情页
         goInfo:function(){
             var _self = this;
-            $("#meetingList,#tripList").off('click','div.data-events-item').on('click','div.data-events-item',function(event){
+            $("#meetingList,#meetingListOfGroup").off('click','div.data-events-item').on('click','div.data-events-item',function(event){
 
                 var target = $(event.target);
 
