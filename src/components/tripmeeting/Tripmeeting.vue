@@ -23,7 +23,7 @@
                     </div>
                 </div>
                 <!-- 列表  Date模式 -->
-                <div v-show="!noData && groupBy=='date'" id="meetingList" data-fromtype="meeting">
+                <div v-show="!noData && showGroupPage=='date'" id="meetingList" data-fromtype="meeting">
                       <div v-for="group in groupData" :key="group.GroupID"
                        class="list-group-div group-div">
                           <div class="date-div">
@@ -58,7 +58,7 @@
                 </div>
 
                 <!-- 列表  分组 模式 -->
-                <div v-show="!noData && groupBy=='popedomTeamInf'" id="meetingListOfGroup" data-fromtype="meeting">
+                <div v-show="!noData && showGroupPage=='popedomTeamInf'" id="meetingListOfGroup" data-fromtype="meeting">
                       <div v-for="group in groupData" :key="group.GroupID" class="list-group-div group-div">
                           <div class="date-div">
                               <span class="calcfont calc-business"></span>
@@ -71,7 +71,7 @@
                                   <div v-for="dateGroup in group.items" :key="dateGroup.GroupID" class="company_item">
                                     <div class="company_item_tit f14" >
                                         <span class="calcfont calc-rili1"></span>
-                                        <div class="company_name" :data-groupid="dateGroup.GroupID">{{dateGroup.GroupID}}</div>
+                                        <div class="company_name" :data-groupid="dateGroup.GroupID">{{dateGroup.GroupName|abdDateFormat('dd/MM/yyyy')}}</div>
                                         <div>（{{dateGroup.GroupRowCount}}）</div>
                                     </div>
                                     <div class="occupy-div"></div>
@@ -155,6 +155,7 @@ export default {
         return {
             title: lanTool.lanContent('1149_会议'),
             groupBy:"date",//分组模式
+            showGroupPage:"date",//显示分组页
             // viewType: 'calendarView', //展示视图类型  calendarView, listView
 
             //侧滑数据模型
@@ -413,7 +414,10 @@ export default {
                 _self.showPage = 0;
             }
             //执行监听的这个动作
-            _self.RefreshCurPageGroupData();
+            _self.RefreshCurPageGroupData(function(){
+                console.log(_self.groupBy);
+                _self.showGroupPage = _self.groupBy;
+            });
         },
 
         //列表展开收起(一级)
@@ -549,7 +553,7 @@ export default {
         },
 
         //刷新当前激活的page的分组数据
-        RefreshCurPageGroupData: function () {
+        RefreshCurPageGroupData: function (myCallBack) {
             var _self = this;
             var data = [
                 {
@@ -565,7 +569,7 @@ export default {
                   searchData:_self.meetingSearch
                 },
             ]
-            _self.RefreshCurPageGroupDataHandle(data);
+            _self.RefreshCurPageGroupDataHandle(data,myCallBack);
         },
 
         //点击跳转到详情页

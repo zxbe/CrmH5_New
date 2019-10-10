@@ -277,7 +277,7 @@ export default{
         /*
          * 刷新分组数据操作
          */
-        RefreshCurPageGroupDataHandle:function(data){
+        RefreshCurPageGroupDataHandle:function(data,myCallBack){
             var _self = this;
 
             if(tool.isNullOrEmptyObject(data)){
@@ -307,6 +307,10 @@ export default{
                 if(_self.$route.name && _self.$route.name == 'businessCategories'){
                     _self.search();
                     _self.ClearSearchText();
+                }
+
+                if(!tool.isNullOrEmptyObject(myCallBack) && typeof(myCallBack) == 'function'){
+                    myCallBack();
                 }
 
                 //把列表中的open类清楚
