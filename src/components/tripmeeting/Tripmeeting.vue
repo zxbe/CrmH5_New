@@ -436,7 +436,6 @@ export default {
                                   .siblings('div.date-div')
                                   .find("span[data-groupid]:first")
                                   .attr("data-groupid") || "";
-                  var fromType = "contacts";
                   var companyID = target.find("div[data-groupid]:first").attr("data-groupid") || "";
                   if (tool.isNullOrEmptyObject(categoryID) || tool.isNullOrEmptyObject(companyID)) {
                         return;
@@ -493,7 +492,7 @@ export default {
                 GroupID: companyID,
                 _RegisterCode: tool.RegisterCode(),
                 QueryCondiction:JSON.stringify(allQueryData),
-                PageType: 0
+                PageType: 1
             };
             var loadingIndexClassName = tool.showLoading();
             $.ajax({
