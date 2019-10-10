@@ -28,6 +28,7 @@ export default{
             setTimeout(function () {
 
                 $(window).unbind('scroll').bind('scroll',function(){
+
                     var scrollTop = $(document).scrollTop() || $(window).scrollTop();
                     if ($(".group-div").length <= 0) return;
                     $(".group-div").each(function (index, el) {
@@ -71,17 +72,19 @@ export default{
                         }
                     });
 
-
-
+                    //列表二级滚动固定
                     if ($(".company_item").length <= 0) return;
-                    let dateDivHeight = $('.date-div').innerHeight()+1;
-                    let companyItemTitHeight = $('.company_item_tit').innerHeight()+1;
+                    // let dateDivHeight = $('.date-div').innerHeight()+1;
+                    let dateDivHeight = $('.date-div').height();
+                    // let companyItemTitHeight = $('.company_item_tit').innerHeight()+1;
+                    let companyItemTitHeight = $('.company_item_tit').height();
 
                     $(".company_item").each(function (index, el) {
 
-                        if($(el).find('.contact_list').length <= 0){
+                        if($(el).find('.data-list').length <= 0){
                           return true;
                         }
+
                         let companyItemHeight = $(el).innerHeight();
 
                         if ((($(el).offset().top - scrollTop) <= (height + dateDivHeight)) &&
@@ -119,6 +122,7 @@ export default{
                             }
                         }
                     });
+
                 });
             }, 0);
         },

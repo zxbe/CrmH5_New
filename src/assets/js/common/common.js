@@ -2426,10 +2426,6 @@ import config from '../../configfile/config.js'
                   return;
               }
               data = data._OnlyOneData.Rows || [];
-// console.log(data);
-// console.log(groupID);
-// console.log(vueObj.groupData);
-console.log(fromType);
               //无数据
               if (data.length <= 0) {
                   return;

@@ -78,7 +78,7 @@
                       </div>
                       <div class="occupy-div"></div>
 
-                      <div v-if="group.items.length > 0" class="group-item-list contacts-list">
+                      <div v-if="group.items.length > 0" class="group-item-list contacts-list ">
                               <div v-for="companys in group.items" :key="companys.AutoID" class="company_item">
                                 <div class="company_item_tit f14" >
                                     <span class="calcfont calc-gongsixinxi"></span>
@@ -87,7 +87,7 @@
                                 </div>
                                 <div class="occupy-div"></div>
 
-                                <div v-if="companys.items.length > 0" class="contact_list">
+                                <div v-if="companys.items.length > 0" class="contact_list data-list">
                                       <div v-for="company in companys.items" :key="company.AutoID"
                                         :data-url="'/contactsinfo/' + company.AutoID"
                                         class="group-item data-events-item f14">

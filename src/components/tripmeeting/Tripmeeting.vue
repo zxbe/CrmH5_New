@@ -76,7 +76,7 @@
                                     </div>
                                     <div class="occupy-div"></div>
 
-                                    <div v-if="dateGroup.items && dateGroup.items.length > 0" class="meeting-list">
+                                    <div v-if="dateGroup.items && dateGroup.items.length > 0" class="meeting-list data-list">
                                           <div v-for="item in dateGroup.items" :key="item.AutoID"
                                               class="data-events-item f14" :data-url="'/meetinginfo/' + item.AutoID">
                                                   <div class="flex">
@@ -96,41 +96,11 @@
                                                       <div class="item-initiator">{{item.ContactsID|formatContactsID}}{{item.Title|formatTitle}}</div>
                                                   </div>
                                           </div>
-
-
-<!--
-                                          <div v-for="meetingData in dateGroup.items" :key="meetingData.AutoID"
-                                            :data-url="'/contactsinfo/' + meetingData.AutoID"
-                                            class="group-item data-events-item f14">
-                                                <div class="item-user-icon"><img src="../../assets/images/default_user_img.png" alt=""></div>
-                                                <div class="item-block contacts-item-block">
-                                                        <div class="item-div item-first-div"><span>{{meetingData.EnglishName}}</span></div>
-                                                        <div class="item-div" style="padding-top:5px;">
-                                                            <i :class="[(meetingData.Title =='' || meetingData.Title == null) ? '' : 'calc-zhiwei']" class="calcfont icon"></i><span>{{company.Title}}</span>
-                                                        </div>
-                                                        <div class="item-div">
-                                                            <div class="left-text max60" v-show="(meetingData.CompanyID =='' || meetingData.CompanyID == null) ? false : true">
-                                                                <i class="calcfont icon calc-gongsixinxi"></i><span >{{meetingData.CompanyID}}</span>
-                                                            </div>
-                                                            <div class="right-text max35" v-show="(meetingData.CountryName =='' || meetingData.CountryName == null) ? false : true">
-                                                                <i class="calcfont icon calc-nationaarea"></i><span>{{meetingData.CountryName}}</span>
-                                                            </div>
-                                                        </div>
-                                                        <div class="item-div">
-                                                            <div class="left-text max60" v-show="(meetingData.Email =='' || meetingData.Email == null) ? false : true">
-                                                              <i class="calcfont icon calc-mailbox"></i><span>{{meetingData.Email}}</span>
-                                                            </div>
-                                                            <div class="right-text max35" v-show="(meetingData.TelPhone =='' || meetingData.TelPhone == null) ? false : true">
-                                                              <i class="calcfont icon calc-mobilephone"></i><span>{{meetingData.TelPhone}}</span>
-                                                            </div>
-                                                        </div>
-                                                </div>
-                                          </div>
--->
-
                                     </div>
+
                               </div>
                           </div>
+
                       </div>
                 </div>
 
@@ -556,9 +526,6 @@ export default {
                             })
                         }
                     })
-                     console.log(_self.groupData);
-                    // console.log(categoryID);
-                    console.log(data);
                     if (!tool.isNullOrEmptyObject(callBack)) {
                         callBack();
                     }
