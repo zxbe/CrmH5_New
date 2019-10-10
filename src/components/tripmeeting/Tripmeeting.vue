@@ -15,7 +15,7 @@
                 <div class="nav-border"></div>
             </div> -->
 
-            <div class="pageList" v-show="showPage == 0">
+            <div class="pageList">
                 <div class="add-btn-div">
                     <div @click="addData" class="add-div">
                         <span class="calcfont calc-add"></span>
@@ -407,6 +407,11 @@ export default {
         setGroupBy:function(data){
             var _self = this;
             _self.groupBy = data;
+            if(_self.groupBy == 'popedomTeamInf'){
+                _self.showPage = 1;
+            }else{
+                _self.showPage = 0;
+            }
             //执行监听的这个动作
             _self.RefreshCurPageGroupData();
         },
@@ -549,14 +554,14 @@ export default {
                 {
                   moduleId:0,
                   fromType:'meeting',
-                  container:$("#meeting"),
+                  // container:$("#meeting"),
                   searchData:_self.meetingSearch
                 },
                 {
                   moduleId:1,
-                  fromType:'trip',
-                  container:$("#trip"),
-                  searchData:_self.tripSearch
+                  fromType:'meeting',
+                  // container:$("#trip"),
+                  searchData:_self.meetingSearch
                 },
             ]
             _self.RefreshCurPageGroupDataHandle(data);
