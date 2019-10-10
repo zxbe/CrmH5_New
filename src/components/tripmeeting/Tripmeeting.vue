@@ -70,7 +70,7 @@
                           <div v-if="group.items && group.items.length > 0" class="group-item-list contacts-list">
                                   <div v-for="dateGroup in group.items" :key="dateGroup.GroupID" class="company_item">
                                     <div class="company_item_tit f14" >
-                                        <span class="calcfont calc-gongsixinxi"></span>
+                                        <span class="calcfont calc-rili1"></span>
                                         <div class="company_name" :data-groupid="dateGroup.GroupID">{{dateGroup.GroupID}}</div>
                                         <div>（{{dateGroup.GroupRowCount}}）</div>
                                     </div>
