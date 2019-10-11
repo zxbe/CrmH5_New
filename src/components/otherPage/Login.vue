@@ -140,7 +140,8 @@ export default {
 
           //刷新注册码
           self.refreshRegisterCode();
-
+          //记录心跳时间
+          self.recordHeartBeatTime();
           //跳转到首页
           self.$router.push("/index");
 
@@ -157,7 +158,7 @@ export default {
       });
     },
     //刷新注册码
-    refreshRegisterCode(){
+    refreshRegisterCode:function(){
 
       var _self = this;
       //请求地址
@@ -196,6 +197,47 @@ export default {
           }
         });
       },tool.RefreshRegisterCodeInternal)
+    },
+    //记录心跳时间
+    recordHeartBeatTime:function(){
+      var _self = this;
+      //请求地址
+      var urlTemp = tool.AjaxBaseUrl();
+      var controlName = tool.Api_BaseUserBaseInfHandle_RecordHeartBeatTime;
+      var jsonDatasTemp = {
+          CurrentLanguageVersion: lanTool.currentLanguageVersion,
+          AutoID: tool.UserAutoID(),
+          _ControlName: controlName,
+          _RegisterCode: tool.RegisterCode(),
+          ClientType:"Mobile"
+      };
+
+      setTimeout(function(){
+
+        $.ajax({
+          async: true,
+          type: "post",
+          url: urlTemp,
+          data: jsonDatasTemp,
+          success: function(data) {
+            console.log(data);
+
+            data = tool.jObject(data);
+            if (data._ReturnStatus == false) {
+              //tool.showText(tool.getMessage(data));
+              console.log(tool.getMessage(data));
+              //return;
+            }
+
+            //重复执行
+            _self.recordHeartBeatTime();
+          },
+          error: function(jqXHR, type, error) {
+            //隐藏虚拟键盘
+            document.activeElement.blur();
+          }
+        });
+      },tool.HeartBeatInternal)
     }
   }
 };

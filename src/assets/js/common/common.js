@@ -585,7 +585,11 @@ import config from '../../configfile/config.js'
 	/*
 	 * 引导页查询
 	 */
-	tool.Api_FunctionBootHandle_MasterPageQuery = "Api_FunctionBootHandle_MasterPageQuery";
+	tool.Api_FunctionBootHandle_MasterPageQuery = "Api_FunctionBootHandle_MasterPageQuery"
+	/*
+	* 记录心跳时间
+	*/
+	tool.Api_BaseUserBaseInfHandle_RecordHeartBeatTime = "Api_BaseUserBaseInfHandle_RecordHeartBeatTime";
 
 	/*
 	 * ADBAjaxUrl:ADB系统请求的api地址
@@ -666,6 +670,10 @@ import config from '../../configfile/config.js'
 	 * RefreshRegisterCodeInternal:刷新注册码的间隔时长(3600000毫秒)
 	 */
 	tool.RefreshRegisterCodeInternal = 3600000;
+	/*
+	 * HeartBeatInternal:记录信条时间的间隔时长(3000毫秒)
+	 */
+	tool.HeartBeatInternal = 3000;
 
 	//loadingIndexClassName
 	tool.loadingIndexClassName = "loadingIndex_";
