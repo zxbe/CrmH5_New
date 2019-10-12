@@ -122,6 +122,10 @@ export default {
     refreshRegisterCode(){
 
       var _self = this;
+      if(tool.isNullOrEmptyObject(tool.RegisterCode())){
+        return false;
+      }
+
       //请求地址
       var urlTemp = tool.AjaxBaseUrl();
       var controlName = tool.Api_RefreshRegisterCode;
@@ -162,6 +166,10 @@ export default {
     //记录心跳时间
     recordHeartBeatTime:function(){
       var _self = this;
+      if(tool.isNullOrEmptyObject(tool.RegisterCode())){
+        return false;
+      }
+
       //请求地址
       var urlTemp = tool.AjaxBaseUrl();
       var controlName = tool.Api_BaseUserBaseInfHandle_RecordHeartBeatTime;
@@ -181,7 +189,7 @@ export default {
           url: urlTemp,
           data: jsonDatasTemp,
           success: function(data) {
-            console.log(data);
+            // console.log(data);
 
             data = tool.jObject(data);
             if (data._ReturnStatus == false) {
