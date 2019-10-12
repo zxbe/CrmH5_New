@@ -371,6 +371,7 @@ export default {
             _self.$route.query.IsFromSingleSignOn;
 
         lanTool.updateLanVersion();
+        
         //引导页
         _self.queryFunGuid(false);
 
