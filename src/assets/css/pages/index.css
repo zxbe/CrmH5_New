@@ -28,12 +28,7 @@
 
 
 /*nav 导航*/
-#nav{z-index: 90;width: 100%;top:0.88rem;position: fixed;left:0;
-  position: -webkit-sticky;
-  position: -moz-sticky;
-  position: -ms-sticky;
-  position: -o-sticky;
-  position: sticky;}
+#nav{z-index: 90;width: 100%;top:0.88rem;position: fixed;left:0;}
 .weui-grids{
   background: #fff;
   width: 100%;

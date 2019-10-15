@@ -311,7 +311,7 @@
             v-for="(item, index) in pageArray"
             :key="index"
             class="swiper-slide"
-            :style="{'background':'url('+ item.FileBase64 +') no-repeat center','background-size':'cover'}"
+            :style="{'background':'url('+ item.FileBase64 +') no-repeat center','background-size':'100% 99.9%'}"
           ></div>
         </div>
         <div class="swiper-pagination"></div>
@@ -371,7 +371,7 @@ export default {
             _self.$route.query.IsFromSingleSignOn;
 
         lanTool.updateLanVersion();
-        
+
         //引导页
         _self.queryFunGuid(false);
 
