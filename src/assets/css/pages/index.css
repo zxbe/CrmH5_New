@@ -224,7 +224,10 @@
 .language-type .language-icon{display:none;}
 .language-show .language-icon{display: block;}
 
-.logout-btn{line-height:0.7rem;height:0.7rem;position: absolute;bottom:1rem;left:15px;right:15px;
+.logout-btn{line-height:0.7rem;height:0.7rem;
+  margin:0.5rem 15px 0;
+
+  /* position: absolute;bottom:1rem;left:15px;right:15px; */
   background: #ff5a21;text-align: center;border-radius: 3px;color:#fff;}
 
 
