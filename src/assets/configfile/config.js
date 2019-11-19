@@ -84,8 +84,7 @@ let json = {
 	"ADBAppID":114,
 	"ADBApi_AirlineDatabase_IsCurrentUserHasAccess":"/AirlineDatabase/IsCurrentUserHasAccess",
 	"ADBApi_AirlineDatabase_Query_InfoDetailByTab":"/AirlineDatabase/Query_InfoDetailByTab",
-	"ADBApi_AirlineDatabase_Query_ListByTab":"/AirlineDatabase/Query_ListByTab",
-	"test":"dylan"
+	"ADBApi_AirlineDatabase_Query_ListByTab":"/AirlineDatabase/Query_ListByTab"
 }
 
 export default json;
