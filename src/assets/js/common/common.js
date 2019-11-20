@@ -608,6 +608,14 @@ import config from '../../configfile/config.js'
 	 */
 	tool.ADBApi_AirlineDatabase_Query_ListByTab = "ADBApi_AirlineDatabase_Query_ListByTab";
 
+	/*
+	 * 模糊查询
+	 */
+	tool.Api_DataSearchHandle_AutoQuery = "Api_DataSearchHandle_AutoQuery";
+	/*
+	 * 点击模糊查询记录跳转到详情页面
+	 */
+	tool.Api_DataSearchHandle_QuerySingle = "Api_DataSearchHandle_QuerySingle";
 
 	/*
 	 * currentLanguageVersion:当前语言版本
