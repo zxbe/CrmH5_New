@@ -266,7 +266,7 @@ export default {
                     queryValue: "",
                     queryComparison: "like"
                 },
-				{
+				        {
                     queryfield: "BusinessType",
                     text: lanTool.lanContent("1007_业务分类"),
                     fieldControlType: "picker",

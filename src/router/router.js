@@ -26,7 +26,6 @@ import MeetingNoteinfo from '@/components/tripmeeting/MeetingNoteinfo'
 
 import Contacts from '@/components/contacts/Contacts'
 import Contactsinfo from '@/components/contacts/Contactsinfo'
-import Organizationsinfo from '@/components/contacts/Organizationsinfo'
 
 import BusinessCategories from '@/components/business/BusinessCategories'
 import Opportunitiesinfo from '@/components/business/Opportunitiesinfo'
@@ -89,9 +88,18 @@ const router =  new Router({
 
     //联系人
     { path:'/contacts',name:'contacts',component:Contacts},
-    { path:'/organizationsinfo/:id',name:'organizationsinfo',component:Organizationsinfo},
     { path:'/contactsinfo/:id',name:'contactsinfo',component:Contactsinfo},
     { path:'/contactsof',name:'contactsof',component:Contactsof},
+
+    //公司
+    { path:'/organizations',
+      name:'organizations',
+      component: (resolve) => require(['@/components/organizations/OrganizationsList'], resolve)
+    },
+    { path:'/organizationsinfo/:id',
+      name:'organizationsinfo',
+      component: (resolve) => require(['@/components/organizations/Organizationsinfo'], resolve)
+    },
 
     //商业类别
     { path: '/businessCategories',name:'businessCategories', component:BusinessCategories},

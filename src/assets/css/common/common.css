@@ -436,8 +436,11 @@ label.radios-label input:disabled:checked + .radios:after {
 .dealPipeline-list .icon{margin-right: 3px;}
 
 
+
+
 /*列表页面 organizations 模块下 item style */
 .organizations-list{}
+.organizations-list .item-stars-icon{display: inline-block;width: 0.8rem;height:0.6rem;line-height:0.6rem;text-align:center;position: absolute;top:2px;left:0;font-size:0.4rem;color:#ccc;}
 .organizations-list .group-item{background:#fff;position:relative;}
 .organizations-list .item-block{padding:5px 10px 5px 0.8rem;}
 .organizations-list .group-item::after{content:'';display:block;height: 1px;background:beige;width:100%;left:0;

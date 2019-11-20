@@ -2743,7 +2743,7 @@ import config from '../../configfile/config.js'
 		//2>渲染selectList
 		//2-1>同一行的selectList
 		$("[data-fieldControlType='selectList']").attr("readonly","readonly").off('click').on('click',function(){
-			var _curObj = $(this);
+      var _curObj = $(this);
 			if(typeof(_curObj.attr("data-clickObj")) != "undefined"){
 				return;
 			}
