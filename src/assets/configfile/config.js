@@ -85,6 +85,8 @@ let json = {
 	"ADBApi_AirlineDatabase_IsCurrentUserHasAccess":"/AirlineDatabase/IsCurrentUserHasAccess",
 	"ADBApi_AirlineDatabase_Query_InfoDetailByTab":"/AirlineDatabase/Query_InfoDetailByTab",
 	"ADBApi_AirlineDatabase_Query_ListByTab":"/AirlineDatabase/Query_ListByTab",
+	"Api_DataSearchHandle_AutoQuery":"Api_DataSearchHandle_AutoQuery",
+	"Api_DataSearchHandle_QuerySingle":"Api_DataSearchHandle_QuerySingle"
 }
 
 export default json;
