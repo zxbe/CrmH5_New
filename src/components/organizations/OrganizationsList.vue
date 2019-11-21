@@ -174,7 +174,6 @@ export default {
                 datalanid: "702_城市"
               }]
         },
-
         noData: false, //没数据
         pageSize: tool.PageSize, //一页显示多少记录
         pageNum: 1, //当前页码
@@ -182,7 +181,14 @@ export default {
           sortName:"",//排序名称
           sortOrder:""//排序方向
         },
-        //列表数据
+        //查询对象
+        queryObj:{
+          dataFilter:"",//数据筛选模式,
+          groupByMode:"",//分组模式,
+          viewMode:"",//视图模式
+          queryCondictionArr:[],//自定义查询条件
+        },
+        //列表数据(分组模式为List)
         listData:[{
             "AutoID": 487,
             "ShortName": "OEINC",
@@ -195,8 +201,8 @@ export default {
             "IsFollow": "calc-noshoucang",
             "GroupRowCount": 1
           }],
-
-          GroupData:[],
+        //分组数据(分组模式为非List)
+        groupData:[]
     }
   },
   created: function () {
@@ -225,6 +231,27 @@ export default {
     //查询委托
     delegateQuery:function(){
       let _self = this;
+      //1>清空数据
+      _self.listData = [];
+      _self.groupData = [];
+      _self.noData = true;
+
+      //2>执行查询
+      if(tool.isNullOrEmptyObject(queryObj.groupByMode)){
+        return;
+      }
+
+      if(queryObj.groupByMode.toLowerCase() == "list"){
+        //查询列表
+        _self.queryList('pushRefresh', function () {
+        });
+      }else{
+        //查询分组数据
+      }
+    },
+    //合并综合查询条件
+    constructQueryCondiction:function(){
+      let _self = this;
 
     },
     //列表查询
@@ -239,7 +266,7 @@ export default {
         }
         //api接口地址
         var urlTemp = tool.AjaxBaseUrl();
-        var controlName = tool.Api_BaseUserBaseInfHandle_QueryNew;
+        var controlName = tool.Api_OrganizationsHandle_GroupInnerData;
         /*
         var jsonDatasTemp = {
             CurrentLanguageVersion: lanTool.currentLanguageVersion,
@@ -335,7 +362,9 @@ export default {
 </script>
 
 <style scoped>
-.page{/*display: flex;flex-direction: column;justify-content: center;height: 100vh;*/}
+.page{
+    /*display: flex;flex-direction: column;justify-content: center;height: 100vh;*/
+  }
 .header{
   overflow: hidden;
   background: #f8f2dc;

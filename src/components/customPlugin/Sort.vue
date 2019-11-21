@@ -86,11 +86,13 @@ export default {
       //设置父组件的属性(sortName和sortOrder是固定名称，每个列表页面都必须有)
       _self.$set(_self.sortObj,"sortName",  (data.sortName || ""));
       _self.$set(_self.sortObj,"sortOrder", (data.sortOrder || ""));
-
       // console.log("子组件sortName:"+_self.sortObj.sortName);
       // console.log("子组件sortOrder:"+_self.sortObj.sortOrder);
-      //调用父组件的查询方法
-      _self.$parent.delegateQuery();
+      
+      _self.$nextTick(function(){
+        //调用父组件的查询方法
+        _self.$parent.delegateQuery();
+      });
     },
     //初始化默认的排序项
     initDefultSortItem: function() {
