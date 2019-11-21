@@ -7,7 +7,7 @@
       <a class="calcfont calc-tianjia add-icon" @click="addOrganization" ></a>
   </header>
 
-  <sort :sortData="sortData"></sort>
+  <sort :sortData="sortData" :sortObj="sortObj"></sort>
 
   <div class="list-div">
     <vue-scroll v-show="!noData" :showToTop="false" :options="{ pullup: true, pulldown: true }" :scrollbar="false" ref="scroll" @pulldown="pulldown" @pullup="pullup">
@@ -68,137 +68,38 @@ export default {
   },
   data(){
     return{
-        sortData:[
-          {
-            sortId:1,
-            sortName:'company',
-            sortText:'按公司名称正序排序',
-            sortType:'asc'
+        //排序模型
+        sortData:[{
+            sortName:"ShortName",
+            sortText:lanTool.lanContent("1000518_按公司名称按正序排序"),
+            sortOrder:'asc'
           },
           {
-            sortId:2,
-            sortName:'company',
-            sortText:'按公司名称倒序排序',
-            sortType:'desc'
+            sortName:"ShortName",
+            sortText:lanTool.lanContent("1000519_按公司名称倒序排序"),
+            sortOrder:'desc'
           },
           {
-            sortId:3,
-            sortName:'contacts',
-            sortText:'按联系人名称正序排序',
-            sortType:'asc'
+            sortName:"BusinessType",
+            sortText:lanTool.lanContent("1000520_按业务分类正序排序"),
+            sortOrder:'asc'
           },
           {
-            sortId:4,
-            sortName:'contacts',
-            sortText:'按联系人名称倒序排序',
-            sortType:'desc'
-          }
-        ],
-        noData: false, //没数据
-        pageSize: 10, //一页显示多少记录
-        pageNum: 1, //当前页码
-        //列表数据
-        listData:[{
-            "AutoID": 488,
-            "ShortName": "Airbus",
-            "ICAOCode": "",
-            "BusinessType": "OEM_Aircraft",
-            "AccountManager": "Sean Farnan",
-            "CountryName": "Liechtenstein",
-            "CityName": "",
-            "GroupID": 173,
-            "IsFollow": "calc-noshoucang",
-            "GroupRowCount": 22
-          }, {
-            "AutoID": 3469,
-            "ShortName": "ATR",
-            "ICAOCode": "",
-            "BusinessType": "OEM_Aircraft",
-            "AccountManager": "Sean Farnan",
-            "CountryName": "France",
-            "CityName": "Toulouse",
-            "GroupID": 173,
-            "IsFollow": "calc-noshoucang",
-            "GroupRowCount": 0
-          }, {
-            "AutoID": 1390,
-            "ShortName": "Boeing",
-            "ICAOCode": "",
-            "BusinessType": "OEM_Aircraft",
-            "AccountManager": "Sean Farnan",
-            "CountryName": "United States",
-            "CityName": "Seattle",
-            "GroupID": 173,
-            "IsFollow": "calc-noshoucang",
-            "GroupRowCount": 2
-          }, {
-            "AutoID": 1777,
-            "ShortName": "Cessna",
-            "ICAOCode": "",
-            "BusinessType": "OEM_Aircraft",
-            "AccountManager": "",
-            "CountryName": null,
-            "CityName": null,
-            "GroupID": 173,
-            "IsFollow": "calc-noshoucang",
-            "GroupRowCount": 0
-          }, {
-            "AutoID": 486,
-            "ShortName": "COMAC",
-            "ICAOCode": "",
-            "BusinessType": "OEM_Aircraft",
-            "AccountManager": "",
-            "CountryName": null,
-            "CityName": null,
-            "GroupID": 173,
-            "IsFollow": "calc-noshoucang",
-            "GroupRowCount": 0
-          }, {
-            "AutoID": 485,
-            "ShortName": "Embraer S.A",
-            "ICAOCode": "",
-            "BusinessType": "OEM_Aircraft",
-            "AccountManager": "Sean Farnan",
-            "CountryName": "Brazil",
-            "CityName": "S?o Paulo",
-            "GroupID": 173,
-            "IsFollow": "calc-noshoucang",
-            "GroupRowCount": 0
-          }, {
-            "AutoID": 3240,
-            "ShortName": "Mark Pearman-Wright",
-            "ICAOCode": "",
-            "BusinessType": "OEM_Aircraft",
-            "AccountManager": "Sean Farnan",
-            "CountryName": "France",
-            "CityName": "Toulouse",
-            "GroupID": 173,
-            "IsFollow": "calc-noshoucang",
-            "GroupRowCount": 0
-          }, {
-            "AutoID": 1778,
-            "ShortName": "OAK",
-            "ICAOCode": "",
-            "BusinessType": "OEM_Aircraft",
-            "AccountManager": "",
-            "CountryName": null,
-            "CityName": null,
-            "GroupID": 173,
-            "IsFollow": "calc-noshoucang",
-            "GroupRowCount": 0
-          }, {
-            "AutoID": 487,
-            "ShortName": "OEINC",
-            "ICAOCode": "",
-            "BusinessType": "OEM_Aircraft",
-            "AccountManager": "",
-            "CountryName": "China",
-            "CityName": "ShangHai",
-            "GroupID": 173,
-            "IsFollow": "calc-noshoucang",
-            "GroupRowCount": 1
+            sortName:"BusinessType",
+            sortText:lanTool.lanContent("1000521_按业务分类倒序排序"),
+            sortOrder:'desc'
+          },
+          {
+            sortName:"CountryName",
+            sortText:lanTool.lanContent("1000522_按国家正序排序"),
+            sortOrder:'asc'
+          },
+          {
+            sortName:"CountryName",
+            sortText:lanTool.lanContent("1000523_按国家倒序排序"),
+            sortOrder:'desc'
           }],
-
+        //右侧侧滑数据模型
         RightPanelModel:{
             "DataFilterModel":{
                 text:lanTool.lanContent("794_数据筛选"),
@@ -228,7 +129,7 @@ export default {
                     }
                 ]
             },
-            "BusinessSector":{
+            "FieldModel":[{
                 queryfield: "BusinessType",
                 text: lanTool.lanContent("1007_业务分类"),
                 fieldControlType: "picker",
@@ -242,40 +143,60 @@ export default {
                 datalanid: "1007_业务分类",
                 option:[],
                 more:true  //picker中是否提供显示更多功能
-            },
-            "selectList":[
-                {
-                    queryfield: "CountryID",
-                    text: lanTool.lanContent("701_国家"),
-                    fieldControlType: "selectList",
-                    queryType: "string",
-                    queryFormat: "",
-                    queryRelation: "and",
-                    queryValue: "",
-                    queryComparison: "=",
-                    Code: "DropDowList_ViewBaseCountryInf",
-                    TypeValue: "",
-                    selectType: "radio",
-                    resulteRow: true,
-                    clickObj: "CountryIDClickObj",
-                    datalanid: "701_国家"
-                },
-                {
-                    queryfield: "CityID",
-                    text: lanTool.lanContent("702_城市"),
-                    fieldControlType: "selectList",
-                    queryType: "string",
-                    queryFormat: "",
-                    queryRelation: "and",
-                    queryValue: "",
-                    queryComparison: "=",
-                    Code: "DropDowList_ViewBaseCountryCity",
-                    TypeValue: "",
-                    selectType: "radio",
-                    datalanid: "702_城市"
-                }
-            ]
+            },{
+                queryfield: "CountryID",
+                text: lanTool.lanContent("701_国家"),
+                fieldControlType: "selectList",
+                queryType: "string",
+                queryFormat: "",
+                queryRelation: "and",
+                queryValue: "",
+                queryComparison: "=",
+                Code: "DropDowList_ViewBaseCountryInf",
+                TypeValue: "",
+                selectType: "radio",
+                clickObj: "CountryIDClickObj",
+                datalanid: "701_国家",
+                resulteRow: true,
+              },
+              {
+                queryfield: "CityID",
+                text: lanTool.lanContent("702_城市"),
+                fieldControlType: "selectList",
+                queryType: "string",
+                queryFormat: "",
+                queryRelation: "and",
+                queryValue: "",
+                queryComparison: "=",
+                Code: "DropDowList_ViewBaseCountryCity",
+                TypeValue: "",
+                selectType: "radio",
+                datalanid: "702_城市"
+              }]
         },
+
+        noData: false, //没数据
+        pageSize: tool.PageSize, //一页显示多少记录
+        pageNum: 1, //当前页码
+        sortObj:{
+          sortName:"",//排序名称
+          sortOrder:""//排序方向
+        },
+        //列表数据
+        listData:[{
+            "AutoID": 487,
+            "ShortName": "OEINC",
+            "ICAOCode": "",
+            "BusinessType": "OEM_Aircraft",
+            "AccountManager": "",
+            "CountryName": "China",
+            "CityName": "ShangHai",
+            "GroupID": 173,
+            "IsFollow": "calc-noshoucang",
+            "GroupRowCount": 1
+          }],
+
+          GroupData:[],
     }
   },
   created: function () {
@@ -300,6 +221,11 @@ export default {
         _self.$router.push({
             path: '/organizationsinfo/-1'
         });
+    },
+    //查询委托
+    delegateQuery:function(){
+      let _self = this;
+
     },
     //列表查询
     queryList: function (queryType, callback) {
@@ -404,10 +330,7 @@ export default {
     search(str){
         console.log(str);
     }
-
   }
-
-
 }
 </script>
 
