@@ -3,258 +3,82 @@
     <Header class="header" :title="title" :messageCount="messageCount" :forumMessageCount="forumMessageCount"></Header>
 
     <div id="page-content" class="page-content">
-        <!-- 搜索 -->
-        <!-- <div class="search-box" style="display:none">
-            <div @click="goSearch" class="search" id="searchBtn">
-                <span class="search-icon mui-icon calcfont calc-sousuo"></span>
-                <label class="f16 search-label lanText" data-lanid="780_搜索"></label>
+        <div class="search-box">
+          <div @click="goSearchPage"><search-input class="search disable" placeholder="搜索"></search-input></div>
+        </div>
+
+        <div class="block-title f14">业务</div>
+        <div class="block-con">
+            <div class="row-div row-after">
+                  <div class="column-div">
+                      <router-link to="/tripmeeting" class="router-target">
+                          <i class="calcfont calc-huiyikaihuitaolun" style="color:#b8d76b;"></i>
+                          <div class="f14 lanText" data-lanid="1149_我的会议"></div>
+                      </router-link>
+                  </div>
+                  <div class="column-div">
+                      <router-link to="/organizations" class="router-target">
+                          <i class="calcfont calc-zuzhi1" style="color:#2b7522"></i>
+                          <div class="f14 lanText" data-lanid="685_公司"></div>
+                      </router-link>
+                  </div>
+                  <div class="column-div">
+                      <router-link to="/contacts" class="router-target">
+                        <i class="calcfont calc-kehulianxiren" style="color:#fa9622"></i>
+                        <div class="f14 lanText" data-lanid="630_联系人"></div>
+                      </router-link>
+                  </div>
             </div>
-        </div> -->
-
-        <div id="nav" class="sticky">
-            <div class="weui-grids">
-                <div class="weui-grid">
-                    <div @click.stop="gotoUrl($event)" url="/tripmeeting" class="js_grid">
-                        <div class="weui-grid__icon trip-meeting-icon">
-                            <span class="mui-icon calcfont calc-kehu"></span>
-                        </div>
-                        <p class="f12 weui-grid__label lanText" data-lanid="1149_会议"></p>
-                    </div>
-                </div>
-                <div class="weui-grid">
-                    <div @click.stop="gotoUrl($event)" url="/contacts" class="js_grid">
-                        <div class="weui-grid__icon lianxiren1-icon">
-                            <span class="mui-icon calcfont calc-kehulianxiren"></span>
-                        </div>
-                        <p class="f12 weui-grid__label lanText" data-lanid="782_联系人"></p>
-                    </div>
-                </div>
-                <div class="weui-grid">
-                    <div @click.stop="gotoUrl($event)" url="/businessCategories" class="js_grid">
-                        <div class="weui-grid__icon jihui-icon">
-                            <span class="calcfont calc-jihui"></span>
-                        </div>
-                        <p class="f12 weui-grid__label lanText" data-lanid="783_商业"></p>
-                    </div>
-                </div>
-                <!-- <div class="weui-grid" style="display:none">
-                    <div @click.stop="gotoUrl($event)" url="/business" class="js_grid">
-                        <div class="weui-grid__icon leibie-icon">
-                            <span class="calcfont calc-leibie"></span>
-                        </div>
-                        <p class="f12 weui-grid__label">Categories</p>
-                    </div>
-                </div> -->
-
-                <div class="weui-grid">
-                    <!-- <div @click.stop="gotoUrl($event)" url="/airlineDatabase" class="js_grid"> -->
-                    <div @click.stop="gotoUrl($event)" url="/forumlist" class="js_grid">
-                        <div class="weui-grid__icon intelligence-icon">
-                            <span class="calcfont calc-luntan"></span>
-                        </div>
-                        <p class="f12 weui-grid__label lanText" data-lanid="1054_论坛"></p>
-                    </div>
-                </div>
-                <div class="weui-grid">
-                    <div @click.stop="gotoUrl($event)" url="/userEvents" class="js_grid">
-                        <div class="weui-grid__icon UserManagement-icon">
-                            <span class="calcfont calc-yonghuqun"></span>
-                        </div>
-                        <p class="f12 weui-grid__label lanText" data-lanid="1000304_用户活动"></p>
-                    </div>
-                </div>
-                 <div class="weui-grid">
-                    <div @click.stop="gotoUrl($event)" url="/bIShareMaterials" class="js_grid">
-                        <div class="weui-grid__icon biShare-icon">
-                            <span class="calcfont calc-wj-gxwj"></span>
-                        </div>
-                        <p class="f12 weui-grid__label lanText" data-lanid="1080_共享文件"></p>
-                    </div>
-                </div>
+            <div class="row-div">
+                  <div class="column-div">
+                      <router-link to="/businessCategories" class="router-target">
+                          <i class="calcfont calc-yewujihui" style="color:#ee4656;"></i>
+                          <div class="f14 lanText" data-lanid="644_商业机会"></div>
+                      </router-link>
+                  </div>
+                  <div class="column-div">
+                      <router-link to="/businessCategories" class="router-target">
+                          <i class="calcfont calc-jiaoyi-shijian" style="color:#1cc03b"></i>
+                          <div class="f14 lanText" data-lanid="817_交易"></div>
+                      </router-link>
+                  </div>
+                  <div class="column-div"></div>
             </div>
         </div>
-        <div class="occupy-position"></div>
-        <div class="pageListContent">
-            <div class="nav sticky" id="switchDiv">
-                <div id="meetingSwitchPage" @click="switchPage(0,$event)" class="nav-item f16 active-item lanText" data-lanid="619_会议"></div>
-                <div id="dealsSwitchPage" @click="switchPage(1,$event)" class="nav-item f16 lanText" data-lanid="817_交易"></div>
-                <div id="opportunitiesSwitchPage" @click="switchPage(2,$event)" class="nav-item f16 lanText" data-lanid="649_商业机会"></div>
-                <div class="nav-border"></div>
+
+        <div class="block-title f14">讨论</div>
+        <div class="block-con">
+            <div class="row-div">
+                  <div class="column-div">
+                      <router-link to="/forumlist" class="router-target">
+                          <i class="calcfont calc-luntan" style="color:#00c0ef;"></i>
+                          <div class="f14 lanText" data-lanid="1052_论坛"></div>
+                      </router-link>
+                  </div>
+                  <div class="column-div"></div>
+                  <div class="column-div"></div>
             </div>
-            <div v-show="showPage == 0" class="group-title">
-                <div class="title-text f12"><span class="lanText" data-lanid="1000177_最近要参加的会议"></span><span>{{meetingDateInterval}}</span></div>
-                <router-link to="/tripmeeting" class="check-all right f14 a">
-                    <span class="lanText" data-lanid="936_更多"></span>&gt;&gt;
-                </router-link>
-            </div>
-            <div v-show="showPage == 1" class="group-title">
-                <div class="title-text f12" ><span class="lanText" data-lanid="1000347_最近的交易"></span><span>{{dealDateInterVal}}</span></div>
-                <router-link to="/businessCategories" class="check-all right f14 a">
-                    <span class="lanText" data-lanid="936_更多"></span>&gt;&gt;
-                </router-link>
-            </div>
-            <div v-show="showPage == 2" class="group-title">
-                <div class="title-text f12" ><span class="lanText" data-lanid="1000346_最近的商业机会"></span><span>{{dealDateInterVal}}</span></div>
-                <router-link to="/businessCategories" class="check-all right f14 a">
-                    <span class="lanText" data-lanid="936_更多"></span>&gt;&gt;
-                </router-link>
-            </div>
-            <div v-show="showPage == 0" class="pageList">
-                <!-- 列表 -->
-                <div v-show ="!noData" class="list-view" id="indexMeetingList">
+        </div>
 
-                    <div v-for="group in groupData" :key="group.GroupID" class="month-event list-group-div group-div" data-fromtype="meeting">
-                        <div class="f14 date-div">
-                            <span class="calcfont calc-richeng"></span>
-                            <span class="group-name" :data-groupid="group.GroupID">{{group.GroupName|abdDateFormat('dd/MM/yyyy')}}</span>
-                            <span class="right">（{{group.GroupRowCount}}）</span>
-                        </div>
-                        <div class="occupy-div"></div>
-                        <div v-if="group.items.length > 0" class="group-item-list meeting-list index-meeting-list">
-
-                            <div v-for="item in group.items" :key="item.AutoID"
-                              class="data-events-item f14" :data-url="'/meetinginfo/' + item.AutoID">
-                                      <div class="flex">
-                                        <i style="margin-right: 3px;" class="calcfont calc-T icon"></i><div class="item-title">{{item.MeetingTitle}}</div>
-                                      </div>
-                                      <div class="item-time f12">
-                                            <span class="calcfont calc-gengxinshijian"></span>
-                                            <span class="time-text">{{item.BeginTime|MeetingTimeFormat}}~{{item.EndTime|MeetingTimeFormat}}</span>
-                                            <span class="right-text">{{item.Realname}}</span>
-                                      </div>
-                                      <div class="flex pdtb" v-show="(item.CompanyID =='' || item.CompanyID == null) ? false : true">
-                                          <i class="icon calcfont calc-gongsixinxi"></i>
-                                          <div class="item-address">{{item.CompanyID}}</div>
-                                      </div>
-                                      <div class="flex" v-show="(item.ContactsID =='' || item.ContactsID == null) ? false : true">
-                                          <i class="icon calcfont calc-kehulianxiren"></i>
-                                          <div class="item-initiator">{{item.ContactsID|formatContactsID}}{{item.Title|formatTitle}}</div>
-                                      </div>
-                              </div>
-
-                        </div>
-                    </div>
-
-                </div>
-                <!-- 没有数据   -->
-                <nothing v-show="noData" class="noDataIcon"></nothing>
-            </div>
-            <div v-show="showPage == 1" class="pageList">
-                <div v-show="!noData" id="dealpipelineList" data-fromtype="dealPipeline">
-                    <div v-for="group in groupData" :key="group.GroupID" class="list-group-div group-div">
-                        <div class="date-div">
-                            <span class="calcfont calc-lianxiren1"></span>
-                            <span class="group-name" :data-groupid="group.GroupID">{{group.GroupName}}</span>
-                            <span class="right">（{{group.GroupRowCount}}）</span>
-                        </div>
-                        <div class="occupy-div"></div>
-
-                        <div v-if="group.items.length > 0" class="group-item-list dealPipeline-list">
-
-                            <div v-for="item in group.items" :key="item.AutoID"
-                              class=" group-item f14"
-                              :data-url="'/opportunitiesinfo/' + item.AutoID">
-                                  <div class="item-stars-icon calcfont" :class="item.IsFollow" :data-autoid="item.AutoID"></div>
-                                  <div class="item-block">
-                                      <div class="item-div item-first-div blue-color">
-                                      {{item.TheName}}
-                                      </div>
-                                      <div class="item-div f12">
-                                        <i class="calcfont calc-zhuangtai icon"></i>
-                                        <span class="green-color" :class="item.className">{{item.CurrentState}}</span>
-
-                                      </div>
-                                      <div class="item-div" v-show="(item.Memo =='' || item.Memo == null) ? false : true">
-                                        <i class="calcfont calc-beiwanglu icon"></i>
-                                        <div class="line-clamp2">{{item.Memo}}</div>
-                                      </div>
-
-                                      <div v-if="item.IsMeetingExist !='false'" class="item-div-box">
-                                          <div class="item-new-text">{{item.meetingSysmbol}}</div>
-                                          <div class="new-right">
-                                            <div class="item-div">
-                                              <i class="calcfont calc-huiyi  icon"></i><span class="itme-div-span">{{item.MeetingTitle}}</span>
-                                            </div>
-                                            <div class="item-div dete-div f12">
-                                              <i class="calcfont calc-gengxinshijian  icon"></i>
-                                              <span>{{item.BeginTime|abdDateFormat('dd/MM/yyyy HH:mm')}}</span>
-                                            </div>
-                                          </div>
-                                      </div>
-                                  </div>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-                <nothing v-show="noData" class="noDataIcon"></nothing>
-            </div>
-            <div v-show="showPage == 2" class="pageList">
-                <div v-show="!noData" id="opportunitiesList" data-fromtype="opportunities">
-
-                    <div v-for="group in groupData" :key="group.GroupID" class="list-group-div group-div">
-                        <div class="date-div ">
-                            <span class="calcfont calc-lianxiren1"></span>
-                            <span class="group-name" :data-groupid="group.GroupID">{{group.GroupName}}</span>
-                            <span class="right">（{{group.GroupRowCount}}）</span>
-                        </div>
-                        <div class="occupy-div"></div>
-
-                        <div v-if="group.items.length > 0" class="group-item-list opportunities-list">
-
-                            <div v-for="item in group.items" :key="item.AutoID"
-                              class=" group-item f14"
-                              :data-url="'/opportunitiesinfo/' + item.AutoID">
-                                  <div class="item-stars-icon calcfont" :class="item.IsFollow" :data-autoid="item.AutoID"></div>
-                                  <div class="item-block">
-                                      <div class="item-div item-first-div blue-color">
-                                        {{item.TheName}}
-                                      </div>
-
-                                      <div class="item-div f12 padding-bottom-3 padding-top-3">
-                                        <i class="calcfont calc-zhuangtai icon"></i>
-                                        <span class="green-color" :class="item.className">{{item.CurrentState}}</span>
-                                      </div>
-                                      <div class="item-div" v-show="(item.Memo =='' || item.Memo == null) ? false : true">
-                                        <i class="calcfont calc-beiwanglu icon"></i>
-                                        <div class="line-clamp2">{{item.Memo}}</div>
-                                      </div>
-                                      <div v-if="item.IsMeetingExist !='false'" class="item-div-box">
-                                            <div class="item-new-text">{{item.meetingSysmbol}}</div>
-                                            <div class="new-right">
-                                                <div class="item-div">
-                                                  <i class="calcfont calc-huiyi  icon"></i><span class="itme-div-span">{{item.MeetingTitle}}</span>
-                                                </div>
-                                                <div class="item-div dete-div f12">
-                                                  <i class="calcfont calc-gengxinshijian  icon"></i>
-                                                  <span>{{item.BeginTime|abdDateFormat('dd/MM/yyyy HH:mm')}}</span>
-                                                </div>
-                                            </div>
-                                      </div>
-                                  </div>
-                            </div>
-
-
-                        </div>
-                    </div>
-                </div>
-                <nothing v-show="noData" class="noDataIcon"></nothing>
+        <div class="block-title f14">其他</div>
+        <div class="block-con">
+            <div class="row-div">
+                  <div class="column-div">
+                      <router-link to="/userEvents" class="router-target">
+                          <i class="calcfont calc-yonghuqun" style="color:#1296db;"></i>
+                          <div class="f14 lanText" data-lanid="1134_用户活动"></div>
+                      </router-link>
+                  </div>
+                  <div class="column-div">
+                      <router-link to="/bIShareMaterials" class="router-target">
+                          <i class="calcfont calc-wj-gxwj" style="color:#9266f9"></i>
+                          <div class="f14 lanText" data-lanid="1079_商业智能库"></div>
+                      </router-link>
+                  </div>
+                  <div class="column-div"></div>
             </div>
         </div>
     </div>
-    <!-- 提示 -->
-    <!-- <div class="tips">
-            <div class="tips-box f12">
-                <span class="calcfont calc-tishi1"></span>
-                <div class="tips-text">
-                    <span class="lanText" data-lanid="988_你有"></span><span>{{meetingCount}}</span><span class="lanText" data-lanid="987_场会议需要上传会议记录。"></span>
-                </div>
-                <router-link v-show="Number(meetingCount)>=1" to="/meetinglist" class="right upload-now a f14">
-                    <span class="lanText" data-lanid="870_转到"></span>&gt;&gt;
-                </router-link> -->
-    <!-- <div @click="" to="/meetinglist" class="right upload-now a lanText f14" data-lanid="870_立刻去上传"></div> -->
-    <!-- </div>
-        </div> -->
 
     <!--  右侧侧滑 -->
     <div id="mask" class="mask" @click="panelToggle" v-show="showPanel"></div>
@@ -329,8 +153,10 @@
 import Swiper from "swiper";
 import Header from "@/components/customPlugin/Header"
 import Nothing from "@/components/customPlugin/Nothing"
+import SearchInput from "@/components/customPlugin/SearchInput";
 export default {
     components: {
+        SearchInput,
         Header: Header,
         'nothing': Nothing
     },
@@ -339,22 +165,19 @@ export default {
             title: "",
             noData: false, //没有数据
             showPanel: false,
-            groupData: [], //7天的数据
-            meetingDateInterval:"",
-            dealDateInterVal:"",
-            dealData:[],
-            pitchesData: [],
+            // groupData: [], //7天的数据
+            // meetingDateInterval:"",
+            // dealDateInterVal:"",
+            // dealData:[],
+            // pitchesData: [],
             meetingCount: 0, //未上传会议记录的会议数量
             messageCount: 0, //消息数量
             forumMessageCount: 0, //论坛消息的数量
-            showPage: 0,
+            // showPage: 0,
             isFromSingleSignOn: false, //是否来源于单点登陆
-            recentMeetingDay:6,
-            recentDealAndPitchDay:30,//查询最近30天的Deal和Pitch记录
+            // recentMeetingDay:6,
+            // recentDealAndPitchDay:30,//查询最近30天的Deal和Pitch记录
             pageArray: [
-              // { FileBase64: "http://197.7.50.139:6060/img/QQ1.png" },
-              // { FileBase64: "http://197.7.50.139:6060/img/QQ2.png" },
-              // { FileBase64: "http://197.7.50.139:6060/img/QQ3.png" }
             ],
             mySwiper:null
         };
@@ -375,12 +198,12 @@ export default {
         //引导页
         _self.queryFunGuid(false);
 
-        _self.recentDate();
+        // _self.recentDate();
         //侧滑
         eventBus.$on("showIndexRightPanelEvent", _self.panelToggle);
 
         //分组展开/收起
-        _self.groupToggle();
+        // _self.groupToggle();
 
         //初始化用户信息
         _self.initUserInfo();
@@ -389,7 +212,7 @@ export default {
         _self.initLV();
 
         //获取最近7天的会议分组数据
-        _self.getRecentMeeting();
+        // _self.getRecentMeeting();
 
         //获取未上传会议记录的会议数量
         _self.getNoUploadRecordCount();
@@ -400,15 +223,18 @@ export default {
         _self.getForumMessageCount();
 
         //收藏
-        _self.followToggle();
-        _self.goInfo();
+        // _self.followToggle();
+        // _self.goInfo();
 
         //处理单点登陆
         _self.handleLogOut();
 
-        _self.watchScroll();
     },
     methods: {
+        //去搜索页面
+        goSearchPage(){
+            this.$router.push("/search");
+        },
         //显示功能引导页
         FunctionalGuidance:function(){
             var _self = this;
@@ -498,6 +324,7 @@ export default {
            var _self = this;
             $('.guideContent').hide();
         },
+        /*
         //获取最近七天要参加的会议，获取最近一个月的交易和商业机会日期
         recentDate:function(){
             var _self = this;
@@ -513,6 +340,8 @@ export default {
             _self.dealDateInterVal = "("+startDateStr+"-"+dateStr+")";
             _self.meetingDateInterval = "("+dateStr+"-"+meetingEndDateStr+")";
         },
+        */
+       /*
         switchPage: function (num, e) {
             var _self = this;
             _self.groupData = [];
@@ -545,6 +374,8 @@ export default {
                 });
             })
         },
+        */
+       /*
         gotoUrl: function (e) {
             var target = $(e.target);
             var url = target.attr("url") || "";
@@ -561,6 +392,7 @@ export default {
                 path: url
             });
         },
+        */
         //初始化用户信息
         initUserInfo: function () {
             //赋用户信息
@@ -769,6 +601,7 @@ export default {
                 function () {}
             );
         },
+        /*
         //监听滚动固定
         watchScroll: function () {
             var _self = this;
@@ -829,10 +662,8 @@ export default {
                 });
             });
         },
-        //搜索
-        goSearch: function () {
-            this.$router.push("/search");
-        },
+        */
+       /*
         //点击分组收起展开
         groupToggle: function () {
             var _self = this;
@@ -944,6 +775,7 @@ export default {
                     }
                 });
         },
+        */
         //侧滑
         panelToggle: function () {
             var _self = this;
@@ -974,6 +806,7 @@ export default {
                 });
             }
         },
+        /*
         //构造交易和商业机会的查询条件
         constructDealAndPitchQueryCondition:function(){
             var _self = this;
@@ -1015,11 +848,14 @@ export default {
             tool.InitGrouplist(_self, fromTypeTemp, queryCondictionTemp, function (data) {
             });
         },
+        */
+       /*
         //获取最近几天的会议分组数据
         getRecentMeeting: function () {
             var _self = this;
             tool.InitGrouplist(_self, 'meeting', [], function (data) {}, 'index')
         },
+        */
         //获取未上传会议记录的会议数量
         getNoUploadRecordCount: function () {
             var _self = this;
@@ -1140,6 +976,7 @@ export default {
                 }
             });
         },
+        /*
         //点击关注/取消关注
         followToggle: function () {
             var _self = this;
@@ -1236,6 +1073,7 @@ export default {
                 });
 
         },
+        */
         //处理退出登陆按钮
         handleLogOut: function () {
             var _self = this;
@@ -1261,7 +1099,6 @@ export default {
 }
 </style>
 <style scoped>
-/* @import "../assets/css/common/commonlist.css"; */
 @import "swiper/dist/css/swiper.css";
 @import "../../assets/css/pages/index.css";
 
