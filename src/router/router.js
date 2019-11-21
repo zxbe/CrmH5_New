@@ -88,6 +88,10 @@ const router =  new Router({
 
     //联系人
     { path:'/contacts',name:'contacts',component:Contacts},
+    { path:'/contacts1',
+      name:'contacts',
+      component: (resolve) => require(['@/components/contacts/ContactsList'], resolve)
+    },
     { path:'/contactsinfo/:id',name:'contactsinfo',component:Contactsinfo},
     { path:'/contactsof',name:'contactsof',component:Contactsof},
 

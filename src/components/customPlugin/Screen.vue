@@ -33,41 +33,51 @@
                       </div>
                   </div>
               </div>
-              <!-- BusinessSector -->
-              <div class="block-div" v-if="!BusinessSectorIsNull">
-                  <div class="type-div">
-                      <div class="block-tile f14">
-                          <div class="title-text">{{BusinessSector.text}}</div>
-                      </div>
-                      <div class="block-con" v-if="BusinessSector.option.length > 0">
-                          <div class="item-div fl"
-                              v-for="(o,i) in BusinessSector.option"
-                              :key="i"
-                              :class="{'hidden': i >= 6 ? true : false}"
-                              @click="choose($event)"
-                              ><span>{{o.text}}</span><i class="calcfont calc-guanbi1 delect-icon"></i></div>
-                          <div class="block-more f14"><i @click="showMore($event)" class="calcfont calc-shousuojiantou f16 more-icon"></i></div>
-                    </div>
-                  </div>
-              </div>
-              <!-- selectList -->
-              <div class="block-div" v-if="!selectListIsNull">
-                  <div class="type-div" v-for="(item, index) in selectList">
-                      <div class="ListCellContent">
-                          <div class="ListCellContentLeft leftContent">
-                              <div class="ListCellContentLeftText">{{item.text}}</div>
+
+              <!-- FieldModel -->
+              <div v-if="FieldModel.length > 0">
+                  <div class="block-div" v-for="(item, index) in FieldModel" :key="index">
+                      <!-- 类型为picker -->
+                      <div class="type-div" v-if="item.fieldControlType == 'picker'">
+                          <div class="block-tile f14">
+                              <div class="title-text">{{item.text}}</div>
                           </div>
-                          <div class="ListCellContentRight rightContent">
-                              <div :data-field="item.queryfield"
-                                  data-fieldControlType="selectList"
-                                  :data-lanid="item.datalanid"
-                                  data-fieldVal=""
-                                  :Code="item.Code"
-                                  :data-selectType="item.selectType"
-                                  class="ListCellContentRightText" ></div>
+                          <div class="block-con" v-if="item.option.length > 0 && item.more" >
+                              <div class="item-div fl"
+                                  v-for="(o,i) in item.option"
+                                  :key="i"
+                                  :class="{'hidden': i >= 6 ? true : false}"
+                                  @click="choose($event)"
+                                  ><span>{{o.text}}</span><i class="calcfont calc-guanbi1 delect-icon"></i></div>
+                              <div class="block-more f14"><i @click="showMore($event)" class="calcfont calc-shousuojiantou f16 more-icon"></i></div>
                           </div>
-                          <div class="ListCellRightIcon"><span class="mui-icon calcfont calc-you"></span></div>
+                          <div class="block-con" v-if="item.option.length > 0 && !item.more" >
+                              <div class="item-div fl"
+                                  v-for="(o,i) in item.option"
+                                  :key="i"
+                                  @click="choose($event)"
+                                  ><span>{{o.text}}</span><i class="calcfont calc-guanbi1 delect-icon"></i></div>
+                          </div>
                       </div>
+                      <!-- 类型为selectList -->
+                      <div class="type-div" v-if="item.fieldControlType == 'selectList'">
+                          <div class="ListCellContent">
+                              <div class="ListCellContentLeft leftContent">
+                                  <div class="ListCellContentLeftText">{{item.text}}</div>
+                              </div>
+                              <div class="ListCellContentRight rightContent">
+                                  <div :data-field="item.queryfield"
+                                      data-fieldControlType="selectList"
+                                      :data-lanid="item.datalanid"
+                                      data-fieldVal=""
+                                      :Code="item.Code"
+                                      :data-selectType="item.selectType"
+                                      class="ListCellContentRightText" ></div>
+                              </div>
+                              <div class="ListCellRightIcon"><span class="mui-icon calcfont calc-you"></span></div>
+                          </div>
+                      </div>
+
                   </div>
               </div>
 
@@ -94,8 +104,7 @@ export default {
         showPanel:false,
         DataFilterModel:{},
         GroupByModel:{},
-        BusinessSector:{},
-        selectList:[]
+        FieldModel:[]
     }
   },
   props:{
@@ -117,14 +126,7 @@ export default {
           let _self = this;
           return  tool.isNullOrEmptyObject(_self.GroupByModel) ? true : false;
       },
-      BusinessSectorIsNull(){
-          let _self = this;
-          return  tool.isNullOrEmptyObject(_self.BusinessSector) ? true : false;
-      },
-      selectListIsNull(){
-          let _self = this;
-          return  tool.isNullOrEmptyObject(_self.selectList) ? true : false;
-      }
+
   },
   created(){
     let _self = this;
@@ -145,15 +147,14 @@ export default {
         _self.$set(_self.screenData.GroupByModel, 'option', groupByOption);
         _self.GroupByModel = _self.screenData["GroupByModel"];
     }
+    _self.FieldModel = _self.screenData["FieldModel"];
+    //获取picker选项值
+    _self.FieldModel.forEach(function(item, index){
+        if(item.fieldControlType == "picker"){
+            _self.getPickerOptions(item);
+        }
+    })
 
-    if(!tool.isNullOrEmptyObject( _self.screenData["BusinessSector"])){
-        _self.BusinessSector = _self.screenData["BusinessSector"];
-        _self.getBusinessSectorOptions();
-    }
-
-    if(!tool.isNullOrEmptyObject( _self.screenData["selectList"])){
-        _self.selectList = _self.screenData["selectList"];
-    }
   },
   mounted(){
       let _self = this;
@@ -318,7 +319,7 @@ export default {
       },
 
       //请求BusinessSectorOptions
-      getBusinessSectorOptions(){
+      getPickerOptions(item){
           let _self = this;
 
           var urlTemp = tool.AjaxBaseUrl();
@@ -328,9 +329,9 @@ export default {
             UserName: tool.UserName(),
             _ControlName: tool.CommonDataServiceHandle_Query,
             _RegisterCode: tool.RegisterCode(),
-            Code: _self.BusinessSector.Code || '',
-            TypeValue: _self.BusinessSector.TypeValue || '',
-            Filter:_self.BusinessSector.Filter || ''
+            Code: item.Code || '',
+            TypeValue: item.TypeValue || '',
+            Filter:item.Filter || ''
           };
           var loadingIndexClassName = tool.showLoading();
           $.ajax({
@@ -341,8 +342,7 @@ export default {
             success: function (data) {
               tool.hideLoading(loadingIndexClassName);
               data = tool.jObject(data)._OnlyOneData;
-              // console.log(data);
-              _self.$set(_self.BusinessSector, 'option', data);
+              _self.$set(item, 'option', data);
               // console.log(_self.BusinessSector);
             },
             error: function (jqXHR, type, error) {

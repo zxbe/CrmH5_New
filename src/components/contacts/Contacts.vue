@@ -114,7 +114,7 @@
                                                           <i class="calcfont icon calc-mobilephone"></i><span>{{company.TelPhone}}</span>
                                                         </div>
                                                     </div>
-                                                    <!-- <div class="item-div">{{company.BusinessType}},{{company.DepartmentName}}</div> -->
+
                                             </div>
                                       </div>
                                 </div>

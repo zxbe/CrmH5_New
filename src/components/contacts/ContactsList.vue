@@ -3,8 +3,8 @@
 
   <header class="header">
       <a @click="back" class="calcfont calc-fanhui back-icon" id="back"></a>
-      <search-input class="search" placeholder="搜索公司"></search-input>
-      <a class="calcfont calc-tianjia add-icon" @click="addOrganization" ></a>
+      <search-input class="search" placeholder="搜索联系人"></search-input>
+      <a class="calcfont calc-tianjia add-icon" @click="addContacts" ></a>
   </header>
 
   <sort :sortData="sortData"></sort>
@@ -12,36 +12,36 @@
   <div class="list-div">
     <vue-scroll v-show="!noData" :showToTop="false" :options="{ pullup: true, pulldown: true }" :scrollbar="false" ref="scroll" @pulldown="pulldown" @pullup="pullup">
 
-        <div v-if="listData.length > 0" class=" organizations-list">
-          <div v-for="item in listData" :key="item.AutoID"
-          class="group-item data-events-item"
-          :data-url="'/organizationsinfo/' + item.AutoID">
-                <div class="item-stars-icon calcfont" :class="item.IsFollow" :data-autoid="item.AutoID"></div>
-                <div class="item-block f14">
-                    <div class="item-div item-first-div">
-                      <span class="short-name">{{item.ShortName}}</span>
-                      <span class="icao-code f12">{{item.ICAOCode}}</span>
-                    </div>
-                    <div class="item-div">
-                      <div class="left-text" v-show="(item.BusinessType =='' || item.BusinessType == null) ? false : true">
-                        <i class="calcfont icon calc-yewu"></i><span >{{item.BusinessType}}</span>
+          <div v-if="listData.length > 0" class="contacts-list data-list">
+                <div v-for="(item, index) in listData" :key="item.AutoID"
+                  :data-url="'/contactsinfo/' + item.AutoID"
+                  class="group-item data-events-item f14">
+                      <div class="item-user-icon"><img src="../../assets/images/default_user_img.png" alt=""></div>
+                      <div class="item-block contacts-item-block">
+                              <div class="item-div item-first-div"><span>{{item.EnglishName}}</span></div>
+                              <div class="item-div" style="padding-top:5px;">
+                                  <i :class="[(item.Title =='' || item.Title == null) ? '' : 'calc-zhiwei']" class="calcfont icon"></i><span>{{item.Title}}</span>
+                              </div>
+                              <div class="item-div">
+                                  <div class="left-text max60" v-show="(item.CompanyID =='' || item.CompanyID == null) ? false : true">
+                                      <i class="calcfont icon calc-gongsixinxi"></i><span >{{item.CompanyID}}</span>
+                                  </div>
+                                  <div class="right-text max35" v-show="(item.CountryName =='' || item.CountryName == null) ? false : true">
+                                      <i class="calcfont icon calc-nationaarea"></i><span>{{item.CountryName}}</span>
+                                  </div>
+                              </div>
+                              <div class="item-div">
+                                  <div class="left-text max60" v-show="(item.Email =='' || item.Email == null) ? false : true">
+                                    <i class="calcfont icon calc-mailbox"></i><span>{{item.Email}}</span>
+                                  </div>
+                                  <div class="right-text max35" v-show="(item.TelPhone =='' || item.TelPhone == null) ? false : true">
+                                    <i class="calcfont icon calc-mobilephone"></i><span>{{item.TelPhone}}</span>
+                                  </div>
+                              </div>
+
                       </div>
-                      <div class="right-text" v-show="(item.AccountManager =='' || item.AccountManager == null) ? false : true">
-                        <i class="calcfont icon calc-chengshijingli"></i><span>{{item.AccountManager}}</span>
-                      </div>
-                    </div>
-                    <div class="item-div">
-                      <div class="left-text" v-show="(item.CountryName =='' || item.CountryName == null) ? false : true">
-                        <i class="calcfont icon calc-nationaarea"></i><span>{{item.CountryName}}</span>
-                      </div>
-                      <div class="right-text" v-show="(item.CityName =='' || item.CityName == null) ? false : true">
-                        <i class="calcfont icon calc-diqiuquanqiu"></i><span>{{item.CityName}}</span>
-                      </div>
-                    </div>
                 </div>
           </div>
-
-    </div>
     </vue-scroll>
     <nothing v-show="noData" style="padding-top:0.8rem;"></nothing>
   </div>
@@ -99,104 +99,85 @@ export default {
         pageNum: 1, //当前页码
         //列表数据
         listData:[{
-            "AutoID": 488,
-            "ShortName": "Airbus",
-            "ICAOCode": "",
-            "BusinessType": "OEM_Aircraft",
-            "AccountManager": "Sean Farnan",
-            "CountryName": "Liechtenstein",
-            "CityName": "",
-            "GroupID": 173,
-            "IsFollow": "calc-noshoucang",
-            "GroupRowCount": 22
-          }, {
-            "AutoID": 3469,
-            "ShortName": "ATR",
-            "ICAOCode": "",
-            "BusinessType": "OEM_Aircraft",
-            "AccountManager": "Sean Farnan",
-            "CountryName": "France",
-            "CityName": "Toulouse",
-            "GroupID": 173,
-            "IsFollow": "calc-noshoucang",
-            "GroupRowCount": 0
-          }, {
-            "AutoID": 1390,
-            "ShortName": "Boeing",
-            "ICAOCode": "",
-            "BusinessType": "OEM_Aircraft",
-            "AccountManager": "Sean Farnan",
-            "CountryName": "United States",
-            "CityName": "Seattle",
-            "GroupID": 173,
-            "IsFollow": "calc-noshoucang",
-            "GroupRowCount": 2
-          }, {
-            "AutoID": 1777,
-            "ShortName": "Cessna",
-            "ICAOCode": "",
-            "BusinessType": "OEM_Aircraft",
-            "AccountManager": "",
+            "AutoID": 1178,
+            "EnglishName": "Alex Pang",
+            "Title": "Cisco Gold Certified Partner",
+            "Email": "alex_pang@macroview.com",
+            "TelPhone": "+852 3529 5587",
+            "DepartmentName": "Cisco Master Collaboration Specialization",
+            "CompanyID": "MACROVIEW TELECOM",
             "CountryName": null,
-            "CityName": null,
-            "GroupID": 173,
-            "IsFollow": "calc-noshoucang",
-            "GroupRowCount": 0
+            "BusinessType": "Other"
           }, {
-            "AutoID": 486,
-            "ShortName": "COMAC",
-            "ICAOCode": "",
-            "BusinessType": "OEM_Aircraft",
-            "AccountManager": "",
+            "AutoID": 1343,
+            "EnglishName": "Alvin Chun",
+            "Title": "",
+            "Email": "alvin_chun@macroview.com",
+            "TelPhone": "35295459",
+            "DepartmentName": "Solution and Service Architect",
+            "CompanyID": "MACROVIEW TELECOM",
             "CountryName": null,
-            "CityName": null,
-            "GroupID": 173,
-            "IsFollow": "calc-noshoucang",
-            "GroupRowCount": 0
+            "BusinessType": "Other"
           }, {
-            "AutoID": 485,
-            "ShortName": "Embraer S.A",
-            "ICAOCode": "",
-            "BusinessType": "OEM_Aircraft",
-            "AccountManager": "Sean Farnan",
-            "CountryName": "Brazil",
-            "CityName": "S?o Paulo",
-            "GroupID": 173,
-            "IsFollow": "calc-noshoucang",
-            "GroupRowCount": 0
-          }, {
-            "AutoID": 3240,
-            "ShortName": "Mark Pearman-Wright",
-            "ICAOCode": "",
-            "BusinessType": "OEM_Aircraft",
-            "AccountManager": "Sean Farnan",
-            "CountryName": "France",
-            "CityName": "Toulouse",
-            "GroupID": 173,
-            "IsFollow": "calc-noshoucang",
-            "GroupRowCount": 0
-          }, {
-            "AutoID": 1778,
-            "ShortName": "OAK",
-            "ICAOCode": "",
-            "BusinessType": "OEM_Aircraft",
-            "AccountManager": "",
+            "AutoID": 1176,
+            "EnglishName": "Michael Yan",
+            "Title": "甄文達",
+            "Email": "michael_yan@macroview.com",
+            "TelPhone": "+852 3529 7471",
+            "DepartmentName": "Cisco Master Collaboration Specialization",
+            "CompanyID": "MACROVIEW TELECOM",
             "CountryName": null,
-            "CityName": null,
-            "GroupID": 173,
-            "IsFollow": "calc-noshoucang",
-            "GroupRowCount": 0
+            "BusinessType": "Other"
           }, {
-            "AutoID": 487,
-            "ShortName": "OEINC",
-            "ICAOCode": "",
-            "BusinessType": "OEM_Aircraft",
-            "AccountManager": "",
-            "CountryName": "China",
-            "CityName": "ShangHai",
-            "GroupID": 173,
-            "IsFollow": "calc-noshoucang",
-            "GroupRowCount": 1
+            "AutoID": 1177,
+            "EnglishName": "Samson choi",
+            "Title": "Cisco Gold Certified Parmer",
+            "Email": "samson_choi@macroview.com",
+            "TelPhone": "+852 3529 3804",
+            "DepartmentName": "CISA,CISSP",
+            "CompanyID": "MACROVIEW TELECOM",
+            "CountryName": null,
+            "BusinessType": "Other"
+          }, {
+            "AutoID": 1342,
+            "EnglishName": "Selina Wong",
+            "Title": "associate Service Architect",
+            "Email": "selina_wong@macroview.com",
+            "TelPhone": "35295337",
+            "DepartmentName": "",
+            "CompanyID": "MACROVIEW TELECOM",
+            "CountryName": null,
+            "BusinessType": "Other"
+          }, {
+            "AutoID": 1173,
+            "EnglishName": "黃俊華",
+            "Title": "Senior Manager",
+            "Email": "dennis_wong@macroview.com",
+            "TelPhone": "+852 2903 7329",
+            "DepartmentName": "",
+            "CompanyID": "MACROVIEW TELECOM",
+            "CountryName": null,
+            "BusinessType": "Other"
+          }, {
+            "AutoID": 1174,
+            "EnglishName": "余亮生",
+            "Title": "account manager",
+            "Email": "nelson_yu@macroview.com",
+            "TelPhone": "+852 3529 5585",
+            "DepartmentName": "sales",
+            "CompanyID": "MACROVIEW TELECOM",
+            "CountryName": null,
+            "BusinessType": "Other"
+          }, {
+            "AutoID": 1175,
+            "EnglishName": "周健友",
+            "Title": "Technical Manager",
+            "Email": "philip_chow@macroview.com",
+            "TelPhone": "+852 2903 7350",
+            "DepartmentName": "TS-Network Infrastructure Solutions",
+            "CompanyID": "MACROVIEW TELECOM",
+            "CountryName": null,
+            "BusinessType": "Other"
           }],
 
         RightPanelModel:{
@@ -294,11 +275,11 @@ export default {
         var $this = this;
         $this.$router.back(-1);
     },
-    //添加公司
-    addOrganization(){
+    //添加联系人
+    addContacts(){
         let _self = this;
         _self.$router.push({
-            path: '/organizationsinfo/-1'
+            path: '/contactsinfo/-1'
         });
     },
     //列表查询
@@ -422,7 +403,6 @@ export default {
 .back-icon{font-size: 0.48rem;padding:0.1rem 10px;}
 .search{flex:1;}
 .add-icon{font-size: 0.4rem;padding:0.1rem 10px;}
-
 
 /*列表*/
 .list-div{
