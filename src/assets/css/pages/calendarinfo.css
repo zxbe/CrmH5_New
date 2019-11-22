@@ -431,3 +431,98 @@ textarea::placeholder
     text-overflow: ellipsis; /*以省略号...显示*/
     white-space: nowrap;  /*强制不换行*/
 }
+
+
+/* 新的详情样式 */
+.DetailRow:after {
+    position: absolute;
+    content: "";
+    left: .6rem;
+    right: 0.18rem;
+    bottom: 0;
+    height: 1px;
+    background-color: beige;
+}
+.DetailRow.DeepColor:after
+{
+  background-color: #FFC125;
+}
+.calcfont.ChangeIconColor {
+    font-size: 0.32rem;
+    color: #FF9900;
+}
+
+span.FileName {
+    font-size: 0.24rem;
+    padding-left: 0.12rem;
+}
+
+span.XingHao {
+    font-size: 0.24rem;
+    padding-left: 3px;
+    color: red;
+}
+
+.DetailRowUp {
+    position: relative;
+    padding-left: 0.44rem;
+    padding-bottom: 0.1rem;
+    margin-top: 0.3rem;
+}
+
+.DetailRowUp input {
+    width: calc(100% - 0.5rem);
+    font-size: 0.28rem;
+    border: none;
+    outline: none;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
+}
+p.textareaP.wrap{
+    width: calc(100% - 0.5rem);
+    display:inline-block;
+    margin:0;
+    font-size: 0.28rem;
+
+}
+.DetailRowUp .LeftIconBlock {
+    position:absolute;
+    display: inline-block;
+    top:0;
+    width: 0.4rem;
+    right: 0;
+}
+
+.DetailRowUp .LeftIconBlock .LeftIcon.calcfont.calc-you {
+    font-size: 0.32rem;
+    color: #CDCDCD;
+}
+textarea{
+    font-size:0.28rem;
+}
+/*input placeholder的样式  */
+:-moz-placeholder {
+    font-size:0.28rem;
+  color: #D7D7D7;
+  opacity: 1;
+}
+
+::-moz-placeholder {
+  font-size:0.28rem;
+  color: #D7D7D7;
+  opacity: 1;
+}
+
+input:-ms-input-placeholder {
+    font-size:0.28rem;
+  color: #D7D7D7;
+  opacity: 1;
+}
+
+input::-webkit-input-placeholder {
+    font-size:0.28rem;
+  color: #D7D7D7;
+  opacity: 1;
+}

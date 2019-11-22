@@ -4,12 +4,12 @@
 <div class="meetingRecord">
   <div class="headerBlock">
       <div class="headerBlockLeftIcon">
-        <span class="calcfont calc-wendang2"></span>
+        <span class="calcfont calc-wendang2 ChangeIconColor"></span>
       </div>
       <div data-lanid="750_文档" class="headerBlockContent f16 lanText"></div>
 
       <div v-show="addible=='true'" class="headerBlockRightIcon controlEdit">
-        <span @click="goUpload($event)" data-url="/MeetingNoteinfo/-1" class="calcfont calc-jia"></span>
+        <span @click="goUpload($event)" data-url="/MeetingNoteinfo/-1" class="calcfont calc-jia ChangeIconColor"></span>
       </div>
 
     </div>
@@ -145,8 +145,8 @@ export default {
 <style scoped>
 .meetingRecord {
     margin-top: 10px;
-    padding-left: 0.3rem;
-    padding-right: 0.3rem;
+    padding-left: 0.16rem;
+    padding-right: 0.19rem;
     background-color: #fff;
 }
 .headerBlock {
@@ -167,7 +167,7 @@ export default {
 }
 
 .headerBlock .headerBlockLeftIcon {
-    width: 0.6rem;
+    width: 0.44rem;
     margin: auto 0;
 }
 
@@ -176,9 +176,10 @@ export default {
     color: #8a8a8a;
 }
 .headerBlock .headerBlockContent {
+    font-size: 0.28rem;
     width: calc(100% - 1.16rem);
     margin: auto 0;
-    color: #FF5A21;
+    color: #FF9900;
 }
 
 .headerBlock .headerBlockRightIcon {
@@ -186,17 +187,21 @@ export default {
     text-align: right;
     margin: auto 0;
 }
-
+.headerBlockLeftIcon .calcfont.ChangeIconColor {
+    font-size: 0.32rem;
+    color: #FF9900;
+}
 .headerBlock .headerBlockRightIcon .calcfont {
     font-size: 0.4rem;
-    color: #FF5A21;
+     color: #FF9900;
+    /* color: #FF5A21; */
 }
 
 
 
 /*列表*/
 .meetingDocList {
-    padding:0 0.3rem;
+    padding:0 0.12rem;
     background: #fff;
 }
 .meetingDocList .docListCell {
@@ -233,13 +238,14 @@ export default {
 }
 
 .docListCellLeftContent span {
-    color: #FF5A21;
+    /* color: #FF5A21; */
+    color: #FF9900;
     display: inline-block;
-    width: 0.5rem;
+    width: 0.44rem;
 }
 
 .meetingDocList .headerDivRightDelete {
-    width: 0.4rem;
+    width: 0.7rem;
     margin: auto 0;
 }
 .meetingDocList .headerDivRightDelete .calcfont {
