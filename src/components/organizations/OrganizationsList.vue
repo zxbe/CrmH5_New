@@ -46,7 +46,7 @@
   </div>
 
   <!-- 分组模式   -->
-  <div class="list-div">
+  <div class="group-div">
 
   </div>
 
