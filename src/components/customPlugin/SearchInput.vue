@@ -53,23 +53,20 @@ export default {
             let _self = this;
             _self.searchValue = '';
 
-            if(!tool.isNullOrEmptyObject(_self.$parent.refreshList)){
-                _self.$parent.refreshList();
+            if(!tool.isNullOrEmptyObject(_self.$parent.cleanSearchValue)){
+                _self.$parent.cleanSearchValue();
             }
         },
         //点击键盘搜索按钮
         onkeyUp(e){
           let _self = this;
           if(e.keyCode == 13){
-              if(tool.isNullOrEmptyObject(_self.searchValue)){
+              if( tool.isNullOrEmptyObject( tool.trimStr(_self.searchValue) ) ){
                   return;
               }
-              let item = {
-                  id:-1,
-                  text: tool.trimStr(_self.searchValue)
-              }
-              if( !tool.isNullOrEmptyObject(_self.$parent.tapResultItem)){
-                  _self.$parent.tapResultItem(item);
+
+              if( !tool.isNullOrEmptyObject(_self.$parent.goSearchEvent)){
+                  _self.$parent.goSearchEvent(tool.trimStr(_self.searchValue));
               }
           }
         }

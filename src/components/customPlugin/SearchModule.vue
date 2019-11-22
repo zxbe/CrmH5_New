@@ -5,6 +5,7 @@
     <header class="header" id="searchHeader">
         <search-input ref="searchInput" class="search" placeholder="搜索联系人"></search-input>
         <span @click="cancelEvent" class="cancel-btn f14">取消</span>
+        <i class="calcfont calc-shanchu delete-icon f18" @click="refreshList"></i>
     </header>
 
     <!-- 显示历史搜索状态 -->
@@ -14,7 +15,7 @@
             <i class="calcfont calc-shanchu delete-icon f18" @click="deleteAllHistory"></i>
         </div>
         <div class="panel-con" v-if="historyData.length > 0">
-               <div v-for="(item,index) in historyData" class="history-item left">
+               <div v-for="(item,index) in historyData" class="history-item left" @click="goSearchEvent(item)">
                   <span>{{item}}</span>
                   <i class="calcfont calc-guanbi1 item-delete-icon" @click="deleteOneHistory(item)"></i>
                </div>
@@ -24,7 +25,7 @@
     <!-- 根据输入模糊匹配 -->
     <div v-show="!showHistory" class="matching-panel">
         <div class="result-list" v-if="resultData.length > 0">
-              <div class="result-list-item" v-for="(item,index) in resultData" :key="index" :data-id="item.id" @click="tapResultItem(item)">
+              <div class="result-list-item" v-for="(item,index) in resultData" :key="index" :data-id="item.id" @click="goInfoPage(item)">
                   <i class="calcfont calc-shijian l-icon f18"></i>
                   <div class="item-text f14">{{item.text}}</div>
               </div>
@@ -73,8 +74,8 @@ export default {
         _self.$parent.pageState = 1;
 
         //清除子组件值
-        _self.$refs.searchInput.searchValue = '';
-        _self.inputValue = '';
+        // _self.$refs.searchInput.searchValue = '';
+        // _self.inputValue = '';
     },
 
     //获取搜索历史记录
@@ -89,27 +90,42 @@ export default {
         _self.historyData = JSON.parse(dataString);
 
     },
-    //点击模糊匹配中的结果
-    tapResultItem(item){
+    //搜索事件
+    goSearchEvent(str){
         let _self = this;
-        if( tool.isNullOrEmptyObject(item.text) || tool.isNullOrEmptyObject(item)){
+        str = tool.trimStr(str);
+        if( tool.isNullOrEmptyObject( str )){
             return ;
         }
-        //1.调列表父组件方法去搜索，把item值带过去
 
-        //2.切换列表父组件状态
-        _self.$parent.pageState = 1;
-        _self.$refs.searchInput.searchValue = '';
+        //1.调用列表父组件方法去搜索，把str值带过去
+        if(!tool.isNullOrEmptyObject(_self.$parent.refreshListBySearchValue)){
+            _self.$parent.refreshListBySearchValue(str);
+        }
+
+        //2.清空子组件
+        // _self.$refs.searchInput.searchValue = '';
 
 
-        //3.吧item值存到localStorage本地缓存中
+        //3.把item值存到localStorage本地缓存中
         let localStrorageData = JSON.parse(tool.getStorageItem(_self.localStorageName) == '' ? '[]' : tool.getStorageItem(_self.localStorageName));
-        let index = localStrorageData.indexOf( tool.trimStr(item.text) );
+        let index = localStrorageData.indexOf(str);
         if(index != -1 ){
             localStrorageData.splice(index,1);
         }
-        localStrorageData.unshift(item.text);
+        localStrorageData.unshift(str);
         tool.setStoragItem(_self.localStorageName, JSON.stringify(localStrorageData));
+
+    },
+    //点击模糊查询结果,跳到详情页
+    goInfoPage(data){
+        let _self = this;
+        if(tool.isNullOrEmptyObject(data)){
+          return ;
+        }
+
+        //根据不同模块，跳到不同的详情页
+        // _self.$root.push()
 
     },
     //删除所有历史记录
@@ -138,16 +154,23 @@ export default {
         console.log(str);
     },
 
-    //提供给子组件调用,功能为 把列表页面状态改为1 并且 刷新列表页面数据（子组件点击X）
+    //提供给子组件调用,功能为 刷新列表页面数据（子组件点击X）
     refreshList(){
         let _self = this;
-        _self.$parent.pageState = 1;
         _self.inputValue = '';
+
         // --》 调列表页面方法去刷新列表数据
+        if(!tool.isNullOrEmptyObject(_self.$parent.refreshListBySearchValue)){
+            _self.$parent.refreshListBySearchValue('');
+        }
 
     },
 
-
+    //清除搜索框的值
+    cleanSearchValue(){
+        let _self = this;
+        _self.inputValue = '';
+    }
 
   }
 
@@ -160,7 +183,7 @@ export default {
   background: #f8f2dc;
   height: 0.88rem;
   display: flex;align-items: center;
-  padding:0 15px;
+  padding:0 5px 0 15px;
 }
 .search{flex:1;}
 .cancel-btn{margin-left: 10px;padding:5px;}
@@ -170,7 +193,7 @@ export default {
 .history-panel{ min-height: calc(100vh - 0.88rem); padding:0 15px;}
 .panel-title{display: flex;align-items: center;margin-top: 10px;}
 .title-text{flex:1;}
-.delete-icon{color:#353535;padding:5px;}
+.delete-icon{color:#353535;padding:5px;margin-left: 10px;}
 .panel-con{}
 .history-item{ position: relative;padding:6px 10px;background: #f4f4f4;margin: 12px 12px 0 0;border-radius: 5px;}
 .item-delete-icon{

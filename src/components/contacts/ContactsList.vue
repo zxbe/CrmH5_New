@@ -11,7 +11,7 @@
       </header>
       <sort :sortData="sortData"></sort>
       <!-- 列表模式   -->
-      <div v-show="listMode=='List'" class="list-div">
+      <div v-show="queryObj.groupByMode == 'List'" class="list-mode-div">
         <vue-scroll v-show="!noData" :showToTop="false" :options="{ pullup: true, pulldown: true }" :scrollbar="false" ref="scroll" @pulldown="pulldown" @pullup="pullup">
 
               <div v-if="listData.length > 0" class="contacts-list data-list">
@@ -48,49 +48,62 @@
         <nothing v-show="noData" style="padding-top:0.8rem;"></nothing>
       </div>
       <!-- 分组模式   -->
-      <div v-show="listMode=='BusinessType'" class="list-div" id="contactsList">
-          <div v-if="groupData.length > 0" class="group-item-list contacts-list ">
-                  <div v-for="(item, index) in groupData" :key="item.AutoID" class="company_item">
-                    <div class="company_item_tit f14" >
-                        <span class="calcfont calc-gongsixinxi"></span>
-                        <div class="company_name" :data-groupid="item.AutoID">{{item.ShortName}}</div>
-                        <div>（{{item.GroupRowCount}}）</div>
+      <div v-show="queryObj.groupByMode != 'List'" class="group-mode-div" id="contactsList">
+          <div v-show="!noData" id="contactsList" data-fromtype="organizations">
+                <div v-for="group in groupData" :key="group.GroupID" class="list-group-div group-div">
+                    <div class="date-div">
+                        <span class="calcfont calc-business"></span>
+                        <span class="group-name" :data-groupid="group.GroupID">{{group.GroupName}}</span>
+                        <span class="right">（{{group.GroupRowCount}}）</span>
                     </div>
                     <div class="occupy-div"></div>
 
-                    <!-- <div v-if="companys.items.length > 0" class="contact_list data-list">
-                          <div v-for="company in companys.items" :key="company.AutoID"
-                            :data-url="'/contactsinfo/' + company.AutoID"
-                            class="group-item data-events-item f14">
-                                <div class="item-user-icon"><img src="../../assets/images/default_user_img.png" alt=""></div>
-                                <div class="item-block contacts-item-block">
-                                        <div class="item-div item-first-div"><span>{{company.EnglishName}}</span></div>
-                                        <div class="item-div" style="padding-top:5px;">
-                                            <i :class="[(company.Title =='' || company.Title == null) ? '' : 'calc-zhiwei']" class="calcfont icon"></i><span>{{company.Title}}</span>
-                                        </div>
-                                        <div class="item-div">
-                                            <div class="left-text max60" v-show="(company.CompanyID =='' || company.CompanyID == null) ? false : true">
-                                                <i class="calcfont icon calc-gongsixinxi"></i><span >{{company.CompanyID}}</span>
-                                            </div>
-                                            <div class="right-text max35" v-show="(company.CountryName =='' || company.CountryName == null) ? false : true">
-                                                <i class="calcfont icon calc-nationaarea"></i><span>{{company.CountryName}}</span>
-                                            </div>
-                                        </div>
-                                        <div class="item-div">
-                                            <div class="left-text max60" v-show="(company.Email =='' || company.Email == null) ? false : true">
-                                              <i class="calcfont icon calc-mailbox"></i><span>{{company.Email}}</span>
-                                            </div>
-                                            <div class="right-text max35" v-show="(company.TelPhone =='' || company.TelPhone == null) ? false : true">
-                                              <i class="calcfont icon calc-mobilephone"></i><span>{{company.TelPhone}}</span>
-                                            </div>
-                                        </div>
+                    <!-- <div v-if="group.items.length > 0" class="group-item-list contacts-list ">
+                            <div v-for="companys in group.items" :key="companys.AutoID" class="company_item">
+                              <div class="company_item_tit f14" >
+                                  <span class="calcfont calc-gongsixinxi"></span>
+                                  <div class="company_name" :data-groupid="companys.AutoID">{{companys.ShortName}}</div>
+                                  <div>（{{companys.GroupRowCount}}）</div>
+                              </div>
+                              <div class="occupy-div"></div>
 
-                                </div>
-                          </div>
+                              <div v-if="companys.items.length > 0" class="contact_list data-list">
+                                    <div v-for="company in companys.items" :key="company.AutoID"
+                                      :data-url="'/contactsinfo/' + company.AutoID"
+                                      class="group-item data-events-item f14">
+                                          <div class="item-user-icon"><img src="../../assets/images/default_user_img.png" alt=""></div>
+                                          <div class="item-block contacts-item-block">
+                                                  <div class="item-div item-first-div"><span>{{company.EnglishName}}</span></div>
+                                                  <div class="item-div" style="padding-top:5px;">
+                                                      <i :class="[(company.Title =='' || company.Title == null) ? '' : 'calc-zhiwei']" class="calcfont icon"></i><span>{{company.Title}}</span>
+                                                  </div>
+                                                  <div class="item-div">
+                                                      <div class="left-text max60" v-show="(company.CompanyID =='' || company.CompanyID == null) ? false : true">
+                                                          <i class="calcfont icon calc-gongsixinxi"></i><span >{{company.CompanyID}}</span>
+                                                      </div>
+                                                      <div class="right-text max35" v-show="(company.CountryName =='' || company.CountryName == null) ? false : true">
+                                                          <i class="calcfont icon calc-nationaarea"></i><span>{{company.CountryName}}</span>
+                                                      </div>
+                                                  </div>
+                                                  <div class="item-div">
+                                                      <div class="left-text max60" v-show="(company.Email =='' || company.Email == null) ? false : true">
+                                                        <i class="calcfont icon calc-mailbox"></i><span>{{company.Email}}</span>
+                                                      </div>
+                                                      <div class="right-text max35" v-show="(company.TelPhone =='' || company.TelPhone == null) ? false : true">
+                                                        <i class="calcfont icon calc-mobilephone"></i><span>{{company.TelPhone}}</span>
+                                                      </div>
+                                                  </div>
+
+                                          </div>
+                                    </div>
+                              </div>
+                        </div>
                     </div> -->
-              </div>
+                </div>
           </div>
+          <nothing v-show="noData" style="padding-top:0.8rem;"></nothing>
       </div>
+
       <!-- 侧滑筛选 -->
       <screen :screenData="RightPanelModel"></screen>
   </div>
@@ -121,35 +134,40 @@ export default {
   data(){
     return{
         pageState: 1, //页面显示状态：1为显示列表；2为显示搜索
-        sortData:[
-          {
-            sortId:1,
-            sortName:'company',
-            sortText:'按公司名称正序排序',
-            sortType:'asc'
+        sortData:[{
+            sortName:"ShortName",
+            sortText:lanTool.lanContent("1000518_按公司名称按正序排序"),
+            sortOrder:'asc'
           },
           {
-            sortId:2,
-            sortName:'company',
-            sortText:'按公司名称倒序排序',
-            sortType:'desc'
+            sortName:"ShortName",
+            sortText:lanTool.lanContent("1000519_按公司名称倒序排序"),
+            sortOrder:'desc'
+          },{
+            sortName:"BusinessType",
+            sortText:lanTool.lanContent("1000520_按业务分类正序排序"),
+            sortOrder:'asc'
           },
           {
-            sortId:3,
-            sortName:'contacts',
-            sortText:'按联系人名称正序排序',
-            sortType:'asc'
-          },
-          {
-            sortId:4,
-            sortName:'contacts',
-            sortText:'按联系人名称倒序排序',
-            sortType:'desc'
-          }
-        ],
+            sortName:"BusinessType",
+            sortText:lanTool.lanContent("1000521_按业务分类倒序排序"),
+            sortOrder:'desc'
+          }],
         noData: false, //没数据
         pageSize: 10, //一页显示多少记录
         pageNum: 1, //当前页码
+        sortObj:{
+          sortName:"",//排序名称
+          sortOrder:""//排序方向
+        },
+        //查询对象
+        queryObj:{
+          dataFilter:"",//数据筛选模式,
+          groupByMode:"List1",//分组模式,
+          viewMode:"",//视图模式
+          queryCondictionArr:[],//自定义查询条件
+        },
+        pageType:1,//0:Organizations;1:Contacts
         //列表模式数据
         listData:[{
             "AutoID": 1178,
@@ -234,195 +252,211 @@ export default {
           }],
         //分组模式数据
         groupData:[{
-            "AutoID": 3264,
-            "ShortName": "China Southern Airlines Company Limited",
-            "ICAOCode": "",
-            "BusinessType": "Airline",
-            "AccountManager": "Qing Fang",
-            "CountryName": "China",
-            "CityName": "GuangZhou",
-            "GroupID": 209,
-            "IsFollow": "calc-noshoucang",
-            "GroupRowCount": 4
-          }, {
-            "AutoID": 943,
-            "ShortName": "Lion Air",
-            "ICAOCode": "LNI",
-            "BusinessType": "Airline",
-            "AccountManager": "",
-            "CountryName": null,
-            "CityName": null,
-            "GroupID": 209,
-            "IsFollow": "calc-noshoucang",
-            "GroupRowCount": 3
-          }, {
-            "AutoID": 1055,
-            "ShortName": "Sichuan Airlines",
-            "ICAOCode": "CSC",
-            "BusinessType": "Airline",
-            "AccountManager": "",
-            "CountryName": null,
-            "CityName": null,
-            "GroupID": 209,
-            "IsFollow": "calc-noshoucang",
-            "GroupRowCount": 3
-          }, {
-            "AutoID": 3265,
-            "ShortName": "Sichuan Airlines Co., Ltd.",
-            "ICAOCode": "CSC",
-            "BusinessType": "Airline",
-            "AccountManager": "Qing Fang",
-            "CountryName": "China",
-            "CityName": "ChengDu",
-            "GroupID": 209,
-            "IsFollow": "calc-noshoucang",
-            "GroupRowCount": 3
-          }, {
-            "AutoID": 614,
-            "ShortName": "Aegean Airlines",
-            "ICAOCode": "AEE",
-            "BusinessType": "Airline",
-            "AccountManager": "",
-            "CountryName": null,
-            "CityName": null,
-            "GroupID": 209,
-            "IsFollow": "calc-noshoucang",
-            "GroupRowCount": 2
-          }, {
-            "AutoID": 638,
-            "ShortName": "Air Busan",
-            "ICAOCode": "ABL",
-            "BusinessType": "Airline",
-            "AccountManager": "",
-            "CountryName": null,
-            "CityName": null,
-            "GroupID": 209,
-            "IsFollow": "calc-noshoucang",
-            "GroupRowCount": 2
-          }, {
-            "AutoID": 682,
-            "ShortName": "AirAsia",
-            "ICAOCode": "AXM",
-            "BusinessType": "Airline",
-            "AccountManager": "",
-            "CountryName": null,
-            "CityName": null,
-            "GroupID": 209,
-            "IsFollow": "calc-noshoucang",
-            "GroupRowCount": 2
-          }, {
-            "AutoID": 877,
-            "ShortName": "Icelandair",
-            "ICAOCode": "ICE",
-            "BusinessType": "Airline",
-            "AccountManager": "",
-            "CountryName": null,
-            "CityName": null,
-            "GroupID": 209,
-            "IsFollow": "calc-noshoucang",
-            "GroupRowCount": 2
-          }, {
-            "AutoID": 898,
-            "ShortName": "Jet2",
-            "ICAOCode": "EXS",
-            "BusinessType": "Airline",
-            "AccountManager": "",
-            "CountryName": null,
-            "CityName": null,
-            "GroupID": 209,
-            "IsFollow": "calc-noshoucang",
-            "GroupRowCount": 2
-          }, {
-            "AutoID": 3208,
-            "ShortName": "Joy Air Co., Ltd.",
-            "ICAOCode": "",
-            "BusinessType": "Airline",
-            "AccountManager": "",
-            "CountryName": "China",
-            "CityName": "BeiJing",
-            "GroupID": 209,
-            "IsFollow": "calc-noshoucang",
-            "GroupRowCount": 2
-          }, {
-            "AutoID": 1385,
-            "ShortName": "Longjiang  Airlines",
-            "ICAOCode": "",
-            "BusinessType": "Airline",
-            "AccountManager": "",
-            "CountryName": null,
-            "CityName": null,
-            "GroupID": 209,
-            "IsFollow": "calc-noshoucang",
-            "GroupRowCount": 2
-          }, {
-            "AutoID": 946,
-            "ShortName": "LOT Polish Airlines",
-            "ICAOCode": "LOT",
-            "BusinessType": "Airline",
-            "AccountManager": "",
-            "CountryName": null,
-            "CityName": null,
-            "GroupID": 209,
-            "IsFollow": "calc-noshoucang",
-            "GroupRowCount": 2
-          }, {
-            "AutoID": 1019,
-            "ShortName": "Qingdao Airlines",
-            "ICAOCode": "QDA",
-            "BusinessType": "Airline",
-            "AccountManager": "",
-            "CountryName": null,
-            "CityName": null,
-            "GroupID": 209,
-            "IsFollow": "calc-noshoucang",
-            "GroupRowCount": 2
-          }, {
-            "AutoID": 1028,
-            "ShortName": "Royal Jordanian",
-            "ICAOCode": "RJA",
-            "BusinessType": "Airline",
-            "AccountManager": "",
-            "CountryName": null,
-            "CityName": null,
-            "GroupID": 209,
-            "IsFollow": "calc-noshoucang",
-            "GroupRowCount": 2
-          }, {
-            "AutoID": 1775,
-            "ShortName": "Saudi Gulf Airlines",
-            "ICAOCode": "",
-            "BusinessType": "Airline",
-            "AccountManager": "",
-            "CountryName": null,
-            "CityName": null,
-            "GroupID": 209,
-            "IsFollow": "calc-noshoucang",
-            "GroupRowCount": 2
-          }, {
-            "AutoID": 1051,
-            "ShortName": "Shandong Airlines",
-            "ICAOCode": "CDG",
-            "BusinessType": "Airline",
-            "AccountManager": "",
-            "CountryName": null,
-            "CityName": null,
-            "GroupID": 209,
-            "IsFollow": "calc-noshoucang",
-            "GroupRowCount": 2
-          }],
-        listMode:'List', //记录分组模式：List,BusinessType
+              "GroupName": "Other",
+              "GroupID": 213,
+              "GroupRowCount": 318,
+              "InternalSort": 1
+            }, {
+              "GroupName": "Airline",
+              "GroupID": 209,
+              "GroupRowCount": 108,
+              "InternalSort": 99
+            }, {
+              "GroupName": "Financial_Bank",
+              "GroupID": 172,
+              "GroupRowCount": 32,
+              "InternalSort": 99
+            }, {
+              "GroupName": "OEM_Aircraft",
+              "GroupID": 173,
+              "GroupRowCount": 26,
+              "InternalSort": 99
+            }, {
+              "GroupName": "Legal Entity(SPV)",
+              "GroupID": 171,
+              "GroupRowCount": 19,
+              "InternalSort": 99
+            }, {
+              "GroupName": "Financiers",
+              "GroupID": 248,
+              "GroupRowCount": 6,
+              "InternalSort": 99
+            }, {
+              "GroupName": "Financial_Investment/Investment Bank",
+              "GroupID": 217,
+              "GroupRowCount": 5,
+              "InternalSort": 99
+            }, {
+              "GroupName": "MRO_Airframe",
+              "GroupID": 230,
+              "GroupRowCount": 5,
+              "InternalSort": 99
+            }, {
+              "GroupName": "Vendor",
+              "GroupID": 16,
+              "GroupRowCount": 5,
+              "InternalSort": 99
+            }, {
+              "GroupName": "Lessee",
+              "GroupID": 15,
+              "GroupRowCount": 4,
+              "InternalSort": 99
+            }, {
+              "GroupName": "Government_Chamber of Commerce",
+              "GroupID": 228,
+              "GroupRowCount": 2,
+              "InternalSort": 99
+            }, {
+              "GroupName": "MRO_Engin",
+              "GroupID": 229,
+              "GroupRowCount": 2,
+              "InternalSort": 99
+            }, {
+              "GroupName": "Professional Institution_Media",
+              "GroupID": 226,
+              "GroupRowCount": 2,
+              "InternalSort": 99
+            }, {
+              "GroupName": "OEM_BFE",
+              "GroupID": 219,
+              "GroupRowCount": 1,
+              "InternalSort": 99
+            }, {
+              "GroupName": "OEM_Engin",
+              "GroupID": 218,
+              "GroupRowCount": 1,
+              "InternalSort": 99
+            }, {
+              "GroupName": "Professional Institution_Evaluation",
+              "GroupID": 223,
+              "GroupRowCount": 1,
+              "InternalSort": 99
+            }, {
+              "GroupName": "Professional Institutions_Aerospace Industry Professional Institutions",
+              "GroupID": 225,
+              "GroupRowCount": 1,
+              "InternalSort": 99
+            }, {
+              "GroupName": "Transportation",
+              "GroupID": 215,
+              "GroupRowCount": 1,
+              "InternalSort": 99
+            }, {
+              "GroupName": "Financial_Asset Management",
+              "GroupID": 216,
+              "GroupRowCount": 0,
+              "InternalSort": 99
+            }, {
+              "GroupName": "Financial_Funds/Securities/Trust Companies",
+              "GroupID": 175,
+              "GroupRowCount": 0,
+              "InternalSort": 99
+            }, {
+              "GroupName": "Financial_Guarantee Corporation",
+              "GroupID": 178,
+              "GroupRowCount": 0,
+              "InternalSort": 99
+            }, {
+              "GroupName": "Financial_Insurance",
+              "GroupID": 212,
+              "GroupRowCount": 0,
+              "InternalSort": 99
+            }, {
+              "GroupName": "Financial_Mortgage",
+              "GroupID": 179,
+              "GroupRowCount": 0,
+              "InternalSort": 99
+            }, {
+              "GroupName": "Financier_Other",
+              "GroupID": 211,
+              "GroupRowCount": 0,
+              "InternalSort": 99
+            }, {
+              "GroupName": "Government_Airworthiness Authorities",
+              "GroupID": 177,
+              "GroupRowCount": 0,
+              "InternalSort": 99
+            }, {
+              "GroupName": "Government_Government Department",
+              "GroupID": 227,
+              "GroupRowCount": 0,
+              "InternalSort": 99
+            }, {
+              "GroupName": "Operator",
+              "GroupID": 174,
+              "GroupRowCount": 0,
+              "InternalSort": 99
+            }, {
+              "GroupName": "Professional Institution_Law Firm",
+              "GroupID": 220,
+              "GroupRowCount": 0,
+              "InternalSort": 99
+            }, {
+              "GroupName": "Professional Institution_Rating Company",
+              "GroupID": 224,
+              "GroupRowCount": 0,
+              "InternalSort": 99
+            }, {
+              "GroupName": "Professional Institution_Technical",
+              "GroupID": 214,
+              "GroupRowCount": 0,
+              "InternalSort": 99
+            }, {
+              "GroupName": "Professional Institutions_3rd Party Managed",
+              "GroupID": 210,
+              "GroupRowCount": 0,
+              "InternalSort": 99
+            }, {
+              "GroupName": "Professional Institutions_Accounting Office/Audit/Tax",
+              "GroupID": 221,
+              "GroupRowCount": 0,
+              "InternalSort": 99
+            }, {
+              "GroupName": "Professional Institutions_Consultant/Consulting",
+              "GroupID": 222,
+              "GroupRowCount": 0,
+              "InternalSort": 99
+            }, {
+              "GroupName": "Remarketing_Overseas",
+              "GroupID": 233,
+              "GroupRowCount": 0,
+              "InternalSort": 99
+            }, {
+              "GroupName": "Remarketing_PRC",
+              "GroupID": 234,
+              "GroupRowCount": 0,
+              "InternalSort": 99
+            }, {
+              "GroupName": "Shareholder Unit_Ari Shareholder Unit",
+              "GroupID": 231,
+              "GroupRowCount": 0,
+              "InternalSort": 99
+            }, {
+              "GroupName": "Shareholder Unit_Calc Shareholder Unit",
+              "GroupID": 176,
+              "GroupRowCount": 0,
+              "InternalSort": 99
+            }, {
+              "GroupName": "Shareholder Unit_Other",
+              "GroupID": 232,
+              "GroupRowCount": 0,
+              "InternalSort": 99
+            }],
+        //右侧侧滑数据模型
         RightPanelModel:{
             "DataFilterModel":{
                 text:lanTool.lanContent("794_数据筛选"),
                 option:[
                     {
+                      id:"allData",
+                      text:lanTool.lanContent("795_全部"),
                       sort:10,
-                      id:"All",
-                      text:"All"
+                      isActive:true
                     },{
+                      id:"MyFollowData",
+                      text:lanTool.lanContent("796_关注的公司"),
                       sort:20,
-                      id:"MyFollowed",
-                      text:"My Followed"
+                      //isActive:true
                     }
                 ]
             },
@@ -430,13 +464,14 @@ export default {
                 text:lanTool.lanContent("1000004_分组模式"),
                 option:[
                     {
-                      sort:10,
                       id:"List",
-                      text:"List",
+                      text:lanTool.lanContent("1000524_列表"),
+                      sort:10,
+                      isActive:true
                     },{
-                      sort:20,
                       id:"BusinessType",
-                      text:"Business Sector",
+                      text:lanTool.lanContent("1007_业务分类"),
+                      sort:20
                     }
                 ]
             },
@@ -465,9 +500,7 @@ export default {
   },
   mounted(){
       let _self = this;
-
-      _self.contactsToggle();
-
+      _self.groupToggleHandle('contactsList');
   },
   activated(){
 
@@ -488,6 +521,25 @@ export default {
     //查询委托
     delegateQuery:function(){
       let _self = this;
+      /*
+      _self.$nextTick(function(){
+
+        //执行查询
+        if(tool.isNullOrEmptyObject(_self.queryObj.groupByMode)){
+          return;
+        }
+
+        if(_self.queryObj.groupByMode.toLowerCase() == "list"){
+
+          //查询列表
+          _self.queryList('pushRefresh', function () {
+          });
+        }else{
+          //查询分组数据
+          _self.queryGroup();
+        }
+      });
+      */
 
     },
     //列表查询
@@ -589,63 +641,75 @@ export default {
             }
         });
     },
-    //联系人展开收起
-    contactsToggle:function(){
-        let _self = this;
-        $('#contactsList').off('click','.company_item_tit').on(
-          'click',
-          '.company_item_tit',
-          function(event){
-              event.preventDefault();
-              var target = $(event.target);
-              if (!target.hasClass('company_item_tit')) {
-                  target = target.parents("div.company_item_tit:first");
-                  if (tool.isNullOrEmptyObject(target)) {
-                      return;
-                  }
-              }
-              /*
-              //分组id
-              var categoryID = target.find("div[data-groupid]:first").attr("data-groupid") || "";
-              var fromType = "contacts";
-              var companyID = target.find("div[data-groupid]:first").attr("data-groupid") || "";
-              if (tool.isNullOrEmptyObject(categoryID) || tool.isNullOrEmptyObject(companyID)) {
+    //分组模式下展开收起
+    groupToggleHandle:function( idName ){
+        var _self = this;
+        $("#"+ idName ).off("click", "div.date-div").on(
+            "click",
+            "div.date-div",
+            function (event) {
+                event.preventDefault();
+                var target = $(event.target);
+                if (!target.hasClass('date-div')) {
+                    target = target.parents("div.date-div:first");
+                    if (tool.isNullOrEmptyObject(target)) {
+                        return;
+                    }
+                }
+                var fromType = target.parents("div[data-fromtype]").attr("data-fromtype") || "";
+                var groupID = target.find("span[data-groupid]:first").attr("data-groupid") || "";
+
+                if (tool.isNullOrEmptyObject(groupID)) {
                     return;
-              }
-              //若是展开
+                }
+
+                //若是展开
                 if (target.hasClass("open")) {
                     target
                         .removeClass("open")
-                        .siblings(".contact_list")
+                        .siblings(".group-item-list")
                         .slideUp(500, function () {
                             //清空items数据
                             $.each(_self.groupData, function (index, item) {
-                                if (item.GroupID == categoryID) {
-                                    $.each(item.items, function(i, companyData){
-                                        if(companyData.AutoID == companyID){
-                                            companyData.items = [];
-                                        }
-                                    })
+                                if (item.GroupID == groupID) {
+                                    item.items = [];
+                                    return;
                                 }
                             })
                         });
-                }else{
+                } else {
                     //若是收起
-                    _self.getContacts(categoryID, companyID, function(){
+                    /*
+                    var allQueryData = tool.combineArray(_self.queryCondictionData, _self.queryCondiction, "Field");
+
+                    //BusinessCategories模块需要用到
+                    if(allQueryData && !tool.isNullOrEmptyObject(_self.dateRangeJObject)){
+                        allQueryData.push(_self.dateRangeJObject);
+                    }
+
+                    let groupBy = _self.groupBy == undefined ? '' : _self.groupBy;
+
+                    tool.InitInnerDataList(_self, fromType, groupID, allQueryData, function(){
                         _self.$nextTick(function () {
                             target.addClass("open")
-                                .siblings(".contact_list")
+                                .siblings(".group-item-list")
                                 .slideDown(500);
+                            //联系人二级展开收起
+                            if(!tool.isNullOrEmptyObject(_self.contactsToggle)){
+                              _self.contactsToggle();
+                            }
+                            //分组模式会议 二级展开收起
+                            if(!tool.isNullOrEmptyObject(_self.meetingToggle)){
+                              _self.meetingToggle();
+                            }
                         })
-                    });
+                    }, '', groupBy, _self.showPage);
+                    */
                 }
-                */
+            }
+        );
 
-
-          })
     },
-
-
 
     //点击头部搜索
     showSearch(){
@@ -659,6 +723,13 @@ export default {
         _self.$refs.searchModule.getHistory();
     },
 
+    //接收搜索的值并刷新列表,str有可能为空  (专门处理搜索)
+    refreshListBySearchValue(str){
+        let _self = this;
+        _self.pageState = 1;
+
+    }
+
   }
 
 
@@ -666,23 +737,29 @@ export default {
 </script>
 
 <style scoped>
-.page{/*display: flex;flex-direction: column;justify-content: center;height: 100vh;*/}
+.page{}
 .header{
   overflow: hidden;
   background: #f8f2dc;
   height: 0.88rem;
   display: flex;align-items: center;
+  position:fixed;
+  top:0;left:0;right:0;
 }
 .back-icon{font-size: 0.48rem;padding:0.1rem 10px;}
 .search{flex:1;}
 .add-icon{font-size: 0.4rem;padding:0.1rem 10px;}
 
 /*列表*/
-.list-div{
+.list-mode-div{
   position: fixed;
   left:0;right:0;bottom:0;
   top:calc(0.88rem + 0.7rem);
 }
 
+/*分组模式*/
+.group-mode-div{
+  padding-top:calc(0.88rem + 0.7rem);
+}
 
 </style>
