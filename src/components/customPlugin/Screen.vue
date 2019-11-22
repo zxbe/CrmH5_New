@@ -44,9 +44,9 @@
               <!-- FieldModel -->
               <div class="fieldModel" v-if="FieldModel.length > 0">
                   <div class="block-div" v-for="(item, index) in FieldModel" :key="index">
-                      
+
                       <!-- 类型为picketTile -->
-                      <div class="type-div" v-if="item.fieldControlType == 'picketTile'" 
+                      <div class="type-div" v-if="item.fieldControlType == 'picketTile'"
                         :data-field="item.queryfield"
                         :data-fieldControlType=item.fieldControlType
                         :data-queryType="item.queryType"
@@ -103,7 +103,6 @@
                   </div>
               </div>
 
-              <div style="height:2rem;"></div>
        </div>
 
        <div class="btn-div f14">
@@ -238,7 +237,7 @@ export default {
 			if(tool.isNullOrEmptyObject(_curObj)){
 				return true;
             }
-            
+
             if(isOnlyRemoveEvent){
                 if(_curObj.is("div")){
                     _curObj.off("DOMNodeInserted DOMNodeRemoved");
@@ -494,7 +493,7 @@ export default {
             currElent.removeClass('calc-shousuoshangjiantou').addClass('calc-shousuojiantou');
         }
     },
-    
+
     //选择
     //是否可以关闭当前的选中状态
     choose(e,canCloseOther){
@@ -526,7 +525,7 @@ export default {
                 return;
             }
 
-            var curId = target.attr("data-id")||"";;
+            var curId = target.attr("data-id")||"";
             var oldId = "";
             if($blockDiv.hasClass("dataFilter")){
                 oldId = _self.queryObj.dataFilter||"";
@@ -537,7 +536,7 @@ export default {
             }else{
                 return;
             }
-            
+
             //若选中的项目不是前一个选中的项目
             if(curId != oldId){
                 if(!target.hasClass('active')){
@@ -574,8 +573,8 @@ export default {
         $(".dataFilter .item-div").removeClass("active");
         _self.$set(_self.queryObj,"dataFilter","");
         //若有配置默认选择项
-        if(!tool.isNullOrEmptyObject(_self.screenData.DataFilterModel) && 
-            !tool.isNullOrEmptyObject(_self.screenData.DataFilterModel.option) && 
+        if(!tool.isNullOrEmptyObject(_self.screenData.DataFilterModel) &&
+            !tool.isNullOrEmptyObject(_self.screenData.DataFilterModel.option) &&
             _self.screenData.DataFilterModel.option.length>=1){
                 //获取默认激活项
                 var defaultItemArr =
@@ -599,7 +598,7 @@ export default {
                             _self.setDeaultItemActive(".dataFilter");
                         }
                     }else{
-                        _self.setDeaultItemActive(".dataFilter");    
+                        _self.setDeaultItemActive(".dataFilter");
                     }
 
                 }else{
@@ -608,14 +607,14 @@ export default {
             }else{
                 _self.setDeaultItemActive(".dataFilter");
             }
-        
+
 
         //2>重置groupByMode
         $(".groupByMode .item-div").removeClass("active");
         _self.$set(_self.queryObj,"groupByMode","");
         //若有配置默认选择项
-        if(!tool.isNullOrEmptyObject(_self.screenData.GroupByModel) && 
-            !tool.isNullOrEmptyObject(_self.screenData.GroupByModel.option) && 
+        if(!tool.isNullOrEmptyObject(_self.screenData.GroupByModel) &&
+            !tool.isNullOrEmptyObject(_self.screenData.GroupByModel.option) &&
             _self.screenData.GroupByModel.option.length>=1){
             //获取默认激活项
             var defaultItemArr =
@@ -639,7 +638,7 @@ export default {
                         _self.setDeaultItemActive(".groupByMode");
                     }
                 }else{
-                    _self.setDeaultItemActive(".groupByMode");    
+                    _self.setDeaultItemActive(".groupByMode");
                 }
 
             }else{

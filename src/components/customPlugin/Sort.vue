@@ -88,7 +88,7 @@ export default {
       _self.$set(_self.sortObj,"sortOrder", (data.sortOrder || ""));
       // console.log("子组件sortName:"+_self.sortObj.sortName);
       // console.log("子组件sortOrder:"+_self.sortObj.sortOrder);
-      
+
       _self.$nextTick(function(){
         //调用父组件的查询方法
         _self.$parent.delegateQuery();
@@ -102,7 +102,6 @@ export default {
         return;
       }
       var indexTemp = 0;
-
       _self.tapItem(_self.sortData[indexTemp], indexTemp,false);
     },
     //显示筛选
@@ -119,12 +118,14 @@ export default {
 
 <style scoped>
 .sort {
-  position: relative;
+  position:fixed;
+  top:0.88rem;left:0;right:0;
   z-index: 9;
   height: 0.7rem;
   display: flex;
   align-items: center;
   padding: 0 10px 0 15px;
+  background: #ffffff;
 }
 .sort-left {
   flex: 1;
