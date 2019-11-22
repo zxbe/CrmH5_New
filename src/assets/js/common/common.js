@@ -725,26 +725,25 @@ import config from '../../configfile/config.js'
 	// 	return sysStorage.getLength();
 	// };
 
-	// /*通过键(key)检索获取应用存储的值*/
-	// tool.getStorageItem = function (keyName) {
-	// 	if (tool.isNull(keyName)) {
-	// 		return "";
-	// 	}
+	/*通过键(key)检索获取应用存储的值*/
+	tool.getStorageItem = function (keyName) {
+		if (tool.isNull(keyName)) {
+			return "";
+		}
+		var sysStorage = localStorage;
+		return sysStorage.getItem(keyName);
+	};
 
-	// 	var sysStorage = localStorage;
-	// 	return sysStorage.getItem(keyName);
-	// };
+	/*修改或添加键值(key-value)对数据到应用数据存储中*/
+	tool.setStoragItem = function (keyName, value) {
+		if (tool.isNull(keyName)) {
+			return false;
+		}
 
-	// /*修改或添加键值(key-value)对数据到应用数据存储中*/
-	// tool.setStoragItem = function (keyName, value) {
-	// 	if (tool.isNull(keyName)) {
-	// 		return false;
-	// 	}
-
-	// 	var sysStorage = localStorage;
-	// 	sysStorage.setItem(keyName, value);
-	// 	return true;
-	// };
+		var sysStorage = localStorage;
+		sysStorage.setItem(keyName, value);
+		return true;
+	};
 
 	// /*通过key值删除键值对存储的数据*/
 	// tool.removeStoragItem = function (keyName) {
