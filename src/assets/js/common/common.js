@@ -2408,8 +2408,7 @@ import config from '../../configfile/config.js'
           break;
         case "opportunities":
           controlName = tool.Api_OpportunityHandle_GroupInnerData;
-          var queryCondictionObj =
-          {
+          var queryCondictionObj ={
             Field:"BusinessTypes",
             Type:"string",
             Format:"",
@@ -2432,19 +2431,19 @@ import config from '../../configfile/config.js'
 
       //传入参数
       var jsonDatasTemp = {
-        CurrentLanguageVersion: lanTool.currentLanguageVersion,
-        UserName: tool.UserName(),
-        _ControlName: controlName,
-        GroupID: groupID,
-        _RegisterCode: tool.RegisterCode(),
-        QueryCondiction: JSON.stringify(queryCondiction),
-        PageType: (pageType == undefined || pageType == null) ? 0 : pageType
+			CurrentLanguageVersion: lanTool.currentLanguageVersion,
+			UserName: tool.UserName(),
+			_ControlName: controlName,
+			GroupID: groupID,
+			_RegisterCode: tool.RegisterCode(),
+			QueryCondiction: JSON.stringify(queryCondiction),
+			PageType: (pageType == undefined || pageType == null) ? 0 : pageType
       };
 
       if(pageSource != undefined && pageSource == 'index'){
           jsonDatasTemp.RecentDay = 7;
       }else{
-          jsonDatasTemp.GroupBy = groupBy;
+          jsonDatasTemp.GroupBy = groupBy || "";
       }
       var loadingIndexClassName = tool.showLoading();
       $.ajax({
@@ -2465,31 +2464,35 @@ import config from '../../configfile/config.js'
                   return;
               }
               $.each(vueObj.groupData, function (index, item) {
+
                   if (item.GroupID == groupID) {
-                      item.items = data;
-                      //若是dealPipeline
-                      if(fromType == "dealPipeline" || fromType == "opportunities"){
-                         $.each(item.items,function(dataIndex, dataItem){
+					//console.log(item);  
+					//item.items = data;
+					vueObj.$set(item, 'items',data);
+					  
+					//若是dealPipeline
+					if(fromType == "dealPipeline" || fromType == "opportunities"){
+						$.each(item.items,function(dataIndex, dataItem){
 
-                            var meetingSysmbol = lanTool.lanContent("1000001_最新的会议") || "new";
-                            var className = '';
+						var meetingSysmbol = lanTool.lanContent("1000001_最新的会议") || "new";
+						var className = '';
 
-                            if(dataItem.CurrentStateNew != null && dataItem.CurrentStateNew != undefined && dataItem.CurrentStateNew.toString() != "38"){
-                                              className = 'closed'
-                            }
-                            vueObj.$set(dataItem, 'className', className);
-                            vueObj.$set(dataItem, 'meetingSysmbol', meetingSysmbol);
-                         })
-                      }
-                      //若是organizations || meeting
-                      if(fromType == 'organizations' || fromType == 'meeting'){
-                        $.each(item.items,function(index, companyData){
-                            vueObj.$set(companyData, 'items', []);
-                        })
-                      }
+						if(dataItem.CurrentStateNew != null && dataItem.CurrentStateNew != undefined && dataItem.CurrentStateNew.toString() != "38"){
+							className = 'closed'
+						}
+						vueObj.$set(dataItem, 'className', className);
+						vueObj.$set(dataItem, 'meetingSysmbol', meetingSysmbol);
+						})
+					}
+					// //若是organizations || meeting
+					// if(fromType == 'organizations' || fromType == 'meeting'){
+					// $.each(item.items,function(index, companyData){
+					// 	vueObj.$set(companyData, 'items', []);
+					// })
+					// }
                   }
               })
-              if (!tool.isNullOrEmptyObject(myCallBack)) {
+              if (!tool.isNullOrEmptyObject(myCallBack) && typeof(myCallBack) == "function") {
                   myCallBack();
               }
               return;

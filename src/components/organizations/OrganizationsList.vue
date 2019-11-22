@@ -55,8 +55,7 @@
                     <span class="right">（{{group.GroupRowCount}}）</span>
                 </div>
                 <div class="occupy-div"></div>
-
-                <!-- <div v-if="group.items.length > 0" class="group-item-list organizations-list">
+                <div v-if="group.items != null && group.items != undefined &&  group.items.length >= 1" class="group-item-list organizations-list">
                       <div v-for="item in group.items" :key="item.AutoID"
                       class="group-item data-events-item"
                       :data-url="'/organizationsinfo/' + item.AutoID">
@@ -84,7 +83,7 @@
                                 </div>
                             </div>
                       </div>
-                </div> -->
+                </div>
           </div>
       </div>
       <nothing v-show="noData" style="padding-top:0.8rem;"></nothing>
@@ -251,159 +250,17 @@ export default {
           // }
           ],
         //分组数据(分组模式为非List)
-        groupData:[{
-              "GroupName": "Other",
-              "GroupID": 213,
-              "GroupRowCount": 653
-            }, {
-              "GroupName": "Airline",
-              "GroupID": 209,
-              "GroupRowCount": 617
-            }, {
-              "GroupName": "Legal Entity(SPV)",
-              "GroupID": 171,
-              "GroupRowCount": 391
-            }, {
-              "GroupName": "Financial_Bank",
-              "GroupID": 172,
-              "GroupRowCount": 174
-            }, {
-              "GroupName": "Financial_Funds/Securities/Trust Companies",
-              "GroupID": 175,
-              "GroupRowCount": 10
-            }, {
-              "GroupName": "Financial_Investment/Investment Bank",
-              "GroupID": 217,
-              "GroupRowCount": 9
-            }, {
-              "GroupName": "OEM_Aircraft",
-              "GroupID": 173,
-              "GroupRowCount": 9
-            }, {
-              "GroupName": "Professional Institution_Rating Company",
-              "GroupID": 224,
-              "GroupRowCount": 6
-            }, {
-              "GroupName": "Financiers",
-              "GroupID": 248,
-              "GroupRowCount": 5
-            }, {
-              "GroupName": "MRO_Airframe",
-              "GroupID": 230,
-              "GroupRowCount": 5
-            }, {
-              "GroupName": "Vendor",
-              "GroupID": 16,
-              "GroupRowCount": 5
-            }, {
-              "GroupName": "Government_Government Department",
-              "GroupID": 227,
-              "GroupRowCount": 4
-            }, {
-              "GroupName": "OEM_Engin",
-              "GroupID": 218,
-              "GroupRowCount": 4
-            }, {
-              "GroupName": "Financial_Asset Management",
-              "GroupID": 216,
-              "GroupRowCount": 3
-            }, {
-              "GroupName": "MRO_Engin",
-              "GroupID": 229,
-              "GroupRowCount": 3
-            }, {
-              "GroupName": "Government_Chamber of Commerce",
-              "GroupID": 228,
-              "GroupRowCount": 2
-            }, {
-              "GroupName": "Lessee",
-              "GroupID": 15,
-              "GroupRowCount": 2
-            }, {
-              "GroupName": "Professional Institution_Media",
-              "GroupID": 226,
-              "GroupRowCount": 2
-            }, {
-              "GroupName": "Government_Airworthiness Authorities",
-              "GroupID": 177,
-              "GroupRowCount": 1
-            }, {
-              "GroupName": "OEM_BFE",
-              "GroupID": 219,
-              "GroupRowCount": 1
-            }, {
-              "GroupName": "Professional Institution_Evaluation",
-              "GroupID": 223,
-              "GroupRowCount": 1
-            }, {
-              "GroupName": "Professional Institutions_Aerospace Industry Professional Institutions",
-              "GroupID": 225,
-              "GroupRowCount": 1
-            }, {
-              "GroupName": "Professional Institutions_Consultant/Consulting",
-              "GroupID": 222,
-              "GroupRowCount": 0
-            }, {
-              "GroupName": "Shareholder Unit_Calc Shareholder Unit",
-              "GroupID": 176,
-              "GroupRowCount": 1
-            }, {
-              "GroupName": "Transportation",
-              "GroupID": 215,
-              "GroupRowCount": 1
-            }, {
-              "GroupName": "Financial_Guarantee Corporation",
-              "GroupID": 178,
-              "GroupRowCount": 0
-            }, {
-              "GroupName": "Financial_Insurance",
-              "GroupID": 212,
-              "GroupRowCount": 0
-            }, {
-              "GroupName": "Financial_Mortgage",
-              "GroupID": 179,
-              "GroupRowCount": 0
-            }, {
-              "GroupName": "Financier_Other",
-              "GroupID": 211,
-              "GroupRowCount": 0
-            }, {
-              "GroupName": "Operator",
-              "GroupID": 174,
-              "GroupRowCount": 0
-            }, {
-              "GroupName": "Professional Institution_Law Firm",
-              "GroupID": 220,
-              "GroupRowCount": 0
-            }, {
-              "GroupName": "Professional Institution_Technical",
-              "GroupID": 214,
-              "GroupRowCount": 0
-            }, {
-              "GroupName": "Professional Institutions_3rd Party Managed",
-              "GroupID": 210,
-              "GroupRowCount": 0
-            }, {
-              "GroupName": "Professional Institutions_Accounting Office/Audit/Tax",
-              "GroupID": 221,
-              "GroupRowCount": 0
-            }, {
-              "GroupName": "Remarketing_Overseas",
-              "GroupID": 233,
-              "GroupRowCount": 0
-            }, {
-              "GroupName": "Remarketing_PRC",
-              "GroupID": 234,
-              "GroupRowCount": 0
-            }, {
-              "GroupName": "Shareholder Unit_Ari Shareholder Unit",
-              "GroupID": 231,
-              "GroupRowCount": 0
-            }, {
-              "GroupName": "Shareholder Unit_Other",
-              "GroupID": 232,
-              "GroupRowCount": 0
-            }]
+        groupData:[
+            // {
+            //   "GroupName": "Other",
+            //   "GroupID": 213,
+            //   "GroupRowCount": 653
+            // }, {
+            //   "GroupName": "Airline",
+            //   "GroupID": 209,
+            //   "GroupRowCount": 617
+            // }
+            ]
     }
   },
   created: function () {
@@ -443,7 +300,6 @@ export default {
         }
 
         if(_self.queryObj.groupByMode.toLowerCase() == "list"){
-
           //查询列表
           _self.queryList('pushRefresh', function () {
           });
@@ -454,7 +310,7 @@ export default {
       });
 
     },
-    //合并综合查询条件
+    //合并查询条件
     constructQueryCondiction:function(){
       let _self = this;
       var queryCondictionAllArr = [];
@@ -546,7 +402,7 @@ export default {
                 }
                 _self.$refs.scroll.refresh();
 
-                if(!tool.isNullOrEmptyObject(callback)){
+                if(!tool.isNullOrEmptyObject(callback) && typeof(callback) == "function"){
                   callback(data,_self.pageSize);
                 }
             },
@@ -577,84 +433,64 @@ export default {
             }
         });
     },
-    //分组数据查询
-    queryGroup:function(){
-      return;
+    //查询分组数据
+    queryGroup:function(callback){
       let _self = this;
-        //api接口地址
-        var urlTemp = tool.AjaxBaseUrl();
-        var controlName = tool.Api_OrganizationsHandle_Group;
+      var urlTemp = tool.AjaxBaseUrl();
+      var controlName = tool.Api_OrganizationsHandle_Group;
 
-        var jsonDatasTemp = {
-            CurrentLanguageVersion: lanTool.currentLanguageVersion,
-            UserName: tool.UserName(),
-            _ControlName: controlName,
-            _RegisterCode: tool.RegisterCode(),
-            IsUsePager: true,
-            PageSize:_self.pageSize,
-            PageNum:_self.pageNum,
-            SortName:_self.sortObj.sortName||"",
-            SortOrder:_self.sortObj.sortOrder||"",
-            QueryCondiction: JSON.stringify(_self.constructQueryCondiction() || []),
-            GroupBy:_self.queryObj.groupByMode||"",
-            PageType:_self.pageType
-        };
-        //console.log(jsonDatasTemp);
+      var jsonDatasTemp = {
+          CurrentLanguageVersion: lanTool.currentLanguageVersion,
+          UserName: tool.UserName(),
+          _ControlName: controlName,
+          _RegisterCode: tool.RegisterCode(),
+          QueryCondiction: JSON.stringify(_self.constructQueryCondiction() || []),
+          GroupBy:_self.queryObj.groupByMode||"",
+          PageType:_self.pageType
+      };
+      var loadingIndexClassName = tool.showLoading();
+      $.ajax({
+          async: true,
+          type: "post",
+          url: urlTemp,
+          data: jsonDatasTemp,
+          success: function (data) {
+              tool.hideLoading(loadingIndexClassName);
+              data = tool.jObject(data);
+              console.log(data);
 
-        var loadingIndexClassName = tool.showLoading();
-        $.ajax({
-            async: true,
-            type: "post",
-            url: urlTemp,
-            data: jsonDatasTemp,
-            success: function (data) {
-                tool.hideLoading(loadingIndexClassName);
-                data = tool.jObject(data);
-                console.log(data);
+              if (data._ReturnStatus == false) {
+                  tool.showText(tool.getMessage(data));
+                  console.log(tool.getMessage(data));
+                  _self.listData = [];
+                  _self.noData = true;
+                  return;
+              }
+              data = data._OnlyOneData.Rows || [];
 
-                if (data._ReturnStatus == false) {
-                    tool.showText(tool.getMessage(data));
-                    console.log(tool.getMessage(data));
-                    _self.listData = [];
-                    _self.noData = true;
-                    return;
-                }
-                data = data._OnlyOneData.Rows || [];
+              //没有数据
+              if((tool.isNullOrEmptyObject(data) || data.length <= 0) && _self.pageNum == 1){
+                  _self.noData = true;
+                  return ;
+              }
 
-                // //没有数据
-                // if((tool.isNullOrEmptyObject(data) || data.length <= 0) && _self.pageNum == 1){
-                //     _self.noData = true;
-                //     return ;
-                // }
+              _self.noData = false;
+              _self.groupData = data;
 
-                // _self.noData = false;
-                // if(queryType == 'pushLoad'){
-                //     _self.listData = _self.listData.concat(data);
-                // }else{
-                //     _self.listData = data;
-                // }
-
-                // if(queryType == undefined || queryType == ''){
-                //     _self.$refs.scroll.isPullingDown = true;
-                //     _self.$refs.scroll.isPullingUpEnd = false;
-                //     _self.$refs.scroll.scrollTo(0, 0, 200, 'easing');
-                // }
-                // _self.$refs.scroll.refresh();
-
-                // if(!tool.isNullOrEmptyObject(callback)){
-                //   callback(data,_self.pageSize);
-                // }
-            },
-            error: function (jqXHR, type, error) {
-                tool.hideLoading(loadingIndexClassName);
-                console.log(error);
-                return true;
-            },
-            complete: function () {
-                //隐藏虚拟键盘
-                document.activeElement.blur();
-            }
-        });
+              if(!tool.isNullOrEmptyObject(callback) && typeof(callback) == "function"){
+                callback(data);
+              }
+          },
+          error: function (jqXHR, type, error) {
+              tool.hideLoading(loadingIndexClassName);
+              console.log(error);
+              return true;
+          },
+          complete: function () {
+              //隐藏虚拟键盘
+              document.activeElement.blur();
+          }
+      });
     },
     //头部搜索，提供给SearchInput子组件调用的
     search(str){
@@ -662,7 +498,7 @@ export default {
     },
 
     //分组模式下展开收起
-    groupToggleHandle:function( idName ){
+    groupToggleHandle:function(idName){
         var _self = this;
         $("#"+ idName ).off("click", "div.date-div").on(
             "click",
@@ -699,40 +535,21 @@ export default {
                         });
                 } else {
                     //若是收起
-                    /*
-                    var allQueryData = tool.combineArray(_self.queryCondictionData, _self.queryCondiction, "Field");
-
-                    //BusinessCategories模块需要用到
-                    if(allQueryData && !tool.isNullOrEmptyObject(_self.dateRangeJObject)){
-                        allQueryData.push(_self.dateRangeJObject);
-                    }
-
-                    let groupBy = _self.groupBy == undefined ? '' : _self.groupBy;
-
-                    tool.InitInnerDataList(_self, fromType, groupID, allQueryData, function(){
+                    let groupBy = _self.queryObj.groupByMode ||"";
+                    let queryCondictionArr = _self.constructQueryCondiction() || [];
+                    tool.InitInnerDataList(_self, fromType, groupID, queryCondictionArr, function(){
                         _self.$nextTick(function () {
+                          //  console.log(_self.groupData);
                             target.addClass("open")
                                 .siblings(".group-item-list")
                                 .slideDown(500);
-                            //联系人二级展开收起
-                            if(!tool.isNullOrEmptyObject(_self.contactsToggle)){
-                              _self.contactsToggle();
-                            }
-                            //分组模式会议 二级展开收起
-                            if(!tool.isNullOrEmptyObject(_self.meetingToggle)){
-                              _self.meetingToggle();
-                            }
-                        })
-                    }, '', groupBy, _self.showPage);
-                    */
+                        });
+                    }, '', groupBy, _self.pageType);
                 }
             }
         );
 
     },
-
-
-
 
   },
   beforeRouteLeave: function (to, from, next) {
