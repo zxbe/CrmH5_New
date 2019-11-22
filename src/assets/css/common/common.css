@@ -478,10 +478,10 @@ top:0px;position:absolute;}
 .contacts-list .company_name_list{}
 .contacts-list .company_item{}
 .contacts-list .company_item_tit{display:flex;align-items:center;height: .7rem;z-index:1;
-  padding: 0 0 0 20px;background: #f2dec3;border-bottom: 1px solid #fff;width:100%;box-sizing: border-box;}
+  padding: 0 10px;background: #f2dec3;border-bottom: 1px solid #fff;width:100%;box-sizing: border-box;}
 .contacts-list .company_name{
   display: inline-block;
-  width: 74%;
+  flex: 1;
   line-height: 1.5;
   overflow: hidden;
   white-space: nowrap;

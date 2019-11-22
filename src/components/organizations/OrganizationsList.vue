@@ -9,9 +9,9 @@
 
   <sort :sortData="sortData" :sortObj="sortObj"></sort>
 
+  <!-- 列表模式   -->
   <div class="list-div">
     <vue-scroll v-show="!noData" :showToTop="false" :options="{ pullup: true, pulldown: true }" :scrollbar="false" ref="scroll" @pulldown="pulldown" @pullup="pullup">
-
         <div v-if="listData.length > 0" class=" organizations-list">
           <div v-for="item in listData" :key="item.AutoID"
           class="group-item data-events-item"
@@ -40,10 +40,14 @@
                     </div>
                 </div>
           </div>
-
     </div>
     </vue-scroll>
     <nothing v-show="noData" style="padding-top:0.8rem;"></nothing>
+  </div>
+
+  <!-- 分组模式   -->
+  <div class="list-div">
+
   </div>
 
 
@@ -194,9 +198,9 @@ export default {
             "GroupID": 173,
             "IsFollow": "calc-noshoucang",
             "GroupRowCount": 1
-          }],
-
-          GroupData:[],
+        }],
+        //分组模式
+        GroupData:[],
     }
   },
   created: function () {
