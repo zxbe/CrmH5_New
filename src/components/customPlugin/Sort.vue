@@ -102,6 +102,7 @@ export default {
         return;
       }
       var indexTemp = 0;
+
       _self.tapItem(_self.sortData[indexTemp], indexTemp,false);
     },
     //显示筛选

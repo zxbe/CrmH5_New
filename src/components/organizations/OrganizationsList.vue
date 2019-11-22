@@ -48,7 +48,7 @@
 
 
   <!-- 侧滑筛选 -->
-  <screen :screenData="RightPanelModel"></screen>
+  <screen :screenData="RightPanelModel" :queryObj="queryObj"></screen>
 
 </div>
 </template>
@@ -105,13 +105,15 @@ export default {
                 text:lanTool.lanContent("794_数据筛选"),
                 option:[
                     {
+                      id:"allData",
+                      text:lanTool.lanContent("795_全部"),
                       sort:10,
-                      id:"All",
-                      text:"All"
+                      isActive:true
                     },{
+                      id:"MyFollowData",
+                      text:lanTool.lanContent("796_关注的公司"),
                       sort:20,
-                      id:"MyFollowed",
-                      text:"My Followed"
+                      //isActive:true
                     }
                 ]
             },
@@ -119,24 +121,24 @@ export default {
                 text:lanTool.lanContent("1000004_分组模式"),
                 option:[
                     {
-                      sort:10,
                       id:"List",
-                      text:"List",
+                      text:lanTool.lanContent("1000524_列表"),
+                      sort:10,
+                      isActive:true
                     },{
-                      sort:20,
                       id:"BusinessType",
-                      text:"Business Sector",
+                      text:lanTool.lanContent("1007_业务分类"),
+                      sort:20
                     }
                 ]
             },
             "FieldModel":[{
                 queryfield: "BusinessType",
                 text: lanTool.lanContent("1007_业务分类"),
-                fieldControlType: "picker",
+                fieldControlType: "picketTile",//下拉选项以磁贴的方式展示的控件
                 queryType: "string",
                 queryFormat: "",
                 queryRelation: "and",
-                queryValue: "",
                 queryComparison: "=",
                 Code: "DropDowList_ViewBaseAllTypes",
                 TypeValue: "Companybusinesstype",
@@ -155,7 +157,7 @@ export default {
                 Code: "DropDowList_ViewBaseCountryInf",
                 TypeValue: "",
                 selectType: "radio",
-                clickObj: "CountryIDClickObj",
+                // clickObj: "CountryIDClickObj",
                 datalanid: "701_国家",
                 resulteRow: true,
               },
@@ -188,19 +190,22 @@ export default {
           viewMode:"",//视图模式
           queryCondictionArr:[],//自定义查询条件
         },
+        pageType:0,//0:Organizations;1:Contacts
         //列表数据(分组模式为List)
-        listData:[{
-            "AutoID": 487,
-            "ShortName": "OEINC",
-            "ICAOCode": "",
-            "BusinessType": "OEM_Aircraft",
-            "AccountManager": "",
-            "CountryName": "China",
-            "CityName": "ShangHai",
-            "GroupID": 173,
-            "IsFollow": "calc-noshoucang",
-            "GroupRowCount": 1
-          }],
+        listData:[
+          // {
+          //   "AutoID": 487,
+          //   "ShortName": "OEINC",
+          //   "ICAOCode": "",
+          //   "BusinessType": "OEM_Aircraft",
+          //   "AccountManager": "",
+          //   "CountryName": "China",
+          //   "CityName": "ShangHai",
+          //   "GroupID": 173,
+          //   "IsFollow": "calc-noshoucang",
+          //   "GroupRowCount": 1
+          // }
+          ],
         //分组数据(分组模式为非List)
         groupData:[]
     }
@@ -231,28 +236,46 @@ export default {
     //查询委托
     delegateQuery:function(){
       let _self = this;
-      //1>清空数据
-      _self.listData = [];
-      _self.groupData = [];
-      _self.noData = true;
+      
+      _self.$nextTick(function(){
 
-      //2>执行查询
-      if(tool.isNullOrEmptyObject(queryObj.groupByMode)){
-        return;
-      }
+        //执行查询
+        if(tool.isNullOrEmptyObject(_self.queryObj.groupByMode)){
+          return;
+        }
 
-      if(queryObj.groupByMode.toLowerCase() == "list"){
-        //查询列表
-        _self.queryList('pushRefresh', function () {
-        });
-      }else{
-        //查询分组数据
-      }
+        if(_self.queryObj.groupByMode.toLowerCase() == "list"){
+          //查询列表
+          _self.queryList('pushRefresh', function () {
+          });
+        }else{
+          //查询分组数据
+          _self.queryGroup();
+        }
+      });
+
     },
     //合并综合查询条件
     constructQueryCondiction:function(){
       let _self = this;
+      var queryCondictionAllArr = [];
+      if(!tool.isNullOrEmptyObject(_self.queryObj.dataFilter)){
+        var dataFilterObj = {
+          Field:_self.queryObj.dataFilter||"",
+          Type:"string",
+          Format:"",
+          Relation:"and",
+          Value:_self.queryObj.dataFilter,
+          Comparison:"="
+        };
+        queryCondictionAllArr.push(dataFilterObj);
+      }
 
+      if(!tool.isNullOrEmptyObject(_self.queryObj.queryCondictionArr)){
+        queryCondictionAllArr = tool.combineArray(queryCondictionAllArr,_self.queryObj.queryCondictionArr);
+      }
+
+      return queryCondictionAllArr;
     },
     //列表查询
     queryList: function (queryType, callback) {
@@ -267,7 +290,7 @@ export default {
         //api接口地址
         var urlTemp = tool.AjaxBaseUrl();
         var controlName = tool.Api_OrganizationsHandle_GroupInnerData;
-        /*
+        
         var jsonDatasTemp = {
             CurrentLanguageVersion: lanTool.currentLanguageVersion,
             UserName: tool.UserName(),
@@ -276,12 +299,14 @@ export default {
             IsUsePager: true,
             PageSize:_self.pageSize,
             PageNum:_self.pageNum,
-            SortName:"",
-            SortOrder:"",
-            QueryCondiction: JSON.stringify(_self.queryCondictionData || [])
+            SortName:_self.sortObj.sortName||"",
+            SortOrder:_self.sortObj.sortOrder||"",
+            QueryCondiction: JSON.stringify(_self.constructQueryCondiction() || []),
+            GroupBy:_self.queryObj.groupByMode||"",
+            PageType:_self.pageType
         };
-        console.log(jsonDatasTemp);
-        */
+        //console.log(jsonDatasTemp);
+
         var loadingIndexClassName = tool.showLoading();
         $.ajax({
             async: true,
@@ -292,10 +317,11 @@ export default {
                 tool.hideLoading(loadingIndexClassName);
                 data = tool.jObject(data);
                 console.log(data);
-                /*
+                
                 if (data._ReturnStatus == false) {
                     tool.showText(tool.getMessage(data));
                     console.log(tool.getMessage(data));
+                    _self.listData = [];
                     _self.noData = true;
                     return;
                 }
@@ -309,9 +335,9 @@ export default {
 
                 _self.noData = false;
                 if(queryType == 'pushLoad'){
-                    _self.userDataList = _self.userDataList.concat(data);
+                    _self.listData = _self.listData.concat(data);
                 }else{
-                    _self.userDataList = data;
+                    _self.listData = data;
                 }
 
                 if(queryType == undefined || queryType == ''){
@@ -324,7 +350,6 @@ export default {
                 if(!tool.isNullOrEmptyObject(callback)){
                   callback(data,_self.pageSize);
                 }
-                */
             },
             error: function (jqXHR, type, error) {
                 tool.hideLoading(loadingIndexClassName);
@@ -353,11 +378,96 @@ export default {
             }
         });
     },
+    //分组数据查询
+    queryGroup:function(){
+      return;
+      let _self = this;
+        //api接口地址
+        var urlTemp = tool.AjaxBaseUrl();
+        var controlName = tool.Api_OrganizationsHandle_Group;
+        
+        var jsonDatasTemp = {
+            CurrentLanguageVersion: lanTool.currentLanguageVersion,
+            UserName: tool.UserName(),
+            _ControlName: controlName,
+            _RegisterCode: tool.RegisterCode(),
+            IsUsePager: true,
+            PageSize:_self.pageSize,
+            PageNum:_self.pageNum,
+            SortName:_self.sortObj.sortName||"",
+            SortOrder:_self.sortObj.sortOrder||"",
+            QueryCondiction: JSON.stringify(_self.constructQueryCondiction() || []),
+            GroupBy:_self.queryObj.groupByMode||"",
+            PageType:_self.pageType
+        };
+        //console.log(jsonDatasTemp);
+
+        var loadingIndexClassName = tool.showLoading();
+        $.ajax({
+            async: true,
+            type: "post",
+            url: urlTemp,
+            data: jsonDatasTemp,
+            success: function (data) {
+                tool.hideLoading(loadingIndexClassName);
+                data = tool.jObject(data);
+                console.log(data);
+                
+                if (data._ReturnStatus == false) {
+                    tool.showText(tool.getMessage(data));
+                    console.log(tool.getMessage(data));
+                    _self.listData = [];
+                    _self.noData = true;
+                    return;
+                }
+                data = data._OnlyOneData.Rows || [];
+
+                //没有数据
+                if((tool.isNullOrEmptyObject(data) || data.length <= 0) && _self.pageNum == 1){
+                    _self.noData = true;
+                    return ;
+                }
+
+                _self.noData = false;
+                if(queryType == 'pushLoad'){
+                    _self.listData = _self.listData.concat(data);
+                }else{
+                    _self.listData = data;
+                }
+
+                if(queryType == undefined || queryType == ''){
+                    _self.$refs.scroll.isPullingDown = true;
+                    _self.$refs.scroll.isPullingUpEnd = false;
+                    _self.$refs.scroll.scrollTo(0, 0, 200, 'easing');
+                }
+                _self.$refs.scroll.refresh();
+
+                if(!tool.isNullOrEmptyObject(callback)){
+                  callback(data,_self.pageSize);
+                }
+            },
+            error: function (jqXHR, type, error) {
+                tool.hideLoading(loadingIndexClassName);
+                console.log(error);
+                return true;
+            },
+            complete: function () {
+                //隐藏虚拟键盘
+                document.activeElement.blur();
+            }
+        });
+    },
     //头部搜索，提供给SearchInput子组件调用的
     search(str){
         console.log(str);
     }
-  }
+  },
+  beforeRouteLeave: function (to, from, next) {
+        if (to.name == 'index') {
+            this.$store.commit('REMOVE_ITEM', 'organizationslist');
+        }
+        next();
+    }
 }
 </script>
 

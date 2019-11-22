@@ -1622,6 +1622,13 @@ import config from '../../configfile/config.js'
 		if(tool.isNullOrEmptyObject(arr2)){
 			arr2 = []
 		}
+
+		//若不需要判断重复
+		if(tool.isNullOrEmptyObject(uniqueKey)){
+			allArr = arr1.concat(arr2);
+			return allArr;
+		}
+
 		var arr1KeyArray = [];
 		for(var i = 0;i<arr1.length;i++){
 			var valTemp = arr1[i][uniqueKey] || "";
@@ -2592,6 +2599,7 @@ import config from '../../configfile/config.js'
 	tool.ClearControlData = function (myCallBack) {
 		$("[data-fieldControlType='textareaInput']").val("");
 		$("[data-fieldControlType='picker']").val("").attr("data-fieldVal", "").trigger('change');
+		$("[data-fieldControlType='picketTile']").find(".item-div.active").removeClass("active");
 		$("[data-fieldControlType='dateTimePicker']").val("").trigger('change');
 		$("[data-fieldControlType='selectList']").text("").attr("data-fieldVal", "");
 		$("[data-fieldControlType='groupSelectList']").text("").attr("data-fieldVal", "");
@@ -3747,19 +3755,43 @@ import config from '../../configfile/config.js'
 			if(tool.isNullOrEmptyObject(value)){
 				return true;
 			}
-			var queryCondictionObj =
-			{
+			var queryCondictionObj = {
 				Field:_curObj.attr("data-field") || "",
 				Type:_curObj.attr("data-querytype") || "",
 				Format:_curObj.attr("data-queryformat") || "",
 				Relation:_curObj.attr("data-queryrelation") || "",
 				Value:value,
-        Comparison:_curObj.attr("data-querycomparison") || "",
-        DisplayValue:_curObj.val()||""
+				Comparison:_curObj.attr("data-querycomparison") || "",
+				DisplayValue:_curObj.val()||""
 			};
 			queryCondiction.push(queryCondictionObj);
 		});
-		//2>selectList
+		//2>pickerTile
+		$("[data-fieldControlType='picketTile']").each(function (index, obj) {
+			var _curObj = $(this);
+			if(tool.isNullOrEmptyObject(_curObj)){
+				return true;
+			}
+			var $itemObj = _curObj.find(".item-div.active").eq(0);
+			if(tool.isNullOrEmptyObject($itemObj) || $itemObj.length<=0){
+				return true;
+			}
+			var value = $itemObj.attr("data-id")||"";
+			if(tool.isNullOrEmptyObject(value)){
+				return true;
+			}
+			var queryCondictionObj = {
+				Field:_curObj.attr("data-field") || "",
+				Type:_curObj.attr("data-querytype") || "",
+				Format:_curObj.attr("data-queryformat") || "",
+				Relation:_curObj.attr("data-queryrelation") || "",
+				Value:value,
+				Comparison:_curObj.attr("data-querycomparison") || "",
+				DisplayValue:_curObj.val()||""
+			};
+			queryCondiction.push(queryCondictionObj);
+		});
+		//3>selectList
 		$("[data-fieldControlType='selectList']").each(function (index, obj){
 			var _curObj = $(this);
 			if(tool.isNullOrEmptyObject(_curObj)){
@@ -3769,19 +3801,18 @@ import config from '../../configfile/config.js'
 			if(tool.isNullOrEmptyObject(value)){
 				return true;
 			}
-			var queryCondictionObj =
-			{
+			var queryCondictionObj ={
 				Field:_curObj.attr("data-field") || "",
 				Type:_curObj.attr("data-querytype") || "",
 				Format:_curObj.attr("data-queryformat") || "",
 				Relation:_curObj.attr("data-queryrelation") || "",
 				Value:value,
-        Comparison:_curObj.attr("data-querycomparison") || "",
-        DisplayValue:_curObj.text()||""
+				Comparison:_curObj.attr("data-querycomparison") || "",
+				DisplayValue:_curObj.text()||""
 			};
 			queryCondiction.push(queryCondictionObj);
 		});
-		//3>groupSelectList
+		//4>groupSelectList
 		$("[data-fieldControlType='groupSelectList']").each(function (index, obj){
 			var _curObj = $(this);
 			if(tool.isNullOrEmptyObject(_curObj)){
@@ -3791,19 +3822,18 @@ import config from '../../configfile/config.js'
 			if(tool.isNullOrEmptyObject(value)){
 				return true;
 			}
-			var queryCondictionObj =
-			{
+			var queryCondictionObj = {
 				Field:_curObj.attr("data-field") || "",
 				Type:_curObj.attr("data-querytype") || "",
 				Format:_curObj.attr("data-queryformat") || "",
 				Relation:_curObj.attr("data-queryrelation") || "",
 				Value:value,
-        Comparison:_curObj.attr("data-querycomparison") || "",
-        DisplayValue:_curObj.text()||""
+				Comparison:_curObj.attr("data-querycomparison") || "",
+				DisplayValue:_curObj.text()||""
 			};
 			queryCondiction.push(queryCondictionObj);
 		});
-		//4>linkSelectList
+		//5>linkSelectList
 		$("[data-fieldControlType='linkSelectList']").each(function (index, obj){
 			var _curObj = $(this);
 			if(tool.isNullOrEmptyObject(_curObj)){
@@ -3813,19 +3843,18 @@ import config from '../../configfile/config.js'
 			if(tool.isNullOrEmptyObject(value)){
 				return true;
 			}
-			var queryCondictionObj =
-			{
+			var queryCondictionObj = {
 				Field:_curObj.attr("data-field") || "",
 				Type:_curObj.attr("data-querytype") || "",
 				Format:_curObj.attr("data-queryformat") || "",
 				Relation:_curObj.attr("data-queryrelation") || "",
 				Value:value,
-        Comparison:_curObj.attr("data-querycomparison") || "",
-        DisplayValue:_curObj.text()||""
+				Comparison:_curObj.attr("data-querycomparison") || "",
+				DisplayValue:_curObj.text()||""
 			};
 			queryCondiction.push(queryCondictionObj);
 		});
-		//5>textareaInput
+		//6>textareaInput
 		$("[data-fieldControlType='textareaInput']").each(function (index, obj) {
 			var _curObj = $(this);
 			if(tool.isNullOrEmptyObject(_curObj)){
@@ -3835,8 +3864,7 @@ import config from '../../configfile/config.js'
 			if(tool.isNullOrEmptyObject(value)){
 				return true;
 			}
-			var queryCondictionObj =
-			{
+			var queryCondictionObj = {
 				Field:_curObj.attr("data-field") || "",
 				Type:_curObj.attr("data-querytype") || "",
 				Format:_curObj.attr("data-queryformat") || "",
@@ -3846,29 +3874,27 @@ import config from '../../configfile/config.js'
 			};
 			queryCondiction.push(queryCondictionObj);
 		});
-		//6>dateTimePicker
+		//7>dateTimePicker
 		$("[data-fieldControlType='dateTimePicker']").each(function (index, obj) {
 			var _curObj = $(this);
 			if(tool.isNullOrEmptyObject(_curObj)){
 				return true;
 			}
 
-			if(_curObj.parent('.endDate').length>=1)
-			{
+			if(_curObj.parent('.endDate').length>=1){
 				return true;
 			}
 
 			//若含有startDate,则说明是Range
 			if(_curObj.parent('.startDate').length>=1){
 				var fieldTemp = _curObj.attr("data-field") || "";
-				// console.log(fieldTemp);
 
 				var valArray = [];
 				_curObj = $("[data-field='"+ fieldTemp +"']:eq(0)");
 				if(tool.isNullOrEmptyObject(_curObj)){
 					return true;
 				}
-				//fieldTemp = _curObj.attr("data-field") || "";
+
 				var value = _curObj.val()||"";
 				if(!tool.isNullOrEmptyObject(value)){
 					valArray.push(value);
@@ -3893,8 +3919,7 @@ import config from '../../configfile/config.js'
 					throw new Error(msgTemp);
 				}
 				value = valArray.join(",");
-				var queryCondictionObj =
-				{
+				var queryCondictionObj = {
 					Field:fieldTemp,
 					Type:_curObj.attr("data-querytype") || "",
 					Format:_curObj.attr("data-queryformat") || "",
@@ -3905,14 +3930,12 @@ import config from '../../configfile/config.js'
 					IsChangeBetween:_curObj.attr("data-queryIsChangeBetween") || "false",
 				};
 				queryCondiction.push(queryCondictionObj);
-
-			}else{
+			} else{
 				var value = _curObj.val()||"";
 				if(tool.isNullOrEmptyObject(value)){
 					return true;
 				}
-				var queryCondictionObj =
-				{
+				var queryCondictionObj = {
 					Field:_curObj.attr("data-field") || "",
 					Type:_curObj.attr("data-querytype") || "",
 					Format:_curObj.attr("data-queryformat") || "",
@@ -3925,12 +3948,13 @@ import config from '../../configfile/config.js'
 			}
 		});
 
-
-		//console.log(queryCondiction);
+		
 		//执行回调函数
 		if(!tool.isNullOrEmptyObject(myCallBack)){
 			myCallBack(queryCondiction);
 		}
+
+		return queryCondiction;
 	};
 
 	//获取Public对象
@@ -4070,26 +4094,26 @@ import config from '../../configfile/config.js'
    */
   tool.UpdateFieldValueFromBack = function(eventBus, callback){
 
-      if(tool.isNullOrEmptyObject(eventBus.selectListData)){
-          return;
-      }
-      var curObj = $("[data-field='" + eventBus.selectListData.field + "']");
-      if (tool.isNullOrEmptyObject(curObj)) {
-          return;
-	  }
-	  curObj.attr("data-fieldval", eventBus.selectListData.value.id);
-	  //判断元素是否是input，是的话用val来赋值
-	  if(curObj.is('input'))
-		{
-			curObj.val(eventBus.selectListData.value.text);
-		}
-		else{
-			curObj.text(eventBus.selectListData.value.text);
-		}
+	if(tool.isNullOrEmptyObject(eventBus.selectListData)){
+		return;
+	}
+	var curObj = $("[data-field='" + eventBus.selectListData.field + "']");
+	if (tool.isNullOrEmptyObject(curObj)) {
+		return;
+	}
+	curObj.attr("data-fieldval", eventBus.selectListData.value.id);
+	//判断元素是否是input，是的话用val来赋值
+	if(curObj.is('input'))
+	{
+		curObj.val(eventBus.selectListData.value.text);
+	}
+	else{
+		curObj.text(eventBus.selectListData.value.text);
+	}
 
-		if (!tool.isNullOrEmptyObject(callback) && typeof(callback) == "function") {
-			callback(curObj);
-		}
+	if (!tool.isNullOrEmptyObject(callback) && typeof(callback) == "function") {
+		callback(curObj);
+	}
   }
 
   /**
@@ -4105,7 +4129,7 @@ import config from '../../configfile/config.js'
       }
 
       //给chField字段添加点击事件
-      var filterTemp = $("[data-field='" + relyonField + "']").attr("data-fieldval") || "";
+	  var filterTemp = $("[data-field='" + relyonField + "']").attr("data-fieldval") || "";
       if (!tool.isNullOrEmptyObject(filterTemp)) {
           $("[data-field='" + chField + "']").attr("Filter", filterTemp);
           $("[data-field='" + chField + "']").off('click').on('click', function () {
