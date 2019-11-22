@@ -1781,203 +1781,6 @@ import config from '../../configfile/config.js'
 	tool.UserAutoID = function () {
 		return tool.getSessionStorageItem(tool.cache_UserAutoID) || "";
 	};
-/*
-	//模板
-  tool.meetingGroupTemplate =
-  `<div class="list-group-div group-div">
-      <div class="date-div" >
-        <span class="calcfont calc-rili1" ></span><span class="group-name" data-groupID="{GroupID}">{GroupName}</span><span class="right">（{GroupRowCount}）</span>
-      </div>
-      <div class="occupy-div"></div>
-    </div>
-  `;
-  tool.tripGroupTemplate =
-    `<div class="list-group-div group-div">
-        <div class="date-div" >
-          <span class="calcfont calc-rili1" ></span><span class="group-name" data-groupID="{GroupID}">{GroupName}</span><span class="right">（{GroupRowCount}）</span>
-        </div>
-        <div class="occupy-div"></div>
-      </div>
-  `;
-  tool.dealPipelineGroupTemplate =
-    `<div class="list-group-div group-div">
-        <div class="date-div" >
-          <span class="calcfont calc-lianxiren1" ></span><span class="group-name" data-groupID="{GroupID}">{GroupName}</span><span class="right">（{GroupRowCount}）</span>
-        </div>
-        <div class="occupy-div"></div>
-      </div>
-  `;
-  tool.opportunitiesGroupTemplate =
-  `<div class="list-group-div group-div">
-  <div class="date-div" >
-	<span class="calcfont calc-lianxiren1" ></span><span class="group-name" data-groupID="{GroupID}">{GroupName}</span><span class="right">（{GroupRowCount}）</span>
-  </div>
-  <div class="occupy-div"></div>
-</div>
-`;
-	tool.organizationsGroupTemplate =
-		`<div class="list-group-div group-div">
-	  <div class="date-div" >
-		  <span class="calcfont calc-business" ></span><span class="group-name" data-groupID="{GroupID}">{GroupName}</span><span class="right">（{GroupRowCount}）</span>
-    </div>
-    <div class="occupy-div"></div>
-	</div>
-	`;
-  tool.contactsGroupTemplate =
-		`<div class="list-group-div group-div">
-      <div class="date-div" >
-    	  <span class="calcfont calc-gongsixinxi" ></span><span class="group-name" data-groupID="{GroupID}">{GroupName}</span><span class="right">（{GroupRowCount}）</span>
-      </div>
-      <div class="occupy-div"></div>
-    </div>
-	`;
-*/
-	/*
-	*fromType:模块名
-	*containerObj:容器jquery对象
-	*noData:是否无数据
-	*myCallBack:回调函数
-	*groupBy:分组依据
-  */
-  /*
-	tool.InitiateGroupList = function (fromType, containerObj, queryCondiction,myCallBack,groupBy) {
-		//清空容器内容
-		containerObj.html('');
-
-		if (tool.isNullOrEmptyObject(containerObj) || tool.isNullOrEmptyObject(fromType)) {
-			return;
-		}
-
-		var template = "";
-		var controlName = "";
-		var contentHtmlStr = "";
-		switch (fromType) {
-			case "meeting":
-				template = tool.meetingGroupTemplate;
-				controlName = tool.Api_MeetingHandle_Group;
-				break;
-			case "trip":
-				template = tool.tripGroupTemplate;
-				//controlName = tool.Api_TripHandle_Group;
-				controlName = "";
-				break;
-			case "dealPipeline":
-				template = tool.dealPipelineGroupTemplate;
-				controlName = tool.Api_OpportunityHandle_Group;
-				var queryCondictionObj =
-				{
-					Field:"BusinessTypes",
-					Type:"string",
-					Format:"",
-					Relation:"and",
-					Value:"29",
-					Comparison:"="
-				};
-				queryCondiction.push(queryCondictionObj);
-				break;
-			case "opportunities":
-				template = tool.opportunitiesGroupTemplate;
-				controlName = tool.Api_OpportunityHandle_Group;
-				var queryCondictionObj =
-				{
-					Field:"BusinessTypes",
-					Type:"string",
-					Format:"",
-					Relation:"and",
-					Value:"30",
-					Comparison:"="
-				};
-				queryCondiction.push(queryCondictionObj);
-				break;
-			case "organizations":
-				template = tool.organizationsGroupTemplate;
-				controlName = tool.Api_OrganizationsHandle_Group;
-				break;
-			case "contacts":
-				template = tool.contactsGroupTemplate;
-				controlName = tool.Api_ContactsHandle_Group;
-				break;
-		}
-
-		console.log("common_InitiateGroupList");
-		console.log(queryCondiction);
-
-		//查询分组数据
-		//请求地址
-		var urlTemp = tool.AjaxBaseUrl();
-		//传入参数
-		var jsonDatasTemp = {
-			CurrentLanguageVersion: lanTool.currentLanguageVersion,
-			UserName: tool.UserName(),
-			_ControlName: controlName,
-			_RegisterCode: tool.RegisterCode(),
-			QueryCondiction: JSON.stringify(queryCondiction),
-			GroupBy:groupBy
-		};
-		var loadingIndexClassName = tool.showLoading();
-
-		$.ajax({
-			async: true,
-			type: "post",
-			url: urlTemp,
-			data: jsonDatasTemp,
-			success: function (data) {
-				tool.hideLoading(loadingIndexClassName);
-				data = tool.jObject(data);
-				if (data._ReturnStatus == false) {
-					tool.showText(tool.getMessage(data));
-					console.log(tool.getMessage(data));
-					return;
-				}
-
-				data = data._OnlyOneData.Rows || [];
-				//无数据
-				if (data.length <= 0) {
-					if (!tool.isNullOrEmptyObject(myCallBack)) {
-						myCallBack(containerObj);
-					}
-					return;
-				}
-
-				//渲染组数据
-				for (var i = 0; i < data.length; i++) {
-					var tempStr = template;
-					for (var key in data[i]) {
-
-						// if(key == "GroupRowCount"){
-						// 	console.log(data[i][key] || "");
-						// }
-
-						tempStr = tempStr.replace("{" + key + "}", data[i][key]);
-					}
-
-					contentHtmlStr += tempStr;
-				}
-
-				//console.log(contentHtmlStr);
-
-				//追加数据
-				containerObj.append(contentHtmlStr);
-				if (!tool.isNullOrEmptyObject(myCallBack)) {
-					myCallBack(containerObj);
-				}
-
-				return;
-			},
-			error: function (jqXHR, type, error) {
-				console.log(error);
-				tool.hideLoading(loadingIndexClassName);
-				return;
-			},
-			complete: function () {
-				//tool.hideLoading();
-				//隐藏虚拟键盘
-				document.activeElement.blur();
-			}
-		});
-
-  };
-  /*
 
   /**
    * vueObj:vue对象
@@ -2106,268 +1909,6 @@ import config from '../../configfile/config.js'
   })
 
   }
-
-
-	/*
-	*fromType:模块名
-	*containerObj:容器jquery对象
-	*noData:是否无数据
-	*myCallBack:回调函数
-  */
-  /*
-	tool.InitiateInnerDataList = function (fromType, groupID, containerObj,queryCondiction, myCallBack,groupBy) {
-		// console.log(fromType);
-		// console.log(groupID);
-		// console.log(containerObj);
-		// console.log("common_InitiateInnerDataList");
-		// console.log(queryCondiction);
-
-		if (tool.isNullOrEmptyObject(fromType) || tool.isNullOrEmptyObject(groupID) || tool.isNullOrEmptyObject(containerObj)) {
-			return;
-		}
-
-		var parentContainerObj = containerObj.parents("div.group-div:first");
-		// console.log(parentContainerObj);
-		if (tool.isNullOrEmptyObject(parentContainerObj)) {
-			return;
-		}
-		//清空容器内容
-		parentContainerObj.find("div.group-item-list").remove();
-
-		var outerTemplate = "";
-		var innerTemplate = "";
-		var controlName = "";
-		var contentHtmlStr = "";
-		switch (fromType) {
-      case "meeting":
-		//controlName = tool.Api_MeetingHandle_GroupInnerData;
-		controlName = tool.Api_MeetingHandle_GroupInnerData;
-        outerTemplate = `
-        <div class="group-item-list meeting-list">
-        {InnerList}
-        </div>`;
-        innerTemplate = `<div class="data-events-item f14" data-url="/meetinginfo/{AutoID}" >
-                            <div class="item-title">{MeetingTitle}</div>
-                            <div class="item-time f12">
-                              <span class="calcfont calc-gengxinshijian"></span>
-                              <span class="time-text">{BeginTime}~{EndTime}</span>
-                              <span class="right-text">{Realname}</span>
-                            </div>
-                            <div class="item-address">{CompanyID}</div>
-                            <div class="item-initiator">{ContactsID}{Title}</div>
-                        </div>`;
-				break;
-		case "trip":
-		// controlName = tool.Api_TripHandle_GroupInnerData;
-		controlName = "";
-        outerTemplate = `
-        <div class="group-item-list trip-list">
-        {InnerList}
-        </div>`;
-        innerTemplate = `<div class=" data-events-item f12" data-url="/tripinfo/12">
-                            <div class="item-title">
-                                <span>1115-1116东航会议出差上海</span>
-                                <span class="right">审批已通过</span>
-                            </div>
-                            <div class="item-time f12">
-                                <span class="time-text trip-time-text">15/Nov - 16/Nov</span>
-                            </div>
-                            <div class="item-div">香港 - 上海（MU726   31/Dec 07:40 - 31/Dec 09:30）</div>
-                            <div class="item-div">上海 - 香港（HX235   4/Jan 09:10 - 4/Jan 11:55）</div>
-                            <div class="item-div">31/Dec - 04/Jan  4晚  上海</div>
-                        </div>`;
-				break;
-		case "dealPipeline":
-		// controlName = tool.Api_DealpipelineHandle_GroupInnerData;
-		controlName = tool.Api_OpportunityHandle_GroupInnerData;
-		var queryCondictionObj =
-		{
-			Field:"BusinessTypes",
-			Type:"string",
-			Format:"",
-			Relation:"and",
-			Value:"29",
-			Comparison:"="
-		};
-		queryCondiction.push(queryCondictionObj);
-        outerTemplate = `
-        <div class="group-item-list dealPipeline-list">
-        {InnerList}
-        </div>`;
-        innerTemplate = `<div class=" group-item f14" data-url="/opportunitiesinfo/{AutoID}">
-                            <div class="item-stars-icon calcfont {IsFollow}" data-autoid={AutoID}></div>
-                            <div class="item-block">
-                                <div class="item-div item-first-div blue-color">
-                                {TheName}
-                                </div>
-                                <div class="item-div line-clamp2">{Memo}</div>
-                                <div class="item-div f12 green-color padding-bottom-3 padding-top-3">
-                                  <span class="{className}">{CurrentState}</span>
-                                </div>
-                                {MeetingInfo}
-                            </div>
-                        </div>`;
-				break;
-		case "opportunities":
-		// controlName = tool.Api_OpportunitiesHandle_GroupInnerData;
-		controlName = tool.Api_OpportunityHandle_GroupInnerData;
-		var queryCondictionObj =
-		{
-			Field:"BusinessTypes",
-			Type:"string",
-			Format:"",
-			Relation:"and",
-			Value:"30",
-			Comparison:"="
-		};
-		queryCondiction.push(queryCondictionObj);
-        outerTemplate = `
-        <div class="group-item-list opportunities-list">
-        {InnerList}
-        </div>`;
-        innerTemplate = `<div class=" group-item f14" data-url="/opportunitiesinfo/{AutoID}">
-                            <div class="item-stars-icon calcfont {IsFollow}" data-autoid={AutoID}></div>
-                            <div class="item-block">
-                                <div class="item-div item-first-div blue-color">
-                                {TheName}
-                                </div>
-                                <div class="item-div f12 green-color padding-bottom-3 padding-top-3">
-                                  <span class="{className}">{CurrentState}</span>
-                                </div>
-                                <div class="item-div line-clamp2">{Memo}</div>
-                                {MeetingInfo}
-                            </div>
-                        </div>`;
-				break;
-		case "organizations":
-			controlName = tool.Api_OrganizationsHandle_GroupInnerData;
-			outerTemplate = `
-			<div class="group-item-list organizations-list">
-			{InnerList}
-			</div>`;
-			innerTemplate = `<div class="group-item" data-url="/organizationsinfo/{AutoID}">
-						<div class="item-stars-icon calcfont {IsFollow}" data-autoid={AutoID}></div>
-						<div class="item-block f14">
-						<div class="item-div item-first-div">
-							<span class="left-text">{ShortName}</span>
-							<span class="right-text right">{ICAOCode}</span>
-						</div>
-						<div class="item-div">
-							<span class="left-text">{BusinessType}</span>
-							<span class="right-text right">{AccountManager}</span>
-						</div>
-						<div class="item-div">
-							<span class="left-text">{CountryName}</span>
-							<span class="right-text right">{CityName}</span>
-						</div>
-						</div>
-					</div>`;
-			break;
-      case "contacts":
-        controlName = tool.Api_ContactsHandle_GroupInnerData;
-		outerTemplate = `
-        <div class="group-item-list contacts-list" >
-        {InnerList}
-        </div>`;
-        innerTemplate = `<div class="group-item f14" data-url="/contactsinfo/{AutoID}">
-                            <div class="item-user-icon calcfont calc-fuzeren1" data-autoid={AutoID}></div>
-                            <div class="item-block contacts-item-block">
-                                <div class="item-div item-first-div">{EnglishName}</div>
-                                <div class="item-div">{Title}</div>
-                                <div class="item-div"><span class="left-text max60">{CompanyID}</span><span class="right-text max35">{CountryName}</span></div>
-                                <div class="item-div">
-                                  <span class="left-text">{Email}</span><span class="right-text">{TelPhone}</span>
-                                </div>
-                                <div class="item-div">{BusinessType},{DepartmentName}</div>
-                            </div>
-                        </div>`;
-			break;
-		}
-
-		//请求地址
-		var urlTemp = tool.AjaxBaseUrl();
-		//传入参数
-		var jsonDatasTemp = {
-			CurrentLanguageVersion: lanTool.currentLanguageVersion,
-			UserName: tool.UserName(),
-			_ControlName: controlName,
-			GroupID: groupID,
-			_RegisterCode: tool.RegisterCode(),
-			QueryCondiction: JSON.stringify(queryCondiction),
-			GroupBy:groupBy
-		};
-		var loadingIndexClassName = tool.showLoading();
-		$.ajax({
-			async: true,
-			type: "post",
-			url: urlTemp,
-			data: jsonDatasTemp,
-			success: function (data) {
-				data = tool.jObject(data);
-				// console.log(data);
-				tool.hideLoading(loadingIndexClassName);
-				if (data._ReturnStatus == false) {
-					tool.showText(tool.getMessage(data));
-					console.log(tool.getMessage(data));
-					return;
-				}
-
-				data = data._OnlyOneData.Rows || [];
-				//无数据
-				if (data.length <= 0) {
-					return;
-				}
-
-				//渲染组数据
-				for (var i = 0; i < data.length; i++) {
-					var tempStr = innerTemplate;
-					for (var key in data[i]) {
-
-						if(fromType == "meeting"){
-						var valTemp = tool.FormatMeetingFieldVal(key,data[i][key]);
-						tempStr = tempStr.ReplaceAll("{" + key + "}", (valTemp || ""));
-
-						}else{
-
-							tempStr = tempStr.ReplaceAll("{" + key + "}", (data[i][key] || ""));
-						}
-					}
-
-					//若是dealPipeline
-					if(fromType == "dealPipeline" || fromType == "opportunities"){
-              var className = '';
-              if(data[i].CurrentState == lanTool.lanContent("955_已关闭")){
-                  className = 'closed'
-              }
-              tempStr = tempStr.ReplaceAll("{className}",className);
-						  tempStr = tool.FormatOppMeetingFieldValHtml(data[i],tempStr);
-					}
-
-					contentHtmlStr += tempStr;
-				}
-				outerTemplate = outerTemplate.replace("{InnerList}", contentHtmlStr);
-
-				//追加数据
-				parentContainerObj.append(outerTemplate);
-				if (!tool.isNullOrEmptyObject(myCallBack)) {
-					myCallBack(containerObj);
-				}
-
-				return;
-			},
-			error: function (jqXHR, type, error) {
-				console.log(error);
-				tool.hideLoading(loadingIndexClassName);
-				return;
-			},
-			complete: function () {
-				//tool.hideLoading();
-				//隐藏虚拟键盘
-				document.activeElement.blur();
-			}
-		});
-  };
-*/
 
   /**
    * vueObj:vue对象
@@ -2510,8 +2051,6 @@ import config from '../../configfile/config.js'
       });
   }
 
-
-
   //获取会议记录字段值
   tool.FormatMeetingFieldVal = function(fieldName,fieldVal){
     if(tool.isNull(fieldName) || tool.isNullOrEmptyObject(fieldVal)){
@@ -2533,80 +2072,7 @@ import config from '../../configfile/config.js'
 
     return fieldVal;
   };
-
-  // tool.OppMeetingInfoTemplate =
-  // `<div class="item-div-box">
-  //   <div class="item-new f12">
-  //       <div class="item-new-text">new</div>
-  //   </div>
-  //   <div>
-  //     <div class="item-div">
-  //       <span class="itme-div-span">{MeetingTitle}</span>
-  //     </div>
-  //     <div class="item-div dete-div padding-top-3 f12">
-  //       <span>{BeginTime}</span>
-  //     </div>
-  //   </div>
-  // </div>`;
-/*
-  tool.OppMeetingInfoTemplate =
-  `<div class="item-div-box">
-        <div class="item-new-text">{MeetingSysmbol}</div>
-
-    <div class="new-right">
-      <div class="item-div">
-        <span class="itme-div-span">{MeetingTitle}</span>
-      </div>
-      <div class="item-div dete-div f12">
-        <span>{BeginTime}</span>
-      </div>
-    </div>
-  </div>`;
-  //获取销售机会会议记录字段值
-  tool.FormatOppMeetingFieldValHtml = function(data,tempStr){
-			// <div class=" group-item f14" data-url="/opportunitiesinfo/{AutoID}">
-			// <div class="item-stars-icon calcfont calc-shoucang"></div>
-			// <div class="item-block">
-			// 	<div class="item-div item-first-div blue-color">
-			// 	{TheName}
-			// 	</div>
-			// 	<div class="item-div padding-top-5">{Memo}</div>
-			// 	<div class="item-div blue-color padding-bottom-5">
-			// 		<span>{CurrentState}</span>
-			// 	</div>
-			// 	{MeetingInfo}
-			// </div>
-			// </div>
-
-		if(tool.isNullOrEmptyObject(data) || tool.isNullOrEmptyObject(tempStr)){
-			return tempStr;
-		}
-
-		var templateTemp = tool.OppMeetingInfoTemplate;
-		var isMeetingExist = data["IsMeetingExist"] || "false";
-
-		if(isMeetingExist.toLowerCase()=="false"){
-			tempStr = tempStr.ReplaceAll("{MeetingInfo}","");
-			return tempStr;
-		}
-
-    var meetingTitle = data["MeetingTitle"]||"";
-
-		var beginTime = data["BeginTime"]||"";
-		var format = "d/MMM/yyyy HH:mm";
-		beginTime = beginTime.ReplaceAll("T", " ");
-    beginTime = tool.ChangeTimeFormat(beginTime, format);
-
-    var meetingSysmbol = lanTool.lanContent("1000001_最新的会议") || "new";
-
-		templateTemp = templateTemp.ReplaceAll("{MeetingTitle}",meetingTitle);
-    templateTemp = templateTemp.ReplaceAll("{BeginTime}",beginTime);
-    templateTemp = templateTemp.ReplaceAll("{MeetingSysmbol}",meetingSysmbol);
-
-		tempStr = tempStr.ReplaceAll("{MeetingInfo}",templateTemp);
-		return tempStr;
-  };
-*/
+  
 	/*
 	* 清空控件数据
 	*/
@@ -2615,10 +2081,10 @@ import config from '../../configfile/config.js'
 		$("[data-fieldControlType='picker']").val("").attr("data-fieldVal", "").trigger('change');
 		$("[data-fieldControlType='picketTile']").find(".item-div.active").removeClass("active");
 		$("[data-fieldControlType='dateTimePicker']").val("").trigger('change');
-		$("[data-fieldControlType='selectList']").text("").attr("data-fieldVal", "");
-		$("[data-fieldControlType='groupSelectList']").text("").attr("data-fieldVal", "");
-		$("[data-fieldControlType='linkSelectList']").text("").attr("data-fieldVal", "");
-		$("[data-fieldControlType='linkedPage']").text("").attr("data-fieldVal", "");
+		$("[data-fieldControlType='selectList']").text("").attr("data-fieldVal", "").val("");
+		$("[data-fieldControlType='groupSelectList']").text("").attr("data-fieldVal", "").val("");
+		$("[data-fieldControlType='linkSelectList']").text("").attr("data-fieldVal", "").val("");
+		$("[data-fieldControlType='linkedPage']").text("").attr("data-fieldVal", "").val("");
 		$("[data-fieldControlType='divText']").text("");
 		$("[data-fieldControlType='icon']").each(function(index,curObj){
 			var _curObj = $(this);
@@ -2725,12 +2191,10 @@ import config from '../../configfile/config.js'
 							title: titleVal,//标题
 							toolbarCloseText: lanTool.lanContent('569_确认'),//确认
 							toolbarCancleText: lanTool.lanContent('570_取消'),//取消
-							cols: [
-								{
+							cols: [{
 									textAlign: 'center',
 									values: pickerDisplays
-								},
-							],
+								}],
 							onOpen: function (data) {
 								//收起键盘
 								document.activeElement.blur();
@@ -2773,7 +2237,7 @@ import config from '../../configfile/config.js'
 		//2>渲染selectList
 		//2-1>同一行的selectList
 		$("[data-fieldControlType='selectList']").attr("readonly","readonly").off('click').on('click',function(){
-      var _curObj = $(this);
+      		var _curObj = $(this);
 			if(typeof(_curObj.attr("data-clickObj")) != "undefined"){
 				return;
 			}
@@ -2809,54 +2273,48 @@ import config from '../../configfile/config.js'
 			});
 		});
 		//2-2>不同一行的selectList
-    //console.log($("#"+$("[data-fieldControlType='selectList'][data-clickObj]").attr("data-clickObj")).length);
-    $("[data-fieldControlType='selectList'][data-clickObj]").each(function(index, obj){
+		$("[data-fieldControlType='selectList'][data-clickObj]").each(function(index, obj){
 
-        $("#"+$(obj).attr("data-clickObj")).off('click').on('click',function(){
+			$("#"+$(obj).attr("data-clickObj")).off('click').on('click',function(){
 
-            //查找子类
-            var _curObjTextdataFieldName = ($(this).attr('id') || "").ReplaceAll("ClickObj","");
-            var _curObj = $("[data-field='"+ _curObjTextdataFieldName +"']:first");
-            if(tool.isNullOrEmptyObject(_curObj)){
-              return;
-            }
-            // console.log(_curObj);
-            var dataField = _curObj.attr("data-field") ||"";
-            var code = _curObj.attr("Code") ||"";
-            var filter = _curObj.attr("Filter") ||"";
-            var typeValue = _curObj.attr("TypeValue") ||"";
-            var value = _curObj.attr("data-fieldVal") ||"";
-            var selectType = _curObj.attr("data-selectType") ||"";
-            var title = lanTool.lanContent(_curObj.attr("data-lanid") ||"");
-            var addUrl = _curObj.attr("data-addUrl") ||"";
-            var linkIDField = _curObj.attr("data-linkIDField") ||"";//为了在弹出页面的新增上，带出id和name，如新增联系人，需要带上当前公司信息
-            var linkNameField = _curObj.attr("data-linkNameField") ||"";
-            var fromType = _curObj.attr("data-fromType") ||"";
+				//查找子类
+				var _curObjTextdataFieldName = ($(this).attr('id') || "").ReplaceAll("ClickObj","");
+				var _curObj = $("[data-field='"+ _curObjTextdataFieldName +"']:first");
+				if(tool.isNullOrEmptyObject(_curObj)){
+				return;
+				}
+				// console.log(_curObj);
+				var dataField = _curObj.attr("data-field") ||"";
+				var code = _curObj.attr("Code") ||"";
+				var filter = _curObj.attr("Filter") ||"";
+				var typeValue = _curObj.attr("TypeValue") ||"";
+				var value = _curObj.attr("data-fieldVal") ||"";
+				var selectType = _curObj.attr("data-selectType") ||"";
+				var title = lanTool.lanContent(_curObj.attr("data-lanid") ||"");
+				var addUrl = _curObj.attr("data-addUrl") ||"";
+				var linkIDField = _curObj.attr("data-linkIDField") ||"";//为了在弹出页面的新增上，带出id和name，如新增联系人，需要带上当前公司信息
+				var linkNameField = _curObj.attr("data-linkNameField") ||"";
+				var fromType = _curObj.attr("data-fromType") ||"";
 
-            var parameter = {
-              'field':dataField,
-              'code':code,
-              "typeValue":typeValue,
-              'title':title,
-              'value':value,//已经选择的值
-              'selectType':selectType,
-              "filter":filter,
-              "addUrl":addUrl,
-              "linkIDField":linkIDField,
-              "linkNameField":linkNameField,
-              "fromType":fromType
-            };
-            self.$router.push({
-              path: '/selectlist',
-              query: parameter
-            });
-      })
-    })
-
-		//3>渲染textarea
-		// $("textarea").each(function (index, cur) {
-		// 	tool.autoTextarea(cur);
-		// });
+				var parameter = {
+				'field':dataField,
+				'code':code,
+				"typeValue":typeValue,
+				'title':title,
+				'value':value,//已经选择的值
+				'selectType':selectType,
+				"filter":filter,
+				"addUrl":addUrl,
+				"linkIDField":linkIDField,
+				"linkNameField":linkNameField,
+				"fromType":fromType
+				};
+				self.$router.push({
+				path: '/selectlist',
+				query: parameter
+				});
+			});
+		});
 
 		//4>渲染groupSelectList
 		//4-1>同一行的groupSelectList
@@ -2893,41 +2351,41 @@ import config from '../../configfile/config.js'
 				query: parameter
 			});
 		});
-    //4-2>不同一行的groupSelectList
-    $("[data-fieldControlType='groupSelectList'][data-clickObj]").each(function(index, obj){
-        $("#"+$(obj).attr("data-clickObj")).off('click').on('click',function(){
-            //查找子类
-            var _curObjTextdataFieldName = ($(this).attr('id') || "").ReplaceAll("ClickObj","");
-            var _curObj = $("[data-field='"+ _curObjTextdataFieldName +"']:first");
-            if(tool.isNullOrEmptyObject(_curObj)){
-              return;
-            }
-            var dataField = _curObj.attr("data-field") ||"";
-            var code = _curObj.attr("Code") ||"";
-            var filter = _curObj.attr("Filter") ||"";
-            var typeValue = _curObj.attr("TypeValue") ||"";
-            var value = _curObj.attr("data-fieldVal") ||"";
-            var selectType = _curObj.attr("data-selectType") ||"";
-            var title = lanTool.lanContent(_curObj.attr("data-lanid") ||"");
-            var fromType = _curObj.attr("data-fromType") ||"";
+		//4-2>不同一行的groupSelectList
+		$("[data-fieldControlType='groupSelectList'][data-clickObj]").each(function(index, obj){
+			$("#"+$(obj).attr("data-clickObj")).off('click').on('click',function(){
+				//查找子类
+				var _curObjTextdataFieldName = ($(this).attr('id') || "").ReplaceAll("ClickObj","");
+				var _curObj = $("[data-field='"+ _curObjTextdataFieldName +"']:first");
+				if(tool.isNullOrEmptyObject(_curObj)){
+				return;
+				}
+				var dataField = _curObj.attr("data-field") ||"";
+				var code = _curObj.attr("Code") ||"";
+				var filter = _curObj.attr("Filter") ||"";
+				var typeValue = _curObj.attr("TypeValue") ||"";
+				var value = _curObj.attr("data-fieldVal") ||"";
+				var selectType = _curObj.attr("data-selectType") ||"";
+				var title = lanTool.lanContent(_curObj.attr("data-lanid") ||"");
+				var fromType = _curObj.attr("data-fromType") ||"";
 
-            var parameter = {
-              'field':dataField,
-              'code':code,
-              "typeValue":typeValue,
-              'title':title,
-              'value':value,//已经选择的值
-              'selectType':selectType,
-              'fromType':fromType,
-              'fromID':id,
-              "filter":filter
-            };
-            self.$router.push({
-              path: '/groupselectlist',
-              query: parameter
-            });
-        })
-    })
+				var parameter = {
+				'field':dataField,
+				'code':code,
+				"typeValue":typeValue,
+				'title':title,
+				'value':value,//已经选择的值
+				'selectType':selectType,
+				'fromType':fromType,
+				'fromID':id,
+				"filter":filter
+				};
+				self.$router.push({
+				path: '/groupselectlist',
+				query: parameter
+				});
+			})
+		})
 
 		//5>渲染linkedPage
 		//5-1>同一行的linkedPage
@@ -3094,7 +2552,7 @@ import config from '../../configfile/config.js'
 		});
 
 		//执行回调函数
-		if (!tool.isNullOrEmptyObject(myCallBack)) {
+		if (!tool.isNullOrEmptyObject(myCallBack) && typeof(myCallBack) == "function") {
 			myCallBack();
 		}
 	};
@@ -4117,8 +3575,7 @@ import config from '../../configfile/config.js'
 	}
 	curObj.attr("data-fieldval", eventBus.selectListData.value.id);
 	//判断元素是否是input，是的话用val来赋值
-	if(curObj.is('input'))
-	{
+	if(curObj.is('input') || curObj.is('textarea')){
 		curObj.val(eventBus.selectListData.value.text);
 	}
 	else{

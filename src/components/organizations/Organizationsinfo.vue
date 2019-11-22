@@ -352,10 +352,7 @@ export default {
                     UserName: tool.UserName(),
                     CompanyID: _self.id
                 };
-                // alert(apiUrlTemp);
-                // alert(JSON.stringify(jsonDatas));
-                // var loadingIndexClassName = tool.showLoading();
-                // tool.CorsHandle(true);
+               
                 $.ajax({
                     async: true,
                     type: "POST",
@@ -381,9 +378,6 @@ export default {
                         }
                     },
                     error: function (jqXHR, type, error) {
-                        // alert(jqXHR);
-                        // alert(type);
-                        // alert(error);
                         console.log(error);
                         // tool.hideLoading(loadingIndexClassName);
                         return true;
