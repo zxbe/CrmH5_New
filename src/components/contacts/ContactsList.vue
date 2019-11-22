@@ -97,7 +97,7 @@
 
   <!-- 页面处于搜索状态 -->
   <div v-show="pageState == 2">
-      <search-module></search-module>
+      <search-module module="contacts" ref="searchModule"></search-module>
   </div>
 
 </div>
@@ -653,7 +653,10 @@ export default {
         _self.pageState = 2;
         //给搜索框获取焦点
         $('#searchHeader').find('input.search-input').focus();
-        console.log($('#searchHeader').find('input.search-input'));
+        // console.log($('#searchHeader').find('input.search-input'));
+
+        //获取搜索历史数据
+        _self.$refs.searchModule.getHistory();
     },
 
   }

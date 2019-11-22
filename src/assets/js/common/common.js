@@ -743,7 +743,19 @@ import config from '../../configfile/config.js'
 		var sysStorage = localStorage;
 		sysStorage.setItem(keyName, value);
 		return true;
-	};
+  };
+
+  /**
+   * js实现去掉字符串头尾空格，尽量少用jQ
+   */
+  tool.trimStr = function(str){
+    str = ''+str;
+    if(tool.isNullOrEmptyObject(str)){
+      return '';
+    }
+    return str.replace(/(^\s*)|(\s*$)/g, "");
+  }
+
 
 	// /*通过key值删除键值对存储的数据*/
 	// tool.removeStoragItem = function (keyName) {

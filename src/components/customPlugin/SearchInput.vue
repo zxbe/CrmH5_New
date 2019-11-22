@@ -60,8 +60,18 @@ export default {
         //点击键盘搜索按钮
         onkeyUp(e){
           let _self = this;
-          alert(e.keyCode);
-
+          if(e.keyCode == 13){
+              if(tool.isNullOrEmptyObject(_self.searchValue)){
+                  return;
+              }
+              let item = {
+                  id:-1,
+                  text: tool.trimStr(_self.searchValue)
+              }
+              if( !tool.isNullOrEmptyObject(_self.$parent.tapResultItem)){
+                  _self.$parent.tapResultItem(item);
+              }
+          }
         }
 
     }

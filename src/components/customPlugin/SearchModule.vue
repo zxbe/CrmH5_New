@@ -42,8 +42,8 @@ export default {
   },
   data(){
     return{
-
-        historyData:['text', 'Alan', '今天天气', 'meeting', 'back on', '今天是个好日子', '今天会议'],
+        localStorageName: this.module + 'History', //存储historyData 的key值
+        historyData:[],
         inputValue:'', //搜索框中的值
 
         resultData:[
@@ -79,16 +79,49 @@ export default {
 
     //获取搜索历史记录
     getHistory(){
+        let _self = this;
+        _self.inputValue = '';
+
+        let dataString = tool.getStorageItem(_self.localStorageName);
+        if(tool.isNullOrEmptyObject(dataString)){
+            return ;
+        }
+        _self.historyData = JSON.parse(dataString);
 
     },
+    //点击模糊匹配中的结果
+    tapResultItem(item){
+        let _self = this;
+        if( tool.isNullOrEmptyObject(item.text) || tool.isNullOrEmptyObject(item)){
+            return ;
+        }
+        //1.调列表父组件方法去搜索，把item值带过去
 
+        //2.切换列表父组件状态
+        _self.$parent.pageState = 1;
+        _self.$refs.searchInput.searchValue = '';
+
+
+        //3.吧item值存到localStorage本地缓存中
+        let localStrorageData = JSON.parse(tool.getStorageItem(_self.localStorageName) == '' ? '[]' : tool.getStorageItem(_self.localStorageName));
+        let index = localStrorageData.indexOf( tool.trimStr(item.text) );
+        if(index != -1 ){
+            localStrorageData.splice(index,1);
+        }
+        localStrorageData.unshift(item.text);
+        tool.setStoragItem(_self.localStorageName, JSON.stringify(localStrorageData));
+
+    },
     //删除所有历史记录
     deleteAllHistory(){
+        let _self = this;
         tool.showConfirm(
             // lanTool.lanContent("778_是否确认清除缓存？"),
             '删除所有历史记录？',
             function () {
                //删除
+               tool.setStoragItem(_self.localStorageName, []);
+               _self.historyData = [];
             },
             function () {}
         );
@@ -114,14 +147,7 @@ export default {
 
     },
 
-    //点击模糊匹配中的结果
-    tapResultItem(item){
-        let _self = this;
-        //1.调列表父组件方法去搜索，把item值带过去
 
-        //2.切换列表父组件状态
-        _self.$parent.pageState = 1;
-    }
 
   }
 
