@@ -719,7 +719,8 @@ export default {
 
             //渲染textarea 从新增事件进到详情是不会进入渲染数据的方法，这里得多加个textarea高度自适应
             $("textarea").each(function (index, cur) {
-                $(cur).height('25');
+                // $(cur).height('20');
+                 $(cur).addClass("DefaultHeight");
                 tool.autoTextarea(cur);
             });
 
@@ -772,7 +773,8 @@ export default {
                 // console.log(data);
                 //渲染textarea
                 $("textarea").each(function (index, cur) {
-                    $(cur).height('25');
+                    // $(cur).height('20');
+                    $(cur).addClass("DefaultHeight");
                     tool.autoTextarea(cur);
                 });
                 //查询判断当前用户是否有操作单据的权限
@@ -1479,7 +1481,7 @@ export default {
 .box .DetailRow {
     position: relative;
     background-color: #ffffff;
-    min-height: 1.34rem;
+    /* min-height: 1.34rem; */
     padding-left: 0.16rem;
     padding-top: 0.2rem;
     padding-right: 0.18rem;

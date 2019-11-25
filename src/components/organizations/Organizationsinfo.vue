@@ -336,7 +336,8 @@ export default {
         tool.InitiateInfoPageControl(_self, _self.id, function () {
             //渲染textarea 从新增事件进到详情是不会进入渲染数据的方法，这里得多加个textarea高度自适应
             $("textarea").each(function (index, cur) {
-                $(cur).height('25');
+                // $(cur).height('20');
+                 $(cur).addClass("DefaultHeight");
                 tool.autoTextarea(cur);
             });
             //渲染数据
@@ -344,7 +345,8 @@ export default {
 
                 //渲染textarea
                 $("textarea").each(function (index, cur) {
-                    $(cur).height('25');
+                    // $(cur).height('20');
+                    $(cur).addClass("DefaultHeight");
                     tool.autoTextarea(cur);
                 });
 
@@ -543,19 +545,4 @@ export default {
 .airlineinfo .ListCellContentLeftText {
     font-weight: 700;
 }
-.OrganizationsList{
-    padding-bottom:0.4rem;
-    background-color:#fff;
-}
-.OrganizationsList .DetailRow {
-    position: relative;
-    background-color: #ffffff;
-    min-height: 1.34rem;
-    padding-left: 0.16rem;
-    padding-top: 0.2rem;
-    padding-right: 0.18rem;
-    /* padding-bottom: 0.2rem; */
-    box-sizing: border-box;
-}
-
 </style>
