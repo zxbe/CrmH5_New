@@ -221,16 +221,10 @@ export default {
       lanTool.updateLanVersion();
       document.activeElement.blur();
 
-      //渲染textarea
-      $("textarea").each(function (index, cur) {
-          //$(cur).height('25');
-          $(cur).addClass("DefaultHeight");
-          tool.autoTextarea(cur);
-      });
-      $("textarea").blur(function(){
+      $(".inputcontrol").blur(function(){
           $(this).parents(".DetailRow").removeClass("DeepColor");
       });
-      $("textarea").focus(function(){
+      $(".inputcontrol").focus(function(){
           $(this).parents(".DetailRow").addClass("DeepColor");
       });
 
@@ -798,7 +792,7 @@ border-radius: 20px; }
 .DeepColor:after{background-color:#ffc125;}
 .DetailRowUp {
     position: relative;
-    padding: 0.1rem 0 0.15rem 20px;
+    padding: 0.1rem 0 0.1rem 20px;
     display: flex;
     align-items: center;
 }
