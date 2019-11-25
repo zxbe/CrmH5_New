@@ -14,9 +14,8 @@
     <vue-scroll v-show="!noData" :showToTop="false" :options="{ pullup: true, pulldown: true }" :scrollbar="false" ref="scroll" @pulldown="pulldown" @pullup="pullup">
         <div v-if="listData.length > 0" class=" organizations-list">
           <div v-for="item in listData" :key="item.AutoID"
-          class="group-item data-events-item"
-          :data-url="'/organizationsinfo/' + item.AutoID">
-                <div class="item-stars-icon calcfont" :class="item.IsFollow" :data-autoid="item.AutoID"></div>
+          class="group-item data-events-item"  @click="goInfo(item)">
+                <div class="item-stars-icon calcfont" :class="item.IsFollow" :data-autoid="item.AutoID" @click.stop="followToggle($event)"></div>
                 <div class="item-block f14">
                     <div class="item-div item-first-div">
                       <span class="short-name">{{item.ShortName}}</span>
@@ -57,9 +56,8 @@
                 <div class="occupy-div"></div>
                 <div v-if="group.items != null && group.items != undefined &&  group.items.length >= 1" class="group-item-list organizations-list">
                       <div v-for="item in group.items" :key="item.AutoID"
-                      class="group-item data-events-item"
-                      :data-url="'/organizationsinfo/' + item.AutoID">
-                            <div class="item-stars-icon calcfont" :class="item.IsFollow" :data-autoid="item.AutoID"></div>
+                      class="group-item data-events-item" @click="goInfo(item)">
+                            <div class="item-stars-icon calcfont" :class="item.IsFollow" :data-autoid="item.AutoID" @click.stop="followToggle($event)"></div>
                             <div class="item-block f14">
                                 <div class="item-div item-first-div">
                                   <span class="short-name">{{item.ShortName}}</span>
@@ -235,32 +233,9 @@ export default {
         },
         pageType:0,//0:Organizations;1:Contacts
         //列表数据(分组模式为List)
-        listData:[
-          // {
-          //   "AutoID": 487,
-          //   "ShortName": "OEINC",
-          //   "ICAOCode": "",
-          //   "BusinessType": "OEM_Aircraft",
-          //   "AccountManager": "",
-          //   "CountryName": "China",
-          //   "CityName": "ShangHai",
-          //   "GroupID": 173,
-          //   "IsFollow": "calc-noshoucang",
-          //   "GroupRowCount": 1
-          // }
-          ],
+        listData:[],
         //分组数据(分组模式为非List)
-        groupData:[
-            // {
-            //   "GroupName": "Other",
-            //   "GroupID": 213,
-            //   "GroupRowCount": 653
-            // }, {
-            //   "GroupName": "Airline",
-            //   "GroupID": 209,
-            //   "GroupRowCount": 617
-            // }
-            ]
+        groupData:[]
     }
   },
   created: function () {
@@ -497,6 +472,32 @@ export default {
         console.log(str);
     },
 
+    //添加/取消关注
+    followToggle: function (e) {
+        var _curObj = $(e.target);
+        var fromType = "Organizationsinfo";
+        var autoID = _curObj.attr("data-autoid") || "";
+
+        var actionType;
+        if (_curObj.hasClass("calc-shoucang")) {
+            //取消关注
+            actionType = 0;
+        } else {
+            //添加关注
+            actionType = 1;
+        }
+
+        tool.UserFollow(fromType, autoID, actionType, function () {
+            if (_curObj.hasClass("calc-shoucang")) {
+                //取消关注
+                _curObj.removeClass("calc-shoucang").addClass("calc-noshoucang");
+            } else {
+                //添加关注
+                _curObj.removeClass("calc-noshoucang").addClass("calc-shoucang");
+            }
+        });
+    },
+
     //分组模式下展开收起
     groupToggleHandle:function(idName){
         var _self = this;
@@ -551,6 +552,22 @@ export default {
 
     },
 
+    //点击跳转到详情页
+    goInfo(data){
+      let _self = this;
+      if(tool.isNullOrEmptyObject(data) || tool.isNullOrEmptyObject(data.AutoID)){
+          return;
+      }
+      var parameter = {
+          // showPage: _self.showPage,
+          infoName:data.ShortName
+      };
+      _self.$router.push({
+          path: '/organizationsinfo/' + data.AutoID,
+          query: parameter
+      });
+    }
+
   },
   beforeRouteLeave: function (to, from, next) {
         if (to.name == 'index') {
@@ -570,7 +587,7 @@ export default {
   background: #f8f2dc;
   height: 0.88rem;
   display: flex;align-items: center;
-  position:fixed;
+  position:fixed;z-index: 99;
   top:0;left:0;right:0;
 }
 .back-icon{font-size: 0.48rem;padding:0.1rem 10px;}
