@@ -3,6 +3,26 @@
     <div id="mask" class="mask" @click="panelToggle" v-show="showPanel"></div>
     <div id="right-content" class="right-content">
        <div class="screen-con">
+              <!-- ViewModel -->
+              <div class="block-div viewMode" v-if="!ViewModelIsNull">
+                  <div class="type-div">
+                      <div class="block-tile f14">
+                          <div class="title-text">{{ViewModel.text}}</div>
+                      </div>
+                      <div class="block-con" v-if="ViewModel.option.length > 0 ">
+                            <div class="item-div fl"
+                                v-for="(item,index) in ViewModel.option"
+                                :key="index"
+                                @click="choose($event,false)"
+                                :class="{'active': ((item.isActive == null||item.isActive == undefined) ? false :item.isActive)}"
+                                :data-id="item.id"
+                                ><span>{{item.text}}</span>
+                                <i class="calcfont calc-guanbi1 delect-icon"></i>
+                                </div>
+                      </div>
+                  </div>
+              </div>
+
               <!-- DataFilterModel -->
               <div class="block-div dataFilter" v-if="!DataFilterModelIsNull">
                   <div class="type-div">
@@ -147,6 +167,7 @@ export default {
   data(){
     return{
         showPanel:false,
+        ViewModel:{},
         DataFilterModel:{},
         GroupByModel:{},
         FieldModel:[],
@@ -174,6 +195,10 @@ export default {
       },
   },
   computed:{
+      ViewModelIsNull(){
+          let _self = this;
+          return  tool.isNullOrEmptyObject(_self.ViewModel) ? true : false;
+      },
       DataFilterModelIsNull(){
           let _self = this;
           return  tool.isNullOrEmptyObject(_self.DataFilterModel) ? true : false;
@@ -188,21 +213,29 @@ export default {
     let _self = this;
 
     //1>处理数据排序
+    if(!tool.isNullOrEmptyObject(_self.screenData["ViewModel"])){
+        _self.ViewModel = _self.screenData["ViewModel"];
+        let dataViewOption = _self.ViewModel.option;
+        dataViewOption.sort(function(a,b){
+            return a.sort - b.sort;
+        })
+        _self.$set(_self.ViewModel, 'option', dataViewOption);
+    }
     if(!tool.isNullOrEmptyObject( _self.screenData["DataFilterModel"]) ){
-        let dataFilterOption = _self.screenData.DataFilterModel.option;
+        _self.DataFilterModel = _self.screenData["DataFilterModel"];
+        let dataFilterOption = _self.DataFilterModel.option;
         dataFilterOption.sort(function(a,b){
             return a.sort - b.sort;
         })
-        _self.$set(_self.screenData.DataFilterModel, 'option', dataFilterOption);
-        _self.DataFilterModel = _self.screenData["DataFilterModel"];
+        _self.$set(_self.DataFilterModel, 'option', dataFilterOption);
     }
     if(!tool.isNullOrEmptyObject( _self.screenData["GroupByModel"]) ){
-        let groupByOption = _self.screenData.GroupByModel.option;
+        _self.GroupByModel = _self.screenData["GroupByModel"];
+        let groupByOption = _self.GroupByModel.option;
         groupByOption.sort(function(a,b){
             return a.sort - b.sort;
         })
-        _self.$set(_self.screenData.GroupByModel, 'option', groupByOption);
-        _self.GroupByModel = _self.screenData["GroupByModel"];
+        _self.$set(_self.GroupByModel, 'option', groupByOption);
     }
     _self.FieldModel = _self.screenData["FieldModel"];
 
@@ -286,7 +319,7 @@ export default {
                         });
                     });
                 }else{
-                    console.log("not div");
+                    // console.log("not div");
                     _curObj.off("change").on("change",function(){
                         _self.$nextTick(function(){
                             _self.setParentQueryObj();

@@ -84,7 +84,7 @@ export default {
         }],
         //右侧侧滑数据模型
         RightPanelModel:{
-            "view":{
+            "ViewModel":{
                 text:lanTool.lanContent("867_视图"),
                 option:[
                     {
