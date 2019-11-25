@@ -150,8 +150,11 @@ export default {
     //提供给子组件调用,搜索框内容改变时触发
     searchFromChildre(str){
         let _self = this;
+        if(tool.isNullOrEmptyObject(str)){
+            return;
+        }
         _self.inputValue = str;
-        console.log(str);
+
     },
 
     //提供给子组件调用,功能为 刷新列表页面数据（子组件点击X）

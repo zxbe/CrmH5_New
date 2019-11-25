@@ -1,92 +1,100 @@
 <template>
 <div class="page">
-
-  <header class="header sticky">
-      <a @click="back" class="calcfont calc-fanhui back-icon" id="back"></a>
-      <search-input class="search" placeholder="搜索公司"></search-input>
-      <a class="calcfont calc-tianjia add-icon" @click="addOrganization" ></a>
-  </header>
-
-  <sort :sortData="sortData" :sortObj="sortObj"></sort>
-
-  <!-- 列表模式   -->
-  <div class="list-mode-div" v-show="queryObj.groupByMode == 'List'">
-    <vue-scroll v-show="!noData" :showToTop="false" :options="{ pullup: true, pulldown: true }" :scrollbar="false" ref="scroll" @pulldown="pulldown" @pullup="pullup">
-        <div v-if="listData.length > 0" class=" organizations-list">
-          <div v-for="item in listData" :key="item.AutoID"
-          class="group-item data-events-item"  @click="goInfo(item)">
-                <div class="item-stars-icon calcfont" :class="item.IsFollow" :data-autoid="item.AutoID" @click.stop="followToggle($event)"></div>
-                <div class="item-block f14">
-                    <div class="item-div item-first-div">
-                      <span class="short-name">{{item.ShortName}}</span>
-                      <span class="icao-code f12">{{item.ICAOCode}}</span>
-                    </div>
-                    <div class="item-div">
-                      <div class="left-text" v-show="(item.BusinessType =='' || item.BusinessType == null) ? false : true">
-                        <i class="calcfont icon calc-yewu"></i><span >{{item.BusinessType}}</span>
-                      </div>
-                      <div class="right-text" v-show="(item.AccountManager =='' || item.AccountManager == null) ? false : true">
-                        <i class="calcfont icon calc-chengshijingli"></i><span>{{item.AccountManager}}</span>
-                      </div>
-                    </div>
-                    <div class="item-div">
-                      <div class="left-text" v-show="(item.CountryName =='' || item.CountryName == null) ? false : true">
-                        <i class="calcfont icon calc-nationaarea"></i><span>{{item.CountryName}}</span>
-                      </div>
-                      <div class="right-text" v-show="(item.CityName =='' || item.CityName == null) ? false : true">
-                        <i class="calcfont icon calc-diqiuquanqiu"></i><span>{{item.CityName}}</span>
-                      </div>
-                    </div>
-                </div>
+  <div v-show="pageState == 1">
+      <header class="header sticky">
+          <a @click="back" class="calcfont calc-fanhui back-icon" id="back"></a>
+          <!-- <search-input class="search" placeholder="搜索公司"></search-input> -->
+          <div class="search" @click="showSearch">
+              <search-input :enableInput="false" placeholder="搜索公司" :searchValue="searchValue"></search-input>
           </div>
-    </div>
-    </vue-scroll>
-    <nothing v-show="noData" style="padding-top:0.8rem;"></nothing>
-  </div>
+          <a class="calcfont calc-tianjia add-icon" @click="addOrganization" ></a>
+      </header>
 
-  <!-- 分组模式   -->
-  <div class="group-mode-div" v-show="queryObj.groupByMode != 'List'">
-        <div v-show="!noData" id="organizationsList" data-fromtype="organizations">
-            <div v-for="group in groupData" :key="group.GroupID" class="list-group-div group-div">
-                <div class="date-div">
-                    <span class="calcfont calc-business"></span>
-                    <span class="group-name" :data-groupid="group.GroupID">{{group.GroupName}}</span>
-                    <span class="right">（{{group.GroupRowCount}}）</span>
-                </div>
-                <div class="occupy-div"></div>
-                <div v-if="group.items != null && group.items != undefined &&  group.items.length >= 1" class="group-item-list organizations-list">
-                      <div v-for="item in group.items" :key="item.AutoID"
-                      class="group-item data-events-item" @click="goInfo(item)">
-                            <div class="item-stars-icon calcfont" :class="item.IsFollow" :data-autoid="item.AutoID" @click.stop="followToggle($event)"></div>
-                            <div class="item-block f14">
-                                <div class="item-div item-first-div">
-                                  <span class="short-name">{{item.ShortName}}</span>
-                                  <span class="icao-code f12">{{item.ICAOCode}}</span>
-                                </div>
-                                <div class="item-div">
-                                  <div class="left-text" v-show="(item.BusinessType =='' || item.BusinessType == null) ? false : true">
-                                    <i class="calcfont icon calc-yewu"></i><span >{{item.BusinessType}}</span>
-                                  </div>
-                                  <div class="right-text" v-show="(item.AccountManager =='' || item.AccountManager == null) ? false : true">
-                                    <i class="calcfont icon calc-chengshijingli"></i><span>{{item.AccountManager}}</span>
-                                  </div>
-                                </div>
-                                <div class="item-div">
-                                  <div class="left-text" v-show="(item.CountryName =='' || item.CountryName == null) ? false : true">
-                                    <i class="calcfont icon calc-nationaarea"></i><span>{{item.CountryName}}</span>
-                                  </div>
-                                  <div class="right-text" v-show="(item.CityName =='' || item.CityName == null) ? false : true">
-                                    <i class="calcfont icon calc-diqiuquanqiu"></i><span>{{item.CityName}}</span>
-                                  </div>
-                                </div>
-                            </div>
-                      </div>
-                </div>
-          </div>
+      <sort :sortData="sortData" :sortObj="sortObj"></sort>
+
+      <!-- 列表模式   -->
+      <div class="list-mode-div" v-show="queryObj.groupByMode == 'List'">
+        <vue-scroll v-show="!noData" :showToTop="false" :options="{ pullup: true, pulldown: true }" :scrollbar="false" ref="scroll" @pulldown="pulldown" @pullup="pullup">
+            <div v-if="listData.length > 0" class=" organizations-list">
+              <div v-for="item in listData" :key="item.AutoID"
+              class="group-item data-events-item"  @click="goInfo(item)">
+                    <div class="item-stars-icon calcfont" :class="item.IsFollow" :data-autoid="item.AutoID" @click.stop="followToggle($event)"></div>
+                    <div class="item-block f14">
+                        <div class="item-div item-first-div">
+                          <span class="short-name">{{item.ShortName}}</span>
+                          <span class="icao-code f12">{{item.ICAOCode}}</span>
+                        </div>
+                        <div class="item-div">
+                          <div class="left-text" v-show="(item.BusinessType =='' || item.BusinessType == null) ? false : true">
+                            <i class="calcfont icon calc-yewu"></i><span >{{item.BusinessType}}</span>
+                          </div>
+                          <div class="right-text" v-show="(item.AccountManager =='' || item.AccountManager == null) ? false : true">
+                            <i class="calcfont icon calc-chengshijingli"></i><span>{{item.AccountManager}}</span>
+                          </div>
+                        </div>
+                        <div class="item-div">
+                          <div class="left-text" v-show="(item.CountryName =='' || item.CountryName == null) ? false : true">
+                            <i class="calcfont icon calc-nationaarea"></i><span>{{item.CountryName}}</span>
+                          </div>
+                          <div class="right-text" v-show="(item.CityName =='' || item.CityName == null) ? false : true">
+                            <i class="calcfont icon calc-diqiuquanqiu"></i><span>{{item.CityName}}</span>
+                          </div>
+                        </div>
+                    </div>
+              </div>
+        </div>
+        </vue-scroll>
+        <nothing v-show="noData" style="padding-top:0.8rem;"></nothing>
       </div>
-      <nothing v-show="noData" style="padding-top:0.8rem;"></nothing>
+
+      <!-- 分组模式   -->
+      <div class="group-mode-div" v-show="queryObj.groupByMode != 'List'">
+            <div v-show="!noData" id="organizationsList" data-fromtype="organizations">
+                <div v-for="group in groupData" :key="group.GroupID" class="list-group-div group-div">
+                    <div class="date-div">
+                        <span class="calcfont calc-business"></span>
+                        <span class="group-name" :data-groupid="group.GroupID">{{group.GroupName}}</span>
+                        <span class="right">（{{group.GroupRowCount}}）</span>
+                    </div>
+                    <div class="occupy-div"></div>
+                    <div v-if="group.items != null && group.items != undefined &&  group.items.length >= 1" class="group-item-list organizations-list">
+                          <div v-for="item in group.items" :key="item.AutoID"
+                          class="group-item data-events-item" @click="goInfo(item)">
+                                <div class="item-stars-icon calcfont" :class="item.IsFollow" :data-autoid="item.AutoID" @click.stop="followToggle($event)"></div>
+                                <div class="item-block f14">
+                                    <div class="item-div item-first-div">
+                                      <span class="short-name">{{item.ShortName}}</span>
+                                      <span class="icao-code f12">{{item.ICAOCode}}</span>
+                                    </div>
+                                    <div class="item-div">
+                                      <div class="left-text" v-show="(item.BusinessType =='' || item.BusinessType == null) ? false : true">
+                                        <i class="calcfont icon calc-yewu"></i><span >{{item.BusinessType}}</span>
+                                      </div>
+                                      <div class="right-text" v-show="(item.AccountManager =='' || item.AccountManager == null) ? false : true">
+                                        <i class="calcfont icon calc-chengshijingli"></i><span>{{item.AccountManager}}</span>
+                                      </div>
+                                    </div>
+                                    <div class="item-div">
+                                      <div class="left-text" v-show="(item.CountryName =='' || item.CountryName == null) ? false : true">
+                                        <i class="calcfont icon calc-nationaarea"></i><span>{{item.CountryName}}</span>
+                                      </div>
+                                      <div class="right-text" v-show="(item.CityName =='' || item.CityName == null) ? false : true">
+                                        <i class="calcfont icon calc-diqiuquanqiu"></i><span>{{item.CityName}}</span>
+                                      </div>
+                                    </div>
+                                </div>
+                          </div>
+                    </div>
+              </div>
+          </div>
+          <nothing v-show="noData" style="padding-top:0.8rem;"></nothing>
+      </div>
   </div>
 
+  <!-- 页面处于搜索状态 -->
+  <div v-show="pageState == 2">
+      <search-module module="contacts" ref="searchModule"></search-module>
+  </div>
 
   <!-- 侧滑筛选 -->
   <screen :screenData="RightPanelModel" :queryObj="queryObj"></screen>
@@ -100,17 +108,20 @@ import Sort from "@/components/customPlugin/Sort"
 import Screen from "@/components/customPlugin/Screen"
 import Scroll from '@/components/customPlugin/scroll/Scroll';
 import Nothing from "@/components/customPlugin/Nothing";
+import SearchModule from '@/components/customplugin/SearchModule'
 import Mixins from '@/mixins/commonlist.js'
 export default {
   name:'organizationslist',
   mixins:[Mixins],
   components: {
-        SearchInput,Sort,Screen,
+        SearchInput,Sort,Screen,SearchModule,
         'vue-scroll': Scroll,
         nothing: Nothing
   },
   data(){
     return{
+        pageState: 1, //页面显示状态：1为显示列表；2为显示搜索
+        searchValue:'', //搜索框的值
         //排序模型
         sortData:[{
             sortName:"ShortName",
@@ -470,9 +481,21 @@ export default {
           }
       });
     },
-    //头部搜索，提供给SearchInput子组件调用的
-    search(str){
-        console.log(str);
+
+    //点击头部搜索
+    showSearch(){
+        let _self = this;
+        _self.pageState = 2;
+        //给搜索框获取焦点
+        $('#searchHeader').find('input.search-input').focus();
+        // console.log($('#searchHeader').find('input.search-input'));
+
+
+        //设置搜索输入框值
+        // _self.$set(_self.$refs.searchModule, 'inputValue', _self.searchValue);
+
+        //获取搜索历史数据
+        _self.$refs.searchModule.getHistory();
     },
 
     //添加/取消关注
@@ -579,6 +602,16 @@ export default {
         );
 
     },
+
+    //接收搜索的值并刷新列表,str有可能为空  (专门处理搜索)
+    refreshListBySearchValue(str){
+        let _self = this;
+        _self.pageState = 1;
+        if( !tool.isNullOrEmptyObject(str)){
+            _self.searchValue = str;
+        }
+        console.log(_self.searchValue);
+    }
 
   },
   beforeRouteLeave: function (to, from, next) {
