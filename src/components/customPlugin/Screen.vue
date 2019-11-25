@@ -78,7 +78,7 @@
                           </div>
                       </div>
 
-                      <!--类型为textareaInput-->
+                      <!--类型为Input-->
                       <div class="type-div no-border" v-if="item.fieldControlType == 'textareaInput'">
                           <div class="DetailRow">
                               <div class="DetailRowOn">
@@ -87,16 +87,15 @@
                               </div>
                               <div class="DetailRowUp">
                                     <p class="textareaP wrap">
-                                        <textarea
-                                            class="lanInputPlaceHolder"
+                                        <input
+                                            class="lanInputPlaceHolder inputcontrol"
                                             data-lanid="1000525_请输入"
                                             :data-field="item.queryfield"
                                             :data-fieldControlType="item.fieldControlType"
                                             :data-queryType="item.queryType"
                                             :data-queryFormat="item.queryFormat"
                                             :data-queryRelation="item.queryRelation"
-                                            :data-queryComparison="item.queryComparison">
-                                        </textarea>
+                                            :data-queryComparison="item.queryComparison"/>
                                     </p >
                               </div>
                           </div>
@@ -822,15 +821,13 @@ p.textareaP.wrap{
     margin: 0;
     font-size: .28rem;
 }
-textarea{
+.inputcontrol{
     width: 100%;
     outline: none;
     background-color: transparent;
-    margin-left: 0;
-    overflow: hidden;
     position: relative;
     border: none;
-    line-height: 1.3;
+    line-height: 0.5rem;
     display: block;
     height: .5rem;
 }

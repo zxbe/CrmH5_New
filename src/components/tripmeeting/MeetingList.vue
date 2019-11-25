@@ -1,103 +1,30 @@
 <template>
 <div class="page">
-  <div v-show="pageState == 1">
-      <header class="header sticky">
-          <a @click="back" class="calcfont calc-fanhui back-icon" id="back"></a>
-          <!-- <search-input class="search" placeholder="搜索公司"></search-input> -->
-          <div class="search" @click="showSearch">
-              <search-input :enableInput="false" placeholder="搜索公司" :searchValue="searchValue"></search-input>
-          </div>
-          <a class="calcfont calc-tianjia add-icon" @click="addOrganization" ></a>
-      </header>
-
-      <sort :sortData="sortData" :sortObj="sortObj"></sort>
-
-      <!-- 列表模式   -->
-      <div class="list-mode-div" v-show="queryObj.groupByMode == 'List'">
-        <vue-scroll v-show="!noData" :showToTop="false" :options="{ pullup: true, pulldown: true }" :scrollbar="false" ref="scroll" @pulldown="pulldown" @pullup="pullup">
-            <div v-if="listData.length > 0" class=" organizations-list">
-              <div v-for="item in listData" :key="item.AutoID"
-              class="group-item data-events-item"  @click="goInfo(item)">
-                    <div class="item-stars-icon calcfont" :class="item.IsFollow" :data-autoid="item.AutoID" @click.stop="followToggle($event)"></div>
-                    <div class="item-block f14">
-                        <div class="item-div item-first-div">
-                          <span class="short-name">{{item.ShortName}}</span>
-                          <span class="icao-code f12">{{item.ICAOCode}}</span>
-                        </div>
-                        <div class="item-div">
-                          <div class="left-text" v-show="(item.BusinessType =='' || item.BusinessType == null) ? false : true">
-                            <i class="calcfont icon calc-yewu"></i><span >{{item.BusinessType}}</span>
-                          </div>
-                          <div class="right-text" v-show="(item.AccountManager =='' || item.AccountManager == null) ? false : true">
-                            <i class="calcfont icon calc-chengshijingli"></i><span>{{item.AccountManager}}</span>
-                          </div>
-                        </div>
-                        <div class="item-div">
-                          <div class="left-text" v-show="(item.CountryName =='' || item.CountryName == null) ? false : true">
-                            <i class="calcfont icon calc-nationaarea"></i><span>{{item.CountryName}}</span>
-                          </div>
-                          <div class="right-text" v-show="(item.CityName =='' || item.CityName == null) ? false : true">
-                            <i class="calcfont icon calc-diqiuquanqiu"></i><span>{{item.CityName}}</span>
-                          </div>
-                        </div>
-                    </div>
+    <div v-show="pageState == 1">
+          <header class="header sticky">
+              <a @click="back" class="calcfont calc-fanhui back-icon" id="back"></a>
+              <div class="search" @click="showSearch">
+                  <search-input :enableInput="false" placeholder="搜索会议" :searchValue="searchValue"></search-input>
               </div>
-        </div>
-        </vue-scroll>
-        <nothing v-show="noData" style="padding-top:0.8rem;"></nothing>
-      </div>
+              <a class="calcfont calc-tianjia add-icon" @click="addMeeting" ></a>
+          </header>
 
-      <!-- 分组模式   -->
-      <div class="group-mode-div" v-show="queryObj.groupByMode != 'List'">
-            <div v-show="!noData" id="organizationsList" data-fromtype="organizations">
-                <div v-for="group in groupData" :key="group.GroupID" class="list-group-div group-div">
-                    <div class="date-div">
-                        <span class="calcfont calc-business"></span>
-                        <span class="group-name" :data-groupid="group.GroupID">{{group.GroupName}}</span>
-                        <span class="right">（{{group.GroupRowCount}}）</span>
-                    </div>
-                    <div class="occupy-div"></div>
-                    <div v-if="group.items != null && group.items != undefined &&  group.items.length >= 1" class="group-item-list organizations-list">
-                          <div v-for="item in group.items" :key="item.AutoID"
-                          class="group-item data-events-item" @click="goInfo(item)">
-                                <div class="item-stars-icon calcfont" :class="item.IsFollow" :data-autoid="item.AutoID" @click.stop="followToggle($event)"></div>
-                                <div class="item-block f14">
-                                    <div class="item-div item-first-div">
-                                      <span class="short-name">{{item.ShortName}}</span>
-                                      <span class="icao-code f12">{{item.ICAOCode}}</span>
-                                    </div>
-                                    <div class="item-div">
-                                      <div class="left-text" v-show="(item.BusinessType =='' || item.BusinessType == null) ? false : true">
-                                        <i class="calcfont icon calc-yewu"></i><span >{{item.BusinessType}}</span>
-                                      </div>
-                                      <div class="right-text" v-show="(item.AccountManager =='' || item.AccountManager == null) ? false : true">
-                                        <i class="calcfont icon calc-chengshijingli"></i><span>{{item.AccountManager}}</span>
-                                      </div>
-                                    </div>
-                                    <div class="item-div">
-                                      <div class="left-text" v-show="(item.CountryName =='' || item.CountryName == null) ? false : true">
-                                        <i class="calcfont icon calc-nationaarea"></i><span>{{item.CountryName}}</span>
-                                      </div>
-                                      <div class="right-text" v-show="(item.CityName =='' || item.CityName == null) ? false : true">
-                                        <i class="calcfont icon calc-diqiuquanqiu"></i><span>{{item.CityName}}</span>
-                                      </div>
-                                    </div>
-                                </div>
-                          </div>
-                    </div>
-              </div>
+          <sort :sortData="sortData" :sortObj="sortObj"></sort>
+
+          <!-- 列表模式   -->
+          <!-- v-show="queryObj.groupByMode == 'List'" -->
+          <div class="list-mode-div" >
           </div>
-          <nothing v-show="noData" style="padding-top:0.8rem;"></nothing>
-      </div>
 
-      <!-- 侧滑筛选 -->
-      <screen :screenData="RightPanelModel" :queryObj="queryObj"></screen>
-  </div>
 
-  <!-- 页面处于搜索状态 -->
-  <div v-show="pageState == 2">
-      <search-module module="contacts" ref="searchModule"></search-module>
-  </div>
+          <!-- 侧滑筛选 -->
+          <screen :screenData="RightPanelModel" :queryObj="queryObj"></screen>
+    </div>
+
+    <!-- 页面处于搜索状态 -->
+    <div v-show="pageState == 2">
+        <search-module module="meeting" ref="searchModule"></search-module>
+    </div>
 
 
 
@@ -113,7 +40,7 @@ import Nothing from "@/components/customPlugin/Nothing";
 import SearchModule from '@/components/customplugin/SearchModule'
 import Mixins from '@/mixins/commonlist.js'
 export default {
-  name:'organizationslist',
+  name:'meetinglist',
   mixins:[Mixins],
   components: {
         SearchInput,Sort,Screen,SearchModule,
@@ -154,9 +81,25 @@ export default {
             sortName:"CountryName",
             sortText:lanTool.lanContent("1000523_按国家倒序排序"),
             sortOrder:'desc'
-          }],
+        }],
         //右侧侧滑数据模型
         RightPanelModel:{
+            "view":{
+                text:lanTool.lanContent("867_视图"),
+                option:[
+                    {
+                      id:"listView",
+                      text:lanTool.lanContent("929_列表视图"),
+                      sort:10,
+                      isActive:true
+                    },{
+                      id:"calendarView",
+                      text:lanTool.lanContent("928_日历视图"),
+                      sort:20,
+                      //isActive:true
+                    }
+                ]
+            },
             "DataFilterModel":{
                 text:lanTool.lanContent("794_数据筛选"),
                 option:[
@@ -166,8 +109,13 @@ export default {
                       sort:10,
                       isActive:true
                     },{
-                      id:"MyFollowData",
-                      text:lanTool.lanContent("796_关注的公司"),
+                      id:"myData",
+                      text:lanTool.lanContent("930_我的日程"),
+                      sort:20,
+                      //isActive:true
+                    },{
+                      id:"otherData",
+                      text:lanTool.lanContent("942_其他同事的日程"),
                       sort:20,
                       //isActive:true
                     }
@@ -177,44 +125,18 @@ export default {
                 text:lanTool.lanContent("1000004_分组模式"),
                 option:[
                     {
-                      id:"List",
-                      text:lanTool.lanContent("1000524_列表"),
+                      id:"date",
+                      text:lanTool.lanContent("907_日期"),
                       sort:10,
                       isActive:true
                     },{
-                      id:"BusinessType",
-                      text:lanTool.lanContent("1007_业务分类"),
+                      id:"popedomTeamInf",
+                      text:lanTool.lanContent("769_业务组"),
                       sort:20
                     }
                 ]
             },
             "FieldModel":[{
-                queryfield: "BusinessType",
-                text: lanTool.lanContent("1007_业务分类"),
-                fieldControlType: "picketTile",//下拉选项以磁贴的方式展示的控件
-                queryType: "string",
-                queryFormat: "",
-                queryRelation: "and",
-                queryComparison: "=",
-                Code: "DropDowList_ViewBaseAllTypes",
-                TypeValue: "Companybusinesstype",
-                datalanid: "1007_业务分类",
-                option:[],
-                more:true  //picker中是否提供显示更多功能
-            },
-            // {
-            //     queryField:'CompanyID',
-            //     text:lanTool.lanContent("1025_公司"),
-            //     fieldControlType:'textareaInput',
-            //     queryType: "string",
-            //     queryFormat: "",
-            //     queryRelation: "and",
-            //     queryValue: "",
-            //     queryComparison: "like",
-            //     datalanid: "1025_公司",
-            //     iconClass:'calc-gongsixinxi'
-            // },
-            {
                 queryfield: "CountryID",
                 text: lanTool.lanContent("701_国家"),
                 fieldControlType: "selectList",
@@ -257,7 +179,7 @@ export default {
         //查询对象
         queryObj:{
           dataFilter:"",//数据筛选模式,
-          groupByMode:"",//分组模式,
+          groupByMode:"List",//分组模式,
           viewMode:"",//视图模式
           queryCondictionArr:[],//自定义查询条件
         },
@@ -270,7 +192,7 @@ export default {
   },
   created: function () {
       let _self = this;
-      _self.$store.commit('SET_ITEM', 'organizationslist');
+      _self.$store.commit('SET_ITEM', 'meetinglist');
   },
   mounted(){
       let _self = this;
@@ -278,20 +200,17 @@ export default {
       //分组模式事件绑定
       _self.groupToggleHandle('organizationsList');
   },
-  activated(){
-
-  },
   methods:{
     //返回上一页
     back(){
         var $this = this;
         $this.$router.back(-1);
     },
-    //添加公司
-    addOrganization(){
+    //添加会议
+    addMeeting(){
         let _self = this;
         _self.$router.push({
-            path: '/organizationsinfo/-1'
+            path: '/meetinginfo/-1'
         });
     },
     //查询委托
@@ -632,18 +551,17 @@ export default {
 
   },
   beforeRouteLeave: function (to, from, next) {
-        if (to.name == 'index') {
-            this.$store.commit('REMOVE_ITEM', 'organizationslist');
-        }
-        next();
-    }
+      if (to.name == 'index') {
+          this.$store.commit('REMOVE_ITEM', 'meetinglist');
+      }
+      next();
+  }
+
 }
 </script>
 
 <style scoped>
-.page{
-    /*display: flex;flex-direction: column;justify-content: center;height: 100vh;*/
-  }
+.page{}
 .header{
   overflow: hidden;
   background: #f8f2dc;
@@ -657,9 +575,7 @@ export default {
 .add-icon{font-size: 0.4rem;padding:0.1rem 10px;}
 
 
-/* .p-sort{position:fixed;left:0;right:0;top:0.88rem;} */
-
-/*列表*/
+/*列表模式*/
 .list-mode-div{
   position: fixed;
   left:0;right:0;bottom:0;
@@ -671,5 +587,5 @@ export default {
 .group-mode-div{
   padding-top:calc(0.88rem + 0.7rem);
 }
-
 </style>
+

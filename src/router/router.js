@@ -20,8 +20,7 @@ import MeetingListForRelation from '@/components/linkListPage/MeetingListForRela
 import Businesslist from '@/components/linkListPage/BusinessList'
 import Contactsof from '@/components/linkListPage/Contactsof'
 
-// import Tripmeeting from '@/components/tripmeeting/Tripmeeting'
-// import Meetinginfo from '@/components/tripmeeting/Meetinginfo'
+
 import MeetingNoteinfo from '@/components/tripmeeting/MeetingNoteinfo'
 
 import Contacts from '@/components/contacts/Contacts'
@@ -72,7 +71,7 @@ const router =  new Router({
     //会议&出差
     { path: '/tripmeeting',
       name:'tripmeeting',
-      component: (resolve) => require(['@/components/tripmeeting/Tripmeeting'], resolve)
+      component: (resolve) => require(['@/components/tripmeeting/MeetingList'], resolve)
     },
     { path: '/meetinginfo/:id',
       name:'meetinginfo',
