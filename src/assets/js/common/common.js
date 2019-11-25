@@ -1985,7 +1985,8 @@ import config from '../../configfile/config.js'
           jsonDatasTemp.RecentDay = 7;
       }else{
           jsonDatasTemp.GroupBy = groupBy || "";
-      }
+	  }
+	  
       var loadingIndexClassName = tool.showLoading();
       $.ajax({
           async: true,
@@ -2025,12 +2026,14 @@ import config from '../../configfile/config.js'
 						vueObj.$set(dataItem, 'meetingSysmbol', meetingSysmbol);
 						})
 					}
-					// //若是organizations || meeting
-					// if(fromType == 'organizations' || fromType == 'meeting'){
-					// $.each(item.items,function(index, companyData){
-					// 	vueObj.$set(companyData, 'items', []);
-					// })
-					// }
+
+					//若是organizationsh或meeting,
+					//则清除对应分组内的联系人数据或会议记录数据
+					if(fromType == 'organizations' || fromType == 'meeting'){
+						$.each(item.items,function(index, companyData){
+							vueObj.$set(companyData, 'items', []);
+						});
+					}
                   }
               })
               if (!tool.isNullOrEmptyObject(myCallBack) && typeof(myCallBack) == "function") {

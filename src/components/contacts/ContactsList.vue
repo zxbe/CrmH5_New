@@ -9,13 +9,13 @@
           </div>
           <a class="calcfont calc-tianjia add-icon" @click="addContacts" ></a>
       </header>
-      <sort :sortData="sortData"></sort>
+      <sort :sortData="sortData" :sortObj="sortObj"></sort>
       <!-- 列表模式   -->
       <div v-show="queryObj.groupByMode == 'List'" class="list-mode-div">
         <vue-scroll v-show="!noData" :showToTop="false" :options="{ pullup: true, pulldown: true }" :scrollbar="false" ref="scroll" @pulldown="pulldown" @pullup="pullup">
 
               <div v-if="listData.length > 0" class="contacts-list data-list">
-                    <div v-for="(item, index) in listData" :key="item.AutoID"
+                    <div v-for="item in listData" :key="item.AutoID"
                       :data-url="'/contactsinfo/' + item.AutoID"
                       class="group-item data-events-item f14">
                           <div class="item-user-icon"><img src="../../assets/images/default_user_img.png" alt=""></div>
@@ -58,7 +58,7 @@
                     </div>
                     <div class="occupy-div"></div>
 
-                    <!-- <div v-if="group.items.length > 0" class="group-item-list contacts-list ">
+                    <div v-if="group.items != null && group.items != undefined && group.items.length >= 1" class="group-item-list contacts-list ">
                             <div v-for="companys in group.items" :key="companys.AutoID" class="company_item">
                               <div class="company_item_tit f14" >
                                   <span class="calcfont calc-gongsixinxi"></span>
@@ -98,14 +98,14 @@
                                     </div>
                               </div>
                         </div>
-                    </div> -->
+                    </div>
                 </div>
           </div>
           <nothing v-show="noData" style="padding-top:0.8rem;"></nothing>
       </div>
 
       <!-- 侧滑筛选 -->
-      <screen :screenData="RightPanelModel"></screen>
+      <screen :screenData="RightPanelModel" :queryObj="queryObj"></screen>
   </div>
 
   <!-- 页面处于搜索状态 -->
@@ -133,14 +133,22 @@ export default {
   },
   data(){
     return{
-        pageState: 1, //页面显示状态：1为显示列表；2为显示搜索
         sortData:[{
-            sortName:"ShortName",
+            sortName:"EnglishName",
+            sortText:lanTool.lanContent("1000528_按联系人名称按正序排序"),
+            sortOrder:'asc'
+          },
+          {
+            sortName:"EnglishName",
+            sortText:lanTool.lanContent("1000529_按联系人名称倒序排序"),
+            sortOrder:'desc'
+          },{
+            sortName:"CompanyID",
             sortText:lanTool.lanContent("1000518_按公司名称按正序排序"),
             sortOrder:'asc'
           },
           {
-            sortName:"ShortName",
+            sortName:"CompanyID",
             sortText:lanTool.lanContent("1000519_按公司名称倒序排序"),
             sortOrder:'desc'
           },{
@@ -153,295 +161,6 @@ export default {
             sortText:lanTool.lanContent("1000521_按业务分类倒序排序"),
             sortOrder:'desc'
           }],
-        noData: false, //没数据
-        pageSize: 10, //一页显示多少记录
-        pageNum: 1, //当前页码
-        sortObj:{
-          sortName:"",//排序名称
-          sortOrder:""//排序方向
-        },
-        //查询对象
-        queryObj:{
-          dataFilter:"",//数据筛选模式,
-          groupByMode:"List1",//分组模式,
-          viewMode:"",//视图模式
-          queryCondictionArr:[],//自定义查询条件
-        },
-        pageType:1,//0:Organizations;1:Contacts
-        //列表模式数据
-        listData:[{
-            "AutoID": 1178,
-            "EnglishName": "Alex Pang",
-            "Title": "Cisco Gold Certified Partner",
-            "Email": "alex_pang@macroview.com",
-            "TelPhone": "+852 3529 5587",
-            "DepartmentName": "Cisco Master Collaboration Specialization",
-            "CompanyID": "MACROVIEW TELECOM",
-            "CountryName": null,
-            "BusinessType": "Other"
-          }, {
-            "AutoID": 1343,
-            "EnglishName": "Alvin Chun",
-            "Title": "",
-            "Email": "alvin_chun@macroview.com",
-            "TelPhone": "35295459",
-            "DepartmentName": "Solution and Service Architect",
-            "CompanyID": "MACROVIEW TELECOM",
-            "CountryName": null,
-            "BusinessType": "Other"
-          }, {
-            "AutoID": 1176,
-            "EnglishName": "Michael Yan",
-            "Title": "甄文達",
-            "Email": "michael_yan@macroview.com",
-            "TelPhone": "+852 3529 7471",
-            "DepartmentName": "Cisco Master Collaboration Specialization",
-            "CompanyID": "MACROVIEW TELECOM",
-            "CountryName": null,
-            "BusinessType": "Other"
-          }, {
-            "AutoID": 1177,
-            "EnglishName": "Samson choi",
-            "Title": "Cisco Gold Certified Parmer",
-            "Email": "samson_choi@macroview.com",
-            "TelPhone": "+852 3529 3804",
-            "DepartmentName": "CISA,CISSP",
-            "CompanyID": "MACROVIEW TELECOM",
-            "CountryName": null,
-            "BusinessType": "Other"
-          }, {
-            "AutoID": 1342,
-            "EnglishName": "Selina Wong",
-            "Title": "associate Service Architect",
-            "Email": "selina_wong@macroview.com",
-            "TelPhone": "35295337",
-            "DepartmentName": "",
-            "CompanyID": "MACROVIEW TELECOM",
-            "CountryName": null,
-            "BusinessType": "Other"
-          }, {
-            "AutoID": 1173,
-            "EnglishName": "黃俊華",
-            "Title": "Senior Manager",
-            "Email": "dennis_wong@macroview.com",
-            "TelPhone": "+852 2903 7329",
-            "DepartmentName": "",
-            "CompanyID": "MACROVIEW TELECOM",
-            "CountryName": null,
-            "BusinessType": "Other"
-          }, {
-            "AutoID": 1174,
-            "EnglishName": "余亮生",
-            "Title": "account manager",
-            "Email": "nelson_yu@macroview.com",
-            "TelPhone": "+852 3529 5585",
-            "DepartmentName": "sales",
-            "CompanyID": "MACROVIEW TELECOM",
-            "CountryName": null,
-            "BusinessType": "Other"
-          }, {
-            "AutoID": 1175,
-            "EnglishName": "周健友",
-            "Title": "Technical Manager",
-            "Email": "philip_chow@macroview.com",
-            "TelPhone": "+852 2903 7350",
-            "DepartmentName": "TS-Network Infrastructure Solutions",
-            "CompanyID": "MACROVIEW TELECOM",
-            "CountryName": null,
-            "BusinessType": "Other"
-          }],
-        //分组模式数据
-        groupData:[{
-              "GroupName": "Other",
-              "GroupID": 213,
-              "GroupRowCount": 318,
-              "InternalSort": 1
-            }, {
-              "GroupName": "Airline",
-              "GroupID": 209,
-              "GroupRowCount": 108,
-              "InternalSort": 99
-            }, {
-              "GroupName": "Financial_Bank",
-              "GroupID": 172,
-              "GroupRowCount": 32,
-              "InternalSort": 99
-            }, {
-              "GroupName": "OEM_Aircraft",
-              "GroupID": 173,
-              "GroupRowCount": 26,
-              "InternalSort": 99
-            }, {
-              "GroupName": "Legal Entity(SPV)",
-              "GroupID": 171,
-              "GroupRowCount": 19,
-              "InternalSort": 99
-            }, {
-              "GroupName": "Financiers",
-              "GroupID": 248,
-              "GroupRowCount": 6,
-              "InternalSort": 99
-            }, {
-              "GroupName": "Financial_Investment/Investment Bank",
-              "GroupID": 217,
-              "GroupRowCount": 5,
-              "InternalSort": 99
-            }, {
-              "GroupName": "MRO_Airframe",
-              "GroupID": 230,
-              "GroupRowCount": 5,
-              "InternalSort": 99
-            }, {
-              "GroupName": "Vendor",
-              "GroupID": 16,
-              "GroupRowCount": 5,
-              "InternalSort": 99
-            }, {
-              "GroupName": "Lessee",
-              "GroupID": 15,
-              "GroupRowCount": 4,
-              "InternalSort": 99
-            }, {
-              "GroupName": "Government_Chamber of Commerce",
-              "GroupID": 228,
-              "GroupRowCount": 2,
-              "InternalSort": 99
-            }, {
-              "GroupName": "MRO_Engin",
-              "GroupID": 229,
-              "GroupRowCount": 2,
-              "InternalSort": 99
-            }, {
-              "GroupName": "Professional Institution_Media",
-              "GroupID": 226,
-              "GroupRowCount": 2,
-              "InternalSort": 99
-            }, {
-              "GroupName": "OEM_BFE",
-              "GroupID": 219,
-              "GroupRowCount": 1,
-              "InternalSort": 99
-            }, {
-              "GroupName": "OEM_Engin",
-              "GroupID": 218,
-              "GroupRowCount": 1,
-              "InternalSort": 99
-            }, {
-              "GroupName": "Professional Institution_Evaluation",
-              "GroupID": 223,
-              "GroupRowCount": 1,
-              "InternalSort": 99
-            }, {
-              "GroupName": "Professional Institutions_Aerospace Industry Professional Institutions",
-              "GroupID": 225,
-              "GroupRowCount": 1,
-              "InternalSort": 99
-            }, {
-              "GroupName": "Transportation",
-              "GroupID": 215,
-              "GroupRowCount": 1,
-              "InternalSort": 99
-            }, {
-              "GroupName": "Financial_Asset Management",
-              "GroupID": 216,
-              "GroupRowCount": 0,
-              "InternalSort": 99
-            }, {
-              "GroupName": "Financial_Funds/Securities/Trust Companies",
-              "GroupID": 175,
-              "GroupRowCount": 0,
-              "InternalSort": 99
-            }, {
-              "GroupName": "Financial_Guarantee Corporation",
-              "GroupID": 178,
-              "GroupRowCount": 0,
-              "InternalSort": 99
-            }, {
-              "GroupName": "Financial_Insurance",
-              "GroupID": 212,
-              "GroupRowCount": 0,
-              "InternalSort": 99
-            }, {
-              "GroupName": "Financial_Mortgage",
-              "GroupID": 179,
-              "GroupRowCount": 0,
-              "InternalSort": 99
-            }, {
-              "GroupName": "Financier_Other",
-              "GroupID": 211,
-              "GroupRowCount": 0,
-              "InternalSort": 99
-            }, {
-              "GroupName": "Government_Airworthiness Authorities",
-              "GroupID": 177,
-              "GroupRowCount": 0,
-              "InternalSort": 99
-            }, {
-              "GroupName": "Government_Government Department",
-              "GroupID": 227,
-              "GroupRowCount": 0,
-              "InternalSort": 99
-            }, {
-              "GroupName": "Operator",
-              "GroupID": 174,
-              "GroupRowCount": 0,
-              "InternalSort": 99
-            }, {
-              "GroupName": "Professional Institution_Law Firm",
-              "GroupID": 220,
-              "GroupRowCount": 0,
-              "InternalSort": 99
-            }, {
-              "GroupName": "Professional Institution_Rating Company",
-              "GroupID": 224,
-              "GroupRowCount": 0,
-              "InternalSort": 99
-            }, {
-              "GroupName": "Professional Institution_Technical",
-              "GroupID": 214,
-              "GroupRowCount": 0,
-              "InternalSort": 99
-            }, {
-              "GroupName": "Professional Institutions_3rd Party Managed",
-              "GroupID": 210,
-              "GroupRowCount": 0,
-              "InternalSort": 99
-            }, {
-              "GroupName": "Professional Institutions_Accounting Office/Audit/Tax",
-              "GroupID": 221,
-              "GroupRowCount": 0,
-              "InternalSort": 99
-            }, {
-              "GroupName": "Professional Institutions_Consultant/Consulting",
-              "GroupID": 222,
-              "GroupRowCount": 0,
-              "InternalSort": 99
-            }, {
-              "GroupName": "Remarketing_Overseas",
-              "GroupID": 233,
-              "GroupRowCount": 0,
-              "InternalSort": 99
-            }, {
-              "GroupName": "Remarketing_PRC",
-              "GroupID": 234,
-              "GroupRowCount": 0,
-              "InternalSort": 99
-            }, {
-              "GroupName": "Shareholder Unit_Ari Shareholder Unit",
-              "GroupID": 231,
-              "GroupRowCount": 0,
-              "InternalSort": 99
-            }, {
-              "GroupName": "Shareholder Unit_Calc Shareholder Unit",
-              "GroupID": 176,
-              "GroupRowCount": 0,
-              "InternalSort": 99
-            }, {
-              "GroupName": "Shareholder Unit_Other",
-              "GroupID": 232,
-              "GroupRowCount": 0,
-              "InternalSort": 99
-            }],
         //右侧侧滑数据模型
         RightPanelModel:{
             "DataFilterModel":{
@@ -470,7 +189,7 @@ export default {
                       isActive:true
                     },{
                       id:"BusinessType",
-                      text:lanTool.lanContent("1007_业务分类"),
+                      text:lanTool.lanContent("1000530_业务分类/公司"),
                       sort:20
                     }
                 ]
@@ -478,7 +197,7 @@ export default {
             "FieldModel":[{
                 queryfield: "BusinessType",
                 text: lanTool.lanContent("1007_业务分类"),
-                fieldControlType: "picker",
+                fieldControlType: "picketTile",
                 queryType: "string",
                 queryFormat: "",
                 queryRelation: "and",
@@ -489,9 +208,38 @@ export default {
                 datalanid: "1007_业务分类",
                 option:[],
                 more:true  //picker中是否提供显示更多功能
-            }]
+            },
+            {
+                queryfield: "CompanyID",
+                text: lanTool.lanContent("1025_公司"),
+                fieldControlType: "textareaInput",
+                queryType: "string",
+                queryFormat: "",
+                queryRelation: "and",
+                queryValue: "",
+                queryComparison: "like",
+                datalanid: "1025_公司",
+                iconClass:'calc-gongsixinxi'
+              }]
         },
-
+        pageState: 1, //页面显示状态：1为显示列表；2为显示搜索
+        noData: false, //没数据
+        pageSize: tool.PageSize, //一页显示多少记录
+        pageNum: 1, //当前页码
+        sortObj:{
+          sortName:"",//排序名称
+          sortOrder:""//排序方向
+        },
+        //查询对象
+        queryObj:{
+          dataFilter:"",//数据筛选模式,
+          groupByMode:"",//分组模式,
+          viewMode:"",//视图模式
+          queryCondictionArr:[],//自定义查询条件
+        },
+        pageType:1,//0:Organizations;1:Contacts
+        listData:[],//列表模式数据
+        groupData:[]//分组模式数据
     }
   },
   created: function () {
@@ -521,16 +269,13 @@ export default {
     //查询委托
     delegateQuery:function(){
       let _self = this;
-      /*
       _self.$nextTick(function(){
-
         //执行查询
         if(tool.isNullOrEmptyObject(_self.queryObj.groupByMode)){
           return;
         }
 
         if(_self.queryObj.groupByMode.toLowerCase() == "list"){
-
           //查询列表
           _self.queryList('pushRefresh', function () {
           });
@@ -538,9 +283,29 @@ export default {
           //查询分组数据
           _self.queryGroup();
         }
-      });
-      */
+    });
+    },
+    //合并查询条件
+    constructQueryCondiction:function(){
+      let _self = this;
+      var queryCondictionAllArr = [];
+      if(!tool.isNullOrEmptyObject(_self.queryObj.dataFilter)){
+        var dataFilterObj = {
+          Field:_self.queryObj.dataFilter||"",
+          Type:"string",
+          Format:"",
+          Relation:"and",
+          Value:_self.queryObj.dataFilter,
+          Comparison:"="
+        };
+        queryCondictionAllArr.push(dataFilterObj);
+      }
 
+      if(!tool.isNullOrEmptyObject(_self.queryObj.queryCondictionArr)){
+        queryCondictionAllArr = tool.combineArray(queryCondictionAllArr,_self.queryObj.queryCondictionArr);
+      }
+
+      return queryCondictionAllArr;
     },
     //列表查询
     queryList: function (queryType, callback) {
@@ -554,8 +319,8 @@ export default {
         }
         //api接口地址
         var urlTemp = tool.AjaxBaseUrl();
-        var controlName = tool.Api_BaseUserBaseInfHandle_QueryNew;
-        /*
+        var controlName = tool.Api_ContactsHandle_GroupInnerData;
+
         var jsonDatasTemp = {
             CurrentLanguageVersion: lanTool.currentLanguageVersion,
             UserName: tool.UserName(),
@@ -564,12 +329,13 @@ export default {
             IsUsePager: true,
             PageSize:_self.pageSize,
             PageNum:_self.pageNum,
-            SortName:"",
-            SortOrder:"",
-            QueryCondiction: JSON.stringify(_self.queryCondictionData || [])
+            SortName:_self.sortObj.sortName||"",
+            SortOrder:_self.sortObj.sortOrder||"",
+            QueryCondiction: JSON.stringify(_self.constructQueryCondiction() || []),
+            GroupBy:_self.queryObj.groupByMode||"",
+            PageType:_self.pageType
         };
-        console.log(jsonDatasTemp);
-        */
+        
         var loadingIndexClassName = tool.showLoading();
         $.ajax({
             async: true,
@@ -580,10 +346,11 @@ export default {
                 tool.hideLoading(loadingIndexClassName);
                 data = tool.jObject(data);
                 console.log(data);
-                /*
+
                 if (data._ReturnStatus == false) {
                     tool.showText(tool.getMessage(data));
                     console.log(tool.getMessage(data));
+                    _self.listData = [];
                     _self.noData = true;
                     return;
                 }
@@ -597,9 +364,9 @@ export default {
 
                 _self.noData = false;
                 if(queryType == 'pushLoad'){
-                    _self.userDataList = _self.userDataList.concat(data);
+                    _self.listData = _self.listData.concat(data);
                 }else{
-                    _self.userDataList = data;
+                    _self.listData = data;
                 }
 
                 if(queryType == undefined || queryType == ''){
@@ -609,10 +376,9 @@ export default {
                 }
                 _self.$refs.scroll.refresh();
 
-                if(!tool.isNullOrEmptyObject(callback)){
+                if(!tool.isNullOrEmptyObject(callback) && typeof(callback) == "function"){
                   callback(data,_self.pageSize);
                 }
-                */
             },
             error: function (jqXHR, type, error) {
                 tool.hideLoading(loadingIndexClassName);
@@ -641,8 +407,67 @@ export default {
             }
         });
     },
+    //查询分组数据
+    queryGroup:function(callback){
+      let _self = this;
+      var urlTemp = tool.AjaxBaseUrl();
+      var controlName = tool.Api_OrganizationsHandle_Group;
+
+      var jsonDatasTemp = {
+          CurrentLanguageVersion: lanTool.currentLanguageVersion,
+          UserName: tool.UserName(),
+          _ControlName: controlName,
+          _RegisterCode: tool.RegisterCode(),
+          QueryCondiction: JSON.stringify(_self.constructQueryCondiction() || []),
+          GroupBy:_self.queryObj.groupByMode||"",
+          PageType:_self.pageType
+      };
+      var loadingIndexClassName = tool.showLoading();
+      $.ajax({
+          async: true,
+          type: "post",
+          url: urlTemp,
+          data: jsonDatasTemp,
+          success: function (data) {
+              tool.hideLoading(loadingIndexClassName);
+              data = tool.jObject(data);
+              console.log(data);
+
+              if (data._ReturnStatus == false) {
+                  tool.showText(tool.getMessage(data));
+                  console.log(tool.getMessage(data));
+                  _self.listData = [];
+                  _self.noData = true;
+                  return;
+              }
+              data = data._OnlyOneData.Rows || [];
+
+              //没有数据
+              if((tool.isNullOrEmptyObject(data) || data.length <= 0) && _self.pageNum == 1){
+                  _self.noData = true;
+                  return ;
+              }
+
+              _self.noData = false;
+              _self.groupData = data;
+
+              if(!tool.isNullOrEmptyObject(callback) && typeof(callback) == "function"){
+                callback(data);
+              }
+          },
+          error: function (jqXHR, type, error) {
+              tool.hideLoading(loadingIndexClassName);
+              console.log(error);
+              return true;
+          },
+          complete: function () {
+              //隐藏虚拟键盘
+              document.activeElement.blur();
+          }
+      });
+    },
     //分组模式下展开收起
-    groupToggleHandle:function( idName ){
+    groupToggleHandle:function(idName){
         var _self = this;
         $("#"+ idName ).off("click", "div.date-div").on(
             "click",
@@ -679,36 +504,145 @@ export default {
                         });
                 } else {
                     //若是收起
-                    /*
-                    var allQueryData = tool.combineArray(_self.queryCondictionData, _self.queryCondiction, "Field");
-
-                    //BusinessCategories模块需要用到
-                    if(allQueryData && !tool.isNullOrEmptyObject(_self.dateRangeJObject)){
-                        allQueryData.push(_self.dateRangeJObject);
-                    }
-
-                    let groupBy = _self.groupBy == undefined ? '' : _self.groupBy;
-
-                    tool.InitInnerDataList(_self, fromType, groupID, allQueryData, function(){
+                    let groupBy = _self.queryObj.groupByMode ||"";
+                    let queryCondictionArr = _self.constructQueryCondiction() || [];
+                    tool.InitInnerDataList(_self, fromType, groupID, queryCondictionArr, function(){
                         _self.$nextTick(function () {
                             target.addClass("open")
                                 .siblings(".group-item-list")
                                 .slideDown(500);
-                            //联系人二级展开收起
-                            if(!tool.isNullOrEmptyObject(_self.contactsToggle)){
-                              _self.contactsToggle();
-                            }
-                            //分组模式会议 二级展开收起
-                            if(!tool.isNullOrEmptyObject(_self.meetingToggle)){
-                              _self.meetingToggle();
-                            }
+
+                              //联系人二级展开收起
+                              if(!tool.isNullOrEmptyObject(_self.subGroupToggle)){
+                                _self.subGroupToggle();
+                              }
                         })
-                    }, '', groupBy, _self.showPage);
-                    */
+                    }, '', groupBy, _self.pageType);
                 }
             }
         );
+    },
+    //联系人展开收起
+    subGroupToggle:function(){
+        let _self = this;
+        $('#contactsList').off('click','.company_item_tit').on(
+          'click',
+          '.company_item_tit',
+          function(event){
+              event.preventDefault();
+              var target = $(event.target);
+              if (!target.hasClass('company_item_tit')) {
+                  target = target.parents("div.company_item_tit:first");
+                  if (tool.isNullOrEmptyObject(target)) {
+                      return;
+                  }
+              }
+              var firstGroupID = target.closest('.contacts-list')
+                              .siblings('div.date-div')
+                              .find("span[data-groupid]:first")
+                              .attr("data-groupid") || "";
+              var fromType = "contacts";
+              var subGroupID = target.find("div[data-groupid]:first").attr("data-groupid") || "";
+              if (tool.isNullOrEmptyObject(firstGroupID) || tool.isNullOrEmptyObject(subGroupID)) {
+                    return;
+              }
+              //若是展开
+                if (target.hasClass("open")) {
+                    target
+                        .removeClass("open")
+                        .siblings(".contact_list")
+                        .slideUp(500, function () {
+                            //清空items数据
+                            $.each(_self.groupData, function (index, item) {
+                                if (item.GroupID == firstGroupID) {
+                                    $.each(item.items, function(i, subItem){
+                                        //清空当前二级分组内部的列表数据
+                                        if(subItem.AutoID == subGroupID){
+                                            subItem.items = [];
+                                        }
+                                    })
+                                }
+                            })
+                        });
+                }else{
+                    //若是收起
+                    //则查询内部列表数据
+                    _self.getsubList(firstGroupID, subGroupID, function(){
+                        _self.$nextTick(function () {
+                            target.addClass("open")
+                                .siblings(".contact_list")
+                                .slideDown(500);
+                        });
+                    });
+                }
+          });
+    },
+    //获取二级分组的内部列表
+    getsubList:function(firstGroupID, subGroupID, callBack){
+      let _self = this;
+      if(tool.isNullOrEmptyObject(firstGroupID)||tool.isNullOrEmptyObject(subGroupID)){
+        return;
+      }
+      //请求地址
+      var urlTemp = tool.AjaxBaseUrl();
+      var controlName = tool.Api_ContactsHandle_GroupInnerData;
+      //传入参数
+      var jsonDatasTemp = {
+          CurrentLanguageVersion: lanTool.currentLanguageVersion,
+          UserName: tool.UserName(),
+          _ControlName: controlName,
+          _RegisterCode: tool.RegisterCode(),
+          QueryCondiction: JSON.stringify(_self.constructQueryCondiction() || []),
+          GroupBy:_self.queryObj.groupByMode||"",
+          PageType:_self.pageType,
+          GroupID: subGroupID       
+      };
+      var loadingIndexClassName = tool.showLoading();
+      $.ajax({
+          async: true,
+          type: "post",
+          url: urlTemp,
+          data: jsonDatasTemp,
+          success: function (data) {
+              tool.hideLoading(loadingIndexClassName);
+              data = tool.jObject(data);
+              if (data._ReturnStatus == false) {
+                  tool.showText(tool.getMessage(data));
+                  console.log(tool.getMessage(data));
+                  _self.noData = true;
+                  return;
+              }
+              data = data._OnlyOneData.Rows || [];
 
+              //无数据
+              if (data.length <= 0) {
+                  return;
+              }
+              //找到对应的二级分组，往二级分组内塞列表数据
+              $.each(_self.groupData, function (index, item) {
+                  if (item.GroupID == firstGroupID) {
+                      $.each(item.items, function(i, subItem){
+                          if(subItem.AutoID == subGroupID){
+                              subItem.items = data;
+                          }
+                      })
+                  }
+              });
+              
+              if (!tool.isNullOrEmptyObject(callBack) && typeof(callBack) == "function") {
+                  callBack();
+              }
+          },
+          error: function (jqXHR, type, error) {
+              console.log(error);
+              tool.hideLoading(loadingIndexClassName);
+              return;
+          },
+          complete: function () {
+              //隐藏虚拟键盘
+              document.activeElement.blur();
+          }
+      });
     },
 
     //点击头部搜索
@@ -723,16 +657,20 @@ export default {
         _self.$refs.searchModule.getHistory();
     },
 
-    //接收搜索的值并刷新列表,str有可能为空  (专门处理搜索)
+    //接收搜索的值并刷新列表,str有可能为空(专门处理搜索)
     refreshListBySearchValue(str){
         let _self = this;
         _self.pageState = 1;
 
     }
 
+  },
+  beforeRouteLeave: function (to, from, next) {
+      if (to.name == 'index') {
+          this.$store.commit('REMOVE_ITEM', 'contactslist');
+      }
+      next();
   }
-
-
 }
 </script>
 
