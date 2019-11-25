@@ -41,6 +41,7 @@
                   </div>
               </div>
 
+
               <!-- FieldModel -->
               <div class="fieldModel" v-if="FieldModel.length > 0">
                   <div class="block-div" v-for="(item, index) in FieldModel" :key="index">
@@ -77,8 +78,32 @@
                           </div>
                       </div>
 
+                      <!--类型为textareaInput-->
+                      <div class="type-div no-border" v-if="item.fieldControlType == 'textareaInput'">
+                          <div class="DetailRow">
+                              <div class="DetailRowOn">
+                                  <span class="calcfont ChangeIconColor" :class="item.iconClass"></span>
+                                  <span class="FileName">{{item.text}}</span>
+                              </div>
+                              <div class="DetailRowUp">
+                                    <p class="textareaP wrap">
+                                        <textarea
+                                            class="lanInputPlaceHolder"
+                                            data-lanid="1000525_请输入"
+                                            :data-field="item.queryfield"
+                                            :data-fieldControlType="item.fieldControlType"
+                                            :data-queryType="item.queryType"
+                                            :data-queryFormat="item.queryFormat"
+                                            :data-queryRelation="item.queryRelation"
+                                            :data-queryComparison="item.queryComparison">
+                                        </textarea>
+                                    </p >
+                              </div>
+                          </div>
+                      </div>
+
                       <!-- 类型为selectList || linkSelectList-->
-                      <div class="type-div" v-if="item.fieldControlType == 'selectList' || item.fieldControlType == 'linkSelectList'">
+                      <div class="type-div no-border" v-if="item.fieldControlType == 'selectList' || item.fieldControlType == 'linkSelectList'">
                           <div class="DetailRow">
                               <div class="DetailRowOn">
                                   <span class="calcfont ChangeIconColor" :class="item.iconClass"></span>
@@ -97,25 +122,6 @@
                                   <div class="LeftIconBlock"><span class="LeftIcon calcfont calc-you"></span></div>
                               </div>
                           </div>
-                          <!-- <div class="ListCellContent">
-                              <div class="ListCellContentLeft leftContent">
-                                  <div class="ListCellContentLeftText">{{item.text}}</div>
-                              </div>
-                              <div class="ListCellContentRight rightContent">
-                                  <div :data-field="item.queryfield"
-                                    :data-fieldControlType="item.fieldControlType"
-                                    :data-lanid="item.datalanid"
-                                    data-fieldVal=""
-                                    :Code="item.Code"
-                                    :data-selectType="item.selectType"
-                                    :data-queryType="item.queryType"
-                                    :data-queryFormat="item.queryFormat"
-                                    :data-queryRelation="item.queryRelation"
-                                    :data-queryComparison="item.queryComparison"
-                                    class="ListCellContentRightText" ></div>
-                              </div>
-                              <div class="ListCellRightIcon"><span class="mui-icon calcfont calc-you"></span></div>
-                          </div> -->
                       </div>
 
 
@@ -216,6 +222,18 @@ export default {
       lanTool.updateLanVersion();
       document.activeElement.blur();
 
+      //渲染textarea
+      $("textarea").each(function (index, cur) {
+          $(cur).height('25');
+          tool.autoTextarea(cur);
+      });
+      $("textarea").blur(function(){
+          $(this).parents(".DetailRow").removeClass("DeepColor");
+      });
+      $("textarea").focus(function(){
+          $(this).parents(".DetailRow").addClass("DeepColor");
+      });
+
       //监听是否展开侧滑
       eventBus.$on('showScreenEvent',_self.panelToggle);
 
@@ -227,6 +245,7 @@ export default {
 
       //绑定控件字段的值改变事件
       _self.bindFieldChangeEvent();
+
   },
   activated: function () {
         let _self = this;
@@ -707,6 +726,7 @@ export default {
 .screen-con{height: calc(100vh - 1.3rem);overflow-y: scroll;}
 .block-div{}
 .type-div{border-bottom: 1px solid #e6e8ea;}
+.no-border{border-bottom:none;}
 .block-tile{padding:10px 15px;display: flex;align-items: center;}
 .title-text{white-space:nowrap;margin-right:10px;}
 
@@ -758,22 +778,31 @@ border-radius: 20px; }
 .ok-btn{background: #ff9900;}
 
 
+/*select控件样式*/
 .DetailRow {
     position: relative;
     background-color: #ffffff;
-    min-height: 1.34rem;
-    padding:10px 10px 10px 15px;
+    padding:10px 10px 0px 15px;
     box-sizing: border-box;
 }
+.DetailRow:after {
+    position: absolute;
+    content: "";
+    left: 35px;
+    right: 0;
+    bottom: 0;
+    height: 1px;
+    background-color: beige;
+}
+.DeepColor:after{background-color:#ffc125;}
 .DetailRowUp {
     position: relative;
-    padding: 0.1rem 0 0.1rem 20px;
+    padding: 0.1rem 0 0.15rem 20px;
     display: flex;
     align-items: center;
 }
 
 .DetailRowUp input {
-    /* width: calc(100% - 0.5rem); */
     flex: 1;
     font-size: 0.28rem;
     border: none;
@@ -786,4 +815,23 @@ border-radius: 20px; }
     font-size: .32rem;
     color: #cdcdcd;
 }
+p.textareaP.wrap{
+    flex: 1;
+    margin: 0;
+    font-size: .28rem;
+}
+textarea{
+    width: 100%;
+    outline: none;
+    background-color: transparent;
+    margin-left: 0;
+    overflow: hidden;
+    position: relative;
+    border: none;
+    line-height: 1.3;
+    display: block;
+    height: .5rem;
+}
+
+
 </style>

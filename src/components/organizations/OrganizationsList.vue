@@ -199,7 +199,20 @@ export default {
                 datalanid: "1007_业务分类",
                 option:[],
                 more:true  //picker中是否提供显示更多功能
-            },{
+            },
+            // {
+            //     queryField:'CompanyID',
+            //     text:lanTool.lanContent("1025_公司"),
+            //     fieldControlType:'textareaInput',
+            //     queryType: "string",
+            //     queryFormat: "",
+            //     queryRelation: "and",
+            //     queryValue: "",
+            //     queryComparison: "like",
+            //     datalanid: "1025_公司",
+            //     iconClass:'calc-gongsixinxi'
+            // },
+            {
                 queryfield: "CountryID",
                 text: lanTool.lanContent("701_国家"),
                 fieldControlType: "selectList",
