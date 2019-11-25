@@ -306,7 +306,9 @@ export default {
             if(isOnlyRemoveEvent){
                 if(_curObj.is("div")){
                     _curObj.off("DOMNodeInserted DOMNodeRemoved");
-                }else{
+                }else if(_curObj.attr("data-fieldcontroltype") == "textareaInput"){
+                    _curObj.off("keyup");
+                }else {
                     _curObj.off("change");
                 }
             }else{
@@ -318,8 +320,18 @@ export default {
                             _self.$parent.delegateQuery();
                         });
                     });
+                }else if(_curObj.attr("data-fieldcontroltype") == "textareaInput"){
+                    _curObj.off("keyup").on("keyup",function(e){
+                         var code = e.charCode || e.keyCode;
+                         if(code == "13"){
+                            _self.$nextTick(function(){
+                                _self.setParentQueryObj();
+                                //调用父组件的查询方法
+                                _self.$parent.delegateQuery();
+                            }); 
+                         }
+                    });
                 }else{
-                    // console.log("not div");
                     _curObj.off("change").on("change",function(){
                         _self.$nextTick(function(){
                             _self.setParentQueryObj();
