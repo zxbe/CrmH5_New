@@ -137,7 +137,11 @@
                                          :data-lanid="item.datalanid"
                                          data-fieldVal=""
                                          :Code="item.Code"
-                                         :data-selectType="item.selectType" />
+                                         :data-selectType="item.selectType" 
+                                         :data-queryType="item.queryType"
+                                         :data-queryFormat="item.queryFormat"
+                                         :data-queryRelation="item.queryRelation"
+                                         :data-queryComparison="item.queryComparison"/>
                                   <div class="LeftIconBlock"><span class="LeftIcon calcfont calc-you"></span></div>
                               </div>
                           </div>
@@ -287,7 +291,7 @@ export default {
         });
 
         //绑定控件字段的值改变事件
-      _self.bindFieldChangeEvent();
+       //_self.bindFieldChangeEvent();
   },
   methods:{
     //绑定控件字段的值改变事件
@@ -306,6 +310,10 @@ export default {
             if(isOnlyRemoveEvent){
                 if(_curObj.is("div")){
                     _curObj.off("DOMNodeInserted DOMNodeRemoved");
+                }else if(_curObj.attr("data-fieldcontroltype") == "selectList" || _curObj.attr("data-fieldcontroltype") == "linkSelectList"){
+                    if(_curObj[0].hasOwnProperty("_value")){
+                        delete _curObj[0]._value;
+                    }
                 }else if(_curObj.attr("data-fieldcontroltype") == "textareaInput"){
                     _curObj.off("keyup");
                 }else {
@@ -319,6 +327,22 @@ export default {
                             //调用父组件的查询方法
                             _self.$parent.delegateQuery();
                         });
+                    });
+                }else if(_curObj.attr("data-fieldcontroltype") == "selectList" || _curObj.attr("data-fieldcontroltype") == "linkSelectList"){
+                    //为了解决用js赋input控件值，input控件不会触发change事件，因此添加了_value属性，然后通过属性的set来达到监听change的效果
+                    Object.defineProperty(_curObj[0],"_value",{
+                        configurable:true,
+                        set:function(value){
+                            this.value = value;
+                            _self.$nextTick(function(){
+                                _self.setParentQueryObj();
+                                //调用父组件的查询方法
+                                _self.$parent.delegateQuery();
+                        });
+                        },
+                        get:function(){
+                            return this.value;	
+                        }
                     });
                 }else if(_curObj.attr("data-fieldcontroltype") == "textareaInput"){
                     _curObj.off("keyup").on("keyup",function(e){

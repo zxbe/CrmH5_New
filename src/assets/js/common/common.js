@@ -3580,6 +3580,10 @@ import config from '../../configfile/config.js'
 	//判断元素是否是input，是的话用val来赋值
 	if(curObj.is('input') || curObj.is('textarea')){
 		curObj.val(eventBus.selectListData.value.text);
+		//为了解决用js赋input控件值，input控件不会触发change事件，因此添加了_value属性，然后通过属性的set来达到监听change的效果
+		if(curObj[0].hasOwnProperty("_value")){
+			curObj[0]._value = eventBus.selectListData.value.text;
+		}
 	}
 	else{
 		curObj.text(eventBus.selectListData.value.text);
