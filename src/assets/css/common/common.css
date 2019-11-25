@@ -540,3 +540,11 @@ top:0px;position:absolute;}
 
 .contacts-list .contacts-item-block{padding:5px 10px 5px 1.2rem;}
 .contacts-list .icon{margin-right: 3px;}
+
+/*
+用于Textarea控件的默认高度
+*/
+.DefaultHeight{
+  /* height: 0.4rem; */
+  height: 20px !important;
+}

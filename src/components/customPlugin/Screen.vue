@@ -224,7 +224,8 @@ export default {
 
       //渲染textarea
       $("textarea").each(function (index, cur) {
-          $(cur).height('25');
+          //$(cur).height('25');
+          $(cur).addClass("DefaultHeight");
           tool.autoTextarea(cur);
       });
       $("textarea").blur(function(){
@@ -292,6 +293,7 @@ export default {
                         });
                     });
                 }else{
+                    console.log("not div");
                     _curObj.off("change").on("change",function(){
                         _self.$nextTick(function(){
                             _self.setParentQueryObj();

@@ -518,9 +518,9 @@ p.textareaP.wrap{
 textarea{
     font-size:0.28rem;
 }
-.DefaultHeight{
+/* .DefaultHeight{
     height: 0.4rem;
-}
+} */
 /*input placeholder的样式  */
 :-moz-placeholder {
     font-size:0.28rem;
