@@ -1,11 +1,6 @@
 <template>
 <div>
-    <Infoheader
-        class="sticky infoheader"
-        :isAddNew="isAddNew"
-        :onlyView="onlyView"
-        :operation="operation"
-        :title="ptitle"></Infoheader>
+    <Infoheader class="sticky infoheader" :isAddNew="isAddNew" :onlyView="onlyView" :operation="operation" :title="ptitle"></Infoheader>
 
     <div class="scroll-div">
         <div class="box">
@@ -27,18 +22,18 @@
                     </p>
                 </div>
             </div> -->
-             <div class="DetailRow controlEdit">
-                    <div class="DetailRowOn"><span class="calcfont calc-yewujihui ChangeIconColor"></span><span class="FileName lanText" data-lanid="710_标题"></span></div>
-                    <div class="DetailRowUp">
-                        <p class="textareaP">
-                            <textarea data-field="TheName" data-fieldControlType="textareaInput" class="lanInputPlaceHolder" data-lanid="1000525_请输入"></textarea>
-                        </p>
-                    </div>
+            <div class="DetailRow controlEdit">
+                <div class="DetailRowOn"><span class="calcfont calc-yewujihui ChangeIconColor"></span><span class="FileName lanText" data-lanid="710_标题"></span></div>
+                <div class="DetailRowUp">
+                    <p class="textareaP">
+                        <textarea data-field="TheName" data-fieldControlType="textareaInput" class="lanInputPlaceHolder" data-lanid="1000525_请输入"></textarea>
+                    </p>
                 </div>
+            </div>
             <!-- 交易模块才有的属性 -->
             <div v-show="showPage =='0'" class="OpportunitiesList controlEdit">
-                    <!-- LOI单号 -->
-                    <!-- <div class="ListSpecialCell" id="LOIIDClickObj">
+                <!-- LOI单号 -->
+                <!-- <div class="ListSpecialCell" id="LOIIDClickObj">
                         <div class="ListSpecialCellField">
                             <div class="ListSpecialCellLeftIcon"><span class="calcfont calc-profile"></span></div>
                             <div class="ListSpecialCellFieldContent lanText" data-lanid="1000227_LOI单号"></div>
@@ -56,17 +51,17 @@
                             data-clickObj="LOIIDClickObj"
                             data-addUrl=""></div>
                     </div> -->
-                     <div class="DetailRow">
+                <div class="DetailRow">
                     <div class="DetailRowOn"><span class="calcfont calc-profile ChangeIconColor"></span><span class="FileName lanText" data-lanid="1000227_LOI单号"></span></div>
                     <div class="DetailRowUp">
-                       <p class="textareaP wrap" id="LOIIDClickObj">
+                        <p class="textareaP wrap" id="LOIIDClickObj">
                             <textarea readonly="readonly" class="lanInputPlaceHolder" data-field="LOIID" data-fieldControlType="selectList" data-lanid="1000526_请选择" data-fieldVal="" Code="DropDowList_LOI" data-selectType="radio" data-clickObj="LOIIDClickObj"></textarea>
                         </p>
                         <div class="LeftIconBlock"><span class="LeftIcon calcfont calc-you"></span></div>
                     </div>
                 </div>
-                    <!-- 商业事项 -->
-                    <!-- <div class="ListCell visible" v-show="showPage=='0'">
+                <!-- 商业事项 -->
+                <!-- <div class="ListCell visible" v-show="showPage=='0'">
                         <div class="ListCellLeftIcon"><span class="calcfont calc-shixiang"></span></div>
                         <div class="ListCellContent">
                             <div class="ListCellContentLeft leftContent">
@@ -78,14 +73,14 @@
                             <div class="ListCellRightIcon"><span class="calcfont calc-you"></span></div>
                         </div>
                     </div> -->
-                    <div class="DetailRow" v-show="showPage=='0'">
+                <div class="DetailRow" v-show="showPage=='0'">
                     <div class="DetailRowOn"><span class="calcfont calc-shixiang ChangeIconColor"></span><span class="FileName lanText" data-lanid="947_商业事项"></span><span class="XingHao">*</span></div>
                     <div class="DetailRowUp">
-                        <input class="content lanInputPlaceHolder" type="text" data-field="Matter" data-lanid="1000526_请选择" data-fieldControlType="picker" data-fieldVal="" Code="DropDowList_DtbAllTypes" TypeValue="Matter"/>
+                        <input class="content lanInputPlaceHolder" type="text" data-field="Matter" data-lanid="1000526_请选择" data-fieldControlType="picker" data-fieldVal="" Code="DropDowList_DtbAllTypes" TypeValue="Matter" />
                         <div class="LeftIconBlock"><span class="LeftIcon calcfont calc-you"></span></div>
                     </div>
                 </div>
-                    <!-- <div class="ListCell visible MatterOtherObj" v-show="showPage=='0'">
+                <!-- <div class="ListCell visible MatterOtherObj" v-show="showPage=='0'">
                         <div class="ListCellLeftIcon textLeftIcon"><span class="calcfont"></span></div>
                         <div class="ListCellLeftText">
                             <p class="textareaP">
@@ -93,7 +88,7 @@
                             </p>
                         </div>
                     </div> -->
-                    <div class="DetailRow MatterOtherObj" v-show="showPage=='0'">
+                <div class="DetailRow MatterOtherObj" v-show="showPage=='0'">
                     <div class="DetailRowOn"><span class="calcfont calc-other ChangeIconColor"></span><span class="FileName lanText" data-lanid="952_其他"></span><span class="XingHao">*</span></div>
                     <div class="DetailRowUp">
                         <p class="textareaP">
@@ -101,8 +96,8 @@
                         </p>
                     </div>
                 </div>
-                    <!-- MSN -->
-                    <!-- <div class="ListCell" v-show="showPage=='0'">
+                <!-- MSN -->
+                <!-- <div class="ListCell" v-show="showPage=='0'">
                         <div class="ListCellLeftIcon textLeftIcon"><span class="calcfont calc-feiji2"></span></div>
                         <div class="ListCellLeftText">
                             <p class="textareaP">
@@ -110,14 +105,14 @@
                             </p>
                         </div>
                     </div> -->
-                     <div class="DetailRow" v-show="showPage=='0'">
+                <div class="DetailRow" v-show="showPage=='0'">
                     <div class="DetailRowOn"><span class="calcfont calc-feiji2 ChangeIconColor"></span><span class="FileName lanText" data-lanid="956_MSN"></span></div>
                     <div class="DetailRowUp">
                         <p class="textareaP">
                             <textarea data-field="MSN" data-fieldControlType="textareaInput" class="lanInputPlaceHolder" data-lanid="1000525_请输入"></textarea>
                         </p>
                     </div>
-                    </div>
+                </div>
             </div>
 
             <!-- 公司 -->
@@ -140,20 +135,14 @@
                     data-addUrl="/organizationsinfo"></div>
             </div> -->
             <div class="DetailRow controlEdit">
-                    <div class="DetailRowOn"><span class="calcfont calc-gongsixinxi ChangeIconColor"></span><span class="FileName lanText" data-lanid="790_公司"></span><span class="XingHao">*</span></div>
-                    <div class="DetailRowUp">
-                        <p class="textareaP wrap" id="TargetCompanyIDClickObj">
-                            <textarea readonly="readonly" class="lanInputPlaceHolder" data-lanid="1000526_请选择"  data-field="TargetCompanyID"
-                            data-fieldcontroltype="selectList"  data-fieldval=""
-                            data-selecttype="radio"
-                            code="DropDowList_ViewBaseCompanyBaseInfHasContact"
-                            typevalue=""
-                            data-clickObj="TargetCompanyIDClickObj"
-                            data-addUrl="/organizationsinfo"></textarea>
-                        </p>
-                        <div class="LeftIconBlock" ><span class="LeftIcon calcfont calc-you"></span></div>
-                    </div>
+                <div class="DetailRowOn"><span class="calcfont calc-gongsixinxi ChangeIconColor"></span><span class="FileName lanText" data-lanid="790_公司"></span><span class="XingHao">*</span></div>
+                <div class="DetailRowUp">
+                    <p class="textareaP wrap" id="TargetCompanyIDClickObj">
+                        <textarea readonly="readonly" class="lanInputPlaceHolder" data-lanid="1000526_请选择" data-field="TargetCompanyID" data-fieldcontroltype="selectList" data-fieldval="" data-selecttype="radio" code="DropDowList_ViewBaseCompanyBaseInfHasContact" typevalue="" data-clickObj="TargetCompanyIDClickObj" data-addUrl="/organizationsinfo"></textarea>
+                    </p>
+                    <div class="LeftIconBlock"><span class="LeftIcon calcfont calc-you"></span></div>
                 </div>
+            </div>
             <!-- 联系人 -->
             <!-- <div class="ListCell visible controlEdit">
                 <div class="ListCellLeftIcon"><span class="calcfont calc-fuzerenicon"></span></div>
@@ -181,15 +170,15 @@
                 </div>
             </div> -->
             <div class="DetailRow controlEdit">
-                    <div class="DetailRowOn"><span class="calcfont calc-kehulianxiren ChangeIconColor"></span><span class="FileName lanText" data-lanid="630_联系人"></span><span class="XingHao">*</span></div>
-                    <div class="DetailRowUp">
-                        <!-- <input class="content lanInputPlaceHolder" readonly="readonly" data-field="ContactsID" data-fieldControlType="linkSelectList" data-lanid="1000526_选择" data-fieldVal="" Code="DropDowList_ViewBaseCompanyContactsByCompany" Filter="" data-selectType="radio"  data-addUrl="/contactsinfo" data-linkIDField="" data-linkNameField="" data-fromType="6" /> -->
-                        <p class="textareaP wrap">
-                            <textarea readonly="readonly" class="lanInputPlaceHolder" data-field="ContactsID" data-fieldControlType="linkSelectList" data-lanid="1000526_选择" data-fieldVal="" Code="DropDowList_ViewBaseCompanyContactsByCompany" Filter="" data-selectType="radio"  data-addUrl="/contactsinfo" data-linkIDField="" data-linkNameField="" data-fromType="6"></textarea>
-                        </p>
-                        <div class="LeftIconBlock"><span class="LeftIcon calcfont calc-you"></span></div>
-                    </div>
+                <div class="DetailRowOn"><span class="calcfont calc-kehulianxiren ChangeIconColor"></span><span class="FileName lanText" data-lanid="630_联系人"></span><span class="XingHao">*</span></div>
+                <div class="DetailRowUp">
+                    <!-- <input class="content lanInputPlaceHolder" readonly="readonly" data-field="ContactsID" data-fieldControlType="linkSelectList" data-lanid="1000526_选择" data-fieldVal="" Code="DropDowList_ViewBaseCompanyContactsByCompany" Filter="" data-selectType="radio"  data-addUrl="/contactsinfo" data-linkIDField="" data-linkNameField="" data-fromType="6" /> -->
+                    <p class="textareaP wrap">
+                        <textarea readonly="readonly" class="lanInputPlaceHolder" data-field="ContactsID" data-fieldControlType="linkSelectList" data-lanid="1000526_选择" data-fieldVal="" Code="DropDowList_ViewBaseCompanyContactsByCompany" Filter="" data-selectType="radio" data-addUrl="/contactsinfo" data-linkIDField="" data-linkNameField="" data-fromType="6"></textarea>
+                    </p>
+                    <div class="LeftIconBlock"><span class="LeftIcon calcfont calc-you"></span></div>
                 </div>
+            </div>
             <!-- 机会来源   只有在商业机会可见-->
             <div v-show="showPage =='1'" class="shareBlock controlEdit">
                 <!-- <div class="ListCell visible">
@@ -215,14 +204,14 @@
                             </div>
                         </div> -->
 
-                      <div class="DetailRow">
+                <div class="DetailRow">
                     <div class="DetailRowOn"><span class="calcfont calc-laiyuanqingkuang ChangeIconColor"></span><span class="FileName lanText" data-lanid="1000230_机会来源"></span><span class="XingHao">*</span></div>
                     <div class="DetailRowUp">
-                        <input class="content lanInputPlaceHolder" type="text" data-field="SourceFrom" data-lanid="1000526_请选择" data-fieldControlType="picker" data-fieldVal="" Code="DropDowList_DtbAllTypes" TypeValue="SourceFrom"/>
+                        <input class="content lanInputPlaceHolder" type="text" data-field="SourceFrom" data-lanid="1000526_请选择" data-fieldControlType="picker" data-fieldVal="" Code="DropDowList_DtbAllTypes" TypeValue="SourceFrom" />
                         <div class="LeftIconBlock"><span class="LeftIcon calcfont calc-you"></span></div>
                     </div>
-                </div>   
-               
+                </div>
+
                 <!-- <div class="ListCell visible controlEdit SourceFromObj">
                     <div class="ListCellLeftIcon textLeftIcon"><span class="calcfont calc-qita1"></span></div>
                     <div class="ListCellLeftText">
@@ -231,7 +220,7 @@
                         </p>
                     </div>
                 </div> -->
-                <div class="DetailRow controlEdit SourceFromObj" >
+                <div class="DetailRow controlEdit SourceFromObj">
                     <div class="DetailRowOn"><span class="calcfont calc-qita1 ChangeIconColor"></span><span class="FileName lanText" data-lanid="952_其他"></span><span class="XingHao">*</span></div>
                     <div class="DetailRowUp">
                         <p class="textareaP">
@@ -269,10 +258,10 @@
                 <div class="DetailRow">
                     <div class="DetailRowOn"><span class="calcfont calc-yidu ChangeIconColor"></span><span class="FileName lanText" data-lanid="803_可访问"></span><span class="XingHao">*</span></div>
                     <div class="DetailRowUp">
-                        <input class="content lanInputPlaceHolder" type="text" data-field="IsPublic" data-lanid="1000526_请选择" data-fieldControlType="picker" data-fieldVal="" Code="DropDowList_DtbAllTypes" TypeValue="Accessabletype"/>
+                        <input class="content lanInputPlaceHolder" type="text" data-field="IsPublic" data-lanid="1000526_请选择" data-fieldControlType="picker" data-fieldVal="" Code="DropDowList_DtbAllTypes" TypeValue="Accessabletype" />
                         <div class="LeftIconBlock"><span class="LeftIcon calcfont calc-you"></span></div>
                     </div>
-                </div>   
+                </div>
                 <!-- 负责人 -->
                 <!-- <div class="ListSpecialCell visible initiatorObj" id="InitiatorClickObj">
                     <div class="ListSpecialCellField">
@@ -297,16 +286,9 @@
                     <div class="DetailRowOn"><span class="calcfont calc-fuzerenicon ChangeIconColor"></span><span class="FileName lanText" data-lanid="825_负责人"></span><span class="XingHao">*</span></div>
                     <div class="DetailRowUp">
                         <p class="textareaP wrap initiatorObj" id="InitiatorClickObj">
-                            <textarea readonly="readonly" class="lanInputPlaceHolder" data-lanid="1000526_请选择"  data-field="Initiator"
-                            data-fieldcontroltype="groupSelectList"  data-fieldval=""
-                            data-selecttype="checkbox"
-                            code="DropDowList_PopedomTeamVsUser"
-                            typevalue=""
-                           data-fromType="6"
-                           data-clickObj="InitiatorClickObj"
-                            ></textarea>
+                            <textarea readonly="readonly" class="lanInputPlaceHolder" data-lanid="1000526_请选择" data-field="Initiator" data-fieldcontroltype="groupSelectList" data-fieldval="" data-selecttype="checkbox" code="DropDowList_PopedomTeamVsUser" typevalue="" data-fromType="6" data-clickObj="InitiatorClickObj"></textarea>
                         </p>
-                        <div class="LeftIconBlock" ><span class="LeftIcon calcfont calc-you"></span></div>
+                        <div class="LeftIconBlock"><span class="LeftIcon calcfont calc-you"></span></div>
                     </div>
                 </div>
             </div>
@@ -323,13 +305,13 @@
                     <div class="ListCellRightIcon"><span class="calcfont calc-you"></span></div>
                 </div>
             </div> -->
-             <div class="DetailRow">
-                    <div class="DetailRowOn"><span class="calcfont calc-shixiang ChangeIconColor"></span><span class="FileName lanText" data-lanid="953_状态"></span><span class="XingHao">*</span></div>
-                    <div class="DetailRowUp">
-                        <input class="content lanInputPlaceHolder" type="text" data-field="CurrentState" data-lanid="1000526_请选择" data-fieldControlType="picker" data-fieldVal="" Code="DropDowList_DtbAllTypes" TypeValue="CurrentState"/>
-                        <div class="LeftIconBlock"><span class="LeftIcon calcfont calc-you"></span></div>
-                    </div>
-                </div>   
+            <div class="DetailRow">
+                <div class="DetailRowOn"><span class="calcfont calc-shixiang ChangeIconColor"></span><span class="FileName lanText" data-lanid="953_状态"></span><span class="XingHao">*</span></div>
+                <div class="DetailRowUp">
+                    <input class="content lanInputPlaceHolder" type="text" data-field="CurrentState" data-lanid="1000526_请选择" data-fieldControlType="picker" data-fieldVal="" Code="DropDowList_DtbAllTypes" TypeValue="CurrentState" />
+                    <div class="LeftIconBlock"><span class="LeftIcon calcfont calc-you"></span></div>
+                </div>
+            </div>
             <!-- 风险提示 -->
             <!-- <div class="ListCell controlEdit">
                 <div class="ListCellLeftIcon textLeftIcon"><span class="calcfont calc-fengxianyujing"></span></div>
@@ -340,13 +322,13 @@
                 </div>
             </div> -->
             <div class="DetailRow controlEdit">
-                    <div class="DetailRowOn"><span class="calcfont calc-fengxianyujing ChangeIconColor"></span><span class="FileName lanText" data-lanid="904_风险提示"></span></div>
-                    <div class="DetailRowUp">
-                        <p class="textareaP">
-                            <textarea data-field="RiskTips" data-fieldControlType="textareaInput" class="lanInputPlaceHolder" data-lanid="1000525_请输入"></textarea>
-                        </p>
-                    </div>
+                <div class="DetailRowOn"><span class="calcfont calc-fengxianyujing ChangeIconColor"></span><span class="FileName lanText" data-lanid="904_风险提示"></span></div>
+                <div class="DetailRowUp">
+                    <p class="textareaP">
+                        <textarea data-field="RiskTips" data-fieldControlType="textareaInput" class="lanInputPlaceHolder" data-lanid="1000525_请输入"></textarea>
+                    </p>
                 </div>
+            </div>
             <!-- 备忘 -->
             <!-- <div class="ListCell controlEdit visible">
                 <div class="ListCellLeftIcon textLeftIcon"><span class="calcfont calc-beiwanglu"></span></div>
@@ -356,14 +338,14 @@
                     </p>
                 </div>
             </div> -->
-                <div class="DetailRow">
-                    <div class="DetailRowOn"><span class="calcfont calc-beiwanglu ChangeIconColor"></span><span class="FileName lanText" data-lanid="719_备忘"></span><span class="XingHao">*</span></div>
-                    <div class="DetailRowUp">
-                        <p class="textareaP">
-                            <textarea data-field="Memo" data-fieldControlType="textareaInput" class="lanInputPlaceHolder" data-lanid="1000525_请输入"></textarea>
-                        </p>
-                    </div>
+            <div class="DetailRow">
+                <div class="DetailRowOn"><span class="calcfont calc-beiwanglu ChangeIconColor"></span><span class="FileName lanText" data-lanid="719_备忘"></span><span class="XingHao">*</span></div>
+                <div class="DetailRowUp">
+                    <p class="textareaP">
+                        <textarea data-field="Memo" data-fieldControlType="textareaInput" class="lanInputPlaceHolder" data-lanid="1000525_请输入"></textarea>
+                    </p>
                 </div>
+            </div>
             <!-- 状态 -->
             <!-- <div v-show="showTips" class="ListCell visible controlEdit">
                 <div class="ListCellLeftIcon textLeftIcon"><span class="calcfont calc-zhuangtai"></span></div>
@@ -435,15 +417,7 @@
             </div> -->
 
             <!-- 会议文档 -->
-            <DocumentList
-              v-show="!isAddNew"
-              :document-data="documentData"
-              addible="true"
-              deletable="true"
-              :source-id="id"
-              :fromTypeID="9" 
-              :fromID="id"
-            ></DocumentList>
+            <DocumentList v-show="!isAddNew" :document-data="documentData" addible="true" deletable="true" :source-id="id" :fromTypeID="9" :fromID="id"></DocumentList>
             <!-- <div v-show="!isAddNew">
 
                 <div class="meetingRecord">
@@ -455,8 +429,8 @@
                         </div>
                     </div>
                 </div> -->
-                <!-- 会议记录列表 -->
-                <!-- <div class="meetingRecordList">
+            <!-- 会议记录列表 -->
+            <!-- <div class="meetingRecordList">
                     <div v-for="item in MeetingNotice" :key="item.AutoID" class="meetingRecordListCell">
                         <div class="headerDiv">
                             <div class="headerDivLeftIcon"><span class="calcfont calc-xinxi1"></span></div>
@@ -478,8 +452,8 @@
                         <div v-show="item.Remark" class="meetingRemark">
                             <p class="f14">{{item.Remark}}</p>
                         </div>  -->
-                         <!-- 会议记录文档列表  -->
-                        <!-- <div class="meetingDocList">
+            <!-- 会议记录文档列表  -->
+            <!-- <div class="meetingDocList">
                             <div v-for="fileItem in item.DocList" :key="fileItem.ObjectName" class="docListCell">
                                 <div class="docListCellLeft" @click="goFileInfo(fileItem)">
                                     <div class="docListCellLeftContent f12"><span class="calcfont calc-fujian"></span>{{fileItem.ObjectName}}</div>
@@ -496,22 +470,12 @@
 
             </div> -->
 
-
             <Infofooter v-show="!isAddNew"> </Infofooter>
 
         </div>
     </div>
 
-    <InfoRightPanel
-      ref="rightPanel"
-      :isShowClose="isShowClose"
-      :closeThisContent="closeThisContent"
-      :isShowSend="isShowSendBtn"
-      :rightPanelFromType="rightPanelFromType"
-      :rightPanelFromID="rightPanelFromID"
-      :loi="loi"
-      :businessType="businessType"></InfoRightPanel>
-
+    <InfoRightPanel ref="rightPanel" :isShowClose="isShowClose" :closeThisContent="closeThisContent" :isShowSend="isShowSendBtn" :rightPanelFromType="rightPanelFromType" :rightPanelFromID="rightPanelFromID" :loi="loi" :businessType="businessType"></InfoRightPanel>
 
     <!-- 关闭交易/商业机会弹框 -->
     <div id="closeThis" class="elastic-layer">
@@ -528,15 +492,7 @@
                         </div>
                         <div class="item-row border-bottom">
                             <div class="ListCellContentRight">
-                                <input type="text"
-                                      data-field="CurrentStateNew"
-                                      data-lanid="728_状态"
-                                      data-fieldControlType="picker"
-                                      data-fieldVal=""
-                                      Code="DropDowList_DtbAllTypes"
-                                      TypeValue="CurrentState"
-                                      Filter="38"
-                                      class="ListCellContentRightText"/>
+                                <input type="text" data-field="CurrentStateNew" data-lanid="728_状态" data-fieldControlType="picker" data-fieldVal="" Code="DropDowList_DtbAllTypes" TypeValue="CurrentState" Filter="38" class="ListCellContentRightText" />
                             </div>
                             <span class="calcfont calc-you"></span>
                         </div>
@@ -544,7 +500,7 @@
                 </div>
 
                 <div id="LoseReason-div">
-                    <div  class="elastic-layer-item f14">
+                    <div class="elastic-layer-item f14">
                         <span class="calcfont calc-yuanyin icon-left"></span>
                         <div class="item-right">
                             <div class="item-row">
@@ -552,14 +508,7 @@
                             </div>
                             <div class="item-row border-bottom">
                                 <div class="ListCellContentRight">
-                                    <input type="text"
-                                          data-field="LoseReasonNew"
-                                          data-lanid="1152_输单原因"
-                                          data-fieldControlType="picker"
-                                          data-fieldVal=""
-                                          Code="DropDowList_DtbAllTypes"
-                                          TypeValue="LoseReason"
-                                          class="ListCellContentRightText"/>
+                                    <input type="text" data-field="LoseReasonNew" data-lanid="1152_输单原因" data-fieldControlType="picker" data-fieldVal="" Code="DropDowList_DtbAllTypes" TypeValue="LoseReason" class="ListCellContentRightText" />
                                 </div>
                                 <span class="calcfont calc-you"></span>
                             </div>
@@ -568,29 +517,28 @@
                 </div>
 
                 <div id="LoseReasonOther-div">
-                  <div class="elastic-layer-item f14">
-                      <span class="calcfont calc-yuanyin icon-left"></span>
-                      <div class="item-right">
-                        <div class="item-row border-bottom" style="margin-top:5px;">
-                            <textarea data-field="LoseReasonOtherNew" data-fieldControlType="textareaInput" class="lanInputPlaceHolder" data-lanid="1000312_其他原因"></textarea>
+                    <div class="elastic-layer-item f14">
+                        <span class="calcfont calc-yuanyin icon-left"></span>
+                        <div class="item-right">
+                            <div class="item-row border-bottom" style="margin-top:5px;">
+                                <textarea data-field="LoseReasonOtherNew" data-fieldControlType="textareaInput" class="lanInputPlaceHolder" data-lanid="1000312_其他原因"></textarea>
+                            </div>
                         </div>
-                      </div>
-                  </div>
+                    </div>
                 </div>
 
             </div>
             <div class="btn-div">
-               <a href="javascript:;" class="mybtn btn-ok lanText" data-lanid="545_确定"></a>
+                <a href="javascript:;" class="mybtn btn-ok lanText" data-lanid="545_确定"></a>
                 <a href="javascript:;" class="mybtn btn-cancel lanText" data-lanid="570_取消"></a>
             </div>
 
         </div>
     </div>
 
-
     <!-- 转换为交易弹框 -->
     <div id="transformTo" class="elastic-layer">
-          <div class="elastic-layer-content">
+        <div class="elastic-layer-content">
             <div class="elastic-layer-title lanText f18" data-lanid="1000239_转为交易"></div>
 
             <div class="elastic-layer-items">
@@ -602,9 +550,9 @@
                             <div class="lanText label-text" data-lanid="956_MSN"></div>
                         </div>
                         <div class="item-row border-bottom not-required">
-                          <div class="ListCellContentRight">
-                            <textarea data-field="MSNNew" data-fieldControlType="textareaInput" class="lanInputPlaceHolder" data-lanid="956_MSN"></textarea>
-                          </div>
+                            <div class="ListCellContentRight">
+                                <textarea data-field="MSNNew" data-fieldControlType="textareaInput" class="lanInputPlaceHolder" data-lanid="956_MSN"></textarea>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -616,14 +564,7 @@
                         </div>
                         <div class="item-row border-bottom">
                             <div class="ListCellContentRight">
-                                <input type="text"
-                                      data-field="MatterNew"
-                                      data-lanid="947_商业事项"
-                                      data-fieldControlType="picker"
-                                      data-fieldVal=""
-                                      Code="DropDowList_DtbAllTypes"
-                                      TypeValue="Matter"
-                                      class="ListCellContentRightText"/>
+                                <input type="text" data-field="MatterNew" data-lanid="947_商业事项" data-fieldControlType="picker" data-fieldVal="" Code="DropDowList_DtbAllTypes" TypeValue="Matter" class="ListCellContentRightText" />
                             </div>
                             <span class="calcfont calc-you"></span>
                         </div>
@@ -631,17 +572,17 @@
                 </div>
 
                 <div id="MatterOther-div">
-                  <div class="elastic-layer-item f14">
-                      <span class="calcfont calc-qita1 icon-left"></span>
-                      <div class="item-right">
-                        <div class="item-row border-bottom" style="margin-top:5px;">
-                            <textarea data-field="MatterOtherNew" data-fieldControlType="textareaInput" class="lanInputPlaceHolder" data-lanid="1000312_其他原因"></textarea>
+                    <div class="elastic-layer-item f14">
+                        <span class="calcfont calc-qita1 icon-left"></span>
+                        <div class="item-right">
+                            <div class="item-row border-bottom" style="margin-top:5px;">
+                                <textarea data-field="MatterOtherNew" data-fieldControlType="textareaInput" class="lanInputPlaceHolder" data-lanid="1000312_其他原因"></textarea>
+                            </div>
                         </div>
-                      </div>
-                  </div>
+                    </div>
                 </div>
 
-                 <div class="elastic-layer-item f14">
+                <div class="elastic-layer-item f14">
                     <span class="calcfont calc-beiwanglu icon-left"></span>
                     <div class="item-right">
                         <div class="item-row">
@@ -657,13 +598,12 @@
 
             </div>
             <div class="btn-div">
-               <a href="javascript:;" class="mybtn btn-ok lanText" data-lanid="545_确定"></a>
+                <a href="javascript:;" class="mybtn btn-ok lanText" data-lanid="545_确定"></a>
                 <a href="javascript:;" class="mybtn btn-cancel lanText" data-lanid="570_取消"></a>
             </div>
 
         </div>
     </div>
-
 
 </div>
 </template>
@@ -675,7 +615,7 @@ import Infofooter from '@/components/customPlugin/infoFooter'
 import DocumentList from '@/components/documentModule/DocumentList'
 
 export default {
-    name:'opportunitiesinfo',
+    name: 'opportunitiesinfo',
     components: {
         Infoheader,
         Infofooter,
@@ -686,41 +626,41 @@ export default {
         return {
             ptitle: 'Opportunities detail',
 
-            showPage:'',//记录列表页是从哪个模块进来的 0：交易；1：商业机会
+            showPage: '', //记录列表页是从哪个模块进来的 0：交易；1：商业机会
             isAddNew: false, //是否添加新纪录
-            operation:true,//控制详情页header按钮，ture:显示可操作，false:隐藏
-            onlyView:false,//控制页面头部icon,true:不显示头部icon,false:显示
+            operation: true, //控制详情页header按钮，ture:显示可操作，false:隐藏
+            onlyView: false, //控制页面头部icon,true:不显示头部icon,false:显示
 
-            rightPanelFromType:"9",//传给右侧菜单用的参数
-            rightPanelFromID:"",//传给右侧菜单用的参数
-            isShowSendBtn: true,  //侧滑是否显示分享给同事选项
+            rightPanelFromType: "9", //传给右侧菜单用的参数
+            rightPanelFromID: "", //传给右侧菜单用的参数
+            isShowSendBtn: true, //侧滑是否显示分享给同事选项
             //isShowClose:true, //侧滑是否显示关闭这个商业机会选项
-            isShowClose:false, //侧滑是否显示关闭这个商业机会选项
-            businessType:'',  //侧滑 交易:29;商机:30
-            closeThisContent:"",
+            isShowClose: false, //侧滑是否显示关闭这个商业机会选项
+            businessType: '', //侧滑 交易:29;商机:30
+            closeThisContent: "",
 
-            id:'', //dealPipeline id
-            loi:'',  //LOI单号
-            showTips:false,
-            isWinClose:true,//是否赢单关闭
-            hasOtherReason:false, //是否有其他原因
-            closeTitle:'',
+            id: '', //dealPipeline id
+            loi: '', //LOI单号
+            showTips: false,
+            isWinClose: true, //是否赢单关闭
+            hasOtherReason: false, //是否有其他原因
+            closeTitle: '',
             //会议记录数据
-            MeetingNotice:[],
+            MeetingNotice: [],
             //文档数据
-            documentData:[
-            //   {
-            //     AddTime: "2019-07-31 18:31:00",
-            //     AddUserName: "dylanxu",
-            //     AutoID: "765411",
-            //     FileLength: "54768",
-            //     ObjectName: "Project Management - CRM_PC(20190625)_V6_19073118305794.xlsx",
-            //     ObjectRemark: "test",
-            //   }
+            documentData: [
+                //   {
+                //     AddTime: "2019-07-31 18:31:00",
+                //     AddUserName: "dylanxu",
+                //     AutoID: "765411",
+                //     FileLength: "54768",
+                //     ObjectName: "Project Management - CRM_PC(20190625)_V6_19073118305794.xlsx",
+                //     ObjectRemark: "test",
+                //   }
             ],
-            seeMore:"",
-            isInitiator:false,//是否当前记录的负责人（PS：只有负责人才可以操作单据）
-            enableGoRecord:false  //控制会议记录是否可点击
+            seeMore: "",
+            isInitiator: false, //是否当前记录的负责人（PS：只有负责人才可以操作单据）
+            enableGoRecord: false //控制会议记录是否可点击
         }
     },
 
@@ -731,15 +671,14 @@ export default {
         _self.id = _self.$route.params.id || '';
         _self.rightPanelFromID = _self.id;
         _self.showPage = _self.$route.query.showPage.toString() || '';
-        if (_self.showPage == '1')
-        {
+        if (_self.showPage == '1') {
             _self.closeThisContent = lanTool.lanContent('944_关闭这个商业机会');
             _self.ptitle = this.$route.query.infoName || lanTool.lanContent('885_增加机会');
             _self.businessType = '30';
             _self.closeTitle = lanTool.lanContent('828_关闭商业机会');
         } else {
             _self.closeThisContent = lanTool.lanContent('945_关闭这个交易');
-            _self.ptitle =this.$route.query.infoName || lanTool.lanContent('884_增加交易');
+            _self.ptitle = this.$route.query.infoName || lanTool.lanContent('884_增加交易');
             _self.businessType = '29';
             _self.closeTitle = lanTool.lanContent('845_关闭交易');
         }
@@ -750,17 +689,23 @@ export default {
         lanTool.updateLanVersion();
         document.activeElement.blur();
         $(window).scrollTop(0);
-        _self.seeMore =lanTool.lanContent("900_查看详细");
+        $(".textareaP:not(.wrap) textarea").blur(function () {
+            $(this).parents(".DetailRow").removeClass("DeepColor");
+        });
+        $(".textareaP:not(.wrap) textarea").focus(function () {
+            $(this).parents(".DetailRow").addClass("DeepColor");
+        });
+        _self.seeMore = lanTool.lanContent("900_查看详细");
         var fromType = "Opportunitiesinfo";
 
         //若是新增，则隐藏新增不需要显示的模块
-        if(tool.isNullOrEmptyObject(_self.id) || Number(_self.id) <= 0){
+        if (tool.isNullOrEmptyObject(_self.id) || Number(_self.id) <= 0) {
             _self.isAddNew = true;
             _self.showTips = false; //隐藏提示
-             _self.onlyView = false;//保存按钮展示
+            _self.onlyView = false; //保存按钮展示
             $('.scroll-div').removeClass('disable');
             $('.controlEdit').removeClass('disable');
-        }else{
+        } else {
             _self.isAddNew = false;
         }
 
@@ -770,11 +715,12 @@ export default {
         //则联动清空联系人
         $("[data-field='ContactID']").text("").attr("data-fieldVal", "").off('click');
         //渲染控件
-        tool.InitiateInfoPageControl(_self, _self.id, function(){
+        tool.InitiateInfoPageControl(_self, _self.id, function () {
 
             //渲染textarea 从新增事件进到详情是不会进入渲染数据的方法，这里得多加个textarea高度自适应
             $("textarea").each(function (index, cur) {
-                $(cur).height('25');
+                // $(cur).height('20');
+                 $(cur).addClass("DefaultHeight");
                 tool.autoTextarea(cur);
             });
 
@@ -794,7 +740,7 @@ export default {
 
                 var privateObj = tool.GetPrivateObj();
                 if (!tool.isNullOrEmptyObject(privateObj)) {
-                    $("[data-field='Initiator']").attr("data-fieldval",tool.UserAutoID()).text(tool.Realname());
+                    $("[data-field='Initiator']").attr("data-fieldval", tool.UserAutoID()).text(tool.Realname());
                     $("[data-field='IsPublic']")
                         .val(privateObj.text || "")
                         .attr("data-fieldVal", privateObj.id)
@@ -816,18 +762,19 @@ export default {
             //控制BusinessTypes字段不可修改
             _self.controlBusinessTypes();
             //控制TheName字段 在 Deal Pipeline下不可修改
-            if(_self.showPage == '0'){
+            if (_self.showPage == '0') {
                 $("[data-field='TheName']").addClass('disable color6').closest('.ListCell').removeClass('visible');
-            }else{
+            } else {
                 $("[data-field='TheName']").removeClass('disable color6').closest('.ListCell').addClass('visible');
             }
 
             //渲染数据
-            tool.IniInfoData(fromType, _self.id, function(data){
-              // console.log(data);
+            tool.IniInfoData(fromType, _self.id, function (data) {
+                // console.log(data);
                 //渲染textarea
                 $("textarea").each(function (index, cur) {
-                    $(cur).height('25');
+                    // $(cur).height('20');
+                    $(cur).addClass("DefaultHeight");
                     tool.autoTextarea(cur);
                 });
                 //查询判断当前用户是否有操作单据的权限
@@ -837,47 +784,47 @@ export default {
                 // _self.iniMeetingNoteList();
 
                 //渲染文档列表
-                _self.InitDocList(_self.id,"9");
+                _self.InitDocList(_self.id, "9");
 
                 //处理联动字段
                 tool.linkageField(_self, 'TargetCompanyID', 'ContactID');
 
                 //返回时更新selectlist控件的结果
-                tool.UpdateFieldValueFromBack(eventBus, function(){
+                tool.UpdateFieldValueFromBack(eventBus, function () {
                     //清空全局变量
                     eventBus.selectListData = null;
                 });
 
                 //LOI
-                if(_self.showPage == 0){
+                if (_self.showPage == 0) {
                     _self.loi = data.LOIID || '';
                 }
 
                 //关闭原因字段处理  100：赢单关闭；101：输单关闭
-                if(data.CurrentState == 100){
-                  _self.isWinClose = true;
-                }else{
-                  _self.isWinClose = false;
-                  // 111:竞争对手;112:"报价过高";113:其他
-                  if(data.LoseReason == 113){
-                    _self.hasOtherReason = true;
-                  }else{
-                    _self.hasOtherReason = false;
-                  }
+                if (data.CurrentState == 100) {
+                    _self.isWinClose = true;
+                } else {
+                    _self.isWinClose = false;
+                    // 111:竞争对手;112:"报价过高";113:其他
+                    if (data.LoseReason == 113) {
+                        _self.hasOtherReason = true;
+                    } else {
+                        _self.hasOtherReason = false;
+                    }
                 }
 
             });
         })
 
     },
-    activated:function(){
+    activated: function () {
         var _self = this;
 
         //处理联动字段
         tool.linkageField(_self, 'TargetCompanyID', 'ContactID');
 
         //返回时更新selectlist控件的结果
-        tool.UpdateFieldValueFromBack(eventBus, function(){
+        tool.UpdateFieldValueFromBack(eventBus, function () {
             //清空全局变量
             eventBus.selectListData = null;
         })
@@ -885,87 +832,87 @@ export default {
     },
     methods: {
         //控制字段显示隐藏
-        controlFieldShowOrhide:function(){
-          var _self = this;
-          //控制data-field="Initiator"显示和隐藏
-          $("[data-field='IsPublic']").off('change input').on('change input', function () {
-              var curObj = $(this);
-              if (tool.isNullOrEmptyObject(curObj)) {
-                  return;
-              }
-              var fieldval = curObj.attr("data-fieldval");
-              if (fieldval == "23") {
-                  curObj.closest('.shareBlock').find(".initiatorObj").hide();
-              } else {
-                  curObj.closest('.shareBlock').find(".initiatorObj").show();
-              }
-          });
-          //控制data-field="SourceFrom"显示和隐藏
-          $("[data-field='SourceFrom']").off('change input').on('change input', function () {
-              var curObj = $(this);
-              if (tool.isNullOrEmptyObject(curObj)) {
-                  return;
-              }
-              var fieldval = curObj.attr("data-fieldval");
-              if (fieldval != "109") {
-                  curObj.closest('.shareBlock').find(".SourceFromObj").hide();
-              } else {
-                  curObj.closest('.shareBlock').find(".SourceFromObj").show();
-              }
-          });
-          //控制data-field="MatterOther"显示和隐藏
-          $("[data-field='Matter']").off('change input').on('change input', function () {
-              var curObj = $(this);
-              if (tool.isNullOrEmptyObject(curObj)) {
-                  return;
-              }
-              var fieldval = curObj.attr("data-fieldval");
-              if (fieldval == "36") {
-                  $(".MatterOtherObj").show();
-              } else {
-                  $(".MatterOtherObj").hide();
-                  //$(".MatterOtherObj textarea").val("");//清空文本数据=>不清空
-              }
-          });
-          //控制data-field="LoseReason"显示和隐藏
-          $("[data-field='CurrentStateNew']").off('change input').on('change input', function () {
-              var curObj = $(this);
-              if (tool.isNullOrEmptyObject(curObj)) {
-                  return;
-              }
-              var fieldval = curObj.attr("data-fieldval");
-              if (fieldval == "101") {
-                  $("#LoseReason-div").show();
-              } else {
-                  $("#LoseReason-div,#LoseReasonOther-div").hide();
-              }
-          });
-          //控制data-field="LoseReasonOther"显示和隐藏
-          $("[data-field='LoseReasonNew']").off('change input').on('change input', function () {
-            var curObj = $(this);
-            if (tool.isNullOrEmptyObject(curObj)) {
-                return;
-            }
-            var fieldval = curObj.attr("data-fieldval");
-            if (fieldval == "113") {
-                $("#LoseReasonOther-div").show();
-            } else {
-                $("#LoseReasonOther-div").hide();
-            }
-          });
-          //控制data-field="MatterOther"显示和隐藏
-          $("[data-field='MatterNew']").off('change input').on('change input', function () {
-            var curObj = $(this);
-            if (tool.isNullOrEmptyObject(curObj)) {
-                return;
-            }
-            var fieldval = curObj.attr("data-fieldval");
-            if (fieldval == "36") {
-                $("#MatterOther-div").show();
-            } else {
-                $("#MatterOther-div").hide();
-            }
-          });
+        controlFieldShowOrhide: function () {
+            var _self = this;
+            //控制data-field="Initiator"显示和隐藏
+            $("[data-field='IsPublic']").off('change input').on('change input', function () {
+                var curObj = $(this);
+                if (tool.isNullOrEmptyObject(curObj)) {
+                    return;
+                }
+                var fieldval = curObj.attr("data-fieldval");
+                if (fieldval == "23") {
+                    curObj.closest('.shareBlock').find(".initiatorObj").hide();
+                } else {
+                    curObj.closest('.shareBlock').find(".initiatorObj").show();
+                }
+            });
+            //控制data-field="SourceFrom"显示和隐藏
+            $("[data-field='SourceFrom']").off('change input').on('change input', function () {
+                var curObj = $(this);
+                if (tool.isNullOrEmptyObject(curObj)) {
+                    return;
+                }
+                var fieldval = curObj.attr("data-fieldval");
+                if (fieldval != "109") {
+                    curObj.closest('.shareBlock').find(".SourceFromObj").hide();
+                } else {
+                    curObj.closest('.shareBlock').find(".SourceFromObj").show();
+                }
+            });
+            //控制data-field="MatterOther"显示和隐藏
+            $("[data-field='Matter']").off('change input').on('change input', function () {
+                var curObj = $(this);
+                if (tool.isNullOrEmptyObject(curObj)) {
+                    return;
+                }
+                var fieldval = curObj.attr("data-fieldval");
+                if (fieldval == "36") {
+                    $(".MatterOtherObj").show();
+                } else {
+                    $(".MatterOtherObj").hide();
+                    //$(".MatterOtherObj textarea").val("");//清空文本数据=>不清空
+                }
+            });
+            //控制data-field="LoseReason"显示和隐藏
+            $("[data-field='CurrentStateNew']").off('change input').on('change input', function () {
+                var curObj = $(this);
+                if (tool.isNullOrEmptyObject(curObj)) {
+                    return;
+                }
+                var fieldval = curObj.attr("data-fieldval");
+                if (fieldval == "101") {
+                    $("#LoseReason-div").show();
+                } else {
+                    $("#LoseReason-div,#LoseReasonOther-div").hide();
+                }
+            });
+            //控制data-field="LoseReasonOther"显示和隐藏
+            $("[data-field='LoseReasonNew']").off('change input').on('change input', function () {
+                var curObj = $(this);
+                if (tool.isNullOrEmptyObject(curObj)) {
+                    return;
+                }
+                var fieldval = curObj.attr("data-fieldval");
+                if (fieldval == "113") {
+                    $("#LoseReasonOther-div").show();
+                } else {
+                    $("#LoseReasonOther-div").hide();
+                }
+            });
+            //控制data-field="MatterOther"显示和隐藏
+            $("[data-field='MatterNew']").off('change input').on('change input', function () {
+                var curObj = $(this);
+                if (tool.isNullOrEmptyObject(curObj)) {
+                    return;
+                }
+                var fieldval = curObj.attr("data-fieldval");
+                if (fieldval == "36") {
+                    $("#MatterOther-div").show();
+                } else {
+                    $("#MatterOther-div").hide();
+                }
+            });
 
         },
 
@@ -1004,14 +951,14 @@ export default {
         */
 
         //保存
-        savePageData:function(e){
+        savePageData: function (e) {
             var _self = this;
             var id = _self.$route.params.id;
             var fromType = "Opportunitiesinfo";
             tool.SaveOrUpdateData(fromType, id, _self, function () {
-                  _self.$store.commit('REMOVE_ITEM', 'businessCategories');
-                  _self.$store.commit('REMOVE_ITEM', 'opportunitiesinfo');
-                  _self.$router.back(-1);
+                _self.$store.commit('REMOVE_ITEM', 'businessCategories');
+                _self.$store.commit('REMOVE_ITEM', 'opportunitiesinfo');
+                _self.$router.back(-1);
             });
 
         },
@@ -1053,7 +1000,7 @@ export default {
         */
 
         //右侧点击关闭这个 //侧滑组件调用此方法
-        rightPanelCloseThis:function(){
+        rightPanelCloseThis: function () {
             var _self = this;
             var id = _self.id;
 
@@ -1064,17 +1011,17 @@ export default {
 
             //显示弹框
             $('#closeThis').show();
-            $('#closeThis').off('touchmove').on('touchmove',function(e){
+            $('#closeThis').off('touchmove').on('touchmove', function (e) {
                 e.preventDefault();
             })
 
             //取消
-            $('#closeThis').find('a.btn-cancel').off('click').on('click',function(){
+            $('#closeThis').find('a.btn-cancel').off('click').on('click', function () {
                 $('#closeThis').hide();
             })
 
             //确定
-            $('#closeThis').find('a.btn-ok').off('click').on('click',function(){
+            $('#closeThis').find('a.btn-ok').off('click').on('click', function () {
                 var urlTemp = tool.AjaxBaseUrl();
                 var controlName = tool.Api_OpportunityHandle_Close;
                 //传入参数
@@ -1092,49 +1039,48 @@ export default {
                 //console.log(jsonDatasTemp);
                 var loadingIndexClassName = tool.showLoading();
 
-                  $.ajax({
-                        async: true,
-                        type: "post",
-                        url: urlTemp,
-                        data: jsonDatasTemp,
-                        success: function (data) {
-                            try {
-                                tool.hideLoading(loadingIndexClassName);
-                                data = tool.jObject(data);
-                                if (data._ReturnStatus == false) {
-                                    tool.showText(tool.getMessage(data));
-                                    return true;
-                                }
-
-                                //将当前详情页设置为非keep-alive
-                                _self.$store.commit('REMOVE_ITEM', 'opportunitiesinfo');
-                                //将列表页设置为非keep-alive
-                                _self.$store.commit('REMOVE_ITEM', 'businessCategories');
-                                //返回到上一页
-                                _self.$router.back(-1);
-                            }
-                            catch (err) {
-                                tool.hideLoading(loadingIndexClassName);
-                                console.log(err);
-                            } finally {
-
-                            }
-                        },
-                        error: function (jqXHR, type, error) {
-                            console.log(error);
+                $.ajax({
+                    async: true,
+                    type: "post",
+                    url: urlTemp,
+                    data: jsonDatasTemp,
+                    success: function (data) {
+                        try {
                             tool.hideLoading(loadingIndexClassName);
-                            return true;
-                        },
-                        complete: function () {
-                            //隐藏虚拟键盘
-                            document.activeElement.blur();
+                            data = tool.jObject(data);
+                            if (data._ReturnStatus == false) {
+                                tool.showText(tool.getMessage(data));
+                                return true;
+                            }
+
+                            //将当前详情页设置为非keep-alive
+                            _self.$store.commit('REMOVE_ITEM', 'opportunitiesinfo');
+                            //将列表页设置为非keep-alive
+                            _self.$store.commit('REMOVE_ITEM', 'businessCategories');
+                            //返回到上一页
+                            _self.$router.back(-1);
+                        } catch (err) {
+                            tool.hideLoading(loadingIndexClassName);
+                            console.log(err);
+                        } finally {
+
                         }
-                  });
+                    },
+                    error: function (jqXHR, type, error) {
+                        console.log(error);
+                        tool.hideLoading(loadingIndexClassName);
+                        return true;
+                    },
+                    complete: function () {
+                        //隐藏虚拟键盘
+                        document.activeElement.blur();
+                    }
+                });
             });
         },
 
         //右侧点击转化为交易
-        rightPanelTransformTo:function(){
+        rightPanelTransformTo: function () {
             var _self = this;
             var id = _self.id;
 
@@ -1142,21 +1088,21 @@ export default {
             $("[data-field='MSNNew']").val("");
             $("[data-field='MatterNew']").val("").attr("data-fieldVal", "").trigger('change');
             $("[data-field='MatterOtherNew']").val("");
-            $("[data-field='DealMemo']").val(($("[data-field='Memo']").val()||""));
+            $("[data-field='DealMemo']").val(($("[data-field='Memo']").val() || ""));
 
             //显示弹框
             $('#transformTo').show();
-            $('#transformTo').off('touchmove').on('touchmove',function(e){
+            $('#transformTo').off('touchmove').on('touchmove', function (e) {
                 e.preventDefault();
             })
 
             //取消
-            $('#transformTo').find('a.btn-cancel').off('click').on('click',function(){
+            $('#transformTo').find('a.btn-cancel').off('click').on('click', function () {
                 $('#transformTo').hide();
             })
 
             //确定
-            $('#transformTo').find('a.btn-ok').off('click').on('click',function(){
+            $('#transformTo').find('a.btn-ok').off('click').on('click', function () {
                 var urlTemp = tool.AjaxBaseUrl();
                 var controlName = tool.Api_OpportunityHandle_ChangeToDeal;
                 //传入参数
@@ -1178,112 +1124,110 @@ export default {
 
                 var loadingIndexClassName = tool.showLoading();
 
-                  $.ajax({
-                        async: true,
-                        type: "post",
-                        url: urlTemp,
-                        data: jsonDatasTemp,
-                        success: function (data) {
-                            try {
-                                data = tool.jObject(data);
-                                if (data._ReturnStatus == false) {
-                                    tool.hideLoading(loadingIndexClassName);
-                                    tool.showText(tool.getMessage(data));
-                                    return true;
-                                }
-                                data = data._OnlyOneData || {};
-                                console.log(data);
-                                var dealID = data["AutoID"] || "";
-                                var theName = data["TheName"] || "";
-
-                                //构造Deal详情页的跳转地址
-                                var path = "/opportunitiesinfo/" + dealID;
-                                var queryParam =
-                                {
-                                    showPage : "0",
-                                    infoName : theName
-                                };
-                                //将当前详情页设置为非keep-alive
-                                _self.$store.commit('REMOVE_ITEM', 'opportunitiesinfo');
-                                //将列表页设置为非keep-alive
-                                _self.$store.commit('REMOVE_ITEM', 'businessCategories');
-
-                                //隐藏弹窗
-                                $('#transformTo').hide();
-                                //调用子组件收起侧滑方法
-                                _self.$refs.rightPanel.panelToggle();
-
-                                _self.$router.replace({
-                                    path: path,
-                                    query: queryParam
-                                });
-
-                                //保证地址替换后再刷新
-                                setTimeout(function(){
-                                    tool.hideLoading(loadingIndexClassName);
-                                    window.location.reload();
-                                },80);
-                            }
-                            catch (err) {
+                $.ajax({
+                    async: true,
+                    type: "post",
+                    url: urlTemp,
+                    data: jsonDatasTemp,
+                    success: function (data) {
+                        try {
+                            data = tool.jObject(data);
+                            if (data._ReturnStatus == false) {
                                 tool.hideLoading(loadingIndexClassName);
-                                console.log(err);
-                            } finally {
-
+                                tool.showText(tool.getMessage(data));
+                                return true;
                             }
-                        },
-                        error: function (jqXHR, type, error) {
-                            console.log(error);
+                            data = data._OnlyOneData || {};
+                            console.log(data);
+                            var dealID = data["AutoID"] || "";
+                            var theName = data["TheName"] || "";
+
+                            //构造Deal详情页的跳转地址
+                            var path = "/opportunitiesinfo/" + dealID;
+                            var queryParam = {
+                                showPage: "0",
+                                infoName: theName
+                            };
+                            //将当前详情页设置为非keep-alive
+                            _self.$store.commit('REMOVE_ITEM', 'opportunitiesinfo');
+                            //将列表页设置为非keep-alive
+                            _self.$store.commit('REMOVE_ITEM', 'businessCategories');
+
+                            //隐藏弹窗
+                            $('#transformTo').hide();
+                            //调用子组件收起侧滑方法
+                            _self.$refs.rightPanel.panelToggle();
+
+                            _self.$router.replace({
+                                path: path,
+                                query: queryParam
+                            });
+
+                            //保证地址替换后再刷新
+                            setTimeout(function () {
+                                tool.hideLoading(loadingIndexClassName);
+                                window.location.reload();
+                            }, 80);
+                        } catch (err) {
                             tool.hideLoading(loadingIndexClassName);
-                            return true;
-                        },
-                        complete: function () {
-                            //隐藏虚拟键盘
-                            document.activeElement.blur();
+                            console.log(err);
+                        } finally {
+
                         }
-                  });
+                    },
+                    error: function (jqXHR, type, error) {
+                        console.log(error);
+                        tool.hideLoading(loadingIndexClassName);
+                        return true;
+                    },
+                    complete: function () {
+                        //隐藏虚拟键盘
+                        document.activeElement.blur();
+                    }
+                });
             });
         },
 
         //右侧点击跳转到LOI详情
-        rightPanelToLoi:function(){
-           var _self = this;
-           if(tool.isNullOrEmptyObject(_self.loi)){
-              return;
-           }
-           _self.$router.push('/loiinfo/'+ _self.loi);
+        rightPanelToLoi: function () {
+            var _self = this;
+            if (tool.isNullOrEmptyObject(_self.loi)) {
+                return;
+            }
+            _self.$router.push('/loiinfo/' + _self.loi);
         },
 
         //获取成交对象
-        getDealObj : function(){
-          var textTemp =  lanTool.lanContent("939_交易");
-          var idTemp = 29;
-          var obj = {
-            id : idTemp,
-            text : textTemp
-          };
+        getDealObj: function () {
+            var textTemp = lanTool.lanContent("939_交易");
+            var idTemp = 29;
+            var obj = {
+                id: idTemp,
+                text: textTemp
+            };
 
-          return obj;
+            return obj;
         },
 
         //获取销售机会对象
-        getOpportunityObj : function(){
-          var textTemp =  lanTool.lanContent("940_机会");
-          var idTemp = 30;
-          var obj = {
-            id : idTemp,
-            text : textTemp
-          };
-          return obj;
+        getOpportunityObj: function () {
+            var textTemp = lanTool.lanContent("940_机会");
+            var idTemp = 30;
+            var obj = {
+                id: idTemp,
+                text: textTemp
+            };
+            return obj;
         },
 
         //control BusinessTypes field
-        controlBusinessTypes:function(){
+        controlBusinessTypes: function () {
             var _self = this;
             if (_self.isAddNew) {
                 var businessSectorObj = {};
-                if(_self.showPage == '0'){
+                if (_self.showPage == '0') {
                     businessSectorObj = _self.getDealObj();
-                }else{
+                } else {
                     businessSectorObj = _self.getOpportunityObj();
                 }
                 if (!tool.isNullOrEmptyObject(businessSectorObj)) {
@@ -1294,14 +1238,13 @@ export default {
                         .closest('.ListCellContent')
                         .addClass('color6');
                 }
-            }else{
+            } else {
                 $("[data-field='BusinessTypes']")
-                  .addClass('disable')
-                  .closest('.ListCellContent')
-                  .addClass('color6');
+                    .addClass('disable')
+                    .closest('.ListCellContent')
+                    .addClass('color6');
             }
         },
-
 
         //渲染会议记录列表
         /*
@@ -1409,7 +1352,7 @@ export default {
                         }
                     });
 
-			          },
+          },
                 function() {}
             );
         },
@@ -1426,44 +1369,44 @@ export default {
         */
 
         //只查看的情况 控制元素是否可修改
-        controlEdit:function(){
+        controlEdit: function () {
             var _self = this;
-            if(_self.onlyView){
-                _self.$nextTick(function(){
+            if (_self.onlyView) {
+                _self.$nextTick(function () {
                     $('.controlEdit').addClass('disable');
                 })
-            }else{
-                _self.$nextTick(function(){
+            } else {
+                _self.$nextTick(function () {
                     $('.controlEdit').removeClass('disable');
                 })
             }
         },
         //判断当前用户是否可以操作当前单据
-        initUserAccess:function(oldData,myCallBack){
+        initUserAccess: function (oldData, myCallBack) {
             var _self = this;
             var fromType = "9";
             var fromID = _self.$route.params.id;
             var currentState = oldData["CurrentState"];
 
             //是否指定记录的负责人
-            tool.IsHasInitiator(fromType,fromID,function(data){
+            tool.IsHasInitiator(fromType, fromID, function (data) {
                 _self.isInitiator = data;
                 //若当前记录的状态为关闭
-                if(currentState == "39" || currentState == "100" || currentState == "101"){
+                if (currentState == "39" || currentState == "100" || currentState == "101") {
                     //显示提示
                     _self.showTips = true;
                     //头部按钮
                     //_self.onlyView = true;
                     _self.controlEdit();
-                }else{
+                } else {
                     //必须是当前单据的负责人才可以操作单据
-                    if(_self.isInitiator){
+                    if (_self.isInitiator) {
                         //显示提示
                         _self.showTips = false;
                         //头部按钮
                         _self.onlyView = false;
                         _self.controlEdit();
-                    }else{
+                    } else {
                         //显示提示
                         _self.showTips = false;
                         //头部按钮
@@ -1474,7 +1417,7 @@ export default {
             });
         },
         //渲染文档列表
-        InitDocList:function(fromIDTemp,fromTypeIDTemp){
+        InitDocList: function (fromIDTemp, fromTypeIDTemp) {
             var _self = this;
             var urlTemp = tool.AjaxBaseUrl();
             var controlName = tool.Api_DocumentsHandle_Query;
@@ -1517,8 +1460,8 @@ export default {
             });
         }
     },
-    beforeRouteLeave:function(to, from, next){
-        if(to.name == 'businessCategories'){
+    beforeRouteLeave: function (to, from, next) {
+        if (to.name == 'businessCategories') {
             this.$store.commit('REMOVE_ITEM', 'opportunitiesinfo');
         }
         next();
@@ -1529,14 +1472,16 @@ export default {
 <style scoped>
 @import "../../assets/css/pages/calendarinfo.css";
 @import "../../assets/css/pages/Opportunitiesinfo.css";
-.box{
-    padding-bottom:0.4rem;
-    background-color:rgb(242,242,242);
+
+.box {
+    padding-bottom: 0.4rem;
+    background-color: rgb(242, 242, 242);
 }
+
 .box .DetailRow {
     position: relative;
     background-color: #ffffff;
-    min-height: 1.34rem;
+    /* min-height: 1.34rem; */
     padding-left: 0.16rem;
     padding-top: 0.2rem;
     padding-right: 0.18rem;

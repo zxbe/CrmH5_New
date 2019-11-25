@@ -43,7 +43,7 @@
                         <p class="textareaP wrap" id="CompanyIDClickObj">
                             <textarea readonly="readonly" class="lanInputPlaceHolder" data-lanid="1000526_请选择" data-field="CompanyID" data-fieldcontroltype="selectList" data-fieldval="" data-selecttype="radio" code="DropDowList_ViewBaseCompanyBaseInf" typevalue="" data-clickObj="CompanyIDClickObj" data-addUrl="/organizationsinfo"></textarea>
                         </p>
-                        <div class="LeftIconBlock" ><span class="LeftIcon calcfont calc-you"></span></div>
+                        <div class="LeftIconBlock"><span class="LeftIcon calcfont calc-you"></span></div>
                     </div>
                 </div>
                 <!-- <div class="ListCell visible">
@@ -56,7 +56,7 @@
                         </p>
                     </div>
                 </div> -->
-                 <div class="DetailRow">
+                <div class="DetailRow">
                     <div class="DetailRowOn"><span class="calcfont calc-mailbox ChangeIconColor"></span><span class="FileName lanText" data-lanid="697_邮箱"></span><span class="XingHao">*</span></div>
                     <div class="DetailRowUp">
                         <p class="textareaP">
@@ -133,7 +133,7 @@
                     <div class="DetailRowOn"><span class="calcfont calc-diqiuquanqiu ChangeIconColor"></span><span class="FileName lanText" data-lanid="702_城市"></span></div>
                     <div class="DetailRowUp">
                         <p class="textareaP wrap">
-                            <textarea  data-field="CityID" disabled="disabled" data-fieldcontroltype="textareaInput" class="lanInputPlaceHolder" data-lanid=""></textarea>
+                            <textarea data-field="CityID" disabled="disabled" data-fieldcontroltype="textareaInput" class="lanInputPlaceHolder" data-lanid=""></textarea>
                         </p>
                         <!-- <div class="LeftIconBlock" ><span class="LeftIcon calcfont calc-you"></span></div> -->
                     </div>
@@ -282,21 +282,14 @@
                           ></div>
                     </div> -->
                     <div class="DetailRow">
-                    <div class="DetailRowOn"><span class="calcfont calc-fuzerenicon ChangeIconColor"></span><span class="FileName lanText" data-lanid="825_负责人"></span><span class="XingHao">*</span></div>
-                    <div class="DetailRowUp">
-                        <p class="textareaP wrap" id="InitiatorClickObj">
-                            <textarea readonly="readonly" class="lanInputPlaceHolder" data-lanid="1000526_请选择" data-field="Initiator"
-                            data-fieldcontroltype="groupSelectList"
-                            data-fieldval=""
-                            data-selecttype="checkbox"
-                            code="DropDowList_PopedomTeamVsUser"
-                            typevalue=""
-                            data-fromType="6"
-                            data-clickObj="InitiatorClickObj"></textarea>
-                        </p>
-                        <div class="LeftIconBlock" ><span class="LeftIcon calcfont calc-you"></span></div>
+                        <div class="DetailRowOn"><span class="calcfont calc-fuzerenicon ChangeIconColor"></span><span class="FileName lanText" data-lanid="825_负责人"></span><span class="XingHao">*</span></div>
+                        <div class="DetailRowUp">
+                            <p class="textareaP wrap" id="InitiatorClickObj">
+                                <textarea readonly="readonly" class="lanInputPlaceHolder" data-lanid="1000526_请选择" data-field="Initiator" data-fieldcontroltype="groupSelectList" data-fieldval="" data-selecttype="checkbox" code="DropDowList_PopedomTeamVsUser" typevalue="" data-fromType="6" data-clickObj="InitiatorClickObj"></textarea>
+                            </p>
+                            <div class="LeftIconBlock"><span class="LeftIcon calcfont calc-you"></span></div>
+                        </div>
                     </div>
-                </div>
                     <div class="ListCell tip ">
                         <div class="tipBox">
                             <p class="f14">
@@ -402,7 +395,12 @@ export default {
         lanTool.updateLanVersion();
         document.activeElement.blur();
         $(window).scrollTop(0);
-
+        $(".textareaP:not(.wrap) textarea").blur(function () {
+            $(this).parents(".DetailRow").removeClass("DeepColor");
+        });
+        $(".textareaP:not(.wrap) textarea").focus(function () {
+            $(this).parents(".DetailRow").addClass("DeepColor");
+        });
         //如果是只查看，控制元素不可以更改
         _self.controlEdit();
 
@@ -422,7 +420,7 @@ export default {
         tool.InitiateInfoPageControl(_self, _self.id, function () {
             //渲染textarea 从新增事件进到详情是不会进入渲染数据的方法，这里得多加个textarea高度自适应
             $("textarea").each(function (index, cur) {
-                $(cur).height('25');
+                $(cur).addClass("DefaultHeight");
                 tool.autoTextarea(cur);
             });
 
@@ -454,12 +452,12 @@ export default {
 
                 var privateObj = tool.GetPrivateObj();
                 if (!tool.isNullOrEmptyObject(privateObj)) {
-                    $("[data-field='Initiator']").attr("data-fieldval",tool.UserAutoID()).text(tool.Realname());
+                    $("[data-field='Initiator']").attr("data-fieldval", tool.UserAutoID()).text(tool.Realname());
                     $("[data-field='IsPublic']")
                         .val(privateObj.text || "")
                         .attr("data-fieldVal", privateObj.id)
                         .trigger("change");
-                    
+
                 }
             }
 
@@ -484,17 +482,17 @@ export default {
 
                 //渲染textarea
                 $("textarea").each(function (index, cur) {
-                    $(cur).height('25');
+                    $(cur).addClass("DefaultHeight");
                     tool.autoTextarea(cur);
                 });
 
                 //返回时更新selectlist控件的结果
                 tool.UpdateFieldValueFromBack(eventBus, function (curObj) {
 
-                    var dataField = curObj.attr("data-field") ||"";
+                    var dataField = curObj.attr("data-field") || "";
                     dataField = $.trim(dataField).toLowerCase();
 
-                    if(dataField == "companyid"){
+                    if (dataField == "companyid") {
                         //请求地址
                         var urlTemp = tool.AjaxBaseUrl();
                         var controlName = tool.Api_OrganizationsHandle_QuerySingle;
@@ -504,7 +502,7 @@ export default {
                             UserName: tool.UserName(),
                             _ControlName: controlName,
                             _RegisterCode: tool.RegisterCode(),
-                            AutoID:curObj.attr("data-fieldval") ||""
+                            AutoID: curObj.attr("data-fieldval") || ""
                         };
 
                         $.ajax({
@@ -520,8 +518,8 @@ export default {
                                     return;
                                 }
                                 data = data._OnlyOneData || {};
-                                $("[data-field='CountryID']").val(data["CountryID_Name"]||"");
-                                $("[data-field='CityID']").val(data["CityID_Name"]||"");
+                                $("[data-field='CountryID']").val(data["CountryID_Name"] || "");
+                                $("[data-field='CityID']").val(data["CityID_Name"] || "");
                             },
                             error: function (jqXHR, type, error) {
                                 console.log(error);
@@ -548,10 +546,10 @@ export default {
         tool.UpdateFieldValueFromBack(eventBus, function (curObj) {
 
             //选择公司后 国家和城市在这里跟着变动
-            var dataField = curObj.attr("data-field") ||"";
+            var dataField = curObj.attr("data-field") || "";
             dataField = $.trim(dataField).toLowerCase();
 
-            if(dataField == "companyid"){
+            if (dataField == "companyid") {
                 //请求地址
                 var urlTemp = tool.AjaxBaseUrl();
                 var controlName = tool.Api_OrganizationsHandle_QuerySingle;
@@ -561,7 +559,7 @@ export default {
                     UserName: tool.UserName(),
                     _ControlName: controlName,
                     _RegisterCode: tool.RegisterCode(),
-                    AutoID:curObj.attr("data-fieldval") ||""
+                    AutoID: curObj.attr("data-fieldval") || ""
                 };
 
                 $.ajax({
@@ -577,8 +575,8 @@ export default {
                             return;
                         }
                         data = data._OnlyOneData || {};
-                        $("[data-field='CountryID']").val(data["CountryID_Name"]||"");
-                        $("[data-field='CityID']").val(data["CityID_Name"]||"");
+                        $("[data-field='CountryID']").val(data["CountryID_Name"] || "");
+                        $("[data-field='CityID']").val(data["CityID_Name"] || "");
                     },
                     error: function (jqXHR, type, error) {
                         console.log(error);
@@ -749,18 +747,21 @@ export default {
     display: none;
 }
 
-.ContactList,.accessList{
+/* .ContactList,
+.accessList { */
     /* padding-bottom:0.4rem; */
-    background-color:#fff;
-}
-.ContactList .DetailRow,.accessList .DetailRow {
+    /* background-color: #fff;
+} */
+
+/* .ContactList .DetailRow,
+.accessList .DetailRow {
     position: relative;
     background-color: #ffffff;
     min-height: 1.34rem;
     padding-left: 0.16rem;
     padding-top: 0.2rem;
-    padding-right: 0.18rem;
+    padding-right: 0.18rem; */
     /* padding-bottom: 0.2rem; */
-    box-sizing: border-box;
-}
+    /* box-sizing: border-box;
+} */
 </style>

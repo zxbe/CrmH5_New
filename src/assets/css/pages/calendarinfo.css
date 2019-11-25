@@ -433,7 +433,22 @@ textarea::placeholder
 }
 
 
-/* 新的详情样式 */
+/* 改版后的详情页样式 */
+.OrganizationsList,.MeetingList,.ContactList,.accessList{
+    padding-bottom:0.4rem;
+    background-color:#fff;
+}
+.OrganizationsList .DetailRow, .MeetingList .DetailRow,.ContactList .DetailRow,
+.accessList .DetailRow {
+    position: relative;
+    background-color: #ffffff;
+    /* min-height: 1.34rem; */
+    padding-left: 0.16rem;
+    padding-top: 0.2rem;
+    padding-right: 0.18rem;
+    /* padding-bottom: 0.2rem; */
+    box-sizing: border-box;
+}
 .DetailRow:after {
     position: absolute;
     content: "";
@@ -472,6 +487,7 @@ span.XingHao {
 
 .DetailRowUp input {
     width: calc(100% - 0.5rem);
+    height: 0.4rem;
     font-size: 0.28rem;
     border: none;
     outline: none;
@@ -501,6 +517,9 @@ p.textareaP.wrap{
 }
 textarea{
     font-size:0.28rem;
+}
+.DefaultHeight{
+    height: 0.4rem;
 }
 /*input placeholder的样式  */
 :-moz-placeholder {

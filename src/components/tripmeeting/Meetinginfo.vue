@@ -561,10 +561,10 @@ export default {
             _self.isAddNew = false;
             _self.operation = true;
         }
-         $("textarea").blur(function(){
+        $(".textareaP:not(.wrap) textarea").blur(function(){
               $(this).parents(".DetailRow").removeClass("DeepColor");
          });
-         $("textarea").focus(function(){
+         $(".textareaP:not(.wrap) textarea").focus(function(){
               $(this).parents(".DetailRow").addClass("DeepColor");
          });
    
@@ -580,7 +580,8 @@ export default {
 
             //渲染textarea
             $("textarea").each(function (index, cur) {
-                $(cur).height('25');
+                // $(cur).height('20');
+                 $(cur).addClass("DefaultHeight");
                 tool.autoTextarea(cur);
             });
             //控制字段显示隐藏
@@ -635,7 +636,8 @@ export default {
 
                 //渲染textarea
                 $("textarea").each(function (index, cur) {
-                    $(cur).height('25');
+                    // $(cur).height('20');
+                    $(cur).addClass("DefaultHeight");
                     tool.autoTextarea(cur);
                 });
 
@@ -1544,20 +1546,20 @@ export default {
     -webkit-transform: scaleX(.5);
     transform: scaleX(.5);
 }
-.MeetingList{
+/* .MeetingList{
     padding-bottom:0.4rem;
     background-color:#fff;
-}
-.MeetingList .DetailRow {
+} */
+/* .MeetingList .DetailRow {
     position: relative;
     background-color: #ffffff;
     min-height: 1.34rem;
     padding-left: 0.16rem;
     padding-top: 0.2rem;
-    padding-right: 0.18rem;
+    padding-right: 0.18rem; */
     /* padding-bottom: 0.2rem; */
-    box-sizing: border-box;
-}
+    /* box-sizing: border-box;
+} */
 
 
 
