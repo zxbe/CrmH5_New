@@ -39,16 +39,6 @@ import Poweruser from '@/components/customPlugin/Poweruser'
 import Linkedpage from '@/components/customPlugin/Linkedpage'
 
 
-// import Report from '@/components/pages/Report'
-// import PrCalendarinfo from '@/components/pages/PrCalendarinfo'
-//dba
-// import AirlineDatabase from '@/components/pages/AirlineDatabase'
-// import Search from '@/components/pages/Search'
-// import Business from '@/components/pages/Business'
-// import Tripinfo from '@/components/pages/Tripinfo'
-// import AddTripExpense from '@/components/pages/AddTripExpense'
-// import Addmeeting from '@/components/pages/Addmeeting'
-// import AddRouteOrRoom from '@/components/pages/AddRouteOrRoom'
 
 Vue.use(Router)
 
@@ -120,20 +110,6 @@ const router =  new Router({
     { path:'/poweruser',name:'poweruser',component:Poweruser},
     { path:'/singleSignOn',name:'singleSignOn',component:SingleSignOn},
 
-    // { path: '/tripinfo/:id',name:'tripinfo', component:Tripinfo},
-    // { path: '/search',name:'search',component: Search},
-    // { path: '/prcalendarinfo/:id',name:'prcalendarinfo', component:PrCalendarinfo },
-
-    //添加住宿/机票
-    // { path: '/addRouteOrRoom',name:'addRouteOrRoom', component:AddRouteOrRoom },
-     //添加会议
-    // { path: '/addmeeting',name:'addmeeting', component:Addmeeting },
-    //添加出差报销单
-    // { path: '/addTripExpense/:id',name:'addTripExpense', component:AddTripExpense },
-     //database
-    // { path:'/airlineDatabase',name:'airlineDatabase',component:AirlineDatabase},
-
-
    //database
     { path:'/airlineDatabase',name:'airlineDatabase',component:AirlineDatabase},
     { path:'/fleetDetailsList',name:'fleetDetailsList',component:FleetDetailsList},
@@ -192,7 +168,6 @@ router.beforeEach(function(to, from, next){
 
     var toName = to.name || "";
     toName = $.trim(toName).toLowerCase();
-    //console.log(toName);
     //特殊处理单点登陆页面
     //若不是单点登陆页面，则需要验证RegisterCode
     if(toName == "singlesignon"){
