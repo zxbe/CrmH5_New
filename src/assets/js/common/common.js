@@ -2007,10 +2007,10 @@ import config from '../../configfile/config.js'
               $.each(vueObj.groupData, function (index, item) {
 
                   if (item.GroupID == groupID) {
-					//console.log(item);  
+					//console.log(item);
 					//item.items = data;
 					vueObj.$set(item, 'items',data);
-					  
+
 					//若是dealPipeline
 					if(fromType == "dealPipeline" || fromType == "opportunities"){
 						$.each(item.items,function(dataIndex, dataItem){
@@ -2072,7 +2072,7 @@ import config from '../../configfile/config.js'
 
     return fieldVal;
   };
-  
+
 	/*
 	* 清空控件数据
 	*/
@@ -3420,7 +3420,7 @@ import config from '../../configfile/config.js'
 			}
 		});
 
-		
+
 		//执行回调函数
 		if(!tool.isNullOrEmptyObject(myCallBack)){
 			myCallBack(queryCondiction);
@@ -3643,7 +3643,7 @@ import config from '../../configfile/config.js'
       }
       if (eventBus.selectListData.field == relyonField) {
           //清空数据,移除点击事件
-          $("[data-field='" + chField + "']").text("").attr("data-fieldVal", "").attr('Filter','').off('click');
+          $("[data-field='" + chField + "']").val("").attr("data-fieldVal", "").attr('Filter','').off('click');
           //添加事件
           if(eventBus.selectListData.value.id=='' || eventBus.selectListData.value.id==undefined){
               return false;

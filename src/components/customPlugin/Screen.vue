@@ -79,7 +79,25 @@
 
                       <!-- 类型为selectList || linkSelectList-->
                       <div class="type-div" v-if="item.fieldControlType == 'selectList' || item.fieldControlType == 'linkSelectList'">
-                          <div class="ListCellContent">
+                          <div class="DetailRow">
+                              <div class="DetailRowOn">
+                                  <span class="calcfont ChangeIconColor" :class="item.iconClass"></span>
+                                  <span class="FileName">{{item.text}}</span>
+                              </div>
+                              <div class="DetailRowUp">
+                                  <input class="content lanInputPlaceHolder ListCellContentRightText"
+                                         readonly="readonly"
+                                         type="text"
+                                         :data-field="item.queryfield"
+                                         :data-fieldControlType="item.fieldControlType"
+                                         :data-lanid="item.datalanid"
+                                         data-fieldVal=""
+                                         :Code="item.Code"
+                                         :data-selectType="item.selectType" />
+                                  <div class="LeftIconBlock"><span class="LeftIcon calcfont calc-you"></span></div>
+                              </div>
+                          </div>
+                          <!-- <div class="ListCellContent">
                               <div class="ListCellContentLeft leftContent">
                                   <div class="ListCellContentLeftText">{{item.text}}</div>
                               </div>
@@ -97,7 +115,7 @@
                                     class="ListCellContentRightText" ></div>
                               </div>
                               <div class="ListCellRightIcon"><span class="mui-icon calcfont calc-you"></span></div>
-                          </div>
+                          </div> -->
                       </div>
 
 
@@ -387,49 +405,40 @@ export default {
             });
         });
 
-        //1-2>不同一行的selectList
-        // $("[data-fieldControlType='selectList'][data-clickObj]").each(function(index, obj){
+        //5>渲染linkedPage
+        //5-1>同一行的linkedPage
+        $("[data-fieldControlType='linkedPage']").attr("readonly","readonly").off('click').on('click',function(){
+          var _curObj = $(this);
+          if(typeof(_curObj.attr("data-clickObj")) != "undefined"){
+            return;
+          }
+          // console.log(_curObj);
+          var dataField = _curObj.attr("data-field") ||"";
+          var code = _curObj.attr("Code") ||"";
+          var filter = _curObj.attr("Filter") ||"";
+          var typeValue = _curObj.attr("TypeValue") ||"";
+          var value = _curObj.attr("data-fieldVal") ||"";
+          var selectType = _curObj.attr("data-selectType") ||"";
+          var title = lanTool.lanContent(_curObj.attr("data-lanid") ||"");
+          var isShowAdd = _curObj.attr("data-isShowAdd") ||"false";
+          var fromType = _curObj.attr("data-fromType") ||"";
 
-        //     $("#"+$(obj).attr("data-clickObj")).off('click').on('click',function(){
-
-        //         //查找子类
-        //         var _curObjTextdataFieldName = ($(this).attr('id') || "").ReplaceAll("ClickObj","");
-        //         var _curObj = $("[data-field='"+ _curObjTextdataFieldName +"']:first");
-        //         if(tool.isNullOrEmptyObject(_curObj)){
-        //           return;
-        //         }
-        //         // console.log(_curObj);
-        //         var dataField = _curObj.attr("data-field") ||"";
-        //         var code = _curObj.attr("Code") ||"";
-        //         var filter = _curObj.attr("Filter") ||"";
-        //         var typeValue = _curObj.attr("TypeValue") ||"";
-        //         var value = _curObj.attr("data-fieldVal") ||"";
-        //         var selectType = _curObj.attr("data-selectType") ||"";
-        //         var title = lanTool.lanContent(_curObj.attr("data-lanid") ||"");
-        //         var addUrl = _curObj.attr("data-addUrl") ||"";
-        //         var linkIDField = _curObj.attr("data-linkIDField") ||"";//为了在弹出页面的新增上，带出id和name，如新增联系人，需要带上当前公司信息
-        //         var linkNameField = _curObj.attr("data-linkNameField") ||"";
-        //         var fromType = _curObj.attr("data-fromType") ||"";
-
-        //         var parameter = {
-        //           'field':dataField,
-        //           'code':code,
-        //           "typeValue":typeValue,
-        //           'title':title,
-        //           'value':value,//已经选择的值
-        //           'selectType':selectType,
-        //           "filter":filter,
-        //           "addUrl":addUrl,
-        //           "linkIDField":linkIDField,
-        //           "linkNameField":linkNameField,
-        //           "fromType":fromType
-        //         };
-        //         self.$router.push({
-        //           path: '/selectlist',
-        //           query: parameter
-        //         });
-        //   })
-        // })
+          var parameter = {
+            'field':dataField,
+            'code':code,
+            "typeValue":typeValue,
+            'title':title,
+            'value':value,//已经选择的值
+            'selectType':selectType,
+            "filter":filter,
+            "isShowAdd":isShowAdd,
+            "fromType":fromType
+          };
+          self.$router.push({
+            path: '/linkedpage',
+            query: parameter
+          });
+        });
 
         //执行回调函数
         if (!tool.isNullOrEmptyObject(myCallBack) && typeof(myCallBack) == "function") {
@@ -747,4 +756,34 @@ export default {
 border-radius: 20px; }
 .reset-btn{background: #ffcc00;}
 .ok-btn{background: #ff9900;}
+
+
+.DetailRow {
+    position: relative;
+    background-color: #ffffff;
+    min-height: 1.34rem;
+    padding:10px 10px 10px 15px;
+    box-sizing: border-box;
+}
+.DetailRowUp {
+    position: relative;
+    padding: 0.1rem 0 0.1rem 20px;
+    display: flex;
+    align-items: center;
+}
+
+.DetailRowUp input {
+    /* width: calc(100% - 0.5rem); */
+    flex: 1;
+    font-size: 0.28rem;
+    border: none;
+    outline: none;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.DetailRowUp .LeftIconBlock {
+    font-size: .32rem;
+    color: #cdcdcd;
+}
 </style>

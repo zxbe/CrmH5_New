@@ -212,8 +212,9 @@ export default {
                 TypeValue: "",
                 selectType: "radio",
                 // clickObj: "CountryIDClickObj",
-                datalanid: "701_国家",
+                datalanid: "1000526_请选择",
                 resulteRow: true,
+                iconClass:'calc-nationaarea'
               },
               {
                 queryfield: "CityID",
@@ -227,7 +228,8 @@ export default {
                 Code: "DropDowList_ViewBaseCountryCity",
                 TypeValue: "",
                 selectType: "radio",
-                datalanid: "702_城市"
+                datalanid: "1000526_请选择",
+                iconClass:'calc-diqiuquanqiu'
               }]
         },
         noData: false, //没数据
