@@ -1,7 +1,7 @@
 <template>
 <div class="page">
 
-  <header class="header">
+  <header class="header sticky">
       <a @click="back" class="calcfont calc-fanhui back-icon" id="back"></a>
       <search-input class="search" placeholder="搜索公司"></search-input>
       <a class="calcfont calc-tianjia add-icon" @click="addOrganization" ></a>
@@ -100,8 +100,10 @@ import Sort from "@/components/customPlugin/Sort"
 import Screen from "@/components/customPlugin/Screen"
 import Scroll from '@/components/customPlugin/scroll/Scroll';
 import Nothing from "@/components/customPlugin/Nothing";
+import Mixins from '@/mixins/commonlist.js'
 export default {
   name:'organizationslist',
+  mixins:[Mixins],
   components: {
         SearchInput,Sort,Screen,
         'vue-scroll': Scroll,
@@ -205,7 +207,7 @@ export default {
               {
                 queryfield: "CityID",
                 text: lanTool.lanContent("702_城市"),
-                fieldControlType: "selectList",
+                fieldControlType: "linkSelectList",
                 queryType: "string",
                 queryFormat: "",
                 queryRelation: "and",
@@ -244,6 +246,7 @@ export default {
   },
   mounted(){
       let _self = this;
+      _self.watchScroll();
       //分组模式事件绑定
       _self.groupToggleHandle('organizationsList');
   },
@@ -498,6 +501,31 @@ export default {
         });
     },
 
+    //点击跳转到详情页
+    goInfo(data){
+      let _self = this;
+      if(tool.isNullOrEmptyObject(data) || tool.isNullOrEmptyObject(data.AutoID)){
+          return;
+      }
+      var parameter = {
+          // showPage: _self.showPage,
+          infoName:data.ShortName
+      };
+      _self.$router.push({
+          path: '/organizationsinfo/' + data.AutoID,
+          query: parameter
+      });
+    },
+
+    //监听滚动
+    watchScroll:function(){
+        var _self = this;
+        var headerH = parseFloat($("header").innerHeight());
+        var navH = parseFloat($(".sort").innerHeight());
+
+        _self.watchScrollHandle( headerH + navH );
+    },
+
     //分组模式下展开收起
     groupToggleHandle:function(idName){
         var _self = this;
@@ -551,22 +579,6 @@ export default {
         );
 
     },
-
-    //点击跳转到详情页
-    goInfo(data){
-      let _self = this;
-      if(tool.isNullOrEmptyObject(data) || tool.isNullOrEmptyObject(data.AutoID)){
-          return;
-      }
-      var parameter = {
-          // showPage: _self.showPage,
-          infoName:data.ShortName
-      };
-      _self.$router.push({
-          path: '/organizationsinfo/' + data.AutoID,
-          query: parameter
-      });
-    }
 
   },
   beforeRouteLeave: function (to, from, next) {

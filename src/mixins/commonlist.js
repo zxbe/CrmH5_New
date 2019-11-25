@@ -1,22 +1,22 @@
 export default{
     data(){
         return{
-            showPage: 0,
-            noData: true, //没数据
-            groupData:[],
-            queryCondiction: [], //右侧checkbox条件
-            queryCondictionData: [], //综合查询条件
+            // showPage: 0,
+            // noData: true, //没数据
+            // groupData:[],
+            // queryCondiction: [], //右侧checkbox条件
+            // queryCondictionData: [], //综合查询条件
         }
     },
 
     methods: {
 
-        setQuerycondition: function (data) {
-            var _self = this;
-            _self.queryCondiction = data;
-            //执行监听的这个动作
-            _self.RefreshCurPageGroupData();
-        },
+        // setQuerycondition: function (data) {
+        //     var _self = this;
+        //     _self.queryCondiction = data;
+        //     //执行监听的这个动作
+        //     _self.RefreshCurPageGroupData();
+        // },
 
         /*
          * 监听滚动固定
@@ -71,7 +71,7 @@ export default{
                             }
                         }
                     });
-
+/*
                     //列表二级滚动固定
                     if ($(".company_item").length <= 0) return;
                     // let dateDivHeight = $('.date-div').innerHeight()+1;
@@ -122,91 +122,92 @@ export default{
                             }
                         }
                     });
-
+*/
                 });
             }, 0);
         },
 
         //切换页面
-        switchPageHandle: function (num, e, mutationsName) {
-            var _self = this;
-            var el = e.target;
-            if (num === undefined) return;
-            //清空右侧筛选数据
-            eventBus.queryCondictionData = null;
+        // switchPageHandle: function (num, e, mutationsName) {
+        //     var _self = this;
+        //     var el = e.target;
+        //     if (num === undefined) return;
+        //     //清空右侧筛选数据
+        //     eventBus.queryCondictionData = null;
 
-            $(el)
-                .addClass("active-item")
-                .siblings()
-                .removeClass("active-item");
-            //会议列表没有切换 所以不用调用这个方法
-            if(!tool.isNullOrEmptyObject(el)){
-                _self.changePos();
-            }
+        //     $(el)
+        //         .addClass("active-item")
+        //         .siblings()
+        //         .removeClass("active-item");
+        //     //会议列表没有切换 所以不用调用这个方法
+        //     if(!tool.isNullOrEmptyObject(el)){
+        //         _self.changePos();
+        //     }
 
-            //获取来源页
-            var fromPage = tool.getSessionStorageItem("fromPage") || "";
-            //移除来源页
-            tool.removeSessionStoragItem("fromPage");
+        //     //获取来源页
+        //     var fromPage = tool.getSessionStorageItem("fromPage") || "";
+        //     //移除来源页
+        //     tool.removeSessionStoragItem("fromPage");
 
-            var isResetRightPanel = _self.showPage != num  || (!tool.isNullOrEmptyObject(fromPage) &&  fromPage.toLowerCase() == "index");
+        //     var isResetRightPanel = _self.showPage != num  || (!tool.isNullOrEmptyObject(fromPage) &&  fromPage.toLowerCase() == "index");
 
-            _self.showPage = num;
-            _self.$store.commit(mutationsName, num);
-            $(window).scrollTop(0);
+        //     _self.showPage = num;
+        //     _self.$store.commit(mutationsName, num);
+        //     $(window).scrollTop(0);
 
-            if(isResetRightPanel){
+        //     if(isResetRightPanel){
 
-                //综合查询条件置空
-                _self.queryCondictionData = [];
-                _self.queryCondiction = [];
+        //         //综合查询条件置空
+        //         _self.queryCondictionData = [];
+        //         _self.queryCondiction = [];
 
-                //右侧radio重置为默认值
-                var returnObj = _self.$refs.rightPanel.reductionDataFilter(isResetRightPanel);
-                if (tool.isNullOrEmptyObject(returnObj)) {
-                    return ;
-                }
+        //         //右侧radio重置为默认值
+        //         var returnObj = _self.$refs.rightPanel.reductionDataFilter(isResetRightPanel);
+        //         if (tool.isNullOrEmptyObject(returnObj)) {
+        //             return ;
+        //         }
 
-                _self.queryCondiction.push(returnObj.defaultQueryCondition);
+        //         _self.queryCondiction.push(returnObj.defaultQueryCondition);
 
-                //如果是 businessCategories 模块
-                if(_self.$route.name && _self.$route.name == 'businessCategories'){
+        //         //如果是 businessCategories 模块
+        //         if(_self.$route.name && _self.$route.name == 'businessCategories'){
 
-                    _self.groupBy = returnObj.defaultGroupBy||"";
-                    //移除mui-active,清空数据
-                    $("#startdate,#enddate").val("");
-                    $(".timeview").removeClass("mui-active");
-                    $(".timeview[data-datetype='all']").addClass("mui-active");
-                    _self.slideUpWithContent();
-                    //默认构造all条件
-                    _self.timeSlot = 'all';
-                    var isExeAjax = false;
-                    _self.prePareQueryData(isExeAjax);
-                }
+        //             _self.groupBy = returnObj.defaultGroupBy||"";
+        //             //移除mui-active,清空数据
+        //             $("#startdate,#enddate").val("");
+        //             $(".timeview").removeClass("mui-active");
+        //             $(".timeview[data-datetype='all']").addClass("mui-active");
+        //             _self.slideUpWithContent();
+        //             //默认构造all条件
+        //             _self.timeSlot = 'all';
+        //             var isExeAjax = false;
+        //             _self.prePareQueryData(isExeAjax);
+        //         }
 
-                _self.RefreshCurPageGroupData();
-            }else{
-                _self.RefreshCurPageGroupData();
-            }
-        },
+        //         _self.RefreshCurPageGroupData();
+        //     }else{
+        //         _self.RefreshCurPageGroupData();
+        //     }
+        // },
 
         //table底部横条过渡效果
-        changePos: function () {
-            this.$nextTick(function () {
-                var activePos = $(".nav .active-item").position();
-                $(".nav-border")
-                    .stop()
-                    .css({
-                        left: activePos.left,
-                        width: $(".nav .active-item").width()
-                    });
-            });
-        },
+        // changePos: function () {
+        //     this.$nextTick(function () {
+        //         var activePos = $(".nav .active-item").position();
+        //         $(".nav-border")
+        //             .stop()
+        //             .css({
+        //                 left: activePos.left,
+        //                 width: $(".nav .active-item").width()
+        //             });
+        //     });
+        // },
 
         /*
          * 列表展开收起
          *  id1 , id2 :只模块id
          */
+        /*
         groupToggleHandle:function(id1, id2){
             var _self = this;
             $("#"+ id1 +",#"+id2).off("click", "div.date-div").on(
@@ -273,10 +274,12 @@ export default{
             );
 
         },
+        */
 
         /*
          * 刷新分组数据操作
          */
+        /*
         RefreshCurPageGroupDataHandle:function(data,myCallBack){
             var _self = this;
 
@@ -319,6 +322,7 @@ export default{
             }, '', groupBy, _self.showPage);
 
         }
+        */
 
     }
 

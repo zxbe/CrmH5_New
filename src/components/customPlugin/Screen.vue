@@ -77,15 +77,15 @@
                           </div>
                       </div>
 
-                      <!-- 类型为selectList -->
-                      <div class="type-div" v-if="item.fieldControlType == 'selectList'">
+                      <!-- 类型为selectList || linkSelectList-->
+                      <div class="type-div" v-if="item.fieldControlType == 'selectList' || item.fieldControlType == 'linkSelectList'">
                           <div class="ListCellContent">
                               <div class="ListCellContentLeft leftContent">
                                   <div class="ListCellContentLeftText">{{item.text}}</div>
                               </div>
                               <div class="ListCellContentRight rightContent">
                                   <div :data-field="item.queryfield"
-                                    data-fieldControlType="selectList"
+                                    :data-fieldControlType="item.fieldControlType"
                                     :data-lanid="item.datalanid"
                                     data-fieldVal=""
                                     :Code="item.Code"
@@ -99,6 +99,7 @@
                               <div class="ListCellRightIcon"><span class="mui-icon calcfont calc-you"></span></div>
                           </div>
                       </div>
+
 
                   </div>
               </div>
@@ -233,9 +234,9 @@ export default {
         let _self = this;
 
         $("[data-fieldcontroltype]").each(function (index, obj) {
-			var _curObj = $(this);
-			if(tool.isNullOrEmptyObject(_curObj)){
-				return true;
+            var _curObj = $(this);
+            if(tool.isNullOrEmptyObject(_curObj)){
+                return true;
             }
 
             if(isOnlyRemoveEvent){

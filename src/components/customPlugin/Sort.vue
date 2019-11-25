@@ -1,5 +1,5 @@
 <template>
-  <div class="sort">
+  <div class="sort sticky">
     <div class="sort-left">
       <div clsss="sort-t" @click="dropDownToggle">
         <span class="sort-text">{{activeSortItemText}}</span>
@@ -120,7 +120,7 @@ export default {
 .sort {
   position:fixed;
   top:0.88rem;left:0;right:0;
-  z-index: 9;
+  z-index: 99;
   height: 0.7rem;
   display: flex;
   align-items: center;
