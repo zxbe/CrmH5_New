@@ -112,12 +112,11 @@
                     </div>
                     <div class="ListSpecialCellContent" data-field="CompanyID" data-fieldcontroltype="selectList" data-lanid="790_公司" data-fieldval="" data-selecttype="radio" code="DropDowList_ViewBaseCompanyBaseInfHasContact" typevalue="" data-clickObj="CompanyIDClickObj" data-addUrl="/organizationsinfo"></div>
                 </div> -->
-                <div class="DetailRow">
+                <div class="DetailRow controlEdit">
                     <div class="DetailRowOn"><span class="calcfont calc-gongsixinxi ChangeIconColor"></span><span class="FileName lanText" data-lanid="790_公司"></span><span class="XingHao">*</span></div>
                     <div class="DetailRowUp">
-                        <!-- <input class="content lanInputPlaceHolder" type="text" data-field="CompanyID" data-fieldcontroltype="selectList" data-lanid="1000526_选择" data-fieldval="" data-selecttype="radio" code="DropDowList_ViewBaseCompanyBaseInfHasContact" typevalue="" data-clickObj="CompanyIDClickObj" data-addUrl="/organizationsinfo" /> -->
-                        <p class="textareaP wrap">
-                            <textarea readonly="readonly" class="lanInputPlaceHolder" data-lanid="1000525_请输入"></textarea>
+                        <p class="textareaP wrap" id="CompanyIDClickObj">
+                            <textarea readonly="readonly" class="lanInputPlaceHolder" data-lanid="1000526_请选择" data-field="CompanyID" data-fieldcontroltype="selectList" data-fieldval="" data-selecttype="radio" code="DropDowList_ViewBaseCompanyBaseInfHasContact" typevalue="" data-clickObj="CompanyIDClickObj" data-addUrl="/organizationsinfo"></textarea>
                         </p>
                         <div class="LeftIconBlock" ><span class="LeftIcon calcfont calc-you"></span></div>
                     </div>
@@ -136,9 +135,9 @@
                     <!-- </div>
                 </div> -->
                  <div class="DetailRow disable controlEdit">
-                    <div class="DetailRowOn"><span class="calcfont calc-woshimaijia2 ChangeIconColor"></span><span class="FileName lanText" data-lanid="1000388_Black List"></span><span class="XingHao">*</span></div>
+                    <div class="DetailRowOn"><span class="calcfont calc-woshimaijia2 ChangeIconColor"></span><span class="FileName lanText" data-lanid="1000388_Black List"></span></div>
                     <div class="DetailRowUp">
-                        <input class="content lanInputPlaceHolder" type="text" data-field="BlackList" data-lanid="1000526_选择" data-fieldControlType="picker" data-fieldVal="" Code="DropDowList_ViewBaseAllTypes" TypeValue="YesOrNo" />
+                        <input class="content lanInputPlaceHolder" type="text" data-field="BlackList" data-lanid="" data-fieldControlType="picker" data-fieldVal="" Code="DropDowList_ViewBaseAllTypes" TypeValue="YesOrNo" />
                         <!-- <div class="LeftIconBlock"><span class="LeftIcon calcfont calc-you"></span></div> -->
                     </div>
                 </div>
@@ -158,7 +157,10 @@
                 <div class="DetailRow controlEdit">
                     <div class="DetailRowOn"><span class="calcfont calc-kehulianxiren ChangeIconColor"></span><span class="FileName lanText" data-lanid="630_联系人"></span><span class="XingHao">*</span></div>
                     <div class="DetailRowUp">
-                        <input class="content lanInputPlaceHolder" readonly="readonly" data-field="ContactsID" data-fieldControlType="linkSelectList" data-lanid="1000526_选择" data-fieldVal="" Code="DropDowList_ViewBaseCompanyContactsByCompany" Filter="" data-selectType="radio"  data-addUrl="/contactsinfo" data-linkIDField="" data-linkNameField="" data-fromType="6" />
+                        <!-- <input class="content lanInputPlaceHolder" readonly="readonly" data-field="ContactsID" data-fieldControlType="linkSelectList" data-lanid="1000526_选择" data-fieldVal="" Code="DropDowList_ViewBaseCompanyContactsByCompany" Filter="" data-selectType="radio"  data-addUrl="/contactsinfo" data-linkIDField="" data-linkNameField="" data-fromType="6" /> -->
+                        <p class="textareaP wrap">
+                            <textarea readonly="readonly" class="lanInputPlaceHolder" data-field="ContactsID" data-fieldControlType="linkSelectList" data-lanid="1000526_选择" data-fieldVal="" Code="DropDowList_ViewBaseCompanyContactsByCompany" Filter="" data-selectType="radio"  data-addUrl="/contactsinfo" data-linkIDField="" data-linkNameField="" data-fromType="6"></textarea>
+                        </p>
                         <div class="LeftIconBlock"><span class="LeftIcon calcfont calc-you"></span></div>
                     </div>
                 </div>
@@ -185,12 +187,11 @@
                     </div>
                     <div class="ListSpecialCellContent" data-field="OppIDTemp" data-fieldcontroltype="linkedPage" data-lanid="832_关联于商业" data-fieldval="" data-selecttype="radio" code="DropDowList_Opportunity" typevalue="" data-clickObj="OppIDTempClickObj" data-isShowAdd="true" data-fromType="9"></div>
                 </div> -->
-                 <div class="DetailRow">
+                 <div class="DetailRow controlEdit">
                     <div class="DetailRowOn"><span class="calcfont calc-yewujihui ChangeIconColor"></span><span class="FileName lanText" data-lanid="832_关联于商业"></span></div>
                     <div class="DetailRowUp">
-                        <!-- <input class="content lanInputPlaceHolder" type="text" data-field="CompanyID" data-fieldcontroltype="selectList" data-lanid="1000526_选择" data-fieldval="" data-selecttype="radio" code="DropDowList_ViewBaseCompanyBaseInfHasContact" typevalue="" data-clickObj="CompanyIDClickObj" data-addUrl="/organizationsinfo" /> -->
-                        <p class="textareaP wrap">
-                            <textarea readonly="readonly" class="lanInputPlaceHolder" data-lanid="1000526_请选择"></textarea>
+                        <p class="textareaP wrap" id="OppIDTempClickObj">
+                            <textarea readonly="readonly" class="lanInputPlaceHolder" data-lanid="1000526_请选择" data-field="OppIDTemp" data-fieldcontroltype="linkedPage"  data-fieldval="" data-selecttype="radio" code="DropDowList_Opportunity" typevalue="" data-clickObj="OppIDTempClickObj" data-isShowAdd="true" data-fromType="9"></textarea>
                         </p>
                         <div class="LeftIconBlock" ><span class="LeftIcon calcfont calc-you"></span></div>
                     </div>
@@ -224,12 +225,11 @@
                     </div>
                     <div class="ListSpecialCellContent" data-field="Participants" data-fieldcontroltype="selectList" data-lanid="1000288_与会人员" data-fieldval="" data-selecttype="checkbox" code="DropDowList_AccountManager" typevalue="" data-clickObj="ParticipantsClickObj" data-addUrl=""></div>
                 </div> -->
-                <div class="DetailRow">
-                    <div class="DetailRowOn"><span class="calcfont calc-huiyi ChangeIconColor"></span><span class="FileName lanText" data-lanid="1000288_与会人员"></span><span class="XingHao">*</span></div>
+                <div class="DetailRow controlEdit">
+                    <div class="DetailRowOn"><span class="calcfont calc-huiyi ChangeIconColor"></span><span class="FileName lanText" data-lanid="1000288_与会人员"></span></div>
                     <div class="DetailRowUp">
-                        <!-- <input class="content lanInputPlaceHolder" type="text" data-field="CompanyID" data-fieldcontroltype="selectList" data-lanid="1000526_选择" data-fieldval="" data-selecttype="radio" code="DropDowList_ViewBaseCompanyBaseInfHasContact" typevalue="" data-clickObj="CompanyIDClickObj" data-addUrl="/organizationsinfo" /> -->
-                        <p class="textareaP wrap">
-                            <textarea  readonly="readonly" class="lanInputPlaceHolder" data-lanid="1000526_请选择"></textarea>
+                        <p class="textareaP wrap" id="ParticipantsClickObj">
+                            <textarea  readonly="readonly" class="lanInputPlaceHolder" data-lanid="1000526_请选择" data-field="Participants" data-fieldcontroltype="selectList" data-fieldval="" data-selecttype="checkbox" code="DropDowList_AccountManager" typevalue="" data-clickObj="ParticipantsClickObj" data-addUrl=""></textarea>
                         </p>
                         <div class="LeftIconBlock" ><span class="LeftIcon calcfont calc-you"></span></div>
                     </div>

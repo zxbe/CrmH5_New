@@ -40,22 +40,27 @@
                 <div class="DetailRow">
                     <div class="DetailRowOn"><span class="calcfont calc-nationaarea ChangeIconColor"></span><span class="FileName lanText" data-lanid="701_国家"></span></div>
                     <div class="DetailRowUp">
-                        <input class="content lanInputPlaceHolder" type="text" readonly data-field="CountryID" data-fieldControlType="selectList" data-lanid="1000526_请选择" data-fieldVal="" Code="DropDowList_ViewBaseCountryInf" data-selectType="radio"  />
-        
+                         <p class="textareaP wrap">
+                            <textarea readonly="readonly" class="lanInputPlaceHolder" data-field="CountryID" data-fieldControlType="selectList" data-lanid="1000526_请选择" data-fieldVal="" Code="DropDowList_ViewBaseCountryInf" data-selectType="radio"></textarea>
+                        </p>        
                         <div class="LeftIconBlock"><span class="LeftIcon calcfont calc-you"></span></div>
                     </div>
                 </div>
                 <div class="DetailRow">
                     <div class="DetailRowOn"><span class="calcfont calc-diqiuquanqiu ChangeIconColor"></span><span class="FileName lanText" data-lanid="702_城市"></span></div>
                     <div class="DetailRowUp">
-                        <input class="content lanInputPlaceHolder" type="text" readonly data-field="CityID" data-fieldControlType="linkSelectList" data-lanid="1000526_请选择" data-fieldVal="" Code="DropDowList_ViewBaseCountryCity" data-selectType="radio" />
+                       <p class="textareaP wrap">
+                            <textarea readonly="readonly" class="lanInputPlaceHolder" data-field="CityID" data-fieldControlType="linkSelectList" data-lanid="1000526_请选择" data-fieldVal="" Code="DropDowList_ViewBaseCountryCity" data-selectType="radio"></textarea>
+                        </p>
                         <div class="LeftIconBlock"><span class="LeftIcon calcfont calc-you"></span></div>
                     </div>
                 </div>
                 <div class="DetailRow">
                     <div class="DetailRowOn"><span class="calcfont calc-chengshijingli ChangeIconColor"></span><span class="FileName lanText" data-lanid="785_客户经理"></span></div>
                     <div class="DetailRowUp">
-                        <input class="content lanInputPlaceHolder" type="text" readonly data-field="AccountManager" data-fieldControlType="selectList" data-lanid="1000526_请选择" data-fieldVal="" Code="DropDowList_AccountManager" data-selectType="radio" />
+                       <p class="textareaP wrap">
+                            <textarea readonly="readonly" class="lanInputPlaceHolder" data-field="AccountManager" data-fieldControlType="selectList" data-lanid="1000526_请选择" data-fieldVal="" Code="DropDowList_AccountManager" data-selectType="radio"></textarea>
+                        </p>
                         <div class="LeftIconBlock"><span class="LeftIcon calcfont calc-you"></span></div>
                     </div>
                 </div>

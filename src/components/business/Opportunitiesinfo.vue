@@ -19,19 +19,26 @@
             </div> -->
 
             <!-- 名称 -->
-            <div class="ListCell visible controlEdit">
+            <!-- <div class="ListCell visible controlEdit">
                 <div class="ListCellLeftIcon textLeftIcon"><span class="calcfont calc-yewujihui"></span></div>
                 <div class="ListCellLeftText">
                     <p class="textareaP">
                           <textarea data-field="TheName" data-fieldControlType="textareaInput" class="lanInputPlaceHolder" data-lanid="710_标题"></textarea>
                     </p>
                 </div>
-            </div>
-
+            </div> -->
+             <div class="DetailRow controlEdit">
+                    <div class="DetailRowOn"><span class="calcfont calc-yewujihui ChangeIconColor"></span><span class="FileName lanText" data-lanid="710_标题"></span></div>
+                    <div class="DetailRowUp">
+                        <p class="textareaP">
+                            <textarea data-field="TheName" data-fieldControlType="textareaInput" class="lanInputPlaceHolder" data-lanid="1000525_请输入"></textarea>
+                        </p>
+                    </div>
+                </div>
             <!-- 交易模块才有的属性 -->
             <div v-show="showPage =='0'" class="OpportunitiesList controlEdit">
                     <!-- LOI单号 -->
-                    <div class="ListSpecialCell" id="LOIIDClickObj">
+                    <!-- <div class="ListSpecialCell" id="LOIIDClickObj">
                         <div class="ListSpecialCellField">
                             <div class="ListSpecialCellLeftIcon"><span class="calcfont calc-profile"></span></div>
                             <div class="ListSpecialCellFieldContent lanText" data-lanid="1000227_LOI单号"></div>
@@ -48,10 +55,18 @@
                             typevalue=""
                             data-clickObj="LOIIDClickObj"
                             data-addUrl=""></div>
+                    </div> -->
+                     <div class="DetailRow">
+                    <div class="DetailRowOn"><span class="calcfont calc-profile ChangeIconColor"></span><span class="FileName lanText" data-lanid="1000227_LOI单号"></span></div>
+                    <div class="DetailRowUp">
+                       <p class="textareaP wrap" id="LOIIDClickObj">
+                            <textarea readonly="readonly" class="lanInputPlaceHolder" data-field="LOIID" data-fieldControlType="selectList" data-lanid="1000526_请选择" data-fieldVal="" Code="DropDowList_LOI" data-selectType="radio" data-clickObj="LOIIDClickObj"></textarea>
+                        </p>
+                        <div class="LeftIconBlock"><span class="LeftIcon calcfont calc-you"></span></div>
                     </div>
-
+                </div>
                     <!-- 商业事项 -->
-                    <div class="ListCell visible" v-show="showPage=='0'">
+                    <!-- <div class="ListCell visible" v-show="showPage=='0'">
                         <div class="ListCellLeftIcon"><span class="calcfont calc-shixiang"></span></div>
                         <div class="ListCellContent">
                             <div class="ListCellContentLeft leftContent">
@@ -62,29 +77,51 @@
                             </div>
                             <div class="ListCellRightIcon"><span class="calcfont calc-you"></span></div>
                         </div>
+                    </div> -->
+                    <div class="DetailRow" v-show="showPage=='0'">
+                    <div class="DetailRowOn"><span class="calcfont calc-shixiang ChangeIconColor"></span><span class="FileName lanText" data-lanid="947_商业事项"></span><span class="XingHao">*</span></div>
+                    <div class="DetailRowUp">
+                        <input class="content lanInputPlaceHolder" type="text" data-field="Matter" data-lanid="1000526_请选择" data-fieldControlType="picker" data-fieldVal="" Code="DropDowList_DtbAllTypes" TypeValue="Matter"/>
+                        <div class="LeftIconBlock"><span class="LeftIcon calcfont calc-you"></span></div>
                     </div>
-                    <div class="ListCell visible MatterOtherObj" v-show="showPage=='0'">
+                </div>
+                    <!-- <div class="ListCell visible MatterOtherObj" v-show="showPage=='0'">
                         <div class="ListCellLeftIcon textLeftIcon"><span class="calcfont"></span></div>
                         <div class="ListCellLeftText">
                             <p class="textareaP">
                                 <textarea data-field="MatterOther" data-fieldControlType="textareaInput" class="lanInputPlaceHolder" data-lanid="952_其他"></textarea>
                             </p>
                         </div>
+                    </div> -->
+                    <div class="DetailRow MatterOtherObj" v-show="showPage=='0'">
+                    <div class="DetailRowOn"><span class="calcfont calc-other ChangeIconColor"></span><span class="FileName lanText" data-lanid="952_其他"></span><span class="XingHao">*</span></div>
+                    <div class="DetailRowUp">
+                        <p class="textareaP">
+                            <textarea data-field="MatterOther" data-fieldControlType="textareaInput" class="lanInputPlaceHolder" data-lanid="1000525_请输入"></textarea>
+                        </p>
                     </div>
-
+                </div>
                     <!-- MSN -->
-                    <div class="ListCell" v-show="showPage=='0'">
+                    <!-- <div class="ListCell" v-show="showPage=='0'">
                         <div class="ListCellLeftIcon textLeftIcon"><span class="calcfont calc-feiji2"></span></div>
                         <div class="ListCellLeftText">
                             <p class="textareaP">
                                 <textarea data-field="MSN" data-fieldControlType="textareaInput" class="lanInputPlaceHolder" data-lanid="956_MSN"></textarea>
                             </p>
                         </div>
+                    </div> -->
+                     <div class="DetailRow" v-show="showPage=='0'">
+                    <div class="DetailRowOn"><span class="calcfont calc-feiji2 ChangeIconColor"></span><span class="FileName lanText" data-lanid="956_MSN"></span></div>
+                    <div class="DetailRowUp">
+                        <p class="textareaP">
+                            <textarea data-field="MSN" data-fieldControlType="textareaInput" class="lanInputPlaceHolder" data-lanid="1000525_请输入"></textarea>
+                        </p>
+                    </div>
                     </div>
             </div>
 
             <!-- 公司 -->
-            <div class="ListSpecialCell visible controlEdit" id="TargetCompanyIDClickObj">
+            <!-- <div class="ListSpecialCell visible controlEdit" id="TargetCompanyIDClickObj">
                 <div class="ListSpecialCellField">
                     <div class="ListSpecialCellLeftIcon"><span class="calcfont calc-gongsixinxi"></span></div>
                     <div class="ListSpecialCellFieldContent lanText" data-lanid="790_公司"></div>
@@ -101,10 +138,24 @@
                     typevalue=""
                     data-clickObj="TargetCompanyIDClickObj"
                     data-addUrl="/organizationsinfo"></div>
-            </div>
-
+            </div> -->
+            <div class="DetailRow controlEdit">
+                    <div class="DetailRowOn"><span class="calcfont calc-gongsixinxi ChangeIconColor"></span><span class="FileName lanText" data-lanid="790_公司"></span><span class="XingHao">*</span></div>
+                    <div class="DetailRowUp">
+                        <p class="textareaP wrap" id="TargetCompanyIDClickObj">
+                            <textarea readonly="readonly" class="lanInputPlaceHolder" data-lanid="1000526_请选择"  data-field="TargetCompanyID"
+                            data-fieldcontroltype="selectList"  data-fieldval=""
+                            data-selecttype="radio"
+                            code="DropDowList_ViewBaseCompanyBaseInfHasContact"
+                            typevalue=""
+                            data-clickObj="TargetCompanyIDClickObj"
+                            data-addUrl="/organizationsinfo"></textarea>
+                        </p>
+                        <div class="LeftIconBlock" ><span class="LeftIcon calcfont calc-you"></span></div>
+                    </div>
+                </div>
             <!-- 联系人 -->
-            <div class="ListCell visible controlEdit">
+            <!-- <div class="ListCell visible controlEdit">
                 <div class="ListCellLeftIcon"><span class="calcfont calc-fuzerenicon"></span></div>
                 <div class="ListCellContent">
                     <div class="ListCellContentLeft leftContent">
@@ -128,11 +179,20 @@
                     </div>
                     <div class="ListCellRightIcon"><span class="calcfont calc-you"></span></div>
                 </div>
-            </div>
-
+            </div> -->
+            <div class="DetailRow controlEdit">
+                    <div class="DetailRowOn"><span class="calcfont calc-kehulianxiren ChangeIconColor"></span><span class="FileName lanText" data-lanid="630_联系人"></span><span class="XingHao">*</span></div>
+                    <div class="DetailRowUp">
+                        <!-- <input class="content lanInputPlaceHolder" readonly="readonly" data-field="ContactsID" data-fieldControlType="linkSelectList" data-lanid="1000526_选择" data-fieldVal="" Code="DropDowList_ViewBaseCompanyContactsByCompany" Filter="" data-selectType="radio"  data-addUrl="/contactsinfo" data-linkIDField="" data-linkNameField="" data-fromType="6" /> -->
+                        <p class="textareaP wrap">
+                            <textarea readonly="readonly" class="lanInputPlaceHolder" data-field="ContactsID" data-fieldControlType="linkSelectList" data-lanid="1000526_选择" data-fieldVal="" Code="DropDowList_ViewBaseCompanyContactsByCompany" Filter="" data-selectType="radio"  data-addUrl="/contactsinfo" data-linkIDField="" data-linkNameField="" data-fromType="6"></textarea>
+                        </p>
+                        <div class="LeftIconBlock"><span class="LeftIcon calcfont calc-you"></span></div>
+                    </div>
+                </div>
             <!-- 机会来源   只有在商业机会可见-->
             <div v-show="showPage =='1'" class="shareBlock controlEdit">
-                <div class="ListCell visible">
+                <!-- <div class="ListCell visible">
                     <div class="ListCellLeftIcon">
                         <span class="calcfont calc-laiyuanqingkuang"></span>
                     </div>
@@ -153,13 +213,29 @@
                             <div class="ListCellRightIcon">
                                 <span class="calcfont calc-you"></span>
                             </div>
-                        </div>
-                </div>
-                <div class="ListCell visible controlEdit SourceFromObj">
+                        </div> -->
+
+                      <div class="DetailRow">
+                    <div class="DetailRowOn"><span class="calcfont calc-laiyuanqingkuang ChangeIconColor"></span><span class="FileName lanText" data-lanid="1000230_机会来源"></span><span class="XingHao">*</span></div>
+                    <div class="DetailRowUp">
+                        <input class="content lanInputPlaceHolder" type="text" data-field="SourceFrom" data-lanid="1000526_请选择" data-fieldControlType="picker" data-fieldVal="" Code="DropDowList_DtbAllTypes" TypeValue="SourceFrom"/>
+                        <div class="LeftIconBlock"><span class="LeftIcon calcfont calc-you"></span></div>
+                    </div>
+                </div>   
+               
+                <!-- <div class="ListCell visible controlEdit SourceFromObj">
                     <div class="ListCellLeftIcon textLeftIcon"><span class="calcfont calc-qita1"></span></div>
                     <div class="ListCellLeftText">
                         <p class="textareaP">
                               <textarea data-field="SourceFromOther" data-fieldControlType="textareaInput" class="lanInputPlaceHolder"></textarea>
+                        </p>
+                    </div>
+                </div> -->
+                <div class="DetailRow controlEdit SourceFromObj" >
+                    <div class="DetailRowOn"><span class="calcfont calc-qita1 ChangeIconColor"></span><span class="FileName lanText" data-lanid="952_其他"></span><span class="XingHao">*</span></div>
+                    <div class="DetailRowUp">
+                        <p class="textareaP">
+                            <textarea data-field="SourceFromOther" data-fieldControlType="textareaInput" class="lanInputPlaceHolder" data-lanid="1000525_请输入"></textarea>
                         </p>
                     </div>
                 </div>
@@ -167,7 +243,7 @@
 
             <!-- 可访问 -->
             <div class="shareBlock controlEdit">
-                <div class="ListCell visible">
+                <!-- <div class="ListCell visible">
                     <div class="ListCellLeftIcon">
                         <span class="calcfont calc-yidu"></span>
                     </div>
@@ -189,10 +265,16 @@
                                 <span class="calcfont calc-you"></span>
                             </div>
                         </div>
-                </div>
-
+                </div> -->
+                <div class="DetailRow">
+                    <div class="DetailRowOn"><span class="calcfont calc-yidu ChangeIconColor"></span><span class="FileName lanText" data-lanid="803_可访问"></span><span class="XingHao">*</span></div>
+                    <div class="DetailRowUp">
+                        <input class="content lanInputPlaceHolder" type="text" data-field="IsPublic" data-lanid="1000526_请选择" data-fieldControlType="picker" data-fieldVal="" Code="DropDowList_DtbAllTypes" TypeValue="Accessabletype"/>
+                        <div class="LeftIconBlock"><span class="LeftIcon calcfont calc-you"></span></div>
+                    </div>
+                </div>   
                 <!-- 负责人 -->
-                <div class="ListSpecialCell visible initiatorObj" id="InitiatorClickObj">
+                <!-- <div class="ListSpecialCell visible initiatorObj" id="InitiatorClickObj">
                     <div class="ListSpecialCellField">
                         <div class="ListSpecialCellLeftIcon"><span class="calcfont calc-fuzerenicon"></span></div>
                         <div class="ListSpecialCellFieldContent lanText" data-lanid="825_负责人"></div>
@@ -210,10 +292,26 @@
                         data-fromType="6"
                         data-clickObj="InitiatorClickObj"
                       ></div>
+                </div> -->
+                <div class="DetailRow">
+                    <div class="DetailRowOn"><span class="calcfont calc-fuzerenicon ChangeIconColor"></span><span class="FileName lanText" data-lanid="825_负责人"></span><span class="XingHao">*</span></div>
+                    <div class="DetailRowUp">
+                        <p class="textareaP wrap initiatorObj" id="InitiatorClickObj">
+                            <textarea readonly="readonly" class="lanInputPlaceHolder" data-lanid="1000526_请选择"  data-field="Initiator"
+                            data-fieldcontroltype="groupSelectList"  data-fieldval=""
+                            data-selecttype="checkbox"
+                            code="DropDowList_PopedomTeamVsUser"
+                            typevalue=""
+                           data-fromType="6"
+                           data-clickObj="InitiatorClickObj"
+                            ></textarea>
+                        </p>
+                        <div class="LeftIconBlock" ><span class="LeftIcon calcfont calc-you"></span></div>
+                    </div>
                 </div>
             </div>
 
-            <div class="ListCell visible">
+            <!-- <div class="ListCell visible">
                 <div class="ListCellLeftIcon"><span class="calcfont calc-shixiang"></span></div>
                 <div class="ListCellContent">
                     <div class="ListCellContentLeft leftContent">
@@ -224,28 +322,48 @@
                     </div>
                     <div class="ListCellRightIcon"><span class="calcfont calc-you"></span></div>
                 </div>
-            </div>
-
+            </div> -->
+             <div class="DetailRow">
+                    <div class="DetailRowOn"><span class="calcfont calc-shixiang ChangeIconColor"></span><span class="FileName lanText" data-lanid="953_状态"></span><span class="XingHao">*</span></div>
+                    <div class="DetailRowUp">
+                        <input class="content lanInputPlaceHolder" type="text" data-field="CurrentState" data-lanid="1000526_请选择" data-fieldControlType="picker" data-fieldVal="" Code="DropDowList_DtbAllTypes" TypeValue="CurrentState"/>
+                        <div class="LeftIconBlock"><span class="LeftIcon calcfont calc-you"></span></div>
+                    </div>
+                </div>   
             <!-- 风险提示 -->
-            <div class="ListCell controlEdit">
+            <!-- <div class="ListCell controlEdit">
                 <div class="ListCellLeftIcon textLeftIcon"><span class="calcfont calc-fengxianyujing"></span></div>
                 <div class="ListCellLeftText">
                     <p class="textareaP">
                         <textarea data-field="RiskTips" data-fieldControlType="textareaInput" class="lanInputPlaceHolder" data-lanid="904_风险提示"></textarea>
                     </p>
                 </div>
-            </div>
-
+            </div> -->
+            <div class="DetailRow controlEdit">
+                    <div class="DetailRowOn"><span class="calcfont calc-fengxianyujing ChangeIconColor"></span><span class="FileName lanText" data-lanid="904_风险提示"></span></div>
+                    <div class="DetailRowUp">
+                        <p class="textareaP">
+                            <textarea data-field="RiskTips" data-fieldControlType="textareaInput" class="lanInputPlaceHolder" data-lanid="1000525_请输入"></textarea>
+                        </p>
+                    </div>
+                </div>
             <!-- 备忘 -->
-            <div class="ListCell controlEdit visible">
+            <!-- <div class="ListCell controlEdit visible">
                 <div class="ListCellLeftIcon textLeftIcon"><span class="calcfont calc-beiwanglu"></span></div>
                 <div class="ListCellLeftText">
                     <p class="textareaP">
                         <textarea data-field="Memo" data-fieldControlType="textareaInput" class="lanInputPlaceHolder" data-lanid="719_备忘"></textarea>
                     </p>
                 </div>
-            </div>
-
+            </div> -->
+                <div class="DetailRow">
+                    <div class="DetailRowOn"><span class="calcfont calc-beiwanglu ChangeIconColor"></span><span class="FileName lanText" data-lanid="719_备忘"></span><span class="XingHao">*</span></div>
+                    <div class="DetailRowUp">
+                        <p class="textareaP">
+                            <textarea data-field="Memo" data-fieldControlType="textareaInput" class="lanInputPlaceHolder" data-lanid="1000525_请输入"></textarea>
+                        </p>
+                    </div>
+                </div>
             <!-- 状态 -->
             <!-- <div v-show="showTips" class="ListCell visible controlEdit">
                 <div class="ListCellLeftIcon textLeftIcon"><span class="calcfont calc-zhuangtai"></span></div>
@@ -1411,4 +1529,18 @@ export default {
 <style scoped>
 @import "../../assets/css/pages/calendarinfo.css";
 @import "../../assets/css/pages/Opportunitiesinfo.css";
+.box{
+    padding-bottom:0.4rem;
+    background-color:rgb(242,242,242);
+}
+.box .DetailRow {
+    position: relative;
+    background-color: #ffffff;
+    min-height: 1.34rem;
+    padding-left: 0.16rem;
+    padding-top: 0.2rem;
+    padding-right: 0.18rem;
+    /* padding-bottom: 0.2rem; */
+    box-sizing: border-box;
+}
 </style>
