@@ -75,7 +75,7 @@ export default {
     _self.initDefultSortItem();
   },
   methods: {
-    //下拉显示隐藏
+    //下拉显示/隐藏
     dropDownToggle: function() {
       let _self = this;
       _self.showDropDown = !_self.showDropDown;
@@ -85,14 +85,30 @@ export default {
         _self.sortSjxClass = "calc-sanjiaoxing";
       }
     },
+    //隐藏下拉(供外部使用的方法)
+    closeDownToggle:function(){
+      let _self = this;
+      //若下拉已经隐藏，则pass
+      if(!_self.showDropDown){
+        return true;
+      }
+      _self.dropDownToggle();
+    },
     //点击排序
     //isTriggerDropDownToggle:是否触发dropDownToggle事件,默认为true
-    tapItem: function(data, index, isTriggerDropDownToggle) {
+    //isExeQueryisExeQuery:是否执行查询,默认执行
+    tapItem: function(data, index, isTriggerDropDownToggle,isExeQuery) {
       let _self = this;
+
       isTriggerDropDownToggle =
         isTriggerDropDownToggle == undefined || isTriggerDropDownToggle == null
           ? true
           : isTriggerDropDownToggle;
+        
+        isExeQuery = (isExeQuery == null || isExeQuery == undefined) 
+          ? true 
+          : isExeQuery;
+
       if (tool.isNullOrEmptyObject(data) || tool.isNullOrEmptyObject(index)) {
         return;
       }
@@ -109,13 +125,20 @@ export default {
       // console.log("子组件sortName:"+_self.sortObj.sortName);
       // console.log("子组件sortOrder:"+_self.sortObj.sortOrder);
 
+      //若不需要执行查询，则pass
+      if(!isExeQuery){
+        return true;
+      }
+
       _self.$nextTick(function() {
         //调用父组件的查询方法
         _self.$parent.delegateQuery();
       });
     },
     //初始化默认的排序项,并执行查询动作
-    initDefultSortItem: function() {
+    //isExeQuery:是否执行查询,默认执行
+    initDefultSortItem: function(isExeQuery) {
+      isExeQuery = (isExeQuery == null || isExeQuery == undefined) ? true : isExeQuery;
       let _self = this;
       //若为空，则不处理
       if (tool.isNullOrEmptyObject(_self.sortData)) {
@@ -139,7 +162,7 @@ export default {
         }
       }
 
-      _self.tapItem(_self.sortData[indexTemp], indexTemp, false);
+      _self.tapItem(_self.sortData[indexTemp], indexTemp, false,isExeQuery);
     },
     //显示筛选
     showRightPanel: function() {

@@ -721,10 +721,6 @@ import config from '../../configfile/config.js'
 	//localStorage的生命周期是永久性的。假若使用localStorage存储数据，即使关闭浏览器，也不会让数据消失，除非主动的去删除数据
 	// /*获取应用存储区中保存的键值对的个数*/
 	// tool.getStorageLength = function () {
-	// 	if (tool.isNull(keyName)) {
-	// 		return "";
-	// 	}
-
 	// 	var sysStorage = localStorage;
 	// 	return sysStorage.getLength();
 	// };
@@ -3697,6 +3693,33 @@ import config from '../../configfile/config.js'
           });
       }
   }
+
+	/*
+	* 设置输入域(input/textarea)光标的位置
+	* @param {HTMLInputElement/HTMLTextAreaElement} elem
+	* @param {Number} index
+	*/
+  tool.setCursorPosition = function(elem, index){
+	var val = elem.value
+    var len = val.length
+ 
+    // 超过文本长度直接返回
+    if (len < index) return
+    setTimeout(function() {
+        elem.focus()
+        if (elem.setSelectionRange) { // 标准浏览器
+            elem.setSelectionRange(index, index)   
+        } else { // IE9-
+            var range = elem.createTextRange()
+            range.moveStart("character", -len)
+            range.moveEnd("character", -len)
+            range.moveStart("character", index)
+            range.moveEnd("character", 0)
+            range.select()
+        }
+    }, 10)
+  }
+
 }(top.window.tool = {}, jQuery));
 
 

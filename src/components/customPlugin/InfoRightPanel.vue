@@ -56,7 +56,7 @@ export default {
     },
     props: ['isShowSend', 'isShowClose', 'closeThisContent', 'rightPanelFromType', 'rightPanelFromID', 'businessType', 'loi',
           'transformation' //只有meeting模块用到，控制是否可转换为机会或交易
-        ],
+    ],
 
     created: function () {
         var _self = this;

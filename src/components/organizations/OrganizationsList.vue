@@ -96,7 +96,7 @@
 
   <!-- 页面处于搜索状态 -->
   <div v-show="pageState == 2">
-      <search-module module="contacts" ref="searchModule"></search-module>
+      <search-module :searchModuleFromType=searchModuleFromType :lanSearchModuleInputPlaceHolder=lanSearchModuleInputPlaceHolder :queryObj=queryObj ref="searchModule"></search-module>
   </div>
 
 
@@ -263,12 +263,15 @@ export default {
           groupByMode:"",//分组模式,
           viewMode:"",//视图模式
           queryCondictionArr:[],//自定义查询条件
+          autoValue:""//模糊查询值
         },
         pageType:0,//0:Organizations;1:Contacts
         //列表数据(分组模式为List)
         listData:[],
         //分组数据(分组模式为非List)
-        groupData:[]
+        groupData:[],
+        lanSearchModuleInputPlaceHolder:lanTool.lanContent("726_公司名称"),
+        searchModuleFromType:"7" //联系人:6;公司:7;会议:8;商机&交易:9; 用户管理：11；
     }
   },
   created: function () {

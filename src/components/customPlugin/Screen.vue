@@ -154,7 +154,7 @@
        </div>
 
        <div class="btn-div f14">
-            <div class="btn reset-btn" @click="resetEvent">{{lanReset}}</div>
+            <div class="btn reset-btn" @click="resetEvent(false)">{{lanReset}}</div>
             <div class="btn ok-btn" @click="confirmEvent">{{lanConfirm}}</div>
        </div>
     </div>
@@ -658,7 +658,7 @@ export default {
         $(className).find("item-div:first").addClass("active");
     },
     //重置筛选条件
-    //isOnlyClearValue:是否只清空控件值
+    //isOnlyClearValue:是否只清空控件值,默认false
     resetEvent(isOnlyClearValue){
         isOnlyClearValue = (isOnlyClearValue == null || isOnlyClearValue == undefined) ? false : isOnlyClearValue;
         let _self = this;
@@ -750,20 +750,23 @@ export default {
         tool.ClearControlData();
 
         if(isOnlyClearValue){
-            return true;
-        }
-        
-        //4>重新执行查询
-        _self.$nextTick(function(){
             //设置查询对象
             _self.setParentQueryObj();
-            //调用父组件的查询方法
-            _self.$parent.delegateQuery();
-            //关闭侧滑
-            _self.panelToggle();
             //绑定控件字段的值改变事件
             _self.bindFieldChangeEvent();
-        });
+        }else{
+            //4>重新执行查询
+            _self.$nextTick(function(){
+                //设置查询对象
+                _self.setParentQueryObj();
+                //调用父组件的查询方法
+                _self.$parent.delegateQuery();
+                //关闭侧滑
+                _self.panelToggle();
+                //绑定控件字段的值改变事件
+                _self.bindFieldChangeEvent();
+            });
+        }
     },
     //确定筛选条件
     confirmEvent(){

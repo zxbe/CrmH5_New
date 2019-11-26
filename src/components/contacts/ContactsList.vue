@@ -5,11 +5,11 @@
       <header class="header">
           <a @click="back" class="calcfont calc-fanhui back-icon" id="back"></a>
           <div class="search" @click="showSearch">
-              <search-input :enableInput="false" placeholder="搜索联系人"></search-input>
+              <search-input :enableInput="false" placeholder="搜索联系人" ref="searchInput"></search-input>
           </div>
           <a class="calcfont calc-tianjia add-icon" @click="addContacts" ></a>
       </header>
-      <sort :sortData="sortData" :sortObj="sortObj"></sort>
+      <sort :sortData="sortData" :sortObj="sortObj" ref="sort"></sort>
       <!-- 列表模式   -->
       <div v-show="queryObj.groupByMode == 'List'" class="list-mode-div">
         <vue-scroll v-show="!noData" :showToTop="false" :options="{ pullup: true, pulldown: true }" :scrollbar="false" ref="scroll" @pulldown="pulldown" @pullup="pullup">
@@ -105,12 +105,12 @@
       </div>
 
       <!-- 侧滑筛选 -->
-      <screen :screenData="RightPanelModel" :queryObj="queryObj"></screen>
+      <screen :screenData="RightPanelModel" :queryObj="queryObj" ref="screen"></screen>
   </div>
 
   <!-- 页面处于搜索状态 -->
   <div v-show="pageState == 2">
-      <search-module module="contacts" ref="searchModule"></search-module>
+      <search-module :searchModuleFromType=searchModuleFromType :lanSearchModuleInputPlaceHolder=lanSearchModuleInputPlaceHolder :queryObj=queryObj ref="searchModule"></search-module>
   </div>
 
 </div>
@@ -239,11 +239,17 @@ export default {
           groupByMode:"",//分组模式,
           viewMode:"",//视图模式
           queryCondictionArr:[],//自定义查询条件
+          autoValue:""//模糊查询值
         },
         pageType:1,//0:Organizations;1:Contacts
         listData:[],//列表模式数据
-        groupData:[]//分组模式数据
+        groupData:[],//分组模式数据
+        lanSearchModuleInputPlaceHolder:lanTool.lanContent("729_联系人名称"),
+        searchModuleFromType:"6" //联系人:6;公司:7;会议:8;商机&交易:9; 用户管理：11；
     }
+  },
+  computed:{
+    
   },
   created: function () {
       let _self = this;
@@ -336,7 +342,8 @@ export default {
             SortOrder:_self.sortObj.sortOrder||"",
             QueryCondiction: JSON.stringify(_self.constructQueryCondiction() || []),
             GroupBy:_self.queryObj.groupByMode||"",
-            PageType:_self.pageType
+            PageType:_self.pageType,
+            AutoValue:_self.queryObj.autoValue||""
         };
         
         var loadingIndexClassName = tool.showLoading();
@@ -647,22 +654,52 @@ export default {
           }
       });
     },
-
     //点击头部搜索
     showSearch(){
         let _self = this;
-        _self.pageState = 2;
-        //给搜索框获取焦点
-        $('#searchHeader').find('input.search-input').focus();
-        //获取搜索历史数据
-        _self.$refs.searchModule.getHistory();
-    },
-    //接收搜索的值并刷新列表,str有可能为空(专门处理搜索)
-    refreshListBySearchValue(str){
-        let _self = this;
-        _self.pageState = 1;
-    }
+        //1>隐藏排序的下拉
+        _self.$refs.sort.closeDownToggle();
+        //2>构造历史查询记录
+        _self.$refs.searchModule.getHistoricalSearchRecord();
+        //3>若当前组件的input组件有值，则将该值赋予SearchModule的input组件
+        var curAutoVal = _self.$refs.searchInput.searchValue || "";
+        _self.$refs.searchModule.$refs.searchInput.searchValue = curAutoVal;
+        //4>执行模糊查询，查询匹配的前N条记录
+        _self.$refs.searchModule.$refs.searchInput.inputChange();
 
+        //5>切换到模糊查询页面
+        _self.pageState = 2;
+        //6>获取搜索框焦点
+        _self.$nextTick(function(){
+          var $inputObj = $('#searchHeader').find('input.search-input');
+          if($inputObj.length>=1){
+              //获取焦点并设置光标位置
+              //console.log(($inputObj[0].value||"").length);
+              tool.setCursorPosition($inputObj[0],($inputObj[0].value||"").length);
+          }
+        });
+    },
+    //input查询框,点击搜索/回车键执行的查询
+    //接收搜索的值并刷新列表
+    //str有可能为空(专门处理搜索)
+    refreshListBySearchValue(str,callBack){
+      let _self = this;
+      str = (str ||"").trim();
+      _self.pageState = 1;
+      //1>初始化排序
+      _self.$refs.sort.initDefultSortItem(false);
+      //2>初始化筛选条件
+      _self.$refs.screen.resetEvent(true);
+      //3>设置模糊查询的值
+      _self.queryObj.autoValue = str;
+       //4>执行查询
+      _self.queryList('pushRefresh');
+
+      //5>执行回调函数(这里不把callback放在queryList执行，是因为queryList里的callBack,只有执行查询成功，并且有数据的情况下，才会执行callBack)
+      if(!tool.isNullOrEmptyObject(callBack) && typeof(callBack) == "function"){
+        callBack();
+      }
+    },
   },
   beforeRouteLeave: function (to, from, next) {
       if (to.name == 'index') {

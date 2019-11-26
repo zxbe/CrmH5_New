@@ -3,19 +3,19 @@
 <!-- 模块中的搜索组件 -->
 <div>
     <header class="header" id="searchHeader">
-        <search-input ref="searchInput" class="search" placeholder="搜索联系人"></search-input>
-        <span @click="cancelEvent" class="cancel-btn f14">取消</span>
+        <search-input ref="searchInput" class="search" :placeholder=lanSearchModuleInputPlaceHolder></search-input>
+        <span @click="cancelEvent" class="cancel-btn f14">{{lanCancel}}</span>
         <i class="calcfont calc-shanchu delete-icon f18" @click="refreshList"></i>
     </header>
 
     <!-- 显示历史搜索状态 -->
-    <div v-show="showHistory" class="history-panel">
+    <div v-show="showHistoricalSearchRecord" class="history-panel">
         <div class="panel-title">
-            <div class="title-text f16">历史搜索</div>
-            <i class="calcfont calc-shanchu delete-icon f18" @click="deleteAllHistory"></i>
+            <div class="title-text f16">{{lanHistoricalSearch}}</div>
+            <i class="calcfont calc-shanchu delete-icon f18" @click="deleteAllHistoricalSearchRecord"></i>
         </div>
         <div class="panel-con" v-if="historyData.length > 0">
-               <div v-for="(item,index) in historyData" class="history-item left" @click="goSearchEvent(item)">
+               <div v-for="(item,index) in historyData" :key=index class="history-item left" @click="goSearchEvent(item)">
                   <span>{{item}}</span>
                   <i class="calcfont calc-guanbi1 item-delete-icon" @click="deleteOneHistory(item)"></i>
                </div>
@@ -23,11 +23,11 @@
     </div>
 
     <!-- 根据输入模糊匹配 -->
-    <div v-show="!showHistory" class="matching-panel">
+    <div v-show="!showHistoricalSearchRecord" class="matching-panel">
         <div class="result-list" v-if="resultData.length > 0">
-              <div class="result-list-item" v-for="(item,index) in resultData" :key="index" :data-id="item.id" @click="goInfoPage(item)">
+              <div class="result-list-item" v-for="(item,index) in resultData" :key="index" :data-id="item.AutoID" @click="goInfoPage(item)">
                   <i class="calcfont calc-shijian l-icon f18"></i>
-                  <div class="item-text f14">{{item.text}}</div>
+                  <div class="item-text f14">{{item.Name}}</div>
               </div>
         </div>
     </div>
@@ -41,142 +41,274 @@ export default {
   components: {
         SearchInput
   },
+  props:{
+    module:{
+        type: String,
+        default:''
+    },
+    lanSearchModuleInputPlaceHolder:{
+        type: String,
+        default:''
+    },
+    //查询对象
+    queryObj:{
+        type:Object,
+        default:{}
+    },
+    //父组件的模块类型
+    //联系人:6;公司:7;会议:8;商机&交易:9; 用户管理：11；
+    searchModuleFromType:{
+        type: String,
+        default:''
+    }
+  },
   data(){
     return{
-        localStorageName: this.module + 'History', //存储historyData 的key值
-        historyData:[],
-        inputValue:'', //搜索框中的值
+        lanHistoricalSearch:lanTool.lanContent("1000531_历史搜索"),
+        lanCancel:lanTool.lanContent("570_取消"),
 
+        localStorageKeyName: "HistorySearchRecords_"+this.module, //存储historyData的key值
+        historyData:[],//历史查询记录
+        inputValue:'', //搜索框中的值
+        maxHistoricalCount:10,//允许的最大的历史查询记录数
+
+        isGetDropListByAutoValDone:false,//模糊查询下拉框值的动作是否执行完毕
+        //查询结果
         resultData:[
-            {id:15, text:'test'},
-            {id:16, text:'test16'},
-            {id:17, text:'test17'},
-            {id:18, text:'test18test18test18test18test18test18test18test18test18test18test18test18test18test18test18'},
+            //{AutoID:15, Name:'test'}
         ]
     }
   },
-  props:{
-      module:{
-          type: String,
-          default:''
-      }
-  },
   computed:{
-      showHistory(){
+      //是否显示历史查询记录
+      showHistoricalSearchRecord(){
         let _self = this;
         return tool.isNullOrEmptyObject(_self.inputValue) ? true : false;
       }
+  },
+  created:function(){
+  },
+  mounted:function(){
   },
   methods:{
     //取消搜索事件
     cancelEvent(){
         let _self = this;
+        //将模糊查询的结果置空
+        _self.resultData = [];
+        //切换页面到父组件
         _self.$parent.pageState = 1;
-
-        //清除子组件值
-        // _self.$refs.searchInput.searchValue = '';
-        // _self.inputValue = '';
     },
-
     //获取搜索历史记录
-    getHistory(){
+    getHistoricalSearchRecord(){
         let _self = this;
-        _self.inputValue = '';
-
-        let dataString = tool.getStorageItem(_self.localStorageName);
+        let dataString = tool.getStorageItem(_self.localStorageKeyName);
         if(tool.isNullOrEmptyObject(dataString)){
-            return ;
+         _self.historyData = [];   
+        }else{
+            _self.historyData = tool.jObject(dataString);
         }
-        _self.historyData = JSON.parse(dataString);
-
     },
-    //搜索事件
-    goSearchEvent(str){
+    //删除所有历史记录
+    deleteAllHistoricalSearchRecord(){
         let _self = this;
-        str = tool.trimStr(str);
-        if( tool.isNullOrEmptyObject( str )){
-            return ;
+        tool.showConfirm(
+            lanTool.lanContent("1000532_您确定要删除整个历史搜索记录吗？"),
+            function () {
+               //删除所有历史查询记录
+               _self.historyData = [];
+               tool.setStoragItem(_self.localStorageKeyName, _self.historyData);
+            },
+            function () {}
+        );
+    },
+    //删除指定的历史记录
+    deleteOneHistory(data){
+        if(tool.isNullOrEmptyObject(_self.historyData)){
+            _self.historyData = [];
+        }else{
+            _self.historyData.remove(data);
         }
 
-        //1.调用列表父组件方法去搜索，把str值带过去
-        if(!tool.isNullOrEmptyObject(_self.$parent.refreshListBySearchValue)){
-            _self.$parent.refreshListBySearchValue(str);
+        //设置缓存历史查询记录
+        tool.setStoragItem(_self.localStorageKeyName,_self.historyData);
+    },
+    //搜索框内容改变事件,显示匹配模糊查询值的下拉数据结果(子组件调用)
+    getDropListByAutoVal(autoValue,callback){
+        let _self = this;
+        //1>记录当前输入值
+        _self.inputValue = autoValue;
+        //若模糊查询值为空，则不执行查询动作
+        if(tool.isNullOrEmptyObject(autoValue)){
+            return;
         }
 
-        //2.清空子组件
-        // _self.$refs.searchInput.searchValue = '';
-
-
-        //3.把item值存到localStorage本地缓存中
-        let localStrorageData = JSON.parse(tool.getStorageItem(_self.localStorageName) == '' ? '[]' : tool.getStorageItem(_self.localStorageName));
-        let index = localStrorageData.indexOf(str);
-        if(index != -1 ){
-            localStrorageData.splice(index,1);
+        //判断上一次查询是否执行完毕
+        if(_self.isGetDropListByAutoValDone){
+            _self.isGetDropListByAutoValDone = false;
         }
-        localStrorageData.unshift(str);
-        tool.setStoragItem(_self.localStorageName, JSON.stringify(localStrorageData));
 
+        //3>执行查询动作
+        //api接口地址
+        var urlTemp = tool.AjaxBaseUrl();
+        var controlName = tool.Api_DataSearchHandle_AutoQuery;
+
+        var jsonDatasTemp = {
+            CurrentLanguageVersion: lanTool.currentLanguageVersion,
+            UserName: tool.UserName(),
+            _ControlName: controlName,
+            _RegisterCode: tool.RegisterCode(),
+            FromType:_self.searchModuleFromType ||"",
+            AutoValue:autoValue,
+            Top:10//查询匹配的前N条记录
+        };
+        
+        //var loadingIndexClassName = tool.showLoading();
+        $.ajax({
+            async: true,
+            type: "post",
+            url: urlTemp,
+            data: jsonDatasTemp,
+            success: function (data) {
+                //tool.hideLoading(loadingIndexClassName);
+                data = tool.jObject(data);
+                console.log(data);
+
+                if (data._ReturnStatus == false) {
+                    tool.showText(tool.getMessage(data));
+                    console.log(tool.getMessage(data));
+                    _self.resultData = [];
+                    return;
+                }
+                _self.resultData = data._OnlyOneData.Rows || [];
+
+                if(!tool.isNullOrEmptyObject(callback) && typeof(callback) == "function"){
+                    callback(_self.resultData);
+                }
+            },
+            error: function (jqXHR, type, error) {
+                //tool.hideLoading(loadingIndexClassName);
+                console.log(error);
+                return true;
+            },
+            complete: function () {
+                //设置光标位置
+                var $inputObj = $('#searchHeader').find('input.search-input');
+                if($inputObj.length>=1){
+                    //获取焦点并设置光标位置
+                    //console.log($inputObj[0].value.length);
+                    tool.setCursorPosition($inputObj[0],($inputObj[0].value||"").length);
+                }
+
+                //设置查询完成
+                _self.isGetDropListByAutoValDone = true;
+                //隐藏虚拟键盘
+                document.activeElement.blur();
+            }
+        });
     },
     //点击模糊查询结果,跳到详情页
     goInfoPage(data){
         let _self = this;
         if(tool.isNullOrEmptyObject(data)){
-          return ;
+          return false;
+        }
+        var autoIDTemp = data.AutoID || "";
+        if(tool.isNullOrEmptyObject(autoIDTemp)){
+            return false;
         }
 
-        //根据不同模块，跳到不同的详情页
-        // _self.$root.push()
+        var infoNameTemp = data.Name || "";
+        var parameter = {
+            infoName:infoNameTemp
+        };//传入参数
+        var infoUrl = "";//详情页地址
+        //联系人:6;公司:7;会议:8;商机&交易:9; 用户管理：11;
+        switch(_self.searchModuleFromType){
+            case "6":
+                infoUrl = "/contactsinfo/";
+                break;
 
-    },
-    //删除所有历史记录
-    deleteAllHistory(){
-        let _self = this;
-        tool.showConfirm(
-            // lanTool.lanContent("778_是否确认清除缓存？"),
-            '删除所有历史记录？',
-            function () {
-               //删除
-               tool.setStoragItem(_self.localStorageName, []);
-               _self.historyData = [];
-            },
-            function () {}
-        );
-    },
-    //删除单个历史记录
-    deleteOneHistory(data){
+            case "7":
+                infoUrl = "/organizationsinfo/";
+                break;
 
-    },
+            case "8":
+                infoUrl = "/meetinginfo/";
+                break;
 
-    //提供给子组件调用,搜索框内容改变时触发
-    searchFromChildre(str){
-        let _self = this;
-        if(tool.isNullOrEmptyObject(str)){
-            return;
+            case "9":
+                infoUrl = "/opportunitiesinfo/";
+                break;
+
+            default:
+                return false;
         }
-        _self.inputValue = str;
-
+        
+        //根据不同模块，跳到具体的详情页
+        _self.$router.push({
+            path: infoUrl + data.AutoID,
+            query: parameter
+        });
     },
+    //搜索事件(在input组件点击键盘上的搜索/回车键)
+    excuteSeach(autoValue){
+        let _self = this;
+        autoValue = (autoValue||"").trim();
+        if( tool.isNullOrEmptyObject(autoValue)){
+            return false;
+        }
 
-    //提供给子组件调用,功能为 刷新列表页面数据（子组件点击X）
+        //1>调用列表父组件方法搜索
+        if(_self.$parent.refreshListBySearchValue != null && _self.$parent.refreshListBySearchValue != undefined){
+            _self.$parent.refreshListBySearchValue(autoValue,function(){
+                //2>查询成功后，把查询值存到缓存
+                if(tool.isNullOrEmptyObject(autoValue)){
+                    return true;
+                }
+                var dataArr = tool.jObject((tool.getStorageItem(_self.localStorageKeyName) || "[]"));
+                //若历史记录中已经存在查询值，则移除
+                dataArr.remove(autoValue);
+                //加入历史记录
+                dataArr.unshift(autoValue);
+                //若历史记录数超过最大允许数，移除超过的记录
+                if(dataArr.length>_self.maxHistoricalCount){
+                    dataArr.splice(_self.maxHistoricalCount-1,dataArr.length-_self.maxHistoricalCount);
+                }
+
+                //数据写入缓存
+                tool.setStoragItem(_self.localStorageKeyName, JSON.stringify(dataArr));
+                //3>把查询值，赋到父组件的input组件
+                _self.$parent.$refs.searchInput.searchValue = autoValue;
+            });
+        }
+    },
+    //清除模糊查询记录，并执行父组件的刷新页面动作
     refreshList(){
         let _self = this;
-        _self.inputValue = '';
-
-        // --》 调列表页面方法去刷新列表数据
-        if(!tool.isNullOrEmptyObject(_self.$parent.refreshListBySearchValue)){
-            _self.$parent.refreshListBySearchValue('');
+        //1>清除搜索框的值
+        _self.clearSearchValue();
+        //2>执行父组件的查询
+        var autoValue = "";
+        //2-1>调用列表父组件方法搜索
+        if(_self.$parent.refreshListBySearchValue != null && _self.$parent.refreshListBySearchValue != undefined){
+            _self.$parent.refreshListBySearchValue(autoValue,function(){
+                //2-2>把查询值，赋到父组件的input组件
+                _self.$parent.$refs.searchInput.searchValue = autoValue;
+            });
         }
-
     },
-
     //清除搜索框的值
-    cleanSearchValue(){
+    clearSearchValue(){
         let _self = this;
-        _self.inputValue = '';
+        //1>清除input控件的值
+        _self.$refs.searchInput.searchValue = "";
+        //2>清除当前组件的inputValue值
+        _self.inputValue = "";
+        //3>清除模糊查询结果
+        _self.resultData = [];
     }
-
   }
-
 }
 </script>
 
