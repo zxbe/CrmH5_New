@@ -58,7 +58,7 @@ export default {
 .DetailRow {
     position: relative;
     background-color: #ffffff;
-    min-height: 1.28rem;
+    /* min-height: 1.28rem; */
     padding-left: 0.16rem;
     padding-top: 0.2rem;
     padding-right: 0.18rem;
@@ -90,5 +90,8 @@ span.FileName {
     padding-left: 0.44rem;
     padding-bottom: 0.1rem;
     margin-top: 0.3rem;
+}
+.DetailRowUp div{
+    height: 20px;
 }
 </style>
