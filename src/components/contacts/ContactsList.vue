@@ -678,7 +678,6 @@ export default {
         _self.$refs.searchModule.$refs.searchInput.searchValue = curAutoVal;
         //4>执行模糊查询，查询匹配的前N条记录
         _self.$refs.searchModule.$refs.searchInput.inputChange();
-
         //5>切换到模糊查询页面
         _self.pageState = 2;
         //6>获取搜索框焦点
@@ -704,9 +703,8 @@ export default {
       _self.$refs.screen.resetEvent(true);
       //3>设置模糊查询的值
       _self.queryObj.autoValue = str;
-       //4>执行查询
+      //4>执行查询
       _self.queryList('pushRefresh');
-
       //5>执行回调函数(这里不把callback放在queryList执行，是因为queryList里的callBack,只有执行查询成功，并且有数据的情况下，才会执行callBack)
       if(!tool.isNullOrEmptyObject(callBack) && typeof(callBack) == "function"){
         callBack();

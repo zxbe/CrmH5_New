@@ -152,6 +152,7 @@ export default {
     //搜索框内容改变事件,显示匹配模糊查询值的下拉数据结果(子组件调用)
     getDropListByAutoVal(autoValue,callback){
         let _self = this;
+        autoValue = autoValue.trim();
         //1>记录当前输入值
         _self.inputValue = autoValue;
         //若模糊查询值为空，则不执行查询动作
