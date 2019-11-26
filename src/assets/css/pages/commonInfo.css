@@ -219,6 +219,7 @@
 }
 p.textareaP{
     width: 100%;
+    font-family: "微软雅黑";
 }
 textarea {
     width: 100%;
@@ -524,24 +525,28 @@ textarea{
 /*input placeholder的样式  */
 :-moz-placeholder {
     font-size:0.28rem;
+    font-family: "微软雅黑";
   color: #D7D7D7;
   opacity: 1;
 }
 
 ::-moz-placeholder {
   font-size:0.28rem;
+  font-family: "微软雅黑";
   color: #D7D7D7;
   opacity: 1;
 }
 
-input:-ms-input-placeholder {
+input:-ms-input-placeholder,textarea:-ms-input-placeholder {
     font-size:0.28rem;
+    font-family: "微软雅黑";
   color: #D7D7D7;
   opacity: 1;
 }
 
-input::-webkit-input-placeholder {
+input::-webkit-input-placeholder,textarea::-webkit-input-placeholder {
     font-size:0.28rem;
+    font-family: "微软雅黑";
   color: #D7D7D7;
   opacity: 1;
 }
