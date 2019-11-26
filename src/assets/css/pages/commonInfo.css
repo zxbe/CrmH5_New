@@ -435,7 +435,7 @@ textarea::placeholder
 
 /* 改版后的详情页样式 */
 .OrganizationsList,.MeetingList,.ContactList,.accessList{
-    padding-bottom:0.4rem;
+    /* padding-bottom:0.4rem; */
     background-color:#fff;
 }
 .OrganizationsList .DetailRow, .MeetingList .DetailRow,.ContactList .DetailRow,
@@ -507,7 +507,7 @@ p.textareaP.wrap{
     position:absolute;
     display: inline-block;
     top:0;
-    width: 0.4rem;
+    width: 20px;
     right: 0;
 }
 

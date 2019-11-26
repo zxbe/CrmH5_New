@@ -720,7 +720,7 @@ body {
 </style>
 
 <style scoped>
-@import "../../assets/css/pages/calendarinfo.css";
+@import "../../assets/css/pages/commonInfo.css";
 @import "../../assets/css/forum/ForumInfo.css";
 .vue-html5-editor {
   border: none;

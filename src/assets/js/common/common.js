@@ -686,6 +686,10 @@ import config from '../../configfile/config.js'
 	//loadingIndexClassName
 	tool.loadingIndexClassName = "loadingIndex_";
 
+	/*
+	  TextareaDefaultHeight:详情表单textarea默认高度
+	*/ 
+     tool.TextareaDefaultHeight = "20";
 	/*请求的公共入口地址*/
 	tool.AjaxBaseUrl = function () {
 		return tool.getConfigValue(tool.config_ajaxUrl) || "";
@@ -1507,6 +1511,10 @@ import config from '../../configfile/config.js'
 	};
 
 	tool.autoTextarea = function (elem, extra, maxHeight) {
+		//console.log("autoTextarea");
+		if(elem == null || elem == undefined){
+			return false;
+		}
 		extra = extra || 0;
 		var isFirefox = !!document.getBoxObjectFor || 'mozInnerScreenX' in window,
 			isOpera = !!window.opera && !!window.opera.toString().indexOf('Opera'),
@@ -3580,6 +3588,10 @@ import config from '../../configfile/config.js'
 	//判断元素是否是input，是的话用val来赋值
 	if(curObj.is('input') || curObj.is('textarea')){
 		curObj.val(eventBus.selectListData.value.text);
+		//为了解决用js赋input控件值，input控件不会触发change事件，因此添加了_value属性，然后通过属性的set来达到监听change的效果
+		if(curObj[0].hasOwnProperty("_value")){
+			curObj[0]._value = eventBus.selectListData.value.text;
+		}
 	}
 	else{
 		curObj.text(eventBus.selectListData.value.text);

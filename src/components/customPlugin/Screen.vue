@@ -154,7 +154,11 @@
                                          :data-lanid="item.datalanid"
                                          data-fieldVal=""
                                          :Code="item.Code"
-                                         :data-selectType="item.selectType" />
+                                         :data-selectType="item.selectType" 
+                                         :data-queryType="item.queryType"
+                                         :data-queryFormat="item.queryFormat"
+                                         :data-queryRelation="item.queryRelation"
+                                         :data-queryComparison="item.queryComparison"/>
                                   <div class="LeftIconBlock"><span class="LeftIcon calcfont calc-you"></span></div>
                               </div>
                           </div>
@@ -319,7 +323,7 @@ export default {
         });
 
         //绑定控件字段的值改变事件
-      _self.bindFieldChangeEvent();
+       //_self.bindFieldChangeEvent();
   },
   methods:{
     //绑定控件字段的值改变事件
@@ -338,7 +342,13 @@ export default {
             if(isOnlyRemoveEvent){
                 if(_curObj.is("div")){
                     _curObj.off("DOMNodeInserted DOMNodeRemoved");
-                }else{
+                }else if(_curObj.attr("data-fieldcontroltype") == "selectList" || _curObj.attr("data-fieldcontroltype") == "linkSelectList"){
+                    if(_curObj[0].hasOwnProperty("_value")){
+                        delete _curObj[0]._value;
+                    }
+                }else if(_curObj.attr("data-fieldcontroltype") == "textareaInput"){
+                    _curObj.off("keyup");
+                }else {
                     _curObj.off("change");
                 }
             }else{
@@ -350,8 +360,34 @@ export default {
                             _self.$parent.delegateQuery();
                         });
                     });
+                }else if(_curObj.attr("data-fieldcontroltype") == "selectList" || _curObj.attr("data-fieldcontroltype") == "linkSelectList"){
+                    //为了解决用js赋input控件值，input控件不会触发change事件，因此添加了_value属性，然后通过属性的set来达到监听change的效果
+                    Object.defineProperty(_curObj[0],"_value",{
+                        configurable:true,
+                        set:function(value){
+                            this.value = value;
+                            _self.$nextTick(function(){
+                                _self.setParentQueryObj();
+                                //调用父组件的查询方法
+                                _self.$parent.delegateQuery();
+                        });
+                        },
+                        get:function(){
+                            return this.value;	
+                        }
+                    });
+                }else if(_curObj.attr("data-fieldcontroltype") == "textareaInput"){
+                    _curObj.off("keyup").on("keyup",function(e){
+                         var code = e.charCode || e.keyCode;
+                         if(code == "13"){
+                            _self.$nextTick(function(){
+                                _self.setParentQueryObj();
+                                //调用父组件的查询方法
+                                _self.$parent.delegateQuery();
+                            }); 
+                         }
+                    });
                 }else{
-                    // console.log("not div");
                     _curObj.off("change").on("change",function(){
                         _self.$nextTick(function(){
                             _self.setParentQueryObj();
@@ -654,7 +690,9 @@ export default {
         $(className).find("item-div:first").addClass("active");
     },
     //重置筛选条件
-    resetEvent(){
+    //isOnlyClearValue:是否只清空控件值
+    resetEvent(isOnlyClearValue){
+        isOnlyClearValue = (isOnlyClearValue == null || isOnlyClearValue == undefined) ? false : isOnlyClearValue;
         let _self = this;
 
         //1>重置dataFilter
@@ -715,8 +753,6 @@ export default {
                 return obj.isActive == true;
             });
 
-            // console.log(defaultItemArr);
-
             if(!tool.isNullOrEmptyObject(defaultItemArr)){
                 var defaultId = defaultItemArr.id;
                 if(!tool.isNullOrEmptyObject(defaultId)){
@@ -740,18 +776,23 @@ export default {
         //3>重置queryCondictionArr(清空控件值)
         //3-1>移除selectlist等控件的监听事件(避免重置字段值，重复触发查询动作)
         _self.bindFieldChangeEvent(true);
-
+        //3-2>清空查询对象
         _self.$set(_self.queryObj,"queryCondictionArr",[]);
+        //3-3>清空字段控件值
         tool.ClearControlData();
 
+        if(isOnlyClearValue){
+            return true;
+        }
+        
         //4>重新执行查询
         _self.$nextTick(function(){
+            //设置查询对象
             _self.setParentQueryObj();
             //调用父组件的查询方法
             _self.$parent.delegateQuery();
             //关闭侧滑
             _self.panelToggle();
-
             //绑定控件字段的值改变事件
             _self.bindFieldChangeEvent();
         });

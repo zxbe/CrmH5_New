@@ -336,8 +336,8 @@ export default {
         tool.InitiateInfoPageControl(_self, _self.id, function () {
             //渲染textarea 从新增事件进到详情是不会进入渲染数据的方法，这里得多加个textarea高度自适应
             $("textarea").each(function (index, cur) {
-                // $(cur).height('20');
-                 $(cur).addClass("DefaultHeight");
+                $(cur).height(tool.TextareaDefaultHeight);
+                //  $(cur).addClass("DefaultHeight");
                 tool.autoTextarea(cur);
             });
             //渲染数据
@@ -345,8 +345,7 @@ export default {
 
                 //渲染textarea
                 $("textarea").each(function (index, cur) {
-                    // $(cur).height('20');
-                    $(cur).addClass("DefaultHeight");
+                    $(cur).height(tool.TextareaDefaultHeight);
                     tool.autoTextarea(cur);
                 });
 
@@ -413,7 +412,12 @@ export default {
 
         //返回时更新selectlist控件的结果
         tool.UpdateFieldValueFromBack(eventBus, function () {
-            //清空全局变量
+            //选择回填后根据回填的内容自适应高度
+            if(curObj.is("textarea")){
+                curObj.height(tool.TextareaDefaultHeight);
+                tool.autoTextarea(curObj[0]);
+            }
+             //清空全局变量
             eventBus.selectListData = null;
         })
 
@@ -525,7 +529,7 @@ export default {
 </script>
 
 <style scoped>
-@import "../../assets/css/pages/calendarinfo.css";
+@import "../../assets/css/pages/commonInfo.css";
 
 .ListCell .mui-icon.calcfont.calc-shoucang {
     color: #FF5A21 !important;

@@ -122,7 +122,6 @@ import Sort from "@/components/customPlugin/Sort"
 import Screen from "@/components/customPlugin/Screen"
 import Scroll from '@/components/customPlugin/scroll/Scroll';
 import Nothing from "@/components/customPlugin/Nothing";
-
 import SearchModule from '@/components/customplugin/SearchModule'
 export default {
   name:'contactslist',
@@ -136,30 +135,34 @@ export default {
         sortData:[{
             sortName:"EnglishName",
             sortText:lanTool.lanContent("1000528_按联系人名称按正序排序"),
-            sortOrder:'asc'
-          },
-          {
+            sortOrder:'asc',
+            sort:10,
+            isActive:true
+          },{
             sortName:"EnglishName",
             sortText:lanTool.lanContent("1000529_按联系人名称倒序排序"),
-            sortOrder:'desc'
+            sortOrder:'desc',
+            sort:20
           },{
             sortName:"CompanyID",
             sortText:lanTool.lanContent("1000518_按公司名称按正序排序"),
-            sortOrder:'asc'
-          },
-          {
+            sortOrder:'asc',
+            sort:30
+          },{
             sortName:"CompanyID",
             sortText:lanTool.lanContent("1000519_按公司名称倒序排序"),
-            sortOrder:'desc'
+            sortOrder:'desc',
+            sort:40
           },{
             sortName:"BusinessType",
             sortText:lanTool.lanContent("1000520_按业务分类正序排序"),
-            sortOrder:'asc'
-          },
-          {
+            sortOrder:'asc',
+            sort:50
+          },{
             sortName:"BusinessType",
             sortText:lanTool.lanContent("1000521_按业务分类倒序排序"),
-            sortOrder:'desc'
+            sortOrder:'desc',
+            sort:60
           }],
         //右侧侧滑数据模型
         RightPanelModel:{
@@ -345,7 +348,7 @@ export default {
             success: function (data) {
                 tool.hideLoading(loadingIndexClassName);
                 data = tool.jObject(data);
-                console.log(data);
+                // console.log(data);
 
                 if (data._ReturnStatus == false) {
                     tool.showText(tool.getMessage(data));
@@ -431,7 +434,7 @@ export default {
           success: function (data) {
               tool.hideLoading(loadingIndexClassName);
               data = tool.jObject(data);
-              console.log(data);
+              // console.log(data);
 
               if (data._ReturnStatus == false) {
                   tool.showText(tool.getMessage(data));
@@ -651,17 +654,13 @@ export default {
         _self.pageState = 2;
         //给搜索框获取焦点
         $('#searchHeader').find('input.search-input').focus();
-        // console.log($('#searchHeader').find('input.search-input'));
-
         //获取搜索历史数据
         _self.$refs.searchModule.getHistory();
     },
-
     //接收搜索的值并刷新列表,str有可能为空(专门处理搜索)
     refreshListBySearchValue(str){
         let _self = this;
         _self.pageState = 1;
-
     }
 
   },

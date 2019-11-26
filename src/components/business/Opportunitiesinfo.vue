@@ -719,8 +719,8 @@ export default {
 
             //渲染textarea 从新增事件进到详情是不会进入渲染数据的方法，这里得多加个textarea高度自适应
             $("textarea").each(function (index, cur) {
-                // $(cur).height('20');
-                 $(cur).addClass("DefaultHeight");
+                $(cur).height(tool.TextareaDefaultHeight);
+                //  $(cur).addClass("DefaultHeight");
                 tool.autoTextarea(cur);
             });
 
@@ -773,8 +773,8 @@ export default {
                 // console.log(data);
                 //渲染textarea
                 $("textarea").each(function (index, cur) {
-                    // $(cur).height('20');
-                    $(cur).addClass("DefaultHeight");
+                    $(cur).height(tool.TextareaDefaultHeight);
+                    // $(cur).addClass("DefaultHeight");
                     tool.autoTextarea(cur);
                 });
                 //查询判断当前用户是否有操作单据的权限
@@ -825,7 +825,13 @@ export default {
 
         //返回时更新selectlist控件的结果
         tool.UpdateFieldValueFromBack(eventBus, function () {
-            //清空全局变量
+           
+            //选择回填后根据回填的内容自适应高度
+            if(curObj.is("textarea")){
+                curObj.height(tool.TextareaDefaultHeight);
+                tool.autoTextarea(curObj[0]);
+            }
+             //清空全局变量
             eventBus.selectListData = null;
         })
 
@@ -1470,7 +1476,7 @@ export default {
 </script>
 
 <style scoped>
-@import "../../assets/css/pages/calendarinfo.css";
+@import "../../assets/css/pages/commonInfo.css";
 @import "../../assets/css/pages/Opportunitiesinfo.css";
 
 .box {
