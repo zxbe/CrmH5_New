@@ -5,7 +5,7 @@
       <header class="header">
           <a @click="back" class="calcfont calc-fanhui back-icon" id="back"></a>
           <div class="search" @click="showSearch">
-              <search-input :enableInput="false" placeholder="搜索联系人" ref="searchInput"></search-input>
+              <search-input :enableInput="false" :placeholder=lanSearchModuleInputPlaceHolder ref="searchInput"></search-input>
           </div>
           <a class="calcfont calc-tianjia add-icon" @click="addContacts" ></a>
       </header>
@@ -479,7 +479,6 @@ export default {
           }
       });
     },
-
     //监听滚动
     watchScroll:function(){
         var _self = this;

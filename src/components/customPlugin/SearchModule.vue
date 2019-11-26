@@ -42,10 +42,6 @@ export default {
         SearchInput
   },
   props:{
-    module:{
-        type: String,
-        default:''
-    },
     lanSearchModuleInputPlaceHolder:{
         type: String,
         default:''
@@ -67,7 +63,7 @@ export default {
         lanHistoricalSearch:lanTool.lanContent("1000531_历史搜索"),
         lanCancel:lanTool.lanContent("570_取消"),
 
-        localStorageKeyName: "HistorySearchRecords_"+this.module, //存储historyData的key值
+        localStorageKeyName: "HistorySearchRecords_" + this.searchModuleFromType, //存储historyData的key值
         historyData:[],//历史查询记录
         inputValue:'', //搜索框中的值
         maxHistoricalCount:10,//允许的最大的历史查询记录数
@@ -102,6 +98,7 @@ export default {
     //获取搜索历史记录
     getHistoricalSearchRecord(){
         let _self = this;
+        console.log("localStorageKeyName:"+_self.localStorageKeyName);
         let dataString = tool.getStorageItem(_self.localStorageKeyName);
         if(tool.isNullOrEmptyObject(dataString)){
          _self.historyData = [];   

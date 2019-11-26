@@ -5,12 +5,12 @@
           <a @click="back" class="calcfont calc-fanhui back-icon" id="back"></a>
           <!-- <search-input class="search" placeholder="搜索公司"></search-input> -->
           <div class="search" @click="showSearch">
-              <search-input :enableInput="false" placeholder="搜索公司" :searchValue="searchValue"></search-input>
+              <search-input :enableInput="false" :placeholder=lanSearchModuleInputPlaceHolder ref="searchInput"></search-input>
           </div>
           <a class="calcfont calc-tianjia add-icon" @click="addOrganization" ></a>
       </header>
 
-      <sort :sortData="sortData" :sortObj="sortObj"></sort>
+      <sort :sortData="sortData" :sortObj="sortObj" ref="sort"></sort>
 
       <!-- 列表模式   -->
       <div class="list-mode-div" v-show="queryObj.groupByMode == 'List'">
@@ -91,7 +91,7 @@
       </div>
 
       <!-- 侧滑筛选 -->
-      <screen :screenData="RightPanelModel" :queryObj="queryObj"></screen>
+      <screen :screenData="RightPanelModel" :queryObj="queryObj" ref="screen"></screen>
   </div>
 
   <!-- 页面处于搜索状态 -->
@@ -370,7 +370,8 @@ export default {
             SortOrder:_self.sortObj.sortOrder||"",
             QueryCondiction: JSON.stringify(_self.constructQueryCondiction() || []),
             GroupBy:_self.queryObj.groupByMode||"",
-            PageType:_self.pageType
+            PageType:_self.pageType,
+            AutoValue:_self.queryObj.autoValue||""
         };
         //console.log(jsonDatasTemp);
 
@@ -504,23 +505,6 @@ export default {
           }
       });
     },
-
-    //点击头部搜索
-    showSearch(){
-        let _self = this;
-        _self.pageState = 2;
-        //给搜索框获取焦点
-        $('#searchHeader').find('input.search-input').focus();
-        // console.log($('#searchHeader').find('input.search-input'));
-
-
-        //设置搜索输入框值
-        // _self.$set(_self.$refs.searchModule, 'inputValue', _self.searchValue);
-
-        //获取搜索历史数据
-        _self.$refs.searchModule.getHistory();
-    },
-
     //添加/取消关注
     followToggle: function (e) {
         var _curObj = $(e.target);
@@ -546,7 +530,6 @@ export default {
             }
         });
     },
-
     //点击跳转到详情页
     goInfo(data){
       let _self = this;
@@ -562,7 +545,6 @@ export default {
           query: parameter
       });
     },
-
     //监听滚动
     watchScroll:function(){
         var _self = this;
@@ -571,7 +553,6 @@ export default {
 
         _self.watchScrollHandle( headerH + navH );
     },
-
     //分组模式下展开收起
     groupToggleHandle:function(idName){
         var _self = this;
@@ -625,22 +606,54 @@ export default {
         );
 
     },
-
-    //接收搜索的值并刷新列表,str有可能为空  (专门处理搜索)
-    refreshListBySearchValue(str){
-        let _self = this;
-        _self.pageState = 1;
-        if( !tool.isNullOrEmptyObject(str)){
-            _self.searchValue = str;
-        }
-        console.log(_self.searchValue);
-    },
-
     //处理右侧字段联动
     rightPanelLinkageField(vueObj){
         tool.linkageField(vueObj, 'CountryID', 'CityID');
-    }
-
+    },
+    //点击头部搜索
+    showSearch(){
+        let _self = this;
+        //1>隐藏排序的下拉
+        _self.$refs.sort.closeDownToggle();
+        //2>构造历史查询记录
+        _self.$refs.searchModule.getHistoricalSearchRecord();
+        //3>若当前组件的input组件有值，则将该值赋予SearchModule的input组件
+        var curAutoVal = _self.$refs.searchInput.searchValue || "";
+        _self.$refs.searchModule.$refs.searchInput.searchValue = curAutoVal;
+        //4>执行模糊查询，查询匹配的前N条记录
+        _self.$refs.searchModule.$refs.searchInput.inputChange();
+        //5>切换到模糊查询页面
+        _self.pageState = 2;
+        //6>获取搜索框焦点
+        _self.$nextTick(function(){
+          var $inputObj = $('#searchHeader').find('input.search-input');
+          if($inputObj.length>=1){
+              //获取焦点并设置光标位置
+              //console.log(($inputObj[0].value||"").length);
+              tool.setCursorPosition($inputObj[0],($inputObj[0].value||"").length);
+          }
+        });
+    },
+    //input查询框,点击搜索/回车键执行的查询
+    //接收搜索的值并刷新列表
+    //str有可能为空(专门处理搜索)
+    refreshListBySearchValue(str,callBack){
+      let _self = this;
+      str = (str ||"").trim();
+      _self.pageState = 1;
+      //1>初始化排序
+      _self.$refs.sort.initDefultSortItem(false);
+      //2>初始化筛选条件
+      _self.$refs.screen.resetEvent(true);
+      //3>设置模糊查询的值
+      _self.queryObj.autoValue = str;
+      //4>执行查询
+      _self.queryList('pushRefresh');
+      //5>执行回调函数(这里不把callback放在queryList执行，是因为queryList里的callBack,只有执行查询成功，并且有数据的情况下，才会执行callBack)
+      if(!tool.isNullOrEmptyObject(callBack) && typeof(callBack) == "function"){
+        callBack();
+      }
+    },
   },
   beforeRouteLeave: function (to, from, next) {
         if (to.name == 'index') {
