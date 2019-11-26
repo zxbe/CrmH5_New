@@ -12,113 +12,121 @@
 
           <sort :sortData="sortData" :sortObj="sortObj"></sort>
 
-          <!-- 列表模式 List -->
-          <div v-show="queryObj.groupByMode == 'List'" class="list-mode-div">
-               <vue-scroll :showToTop="false" :options="{ pullup: true, pulldown: true }" :scrollbar="false" ref="scroll" @pulldown="pulldown" @pullup="pullup">
-                    <div v-if="listData !=null && listData != undefined && listData.length > 0" class="group-item-list meeting-list">
-                        <div v-for="item in listData" :key="item.AutoID"
-                        class="data-events-item f14" @click="goInfo(item)">
-                                <div class="flex">
-                                  <i style="margin-right: 3px;" class="calcfont calc-T icon"></i><div class="item-title">{{item.MeetingTitle}}</div>
-                                </div>
-                                <div class="item-time f12">
-                                      <span class="calcfont calc-gengxinshijian"></span>
-                                      <span class="time-text">{{item.BeginTime|MeetingTimeFormat}}~{{item.EndTime|MeetingTimeFormat}}</span>
-                                      <span class="right-text">{{item.Realname}}</span>
-                                </div>
-                                <div class="flex pdtb" v-show="(item.CompanyID =='' || item.CompanyID == null) ? false : true">
-                                    <i class="icon calcfont calc-gongsixinxi"></i>
-                                    <div class="item-address">{{item.CompanyID}}</div>
-                                </div>
-                                <div class="flex" v-show="(item.ContactsID =='' || item.ContactsID == null) ? false : true">
-                                    <i class="icon calcfont calc-kehulianxiren"></i>
-                                    <div class="item-initiator">{{item.ContactsID|formatContactsID}}{{item.Title|formatTitle}}</div>
-                                </div>
-                        </div>
-                    </div>
-               </vue-scroll>
-          </div>
-
-          <!-- Date模式 -->
-          <div v-show="queryObj.groupByMode == 'Date'" class="date-mode-div" id="meetingList" data-fromtype="meeting">
-                <div v-for="group in groupData" :key="group.GroupID"
-                  class="list-group-div group-div">
-                    <div class="date-div">
-                      <span class="calcfont calc-rili1"></span>
-                      <span class="group-name" :data-groupid="group.GroupID">{{group.GroupName|abdDateFormat('dd/MM/yyyy')}}</span>
-                      <span class="right">（{{group.GroupRowCount}}）</span>
-                    </div>
-                    <div class="occupy-div"></div>
-
-                    <div v-if="group.items !=null && group.items != undefined && group.items.length > 0" class="group-item-list meeting-list">
-                        <div v-for="item in group.items" :key="item.AutoID"
-                        class="data-events-item f14" @click="goInfo(item)">
-                                <div class="flex">
-                                  <i style="margin-right: 3px;" class="calcfont calc-T icon"></i><div class="item-title">{{item.MeetingTitle}}</div>
-                                </div>
-                                <div class="item-time f12">
-                                      <span class="calcfont calc-gengxinshijian"></span>
-                                      <span class="time-text">{{item.BeginTime|MeetingTimeFormat}}~{{item.EndTime|MeetingTimeFormat}}</span>
-                                      <span class="right-text">{{item.Realname}}</span>
-                                </div>
-                                <div class="flex pdtb" v-show="(item.CompanyID =='' || item.CompanyID == null) ? false : true">
-                                    <i class="icon calcfont calc-gongsixinxi"></i>
-                                    <div class="item-address">{{item.CompanyID}}</div>
-                                </div>
-                                <div class="flex" v-show="(item.ContactsID =='' || item.ContactsID == null) ? false : true">
-                                    <i class="icon calcfont calc-kehulianxiren"></i>
-                                    <div class="item-initiator">{{item.ContactsID|formatContactsID}}{{item.Title|formatTitle}}</div>
-                                </div>
-                        </div>
-                    </div>
-                </div>
-          </div>
-
-          <!-- 业务分组 模式 -->
-          <div v-show="queryObj.groupByMode == 'PopedomTeamInf'" class="department-mode-div" id="meetingListOfGroup" data-fromtype="meeting">
-                <div v-for="group in groupData" :key="group.GroupID" class="list-group-div group-div">
-                    <div class="date-div">
-                        <span class="calcfont calc-business"></span>
-                        <span class="group-name" :data-groupid="group.GroupID">{{group.GroupName}}</span>
-                        <span class="right">（{{group.GroupRowCount}}）</span>
-                    </div>
-                    <div class="occupy-div"></div>
-
-                    <div v-if="group.items !=null && group.items != undefined && group.items.length > 0" class="group-item-list contacts-list">
-                            <div v-for="dateGroup in group.items" :key="dateGroup.GroupID" class="company_item">
-                              <div class="company_item_tit f14" >
-                                  <span class="calcfont calc-rili1"></span>
-                                  <div class="company_name" :data-groupid="dateGroup.GroupID">{{dateGroup.GroupName|abdDateFormat('dd/MM/yyyy')}}</div>
-                                  <div>（{{dateGroup.GroupRowCount}}）</div>
-                              </div>
-                              <div class="occupy-div"></div>
-
-                              <div v-if="dateGroup.items && dateGroup.items.length > 0" class="meeting-list data-list">
-                                    <div v-for="item in dateGroup.items" :key="item.AutoID"
-                                        class="data-events-item f14" @click="goInfo(item)">
-                                            <div class="flex">
-                                              <i style="margin-right: 3px;" class="calcfont calc-T icon"></i><div class="item-title">{{item.MeetingTitle}}</div>
-                                            </div>
-                                            <div class="item-time f12">
-                                                  <span class="calcfont calc-gengxinshijian"></span>
-                                                  <span class="time-text">{{item.BeginTime|MeetingTimeFormat}}~{{item.EndTime|MeetingTimeFormat}}</span>
-                                                  <span class="right-text">{{item.Realname}}</span>
-                                            </div>
-                                            <div class="flex pdtb" v-show="(item.CompanyID =='' || item.CompanyID == null) ? false : true">
-                                                <i class="icon calcfont calc-gongsixinxi"></i>
-                                                <div class="item-address">{{item.CompanyID}}</div>
-                                            </div>
-                                            <div class="flex" v-show="(item.ContactsID =='' || item.ContactsID == null) ? false : true">
-                                                <i class="icon calcfont calc-kehulianxiren"></i>
-                                                <div class="item-initiator">{{item.ContactsID|formatContactsID}}{{item.Title|formatTitle}}</div>
-                                            </div>
+          <!-- 列表视图 -->
+          <div v-show="queryObj.viewMode == 'listView'">
+              <!-- 列表模式 List -->
+              <div v-show="queryObj.groupByMode == 'List'" class="list-mode-div">
+                  <vue-scroll :showToTop="false" :options="{ pullup: true, pulldown: true }" :scrollbar="false" ref="scroll" @pulldown="pulldown" @pullup="pullup">
+                        <div v-if="listData !=null && listData != undefined && listData.length > 0" class="group-item-list meeting-list">
+                            <div v-for="item in listData" :key="item.AutoID"
+                            class="data-events-item f14" @click="goInfo(item)">
+                                    <div class="flex">
+                                      <i style="margin-right: 3px;" class="calcfont calc-T icon"></i><div class="item-title">{{item.MeetingTitle}}</div>
                                     </div>
-                              </div>
+                                    <div class="item-time f12">
+                                          <span class="calcfont calc-gengxinshijian"></span>
+                                          <span class="time-text">{{item.BeginTime|MeetingTimeFormat}}~{{item.EndTime|MeetingTimeFormat}}</span>
+                                          <span class="right-text">{{item.Realname}}</span>
+                                    </div>
+                                    <div class="flex pdtb" v-show="(item.CompanyID =='' || item.CompanyID == null) ? false : true">
+                                        <i class="icon calcfont calc-gongsixinxi"></i>
+                                        <div class="item-address">{{item.CompanyID}}</div>
+                                    </div>
+                                    <div class="flex" v-show="(item.ContactsID =='' || item.ContactsID == null) ? false : true">
+                                        <i class="icon calcfont calc-kehulianxiren"></i>
+                                        <div class="item-initiator">{{item.ContactsID|formatContactsID}}{{item.Title|formatTitle}}</div>
+                                    </div>
+                            </div>
+                        </div>
+                  </vue-scroll>
+              </div>
 
+              <!-- Date模式 -->
+              <div v-show="queryObj.groupByMode == 'Date'" class="date-mode-div" id="meetingList" data-fromtype="meeting">
+                    <div v-for="group in groupData" :key="group.GroupID"
+                      class="list-group-div group-div">
+                        <div class="date-div">
+                          <span class="calcfont calc-rili1"></span>
+                          <span class="group-name" :data-groupid="group.GroupID">{{group.GroupName|abdDateFormat('dd/MM/yyyy')}}</span>
+                          <span class="right">（{{group.GroupRowCount}}）</span>
+                        </div>
+                        <div class="occupy-div"></div>
+
+                        <div v-if="group.items !=null && group.items != undefined && group.items.length > 0" class="group-item-list meeting-list">
+                            <div v-for="item in group.items" :key="item.AutoID"
+                            class="data-events-item f14" @click="goInfo(item)">
+                                    <div class="flex">
+                                      <i style="margin-right: 3px;" class="calcfont calc-T icon"></i><div class="item-title">{{item.MeetingTitle}}</div>
+                                    </div>
+                                    <div class="item-time f12">
+                                          <span class="calcfont calc-gengxinshijian"></span>
+                                          <span class="time-text">{{item.BeginTime|MeetingTimeFormat}}~{{item.EndTime|MeetingTimeFormat}}</span>
+                                          <span class="right-text">{{item.Realname}}</span>
+                                    </div>
+                                    <div class="flex pdtb" v-show="(item.CompanyID =='' || item.CompanyID == null) ? false : true">
+                                        <i class="icon calcfont calc-gongsixinxi"></i>
+                                        <div class="item-address">{{item.CompanyID}}</div>
+                                    </div>
+                                    <div class="flex" v-show="(item.ContactsID =='' || item.ContactsID == null) ? false : true">
+                                        <i class="icon calcfont calc-kehulianxiren"></i>
+                                        <div class="item-initiator">{{item.ContactsID|formatContactsID}}{{item.Title|formatTitle}}</div>
+                                    </div>
+                            </div>
                         </div>
                     </div>
+              </div>
 
-                </div>
+              <!-- 业务分组 模式 -->
+              <div v-show="queryObj.groupByMode == 'PopedomTeamInf'" class="department-mode-div" id="meetingListOfGroup" data-fromtype="meeting">
+                    <div v-for="group in groupData" :key="group.GroupID" class="list-group-div group-div">
+                        <div class="date-div">
+                            <span class="calcfont calc-business"></span>
+                            <span class="group-name" :data-groupid="group.GroupID">{{group.GroupName}}</span>
+                            <span class="right">（{{group.GroupRowCount}}）</span>
+                        </div>
+                        <div class="occupy-div"></div>
+
+                        <div v-if="group.items !=null && group.items != undefined && group.items.length > 0" class="group-item-list contacts-list">
+                                <div v-for="dateGroup in group.items" :key="dateGroup.GroupID" class="company_item">
+                                  <div class="company_item_tit f14" >
+                                      <span class="calcfont calc-rili1"></span>
+                                      <div class="company_name" :data-groupid="dateGroup.GroupID">{{dateGroup.GroupName|abdDateFormat('dd/MM/yyyy')}}</div>
+                                      <div>（{{dateGroup.GroupRowCount}}）</div>
+                                  </div>
+                                  <div class="occupy-div"></div>
+
+                                  <div v-if="dateGroup.items && dateGroup.items.length > 0" class="meeting-list data-list">
+                                        <div v-for="item in dateGroup.items" :key="item.AutoID"
+                                            class="data-events-item f14" @click="goInfo(item)">
+                                                <div class="flex">
+                                                  <i style="margin-right: 3px;" class="calcfont calc-T icon"></i><div class="item-title">{{item.MeetingTitle}}</div>
+                                                </div>
+                                                <div class="item-time f12">
+                                                      <span class="calcfont calc-gengxinshijian"></span>
+                                                      <span class="time-text">{{item.BeginTime|MeetingTimeFormat}}~{{item.EndTime|MeetingTimeFormat}}</span>
+                                                      <span class="right-text">{{item.Realname}}</span>
+                                                </div>
+                                                <div class="flex pdtb" v-show="(item.CompanyID =='' || item.CompanyID == null) ? false : true">
+                                                    <i class="icon calcfont calc-gongsixinxi"></i>
+                                                    <div class="item-address">{{item.CompanyID}}</div>
+                                                </div>
+                                                <div class="flex" v-show="(item.ContactsID =='' || item.ContactsID == null) ? false : true">
+                                                    <i class="icon calcfont calc-kehulianxiren"></i>
+                                                    <div class="item-initiator">{{item.ContactsID|formatContactsID}}{{item.Title|formatTitle}}</div>
+                                                </div>
+                                        </div>
+                                  </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+              </div>
+          </div>
+
+          <!-- calendar视图 -->
+          <div v-show="queryObj.viewMode != 'listView'" class="calendar-div">
+              <calendar class="calendar-view"></calendar>
           </div>
 
           <!-- 侧滑筛选 -->
@@ -129,8 +137,6 @@
     <div v-show="pageState == 2">
         <search-module module="meeting" ref="searchModule"></search-module>
     </div>
-
-
 
 </div>
 </template>
@@ -143,13 +149,15 @@ import Scroll from '@/components/customPlugin/scroll/Scroll';
 import Nothing from "@/components/customPlugin/Nothing";
 import SearchModule from '@/components/customplugin/SearchModule'
 import Mixins from '@/mixins/commonlist.js'
+import Calendar from '@/components/tripmeeting/Calendar'
 export default {
   name:'meetinglist',
   mixins:[Mixins],
   components: {
         SearchInput,Sort,Screen,SearchModule,
         'vue-scroll': Scroll,
-        nothing: Nothing
+        nothing: Nothing,
+        'calendar': Calendar
   },
   data(){
     return{
@@ -943,7 +951,7 @@ export default {
 
 
 /*分组模式*/
-.date-mode-div,.department-mode-div{
+.date-mode-div,.department-mode-div,.calendar-div{
   padding-top:calc(0.88rem + 0.7rem);
 }
 </style>

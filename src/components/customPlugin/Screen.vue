@@ -74,6 +74,17 @@
                                 :data-id="item.id"
                                 ><span>{{item.text}}</span>
                                 <i class="calcfont calc-guanbi1 delect-icon"></i></div>
+                            <div class="time-range-customize-div">
+                                <div class="box">
+                                  <div class="inputRow">
+                                      <input id="startdate" class="selectdate lanInputPlaceHolder" type="text" readonly="readonly" placeholder="" data-lanid="878_开始日期" data-field="BeginTime" data-fieldControlType="dateTimePicker" data-TimeType="date" data-format="yyyy-MM-dd"/>
+                                  </div>
+                                  <div class="line"></div>
+                                  <div  class="inputRow">
+                                      <input id="enddate" class="selectdate lanInputPlaceHolder" type="text" readonly="readonly" placeholder=""  data-lanid="879_结束日期" data-field="EndTime" data-fieldControlType="dateTimePicker" data-TimeType="date" data-format="yyyy-MM-dd">
+                                  </div>
+                                </div>
+                            </div>
                       </div>
                   </div>
               </div>
@@ -154,7 +165,7 @@
                                          :data-lanid="item.datalanid"
                                          data-fieldVal=""
                                          :Code="item.Code"
-                                         :data-selectType="item.selectType" 
+                                         :data-selectType="item.selectType"
                                          :data-queryType="item.queryType"
                                          :data-queryFormat="item.queryFormat"
                                          :data-queryRelation="item.queryRelation"
@@ -373,7 +384,7 @@ export default {
                         });
                         },
                         get:function(){
-                            return this.value;	
+                            return this.value;
                         }
                     });
                 }else if(_curObj.attr("data-fieldcontroltype") == "textareaInput"){
@@ -384,7 +395,7 @@ export default {
                                 _self.setParentQueryObj();
                                 //调用父组件的查询方法
                                 _self.$parent.delegateQuery();
-                            }); 
+                            });
                          }
                     });
                 }else{
@@ -410,22 +421,30 @@ export default {
     //设置父页面的查询对象
     setParentQueryObj:function(){
         let _self = this;
+         
+        //1>ViewMode
+        var $viewMode = $(".viewMode .item-div.active").eq(0);
+        if(!tool.isNullOrEmptyObject($viewMode) && $viewMode.length>=1){
+            _self.$set(_self.queryObj,"viewMode", ($viewMode.attr("data-id")||""));
+        }
 
-        //1>dataFilter
+        //2>dataFilter
         var $dataFilter = $(".dataFilter .item-div.active").eq(0);
         if(!tool.isNullOrEmptyObject($dataFilter) && $dataFilter.length>=1){
             _self.$set(_self.queryObj,"dataFilter", ($dataFilter.attr("data-id")||""));
             // console.log(($dataFilter.attr("data-id")||""));
         }
 
-        //2>groupByMode
+        //3>groupByMode
         var $groupByMode = $(".groupByMode .item-div.active").eq(0);
         if(!tool.isNullOrEmptyObject($groupByMode) && $groupByMode.length>=1){
             _self.$set(_self.queryObj,"groupByMode", ($groupByMode.attr("data-id")||""));
             // console.log(($groupByMode.attr("data-id")||""));
         }
 
-        //3>queryCondictionArr
+        
+
+        //4>queryCondictionArr
         var queryCondictionArrTemp = _self.constructConditionField() || [];
         _self.$set(_self.queryObj,"queryCondictionArr",queryCondictionArrTemp);
     },
@@ -555,6 +574,9 @@ export default {
           });
         });
 
+        //日期选择器控件初始化
+        tool.InitiateInfoPageControl(_self, "", function () { });
+
         //执行回调函数
         if (!tool.isNullOrEmptyObject(myCallBack) && typeof(myCallBack) == "function") {
             myCallBack();
@@ -637,9 +659,23 @@ export default {
             if(!target.hasClass('active')){
                 //选择
                 target.addClass('active').siblings('.item-div').removeClass('active');
+
+                var curId = target.attr("data-id")||"";
+                if( curId == 'customize' ){
+                    target.siblings('.time-range-customize-div').slideDown(400);
+                    return;
+                }else{
+                    target.siblings('.time-range-customize-div').slideUp(400);
+                }
             }else{
                 //取消选择
                 target.removeClass('active');
+
+                var curId = target.attr("data-id")||"";
+                if( curId == 'customize' ){
+                    target.siblings('.time-range-customize-div').slideUp(400);
+                    return;
+                }
             }
         }else{
             //若不能移除自己的状态
@@ -784,7 +820,7 @@ export default {
         if(isOnlyClearValue){
             return true;
         }
-        
+
         //4>重新执行查询
         _self.$nextTick(function(){
             //设置查询对象
@@ -808,7 +844,9 @@ export default {
             //关闭侧滑
             _self.panelToggle();
         });
-    }
+    },
+
+
   },
   beforeDestroy:function(){
       eventBus.$off('showScreenEvent');
@@ -818,11 +856,7 @@ export default {
 
 <style scoped>
 .mask{position:fixed;top:0;left:0;bottom:0;right:0;background: rgba(0, 0, 0, 0.1);z-index:102;}
-.right-content{
-    position:fixed;left:100%; width:6rem;
-    top: 0;bottom: 0; z-index: 103;padding-top:0px;
-    background-color: #FFFFFF;
-}
+.right-content{position:fixed;left:100%; width:6rem;background: #FFFFFF;top: 0;bottom: 0; z-index: 103; padding-top:0px;}
 
 .screen-con{height: calc(100vh - 1.3rem);overflow-y: scroll;}
 .block-div{}
@@ -932,5 +966,20 @@ p.textareaP.wrap{
     height: .5rem;
 }
 
+/*时间范围自定义*/
+.time-range-customize-div{padding-right:15px;padding-bottom:0.25rem;display:none;}
+.time-range-customize-div .box{display:flex;align-items: center;}
+.inputRow{display:flex;align-items: center;
+    width:2.3rem;
+    border: 1px solid rgba(0,0,0,.2);
+    border-radius: 3px;}
+.inputRow input{flex:1;width:100%;padding:0.1rem 0;text-align:center;
+    outline: 0 none;
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+    overflow: hidden;
+    position: relative;
+    border:none;
+    line-height: 20px;}
+.line{flex:1; height:1px;background:#ccc;margin:0 10px;}    
 
 </style>
