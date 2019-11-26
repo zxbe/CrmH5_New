@@ -658,7 +658,9 @@ export default {
         $(className).find("item-div:first").addClass("active");
     },
     //重置筛选条件
-    resetEvent(){
+    //isOnlyClearValue:是否只清空控件值
+    resetEvent(isOnlyClearValue){
+        isOnlyClearValue = (isOnlyClearValue == null || isOnlyClearValue == undefined) ? false : isOnlyClearValue;
         let _self = this;
 
         //1>重置dataFilter
@@ -719,8 +721,6 @@ export default {
                 return obj.isActive == true;
             });
 
-            // console.log(defaultItemArr);
-
             if(!tool.isNullOrEmptyObject(defaultItemArr)){
                 var defaultId = defaultItemArr.id;
                 if(!tool.isNullOrEmptyObject(defaultId)){
@@ -744,18 +744,23 @@ export default {
         //3>重置queryCondictionArr(清空控件值)
         //3-1>移除selectlist等控件的监听事件(避免重置字段值，重复触发查询动作)
         _self.bindFieldChangeEvent(true);
-
+        //3-2>清空查询对象
         _self.$set(_self.queryObj,"queryCondictionArr",[]);
+        //3-3>清空字段控件值
         tool.ClearControlData();
 
+        if(isOnlyClearValue){
+            return true;
+        }
+        
         //4>重新执行查询
         _self.$nextTick(function(){
+            //设置查询对象
             _self.setParentQueryObj();
             //调用父组件的查询方法
             _self.$parent.delegateQuery();
             //关闭侧滑
             _self.panelToggle();
-
             //绑定控件字段的值改变事件
             _self.bindFieldChangeEvent();
         });

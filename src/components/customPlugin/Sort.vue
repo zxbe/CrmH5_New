@@ -2,27 +2,35 @@
   <div class="sort sticky">
     <div class="sort-left">
       <div clsss="sort-t" @click="dropDownToggle">
-        <span class="sort-text">{{activeSortItemText}}</span>
-        <i class="calcfont calc-sanjiaoxing sort-sjx f12" :class="sortSjxClass"></i>
+        <span class="sort-text">{{ activeSortItemText }}</span>
+        <i
+          class="calcfont calc-sanjiaoxing sort-sjx f12"
+          :class="sortSjxClass"
+        ></i>
       </div>
     </div>
     <div @click="showRightPanel">
-      <span>{{lanFilter}}</span>
+      <span>{{ lanFilter }}</span>
       <i class="calcfont calc-shaixuan3"></i>
     </div>
 
     <div class="drop-down" v-show="showDropDown">
       <div
-        v-for="(item,index) in sortData"
+        v-for="(item, index) in sortData"
         :key="index"
         class="drop-down-item"
-        @click="tapItem(item,index)"
+        @click="tapItem(item, index)"
       >
         <div
           class="item-text"
-          :class="{'active':highlight == index ? true : false}"
-        >{{item.sortText}}</div>
-        <i v-if="highlight == index" class="calcfont calc-chenggong gou-icon f14"></i>
+          :class="{ active: highlightIndex == index ? true : false }"
+        >
+          {{ item.sortText }}
+        </div>
+        <i
+          v-if="highlightIndex == index"
+          class="calcfont calc-chenggong gou-icon f14"
+        ></i>
       </div>
     </div>
   </div>
@@ -37,24 +45,33 @@ export default {
         return [];
       }
     },
-    sortObj:{
-      type:Object,
-      default:function(){
-        return {}
+    sortObj: {
+      type: Object,
+      default: function() {
+        return {};
       }
     }
   },
   data() {
     return {
       lanFilter: lanTool.lanContent("1000517_过滤"),
-      showDropDown: false,
+      showDropDown: false, //是否显示了下拉模块
       sortSjxClass: "calc-sanjiaoxing", //三角形类名：calc-sanjiaoxing：向下；calc-sanjiaoxingshang：向上
-      highlight: -1, //默认不选中
+      highlightIndex: -1, //高亮项目索引，默认不选中
       activeSortItemText: ""
     };
   },
   created: function() {
     let _self = this;
+
+    //1>处理数据排序
+    if (!tool.isNullOrEmptyObject(_self.sortData)) {
+      _self.sortData.sort(function(a, b) {
+        return a.sort - b.sort;
+      });
+    }
+
+    //2>初始化默认的排序项,并执行查询动作
     _self.initDefultSortItem();
   },
   methods: {
@@ -70,39 +87,59 @@ export default {
     },
     //点击排序
     //isTriggerDropDownToggle:是否触发dropDownToggle事件,默认为true
-    tapItem: function(data, index,isTriggerDropDownToggle) {
+    tapItem: function(data, index, isTriggerDropDownToggle) {
       let _self = this;
-      isTriggerDropDownToggle = (isTriggerDropDownToggle == undefined || isTriggerDropDownToggle == null) ? true : isTriggerDropDownToggle;
+      isTriggerDropDownToggle =
+        isTriggerDropDownToggle == undefined || isTriggerDropDownToggle == null
+          ? true
+          : isTriggerDropDownToggle;
       if (tool.isNullOrEmptyObject(data) || tool.isNullOrEmptyObject(index)) {
         return;
       }
-      _self.highlight = index;
+      _self.highlightIndex = index;
       _self.activeSortItemText = data.sortText || "";
 
-      if(isTriggerDropDownToggle){
-          _self.dropDownToggle();
+      if (isTriggerDropDownToggle) {
+        _self.dropDownToggle();
       }
 
       //设置父组件的属性(sortName和sortOrder是固定名称，每个列表页面都必须有)
-      _self.$set(_self.sortObj,"sortName",  (data.sortName || ""));
-      _self.$set(_self.sortObj,"sortOrder", (data.sortOrder || ""));
+      _self.$set(_self.sortObj, "sortName", data.sortName || "");
+      _self.$set(_self.sortObj, "sortOrder", data.sortOrder || "");
       // console.log("子组件sortName:"+_self.sortObj.sortName);
       // console.log("子组件sortOrder:"+_self.sortObj.sortOrder);
 
-      _self.$nextTick(function(){
+      _self.$nextTick(function() {
         //调用父组件的查询方法
         _self.$parent.delegateQuery();
       });
     },
-    //初始化默认的排序项
+    //初始化默认的排序项,并执行查询动作
     initDefultSortItem: function() {
       let _self = this;
       //若为空，则不处理
       if (tool.isNullOrEmptyObject(_self.sortData)) {
         return;
       }
-      var indexTemp = 0;
-      _self.tapItem(_self.sortData[indexTemp], indexTemp,false);
+
+      //获取默认排序项
+      var indexTemp = -1;
+      if (tool.isNullOrEmptyObject(_self.sortData)) {
+        indexTemp = 0;
+      } else {
+        indexTemp = _self.sortData.findIndex(function(item) {
+          if (!item.hasOwnProperty("isActive")) {
+            return false;
+          } else {
+            return item.isActive;
+          }
+        });
+        if(indexTemp<=-1){
+          indexTemp = 0;
+        }
+      }
+
+      _self.tapItem(_self.sortData[indexTemp], indexTemp, false);
     },
     //显示筛选
     showRightPanel: function() {
@@ -118,8 +155,10 @@ export default {
 
 <style scoped>
 .sort {
-  position:fixed;
-  top:0.88rem;left:0;right:0;
+  position: fixed;
+  top: 0.88rem;
+  left: 0;
+  right: 0;
   z-index: 99;
   height: 0.7rem;
   display: flex;

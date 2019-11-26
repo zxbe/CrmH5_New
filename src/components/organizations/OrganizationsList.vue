@@ -128,32 +128,35 @@ export default {
         sortData:[{
             sortName:"ShortName",
             sortText:lanTool.lanContent("1000518_按公司名称按正序排序"),
-            sortOrder:'asc'
-          },
-          {
+            sortOrder:'asc',
+            sort:10,
+            isActive:true
+          },{
             sortName:"ShortName",
             sortText:lanTool.lanContent("1000519_按公司名称倒序排序"),
-            sortOrder:'desc'
+            sortOrder:'desc',
+            sort:20
           },
           {
             sortName:"BusinessType",
             sortText:lanTool.lanContent("1000520_按业务分类正序排序"),
-            sortOrder:'asc'
-          },
-          {
+            sortOrder:'asc',
+            sort:30
+          },{
             sortName:"BusinessType",
             sortText:lanTool.lanContent("1000521_按业务分类倒序排序"),
-            sortOrder:'desc'
-          },
-          {
+            sortOrder:'desc',
+            sort:40
+          },{
             sortName:"CountryName",
             sortText:lanTool.lanContent("1000522_按国家正序排序"),
-            sortOrder:'asc'
-          },
-          {
+            sortOrder:'asc',
+            sort:50
+          },{
             sortName:"CountryName",
             sortText:lanTool.lanContent("1000523_按国家倒序排序"),
-            sortOrder:'desc'
+            sortOrder:'desc',
+            sort:60
           }],
         //右侧侧滑数据模型
         RightPanelModel:{
