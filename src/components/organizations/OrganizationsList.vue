@@ -649,9 +649,7 @@ export default {
 </script>
 
 <style scoped>
-.page{
-    /*display: flex;flex-direction: column;justify-content: center;height: 100vh;*/
-  }
+.page{}
 .header{
   overflow: hidden;
   background: #f8f2dc;

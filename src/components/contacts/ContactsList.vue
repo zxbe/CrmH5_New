@@ -123,8 +123,10 @@ import Screen from "@/components/customPlugin/Screen"
 import Scroll from '@/components/customPlugin/scroll/Scroll';
 import Nothing from "@/components/customPlugin/Nothing";
 import SearchModule from '@/components/customplugin/SearchModule'
+import Mixins from '@/mixins/commonlist.js'
 export default {
   name:'contactslist',
+  mixins:[Mixins],
   components: {
         SearchInput,Sort,Screen,SearchModule,
         'vue-scroll': Scroll,
@@ -251,6 +253,7 @@ export default {
   },
   mounted(){
       let _self = this;
+      _self.watchScroll();
       _self.groupToggleHandle('contactsList');
   },
   activated(){
@@ -338,7 +341,7 @@ export default {
             GroupBy:_self.queryObj.groupByMode||"",
             PageType:_self.pageType
         };
-        
+
         var loadingIndexClassName = tool.showLoading();
         $.ajax({
             async: true,
@@ -469,6 +472,15 @@ export default {
           }
       });
     },
+
+    //监听滚动
+    watchScroll:function(){
+        var _self = this;
+        var headerH = parseFloat($("header").innerHeight());
+        var navH = parseFloat($(".sort").innerHeight());
+
+        _self.watchScrollHandle( headerH + navH );
+    },
     //分组模式下展开收起
     groupToggleHandle:function(idName){
         var _self = this;
@@ -598,7 +610,7 @@ export default {
           QueryCondiction: JSON.stringify(_self.constructQueryCondiction() || []),
           GroupBy:_self.queryObj.groupByMode||"",
           PageType:_self.pageType,
-          GroupID: subGroupID       
+          GroupID: subGroupID
       };
       var loadingIndexClassName = tool.showLoading();
       $.ajax({
@@ -631,7 +643,7 @@ export default {
                       })
                   }
               });
-              
+
               if (!tool.isNullOrEmptyObject(callBack) && typeof(callBack) == "function") {
                   callBack();
               }
@@ -680,7 +692,7 @@ export default {
   background: #f8f2dc;
   height: 0.88rem;
   display: flex;align-items: center;
-  position:fixed;
+  position:fixed;z-index: 99;
   top:0;left:0;right:0;
 }
 .back-icon{font-size: 0.48rem;padding:0.1rem 10px;}

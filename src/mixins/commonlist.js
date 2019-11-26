@@ -71,12 +71,10 @@ export default{
                             }
                         }
                     });
-/*
+
                     //列表二级滚动固定
                     if ($(".company_item").length <= 0) return;
-                    // let dateDivHeight = $('.date-div').innerHeight()+1;
                     let dateDivHeight = $('.date-div').height();
-                    // let companyItemTitHeight = $('.company_item_tit').innerHeight()+1;
                     let companyItemTitHeight = $('.company_item_tit').height();
 
                     $(".company_item").each(function (index, el) {
@@ -122,7 +120,7 @@ export default{
                             }
                         }
                     });
-*/
+
                 });
             }, 0);
         },
