@@ -22,7 +22,6 @@
                       </div>
                   </div>
               </div>
-
               <!-- DataFilterModel -->
               <div class="block-div dataFilter" v-if="!DataFilterModelIsNull">
                   <div class="type-div">
@@ -53,6 +52,24 @@
                                 v-for="(item,index) in GroupByModel.option"
                                 :key="index"
                                 @click="choose($event,false)"
+                                :class="{'active': ((item.isActive == null||item.isActive == undefined) ? false :item.isActive)}"
+                                :data-id="item.id"
+                                ><span>{{item.text}}</span>
+                                <i class="calcfont calc-guanbi1 delect-icon"></i></div>
+                      </div>
+                  </div>
+              </div>
+              <!-- TimeRangeModel 时间范围 -->
+              <div class="block-div groupByMode" v-if="!TimeRangeModelIsNull">
+                  <div class="type-div">
+                      <div class="block-tile f14">
+                          <div class="title-text">{{TimeRangeModel.text}}</div>
+                      </div>
+                      <div class="block-con" v-if="TimeRangeModel.option.length > 0 ">
+                            <div class="item-div fl"
+                                v-for="(item,index) in TimeRangeModel.option"
+                                :key="index"
+                                @click="choose($event)"
                                 :class="{'active': ((item.isActive == null||item.isActive == undefined) ? false :item.isActive)}"
                                 :data-id="item.id"
                                 ><span>{{item.text}}</span>
@@ -170,7 +187,9 @@ export default {
         ViewModel:{},
         DataFilterModel:{},
         GroupByModel:{},
+        TimeRangeModel:{},
         FieldModel:[],
+
 
         lanReset: lanTool.lanContent("1000527_重置"),
         lanConfirm: lanTool.lanContent("545_确定")
@@ -207,6 +226,10 @@ export default {
           let _self = this;
           return  tool.isNullOrEmptyObject(_self.GroupByModel) ? true : false;
       },
+      TimeRangeModelIsNull(){
+          let _self = this;
+          return  tool.isNullOrEmptyObject(_self.TimeRangeModel) ? true : false;
+      }
 
   },
   created(){
@@ -239,6 +262,11 @@ export default {
     }
     _self.FieldModel = _self.screenData["FieldModel"];
 
+
+    if(!tool.isNullOrEmptyObject(_self.screenData["TimeRangeModel"])){
+        _self.TimeRangeModel = _self.screenData["TimeRangeModel"];
+    }
+
     //2>获取picker选项值
     _self.FieldModel.forEach(function(item, index){
         if(item.fieldControlType == "picketTile"){
@@ -267,8 +295,10 @@ export default {
       //渲染控件
       _self.InitControl();
 
-      //处理联动字段
-      tool.linkageField(_self, 'CountryID', 'CityID');
+      //处理联动字段 调用父方法
+      if( !tool.isNullOrEmptyObject(_self.$parent.rightPanelLinkageField)){
+          _self.$parent.rightPanelLinkageField(_self)
+      }
 
       //绑定控件字段的值改变事件
       _self.bindFieldChangeEvent();
@@ -277,8 +307,10 @@ export default {
   activated: function () {
         let _self = this;
 
-        //处理联动字段
-        tool.linkageField(_self, 'CountryID', 'CityID');
+        //处理联动字段 调用父方法
+        if( !tool.isNullOrEmptyObject(_self.$parent.rightPanelLinkageField)){
+            _self.$parent.rightPanelLinkageField(_self)
+        }
 
         //返回时更新selectlist控件的结果
         tool.UpdateFieldValueFromBack(eventBus, function () {

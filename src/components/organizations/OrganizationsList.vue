@@ -628,6 +628,11 @@ export default {
             _self.searchValue = str;
         }
         console.log(_self.searchValue);
+    },
+
+    //处理右侧字段联动
+    rightPanelLinkageField(vueObj){
+        tool.linkageField(vueObj, 'CountryID', 'CityID');
     }
 
   },
