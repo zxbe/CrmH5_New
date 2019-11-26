@@ -122,7 +122,6 @@ import Sort from "@/components/customPlugin/Sort"
 import Screen from "@/components/customPlugin/Screen"
 import Scroll from '@/components/customPlugin/scroll/Scroll';
 import Nothing from "@/components/customPlugin/Nothing";
-
 import SearchModule from '@/components/customplugin/SearchModule'
 export default {
   name:'contactslist',
@@ -655,17 +654,13 @@ export default {
         _self.pageState = 2;
         //给搜索框获取焦点
         $('#searchHeader').find('input.search-input').focus();
-        // console.log($('#searchHeader').find('input.search-input'));
-
         //获取搜索历史数据
         _self.$refs.searchModule.getHistory();
     },
-
     //接收搜索的值并刷新列表,str有可能为空(专门处理搜索)
     refreshListBySearchValue(str){
         let _self = this;
         _self.pageState = 1;
-
     }
 
   },

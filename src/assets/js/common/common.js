@@ -1511,6 +1511,10 @@ import config from '../../configfile/config.js'
 	};
 
 	tool.autoTextarea = function (elem, extra, maxHeight) {
+		//console.log("autoTextarea");
+		if(elem == null || elem == undefined){
+			return false;
+		}
 		extra = extra || 0;
 		var isFirefox = !!document.getBoxObjectFor || 'mozInnerScreenX' in window,
 			isOpera = !!window.opera && !!window.opera.toString().indexOf('Opera'),
