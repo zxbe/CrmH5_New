@@ -824,7 +824,7 @@ export default {
         tool.linkageField(_self, 'TargetCompanyID', 'ContactID');
 
         //返回时更新selectlist控件的结果
-        tool.UpdateFieldValueFromBack(eventBus, function () {
+        tool.UpdateFieldValueFromBack(eventBus, function (curObj) {
            
             //选择回填后根据回填的内容自适应高度
             if(curObj.is("textarea")){
