@@ -421,7 +421,7 @@ export default {
     //设置父页面的查询对象
     setParentQueryObj:function(){
         let _self = this;
-         
+
         //1>ViewMode
         var $viewMode = $(".viewMode .item-div.active").eq(0);
         if(!tool.isNullOrEmptyObject($viewMode) && $viewMode.length>=1){
@@ -442,7 +442,7 @@ export default {
             // console.log(($groupByMode.attr("data-id")||""));
         }
 
-        
+
 
         //4>queryCondictionArr
         var queryCondictionArrTemp = _self.constructConditionField() || [];
@@ -500,6 +500,9 @@ export default {
     InitControl(myCallBack){
         let _self = this;
 
+        //日期选择器控件初始化
+        tool.InitiateInfoPageControl(_self, "", function () { });
+  /*
         //1>渲染selectList
         //1-1>同一行的selectList
         $("[data-fieldControlType='selectList']").attr("readonly","readonly").off('click').on('click',function(){
@@ -573,10 +576,7 @@ export default {
             query: parameter
           });
         });
-
-        //日期选择器控件初始化
-        tool.InitiateInfoPageControl(_self, "", function () { });
-
+*/
         //执行回调函数
         if (!tool.isNullOrEmptyObject(myCallBack) && typeof(myCallBack) == "function") {
             myCallBack();
@@ -980,6 +980,6 @@ p.textareaP.wrap{
     position: relative;
     border:none;
     line-height: 20px;}
-.line{flex:1; height:1px;background:#ccc;margin:0 10px;}    
+.line{flex:1; height:1px;background:#ccc;margin:0 10px;}
 
 </style>

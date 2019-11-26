@@ -95,8 +95,17 @@ const router =  new Router({
     },
 
     //商业类别
+    { path: '/pitches',
+      name:'pitches',
+      component: (resolve) => require(['@/components/business/PitchesList'], resolve)
+    },
+    { path: '/pipeline',
+      name:'pipeline',
+      component: (resolve) => require(['@/components/business/PipelineList'], resolve)
+    },
     { path: '/businessCategories',name:'businessCategories', component:BusinessCategories},
     { path:'/opportunitiesinfo/:id',name:'opportunitiesinfo',component:Opportunitiesinfo},
+
     //LOI单详情
     { path:'/loiinfo/:id',
       name:'loiinfo',
