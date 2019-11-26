@@ -15,7 +15,7 @@
             <i class="calcfont calc-shanchu delete-icon f18" @click="deleteAllHistoricalSearchRecord"></i>
         </div>
         <div class="panel-con" v-if="historyData.length > 0">
-               <div v-for="(item,index) in historyData" :key=index class="history-item left" @click="goSearchEvent(item)">
+               <div v-for="(item,index) in historyData" :key=index class="history-item left" @click="searchByHistotyItem(item)">
                   <span>{{item}}</span>
                   <i class="calcfont calc-guanbi1 item-delete-icon" @click="deleteOneHistory(item)"></i>
                </div>
@@ -124,6 +124,10 @@ export default {
     },
     //删除指定的历史记录
     deleteOneHistory(data){
+        if(tool.isNullOrEmptyObject(data)){
+            return false;
+        }
+
         if(tool.isNullOrEmptyObject(_self.historyData)){
             _self.historyData = [];
         }else{
@@ -132,6 +136,18 @@ export default {
 
         //设置缓存历史查询记录
         tool.setStoragItem(_self.localStorageKeyName,_self.historyData);
+    },
+    //点击历史查询记录，查询匹配数据
+    searchByHistotyItem:function(data){
+        let _self = this;
+
+        if(tool.isNullOrEmptyObject(data)){
+            return false;
+        }
+        //1>设置input组件的值
+        _self.$refs.searchInput.searchValue = data;
+        //2>执行模糊查询，查询匹配的前N条记录
+        _self.$refs.searchInput.inputChange();
     },
     //搜索框内容改变事件,显示匹配模糊查询值的下拉数据结果(子组件调用)
     getDropListByAutoVal(autoValue,callback){
@@ -172,7 +188,7 @@ export default {
             success: function (data) {
                 //tool.hideLoading(loadingIndexClassName);
                 data = tool.jObject(data);
-                console.log(data);
+                //console.log(data);
 
                 if (data._ReturnStatus == false) {
                     tool.showText(tool.getMessage(data));
