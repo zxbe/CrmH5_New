@@ -1,5 +1,6 @@
 <template>
 <div class="page">
+
     <div v-show="pageState == 1">
           <header class="header sticky">
               <a @click="back" class="calcfont calc-fanhui back-icon" id="back"></a>
@@ -11,11 +12,122 @@
 
           <sort :sortData="sortData" :sortObj="sortObj"></sort>
 
-          <!-- 列表模式   -->
-          <!-- v-show="queryObj.groupByMode == 'List'" -->
-          <div class="list-mode-div" >
+          <!-- 列表视图 -->
+          <div v-show="queryObj.viewMode == 'listView'">
+              <!-- 列表模式 List -->
+              <div v-show="queryObj.groupByMode == 'List'" class="list-mode-div">
+                  <vue-scroll :showToTop="false" :options="{ pullup: true, pulldown: true }" :scrollbar="false" ref="scroll" @pulldown="pulldown" @pullup="pullup">
+                        <div v-if="listData !=null && listData != undefined && listData.length > 0" class="group-item-list meeting-list">
+                            <div v-for="item in listData" :key="item.AutoID"
+                            class="data-events-item f14" @click="goInfo(item)">
+                                    <div class="flex">
+                                      <i style="margin-right: 3px;" class="calcfont calc-T icon"></i><div class="item-title">{{item.MeetingTitle}}</div>
+                                    </div>
+                                    <div class="item-time f12">
+                                          <span class="calcfont calc-gengxinshijian"></span>
+                                          <span class="time-text">{{item.BeginTime|MeetingTimeFormat}}~{{item.EndTime|MeetingTimeFormat}}</span>
+                                          <span class="right-text">{{item.Realname}}</span>
+                                    </div>
+                                    <div class="flex pdtb" v-show="(item.CompanyID =='' || item.CompanyID == null) ? false : true">
+                                        <i class="icon calcfont calc-gongsixinxi"></i>
+                                        <div class="item-address">{{item.CompanyID}}</div>
+                                    </div>
+                                    <div class="flex" v-show="(item.ContactsID =='' || item.ContactsID == null) ? false : true">
+                                        <i class="icon calcfont calc-kehulianxiren"></i>
+                                        <div class="item-initiator">{{item.ContactsID|formatContactsID}}{{item.Title|formatTitle}}</div>
+                                    </div>
+                            </div>
+                        </div>
+                  </vue-scroll>
+              </div>
+
+              <!-- Date模式 -->
+              <div v-show="queryObj.groupByMode == 'Date'" class="date-mode-div" id="meetingList" data-fromtype="meeting">
+                    <div v-for="group in groupData" :key="group.GroupID"
+                      class="list-group-div group-div">
+                        <div class="date-div">
+                          <span class="calcfont calc-rili1"></span>
+                          <span class="group-name" :data-groupid="group.GroupID">{{group.GroupName|abdDateFormat('dd/MM/yyyy')}}</span>
+                          <span class="right">（{{group.GroupRowCount}}）</span>
+                        </div>
+                        <div class="occupy-div"></div>
+
+                        <div v-if="group.items !=null && group.items != undefined && group.items.length > 0" class="group-item-list meeting-list">
+                            <div v-for="item in group.items" :key="item.AutoID"
+                            class="data-events-item f14" @click="goInfo(item)">
+                                    <div class="flex">
+                                      <i style="margin-right: 3px;" class="calcfont calc-T icon"></i><div class="item-title">{{item.MeetingTitle}}</div>
+                                    </div>
+                                    <div class="item-time f12">
+                                          <span class="calcfont calc-gengxinshijian"></span>
+                                          <span class="time-text">{{item.BeginTime|MeetingTimeFormat}}~{{item.EndTime|MeetingTimeFormat}}</span>
+                                          <span class="right-text">{{item.Realname}}</span>
+                                    </div>
+                                    <div class="flex pdtb" v-show="(item.CompanyID =='' || item.CompanyID == null) ? false : true">
+                                        <i class="icon calcfont calc-gongsixinxi"></i>
+                                        <div class="item-address">{{item.CompanyID}}</div>
+                                    </div>
+                                    <div class="flex" v-show="(item.ContactsID =='' || item.ContactsID == null) ? false : true">
+                                        <i class="icon calcfont calc-kehulianxiren"></i>
+                                        <div class="item-initiator">{{item.ContactsID|formatContactsID}}{{item.Title|formatTitle}}</div>
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+              </div>
+
+              <!-- 业务分组 模式 -->
+              <div v-show="queryObj.groupByMode == 'PopedomTeamInf'" class="department-mode-div" id="meetingListOfGroup" data-fromtype="meeting">
+                    <div v-for="group in groupData" :key="group.GroupID" class="list-group-div group-div">
+                        <div class="date-div">
+                            <span class="calcfont calc-business"></span>
+                            <span class="group-name" :data-groupid="group.GroupID">{{group.GroupName}}</span>
+                            <span class="right">（{{group.GroupRowCount}}）</span>
+                        </div>
+                        <div class="occupy-div"></div>
+
+                        <div v-if="group.items !=null && group.items != undefined && group.items.length > 0" class="group-item-list contacts-list">
+                                <div v-for="dateGroup in group.items" :key="dateGroup.GroupID" class="company_item">
+                                  <div class="company_item_tit f14" >
+                                      <span class="calcfont calc-rili1"></span>
+                                      <div class="company_name" :data-groupid="dateGroup.GroupID">{{dateGroup.GroupName|abdDateFormat('dd/MM/yyyy')}}</div>
+                                      <div>（{{dateGroup.GroupRowCount}}）</div>
+                                  </div>
+                                  <div class="occupy-div"></div>
+
+                                  <div v-if="dateGroup.items && dateGroup.items.length > 0" class="meeting-list data-list">
+                                        <div v-for="item in dateGroup.items" :key="item.AutoID"
+                                            class="data-events-item f14" @click="goInfo(item)">
+                                                <div class="flex">
+                                                  <i style="margin-right: 3px;" class="calcfont calc-T icon"></i><div class="item-title">{{item.MeetingTitle}}</div>
+                                                </div>
+                                                <div class="item-time f12">
+                                                      <span class="calcfont calc-gengxinshijian"></span>
+                                                      <span class="time-text">{{item.BeginTime|MeetingTimeFormat}}~{{item.EndTime|MeetingTimeFormat}}</span>
+                                                      <span class="right-text">{{item.Realname}}</span>
+                                                </div>
+                                                <div class="flex pdtb" v-show="(item.CompanyID =='' || item.CompanyID == null) ? false : true">
+                                                    <i class="icon calcfont calc-gongsixinxi"></i>
+                                                    <div class="item-address">{{item.CompanyID}}</div>
+                                                </div>
+                                                <div class="flex" v-show="(item.ContactsID =='' || item.ContactsID == null) ? false : true">
+                                                    <i class="icon calcfont calc-kehulianxiren"></i>
+                                                    <div class="item-initiator">{{item.ContactsID|formatContactsID}}{{item.Title|formatTitle}}</div>
+                                                </div>
+                                        </div>
+                                  </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+              </div>
           </div>
 
+          <!-- calendar视图 -->
+          <div v-show="queryObj.viewMode != 'listView'" class="calendar-div">
+              <calendar class="calendar-view"></calendar>
+          </div>
 
           <!-- 侧滑筛选 -->
           <screen :screenData="RightPanelModel" :queryObj="queryObj"></screen>
@@ -25,8 +137,6 @@
     <div v-show="pageState == 2">
         <search-module module="meeting" ref="searchModule"></search-module>
     </div>
-
-
 
 </div>
 </template>
@@ -39,13 +149,15 @@ import Scroll from '@/components/customPlugin/scroll/Scroll';
 import Nothing from "@/components/customPlugin/Nothing";
 import SearchModule from '@/components/customplugin/SearchModule'
 import Mixins from '@/mixins/commonlist.js'
+import Calendar from '@/components/tripmeeting/Calendar'
 export default {
   name:'meetinglist',
   mixins:[Mixins],
   components: {
         SearchInput,Sort,Screen,SearchModule,
         'vue-scroll': Scroll,
-        nothing: Nothing
+        nothing: Nothing,
+        'calendar': Calendar
   },
   data(){
     return{
@@ -125,48 +237,74 @@ export default {
                 text:lanTool.lanContent("1000004_分组模式"),
                 option:[
                     {
-                      id:"date",
-                      text:lanTool.lanContent("907_日期"),
+                      id:"List",
+                      text:lanTool.lanContent("1000524_列表"),
                       sort:10,
                       isActive:true
                     },{
-                      id:"popedomTeamInf",
+                      id:"Date",
+                      text:lanTool.lanContent("907_日期"),
+                      sort:20,
+                      // isActive:true
+                    },{
+                      id:"PopedomTeamInf",
                       text:lanTool.lanContent("769_业务组"),
-                      sort:20
+                      sort:30
+                    }
+                ]
+            },
+            "TimeRangeModel":{
+                text:lanTool.lanContent("1000024_时间范围"),
+                option:[
+                    {
+                      id:"all",
+                      text:lanTool.lanContent("795_全部"),
+                    },{
+                      id:"week",
+                      text:lanTool.lanContent("1000005_最近7天"),
+                    },{
+                      id:"month",
+                      text:lanTool.lanContent("1000006_最近30天"),
+                    },{
+                      id:"halfyear",
+                      text:lanTool.lanContent("1000007_最近半年"),
+                    },{
+                      id:"customize",
+                      text:lanTool.lanContent("1000008_自定义"),
                     }
                 ]
             },
             "FieldModel":[{
-                queryfield: "CountryID",
-                text: lanTool.lanContent("701_国家"),
+                queryfield: "CompanyID",
+                text: lanTool.lanContent("790_公司"),
                 fieldControlType: "selectList",
                 queryType: "string",
                 queryFormat: "",
                 queryRelation: "and",
                 queryValue: "",
                 queryComparison: "=",
-                Code: "DropDowList_ViewBaseCountryInf",
+                Code: "DropDowList_ViewBaseCompanyBaseInfHasContact",
                 TypeValue: "",
                 selectType: "radio",
                 // clickObj: "CountryIDClickObj",
                 datalanid: "1000526_请选择",
                 resulteRow: true,
-                iconClass:'calc-nationaarea'
+                iconClass:'calc-gongsixinxi'
               },
               {
-                queryfield: "CityID",
-                text: lanTool.lanContent("702_城市"),
+                queryfield: "ContactsID",
+                text: lanTool.lanContent("630_联系人"),
                 fieldControlType: "linkSelectList",
                 queryType: "string",
                 queryFormat: "",
                 queryRelation: "and",
                 queryValue: "",
                 queryComparison: "=",
-                Code: "DropDowList_ViewBaseCountryCity",
+                Code: "DropDowList_ViewBaseCompanyContactsByCompany",
                 TypeValue: "",
                 selectType: "radio",
                 datalanid: "1000526_请选择",
-                iconClass:'calc-diqiuquanqiu'
+                iconClass:'calc-kehulianxiren'
               }]
         },
         noData: false, //没数据
@@ -179,15 +317,170 @@ export default {
         //查询对象
         queryObj:{
           dataFilter:"",//数据筛选模式,
-          groupByMode:"List",//分组模式,
+          groupByMode:"",//分组模式,
           viewMode:"",//视图模式
           queryCondictionArr:[],//自定义查询条件
         },
-        pageType:0,//0:Organizations;1:Contacts
+        pageType:0,
         //列表数据(分组模式为List)
-        listData:[],
+        listData:[{
+            "AutoID": 996,
+            "MeetingTitle": "Hongtu Airlines A320 Placement",
+            "BeginTime": "2019-11-20T17:27:00",
+            "EndTime": "2019-11-22T17:27:00",
+            "CompanyID": "红土航空有限公司",
+            "ContactsID": "豆海东",
+            "Title": "副总经理",
+            "Realname": "Qing Fang"
+          }, {
+            "AutoID": 964,
+            "MeetingTitle": "工作进度报告",
+            "BeginTime": "2019-11-20T16:00:00",
+            "EndTime": "2019-11-20T17:30:00",
+            "CompanyID": "中国飞机租赁集团(spv)",
+            "ContactsID": "阮毅文",
+            "Title": "前端开发工程师",
+            "Realname": "Alan Cheng"
+          }, {
+            "AutoID": 962,
+            "MeetingTitle": "Norwegian/Joy Air delivery",
+            "BeginTime": "2019-11-20T20:47:00",
+            "EndTime": "2019-11-20T20:47:00",
+            "CompanyID": "Norwegian",
+            "ContactsID": "Arvid Jensen",
+            "Title": "Aircraft Transition Coordinator",
+            "Realname": "Richard Luo"
+          }],
         //分组数据(分组模式为非List)
-        groupData:[]
+        groupData:[{
+              "GroupName": "2019-12-06",
+              "GroupID": "2019-12-06",
+              "GroupRowCount": 1
+            }, {
+              "GroupName": "2019-12-05",
+              "GroupID": "2019-12-05",
+              "GroupRowCount": 1
+            }, {
+              "GroupName": "2019-12-04",
+              "GroupID": "2019-12-04",
+              "GroupRowCount": 1
+            }, {
+              "GroupName": "2019-12-03",
+              "GroupID": "2019-12-03",
+              "GroupRowCount": 1
+            }, {
+              "GroupName": "2019-11-25",
+              "GroupID": "2019-11-25",
+              "GroupRowCount": 2
+            }, {
+              "GroupName": "2019-11-22",
+              "GroupID": "2019-11-22",
+              "GroupRowCount": 2
+            }, {
+              "GroupName": "2019-11-21",
+              "GroupID": "2019-11-21",
+              "GroupRowCount": 5
+            }, {
+              "GroupName": "2019-11-20",
+              "GroupID": "2019-11-20",
+              "GroupRowCount": 3
+            }, {
+              "GroupName": "2019-11-19",
+              "GroupID": "2019-11-19",
+              "GroupRowCount": 4
+            }, {
+              "GroupName": "2019-11-18",
+              "GroupID": "2019-11-18",
+              "GroupRowCount": 1
+            }, {
+              "GroupName": "2019-11-16",
+              "GroupID": "2019-11-16",
+              "GroupRowCount": 1
+            }, {
+              "GroupName": "2019-11-15",
+              "GroupID": "2019-11-15",
+              "GroupRowCount": 6
+            }, {
+              "GroupName": "2019-11-14",
+              "GroupID": "2019-11-14",
+              "GroupRowCount": 5
+            }, {
+              "GroupName": "2019-11-13",
+              "GroupID": "2019-11-13",
+              "GroupRowCount": 4
+            }, {
+              "GroupName": "2019-11-12",
+              "GroupID": "2019-11-12",
+              "GroupRowCount": 6
+            }, {
+              "GroupName": "2019-11-11",
+              "GroupID": "2019-11-11",
+              "GroupRowCount": 11
+            }, {
+              "GroupName": "2019-11-08",
+              "GroupID": "2019-11-08",
+              "GroupRowCount": 6
+            }, {
+              "GroupName": "2019-11-07",
+              "GroupID": "2019-11-07",
+              "GroupRowCount": 5
+            }, {
+              "GroupName": "2019-11-06",
+              "GroupID": "2019-11-06",
+              "GroupRowCount": 4
+            }, {
+              "GroupName": "2019-11-05",
+              "GroupID": "2019-11-05",
+              "GroupRowCount": 5
+            }, {
+              "GroupName": "2019-11-04",
+              "GroupID": "2019-11-04",
+              "GroupRowCount": 7
+            }, {
+              "GroupName": "2019-11-03",
+              "GroupID": "2019-11-03",
+              "GroupRowCount": 3
+            }, {
+              "GroupName": "2019-11-01",
+              "GroupID": "2019-11-01",
+              "GroupRowCount": 3
+            }, {
+              "GroupName": "2019-10-31",
+              "GroupID": "2019-10-31",
+              "GroupRowCount": 5
+            }, {
+              "GroupName": "2019-10-30",
+              "GroupID": "2019-10-30",
+              "GroupRowCount": 7
+            }, {
+              "GroupName": "2019-10-29",
+              "GroupID": "2019-10-29",
+              "GroupRowCount": 8
+            }, {
+              "GroupName": "2019-10-28",
+              "GroupID": "2019-10-28",
+              "GroupRowCount": 6
+            }, {
+              "GroupName": "2019-10-27",
+              "GroupID": "2019-10-27",
+              "GroupRowCount": 1
+            }, {
+              "GroupName": "2019-10-26",
+              "GroupID": "2019-10-26",
+              "GroupRowCount": 2
+            }, {
+              "GroupName": "2019-10-25",
+              "GroupID": "2019-10-25",
+              "GroupRowCount": 8
+            }, {
+              "GroupName": "2019-10-24",
+              "GroupID": "2019-10-24",
+              "GroupRowCount": 6
+            }, {
+              "GroupName": "2019-10-23",
+              "GroupID": "2019-10-23",
+              "GroupRowCount": 6
+            }]
     }
   },
   created: function () {
@@ -197,8 +490,7 @@ export default {
   mounted(){
       let _self = this;
       _self.watchScroll();
-      //分组模式事件绑定
-      _self.groupToggleHandle('organizationsList');
+      _self.groupToggle('meetingList','meetingListOfGroup');
   },
   methods:{
     //返回上一页
@@ -216,7 +508,7 @@ export default {
     //查询委托
     delegateQuery:function(){
       let _self = this;
-
+/*
       _self.$nextTick(function(){
 
         //执行查询
@@ -233,7 +525,7 @@ export default {
           _self.queryGroup();
         }
       });
-
+*/
     },
     //合并查询条件
     constructQueryCondiction:function(){
@@ -468,10 +760,10 @@ export default {
       }
       var parameter = {
           // showPage: _self.showPage,
-          infoName:data.ShortName
+          infoName:data.MeetingTitle
       };
       _self.$router.push({
-          path: '/organizationsinfo/' + data.AutoID,
+          path: '/meetinginfo/' + data.AutoID,
           query: parameter
       });
     },
@@ -485,10 +777,14 @@ export default {
         _self.watchScrollHandle( headerH + navH );
     },
 
-    //分组模式下展开收起
-    groupToggleHandle:function(idName){
+    //列表展开收起(一级)
+    /*
+      * 列表展开收起
+      *  id1 , id2 :只模块id
+      */
+    groupToggle:function(id1, id2){
         var _self = this;
-        $("#"+ idName ).off("click", "div.date-div").on(
+        $("#"+ id1 +",#"+id2).off("click", "div.date-div").on(
             "click",
             "div.date-div",
             function (event) {
@@ -523,20 +819,86 @@ export default {
                         });
                 } else {
                     //若是收起
-                    let groupBy = _self.queryObj.groupByMode ||"";
-                    let queryCondictionArr = _self.constructQueryCondiction() || [];
-                    tool.InitInnerDataList(_self, fromType, groupID, queryCondictionArr, function(){
+                    var allQueryData = tool.combineArray(_self.queryCondictionData, _self.queryCondiction, "Field");
+
+                    //BusinessCategories模块需要用到
+                    if(allQueryData && !tool.isNullOrEmptyObject(_self.dateRangeJObject)){
+                        allQueryData.push(_self.dateRangeJObject);
+                    }
+
+                    let groupBy = _self.groupBy == undefined ? '' : _self.groupBy;
+
+                    tool.InitInnerDataList(_self, fromType, groupID, allQueryData, function(){
                         _self.$nextTick(function () {
-                          //  console.log(_self.groupData);
                             target.addClass("open")
                                 .siblings(".group-item-list")
                                 .slideDown(500);
-                        });
-                    }, '', groupBy, _self.pageType);
+
+                            //分组模式会议 二级展开收起
+                            if(!tool.isNullOrEmptyObject(_self.meetingToggle)){
+                              _self.meetingToggle();
+                            }
+                        })
+                    }, '', groupBy, _self.showPage);
                 }
             }
         );
 
+    },
+
+    //分组模式会议 二级展开收起
+    meetingToggle:function(){
+        let _self = this;
+        $('#meetingListOfGroup').off('click','.company_item_tit').on(
+          'click',
+          '.company_item_tit',
+          function(event){
+              event.preventDefault();
+              var target = $(event.target);
+              if (!target.hasClass('company_item_tit')) {
+                  target = target.parents("div.company_item_tit:first");
+                  if (tool.isNullOrEmptyObject(target)) {
+                      return;
+                  }
+              }
+              var categoryID = target.closest('.contacts-list')
+                              .siblings('div.date-div')
+                              .find("span[data-groupid]:first")
+                              .attr("data-groupid") || "";
+              var companyID = target.find("div[data-groupid]:first").attr("data-groupid") || "";
+              if (tool.isNullOrEmptyObject(categoryID) || tool.isNullOrEmptyObject(companyID)) {
+                    return;
+              }
+              //若是展开
+              if (target.hasClass("open")) {
+                  target
+                      .removeClass("open")
+                      .siblings(".meeting-list")
+                      .slideUp(500, function () {
+                          //清空items数据
+                          $.each(_self.groupData, function (index, item) {
+                              if (item.GroupID == categoryID) {
+                                  $.each(item.items, function(i, companyData){
+                                      if(companyData.AutoID == companyID){
+                                          companyData.items = [];
+                                      }
+                                  })
+                              }
+                          })
+                      });
+              }else{
+                  //若是收起
+                  _self.getMeetings(categoryID, companyID, function(){
+                      _self.$nextTick(function () {
+                          target.addClass("open")
+                              .siblings(".meeting-list")
+                              .slideDown(500);
+                      })
+                  });
+              }
+
+
+          })
     },
 
     //接收搜索的值并刷新列表,str有可能为空  (专门处理搜索)
@@ -547,6 +909,11 @@ export default {
             _self.searchValue = str;
         }
         console.log(_self.searchValue);
+    },
+
+    //处理右侧字段联动
+    rightPanelLinkageField(vueObj){
+        tool.linkageField(vueObj, 'CompanyID', 'ContactsID');
     }
 
   },
@@ -584,7 +951,7 @@ export default {
 
 
 /*分组模式*/
-.group-mode-div{
+.date-mode-div,.department-mode-div,.calendar-div{
   padding-top:calc(0.88rem + 0.7rem);
 }
 </style>

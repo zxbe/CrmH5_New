@@ -420,7 +420,7 @@ export default {
         tool.InitiateInfoPageControl(_self, _self.id, function () {
             //渲染textarea 从新增事件进到详情是不会进入渲染数据的方法，这里得多加个textarea高度自适应
             $("textarea").each(function (index, cur) {
-                 $(cur).height(tool.TextareaDefaultHeight);
+                $(cur).height(tool.TextareaDefaultHeight);
                 // $(cur).addClass("DefaultHeight");
                 tool.autoTextarea(cur);
             });
@@ -493,7 +493,6 @@ export default {
 
                     var dataField = curObj.attr("data-field") || "";
                     dataField = $.trim(dataField).toLowerCase();
-
                     if (dataField == "companyid") {
                         //请求地址
                         var urlTemp = tool.AjaxBaseUrl();
@@ -550,6 +549,7 @@ export default {
             //选择公司后 国家和城市在这里跟着变动
             var dataField = curObj.attr("data-field") || "";
             dataField = $.trim(dataField).toLowerCase();
+            console.log("公司id:" + dataField);
 
             if (dataField == "companyid") {
                 //请求地址
@@ -591,11 +591,11 @@ export default {
                 });
             }
             //选择回填后根据回填的内容自适应高度
-            if(curObj.is("textarea")){
+            if (curObj.is("textarea")) {
                 curObj.height(tool.TextareaDefaultHeight);
                 tool.autoTextarea(curObj[0]);
             }
-            
+
             //清空全局变量
             eventBus.selectListData = null;
         });
@@ -757,8 +757,8 @@ export default {
 
 /* .ContactList,
 .accessList { */
-    /* padding-bottom:0.4rem; */
-    /* background-color: #fff;
+/* padding-bottom:0.4rem; */
+/* background-color: #fff;
 } */
 
 /* .ContactList .DetailRow,
@@ -769,7 +769,7 @@ export default {
     padding-left: 0.16rem;
     padding-top: 0.2rem;
     padding-right: 0.18rem; */
-    /* padding-bottom: 0.2rem; */
-    /* box-sizing: border-box;
+/* padding-bottom: 0.2rem; */
+/* box-sizing: border-box;
 } */
 </style>

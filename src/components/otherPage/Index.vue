@@ -31,13 +31,13 @@
             </div>
             <div class="row-div">
                   <div class="column-div">
-                      <router-link to="/businessCategories" class="router-target">
+                      <router-link to="/pitches" class="router-target">
                           <i class="calcfont calc-yewujihui" style="color:#ee4656;"></i>
                           <div class="f14 lanText" data-lanid="644_商业机会"></div>
                       </router-link>
                   </div>
                   <div class="column-div">
-                      <router-link to="/businessCategories" class="router-target">
+                      <router-link to="/pipeline" class="router-target">
                           <i class="calcfont calc-jiaoyi-shijian" style="color:#1cc03b"></i>
                           <div class="f14 lanText" data-lanid="817_交易"></div>
                       </router-link>

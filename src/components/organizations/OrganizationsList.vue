@@ -15,7 +15,7 @@
       <!-- 列表模式   -->
       <div class="list-mode-div" v-show="queryObj.groupByMode == 'List'">
         <vue-scroll v-show="!noData" :showToTop="false" :options="{ pullup: true, pulldown: true }" :scrollbar="false" ref="scroll" @pulldown="pulldown" @pullup="pullup">
-            <div v-if="listData.length > 0" class=" organizations-list">
+            <div v-if="listData !=null && listData != undefined && listData.length > 0" class=" organizations-list">
               <div v-for="item in listData" :key="item.AutoID"
               class="group-item data-events-item"  @click="goInfo(item)">
                     <div class="item-stars-icon calcfont" :class="item.IsFollow" :data-autoid="item.AutoID" @click.stop="followToggle($event)"></div>
@@ -634,6 +634,11 @@ export default {
             _self.searchValue = str;
         }
         console.log(_self.searchValue);
+    },
+
+    //处理右侧字段联动
+    rightPanelLinkageField(vueObj){
+        tool.linkageField(vueObj, 'CountryID', 'CityID');
     }
 
   },
@@ -647,9 +652,7 @@ export default {
 </script>
 
 <style scoped>
-.page{
-    /*display: flex;flex-direction: column;justify-content: center;height: 100vh;*/
-  }
+.page{}
 .header{
   overflow: hidden;
   background: #f8f2dc;

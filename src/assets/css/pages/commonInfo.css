@@ -219,6 +219,7 @@
 }
 p.textareaP{
     width: 100%;
+    font-family: "微软雅黑";
 }
 textarea {
     width: 100%;
@@ -435,7 +436,7 @@ textarea::placeholder
 
 /* 改版后的详情页样式 */
 .OrganizationsList,.MeetingList,.ContactList,.accessList{
-    padding-bottom:0.4rem;
+    /* padding-bottom:0.4rem; */
     background-color:#fff;
 }
 .OrganizationsList .DetailRow, .MeetingList .DetailRow,.ContactList .DetailRow,
@@ -463,26 +464,36 @@ textarea::placeholder
   background-color: #FFC125;
 }
 .calcfont.ChangeIconColor {
+    display:table-cell;
+    vertical-align: middle;
     font-size: 0.32rem;
     color: #FF9900;
 }
-
+.DetailRowOn{
+    position: table !important;
+}
 span.FileName {
+    display:table-cell;
+    vertical-align: middle;
     font-size: 0.24rem;
     padding-left: 0.12rem;
 }
 
 span.XingHao {
-    font-size: 0.24rem;
+    display:table-cell;
+    vertical-align: middle;
+    font-size: 0.3rem;
     padding-left: 3px;
+    height:0.3rem;
     color: red;
+    /* box-sizing: border-box; */
 }
 
 .DetailRowUp {
     position: relative;
     padding-left: 0.44rem;
     padding-bottom: 0.1rem;
-    margin-top: 0.3rem;
+    margin-top: 0.2rem;
 }
 
 .DetailRowUp input {
@@ -524,24 +535,28 @@ textarea{
 /*input placeholder的样式  */
 :-moz-placeholder {
     font-size:0.28rem;
+    font-family: "微软雅黑";
   color: #D7D7D7;
   opacity: 1;
 }
 
 ::-moz-placeholder {
   font-size:0.28rem;
+  font-family: "微软雅黑";
   color: #D7D7D7;
   opacity: 1;
 }
 
-input:-ms-input-placeholder {
+input:-ms-input-placeholder,textarea:-ms-input-placeholder {
     font-size:0.28rem;
+    font-family: "微软雅黑";
   color: #D7D7D7;
   opacity: 1;
 }
 
-input::-webkit-input-placeholder {
+input::-webkit-input-placeholder,textarea::-webkit-input-placeholder {
     font-size:0.28rem;
+    font-family: "微软雅黑";
   color: #D7D7D7;
   opacity: 1;
 }

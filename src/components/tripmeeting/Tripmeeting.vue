@@ -9,11 +9,6 @@
 
         <!-- list 视图 -->
         <div v-show="viewType=='listView'" class="list-view">
-            <!-- <div class="nav sticky">
-                <div id="meetingPanel" @click.stop="switchPage(0,$event)" class="nav-item f16 active-item  lanText" data-lanid="818_会议"></div>
-                <div style="color:#ccc;" class="nav-item f16 lanText" data-lanid="819_出差"></div>
-                <div class="nav-border"></div>
-            </div> -->
 
             <div class="pageList">
                 <div class="add-btn-div">
@@ -107,18 +102,6 @@
 
                 <nothing v-show="noData" style="padding-top:0.8rem;"></nothing>
             </div>
-
-            <!-- <div class="pageList" v-show="showPage == 1">
-                <div class="add-btn-div">
-                    <router-link to="/tripinfo/0" class="add-div">
-                        <span class="calcfont calc-add"></span>
-                        <span class="add-text lanText" data-lanid="887_新增出差"></span>
-                    </router-link>
-                </div> -->
-                <!-- 列表 -->
-                <!-- <div v-show="!noData" id="tripList" data-fromtype="trip"></div>
-                <nothing v-show="noData" style="padding-top:0.8rem;"></nothing>
-            </div> -->
 
         </div>
     </div>

@@ -675,10 +675,11 @@ export default {
 
         //返回时更新selectlist控件的结果
         tool.UpdateFieldValueFromBack(eventBus, function (obj) {
-              $("textarea").each(function (index, cur) {
-                $(cur).height(tool.TextareaDefaultHeight);
-                tool.autoTextarea(cur);
-            });   
+             //选择回填后根据回填的内容自适应高度
+            if (obj.is('textarea')) {
+               obj.height(tool.TextareaDefaultHeight);
+                tool.autoTextarea(obj[0]);
+            }
             //渲染会议记录模块
             //_self.initMeetingNote();
 

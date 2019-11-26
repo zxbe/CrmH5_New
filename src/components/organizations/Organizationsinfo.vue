@@ -346,7 +346,6 @@ export default {
                 //渲染textarea
                 $("textarea").each(function (index, cur) {
                     $(cur).height(tool.TextareaDefaultHeight);
-                    // $(cur).addClass("DefaultHeight");
                     tool.autoTextarea(cur);
                 });
 
@@ -412,12 +411,12 @@ export default {
         tool.linkageField(_self, 'CountryID', 'CityID');
 
         //返回时更新selectlist控件的结果
-        tool.UpdateFieldValueFromBack(eventBus, function () {
-             $("textarea").each(function (index, cur) {
-                $(cur).height(tool.TextareaDefaultHeight);
-                //  $(cur).addClass("DefaultHeight");
-                tool.autoTextarea(cur);
-            });           
+        tool.UpdateFieldValueFromBack(eventBus, function (curObj) {
+            //选择回填后根据回填的内容自适应高度
+            if(curObj.is("textarea")){
+                curObj.height(tool.TextareaDefaultHeight);
+                tool.autoTextarea(curObj[0]);
+            }
              //清空全局变量
             eventBus.selectListData = null;
         })
