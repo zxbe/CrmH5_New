@@ -686,6 +686,10 @@ import config from '../../configfile/config.js'
 	//loadingIndexClassName
 	tool.loadingIndexClassName = "loadingIndex_";
 
+	/*
+	  TextareaDefaultHeight:详情表单textarea默认高度
+	*/ 
+     tool.TextareaDefaultHeight = "20";
 	/*请求的公共入口地址*/
 	tool.AjaxBaseUrl = function () {
 		return tool.getConfigValue(tool.config_ajaxUrl) || "";

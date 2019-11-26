@@ -225,7 +225,7 @@ export default {
 
 
 <style scoped>
-@import "../../assets/css/pages/calendarinfo.css";
+@import "../../assets/css/pages/commonInfo.css";
 /*页面头部style*/
 
 header {

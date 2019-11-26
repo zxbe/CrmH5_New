@@ -191,5 +191,5 @@ export default {
 </script>
 
 <style scoped>
-@import "../../assets/css/pages/calendarinfo.css";
+@import "../../assets/css/pages/commonInfo.css";
 </style>

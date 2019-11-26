@@ -580,8 +580,8 @@ export default {
 
             //渲染textarea
             $("textarea").each(function (index, cur) {
-                // $(cur).height('20');
-                 $(cur).addClass("DefaultHeight");
+                $(cur).height(tool.TextareaDefaultHeight);
+                //  $(cur).addClass("DefaultHeight");
                 tool.autoTextarea(cur);
             });
             //控制字段显示隐藏
@@ -636,8 +636,8 @@ export default {
 
                 //渲染textarea
                 $("textarea").each(function (index, cur) {
-                    // $(cur).height('20');
-                    $(cur).addClass("DefaultHeight");
+                    $(cur).height(tool.TextareaDefaultHeight);
+                    // $(cur).addClass("DefaultHeight");
                     tool.autoTextarea(cur);
                 });
 
@@ -675,7 +675,10 @@ export default {
 
         //返回时更新selectlist控件的结果
         tool.UpdateFieldValueFromBack(eventBus, function (obj) {
-
+              $("textarea").each(function (index, cur) {
+                $(cur).height(tool.TextareaDefaultHeight);
+                tool.autoTextarea(cur);
+            });   
             //渲染会议记录模块
             //_self.initMeetingNote();
 
@@ -1341,7 +1344,7 @@ export default {
 </script>
 
 <style scoped>
-@import "../../assets/css/pages/calendarinfo.css";
+@import "../../assets/css/pages/commonInfo.css";
 
 .meetingRecord {
     margin: 10px 0;
