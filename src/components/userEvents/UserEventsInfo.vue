@@ -1,6 +1,6 @@
 <template>
 <div>
-    <Infoheader class="sticky infoheader" :isAddNew="isAddNew" :onlyView="onlyView" :operation="operation" :title="ptitle"></Infoheader>
+    <Infoheader class="sticky infoheader" :isAddNew="isAddNew" :onlyView="onlyView" :operation="operation" :title="ptitle" :onlyMore="onlyMore"></Infoheader>
     <div class="pageContent">
         <div class="Container">
             <div class="divContent">
@@ -73,9 +73,10 @@ export default {
         return {
             ptitle: "",
             id: '',
-            isAddNew: true,
-            onlyView: true,
+            isAddNew: false,
+            onlyView: false,
             operation: true,
+            onlyMore:true,
             isShowClose: false,
             isShowSendBtn: false,
             rightPanelFromType: "", //传给右侧菜单用的参数

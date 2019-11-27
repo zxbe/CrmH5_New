@@ -15,8 +15,8 @@
         <div v-else class="leftView right">
 
             <a v-if="!onlyView && operation" @click="moreClick" class="calcfont calc-gengduo right" id="gengduo"></a>
-            <a v-if="!onlyView" @click="save" class="calcfont calc-gou right" id="save"></a>
-            <a v-if="!onlyView && !notDelete" @click="delClick" class="calcfont calc-shanchu right" id="delete"></a>
+            <a v-if="!onlyView && !onlyMore" @click="save" class="calcfont calc-gou right" id="save"></a>
+            <a v-if="!onlyView && !notDelete && !onlyMore" @click="delClick" class="calcfont calc-shanchu right" id="delete"></a>
 
         </div>
 
@@ -26,45 +26,57 @@
 
 <script>
 export default {
-    name:'infoheader',
+    name: 'infoheader',
     data() {
         return {
-            rightPanelFromTypeNew :"",
-            rightPanelFromIDNew :"",
+            rightPanelFromTypeNew: "",
+            rightPanelFromIDNew: "",
         }
     },
-    props:{
-        title:String,
-        isAddNew:{ //是否是新增状态, 父组件不传默认为false
-          type:Boolean,
-          default:function(){return false}
+    props: {
+        title: String,
+        isAddNew: { //是否是新增状态, 父组件不传默认为false
+            type: Boolean,
+            default: function () {
+                return false
+            }
         },
-        operation:{ //侧滑是否可操作, 父组件不传默认为false
-          type:Boolean,
-          default:function(){return false}
+        onlyMore: { //是否只有右侧滑可操作,父组件不传默认为false
+            type: Boolean,
+            default: function () {
+                return false
+            }
         },
-        onlyView:{  //标志页面只能查看,父组件不传默认为false
-          type:Boolean,
-          default:function(){return false}
+        operation: { //侧滑是否可操作, 父组件不传默认为false
+            type: Boolean,
+            default: function () {
+                return false
+            }
         },
-        notDelete:{ //控制删除按钮是否显示,父组件不传默认为false（显示）
-          type:Boolean,
-          default:function(){return false}
+        onlyView: { //标志页面只能查看,父组件不传默认为false
+            type: Boolean,
+            default: function () {
+                return false
+            }
+        },
+        notDelete: { //控制删除按钮是否显示,父组件不传默认为false（显示）
+            type: Boolean,
+            default: function () {
+                return false
+            }
         },
         // onlyMore:Boolean,   //只有Opportunitiesinfo文件用到 不传默认为fase
-        rightPanelFromType:String,
-        rightPanelFromID:String
+        rightPanelFromType: String,
+        rightPanelFromID: String
     },
-    watch: {
-    },
-    created:function(){
+    watch: {},
+    created: function () {
         var _self = this;
     },
     mounted: function () {
 
     },
-    activated:function(){
-    },
+    activated: function () {},
     methods: {
 
         //保存动作
@@ -82,10 +94,10 @@ export default {
             _self.$parent.$refs.rightPanel.panelToggle();
         },
         back: function () {
-          let _self = this;
-          let parentName = _self.$parent.$options.name;
-          _self.$store.commit('REMOVE_ITEM', parentName);
-          _self.$router.back(-1);
+            let _self = this;
+            let parentName = _self.$parent.$options.name;
+            _self.$store.commit('REMOVE_ITEM', parentName);
+            _self.$router.back(-1);
         }
     }
 }
@@ -105,7 +117,7 @@ header.mui-bar {
     position: absolute;
     height: 0.88rem;
     right: 0;
-    top:0;
+    top: 0;
 }
 
 .mui-title {
@@ -113,12 +125,12 @@ header.mui-bar {
     display: inline-block;
     overflow: hidden;
     width: auto;
-    max-width:65%;
+    max-width: 65%;
     font-size: .34rem;
     margin: 0 0 0 -10px;
     text-overflow: ellipsis;
     padding: 0;
-    text-align:left;
+    text-align: left;
     white-space: nowrap;
     line-height: .88rem;
 }
@@ -132,13 +144,12 @@ header.mui-bar {
     display: inline-block;
     text-decoration: none;
     line-height: 1;
-    margin-left:-10px;
+    margin-left: -10px;
 }
 
 .calc-fanhui {
-    margin-left:0;
+    margin-left: 0;
 }
-
 
 #delete:after {
     clear: both;
