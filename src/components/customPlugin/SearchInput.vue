@@ -18,10 +18,10 @@
       type="text"
     />
     <i
-      v-if="enableInput"
+      v-if="isShowClearIcon"
       v-show="showClearIcon"
       class="calcfont calc-guanbi1 delete-icon f14"
-      @click="clearEvent"
+      @click.stop="clearEvent"
     ></i>
   </div>
 </template>
@@ -48,6 +48,10 @@ export default {
     //   default: ""
     // },
     enableInput: {
+      type: Boolean,
+      default: true
+    },
+    isShowClearIcon:{
       type: Boolean,
       default: true
     }
