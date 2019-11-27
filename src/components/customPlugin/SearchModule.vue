@@ -5,7 +5,7 @@
     <header class="header" id="searchHeader">
         <search-input ref="searchInput" class="search"  :isShowClearIcon="true" :placeholder=lanSearchModuleInputPlaceHolder></search-input>
         <span @click="cancelEvent" class="cancel-btn f14">{{lanCancel}}</span>
-        <i class="calcfont calc-shanchu delete-icon f18" @click="refreshList"></i>
+        <!-- <i class="calcfont calc-shanchu delete-icon f18" @click="refreshList"></i> -->
     </header>
 
     <!-- 显示历史搜索状态 -->
@@ -101,7 +101,7 @@ export default {
         console.log("localStorageKeyName:"+_self.localStorageKeyName);
         let dataString = tool.getStorageItem(_self.localStorageKeyName);
         if(tool.isNullOrEmptyObject(dataString)){
-         _self.historyData = [];   
+         _self.historyData = [];
         }else{
             _self.historyData = tool.jObject(dataString);
         }
@@ -178,7 +178,7 @@ export default {
             AutoValue:autoValue,
             Top:10//查询匹配的前N条记录
         };
-        
+
         //var loadingIndexClassName = tool.showLoading();
         $.ajax({
             async: true,
@@ -260,7 +260,7 @@ export default {
             default:
                 return false;
         }
-        
+
         //根据不同模块，跳到具体的详情页
         _self.$router.push({
             path: infoUrl + data.AutoID,
@@ -303,6 +303,7 @@ export default {
             });
         }
     },
+    /*
     //清除模糊查询记录，并执行父组件的刷新页面动作
     refreshList(){
         let _self = this;
@@ -318,6 +319,7 @@ export default {
             });
         }
     },
+    */
     //清除搜索框的值
     clearSearchValue(){
         let _self = this;
