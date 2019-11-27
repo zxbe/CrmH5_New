@@ -725,12 +725,49 @@ export default {
             _self.setDeaultItemActive(".groupByMode");
         }
 
-        //3>重置queryCondictionArr(清空控件值)
-        //3-1>移除selectlist等控件的监听事件(避免重置字段值，重复触发查询动作)
+        //3>重置ViewMode
+        $(".viewMode .item-div").removeClass("active");
+        _self.$set(_self.queryObj,"viewMode","");
+        //若有配置默认选择项
+        if(!tool.isNullOrEmptyObject(_self.screenData.ViewModel) &&
+            !tool.isNullOrEmptyObject(_self.screenData.ViewModel.option) &&
+            _self.screenData.ViewModel.option.length>=1){
+            //获取默认激活项
+            var defaultItemArr =
+            _self.screenData.ViewModel.option.find(function(obj){
+                if(!obj.hasOwnProperty("isActive")){
+                    return false;
+                }
+
+                return obj.isActive == true;
+            });
+
+            if(!tool.isNullOrEmptyObject(defaultItemArr)){
+                var defaultId = defaultItemArr.id;
+                if(!tool.isNullOrEmptyObject(defaultId)){
+                    var $destItem = $(".viewMode .item-div[data-id='"+ defaultId +"']:first");
+                    if(!tool.isNullOrEmptyObject($destItem) && $destItem.length>=1){
+                        $destItem.addClass("active");
+                    }else{
+                        _self.setDeaultItemActive(".viewMode");
+                    }
+                }else{
+                    _self.setDeaultItemActive(".viewMode");
+                }
+
+            }else{
+                _self.setDeaultItemActive(".viewMode");
+            }
+        }else{
+            _self.setDeaultItemActive(".viewMode");
+        }
+
+        //4>重置queryCondictionArr(清空控件值)
+        //4-1>移除selectlist等控件的监听事件(避免重置字段值，重复触发查询动作)
         _self.bindFieldChangeEvent(true);
-        //3-2>清空查询对象
+        //4-2>清空查询对象
         _self.$set(_self.queryObj,"queryCondictionArr",[]);
-        //3-3>清空字段控件值
+        //4-3>清空字段控件值
         tool.ClearControlData();
 
         if(isOnlyClearValue){
