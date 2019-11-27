@@ -2539,6 +2539,7 @@ import config from "../../configfile/config.js";
               onOpen: function(data) {
                 //收起键盘
                 document.activeElement.blur();
+                _curObj.parents(".DetailRow").addClass("DeepColor").siblings().removeClass("DeepColor");
                 var displayTemp = _curObj.val() || "";
                 _curObj.picker("setValue", [displayTemp]);
               },
@@ -2581,6 +2582,7 @@ import config from "../../configfile/config.js";
         if (typeof _curObj.attr("data-clickObj") != "undefined") {
           return;
         }
+        _curObj.parents(".DetailRow").addClass("DeepColor").siblings().removeClass("DeepColor");
         // console.log(_curObj);
         var dataField = _curObj.attr("data-field") || "";
         var code = _curObj.attr("Code") || "";
@@ -2631,6 +2633,7 @@ import config from "../../configfile/config.js";
           if (tool.isNullOrEmptyObject(_curObj)) {
             return;
           }
+          _curObj.parents(".DetailRow").addClass("DeepColor").siblings().removeClass("DeepColor");
           // console.log(_curObj);
           var dataField = _curObj.attr("data-field") || "";
           var code = _curObj.attr("Code") || "";
@@ -2674,6 +2677,7 @@ import config from "../../configfile/config.js";
         if (typeof _curObj.attr("data-clickObj") != "undefined") {
           return;
         }
+        _curObj.parents(".DetailRow").addClass("DeepColor").siblings().removeClass("DeepColor");
         // console.log(_curObj);
         var dataField = _curObj.attr("data-field") || "";
         var code = _curObj.attr("Code") || "";
@@ -2721,6 +2725,7 @@ import config from "../../configfile/config.js";
           if (tool.isNullOrEmptyObject(_curObj)) {
             return;
           }
+          _curObj.parents(".DetailRow").addClass("DeepColor").siblings().removeClass("DeepColor");
           var dataField = _curObj.attr("data-field") || "";
           var code = _curObj.attr("Code") || "";
           var filter = _curObj.attr("Filter") || "";
@@ -2758,6 +2763,7 @@ import config from "../../configfile/config.js";
         if (typeof _curObj.attr("data-clickObj") != "undefined") {
           return;
         }
+        _curObj.parents(".DetailRow").addClass("DeepColor").siblings().removeClass("DeepColor");
         // console.log(_curObj);
         var dataField = _curObj.attr("data-field") || "";
         var code = _curObj.attr("Code") || "";
@@ -2806,6 +2812,7 @@ import config from "../../configfile/config.js";
         if (tool.isNullOrEmptyObject(_curObj)) {
           return;
         }
+        _curObj.parents(".DetailRow").addClass("DeepColor").siblings().removeClass("DeepColor");
         // console.log(_curObj);
 
         var dataField = _curObj.attr("data-field") || "";
@@ -2903,6 +2910,7 @@ import config from "../../configfile/config.js";
           onOpen: function(pickerTemp, val1, val2) {
             //隐藏虚拟键盘
             document.activeElement.blur();
+            _curObj.parents(".DetailRow").addClass("DeepColor").siblings().removeClass("DeepColor");
             if (
               tool.isNullOrEmptyObject(pickerTemp) ||
               tool.isNullOrEmptyObject(pickerTemp.value) ||
@@ -4047,6 +4055,7 @@ import config from "../../configfile/config.js";
         .off("click")
         .on("click", function() {
           var _curObj = $(this);
+          _curObj.parents(".DetailRow").addClass("DeepColor").siblings().removeClass("DeepColor");
           var dataField = _curObj.attr("data-field") || "";
           var code = _curObj.attr("Code") || "";
           var filter = _curObj.attr("Filter") || "";
@@ -4105,6 +4114,7 @@ import config from "../../configfile/config.js";
       $("[data-field='" + chField + "']")
         .off("click")
         .on("click", function() {
+          _curObj.parents(".DetailRow").addClass("DeepColor").siblings().removeClass("DeepColor");
           var _curObj = $(this);
           var dataField = _curObj.attr("data-field") || "";
           var code = _curObj.attr("Code") || "";

@@ -399,7 +399,7 @@ export default {
             $(this).parents(".DetailRow").removeClass("DeepColor");
         });
         $(".textareaP:not(.wrap) textarea").focus(function () {
-            $(this).parents(".DetailRow").addClass("DeepColor");
+            $(this).parents(".DetailRow").addClass("DeepColor").siblings().removeClass("DeepColor");
         });
         //如果是只查看，控制元素不可以更改
         _self.controlEdit();

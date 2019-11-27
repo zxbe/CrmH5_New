@@ -561,11 +561,12 @@ export default {
             _self.isAddNew = false;
             _self.operation = true;
         }
+        
         $(".textareaP:not(.wrap) textarea").blur(function(){
               $(this).parents(".DetailRow").removeClass("DeepColor");
          });
          $(".textareaP:not(.wrap) textarea").focus(function(){
-              $(this).parents(".DetailRow").addClass("DeepColor");
+              $(this).parents(".DetailRow").addClass("DeepColor").siblings().removeClass("DeepColor");
          });
 
 
