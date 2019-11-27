@@ -5,7 +5,7 @@
       <header class="header">
           <a @click="back" class="calcfont calc-fanhui back-icon" id="back"></a>
           <div class="search" @click="showSearch">
-              <search-input :enableInput="false" :placeholder=lanSearchModuleInputPlaceHolder ref="searchInput"></search-input>
+              <search-input :enableInput="false" :isShowClearIcon="true" :placeholder=lanSearchModuleInputPlaceHolder ref="searchInput"></search-input>
           </div>
           <a class="calcfont calc-tianjia add-icon" @click="addContacts" ></a>
       </header>
@@ -251,7 +251,7 @@ export default {
     }
   },
   computed:{
-    
+
   },
   created: function () {
       let _self = this;
@@ -709,6 +709,10 @@ export default {
         callBack();
       }
     },
+    //点击头部输入框中的XX
+    clearSearchValue(){
+        console.log('清除');
+    }
   },
   beforeRouteLeave: function (to, from, next) {
       if (to.name == 'index') {
