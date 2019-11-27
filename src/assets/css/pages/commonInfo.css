@@ -464,41 +464,37 @@ textarea::placeholder
   background-color: #FFC125;
 }
 .calcfont.ChangeIconColor {
-    display:table-cell;
-    vertical-align: middle;
     font-size: 0.32rem;
     color: #FF9900;
 }
 .DetailRowOn{
-    position: table !important;
+    position: relative;
+    display: flex;
+    height: 0.36rem;
+    align-items: center;
 }
 span.FileName {
-    display:table-cell;
-    vertical-align: middle;
     font-size: 0.24rem;
     padding-left: 0.12rem;
 }
 
 span.XingHao {
-    display:table-cell;
-    vertical-align: middle;
-    font-size: 0.3rem;
-    padding-left: 3px;
-    /* height:0.3rem; */
+    font-size: 0.36rem;
+    /* padding-left: 1px; */
+    padding-top: 0.12rem;
     color: red;
-    /* box-sizing: border-box; */
 }
 
 .DetailRowUp {
     position: relative;
     padding-left: 0.44rem;
     padding-bottom: 0.1rem;
-    margin-top: 0.2rem;
+    margin-top: 0.14rem;
 }
 
 .DetailRowUp input {
     width: calc(100% - 0.5rem);
-    height: 0.4rem;
+    height: 20px;
     font-size: 0.28rem;
     border: none;
     outline: none;
