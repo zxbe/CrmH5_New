@@ -124,35 +124,34 @@ export default {
         lanTool.updateLanVersion();
         // _self.changePos();
 
-        eventBus.$on('updataCalendarEvent', function () {
-            _self.setCalendarEvent(_self.calendarObjGlobal);
-        });
+        // eventBus.$on('updataCalendarEvent', function () {
+        //     _self.setCalendarEvent(_self.calendarObjGlobal);
+        // });
 
-        eventBus.$on('RightPanelCalendarEvent', function (data) {
-            _self.setQuerycondition(data);
-        });
+        // eventBus.$on('RightPanelCalendarEvent', function (data) {
+        //     _self.setQuerycondition(data);
+        // });
 
-        //todo
-        // _self.initCalendar();
+        _self.initCalendar();
         // if (!tool.isNullOrEmptyObject(_self.calendarObjGlobal)) {
         //     _self.setCalendarEvent(_self.calendarObjGlobal);
         // }
     },
     activated: function () {
-        var _self = this;
-        if (eventBus.queryCondictionData != null && eventBus.queryCondictionData != undefined) {
-            if (this.$route.meta.fromSave) {
-                _self.queryCondictionData = [];
-            } else {
-                _self.queryCondictionData = eventBus.queryCondictionData;
-            }
-        }
+        // var _self = this;
+        // if (eventBus.queryCondictionData != null && eventBus.queryCondictionData != undefined) {
+        //     if (this.$route.meta.fromSave) {
+        //         _self.queryCondictionData = [];
+        //     } else {
+        //         _self.queryCondictionData = eventBus.queryCondictionData;
+        //     }
+        // }
 
-        //获取是否是从搜索页面点击确定按钮返回来的标志
-        var fromSearchBtn = eventBus.fromSearchBtn || false;
-        if (fromSearchBtn) {
-            _self.setCalendarEvent(_self.calendarObjGlobal);
-        }
+        // //获取是否是从搜索页面点击确定按钮返回来的标志
+        // var fromSearchBtn = eventBus.fromSearchBtn || false;
+        // if (fromSearchBtn) {
+        //     _self.setCalendarEvent(_self.calendarObjGlobal);
+        // }
     },
     methods: {
         //点击去详情页
@@ -188,15 +187,6 @@ export default {
                     defaultDateTime:tool.ChangeTimeFormat(defaultDateTime,'dd/MM/yyyy HH:mm','yyyy-MM-dd HH:mm')
                 }
             });
-        },
-        //tab切换页面
-        switchPage: function (num, e) {
-            var _self = this;
-            var el = e.target;
-            if (num === undefined) return;
-            $(el).addClass('active-item').siblings().removeClass('active-item');
-            // _self.changePos();
-            _self.showPage = num;
         },
         //初始化日历
         initCalendar: function () {
@@ -287,7 +277,6 @@ export default {
                 });
             })
         },
-
         //获取当月的会议记录
         setCalendarEvent: function (calendarObj, myCallBack) {
             //先清空样式
@@ -300,7 +289,7 @@ export default {
                 return;
             }
 
-            var allQueryData = tool.combineArray(_self.queryCondictionData, _self.queryCondiction, "Field");
+            //var allQueryData = tool.combineArray(_self.queryCondictionData, _self.queryCondiction, "Field");
             var urlTemp = tool.AjaxBaseUrl();
             var controlName = tool.Api_MeetingHandle_QueryCalendarMonthEventNode;
             //传入参数
@@ -311,7 +300,8 @@ export default {
                 _RegisterCode: tool.RegisterCode(),
                 Year: calendarObj.currentYear,
                 Month: calendarObj.currentMonth + 1, //因为日历的月份是从0开始，因此此处+1
-                QueryCondiction: JSON.stringify(allQueryData)
+                //QueryCondiction: JSON.stringify(allQueryData)
+                QueryCondiction: JSON.stringify(_self.$parent.constructQueryCondiction() || [])
             };
             var loadingIndexClassName = tool.showLoading();
             $.ajax({
@@ -407,7 +397,8 @@ export default {
                 _ControlName: controlName,
                 _RegisterCode: tool.RegisterCode(),
                 Date: currentDate,
-                QueryCondiction: JSON.stringify(allQueryData)
+                //QueryCondiction: JSON.stringify(allQueryData)
+                QueryCondiction: JSON.stringify(_self.$parent.constructQueryCondiction() || [])
             };
             var loadingIndexClassName = tool.showLoading();
             $.ajax({

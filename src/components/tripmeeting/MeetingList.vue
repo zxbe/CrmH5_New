@@ -126,7 +126,7 @@
 
           <!-- calendar视图 -->
           <div v-show="queryObj.viewMode != 'listView'" class="calendar-div">
-              <calendar class="calendar-view"></calendar>
+              <calendar class="calendar-view" ref="calendar"></calendar>
           </div>
 
           <!-- 侧滑筛选 -->
@@ -256,14 +256,14 @@ export default {
                 ]
             },
             "FieldModel":[{
-                  queryfield: "timeField",
+                  queryfield: "BeginTime",
                   text: lanTool.lanContent("1000024_时间范围"),
                   fieldControlType: "dateRange",
-                  queryType: "string",
-                  queryFormat: "",
+                  queryType: "DateTime",
+                  queryFormat: "dd/MM/yyyy HH:mm:ss",
                   queryRelation: "and",
                   queryValue: "",
-                  queryComparison: "=",
+                  queryComparison: "",
                   option:[
                       {
                         id:"all",
@@ -345,15 +345,17 @@ export default {
           // }
           ],
         //分组数据(分组模式为非List)
-        groupData:[{
-              "GroupName": "2019-12-06",
-              "GroupID": "2019-12-06",
-              "GroupRowCount": 1
-            }, {
-              "GroupName": "2019-12-05",
-              "GroupID": "2019-12-05",
-              "GroupRowCount": 1
-            }],
+        groupData:[
+          // {
+          //     "GroupName": "2019-12-06",
+          //     "GroupID": "2019-12-06",
+          //     "GroupRowCount": 1
+          //   }, {
+          //     "GroupName": "2019-12-05",
+          //     "GroupID": "2019-12-05",
+          //     "GroupRowCount": 1
+          //   }
+            ],
         lanSearchModuleInputPlaceHolder:lanTool.lanContent("1000202_会议名称"),
         searchModuleFromType:"8" //联系人:6;公司:7;会议:8;商机&交易:9;用户管理：11；
     }
@@ -404,8 +406,12 @@ export default {
         }else{
           //非列表视图，即日历视图
           //执行日历视图的相关查询动作
+          _self.$nextTick(function(){
+            if (!tool.isNullOrEmptyObject(_self.$refs.calendar.calendarObjGlobal)) {
+              _self.$refs.calendar.setCalendarEvent(_self.$refs.calendar.calendarObjGlobal);
+            }
+          });
         }
-
       });
     },
     //合并查询条件
