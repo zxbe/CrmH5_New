@@ -76,8 +76,8 @@ const router =  new Router({
     { path:'/linkedpage',name:'linkedpage',component:Linkedpage },
 
     //联系人
-    { path:'/contacts',name:'contacts',component:Contacts},
-    { path:'/contacts1',
+    // { path:'/contacts',name:'contacts',component:Contacts},
+    { path:'/contacts',
       name:'contacts',
       component: (resolve) => require(['@/components/contacts/ContactsList'], resolve)
     },

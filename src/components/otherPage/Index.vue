@@ -23,7 +23,7 @@
                       </router-link>
                   </div>
                   <div class="column-div">
-                      <router-link to="/contacts1" class="router-target">
+                      <router-link to="/contacts" class="router-target">
                         <i class="calcfont calc-kehulianxiren" style="color:#fa9622"></i>
                         <div class="f14 lanText" data-lanid="630_联系人"></div>
                       </router-link>
