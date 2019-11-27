@@ -655,7 +655,7 @@ export default {
 
             tool.SaveOrUpdateData(fromType, id, _self, function (data) {
 
-                _self.$store.commit('REMOVE_ITEM', 'contacts');
+                _self.$store.commit('REMOVE_ITEM', 'contactslist');
                 _self.$store.commit('REMOVE_ITEM', 'contactsinfo');
                 _self.$router.back(-1);
             });
@@ -667,7 +667,7 @@ export default {
             var id = _self.$route.params.id;
             var fromType = "Contactsinfo";
             tool.DeleteData(fromType, id, _self, function () {
-                _self.$store.commit('REMOVE_ITEM', 'contacts');
+                _self.$store.commit('REMOVE_ITEM', 'contactslist');
             });
         },
 

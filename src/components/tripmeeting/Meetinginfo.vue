@@ -567,8 +567,8 @@ export default {
          $(".textareaP:not(.wrap) textarea").focus(function(){
               $(this).parents(".DetailRow").addClass("DeepColor");
          });
-   
- 
+
+
         //清空联系人
         $("[data-field='ContactsID']").text("").attr("data-fieldVal", "").off('click');
         //渲染控件
@@ -753,7 +753,7 @@ export default {
             var id = _self.$route.params.id;
             var fromType = "Meetinginfo";
             tool.DeleteData(fromType, id, _self, function () {
-                _self.$store.commit('REMOVE_ITEM', 'tripmeeting');
+                _self.$store.commit('REMOVE_ITEM', 'meetinglist');
             });
         },
         //保存数据
@@ -784,7 +784,7 @@ export default {
                     var id = _self.$route.params.id;
                     var fromType = "Meetinginfo";
                     tool.SaveOrUpdateData(fromType, id, _self, function () {
-                        _self.$store.commit('REMOVE_ITEM', 'tripmeeting');
+                        _self.$store.commit('REMOVE_ITEM', 'meetinglist');
                         _self.$store.commit('REMOVE_ITEM', 'meetinginfo');
                         _self.$router.back(-1);
                     });
@@ -887,7 +887,7 @@ export default {
                             //将当前详情页设置为非keep-alive
                             _self.$store.commit('REMOVE_ITEM', 'opportunitiesinfo');
                             //将列表页设置为非keep-alive
-                            _self.$store.commit('REMOVE_ITEM', 'businessCategories');
+                            _self.$store.commit('REMOVE_ITEM', 'pipelinelist');
 
                             //隐藏弹窗
                             $('#pipelinetransformTo').hide();
@@ -1016,7 +1016,7 @@ export default {
                             //将当前详情页设置为非keep-alive
                             _self.$store.commit('REMOVE_ITEM', 'opportunitiesinfo');
                             //将列表页设置为非keep-alive
-                            _self.$store.commit('REMOVE_ITEM', 'businessCategories');
+                            _self.$store.commit('REMOVE_ITEM', 'pitcheslist');
 
                             //隐藏弹窗
                             $('#transformTo').hide();
