@@ -4,7 +4,7 @@
 
     <div id="page-content" class="page-content">
         <div class="search-box">
-          <div @click="goSearchPage"><search-input class="search disable" placeholder="搜索"></search-input></div>
+          <div @click="goSearchPage"><search-input :enableInput="false" :isShowClearIcon="false" class="search disable" placeholder="搜索"></search-input></div>
         </div>
 
         <div class="block-title f14">业务</div>
@@ -233,7 +233,7 @@ export default {
     methods: {
         //去搜索页面
         goSearchPage(){
-            this.$router.push("/search");
+            this.$router.push("/homesearch");
         },
         //显示功能引导页
         FunctionalGuidance:function(){

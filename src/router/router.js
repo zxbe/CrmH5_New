@@ -49,6 +49,10 @@ const router =  new Router({
     { path: '/',name:'login', component: Login },
     { path: '/login',name:'login', component: Login },
     { path: '/index',name:'index', component:Index },
+    { path: '/homesearch',
+      name:'homesearch',
+      component: (resolve) => require(['@/components/otherPage/HomeSearch'], resolve)
+    },
 
     { path: '/notification',name:'notification', component:Notification },
     { path: '/searchmodule/:paramStr',name:'searchmodule',component: Searchmodule},
