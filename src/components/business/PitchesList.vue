@@ -236,28 +236,41 @@ export default {
                       isActive:false
                     }]
             },
-            "TimeRangeModel":{
-                text:lanTool.lanContent("1000024_时间范围"),
-                option:[
-                    {
-                      id:"all",
-                      text:lanTool.lanContent("795_全部"),
-                    },{
-                      id:"week",
-                      text:lanTool.lanContent("1000005_最近7天"),
-                    },{
-                      id:"month",
-                      text:lanTool.lanContent("1000006_最近30天"),
-                    },{
-                      id:"halfyear",
-                      text:lanTool.lanContent("1000007_最近半年"),
-                    },{
-                      id:"customize",
-                      text:lanTool.lanContent("1000008_自定义"),
-                    }
-                ]
-            },
             "FieldModel":[{
+                  queryfield: "timeField",
+                  text: lanTool.lanContent("1000024_时间范围"),
+                  fieldControlType: "timeRang",
+                  queryType: "string",
+                  queryFormat: "",
+                  queryRelation: "and",
+                  queryValue: "",
+                  queryComparison: "=",
+                  option:[
+                      {
+                        id:"all",
+                        text:lanTool.lanContent("795_全部"),
+                      },{
+                        id:"week",
+                        text:lanTool.lanContent("1000005_最近7天"),
+                      },{
+                        id:"month",
+                        text:lanTool.lanContent("1000006_最近30天"),
+                      },{
+                        id:"halfyear",
+                        text:lanTool.lanContent("1000007_最近半年"),
+                      },{
+                        id:"customize",
+                        text:lanTool.lanContent("1000008_自定义"),
+                      }
+                  ]
+
+                  // Code: "DropDowList_ViewBaseCompanyBaseInfHasContact",
+                  // TypeValue: "",
+                  // selectType: "radio",
+                  // datalanid: "1000526_请选择",
+                  // resulteRow: true,
+                  // iconClass:'calc-gongsixinxi'
+                },{
                 queryfield: "CompanyID",
                 text: lanTool.lanContent("790_公司"),
                 fieldControlType: "selectList",
