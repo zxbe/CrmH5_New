@@ -1,226 +1,328 @@
 /*
  * 系统拓展方法
  */
-;
-(function ($, window, undefined) {
-	// NEW selector
-	jQuery.expr[':'].lowerCaseContains = function (a, i, m) {
-		return jQuery(a).text().toLowerCase()
-			.indexOf(m[3].toLowerCase()) >= 0;
-	};
+(function($, window, undefined) {
+  // NEW selector
+  jQuery.expr[":"].lowerCaseContains = function(a, i, m) {
+    return (
+      jQuery(a)
+        .text()
+        .toLowerCase()
+        .indexOf(m[3].toLowerCase()) >= 0
+    );
+  };
 
-	Number.prototype.mul = function (arg) {
+  Number.prototype.mul = function(arg) {
     return tool.accMul(arg, this);
-	}
+  };
 
-	//把fromStr替换成toStr
-	String.prototype.ReplaceAll=function(fromStr,toStr){
-		var reg=new RegExp(fromStr,"g"); //创建正则RegExp对象
-		return this.replace(reg,toStr);
-	}
+  //把fromStr替换成toStr
+  String.prototype.ReplaceAll = function(fromStr, toStr) {
+    var reg = new RegExp(fromStr, "g"); //创建正则RegExp对象
+    return this.replace(reg, toStr);
+  };
 
-	//是否包含指定字符串，忽略大小写
-	String.prototype.indexOfIgnoreCase = function () {
-		var bi = arguments[arguments.length - 1];
-		var thisObj = this;
-		var idx = 0;
+  //是否包含指定字符串，忽略大小写
+  String.prototype.indexOfIgnoreCase = function() {
+    var bi = arguments[arguments.length - 1];
+    var thisObj = this;
+    var idx = 0;
 
-		if (typeof (arguments[arguments.length - 2]) == 'number') {
-			idx = arguments[arguments.length - 2];
-			thisObj = this.substr(idx);
-		}
+    if (typeof arguments[arguments.length - 2] == "number") {
+      idx = arguments[arguments.length - 2];
+      thisObj = this.substr(idx);
+    }
 
-		var re = new RegExp(arguments[0], (bi ? 'i' : ''));
-		var r = thisObj.match(re);
-		return r == null ? -1 : r.index + idx;
-	};
+    var re = new RegExp(arguments[0], bi ? "i" : "");
+    var r = thisObj.match(re);
+    return r == null ? -1 : r.index + idx;
+  };
 
-	//是否包含指定字符串
-	String.prototype.contains = function (obj, isCaseSensitive) {
-		//默认大小写敏感
-		if (isCaseSensitive === undefined) {
-			isCaseSensitive = true;
-		}
+  //是否包含指定字符串
+  String.prototype.contains = function(obj, isCaseSensitive) {
+    //默认大小写敏感
+    if (isCaseSensitive === undefined) {
+      isCaseSensitive = true;
+    }
 
-		return isCaseSensitive ? this.indexOf(obj) >= 0 : this.indexOfIgnoreCase(obj) >= 0;
-	}
+    return isCaseSensitive
+      ? this.indexOf(obj) >= 0
+      : this.indexOfIgnoreCase(obj) >= 0;
+  };
 
-	//扩展 string.format
-	String.prototype.format = function () {
-		var args = arguments;
-		var reg = /\{(\d+)\}/g;
-		return this.replace(reg, function (g0, g1) {
-			return args[+g1];
-		});
-	};
+  //扩展 string.format
+  String.prototype.format = function() {
+    var args = arguments;
+    var reg = /\{(\d+)\}/g;
+    return this.replace(reg, function(g0, g1) {
+      return args[+g1];
+    });
+  };
 
-	//是否为正整数
-	String.prototype.isDigit = function () {
-		var s = this.trim();
-		return (s != '' && s.replace(/\d/g, "").length == 0);
-	};
+  //是否为正整数
+  String.prototype.isDigit = function() {
+    var s = this.trim();
+    return s != "" && s.replace(/\d/g, "").length == 0;
+  };
 
-	// 检查是否为数字 (含正负符号和小数点)
-	String.prototype.isNumber = function () {
-		var s = this.trim();
-		return (s.search(/^[+-]?[0-9.]*$/) >= 0);
-	};
+  // 检查是否为数字 (含正负符号和小数点)
+  String.prototype.isNumber = function() {
+    var s = this.trim();
+    return s.search(/^[+-]?[0-9.]*$/) >= 0;
+  };
 
-	//字符转换成整数
-	String.prototype.toInt = function () {
-		return parseInt(this.trim());
-	};
+  //字符转换成整数
+  String.prototype.toInt = function() {
+    return parseInt(this.trim());
+  };
 
-	//字符转换成浮点数字
-	String.prototype.toFloat = function () {
-		return parseFloat(this.trim());
-	};
+  //字符转换成浮点数字
+  String.prototype.toFloat = function() {
+    return parseFloat(this.trim());
+  };
 
-	//去掉所有的html标记
-	String.prototype.delHtmlTag = function () {
-		return this.replace(/<[^>]+>/g, '');
-	};
+  //去掉所有的html标记
+  String.prototype.delHtmlTag = function() {
+    return this.replace(/<[^>]+>/g, "");
+  };
 
-	/*
-	 * 时间格式化
-	 */
-	Date.prototype.FormatNew = function (dateTimeFormatStr) {
-		var date = this;
-		/*
+  /*
+   * 时间格式化
+   */
+  Date.prototype.FormatNew = function(dateTimeFormatStr) {
+    var date = this;
+    /*
 		函数：填充0字符
 		参数：value-需要填充的字符串, length-总长度
 		返回：填充后的字符串
 		*/
-		var zeroize = function (value, length) {
-			if (!length) {
-				length = 2;
-			}
-			value = new String(value);
-			for (var i = 0, zeros = ''; i < (length - value.length); i++) {
-				zeros += '0';
-			}
-			return zeros + value;
-		};
+    var zeroize = function(value, length) {
+      if (!length) {
+        length = 2;
+      }
+      value = new String(value);
+      for (var i = 0, zeros = ""; i < length - value.length; i++) {
+        zeros += "0";
+      }
+      return zeros + value;
+    };
 
-		return dateTimeFormatStr.replace(/"[^"]*"|'[^']*'|\b(?:d{1,4}|M{1,4}|yy(?:yy)?|([hHmstT])\1?|[lLZ])\b/g, function ($0) {
-			switch ($0) {
-				case 'd':
-					return date.getDate();
-				case 'dd':
-					return zeroize(date.getDate());
-				case 'ddd':
-					return ['Sun', 'Mon', 'Tue', 'Wed', 'Thr', 'Fri', 'Sat'][date.getDay()];
-				case 'dddd':
-					return ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'][date.getDay()];
-				case 'M':
-					return date.getMonth() + 1;
-				case 'MM':
-					return zeroize(date.getMonth() + 1);
-				case 'MMM':
-					return ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'][date.getMonth()];
-				case 'MMMM':
-					return ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'][date.getMonth()];
-				case 'yy':
-					return new String(date.getFullYear()).substr(2);
-				case 'yyyy':
-					return date.getFullYear();
-				case 'h':
-					return date.getHours() % 12 || 12;
-				case 'hh':
-					return zeroize(date.getHours() % 12 || 12);
-				case 'H':
-					return date.getHours();
-				case 'HH':
-					return zeroize(date.getHours());
-				case 'm':
-					return date.getMinutes();
-				case 'mm':
-					return zeroize(date.getMinutes());
-				case 's':
-					return date.getSeconds();
-				case 'ss':
-					return zeroize(date.getSeconds());
-				case 'l':
-					return date.getMilliseconds();
-				case 'll':
-					return zeroize(date.getMilliseconds());
-				case 'tt':
-					return date.getHours() < 12 ? 'am' : 'pm';
-				case 'TT':
-					return date.getHours() < 12 ? 'AM' : 'PM';
-			}
-		});
-	};
-
-	/*
-	 * 将时间字符串格式化成通用时间格式
-	 * 如：17/Aug/2017=>2017/Aug/17
-	 */
-	String.prototype.DateTimeStrFormat = function (dateTimeFormatStr) {
-		var dateStr = this;
-		var yearIndex = -1;
-		var monthIndex = -1;
-		var dayIndex = -1;
-		var hourIndex = -1;
-		var minuteIndex = -1;
-		var secondIndex = -1;
-
-		//分割时间格式化-,/,空格,:
-		var dateTimeFormatStrArray = dateTimeFormatStr.split(/-|:|\/|\s/g);
-		// console.log(dateTimeFormatStrArray);
-
-		//获取时间格式各个部分的索引
-		for (var i = 0; i < dateTimeFormatStrArray.length; i++) {
-			if (dateTimeFormatStrArray[i] == "yyyy" || dateTimeFormatStrArray[i] == "yy") {
-				yearIndex = i;
-			} else if (dateTimeFormatStrArray[i] == "M" || dateTimeFormatStrArray[i] == "MM" || dateTimeFormatStrArray[i] == "MMM" || dateTimeFormatStrArray[i] == "MMMM") {
-				monthIndex = i;
-			} else if (dateTimeFormatStrArray[i] == "d" || dateTimeFormatStrArray[i] == "dd" || dateTimeFormatStrArray[i] == "ddd" || dateTimeFormatStrArray[i] == "dddd") {
-				dayIndex = i;
-			} else if (dateTimeFormatStrArray[i] == "h" || dateTimeFormatStrArray[i] == "hh" || dateTimeFormatStrArray[i] == "H" || dateTimeFormatStrArray[i] == "HH") {
-				hourIndex = i;
-			} else if (dateTimeFormatStrArray[i] == "m" || dateTimeFormatStrArray[i] == "mm") {
-				minuteIndex = i;
-			} else if (dateTimeFormatStrArray[i] == "s" || dateTimeFormatStrArray[i] == "ss") {
-				secondIndex = i;
-			} else {
-				continue;
-			}
-		}
-
-		//分割时间
-		var dateStrArray = dateStr.split(/-|:|\/|\s/g);
-		// console.log(dateStrArray);
-		if (yearIndex <= -1) {
-			return dateStr;
-		}
-
-		// console.log(yearIndex);
-		// console.log(monthIndex);
-		// console.log(dayIndex);
-		// console.log(hourIndex);
-		// console.log(minuteIndex);
-		// console.log(secondIndex);
-
-		if (hourIndex <= -1) {
-			return dateStrArray[yearIndex] + "/" + dateStrArray[monthIndex] + "/" + dateStrArray[dayIndex];
-		} else {
-			//若小时为undefined,则不构造小时分钟秒
-			if(tool.isNullOrEmptyObject(dateStrArray[hourIndex])){
-				return dateStrArray[yearIndex] + "/" + dateStrArray[monthIndex] + "/" + dateStrArray[dayIndex];
-			}else{
-        if(tool.isNullOrEmptyObject(dateStrArray[secondIndex])){
-          return dateStrArray[yearIndex] + "/" + dateStrArray[monthIndex] + "/" + dateStrArray[dayIndex] + " " + dateStrArray[hourIndex] + ":" + dateStrArray[minuteIndex];
-        }else{
-          return dateStrArray[yearIndex] + "/" + dateStrArray[monthIndex] + "/" + dateStrArray[dayIndex] + " " + dateStrArray[hourIndex] + ":" + dateStrArray[minuteIndex] + ":" + dateStrArray[secondIndex];
+    return dateTimeFormatStr.replace(
+      /"[^"]*"|'[^']*'|\b(?:d{1,4}|M{1,4}|yy(?:yy)?|([hHmstT])\1?|[lLZ])\b/g,
+      function($0) {
+        switch ($0) {
+          case "d":
+            return date.getDate();
+          case "dd":
+            return zeroize(date.getDate());
+          case "ddd":
+            return ["Sun", "Mon", "Tue", "Wed", "Thr", "Fri", "Sat"][
+              date.getDay()
+            ];
+          case "dddd":
+            return [
+              "Sunday",
+              "Monday",
+              "Tuesday",
+              "Wednesday",
+              "Thursday",
+              "Friday",
+              "Saturday"
+            ][date.getDay()];
+          case "M":
+            return date.getMonth() + 1;
+          case "MM":
+            return zeroize(date.getMonth() + 1);
+          case "MMM":
+            return [
+              "Jan",
+              "Feb",
+              "Mar",
+              "Apr",
+              "May",
+              "Jun",
+              "Jul",
+              "Aug",
+              "Sep",
+              "Oct",
+              "Nov",
+              "Dec"
+            ][date.getMonth()];
+          case "MMMM":
+            return [
+              "January",
+              "February",
+              "March",
+              "April",
+              "May",
+              "June",
+              "July",
+              "August",
+              "September",
+              "October",
+              "November",
+              "December"
+            ][date.getMonth()];
+          case "yy":
+            return new String(date.getFullYear()).substr(2);
+          case "yyyy":
+            return date.getFullYear();
+          case "h":
+            return date.getHours() % 12 || 12;
+          case "hh":
+            return zeroize(date.getHours() % 12 || 12);
+          case "H":
+            return date.getHours();
+          case "HH":
+            return zeroize(date.getHours());
+          case "m":
+            return date.getMinutes();
+          case "mm":
+            return zeroize(date.getMinutes());
+          case "s":
+            return date.getSeconds();
+          case "ss":
+            return zeroize(date.getSeconds());
+          case "l":
+            return date.getMilliseconds();
+          case "ll":
+            return zeroize(date.getMilliseconds());
+          case "tt":
+            return date.getHours() < 12 ? "am" : "pm";
+          case "TT":
+            return date.getHours() < 12 ? "AM" : "PM";
         }
-			}
-		}
+      }
+    );
+  };
+
+  /*
+   * 将时间字符串格式化成通用时间格式
+   * 如：17/Aug/2017=>2017/Aug/17
+   */
+  String.prototype.DateTimeStrFormat = function(dateTimeFormatStr) {
+    var dateStr = this;
+    var yearIndex = -1;
+    var monthIndex = -1;
+    var dayIndex = -1;
+    var hourIndex = -1;
+    var minuteIndex = -1;
+    var secondIndex = -1;
+
+    //分割时间格式化-,/,空格,:
+    var dateTimeFormatStrArray = dateTimeFormatStr.split(/-|:|\/|\s/g);
+    // console.log(dateTimeFormatStrArray);
+
+    //获取时间格式各个部分的索引
+    for (var i = 0; i < dateTimeFormatStrArray.length; i++) {
+      if (
+        dateTimeFormatStrArray[i] == "yyyy" ||
+        dateTimeFormatStrArray[i] == "yy"
+      ) {
+        yearIndex = i;
+      } else if (
+        dateTimeFormatStrArray[i] == "M" ||
+        dateTimeFormatStrArray[i] == "MM" ||
+        dateTimeFormatStrArray[i] == "MMM" ||
+        dateTimeFormatStrArray[i] == "MMMM"
+      ) {
+        monthIndex = i;
+      } else if (
+        dateTimeFormatStrArray[i] == "d" ||
+        dateTimeFormatStrArray[i] == "dd" ||
+        dateTimeFormatStrArray[i] == "ddd" ||
+        dateTimeFormatStrArray[i] == "dddd"
+      ) {
+        dayIndex = i;
+      } else if (
+        dateTimeFormatStrArray[i] == "h" ||
+        dateTimeFormatStrArray[i] == "hh" ||
+        dateTimeFormatStrArray[i] == "H" ||
+        dateTimeFormatStrArray[i] == "HH"
+      ) {
+        hourIndex = i;
+      } else if (
+        dateTimeFormatStrArray[i] == "m" ||
+        dateTimeFormatStrArray[i] == "mm"
+      ) {
+        minuteIndex = i;
+      } else if (
+        dateTimeFormatStrArray[i] == "s" ||
+        dateTimeFormatStrArray[i] == "ss"
+      ) {
+        secondIndex = i;
+      } else {
+        continue;
+      }
+    }
+
+    //分割时间
+    var dateStrArray = dateStr.split(/-|:|\/|\s/g);
+    // console.log(dateStrArray);
+    if (yearIndex <= -1) {
+      return dateStr;
+    }
+
+    // console.log(yearIndex);
+    // console.log(monthIndex);
+    // console.log(dayIndex);
+    // console.log(hourIndex);
+    // console.log(minuteIndex);
+    // console.log(secondIndex);
+
+    if (hourIndex <= -1) {
+      return (
+        dateStrArray[yearIndex] +
+        "/" +
+        dateStrArray[monthIndex] +
+        "/" +
+        dateStrArray[dayIndex]
+      );
+    } else {
+      //若小时为undefined,则不构造小时分钟秒
+      if (tool.isNullOrEmptyObject(dateStrArray[hourIndex])) {
+        return (
+          dateStrArray[yearIndex] +
+          "/" +
+          dateStrArray[monthIndex] +
+          "/" +
+          dateStrArray[dayIndex]
+        );
+      } else {
+        if (tool.isNullOrEmptyObject(dateStrArray[secondIndex])) {
+          return (
+            dateStrArray[yearIndex] +
+            "/" +
+            dateStrArray[monthIndex] +
+            "/" +
+            dateStrArray[dayIndex] +
+            " " +
+            dateStrArray[hourIndex] +
+            ":" +
+            dateStrArray[minuteIndex]
+          );
+        } else {
+          return (
+            dateStrArray[yearIndex] +
+            "/" +
+            dateStrArray[monthIndex] +
+            "/" +
+            dateStrArray[dayIndex] +
+            " " +
+            dateStrArray[hourIndex] +
+            ":" +
+            dateStrArray[minuteIndex] +
+            ":" +
+            dateStrArray[secondIndex]
+          );
+        }
+      }
+    }
   };
 
   /**
    * 删除数组中指定的某一项
-  */
+   */
   Array.prototype.remove = function(val) {
     var index = this.indexOf(val);
     if (index > -1) {
@@ -230,737 +332,860 @@
 
   /**
    * 按照数组内指定对象的属性排序
-  */
-  Array.prototype.SortObj = function(pro,sortOrder){
-	  return this.sort(
-	  function(obj1,obj2){
-		  sortOrder = (sortOrder == null || sortOrder == undefined || sortOrder == "")?"asc":sortOrder;
-		  sortOrder = $.trim(sortOrder).toLowerCase();
-		  var val1 = obj1[pro] == null ? "" : obj1[pro];
-		  var val2 = obj2[pro] == null ? "" : obj2[pro];
-		  return sortOrder == "asc" ? val1>=val2 : val1<val2;
-	  });
-  }
+   */
+  Array.prototype.SortObj = function(pro, sortOrder) {
+    return this.sort(function(obj1, obj2) {
+      sortOrder =
+        sortOrder == null || sortOrder == undefined || sortOrder == ""
+          ? "asc"
+          : sortOrder;
+      sortOrder = $.trim(sortOrder).toLowerCase();
+      var val1 = obj1[pro] == null ? "" : obj1[pro];
+      var val2 = obj2[pro] == null ? "" : obj2[pro];
+      return sortOrder == "asc" ? val1 >= val2 : val1 < val2;
+    });
+  };
+})(jQuery, window);
 
-}(jQuery, window));
-
-
-import config from '../../configfile/config.js'
-
+import config from "../../configfile/config.js";
 
 /**
  * 公共方法
  **/
-;
-(function (tool, $) {
-
-	/*
-	 * 配置文件路径
-	 */
-	// tool.configFilePath = "/static/configfile/config.json";
-	/*
-	 * ajaxUrl:请求的api地址
-	 */
+(function(tool, $) {
+  /*
+   * 配置文件路径
+   */
+  // tool.configFilePath = "/static/configfile/config.json";
+  /*
+   * ajaxUrl:请求的api地址
+   */
   tool.config_ajaxUrl = "ajaxUrl";
   tool.config_ajaxUrl_1 = "ajaxUrl_1";
-	/*
-	 * 多语言查询接口地址
-	 */
-	tool.LanguageVersionsHandle_Query = "LanguageVersionsHandle_Query";
-	/*
-	 * 用户登陆接口
-	 */
-	tool.Api_UserLogin = "Api_UserLogin";
-		/*
-	 * 单点登陆接口
-	 */
-	tool.Api_SingleSignOn = "Api_SingleSignOn";
+  /*
+   * 多语言查询接口地址
+   */
+  tool.LanguageVersionsHandle_Query = "LanguageVersionsHandle_Query";
+  /*
+   * 用户登陆接口
+   */
+  tool.Api_UserLogin = "Api_UserLogin";
+  /*
+   * 单点登陆接口
+   */
+  tool.Api_SingleSignOn = "Api_SingleSignOn";
 
-	/*
-	 * 刷新用户注册码
-	 */
-	tool.Api_RefreshRegisterCode = "Api_RefreshRegisterCode";
-	/*
-	 * 公司分组接口
-	 */
-	tool.Api_OrganizationsHandle_Group = "Api_OrganizationsHandle_Group";
-	/*
-	 * 公司分组内部数据接口
-	 */
-	tool.Api_OrganizationsHandle_GroupInnerData = "Api_OrganizationsHandle_GroupInnerData";
-	/*
-	 * 查询公司明细数据接口
-	 */
-	tool.Api_OrganizationsHandle_QuerySingle = "Api_OrganizationsHandle_QuerySingle";
-	/*
-	 * 公司保存/修改接口
-	 */
-	tool.Api_OrganizationsHandle_SaveOrUpdate = "Api_OrganizationsHandle_SaveOrUpdate";
-	/*
-	 * 添加/取消关注接口
-	 */
-	tool.Api_OrganizationsHandle_UserFollow = "Api_OrganizationsHandle_UserFollow";
-	/*
-	 * 公司删除注接口
-	 */
-	tool.Api_OrganizationsHandle_Delete = "Api_OrganizationsHandle_Delete";
+  /*
+   * 刷新用户注册码
+   */
+  tool.Api_RefreshRegisterCode = "Api_RefreshRegisterCode";
+  /*
+   * 公司分组接口
+   */
+  tool.Api_OrganizationsHandle_Group = "Api_OrganizationsHandle_Group";
+  /*
+   * 公司分组内部数据接口
+   */
+  tool.Api_OrganizationsHandle_GroupInnerData =
+    "Api_OrganizationsHandle_GroupInnerData";
+  /*
+   * 查询公司明细数据接口
+   */
+  tool.Api_OrganizationsHandle_QuerySingle =
+    "Api_OrganizationsHandle_QuerySingle";
+  /*
+   * 公司保存/修改接口
+   */
+  tool.Api_OrganizationsHandle_SaveOrUpdate =
+    "Api_OrganizationsHandle_SaveOrUpdate";
+  /*
+   * 添加/取消关注接口
+   */
+  tool.Api_OrganizationsHandle_UserFollow =
+    "Api_OrganizationsHandle_UserFollow";
+  /*
+   * 公司删除注接口
+   */
+  tool.Api_OrganizationsHandle_Delete = "Api_OrganizationsHandle_Delete";
 
-	/*
-	 * 联系人分组接口
-	 */
-	tool.Api_ContactsHandle_Group = "Api_ContactsHandle_Group";
-	/*
-	 * 联系人分组内部数据接口
-	 */
-	tool.Api_ContactsHandle_GroupInnerData = "Api_ContactsHandle_GroupInnerData";
-	/*
-	 * 查询联系人明细数据接口
-	 */
-	tool.Api_ContactsHandle_QuerySingle = "Api_ContactsHandle_QuerySingle";
-	/*
-	 * 联系人保存/修改接口
-	 */
-	tool.Api_ContactsHandle_SaveOrUpdate = "Api_ContactsHandle_SaveOrUpdate";
-	/*
-	 * 联系人删除接口
-	 */
-	tool.Api_ContactsHandle_Delete = "Api_ContactsHandle_Delete";
-	/*
-	 * 查询关联联系人列表
-	 */
-	tool.Api_ContactsHandle_QueryRelatedContact = "Api_ContactsHandle_QueryRelatedContact";
+  /*
+   * 联系人分组接口
+   */
+  tool.Api_ContactsHandle_Group = "Api_ContactsHandle_Group";
+  /*
+   * 联系人分组内部数据接口
+   */
+  tool.Api_ContactsHandle_GroupInnerData = "Api_ContactsHandle_GroupInnerData";
+  /*
+   * 查询联系人明细数据接口
+   */
+  tool.Api_ContactsHandle_QuerySingle = "Api_ContactsHandle_QuerySingle";
+  /*
+   * 联系人保存/修改接口
+   */
+  tool.Api_ContactsHandle_SaveOrUpdate = "Api_ContactsHandle_SaveOrUpdate";
+  /*
+   * 联系人删除接口
+   */
+  tool.Api_ContactsHandle_Delete = "Api_ContactsHandle_Delete";
+  /*
+   * 查询关联联系人列表
+   */
+  tool.Api_ContactsHandle_QueryRelatedContact =
+    "Api_ContactsHandle_QueryRelatedContact";
 
-	/*
-	 * 查询数据分享接口
-	 */
-	tool.Api_DataShareInfHandle_Query = "Api_DataShareInfHandle_Query";
-	/*
-	 * 数据分享接口
-	 */
-	tool.Api_DataShareInfHandle_SaveOrUpdate = "Api_DataShareInfHandle_SaveOrUpdate";
-	/*
-	 * 是否当前记录的负责人
-	 */
-	tool.Api_DataShareInfHandle_HasInitiator = "Api_DataShareInfHandle_HasInitiator";
+  /*
+   * 查询数据分享接口
+   */
+  tool.Api_DataShareInfHandle_Query = "Api_DataShareInfHandle_Query";
+  /*
+   * 数据分享接口
+   */
+  tool.Api_DataShareInfHandle_SaveOrUpdate =
+    "Api_DataShareInfHandle_SaveOrUpdate";
+  /*
+   * 是否当前记录的负责人
+   */
+  tool.Api_DataShareInfHandle_HasInitiator =
+    "Api_DataShareInfHandle_HasInitiator";
 
-	/*
-	 * 下拉数据接口
-	 */
-	tool.CommonDataServiceHandle_Query = "CommonDataServiceHandle_Query";
+  /*
+   * 下拉数据接口
+   */
+  tool.CommonDataServiceHandle_Query = "CommonDataServiceHandle_Query";
 
-	/*
-	 * 查询日历事件节点接口
-	 */
-	tool.Api_MeetingHandle_QueryCalendarMonthEventNode = "Api_MeetingHandle_QueryCalendarMonthEventNode";
-	/*
-	 * 根据传入的时间获取当天的会议记录接口
-	 */
-	tool.Api_MeetingHandle_QueryCalendarGetMeetingByDate = "Api_MeetingHandle_QueryCalendarGetMeetingByDate";
-	/*
-	 * 保存/修改会议接口
-	 */
-	tool.Api_MeetingHandle_SaveOrUpdate = "Api_MeetingHandle_SaveOrUpdate";
-	/*
-	 * 删除会议接口
-	 */
-	tool.Api_MeetingHandle_Delete = "Api_MeetingHandle_Delete";
-	/*
-	 * 查询会议详情接口
-	 */
-	tool.Api_MeetingHandle_QuerySingle = "Api_MeetingHandle_QuerySingle";
-	/*
-	 * 查询会议分组接口
-	 */
-	tool.Api_MeetingHandle_Group = "Api_MeetingHandle_Group";
-	/*
-	 * 查询会议展开列表接口
-	 */
-	tool.Api_MeetingHandle_GroupInnerData = "Api_MeetingHandle_GroupInnerData";
-	/*
-	 * 查询未上传会议记录的会议数量
-	 */
-	tool.Api_MeetingHandle_QueryNoUploadRecordCount = "Api_MeetingHandle_QueryNoUploadRecordCount";
-	/*
-	 * 查询未上传会议记录的会议列表
-	 */
-	  tool.Api_MeetingHandle_QueryNoUploadRecord = "Api_MeetingHandle_QueryNoUploadRecord";
-	 /*
-	 * 查询关联会议列表
-	 */
-	tool.Api_MeetingHandle_QueryRelatedMeeting = "Api_MeetingHandle_QueryRelatedMeeting";
-	 /*
-	 * Meeting转换成Pitch
-	 */
-	tool.Api_MeetingHandle_ChangeToPitch = "Api_MeetingHandle_ChangeToPitch";
-	 /*
-	 * Meeting转换成Deal
-	 */
-	tool.Api_MeetingHandle_ChangeToDeal = "Api_MeetingHandle_ChangeToDeal";
-  	/*
-	 * 查询未上传会议记录的会议列表
-	 */
-	tool.Api_MeetingHandle_HasToSave = "Api_MeetingHandle_HasToSave";
+  /*
+   * 查询日历事件节点接口
+   */
+  tool.Api_MeetingHandle_QueryCalendarMonthEventNode =
+    "Api_MeetingHandle_QueryCalendarMonthEventNode";
+  /*
+   * 根据传入的时间获取当天的会议记录接口
+   */
+  tool.Api_MeetingHandle_QueryCalendarGetMeetingByDate =
+    "Api_MeetingHandle_QueryCalendarGetMeetingByDate";
+  /*
+   * 保存/修改会议接口
+   */
+  tool.Api_MeetingHandle_SaveOrUpdate = "Api_MeetingHandle_SaveOrUpdate";
+  /*
+   * 删除会议接口
+   */
+  tool.Api_MeetingHandle_Delete = "Api_MeetingHandle_Delete";
+  /*
+   * 查询会议详情接口
+   */
+  tool.Api_MeetingHandle_QuerySingle = "Api_MeetingHandle_QuerySingle";
+  /*
+   * 查询会议分组接口
+   */
+  tool.Api_MeetingHandle_Group = "Api_MeetingHandle_Group";
+  /*
+   * 查询会议展开列表接口
+   */
+  tool.Api_MeetingHandle_GroupInnerData = "Api_MeetingHandle_GroupInnerData";
+  /*
+   * 查询未上传会议记录的会议数量
+   */
+  tool.Api_MeetingHandle_QueryNoUploadRecordCount =
+    "Api_MeetingHandle_QueryNoUploadRecordCount";
+  /*
+   * 查询未上传会议记录的会议列表
+   */
+  tool.Api_MeetingHandle_QueryNoUploadRecord =
+    "Api_MeetingHandle_QueryNoUploadRecord";
+  /*
+   * 查询关联会议列表
+   */
+  tool.Api_MeetingHandle_QueryRelatedMeeting =
+    "Api_MeetingHandle_QueryRelatedMeeting";
+  /*
+   * Meeting转换成Pitch
+   */
+  tool.Api_MeetingHandle_ChangeToPitch = "Api_MeetingHandle_ChangeToPitch";
+  /*
+   * Meeting转换成Deal
+   */
+  tool.Api_MeetingHandle_ChangeToDeal = "Api_MeetingHandle_ChangeToDeal";
+  /*
+   * 查询未上传会议记录的会议列表
+   */
+  tool.Api_MeetingHandle_HasToSave = "Api_MeetingHandle_HasToSave";
 
-	/*
-	 * 销售机会分组接口
-	 */
-	tool.Api_OpportunityHandle_Group = "Api_OpportunityHandle_Group";
-	/*
-	 * 销售机会分组详情数据接口
-	 */
-	tool.Api_OpportunityHandle_GroupInnerData = "Api_OpportunityHandle_GroupInnerData";
-	/*
-	 * 销售机会详情接口
-	 */
-	tool.Api_OpportunityHandle_QuerySingle = "Api_OpportunityHandle_QuerySingle";
-	/*
-	 * 根据Opp的ID查询会议记录列表
-	 */
-	tool.Api_OpportunityHandle_QueryMeetingNoteListByOppID = "Api_OpportunityHandle_QueryMeetingNoteListByOppID";
-	/*
-	 * 销售机会保存接口
-	 */
-	tool.Api_OpportunityHandle_SaveOrUpdate = "Api_OpportunityHandle_SaveOrUpdate";
-	/*
-	 * 销售机添加/删除关注接口
-	 */
-	tool.Api_OpportunityHandle_UserFollow = "Api_OpportunityHandle_UserFollow";
-	/*
-	 * 销售机删除接口
-	 */
-	tool.Api_OpportunityHandle_Delete = "Api_OpportunityHandle_Delete";
-	/*
-	 * 关闭销售机会接口
-	 */
-	tool.Api_OpportunityHandle_Close = "Api_OpportunityHandle_Close";
-	/*
-	 * 查询关联Deal或Pitch列表
-	 */
-	tool.Api_OpportunityHandle_QueryRelatedDealAndPitch = "Api_OpportunityHandle_QueryRelatedDealAndPitch";
-	/*
-	 * Pitch转换成Deal
-	 */
-	tool.Api_OpportunityHandle_ChangeToDeal = "Api_OpportunityHandle_ChangeToDeal";
+  /*
+   * 销售机会分组接口
+   */
+  tool.Api_OpportunityHandle_Group = "Api_OpportunityHandle_Group";
+  /*
+   * 销售机会分组详情数据接口
+   */
+  tool.Api_OpportunityHandle_GroupInnerData =
+    "Api_OpportunityHandle_GroupInnerData";
+  /*
+   * 销售机会详情接口
+   */
+  tool.Api_OpportunityHandle_QuerySingle = "Api_OpportunityHandle_QuerySingle";
+  /*
+   * 根据Opp的ID查询会议记录列表
+   */
+  tool.Api_OpportunityHandle_QueryMeetingNoteListByOppID =
+    "Api_OpportunityHandle_QueryMeetingNoteListByOppID";
+  /*
+   * 销售机会保存接口
+   */
+  tool.Api_OpportunityHandle_SaveOrUpdate =
+    "Api_OpportunityHandle_SaveOrUpdate";
+  /*
+   * 销售机添加/删除关注接口
+   */
+  tool.Api_OpportunityHandle_UserFollow = "Api_OpportunityHandle_UserFollow";
+  /*
+   * 销售机删除接口
+   */
+  tool.Api_OpportunityHandle_Delete = "Api_OpportunityHandle_Delete";
+  /*
+   * 关闭销售机会接口
+   */
+  tool.Api_OpportunityHandle_Close = "Api_OpportunityHandle_Close";
+  /*
+   * 查询关联Deal或Pitch列表
+   */
+  tool.Api_OpportunityHandle_QueryRelatedDealAndPitch =
+    "Api_OpportunityHandle_QueryRelatedDealAndPitch";
+  /*
+   * Pitch转换成Deal
+   */
+  tool.Api_OpportunityHandle_ChangeToDeal =
+    "Api_OpportunityHandle_ChangeToDeal";
 
-	/*
-	 * 查询会议记录明细
-	 */
-	tool.Api_MeetingNoticeHandle_QuerySingle = "Api_MeetingNoticeHandle_QuerySingle";
-	/*
-	 * 保存会议记录
-	 */
-	tool.Api_MeetingNoticeHandle_SaveOrUpdate = "Api_MeetingNoticeHandle_SaveOrUpdate";
-	/*
-	 * 删除会议记录
-	 */
-	tool.Api_MeetingNoticeHandle_Delete = "Api_MeetingNoticeHandle_Delete";
-	/*
-	 * 绑定会议列表的查询
-	 */
-	tool.Api_MeetingHandle_PopUpQuery = "Api_MeetingHandle_PopUpQuery";
-	/*
-	 * 绑定会议记录
-	 */
-	tool.Api_MeetingNoticeHandle_SaveOrUpdateNew = "Api_MeetingNoticeHandle_SaveOrUpdateNew";
+  /*
+   * 查询会议记录明细
+   */
+  tool.Api_MeetingNoticeHandle_QuerySingle =
+    "Api_MeetingNoticeHandle_QuerySingle";
+  /*
+   * 保存会议记录
+   */
+  tool.Api_MeetingNoticeHandle_SaveOrUpdate =
+    "Api_MeetingNoticeHandle_SaveOrUpdate";
+  /*
+   * 删除会议记录
+   */
+  tool.Api_MeetingNoticeHandle_Delete = "Api_MeetingNoticeHandle_Delete";
+  /*
+   * 绑定会议列表的查询
+   */
+  tool.Api_MeetingHandle_PopUpQuery = "Api_MeetingHandle_PopUpQuery";
+  /*
+   * 绑定会议记录
+   */
+  tool.Api_MeetingNoticeHandle_SaveOrUpdateNew =
+    "Api_MeetingNoticeHandle_SaveOrUpdateNew";
 
-	/*
-	 * 上传文档
-	 */
-	tool.Api_DocumentsHandle_UploadDocuments2DMS = "Api_DocumentsHandle_UploadDocuments2DMS";
-	/*
-	 * 查询文档
-	 */
-	tool.Api_DocumentsHandle_Query = "Api_DocumentsHandle_Query";
-	/*
-	 * 文档下载
-	 */
-	tool.Api_DocumentsHandle_DownloadFileFromDMS = "Api_DocumentsHandle_DownloadFileFromDMS";
-	/*
-	 * 文档删除
-	 */
-	tool.Api_DocumentsHandle_Delete = "Api_DocumentsHandle_Delete";
+  /*
+   * 上传文档
+   */
+  tool.Api_DocumentsHandle_UploadDocuments2DMS =
+    "Api_DocumentsHandle_UploadDocuments2DMS";
+  /*
+   * 查询文档
+   */
+  tool.Api_DocumentsHandle_Query = "Api_DocumentsHandle_Query";
+  /*
+   * 文档下载
+   */
+  tool.Api_DocumentsHandle_DownloadFileFromDMS =
+    "Api_DocumentsHandle_DownloadFileFromDMS";
+  /*
+   * 文档删除
+   */
+  tool.Api_DocumentsHandle_Delete = "Api_DocumentsHandle_Delete";
 
-	/*
-	 * 消息数量接口
-	 */
-	tool.Api_MessagesToUserHandle_QueryCount = "Api_MessagesToUserHandle_QueryCount";
-	/*
-	 * 消息列表接口
-	 */
-	tool.Api_MessagesToUserHandle_Query = "Api_MessagesToUserHandle_Query";
-	/*
-	 * 设置已读(支持批量操作)接口
-	 */
-	tool.Api_MessagesToUserHandle_SetRead = "Api_MessagesToUserHandle_SetRead";
-	/*
-	 * 清除消息(支持批量操作)接口
-	 */
-	tool.Api_MessagesToUserHandle_SetDisabled = "Api_MessagesToUserHandle_SetDisabled";
-	/*
-	 * 查询帖子消息数量接口
-	 */
-	tool.Api_MessagesToUserHandle_QueryPostCount = "Api_MessagesToUserHandle_QueryPostCount";
-	/*
-	 * 帖子消息列表查询接口
-	 */
-	tool.Api_MessagesToUserHandle_QueryPostMsgList = "Api_MessagesToUserHandle_QueryPostMsgList";
+  /*
+   * 消息数量接口
+   */
+  tool.Api_MessagesToUserHandle_QueryCount =
+    "Api_MessagesToUserHandle_QueryCount";
+  /*
+   * 消息列表接口
+   */
+  tool.Api_MessagesToUserHandle_Query = "Api_MessagesToUserHandle_Query";
+  /*
+   * 设置已读(支持批量操作)接口
+   */
+  tool.Api_MessagesToUserHandle_SetRead = "Api_MessagesToUserHandle_SetRead";
+  /*
+   * 清除消息(支持批量操作)接口
+   */
+  tool.Api_MessagesToUserHandle_SetDisabled =
+    "Api_MessagesToUserHandle_SetDisabled";
+  /*
+   * 查询帖子消息数量接口
+   */
+  tool.Api_MessagesToUserHandle_QueryPostCount =
+    "Api_MessagesToUserHandle_QueryPostCount";
+  /*
+   * 帖子消息列表查询接口
+   */
+  tool.Api_MessagesToUserHandle_QueryPostMsgList =
+    "Api_MessagesToUserHandle_QueryPostMsgList";
 
-	/*
-	 * 同步公司和联系人数据接口
-	 */
-	tool.Api_CamcardDataHandle_SyncCompanyAndContactData = "Api_CamcardDataHandle_SyncCompanyAndContactData";
-	/*
-	 * 同步新的公司和联系人数据接口
-	 */
-	tool.Api_CamcardDataHandle_SyncNewCompanyAndContactData = "Api_CamcardDataHandle_SyncNewCompanyAndContactData";
-	/*
-	 * 同步公司数据接口
-	 */
-	tool.Api_CamcardDataHandle_SyncCompanyData = "Api_CamcardDataHandle_SyncCompanyData";
-	/*
-	 * 同步联系人数据接口
-	 */
-	tool.Api_CamcardDataHandle_SyncContactData = "Api_CamcardDataHandle_SyncContactData";
+  /*
+   * 同步公司和联系人数据接口
+   */
+  tool.Api_CamcardDataHandle_SyncCompanyAndContactData =
+    "Api_CamcardDataHandle_SyncCompanyAndContactData";
+  /*
+   * 同步新的公司和联系人数据接口
+   */
+  tool.Api_CamcardDataHandle_SyncNewCompanyAndContactData =
+    "Api_CamcardDataHandle_SyncNewCompanyAndContactData";
+  /*
+   * 同步公司数据接口
+   */
+  tool.Api_CamcardDataHandle_SyncCompanyData =
+    "Api_CamcardDataHandle_SyncCompanyData";
+  /*
+   * 同步联系人数据接口
+   */
+  tool.Api_CamcardDataHandle_SyncContactData =
+    "Api_CamcardDataHandle_SyncContactData";
 
-	/*
-	 * 帖子标签列表
-	 */
-	tool.Api_ForumHandle_TagQuery = "Api_ForumHandle_TagQuery";
-	/*
-	 * 关注/取消关注标签
-	 */
-	tool.Api_ForumHandle_UserFollowTag = "Api_ForumHandle_UserFollowTag";
-	/*
-	 * 帖子列表查询
-	 */
-	tool.Api_ForumHandle_PostQuery = "Api_ForumHandle_PostQuery";
-	/*
-	 * 帖子详情查询
-	 */
-	tool.Api_ForumHandle_PostQuerySingle = "Api_ForumHandle_PostQuerySingle";
-	/*
-	 * 帖子保存
-	 */
-	tool.Api_ForumHandle_PostSaveOrUpdate = "Api_ForumHandle_PostSaveOrUpdate";
-	/*
-	 * 保存回帖
-	 */
-	tool.Api_ForumHandle_ReplyPostSaveOrUpdate = "Api_ForumHandle_ReplyPostSaveOrUpdate";
-	/*
-	 * 赞/踩帖子
-	 */
-	tool.Api_ForumHandle_PostAction = "Api_ForumHandle_PostAction";
-	/*
-	 * 结帖
-	 */
-	tool.Api_ForumHandle_PostClose = "Api_ForumHandle_PostClose";
-	/*
-	 * 删帖
-	 */
-	tool.Api_ForumHandle_PostDelete = "Api_ForumHandle_PostDelete";
+  /*
+   * 帖子标签列表
+   */
+  tool.Api_ForumHandle_TagQuery = "Api_ForumHandle_TagQuery";
+  /*
+   * 关注/取消关注标签
+   */
+  tool.Api_ForumHandle_UserFollowTag = "Api_ForumHandle_UserFollowTag";
+  /*
+   * 帖子列表查询
+   */
+  tool.Api_ForumHandle_PostQuery = "Api_ForumHandle_PostQuery";
+  /*
+   * 帖子详情查询
+   */
+  tool.Api_ForumHandle_PostQuerySingle = "Api_ForumHandle_PostQuerySingle";
+  /*
+   * 帖子保存
+   */
+  tool.Api_ForumHandle_PostSaveOrUpdate = "Api_ForumHandle_PostSaveOrUpdate";
+  /*
+   * 保存回帖
+   */
+  tool.Api_ForumHandle_ReplyPostSaveOrUpdate =
+    "Api_ForumHandle_ReplyPostSaveOrUpdate";
+  /*
+   * 赞/踩帖子
+   */
+  tool.Api_ForumHandle_PostAction = "Api_ForumHandle_PostAction";
+  /*
+   * 结帖
+   */
+  tool.Api_ForumHandle_PostClose = "Api_ForumHandle_PostClose";
+  /*
+   * 删帖
+   */
+  tool.Api_ForumHandle_PostDelete = "Api_ForumHandle_PostDelete";
 
-	/*
-	 * LOI单详情查询
-	 */
-	tool.Api_OALOIHandle_QuerySingle = "Api_OALOIHandle_QuerySingle";
+  /*
+   * LOI单详情查询
+   */
+  tool.Api_OALOIHandle_QuerySingle = "Api_OALOIHandle_QuerySingle";
 
-	/*
-	 * 用户列表查询
-	 */
-	tool.Api_BaseUserBaseInfHandle_Query = "Api_BaseUserBaseInfHandle_Query";
-	/*
-	 * 用户列表查询
-	 */
-	tool.Api_BaseUserBaseInfHandle_QueryNew = "Api_BaseUserBaseInfHandle_QueryNew";
-	/*
-	 * 用户明细查询
-	 */
-	tool.Api_BaseUserBaseInfHandle_QuerySingle = "Api_BaseUserBaseInfHandle_QuerySingle";
+  /*
+   * 用户列表查询
+   */
+  tool.Api_BaseUserBaseInfHandle_Query = "Api_BaseUserBaseInfHandle_Query";
+  /*
+   * 用户列表查询
+   */
+  tool.Api_BaseUserBaseInfHandle_QueryNew =
+    "Api_BaseUserBaseInfHandle_QueryNew";
+  /*
+   * 用户明细查询
+   */
+  tool.Api_BaseUserBaseInfHandle_QuerySingle =
+    "Api_BaseUserBaseInfHandle_QuerySingle";
 
-	/*
-	 * 文件下载/预览
-	 */
-	tool.Api_AllFileHandle_DownloadOrPreview = "Api_AllFileHandle_DownloadOrPreview";
+  /*
+   * 文件下载/预览
+   */
+  tool.Api_AllFileHandle_DownloadOrPreview =
+    "Api_AllFileHandle_DownloadOrPreview";
 
-	/*
-	 * 引导页查询
-	 */
-	tool.Api_FunctionBootHandle_MasterPageQuery = "Api_FunctionBootHandle_MasterPageQuery"
-	/*
-	* 记录心跳时间
-	*/
-	tool.Api_BaseUserBaseInfHandle_RecordHeartBeatTime = "Api_BaseUserBaseInfHandle_RecordHeartBeatTime";
+  /*
+   * 引导页查询
+   */
+  tool.Api_FunctionBootHandle_MasterPageQuery =
+    "Api_FunctionBootHandle_MasterPageQuery";
+  /*
+   * 记录心跳时间
+   */
+  tool.Api_BaseUserBaseInfHandle_RecordHeartBeatTime =
+    "Api_BaseUserBaseInfHandle_RecordHeartBeatTime";
 
-	/*
-	 * ADBAjaxUrl:ADB系统请求的api地址
-	 */
-	tool.config_ADBAjaxUrl = "ADBAjaxUrl";
-	/*
-	 * 查看当前用户是否有访问指定航空公司数据的权限
-	 */
-	tool.ADBApi_AirlineDatabase_IsCurrentUserHasAccess = "ADBApi_AirlineDatabase_IsCurrentUserHasAccess";
-	/*
-	 * 根据模块Id查询业务数据
-	 */
-	tool.ADBApi_AirlineDatabase_Query_InfoDetailByTab = "ADBApi_AirlineDatabase_Query_InfoDetailByTab";
-	/*
-	 * 根据模块Id查询列表数据
-	 */
-	tool.ADBApi_AirlineDatabase_Query_ListByTab = "ADBApi_AirlineDatabase_Query_ListByTab";
+  /*
+   * ADBAjaxUrl:ADB系统请求的api地址
+   */
+  tool.config_ADBAjaxUrl = "ADBAjaxUrl";
+  /*
+   * 查看当前用户是否有访问指定航空公司数据的权限
+   */
+  tool.ADBApi_AirlineDatabase_IsCurrentUserHasAccess =
+    "ADBApi_AirlineDatabase_IsCurrentUserHasAccess";
+  /*
+   * 根据模块Id查询业务数据
+   */
+  tool.ADBApi_AirlineDatabase_Query_InfoDetailByTab =
+    "ADBApi_AirlineDatabase_Query_InfoDetailByTab";
+  /*
+   * 根据模块Id查询列表数据
+   */
+  tool.ADBApi_AirlineDatabase_Query_ListByTab =
+    "ADBApi_AirlineDatabase_Query_ListByTab";
 
-	/*
-	 * 模糊查询
-	 */
-	tool.Api_DataSearchHandle_AutoQuery = "Api_DataSearchHandle_AutoQuery";
-	/*
-	 * 点击模糊查询记录跳转到详情页面
-	 */
-	tool.Api_DataSearchHandle_QuerySingle = "Api_DataSearchHandle_QuerySingle";
+  /*
+   * 模糊查询
+   */
+  tool.Api_DataSearchHandle_AutoQuery = "Api_DataSearchHandle_AutoQuery";
+  /*
+   * 点击模糊查询记录跳转到详情页面
+   */
+  tool.Api_DataSearchHandle_QuerySingle = "Api_DataSearchHandle_QuerySingle";
 
-	/*
-	 * currentLanguageVersion:当前语言版本
-	 */
-	tool.config_currentLanguageVersion = "currentLanguageVersion";
-	/*
-	 * refreshSessionTime:刷新Session时间
-	 */
-	tool.config_refreshSessionTime = "refreshSessionTime";
-	/*
-	 * lanData:多语言数据
-	 */
-	tool.config_lanData = "lanData";
-	/*
-	 * lanData:类型数据
-	 */
-	tool.config_allTypesData = "allTypesData";
-	/*
-	 * 配置参数在缓存中的Key名称
-	 */
-	tool.cache_Config = "Config";
-	/*
-	 * cache_RegisterCode:注册码在缓存中的Key
-	 */
-	tool.cache_RegisterCode = "_RegisterCode";
-	/*
-	 * cache_UserName:用户名在缓存中的Key
-	 */
-	tool.cache_UserName = "_UserName";
-	/*
-	 * cache_Realname:用户真实姓名在缓存中的Key
-	 */
-	tool.cache_Realname = "_Realname";
-	/*
-	 * cache_UserAutoID:用户AutoID在缓存中的Key
-	 */
-	tool.cache_UserAutoID = "_UserAutoID";
-	/*
-	 * cache_CurUser:当前用户在缓存中的Key
-	 */
-	tool.cache_CurUser = "_CurUser";
-	/*
-	 * cache_loginUserName:loginUserName在缓存中的Key
-	 */
-	tool.cache_loginUserName = "CRMloginUserName";
-	/*
-	 * cache_loginPwd:loginPwd 在缓存中的Key
-	 */
-	tool.cache_loginPwd = "CRMloginPwd";
+  /*
+   * currentLanguageVersion:当前语言版本
+   */
+  tool.config_currentLanguageVersion = "currentLanguageVersion";
+  /*
+   * refreshSessionTime:刷新Session时间
+   */
+  tool.config_refreshSessionTime = "refreshSessionTime";
+  /*
+   * lanData:多语言数据
+   */
+  tool.config_lanData = "lanData";
+  /*
+   * lanData:类型数据
+   */
+  tool.config_allTypesData = "allTypesData";
+  /*
+   * 配置参数在缓存中的Key名称
+   */
+  tool.cache_Config = "Config";
+  /*
+   * cache_RegisterCode:注册码在缓存中的Key
+   */
+  tool.cache_RegisterCode = "_RegisterCode";
+  /*
+   * cache_UserName:用户名在缓存中的Key
+   */
+  tool.cache_UserName = "_UserName";
+  /*
+   * cache_Realname:用户真实姓名在缓存中的Key
+   */
+  tool.cache_Realname = "_Realname";
+  /*
+   * cache_UserAutoID:用户AutoID在缓存中的Key
+   */
+  tool.cache_UserAutoID = "_UserAutoID";
+  /*
+   * cache_CurUser:当前用户在缓存中的Key
+   */
+  tool.cache_CurUser = "_CurUser";
+  /*
+   * cache_loginUserName:loginUserName在缓存中的Key
+   */
+  tool.cache_loginUserName = "CRMloginUserName";
+  /*
+   * cache_loginPwd:loginPwd 在缓存中的Key
+   */
+  tool.cache_loginPwd = "CRMloginPwd";
 
-	/*
-	 * PageSize:每页记录数
-	 */
-	tool.PageSize = 20;
-	/*
-	 * FileMaxSiz:最大可上传的文件大小(20M)
-	 */
-	tool.FileMaxSiz = 20971520;
-	/*
-	 * RefreshRegisterCodeInternal:刷新注册码的间隔时长(3600000毫秒)
-	 */
-	tool.RefreshRegisterCodeInternal = 3600000;
-	/*
-	 * HeartBeatInternal:记录信条时间的间隔时长(3000毫秒)
-	 */
-	tool.HeartBeatInternal = 3000;
+  /*
+   * PageSize:每页记录数
+   */
+  tool.PageSize = 20;
+  /*
+   * FileMaxSiz:最大可上传的文件大小(20M)
+   */
+  tool.FileMaxSiz = 20971520;
+  /*
+   * RefreshRegisterCodeInternal:刷新注册码的间隔时长(3600000毫秒)
+   */
+  tool.RefreshRegisterCodeInternal = 3600000;
+  /*
+   * HeartBeatInternal:记录信条时间的间隔时长(3000毫秒)
+   */
+  tool.HeartBeatInternal = 3000;
 
-	//loadingIndexClassName
-	tool.loadingIndexClassName = "loadingIndex_";
+  //loadingIndexClassName
+  tool.loadingIndexClassName = "loadingIndex_";
 
-	/*
+  /*
 	  TextareaDefaultHeight:详情表单textarea默认高度
-	*/ 
-     tool.TextareaDefaultHeight = "20";
-	/*请求的公共入口地址*/
-	tool.AjaxBaseUrl = function () {
-		return tool.getConfigValue(tool.config_ajaxUrl) || "";
-	}
+	*/
 
-	/*请求的ADB API的入口地址*/
-	tool.ADBAjaxUrl = function () {
-		return tool.getConfigValue(tool.config_ADBAjaxUrl) || "";
-	}
+  tool.TextareaDefaultHeight = "20";
+  /*请求的公共入口地址*/
+  tool.AjaxBaseUrl = function() {
+    return tool.getConfigValue(tool.config_ajaxUrl) || "";
+  };
 
-	/*判断传入值是否为空*/
-	tool.isNull = function (content) {
-		return (content == "" || content == undefined || content == null);
-	};
+  /*请求的ADB API的入口地址*/
+  tool.ADBAjaxUrl = function() {
+    return tool.getConfigValue(tool.config_ADBAjaxUrl) || "";
+  };
 
-	/*格式化成Json对象*/
-	tool.jObject = function (data) {
-		try {
-			data = typeof (data) == "string" ? eval('(' + data + ')') : data;
-		} catch (err) {
-			console.log("Json format error!");
-			data = {};
-		}
+  /*判断传入值是否为空*/
+  tool.isNull = function(content) {
+    return content == "" || content == undefined || content == null;
+  };
 
-		return data;
-	};
+  /*格式化成Json对象*/
+  tool.jObject = function(data) {
+    try {
+      data = typeof data == "string" ? eval("(" + data + ")") : data;
+    } catch (err) {
+      console.log("Json format error!");
+      data = {};
+    }
 
-	//localStorage
-	//localStorage的生命周期是永久性的。假若使用localStorage存储数据，即使关闭浏览器，也不会让数据消失，除非主动的去删除数据
-	// /*获取应用存储区中保存的键值对的个数*/
-	// tool.getStorageLength = function () {
-	// 	var sysStorage = localStorage;
-	// 	return sysStorage.getLength();
-	// };
+    return data;
+  };
 
-	/*通过键(key)检索获取应用存储的值*/
-	tool.getStorageItem = function (keyName) {
-		if (tool.isNull(keyName)) {
-			return "";
-		}
-		var sysStorage = localStorage;
-		return sysStorage.getItem(keyName);
-	};
+  //localStorage
+  //localStorage的生命周期是永久性的。假若使用localStorage存储数据，即使关闭浏览器，也不会让数据消失，除非主动的去删除数据
+  // /*获取应用存储区中保存的键值对的个数*/
+  // tool.getStorageLength = function () {
+  // 	var sysStorage = localStorage;
+  // 	return sysStorage.getLength();
+  // };
 
-	/*修改或添加键值(key-value)对数据到应用数据存储中*/
-	tool.setStoragItem = function (keyName, value) {
-		if (tool.isNull(keyName)) {
-			return false;
-		}
+  /*通过键(key)检索获取应用存储的值*/
+  tool.getStorageItem = function(keyName) {
+    if (tool.isNull(keyName)) {
+      return "";
+    }
+    var sysStorage = localStorage;
+    return sysStorage.getItem(keyName);
+  };
 
-		var sysStorage = localStorage;
-		sysStorage.setItem(keyName, value);
-		return true;
+  /*修改或添加键值(key-value)对数据到应用数据存储中*/
+  tool.setStoragItem = function(keyName, value) {
+    if (tool.isNull(keyName)) {
+      return false;
+    }
+
+    var sysStorage = localStorage;
+    sysStorage.setItem(keyName, value);
+    return true;
   };
 
   /**
    * js实现去掉字符串头尾空格，尽量少用jQ
    */
-  tool.trimStr = function(str){
-    str = ''+str;
-    if(tool.isNullOrEmptyObject(str)){
-      return '';
+  tool.trimStr = function(str) {
+    str = "" + str;
+    if (tool.isNullOrEmptyObject(str)) {
+      return "";
     }
     return str.replace(/(^\s*)|(\s*$)/g, "");
-  }
+  };
 
+  // /*通过key值删除键值对存储的数据*/
+  // tool.removeStoragItem = function (keyName) {
+  // 	if (tool.isNull(keyName)) {
+  // 		return false;
+  // 	}
 
-	// /*通过key值删除键值对存储的数据*/
-	// tool.removeStoragItem = function (keyName) {
-	// 	if (tool.isNull(keyName)) {
-	// 		return false;
-	// 	}
+  // 	var sysStorage = localStorage;
+  // 	sysStorage.removeItem(keyName);
+  // 	return true;
+  // };
 
-	// 	var sysStorage = localStorage;
-	// 	sysStorage.removeItem(keyName);
-	// 	return true;
-	// };
+  // /*通过key值删除键值对存储的数据*/
+  // tool.clearStoragItem = function () {
+  // 	var sysStorage = localStorage;
+  // 	//console.log('clearStoragItem');
+  // 	sysStorage.clear();
+  // 	return true;
+  // };
 
-	// /*通过key值删除键值对存储的数据*/
-	// tool.clearStoragItem = function () {
-	// 	var sysStorage = localStorage;
-	// 	//console.log('clearStoragItem');
-	// 	sysStorage.clear();
-	// 	return true;
-	// };
+  //乘法函数，用来得到精确的乘法结果
+  //说明：javascript的乘法结果会有误差，在两个浮点数相乘的时候会比较明显。这个函数返回较为精确的乘法结果。
+  //调用：accMul(arg1,arg2)
+  //返回值：arg1乘以 arg2的精确结果
+  tool.accMul = function(arg1, arg2) {
+    var m = 0,
+      s1 = arg1.toString(),
+      s2 = arg2.toString();
+    try {
+      m += s1.split(".")[1].length;
+    } catch (e) {}
+    try {
+      m += s2.split(".")[1].length;
+    } catch (e) {}
+    return (
+      (Number(s1.replace(".", "")) * Number(s2.replace(".", ""))) /
+      Math.pow(10, m)
+    );
+  };
 
-	//乘法函数，用来得到精确的乘法结果
-	//说明：javascript的乘法结果会有误差，在两个浮点数相乘的时候会比较明显。这个函数返回较为精确的乘法结果。
-	//调用：accMul(arg1,arg2)
-	//返回值：arg1乘以 arg2的精确结果
-	tool.accMul = function(arg1, arg2){
-		var m = 0, s1 = arg1.toString(), s2 = arg2.toString();
-    try { m += s1.split(".")[1].length } catch (e) { }
-    try { m += s2.split(".")[1].length } catch (e) { }
-    return Number(s1.replace(".", "")) * Number(s2.replace(".", "")) / Math.pow(10, m);
-	}
-
-	/*
-	 * 数字格式化
-	 * s:待格式化的数值
-	 * n:小数位数
-	 */
-	tool.formatNum = function(s, n){
-		var isMinus = s < 0 ? true : false;
+  /*
+   * 数字格式化
+   * s:待格式化的数值
+   * n:小数位数
+   */
+  tool.formatNum = function(s, n) {
+    var isMinus = s < 0 ? true : false;
     if (isMinus) {
-        s = Math.abs(s)
-    };
+      s = Math.abs(s);
+    }
 
     s = parseFloat((s + "").replace(/[^\d\.-]/g, "")).toFixed(n) + "";
     //console.log("dylan_s:" + s);
 
-    if (isNaN(s) || ((s + "").replace(/\s/g, "")) == "") {
-        return "";
+    if (isNaN(s) || (s + "").replace(/\s/g, "") == "") {
+      return "";
     }
     n = n >= 0 && n <= 20 ? n : 2;
-    var l = s.split(".")[0].split("").reverse(),
-        r = s.split(".")[1];
+    var l = s
+        .split(".")[0]
+        .split("")
+        .reverse(),
+      r = s.split(".")[1];
     if (r == undefined) {
-        r = "";
-        for (var i = 0; i < n; i++) {
-            r += "0";
-        }
+      r = "";
+      for (var i = 0; i < n; i++) {
+        r += "0";
+      }
     }
 
     var t = "";
     for (i = 0; i < l.length; i++) {
-        t += l[i] + ((i + 1) % 3 == 0 && (i + 1) != l.length ? "," : "");
+      t += l[i] + ((i + 1) % 3 == 0 && i + 1 != l.length ? "," : "");
     }
     if (r == "") {
-        return ((isMinus ? "-" : "") + t.split("").reverse().join(""));
+      return (
+        (isMinus ? "-" : "") +
+        t
+          .split("")
+          .reverse()
+          .join("")
+      );
     } else {
-        return ((isMinus ? "-" : "") + t.split("").reverse().join("") + "." + r);
+      return (
+        (isMinus ? "-" : "") +
+        t
+          .split("")
+          .reverse()
+          .join("") +
+        "." +
+        r
+      );
     }
-	}
+  };
 
-	/*
-	 * 根据格式获取小数位个数
-	 * dataFormat:格式
-	 */
-	tool.getFixNum = function(dataFormat){
-		if(tool.isNullOrEmptyObject(dataFormat)){
-			return 0;
-		}
+  /*
+   * 根据格式获取小数位个数
+   * dataFormat:格式
+   */
+  tool.getFixNum = function(dataFormat) {
+    if (tool.isNullOrEmptyObject(dataFormat)) {
+      return 0;
+    }
 
-		var fixArray = dataFormat.split(".");
-		if (fixArray == undefined || fixArray == null || fixArray.length != 2) {
-			return 0;
-		}
+    var fixArray = dataFormat.split(".");
+    if (fixArray == undefined || fixArray == null || fixArray.length != 2) {
+      return 0;
+    }
 
-		return Number(fixArray[1].length);
-	}
+    return Number(fixArray[1].length);
+  };
 
-	//sessionStorage
-	//sessionStorage 的生命周期是在浏览器关闭前。也就是说，在整个浏览器未关闭前，其数据一直都是存在的
-	/*通过键(key)检索获取应用存储sessionStorage的值*/
-	tool.getSessionStorageItem = function (keyName) {
-		if (tool.isNull(keyName)) {
-			return "";
-		}
-		return sessionStorage.getItem(keyName);
-	};
+  //sessionStorage
+  //sessionStorage 的生命周期是在浏览器关闭前。也就是说，在整个浏览器未关闭前，其数据一直都是存在的
+  /*通过键(key)检索获取应用存储sessionStorage的值*/
+  tool.getSessionStorageItem = function(keyName) {
+    if (tool.isNull(keyName)) {
+      return "";
+    }
+    return sessionStorage.getItem(keyName);
+  };
 
-	/*修改或添加键值(key-value)对数据到应用数据存储sessionStorage中*/
-	tool.setSessionStorageItem = function (keyName, value) {
-		if (tool.isNull(keyName)) {
-			return false;
-		}
-		sessionStorage.setItem(keyName, value);
-		return true;
-	};
-	/*通过key值删除键值对存储的数据*/
-	tool.removeSessionStoragItem = function (keyName) {
-		if (tool.isNull(keyName)) {
-			return false;
-		}
-		sessionStorage.removeItem(keyName);
-		return true;
-	};
-	/*通过key值删除键值对存储的数据*/
-	tool.clearSessionStorageItem = function () {
-		sessionStorage.clear();
-		return true;
-	};
+  /*修改或添加键值(key-value)对数据到应用数据存储sessionStorage中*/
+  tool.setSessionStorageItem = function(keyName, value) {
+    if (tool.isNull(keyName)) {
+      return false;
+    }
+    sessionStorage.setItem(keyName, value);
+    return true;
+  };
+  /*通过key值删除键值对存储的数据*/
+  tool.removeSessionStoragItem = function(keyName) {
+    if (tool.isNull(keyName)) {
+      return false;
+    }
+    sessionStorage.removeItem(keyName);
+    return true;
+  };
+  /*通过key值删除键值对存储的数据*/
+  tool.clearSessionStorageItem = function() {
+    sessionStorage.clear();
+    return true;
+  };
 
-	/*生成随机数  min ≤ r ≤ max*/
-	tool.RandomNumBoth = function (min, max) {
-		var rangeTemp = max - min;
-		var rand = Math.random();
-		var num = min + Math.round(rand * rangeTemp); //四舍五入
-		return num;
-	};
+  /*生成随机数  min ≤ r ≤ max*/
+  tool.RandomNumBoth = function(min, max) {
+    var rangeTemp = max - min;
+    var rand = Math.random();
+    var num = min + Math.round(rand * rangeTemp); //四舍五入
+    return num;
+  };
 
-	/*
-	 * 浏览器跨域处理
-	 */
-	tool.CorsHandle = function (isSupportCors) {
-		if (isSupportCors) {
-			jQuery.support.cors = true;
-		} else {
-			jQuery.support.cors = false;
-		}
-	};
+  /*
+   * 浏览器跨域处理
+   */
+  tool.CorsHandle = function(isSupportCors) {
+    if (isSupportCors) {
+      jQuery.support.cors = true;
+    } else {
+      jQuery.support.cors = false;
+    }
+  };
 
-	/*
-	 * 生成指定长度的随机字符串
-	 * len:指定长度
-	 */
-	var NoceCharArray = [
-		'0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
-		'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
-		'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'
-	];
-	tool.GernerateNonce = function (len) {
-		if (tool.isNull(len)) {
-			len = 6;
-		}
+  /*
+   * 生成指定长度的随机字符串
+   * len:指定长度
+   */
+  var NoceCharArray = [
+    "0",
+    "1",
+    "2",
+    "3",
+    "4",
+    "5",
+    "6",
+    "7",
+    "8",
+    "9",
+    "a",
+    "b",
+    "c",
+    "d",
+    "e",
+    "f",
+    "g",
+    "h",
+    "i",
+    "j",
+    "k",
+    "l",
+    "m",
+    "n",
+    "o",
+    "p",
+    "q",
+    "r",
+    "s",
+    "t",
+    "u",
+    "v",
+    "w",
+    "x",
+    "y",
+    "z",
+    "A",
+    "B",
+    "C",
+    "D",
+    "E",
+    "F",
+    "G",
+    "H",
+    "I",
+    "J",
+    "K",
+    "L",
+    "M",
+    "N",
+    "O",
+    "P",
+    "Q",
+    "R",
+    "S",
+    "T",
+    "U",
+    "V",
+    "W",
+    "X",
+    "Y",
+    "Z"
+  ];
+  tool.GernerateNonce = function(len) {
+    if (tool.isNull(len)) {
+      len = 6;
+    }
 
-		var nonceStr = "";
-		for (var i = 0; i < len; i++) {
-			nonceStr = nonceStr + NoceCharArray[Math.floor(RandomNumBoth(0, NoceCharArray.length - 1))];
-		}
+    var nonceStr = "";
+    for (var i = 0; i < len; i++) {
+      nonceStr =
+        nonceStr +
+        NoceCharArray[Math.floor(RandomNumBoth(0, NoceCharArray.length - 1))];
+    }
 
-		return nonceStr;
-	};
+    return nonceStr;
+  };
 
-	/*
-	 * 生成时间戳
-	 */
-	tool.GernerateTimeStamp = function () {
-		return new Date().getTime();
-	};
+  /*
+   * 生成时间戳
+   */
+  tool.GernerateTimeStamp = function() {
+    return new Date().getTime();
+  };
 
-	/*Json对象按照Key名称排序*/
-	tool.SortJObjectByKey = function (jObject) {
-		if (tool.isNull(jObject)) {
-			return {};
-		}
+  /*Json对象按照Key名称排序*/
+  tool.SortJObjectByKey = function(jObject) {
+    if (tool.isNull(jObject)) {
+      return {};
+    }
 
-		//先用Object内置类的keys方法获取要排序对象的属性名，
-		//再利用Array原型上的sort方法对获取的属性名进行排序，newkey是一个数组
-		var newkeyArray = Object.keys(jObject).sort();
+    //先用Object内置类的keys方法获取要排序对象的属性名，
+    //再利用Array原型上的sort方法对获取的属性名进行排序，newkey是一个数组
+    var newkeyArray = Object.keys(jObject).sort();
 
-		//创建一个新的对象，用于存放排好序的键值;
-		var newJObject = {};
-		for (var i = 0, len = newkeyArray.length; i < len; i++) {
-			//遍历newkey数组
-			//向新创建的对象中按照排好的顺序依次增加键值对
-			newJObject[newkeyArray[i]] = jObject[newkeyArray[i]];
-		}
+    //创建一个新的对象，用于存放排好序的键值;
+    var newJObject = {};
+    for (var i = 0, len = newkeyArray.length; i < len; i++) {
+      //遍历newkey数组
+      //向新创建的对象中按照排好的顺序依次增加键值对
+      newJObject[newkeyArray[i]] = jObject[newkeyArray[i]];
+    }
 
-		return newJObject;
-	};
+    return newJObject;
+  };
 
-	/*
-	 * 读取系统配置文件,返回JSON对象
-	 */
-	tool.getConfigJSON = function () {
-		var jsonTemp = {};
+  /*
+   * 读取系统配置文件,返回JSON对象
+   */
+  tool.getConfigJSON = function() {
+    var jsonTemp = {};
 
-		//从缓存读取配置数据
-		jsonTemp = tool.getSessionStorageItem(tool.cache_Config);
+    //从缓存读取配置数据
+    jsonTemp = tool.getSessionStorageItem(tool.cache_Config);
 
-		if (!tool.isNullOrEmptyObject(jsonTemp)) {
-			jsonTemp = tool.jObject(jsonTemp);
-			return jsonTemp;
-		}else{
+    if (!tool.isNullOrEmptyObject(jsonTemp)) {
+      jsonTemp = tool.jObject(jsonTemp);
+      return jsonTemp;
+    } else {
       jsonTemp = tool.jObject(config);
       //写入缓存
       tool.setSessionStorageItem(tool.cache_Config, JSON.stringify(jsonTemp));
     }
-		/*
+    /*
 		$.ajaxSettings.async = false;
 		try {
 			$.getJSON(tool.configFilePath, function (data) {
@@ -979,812 +1204,875 @@ import config from '../../configfile/config.js'
 			return jsonTemp;
     }
     */
-	};
-
-	/*
-	 * 根据Key获取配置值
-	 */
-	tool.getConfigValue = function (keyName) {
-
-		if (tool.isNull(keyName)) {
-			return "";
-		}
-
-		var configJSON = tool.getConfigJSON();
-
-		if (tool.isNull(configJSON)) {
-			return "";
-		}
-
-		return configJSON[keyName] || "";
-	};
-
-	/*
-	 * 设置参数值
-	 */
-	tool.setConfigValue = function (keyName, keyValue) {
-		if (tool.isNull(keyName)) {
-			return false;
-		}
-
-		var configJSON = tool.getConfigJSON();
-		if (tool.isNull(configJSON)) {
-			return false;
-		}
-
-		configJSON[keyName] = keyValue;
-
-		//写入缓存
-		tool.setSessionStorageItem(tool.cache_Config, JSON.stringify(configJSON));
-	};
-
-	/*
-	 * 设置配置缓存
-	 */
-	tool.setConfig = function (cfgJSON) {
-		cfgJSON = tool.jObject(cfgJSON);
-		//写入缓存
-		tool.setSessionStorageItem(tool.cache_Config, JSON.stringify(cfgJSON));
-	};
-
-	/*
-	 * 路径合并
-	 */
-	tool.combineRequestUrl = function (baseUrl, remainUrl) {
-		if (tool.isNull(baseUrl) || tool.isNull(remainUrl)) {
-			return "";
-		}
-
-		//移除最后的斜杆
-		if (baseUrl.lastIndexOf('/') == (baseUrl.length - 1)) {
-			baseUrl = baseUrl.substring(0, baseUrl.length - 1);
-		}
-
-		//移除开头的斜杆
-		if (remainUrl.indexOf('/') == 0) {
-			remainUrl = remainUrl.substring(1);
-		}
-		//移除最后的斜杆
-		if (remainUrl.lastIndexOf('/') == (remainUrl.length - 1)) {
-			remainUrl = remainUrl.substring(0, remainUrl.length - 1);
-		}
-
-		//合并地址
-		return baseUrl + '/' + remainUrl;
-	};
-
-	//拼装url参数
-	tool.getUrlParam = function(paramJObject){
-			var urlParam = "";
-			if(tool.isNullOrEmptyObject(paramJObject)){
-				return urlParam;
-			}
-			urlParam = "?";
-			for(var key in paramJObject){
-				urlParam = urlParam + key + "=" + (paramJObject[key] || "") + "&";
-			}
-			urlParam = urlParam.substring(0,urlParam.length - 1);
-			return urlParam;
-		};
-
-	/*
-	 * 获取当前时间
-	 * isFormat:是否需要格式化。False:返回Date类型的值；True：返回格式化后的字符串。
-	 * dateTimeFormatStr:格式化字符串。
-	 */
-	tool.GetCurrentDate = function (isFormat, dateTimeFormatStr) {
-		var currentDate = new Date();
-		return tool.FormateDate(currentDate, isFormat, dateTimeFormatStr);
-	};
-
-	/*
-	 * 时间格式化
-	 * isFormat:是否需要格式化。False:返回Date类型的值；True：返回格式化后的字符串。
-	 * dateTimeFormatStr:格式化字符串。
-	 */
-	tool.FormateDate = function (dateTime, isFormat, dateTimeFormatStr) {
-		if (isFormat == null || isFormat == undefined || !isFormat) {
-			return dateTime;
-		}
-
-		if (dateTimeFormatStr == null || dateTimeFormatStr == "" || dateTimeFormatStr == undefined) {
-			dateTimeFormatStr = 'yyyy-MM-dd';
-		}
-
-		return dateTime.FormatNew(dateTimeFormatStr);
-	};
-
-	/*
-	 * 设置时间
-	 * date:待操作的时间。
-	 * year:需要增加的年数。
-	 * month:需要增加的月数。
-	 * day:需要增加的天数。
-	 * isFormat:是否需要格式化。False:返回Date类型的值；True：返回格式化后的字符串。
-	 * dateTimeFormatStr:格式化字符串。
-	 */
-	tool.SetDate = function (handleDate, year, month, day, isFormat, dateTimeFormatStr) {
-		if (handleDate == null || handleDate == undefined) {
-			return null;
-		}
-
-		if (year != null && year != undefined) {
-			handleDate.setFullYear(handleDate.getFullYear() + year);
-		}
-
-		if (month != null && month != undefined) {
-			handleDate.setMonth(handleDate.getMonth() + month);
-		}
-
-		if (day != null && day != undefined) {
-			handleDate.setDate(handleDate.getDate() + day);
-		}
-
-		return tool.FormateDate(handleDate, isFormat, dateTimeFormatStr);
-	};
-
-	/*
-	 * 计算时间差值。
-	 * isDateTimeString:相减的时间是否字符串。
-	 * isFormat:是否需要格式化。False:返回Date类型的值；True：返回格式化后的字符串。
-	 * dateTimeFormatStr:格式化字符串。
-	 */
-	tool.DateDiff = function (isDateTimeString, isFormat, startTimeStr, endTimeStr, diffType) {
-		var sTime;
-		var eTime;
-		if (isDateTimeString) {
-			startTimeStr = startTimeStr.DateTimeStrFormat('yyyy-MM-dd HH:mm:ss');
-			endTimeStr = endTimeStr.DateTimeStrFormat('yyyy-MM-dd HH:mm:ss');
-
-			sTime = new Date(startTimeStr); //开始时间
-			eTime = new Date(endTimeStr); //结束时间
-		} else {
-			sTime = startTimeStr;
-			eTime = endTimeStr;
-		}
-
-		//是否需要格式化
-		if (isFormat) {
-			sTime = new Date(sTime.FormatNew('yyyy-MM-dd'));
-			eTime = new Date(eTime.FormatNew('yyyy-MM-dd'));
-		}
-
-		diffType = diffType.toLowerCase();
-
-		//除数变量
-		var timeType = 1;
-
-		switch (diffType) {
-			case "second":
-				timeType = 1000;
-				break;
-			case "minute":
-				timeType = 1000 * 60;
-				break;
-			case "hour":
-				timeType = 1000 * 3600;
-				break;
-			case "day":
-				timeType = 1000 * 3600 * 24;
-				break;
-			default:
-				timeType = 1;
-				break;
-		}
-
-		return parseInt(
-			(eTime.getTime() - sTime.getTime()) / parseInt(timeType)
-		);
-	}
-
-	//是否为正整数
-	tool.isPositiveInteger = function (s) {
-		var re = /^[0-9]+$/;
-		return re.test(s);
-	};
-
-	//判断两个对象是否相等,只能判断对象中的是简单值，还不能判断对象的值中还是对象的问题
-	tool.isObjectValueEqual = function (a, b) {
-		// Of course, we can do it use for in
-		// Create arrays of property names
-		var aProps = Object.getOwnPropertyNames(a);
-		var bProps = Object.getOwnPropertyNames(b);
-
-		// If number of properties is different,
-		// objects are not equivalent
-		if (aProps.length != bProps.length) {
-			return false;
-		}
-
-		for (var i = 0; i < aProps.length; i++) {
-			var propName = aProps[i];
-
-			// If values of same property are not equal,
-			// objects are not equivalent
-			if (a[propName] !== b[propName]) {
-				return false;
-			}
-		}
-
-		// If we made it this far, objects
-		// are considered equivalent
-		return true;
-	};
-
-	/**
-	 * 是否为空对象，包括null,undefined,空数组,没有任何属性的空对象
-	 * @param {object}           任意对象
-	 * @return {boolean}         如果为空对象，返回true
-	 */
-	tool.isNullOrEmptyObject = function (obj) {
-		var flag = false;
-		if (obj === null || obj === undefined || obj === '') {
-			flag = true;
-		} else if ($.type(obj) === 'string') {
-			obj = obj.trim();
-			if (obj === '') {
-				flag = true;
-			} else {
-				obj = obj.toUpperCase();
-				if (obj === 'NULL' || obj === 'UNDEFINED' || obj === '{}') {
-					flag = true;
-				}
-			}
-		} else if ($.type(obj) === 'array') {
-			flag = obj.length === 0;
-		} else if ($.type(obj) === 'object') {
-			flag = $.isEmptyObject(obj);
-		} else {
-			flag = false;
-		}
-		return flag;
-	};
-
-	//首字母大写
-	tool.firstWordToUpperCase = function (str) {
-		if (!tools.isNullOrEmptyObject(str)) return '';
-		str = str.toString();
-		return str.substring(0, 1).toUpperCase() + str.substring(1, str.length);
-	};
-
-	// 判断是否是 NaN
-	// NaN 是唯一的一个 `自己不等于自己` 的 number 类型
-	tool.isNaN = function (obj) {
-		return $.type(obj) === 'number' && obj !== +obj;
-	};
-
-	//全局唯一的GUID值
-	tool.guid = function () {
-		var d = new Date().getTime();
-		var guid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
-			var r = (d + Math.random() * 16) % 16 | 0;
-			d = Math.floor(d / 16);
-			return (c == 'x' ? r : (r & 0x3 | 0x8)).toString(16);
-		});
-		return guid;
-	};
-
-	//该文件类型是否可以在线预览
-	tool.IsCanPreviewOnline = function (fileType) {
-		var officeArr = ['doc', 'docx', 'xlsx', 'xls', 'ppt', 'pptx', 'txt', 'pdf'];
-		var imgArr = ["bmp", "jpg", "jpeg", "png", "gif"];
-		return $.inArray(fileType.toLowerCase(), officeArr) > -1 || $.inArray(fileType.toLowerCase(), imgArr) > -1
-	};
-
-	/**
-	 * 是否为emoji字符
-	 * @param {string}  substring  要检测的字符串
-	 * @return {boolean}  返回true/false
-	 */
-	tool.isEmojiCharacter = function (substring) {
-		for (var i = 0; i < substring.length; i++) {
-			var hs = substring.charCodeAt(i);
-			if (0xd800 <= hs && hs <= 0xdbff) {
-				if (substring.length > 1) {
-					var ls = substring.charCodeAt(i + 1);
-					var uc = ((hs - 0xd800) * 0x400) + (ls - 0xdc00) + 0x10000;
-					if (0x1d000 <= uc && uc <= 0x1f77f) {
-						return true;
-					}
-				}
-			} else if (substring.length > 1) {
-				var ls = substring.charCodeAt(i + 1);
-				if (ls == 0x20e3) {
-					return true;
-				}
-			} else {
-				if (0x2100 <= hs && hs <= 0x27ff) {
-					return true;
-				} else if (0x2B05 <= hs && hs <= 0x2b07) {
-					return true;
-				} else if (0x2934 <= hs && hs <= 0x2935) {
-					return true;
-				} else if (0x3297 <= hs && hs <= 0x3299) {
-					return true;
-				} else if (hs == 0xa9 || hs == 0xae || hs == 0x303d || hs == 0x3030 ||
-					hs == 0x2b55 || hs == 0x2b1c || hs == 0x2b1b ||
-					hs == 0x2b50) {
-					return true;
-				}
-			}
-		}
-		return false;
-	};
-
-	//若对象为null则返回空字符串
-	tool.objToString = function (obj) {
-		if (tool.isNullOrEmptyObject(obj)) {
-			return '';
-		}
-
-		return obj;
-	};
-
-	//将文件的字节数转化为其它合适的单位数量
-	tool.fileSizeFormat = function (size) {
-		size = size || 0;
-		size = Number(size);
-
-		var unit = 'B';
-		var ks = size;
-		if (size < 1024) {
-			return size + unit;
-		}
-		var ks = size / 1024;
-		unit = 'KB';
-		if (ks >= 1024) {
-			ks = ks / 1024;
-			unit = 'M';
-		}
-		if (ks >= 1024) {
-			ks = ks / 1024;
-			unit = 'G';
-		}
-		return ks.toFixed(2) + unit;
-	};
-
-	//数组是否包含指定对象
-	tool.contains = function (arr, obj) {
-		var arrLen = arr.length;
-	};
-
-	//获取文件后缀
-	//fileName:文件名或文件路径
-	tool.getFileExtension = function (fileName) {
-		var fileExtension = "";
-		if (tool.isNullOrEmptyObject(fileName)) {
-			return fileExtension;
-		}
-		if (fileName.lastIndexOf('.') < 0) {
-			return fileExtension;
-		}
-
-		fileName = $.trim(fileName);
-		fileExtension = fileName.substring(fileName.lastIndexOf('.') + 1, fileName.length);
-		return fileExtension;
-	};
-
-	//拼接文件Base64字符串
-	//只拼接图片文件
-	tool.combineBase64StrWithFileType = function(base64Str,fileName){
-		if(tool.isNullOrEmptyObject(fileName)){
-			return base64Str;
-		}
-
-		var base64Pre = "data:{BigType}/{FileTypeNew};base64,{base64Str}";
-
-		var fileType = tool.getFileExtension(fileName);
-		if(tool.isNullOrEmptyObject(fileType)){
-			return base64Str;
-		}
-		fileType = fileType.toLowerCase();
-
-		var bigType = "";
-		var fileTypeNew = "";
-		switch(fileType){
-			// case "mov":
-			// bigType = "video";
-			// fileTypeNew = "quicktime";
-			// break;
-
-			// case "movie":
-			// bigType = "video";
-			// fileTypeNew = "x-sgi-movie";
-			// break;
-
-			// case "mp3":
-			// bigType = "audio";
-			// fileTypeNew = "x-mpeg";
-			// break;
-
-			// case "mp4":
-			// bigType = "video";
-			// fileTypeNew = "mp4";
-			// break;
-
-			// case "mpeg":
-			// case "mpg":
-			// bigType = "video";
-			// fileTypeNew = "mpeg";
-			// break;
-			// case "mpg4":
-			// bigType = "video";
-			// fileTypeNew = "mp4";
-			// break;
-
-			// case "3gp":
-			// bigType = "video";
-			// fileTypeNew = "3gpp";
-			// break;
-
-			case "gif":
-				bigType = "image";
-				fileTypeNew = "gif";
-			break;
-
-			case "jpe":
-			case "jpeg":
-			case "jpg":
-			case "jpz":
-				bigType = "image";
-				fileTypeNew = "jpeg";
-			break;
-
-			case "png":
-				bigType = "image";
-				fileTypeNew = "png";
-			break;
-
-			default:
-			return base64Str;
-		}
-		//"data:{BigType}/{FileTypeNew};base64,{base64Str}";
-		base64Pre = base64Pre.ReplaceAll("{BigType}",bigType);
-		base64Pre = base64Pre.ReplaceAll("{FileTypeNew}",fileTypeNew);
-		base64Pre = base64Pre.ReplaceAll("{base64Str}",base64Str);
-
-		return base64Pre;
-	}
-
-	//判断当前文件是否支持在线查看
-	tool.canPreviewOnline = function (fileName) {
-		if (tool.isNullOrEmptyObject(fileName)) {
-			return false;
-		}
-		var fileExtension = tool.getFileExtension(fileName);
-		if (tool.isNullOrEmptyObject(fileExtension)) {
-			return false;
-		}
-		var docArr = ['doc', 'docx', 'xls', 'xlsx', 'ppt', 'pptx', 'txt', 'pdf'];
-		var imgArr = ["bmp", "jpg", "jpeg", "png", "gif"];
-
-		return
-		$.inArray(fileExtension.toLowerCase(), docArr) > -1 ||
-			$.inArray(fileExtension.toLowerCase(), imgArr) > -1
-	};
-
-	//当前文件是否图片
-	tool.isFileImage = function (fileName) {
-		if (tool.isNullOrEmptyObject(fileName)) {
-			return false;
-		}
-		var fileExtension = tool.getFileExtension(fileName);
-		if (tool.isNullOrEmptyObject(fileExtension)) {
-			return false;
-		}
-
-		var imgArr = ["bmp", "jpg", "jpeg", "png", "gif"];
-		return $.inArray(fileExtension.toLowerCase(), imgArr) > -1;
-	};
-
-	//当前文件是否视频
-	tool.isFileVideo = function (fileName) {
-		if (tool.isNullOrEmptyObject(fileName)) {
-			return false;
-		}
-		var fileExtension = tool.getFileExtension(fileName);
-		fileExtension = fileExtension.toLowerCase();
-		if (tool.isNullOrEmptyObject(fileExtension)) {
-			return false;
-		}
-		var imgArr = ["ogg", "mpeg4", "webm", "mp4", "mov", "avi", "wmv", "3gp", "mkv", "flv", "rmvb"];
-
-		return $.inArray(fileExtension, imgArr) > -1;
-	};
-
-	//获取用户系统是 android 还是 ios
-	tool.getSystem = function () {
-
-		var u = navigator.userAgent;
-		var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
-		var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
-		if (isAndroid) {
-			return 'android';
-		}
-		if (isiOS) {
-			return 'ios';
-		}
-	};
-
-	tool.autoTextarea = function (elem, extra, maxHeight) {
-		//console.log("autoTextarea");
-		if(elem == null || elem == undefined){
-			return false;
-		}
-		extra = extra || 0;
-		var isFirefox = !!document.getBoxObjectFor || 'mozInnerScreenX' in window,
-			isOpera = !!window.opera && !!window.opera.toString().indexOf('Opera'),
-			addEvent = function (type, callback) {
-				elem.addEventListener ?
-					elem.addEventListener(type, callback, false) :
-					elem.attachEvent('on' + type, callback);
-			},
-			getStyle = elem.currentStyle ? function (name) {
-				var val = elem.currentStyle[name];
-				if (name === 'height' && val.search(/px/i) !== 1) {
-					var rect = elem.getBoundingClientRect();
-					return rect.bottom - rect.top -
-						parseFloat(getStyle('paddingTop')) -
-						parseFloat(getStyle('paddingBottom')) + 'px';
-				};
-				return val;
-			} : function (name) {
-				return getComputedStyle(elem, null)[name];
-			},
-			minHeight = parseFloat(getStyle('height'));
-		elem.style.resize = 'none';
-		var change = function () {
-			// console.log("autoTextarea");
-			var scrollTop, height,
-				padding = 0,
-				style = elem.style;
-			// elem._length = 0;
-			if (elem._length === elem.value.length) return;
-			elem._length = elem.value.length;
-			if (!isFirefox && !isOpera) {
-				padding = parseInt(getStyle('paddingTop')) + parseInt(getStyle('paddingBottom'));
-			};
-			scrollTop = document.body.scrollTop || document.documentElement.scrollTop;
-			elem.style.height = minHeight + 'px';
-			if (elem.scrollHeight > minHeight) {
-				if (maxHeight && elem.scrollHeight > maxHeight) {
-					height = maxHeight - padding;
-					style.overflowY = 'auto';
-				} else {
-					height = elem.scrollHeight - padding;
-					style.overflowY = 'hidden';
-				};
-				style.height = height + extra + 'px';
-				scrollTop += parseInt(style.height) - elem.currHeight;
-				document.body.scrollTop = scrollTop;
-				document.documentElement.scrollTop = scrollTop;
-				elem.currHeight = parseInt(style.height);
-			};
-		};
-		addEvent('propertychange', change);
-		addEvent('input', change);
-		addEvent('focus', change);
-		addEvent('change', change);
-		change();
-	};
-
-	tool.getWeekDayStr = function (dateStr) {
-		if (!dateStr) {
-			return "";
-		}
-		dateStr = dateStr.DateTimeStrFormat("yyyy-MM-dd");
-		var dateTemp = new Date(dateStr);
-		if (!dateTemp) {
-			return "";
-		}
-		var lv = lanTool.currentLanguageVersion || 1;
-		var weekdayArray = new Array();
-		if (lv == 1) {
-			weekdayArray = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-		} else {
-			weekdayArray = ["周日", "周一", "周二", "周三", "周四", "周五", "周六"];
-		}
-
-		return weekdayArray[dateTemp.getDay()];
-	};
-
-	//根据当前语言版本获取返回对象的消息
-	tool.getMessage = function (data) {
-		var lv = Number(lanTool.currentLanguageVersion) || 1;
-		var message = "";
-		switch (lv) {
-			case 2:
-				message = data._MessageCN || "";
-				break;
-			case 3:
-				message = data._MessageTD || "";
-				break;
-
-			case 1:
-			default:
-				message = data._MessageEN || "";
-				break;
-		}
-
-		return message;
-	};
-
-	//合并JSON对象
-	tool.combineJObject = function(jObject1,jObjct2){
-		if(tool.isNullOrEmptyObject(jObject1)){
-			jObject1 = {};
-		}
-		if(tool.isNullOrEmptyObject(jObjct2)){
-			jObjct2 = {};
-		}
-
-		for(var key in jObject1){
-			jObjct2[key] = jObject1[key]||"";
-		}
-
-		return jObjct2;
-	}
-
-	//合并数组
-	tool.combineArray = function(arr1,arr2,uniqueKey){
-		var allArr = [];
-		// console.log(arr1);
-		// console.log(arr2);
-
-		if(tool.isNullOrEmptyObject(arr1)){
-			arr1 = [];
-		}
-		if(tool.isNullOrEmptyObject(arr2)){
-			arr2 = []
-		}
-
-		//若不需要判断重复
-		if(tool.isNullOrEmptyObject(uniqueKey)){
-			allArr = arr1.concat(arr2);
-			return allArr;
-		}
-
-		var arr1KeyArray = [];
-		for(var i = 0;i<arr1.length;i++){
-			var valTemp = arr1[i][uniqueKey] || "";
-			if(tool.isNullOrEmptyObject(valTemp)){
-				continue;
-			}
-			arr1KeyArray.push(valTemp);
-			allArr.push(arr1[i]);
-		}
-		// console.log(arr1KeyArray);
-
-		for(var i=0;i<arr2.length;i++){
-			var uniqueKeyValue = arr2[i][uniqueKey]||"";
-			// console.log(uniqueKeyValue);
-			if(tool.isNullOrEmptyObject(uniqueKeyValue)){
-				continue;
-			}
-			//是否存在相同的值
-			var index = $.inArray(uniqueKeyValue, arr1);
-			//不存在
-			if(index <= 0){
-				allArr.push(arr2[i]);
-			}
-		}
-
-		return allArr;
-	}
-
-	/*
-    *修改时间格式
-    */
-   tool.ChangeTimeFormat = function (value,newFormat,oldFormat) {
-		// console.log(value);
-		// console.log(newFormat);
-		// console.log(oldFormat);
-		if (tool.isNullOrEmptyObject(value) || tool.isNullOrEmptyObject(newFormat)) {
-			return "";
-		}
-		value = value.replace("T","");
-		oldFormat = oldFormat || "yyyy/MM/dd HH:mm:ss";
-		//value = new Date(value.DateTimeStrFormat("yyyy-MM-dd HH:mm:ss")).FormatNew("d/MMM/yyyy HH:mm");
-		value = new Date(value.DateTimeStrFormat(oldFormat)).FormatNew(newFormat);
-		return value;
-   }
-
-	//纯文本
-	tool.showText = function (msg) {
-		if (tool.isNullOrEmptyObject(msg)) {
-			return;
-		}
-		$.toast(msg, "text");
-	};
-	//成功
-	tool.showSuccess = function (msg) {
-		if (tool.isNullOrEmptyObject(msg)) {
-			return;
-		}
-		$.toast(msg);
-	};
-	//失败
-	tool.showError = function (msg) {
-		if (tool.isNullOrEmptyObject(msg)) {
-			return;
-		}
-		$.toast(msg, "cancel");
-	};
-	//显示确认框
-	tool.showConfirm = function (content, okCallBack, cancelCallBack) {
-		if (tool.isNullOrEmptyObject(content)) {
-			return;
-		}
-		var title = lanTool.lanContent("586_提示");
-		var btnTextArr = [lanTool.lanContent("570_取消"), lanTool.lanContent("545_确定")];
-		$.confirm(content, title, okCallBack, cancelCallBack, btnTextArr);
-	};
-	//显示等待
-	tool.showLoading = function (msg) {
-		msg = msg || lanTool.lanContent("770_加载中...");
-		var loadingIndexClassName = $.showLoading(msg);
-		return loadingIndexClassName;
-	};
-	//隐藏等待
-	tool.hideLoading = function (loadingIndexClassName,myCallBack) {
-		$.hideLoading(myCallBack,loadingIndexClassName);
-	};
-	//顶部成功提示
-	tool.topTipSuccess = function(msg,myCallBack){
-		if (tool.isNullOrEmptyObject(msg)) {
-			return;
-		}
-		$.toptip(msg, 1000, 'success',myCallBack);
-	};
-	//顶部失败提示
-	tool.topTipError = function(msg,myCallBack){
-		if (tool.isNullOrEmptyObject(msg)) {
-			return;
-		}
-		$.toptip(msg, 1000, 'error',myCallBack);
-	};
-	//提示信息
-	tool.alert = function(msg,myCallBack){
-		if (tool.isNullOrEmptyObject(msg)) {
-			return;
-		}
-		var title = lanTool.lanContent("586_提示");
-		var btnText = lanTool.lanContent("545_确定");
-		$.alert({
-			title: title,
-			text: msg,
-			btnText:btnText,
-			onOK: function () {
-				if(!tool.isNullOrEmptyObject(myCallBack)){
-					myCallBack();
-				}
-			}
-		});
-	};
-	//当前登陆对象
-	tool.CurUser = function () {
-		var curUserStr = tool.getSessionStorageItem(tool.cache_CurUser);
-		if (tool.isNullOrEmptyObject(curUserStr)) {
-			return {};
-		}
-		return tool.jObject(curUserStr);
-	};
-	//注册码
-	tool.RegisterCode = function () {
-		return tool.getSessionStorageItem(tool.cache_RegisterCode) || "";
-	};
-	//用户名
-	tool.UserName = function () {
-		return tool.getSessionStorageItem(tool.cache_UserName) || "";
-	};
-	//用户真实姓名
-	tool.Realname = function () {
-		return tool.getSessionStorageItem(tool.cache_Realname) || "";
-	};
-	//用户AutoID
-	tool.UserAutoID = function () {
-		return tool.getSessionStorageItem(tool.cache_UserAutoID) || "";
-	};
+  };
+
+  /*
+   * 根据Key获取配置值
+   */
+  tool.getConfigValue = function(keyName) {
+    if (tool.isNull(keyName)) {
+      return "";
+    }
+
+    var configJSON = tool.getConfigJSON();
+
+    if (tool.isNull(configJSON)) {
+      return "";
+    }
+
+    return configJSON[keyName] || "";
+  };
+
+  /*
+   * 设置参数值
+   */
+  tool.setConfigValue = function(keyName, keyValue) {
+    if (tool.isNull(keyName)) {
+      return false;
+    }
+
+    var configJSON = tool.getConfigJSON();
+    if (tool.isNull(configJSON)) {
+      return false;
+    }
+
+    configJSON[keyName] = keyValue;
+
+    //写入缓存
+    tool.setSessionStorageItem(tool.cache_Config, JSON.stringify(configJSON));
+  };
+
+  /*
+   * 设置配置缓存
+   */
+  tool.setConfig = function(cfgJSON) {
+    cfgJSON = tool.jObject(cfgJSON);
+    //写入缓存
+    tool.setSessionStorageItem(tool.cache_Config, JSON.stringify(cfgJSON));
+  };
+
+  /*
+   * 路径合并
+   */
+  tool.combineRequestUrl = function(baseUrl, remainUrl) {
+    if (tool.isNull(baseUrl) || tool.isNull(remainUrl)) {
+      return "";
+    }
+
+    //移除最后的斜杆
+    if (baseUrl.lastIndexOf("/") == baseUrl.length - 1) {
+      baseUrl = baseUrl.substring(0, baseUrl.length - 1);
+    }
+
+    //移除开头的斜杆
+    if (remainUrl.indexOf("/") == 0) {
+      remainUrl = remainUrl.substring(1);
+    }
+    //移除最后的斜杆
+    if (remainUrl.lastIndexOf("/") == remainUrl.length - 1) {
+      remainUrl = remainUrl.substring(0, remainUrl.length - 1);
+    }
+
+    //合并地址
+    return baseUrl + "/" + remainUrl;
+  };
+
+  //拼装url参数
+  tool.getUrlParam = function(paramJObject) {
+    var urlParam = "";
+    if (tool.isNullOrEmptyObject(paramJObject)) {
+      return urlParam;
+    }
+    urlParam = "?";
+    for (var key in paramJObject) {
+      urlParam = urlParam + key + "=" + (paramJObject[key] || "") + "&";
+    }
+    urlParam = urlParam.substring(0, urlParam.length - 1);
+    return urlParam;
+  };
+
+  /*
+   * 获取当前时间
+   * isFormat:是否需要格式化。False:返回Date类型的值；True：返回格式化后的字符串。
+   * dateTimeFormatStr:格式化字符串。
+   */
+  tool.GetCurrentDate = function(isFormat, dateTimeFormatStr) {
+    var currentDate = new Date();
+    return tool.FormateDate(currentDate, isFormat, dateTimeFormatStr);
+  };
+
+  /*
+   * 时间格式化
+   * isFormat:是否需要格式化。False:返回Date类型的值；True：返回格式化后的字符串。
+   * dateTimeFormatStr:格式化字符串。
+   */
+  tool.FormateDate = function(dateTime, isFormat, dateTimeFormatStr) {
+    if (isFormat == null || isFormat == undefined || !isFormat) {
+      return dateTime;
+    }
+
+    if (
+      dateTimeFormatStr == null ||
+      dateTimeFormatStr == "" ||
+      dateTimeFormatStr == undefined
+    ) {
+      dateTimeFormatStr = "yyyy-MM-dd";
+    }
+
+    return dateTime.FormatNew(dateTimeFormatStr);
+  };
+
+  /*
+   * 设置时间
+   * date:待操作的时间。
+   * year:需要增加的年数。
+   * month:需要增加的月数。
+   * day:需要增加的天数。
+   * isFormat:是否需要格式化。False:返回Date类型的值；True：返回格式化后的字符串。
+   * dateTimeFormatStr:格式化字符串。
+   */
+  tool.SetDate = function(
+    handleDate,
+    year,
+    month,
+    day,
+    isFormat,
+    dateTimeFormatStr
+  ) {
+    if (handleDate == null || handleDate == undefined) {
+      return null;
+    }
+
+    if (year != null && year != undefined) {
+      handleDate.setFullYear(handleDate.getFullYear() + year);
+    }
+
+    if (month != null && month != undefined) {
+      handleDate.setMonth(handleDate.getMonth() + month);
+    }
+
+    if (day != null && day != undefined) {
+      handleDate.setDate(handleDate.getDate() + day);
+    }
+
+    return tool.FormateDate(handleDate, isFormat, dateTimeFormatStr);
+  };
+
+  /*
+   * 计算时间差值。
+   * isDateTimeString:相减的时间是否字符串。
+   * isFormat:是否需要格式化。False:返回Date类型的值；True：返回格式化后的字符串。
+   * dateTimeFormatStr:格式化字符串。
+   */
+  tool.DateDiff = function(
+    isDateTimeString,
+    isFormat,
+    startTimeStr,
+    endTimeStr,
+    diffType
+  ) {
+    var sTime;
+    var eTime;
+    if (isDateTimeString) {
+      startTimeStr = startTimeStr.DateTimeStrFormat("yyyy-MM-dd HH:mm:ss");
+      endTimeStr = endTimeStr.DateTimeStrFormat("yyyy-MM-dd HH:mm:ss");
+
+      sTime = new Date(startTimeStr); //开始时间
+      eTime = new Date(endTimeStr); //结束时间
+    } else {
+      sTime = startTimeStr;
+      eTime = endTimeStr;
+    }
+
+    //是否需要格式化
+    if (isFormat) {
+      sTime = new Date(sTime.FormatNew("yyyy-MM-dd"));
+      eTime = new Date(eTime.FormatNew("yyyy-MM-dd"));
+    }
+
+    diffType = diffType.toLowerCase();
+
+    //除数变量
+    var timeType = 1;
+
+    switch (diffType) {
+      case "second":
+        timeType = 1000;
+        break;
+      case "minute":
+        timeType = 1000 * 60;
+        break;
+      case "hour":
+        timeType = 1000 * 3600;
+        break;
+      case "day":
+        timeType = 1000 * 3600 * 24;
+        break;
+      default:
+        timeType = 1;
+        break;
+    }
+
+    return parseInt((eTime.getTime() - sTime.getTime()) / parseInt(timeType));
+  };
+
+  //是否为正整数
+  tool.isPositiveInteger = function(s) {
+    var re = /^[0-9]+$/;
+    return re.test(s);
+  };
+
+  //判断两个对象是否相等,只能判断对象中的是简单值，还不能判断对象的值中还是对象的问题
+  tool.isObjectValueEqual = function(a, b) {
+    // Of course, we can do it use for in
+    // Create arrays of property names
+    var aProps = Object.getOwnPropertyNames(a);
+    var bProps = Object.getOwnPropertyNames(b);
+
+    // If number of properties is different,
+    // objects are not equivalent
+    if (aProps.length != bProps.length) {
+      return false;
+    }
+
+    for (var i = 0; i < aProps.length; i++) {
+      var propName = aProps[i];
+
+      // If values of same property are not equal,
+      // objects are not equivalent
+      if (a[propName] !== b[propName]) {
+        return false;
+      }
+    }
+
+    // If we made it this far, objects
+    // are considered equivalent
+    return true;
+  };
+
+  /**
+   * 是否为空对象，包括null,undefined,空数组,没有任何属性的空对象
+   * @param {object}           任意对象
+   * @return {boolean}         如果为空对象，返回true
+   */
+  tool.isNullOrEmptyObject = function(obj) {
+    var flag = false;
+    if (obj === null || obj === undefined || obj === "") {
+      flag = true;
+    } else if ($.type(obj) === "string") {
+      obj = obj.trim();
+      if (obj === "") {
+        flag = true;
+      } else {
+        obj = obj.toUpperCase();
+        if (obj === "NULL" || obj === "UNDEFINED" || obj === "{}") {
+          flag = true;
+        }
+      }
+    } else if ($.type(obj) === "array") {
+      flag = obj.length === 0;
+    } else if ($.type(obj) === "object") {
+      flag = $.isEmptyObject(obj);
+    } else {
+      flag = false;
+    }
+    return flag;
+  };
+
+  //首字母大写
+  tool.firstWordToUpperCase = function(str) {
+    if (!tools.isNullOrEmptyObject(str)) return "";
+    str = str.toString();
+    return str.substring(0, 1).toUpperCase() + str.substring(1, str.length);
+  };
+
+  // 判断是否是 NaN
+  // NaN 是唯一的一个 `自己不等于自己` 的 number 类型
+  tool.isNaN = function(obj) {
+    return $.type(obj) === "number" && obj !== +obj;
+  };
+
+  //全局唯一的GUID值
+  tool.guid = function() {
+    var d = new Date().getTime();
+    var guid = "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function(
+      c
+    ) {
+      var r = (d + Math.random() * 16) % 16 | 0;
+      d = Math.floor(d / 16);
+      return (c == "x" ? r : (r & 0x3) | 0x8).toString(16);
+    });
+    return guid;
+  };
+
+  //该文件类型是否可以在线预览
+  tool.IsCanPreviewOnline = function(fileType) {
+    var officeArr = ["doc", "docx", "xlsx", "xls", "ppt", "pptx", "txt", "pdf"];
+    var imgArr = ["bmp", "jpg", "jpeg", "png", "gif"];
+    return (
+      $.inArray(fileType.toLowerCase(), officeArr) > -1 ||
+      $.inArray(fileType.toLowerCase(), imgArr) > -1
+    );
+  };
+
+  /**
+   * 是否为emoji字符
+   * @param {string}  substring  要检测的字符串
+   * @return {boolean}  返回true/false
+   */
+  tool.isEmojiCharacter = function(substring) {
+    for (var i = 0; i < substring.length; i++) {
+      var hs = substring.charCodeAt(i);
+      if (0xd800 <= hs && hs <= 0xdbff) {
+        if (substring.length > 1) {
+          var ls = substring.charCodeAt(i + 1);
+          var uc = (hs - 0xd800) * 0x400 + (ls - 0xdc00) + 0x10000;
+          if (0x1d000 <= uc && uc <= 0x1f77f) {
+            return true;
+          }
+        }
+      } else if (substring.length > 1) {
+        var ls = substring.charCodeAt(i + 1);
+        if (ls == 0x20e3) {
+          return true;
+        }
+      } else {
+        if (0x2100 <= hs && hs <= 0x27ff) {
+          return true;
+        } else if (0x2b05 <= hs && hs <= 0x2b07) {
+          return true;
+        } else if (0x2934 <= hs && hs <= 0x2935) {
+          return true;
+        } else if (0x3297 <= hs && hs <= 0x3299) {
+          return true;
+        } else if (
+          hs == 0xa9 ||
+          hs == 0xae ||
+          hs == 0x303d ||
+          hs == 0x3030 ||
+          hs == 0x2b55 ||
+          hs == 0x2b1c ||
+          hs == 0x2b1b ||
+          hs == 0x2b50
+        ) {
+          return true;
+        }
+      }
+    }
+    return false;
+  };
+
+  //若对象为null则返回空字符串
+  tool.objToString = function(obj) {
+    if (tool.isNullOrEmptyObject(obj)) {
+      return "";
+    }
+
+    return obj;
+  };
+
+  //将文件的字节数转化为其它合适的单位数量
+  tool.fileSizeFormat = function(size) {
+    size = size || 0;
+    size = Number(size);
+
+    var unit = "B";
+    var ks = size;
+    if (size < 1024) {
+      return size + unit;
+    }
+    var ks = size / 1024;
+    unit = "KB";
+    if (ks >= 1024) {
+      ks = ks / 1024;
+      unit = "M";
+    }
+    if (ks >= 1024) {
+      ks = ks / 1024;
+      unit = "G";
+    }
+    return ks.toFixed(2) + unit;
+  };
+
+  //数组是否包含指定对象
+  tool.contains = function(arr, obj) {
+    var arrLen = arr.length;
+  };
+
+  //获取文件后缀
+  //fileName:文件名或文件路径
+  tool.getFileExtension = function(fileName) {
+    var fileExtension = "";
+    if (tool.isNullOrEmptyObject(fileName)) {
+      return fileExtension;
+    }
+    if (fileName.lastIndexOf(".") < 0) {
+      return fileExtension;
+    }
+
+    fileName = $.trim(fileName);
+    fileExtension = fileName.substring(
+      fileName.lastIndexOf(".") + 1,
+      fileName.length
+    );
+    return fileExtension;
+  };
+
+  //拼接文件Base64字符串
+  //只拼接图片文件
+  tool.combineBase64StrWithFileType = function(base64Str, fileName) {
+    if (tool.isNullOrEmptyObject(fileName)) {
+      return base64Str;
+    }
+
+    var base64Pre = "data:{BigType}/{FileTypeNew};base64,{base64Str}";
+
+    var fileType = tool.getFileExtension(fileName);
+    if (tool.isNullOrEmptyObject(fileType)) {
+      return base64Str;
+    }
+    fileType = fileType.toLowerCase();
+
+    var bigType = "";
+    var fileTypeNew = "";
+    switch (fileType) {
+      // case "mov":
+      // bigType = "video";
+      // fileTypeNew = "quicktime";
+      // break;
+
+      // case "movie":
+      // bigType = "video";
+      // fileTypeNew = "x-sgi-movie";
+      // break;
+
+      // case "mp3":
+      // bigType = "audio";
+      // fileTypeNew = "x-mpeg";
+      // break;
+
+      // case "mp4":
+      // bigType = "video";
+      // fileTypeNew = "mp4";
+      // break;
+
+      // case "mpeg":
+      // case "mpg":
+      // bigType = "video";
+      // fileTypeNew = "mpeg";
+      // break;
+      // case "mpg4":
+      // bigType = "video";
+      // fileTypeNew = "mp4";
+      // break;
+
+      // case "3gp":
+      // bigType = "video";
+      // fileTypeNew = "3gpp";
+      // break;
+
+      case "gif":
+        bigType = "image";
+        fileTypeNew = "gif";
+        break;
+
+      case "jpe":
+      case "jpeg":
+      case "jpg":
+      case "jpz":
+        bigType = "image";
+        fileTypeNew = "jpeg";
+        break;
+
+      case "png":
+        bigType = "image";
+        fileTypeNew = "png";
+        break;
+
+      default:
+        return base64Str;
+    }
+    //"data:{BigType}/{FileTypeNew};base64,{base64Str}";
+    base64Pre = base64Pre.ReplaceAll("{BigType}", bigType);
+    base64Pre = base64Pre.ReplaceAll("{FileTypeNew}", fileTypeNew);
+    base64Pre = base64Pre.ReplaceAll("{base64Str}", base64Str);
+
+    return base64Pre;
+  };
+
+  //判断当前文件是否支持在线查看
+  tool.canPreviewOnline = function(fileName) {
+    if (tool.isNullOrEmptyObject(fileName)) {
+      return false;
+    }
+    var fileExtension = tool.getFileExtension(fileName);
+    if (tool.isNullOrEmptyObject(fileExtension)) {
+      return false;
+    }
+    var docArr = ["doc", "docx", "xls", "xlsx", "ppt", "pptx", "txt", "pdf"];
+    var imgArr = ["bmp", "jpg", "jpeg", "png", "gif"];
+
+    return;
+    $.inArray(fileExtension.toLowerCase(), docArr) > -1 ||
+      $.inArray(fileExtension.toLowerCase(), imgArr) > -1;
+  };
+
+  //当前文件是否图片
+  tool.isFileImage = function(fileName) {
+    if (tool.isNullOrEmptyObject(fileName)) {
+      return false;
+    }
+    var fileExtension = tool.getFileExtension(fileName);
+    if (tool.isNullOrEmptyObject(fileExtension)) {
+      return false;
+    }
+
+    var imgArr = ["bmp", "jpg", "jpeg", "png", "gif"];
+    return $.inArray(fileExtension.toLowerCase(), imgArr) > -1;
+  };
+
+  //当前文件是否视频
+  tool.isFileVideo = function(fileName) {
+    if (tool.isNullOrEmptyObject(fileName)) {
+      return false;
+    }
+    var fileExtension = tool.getFileExtension(fileName);
+    fileExtension = fileExtension.toLowerCase();
+    if (tool.isNullOrEmptyObject(fileExtension)) {
+      return false;
+    }
+    var imgArr = [
+      "ogg",
+      "mpeg4",
+      "webm",
+      "mp4",
+      "mov",
+      "avi",
+      "wmv",
+      "3gp",
+      "mkv",
+      "flv",
+      "rmvb"
+    ];
+
+    return $.inArray(fileExtension, imgArr) > -1;
+  };
+
+  //获取用户系统是 android 还是 ios
+  tool.getSystem = function() {
+    var u = navigator.userAgent;
+    var isAndroid = u.indexOf("Android") > -1 || u.indexOf("Adr") > -1; //android终端
+    var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+    if (isAndroid) {
+      return "android";
+    }
+    if (isiOS) {
+      return "ios";
+    }
+  };
+
+  tool.autoTextarea = function(elem, extra, maxHeight) {
+    //console.log("autoTextarea");
+    if (elem == null || elem == undefined) {
+      return false;
+    }
+    extra = extra || 0;
+    var isFirefox = !!document.getBoxObjectFor || "mozInnerScreenX" in window,
+      isOpera = !!window.opera && !!window.opera.toString().indexOf("Opera"),
+      addEvent = function(type, callback) {
+        elem.addEventListener
+          ? elem.addEventListener(type, callback, false)
+          : elem.attachEvent("on" + type, callback);
+      },
+      getStyle = elem.currentStyle
+        ? function(name) {
+            var val = elem.currentStyle[name];
+            if (name === "height" && val.search(/px/i) !== 1) {
+              var rect = elem.getBoundingClientRect();
+              return (
+                rect.bottom -
+                rect.top -
+                parseFloat(getStyle("paddingTop")) -
+                parseFloat(getStyle("paddingBottom")) +
+                "px"
+              );
+            }
+            return val;
+          }
+        : function(name) {
+            return getComputedStyle(elem, null)[name];
+          },
+      minHeight = parseFloat(getStyle("height"));
+    elem.style.resize = "none";
+    var change = function() {
+      // console.log("autoTextarea");
+      var scrollTop,
+        height,
+        padding = 0,
+        style = elem.style;
+      // elem._length = 0;
+      if (elem._length === elem.value.length) return;
+      elem._length = elem.value.length;
+      if (!isFirefox && !isOpera) {
+        padding =
+          parseInt(getStyle("paddingTop")) +
+          parseInt(getStyle("paddingBottom"));
+      }
+      scrollTop = document.body.scrollTop || document.documentElement.scrollTop;
+      elem.style.height = minHeight + "px";
+      if (elem.scrollHeight > minHeight) {
+        if (maxHeight && elem.scrollHeight > maxHeight) {
+          height = maxHeight - padding;
+          style.overflowY = "auto";
+        } else {
+          height = elem.scrollHeight - padding;
+          style.overflowY = "hidden";
+        }
+        style.height = height + extra + "px";
+        scrollTop += parseInt(style.height) - elem.currHeight;
+        document.body.scrollTop = scrollTop;
+        document.documentElement.scrollTop = scrollTop;
+        elem.currHeight = parseInt(style.height);
+      }
+    };
+    addEvent("propertychange", change);
+    addEvent("input", change);
+    addEvent("focus", change);
+    addEvent("change", change);
+    change();
+  };
+
+  tool.getWeekDayStr = function(dateStr) {
+    if (!dateStr) {
+      return "";
+    }
+    dateStr = dateStr.DateTimeStrFormat("yyyy-MM-dd");
+    var dateTemp = new Date(dateStr);
+    if (!dateTemp) {
+      return "";
+    }
+    var lv = lanTool.currentLanguageVersion || 1;
+    var weekdayArray = new Array();
+    if (lv == 1) {
+      weekdayArray = [
+        "Sunday",
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday"
+      ];
+    } else {
+      weekdayArray = ["周日", "周一", "周二", "周三", "周四", "周五", "周六"];
+    }
+
+    return weekdayArray[dateTemp.getDay()];
+  };
+
+  //根据当前语言版本获取返回对象的消息
+  tool.getMessage = function(data) {
+    var lv = Number(lanTool.currentLanguageVersion) || 1;
+    var message = "";
+    switch (lv) {
+      case 2:
+        message = data._MessageCN || "";
+        break;
+      case 3:
+        message = data._MessageTD || "";
+        break;
+
+      case 1:
+      default:
+        message = data._MessageEN || "";
+        break;
+    }
+
+    return message;
+  };
+
+  //合并JSON对象
+  tool.combineJObject = function(jObject1, jObjct2) {
+    if (tool.isNullOrEmptyObject(jObject1)) {
+      jObject1 = {};
+    }
+    if (tool.isNullOrEmptyObject(jObjct2)) {
+      jObjct2 = {};
+    }
+
+    for (var key in jObject1) {
+      jObjct2[key] = jObject1[key] || "";
+    }
+
+    return jObjct2;
+  };
+
+  //合并数组
+  tool.combineArray = function(arr1, arr2, uniqueKey) {
+    var allArr = [];
+    // console.log(arr1);
+    // console.log(arr2);
+
+    if (tool.isNullOrEmptyObject(arr1)) {
+      arr1 = [];
+    }
+    if (tool.isNullOrEmptyObject(arr2)) {
+      arr2 = [];
+    }
+
+    //若不需要判断重复
+    if (tool.isNullOrEmptyObject(uniqueKey)) {
+      allArr = arr1.concat(arr2);
+      return allArr;
+    }
+
+    var arr1KeyArray = [];
+    for (var i = 0; i < arr1.length; i++) {
+      var valTemp = arr1[i][uniqueKey] || "";
+      if (tool.isNullOrEmptyObject(valTemp)) {
+        continue;
+      }
+      arr1KeyArray.push(valTemp);
+      allArr.push(arr1[i]);
+    }
+    // console.log(arr1KeyArray);
+
+    for (var i = 0; i < arr2.length; i++) {
+      var uniqueKeyValue = arr2[i][uniqueKey] || "";
+      // console.log(uniqueKeyValue);
+      if (tool.isNullOrEmptyObject(uniqueKeyValue)) {
+        continue;
+      }
+      //是否存在相同的值
+      var index = $.inArray(uniqueKeyValue, arr1);
+      //不存在
+      if (index <= 0) {
+        allArr.push(arr2[i]);
+      }
+    }
+
+    return allArr;
+  };
+
+  /*
+   *修改时间格式
+   */
+  tool.ChangeTimeFormat = function(value, newFormat, oldFormat) {
+    // console.log(value);
+    // console.log(newFormat);
+    // console.log(oldFormat);
+    if (
+      tool.isNullOrEmptyObject(value) ||
+      tool.isNullOrEmptyObject(newFormat)
+    ) {
+      return "";
+    }
+    value = value.replace("T", "");
+    oldFormat = oldFormat || "yyyy/MM/dd HH:mm:ss";
+    //value = new Date(value.DateTimeStrFormat("yyyy-MM-dd HH:mm:ss")).FormatNew("d/MMM/yyyy HH:mm");
+    value = new Date(value.DateTimeStrFormat(oldFormat)).FormatNew(newFormat);
+    return value;
+  };
+
+  //纯文本
+  tool.showText = function(msg) {
+    if (tool.isNullOrEmptyObject(msg)) {
+      return;
+    }
+    $.toast(msg, "text");
+  };
+  //成功
+  tool.showSuccess = function(msg) {
+    if (tool.isNullOrEmptyObject(msg)) {
+      return;
+    }
+    $.toast(msg);
+  };
+  //失败
+  tool.showError = function(msg) {
+    if (tool.isNullOrEmptyObject(msg)) {
+      return;
+    }
+    $.toast(msg, "cancel");
+  };
+  //显示确认框
+  tool.showConfirm = function(content, okCallBack, cancelCallBack) {
+    if (tool.isNullOrEmptyObject(content)) {
+      return;
+    }
+    var title = lanTool.lanContent("586_提示");
+    var btnTextArr = [
+      lanTool.lanContent("570_取消"),
+      lanTool.lanContent("545_确定")
+    ];
+    $.confirm(content, title, okCallBack, cancelCallBack, btnTextArr);
+  };
+  //显示等待
+  tool.showLoading = function(msg) {
+    msg = msg || lanTool.lanContent("770_加载中...");
+    var loadingIndexClassName = $.showLoading(msg);
+    return loadingIndexClassName;
+  };
+  //隐藏等待
+  tool.hideLoading = function(loadingIndexClassName, myCallBack) {
+    $.hideLoading(myCallBack, loadingIndexClassName);
+  };
+  //顶部成功提示
+  tool.topTipSuccess = function(msg, myCallBack) {
+    if (tool.isNullOrEmptyObject(msg)) {
+      return;
+    }
+    $.toptip(msg, 1000, "success", myCallBack);
+  };
+  //顶部失败提示
+  tool.topTipError = function(msg, myCallBack) {
+    if (tool.isNullOrEmptyObject(msg)) {
+      return;
+    }
+    $.toptip(msg, 1000, "error", myCallBack);
+  };
+  //提示信息
+  tool.alert = function(msg, myCallBack) {
+    if (tool.isNullOrEmptyObject(msg)) {
+      return;
+    }
+    var title = lanTool.lanContent("586_提示");
+    var btnText = lanTool.lanContent("545_确定");
+    $.alert({
+      title: title,
+      text: msg,
+      btnText: btnText,
+      onOK: function() {
+        if (!tool.isNullOrEmptyObject(myCallBack)) {
+          myCallBack();
+        }
+      }
+    });
+  };
+  //当前登陆对象
+  tool.CurUser = function() {
+    var curUserStr = tool.getSessionStorageItem(tool.cache_CurUser);
+    if (tool.isNullOrEmptyObject(curUserStr)) {
+      return {};
+    }
+    return tool.jObject(curUserStr);
+  };
+  //注册码
+  tool.RegisterCode = function() {
+    return tool.getSessionStorageItem(tool.cache_RegisterCode) || "";
+  };
+  //用户名
+  tool.UserName = function() {
+    return tool.getSessionStorageItem(tool.cache_UserName) || "";
+  };
+  //用户真实姓名
+  tool.Realname = function() {
+    return tool.getSessionStorageItem(tool.cache_Realname) || "";
+  };
+  //用户AutoID
+  tool.UserAutoID = function() {
+    return tool.getSessionStorageItem(tool.cache_UserAutoID) || "";
+  };
 
   /**
    * vueObj:vue对象
@@ -1794,125 +2082,133 @@ import config from '../../configfile/config.js'
    * pageSource:页面来源
    *
    */
-  tool.InitGrouplist = function(vueObj, fromType, queryCondiction, myCallBack, pageSource, groupBy,pageType){
+  tool.InitGrouplist = function(
+    vueObj,
+    fromType,
+    queryCondiction,
+    myCallBack,
+    pageSource,
+    groupBy,
+    pageType
+  ) {
+    if (
+      tool.isNullOrEmptyObject(fromType) ||
+      tool.isNullOrEmptyObject(fromType)
+    ) {
+      return;
+    }
+    queryCondiction = tool.isNullOrEmptyObject(queryCondiction)
+      ? []
+      : queryCondiction;
 
-      if(tool.isNullOrEmptyObject(fromType) || tool.isNullOrEmptyObject(fromType)){
-          return ;
-      }
-      queryCondiction = tool.isNullOrEmptyObject(queryCondiction) ? [] : queryCondiction;
+    var controlName = "";
+    switch (fromType) {
+      case "meeting":
+        controlName = tool.Api_MeetingHandle_Group;
+        break;
+      case "trip":
+        //controlName = tool.Api_TripHandle_Group;
+        controlName = "";
+        break;
+      case "dealPipeline":
+        controlName = tool.Api_OpportunityHandle_Group;
+        var queryCondictionObj = {
+          Field: "BusinessTypes",
+          Type: "string",
+          Format: "",
+          Relation: "and",
+          Value: "29",
+          Comparison: "="
+        };
+        queryCondiction.push(queryCondictionObj);
+        break;
+      case "opportunities":
+        controlName = tool.Api_OpportunityHandle_Group;
+        var queryCondictionObj = {
+          Field: "BusinessTypes",
+          Type: "string",
+          Format: "",
+          Relation: "and",
+          Value: "30",
+          Comparison: "="
+        };
+        queryCondiction.push(queryCondictionObj);
+        break;
+      case "organizations":
+        controlName = tool.Api_OrganizationsHandle_Group;
+        break;
+      case "contacts":
+        controlName = tool.Api_ContactsHandle_Group;
+        break;
+    }
 
-      var controlName = "";
-      switch (fromType) {
-        case "meeting":
-          controlName = tool.Api_MeetingHandle_Group;
-          break;
-        case "trip":
-          //controlName = tool.Api_TripHandle_Group;
-          controlName = "";
-          break;
-        case "dealPipeline":
-          controlName = tool.Api_OpportunityHandle_Group;
-          var queryCondictionObj =
-          {
-            Field:"BusinessTypes",
-            Type:"string",
-            Format:"",
-            Relation:"and",
-            Value:"29",
-            Comparison:"="
-          };
-          queryCondiction.push(queryCondictionObj);
-          break;
-        case "opportunities":
-          controlName = tool.Api_OpportunityHandle_Group;
-          var queryCondictionObj =
-          {
-            Field:"BusinessTypes",
-            Type:"string",
-            Format:"",
-            Relation:"and",
-            Value:"30",
-            Comparison:"="
-          };
-          queryCondiction.push(queryCondictionObj);
-          break;
-        case "organizations":
-          controlName = tool.Api_OrganizationsHandle_Group;
-          break;
-        case "contacts":
-          controlName = tool.Api_ContactsHandle_Group;
-          break;
-      }
+    //请求地址
+    var urlTemp = tool.AjaxBaseUrl();
+    //传入参数
+    var jsonDatasTemp = {
+      CurrentLanguageVersion: lanTool.currentLanguageVersion,
+      UserName: tool.UserName(),
+      _ControlName: controlName,
+      _RegisterCode: tool.RegisterCode(),
+      QueryCondiction: JSON.stringify(queryCondiction),
+      // GroupBy:groupBy
+      PageType: pageType == undefined || pageType == null ? 0 : pageType
+    };
 
-
-		//请求地址
-		var urlTemp = tool.AjaxBaseUrl();
-		//传入参数
-		var jsonDatasTemp = {
-		CurrentLanguageVersion: lanTool.currentLanguageVersion,
-		UserName: tool.UserName(),
-		_ControlName: controlName,
-		_RegisterCode: tool.RegisterCode(),
-		QueryCondiction: JSON.stringify(queryCondiction),
-		// GroupBy:groupBy
-		PageType: (pageType == undefined || pageType == null) ? 0 : pageType
-	};
-
-    if(pageSource != undefined && pageSource == 'index'){
-        jsonDatasTemp.RecentDay = 6;
-    }else{
-        jsonDatasTemp.GroupBy = groupBy;
+    if (pageSource != undefined && pageSource == "index") {
+      jsonDatasTemp.RecentDay = 6;
+    } else {
+      jsonDatasTemp.GroupBy = groupBy;
     }
     var loadingIndexClassName = tool.showLoading();
     $.ajax({
-    async: true,
-    type: "post",
-    url: urlTemp,
-    data: jsonDatasTemp,
-    success: function (data) {
-      tool.hideLoading(loadingIndexClassName);
-      data = tool.jObject(data);
-      if (data._ReturnStatus == false) {
-        tool.showText(tool.getMessage(data));
-        console.log(tool.getMessage(data));
-        return;
-      }
-
-      data = data._OnlyOneData.Rows || [];
-
-      if(vueObj.groupData == undefined){
+      async: true,
+      type: "post",
+      url: urlTemp,
+      data: jsonDatasTemp,
+      success: function(data) {
+        tool.hideLoading(loadingIndexClassName);
+        data = tool.jObject(data);
+        if (data._ReturnStatus == false) {
+          tool.showText(tool.getMessage(data));
+          console.log(tool.getMessage(data));
           return;
-      }
-      vueObj.groupData = data;
-      if (vueObj.groupData.length <= 0) {
+        }
+
+        data = data._OnlyOneData.Rows || [];
+
+        if (vueObj.groupData == undefined) {
+          return;
+        }
+        vueObj.groupData = data;
+        if (vueObj.groupData.length <= 0) {
           vueObj.noData = true;
           return;
-      }else{
+        } else {
           vueObj.noData = false;
-      }
+        }
 
-      //添加属性
-      $.each(vueObj.groupData, function (index, item) {
-        vueObj.$set(item, 'items', []);
-      })
+        //添加属性
+        $.each(vueObj.groupData, function(index, item) {
+          vueObj.$set(item, "items", []);
+        });
 
-      if (!tool.isNullOrEmptyObject(myCallBack)) {
+        if (!tool.isNullOrEmptyObject(myCallBack)) {
           myCallBack(data);
+        }
+        return;
+      },
+      error: function(jqXHR, type, error) {
+        console.log(error);
+        tool.hideLoading(loadingIndexClassName);
+        return;
+      },
+      complete: function() {
+        //隐藏虚拟键盘
+        document.activeElement.blur();
       }
-      return;
-    },
-    error: function (jqXHR, type, error) {
-      console.log(error);
-      tool.hideLoading(loadingIndexClassName);
-      return;
-    },
-    complete: function () {
-      //隐藏虚拟键盘
-      document.activeElement.blur();
-    }
-  })
-
-  }
+    });
+  };
 
   /**
    * vueObj:vue对象
@@ -1922,1169 +2218,1292 @@ import config from '../../configfile/config.js'
    * pageSource:页面来源
    *
    */
-  tool.InitInnerDataList = function(vueObj, fromType, groupID, queryCondiction, myCallBack, pageSource, groupBy,pageType){
+  tool.InitInnerDataList = function(
+    vueObj,
+    fromType,
+    groupID,
+    queryCondiction,
+    myCallBack,
+    pageSource,
+    groupBy,
+    pageType
+  ) {
+    if (
+      tool.isNullOrEmptyObject(vueObj) ||
+      tool.isNullOrEmptyObject(fromType) ||
+      tool.isNullOrEmptyObject(groupID)
+    ) {
+      return;
+    }
+    queryCondiction = tool.isNullOrEmptyObject(queryCondiction)
+      ? []
+      : queryCondiction;
 
-      if(tool.isNullOrEmptyObject(vueObj) || tool.isNullOrEmptyObject(fromType) || tool.isNullOrEmptyObject(groupID)){
-          return ;
-      }
-      queryCondiction = tool.isNullOrEmptyObject(queryCondiction) ? [] : queryCondiction;
-
-      var controlName = "";
-      switch (fromType) {
-        case "meeting":
-          controlName = tool.Api_MeetingHandle_GroupInnerData;
-          break;
-        case "trip":
-          //controlName = tool.Api_TripHandle_Group;
-          controlName = "";
-          break;
-        case "dealPipeline":
-          controlName = tool.Api_OpportunityHandle_GroupInnerData;
-          var queryCondictionObj =
-              {
-                Field:"BusinessTypes",
-                Type:"string",
-                Format:"",
-                Relation:"and",
-                Value:"29",
-                Comparison:"="
-              };
-          queryCondiction.push(queryCondictionObj);
-          break;
-        case "opportunities":
-          controlName = tool.Api_OpportunityHandle_GroupInnerData;
-          var queryCondictionObj ={
-            Field:"BusinessTypes",
-            Type:"string",
-            Format:"",
-            Relation:"and",
-            Value:"30",
-            Comparison:"="
-          };
-          queryCondiction.push(queryCondictionObj);
-          break;
-        case "organizations":
-          controlName = tool.Api_OrganizationsHandle_GroupInnerData;
-          break;
-        case "contacts":
-          controlName = tool.Api_ContactsHandle_GroupInnerData;
-          break;
-      }
-
-      //请求地址
-      var urlTemp = tool.AjaxBaseUrl();
-
-      //传入参数
-      var jsonDatasTemp = {
-			CurrentLanguageVersion: lanTool.currentLanguageVersion,
-			UserName: tool.UserName(),
-			_ControlName: controlName,
-			GroupID: groupID,
-			_RegisterCode: tool.RegisterCode(),
-			QueryCondiction: JSON.stringify(queryCondiction),
-			PageType: (pageType == undefined || pageType == null) ? 0 : pageType
-      };
-
-      if(pageSource != undefined && pageSource == 'index'){
-          jsonDatasTemp.RecentDay = 7;
-      }else{
-          jsonDatasTemp.GroupBy = groupBy || "";
-	  }
-	  
-      var loadingIndexClassName = tool.showLoading();
-      $.ajax({
-          async: true,
-          type: "post",
-          url: urlTemp,
-          data: jsonDatasTemp,
-          success: function (data) {
-              data = tool.jObject(data);
-              tool.hideLoading(loadingIndexClassName);
-              if (data._ReturnStatus == false) {
-                  tool.showText(tool.getMessage(data));
-                  return;
-              }
-              data = data._OnlyOneData.Rows || [];
-              //无数据
-              if (data.length <= 0) {
-                  return;
-              }
-              $.each(vueObj.groupData, function (index, item) {
-
-                  if (item.GroupID == groupID) {
-					//console.log(item);
-					//item.items = data;
-					vueObj.$set(item, 'items',data);
-
-					//若是dealPipeline
-					if(fromType == "dealPipeline" || fromType == "opportunities"){
-						$.each(item.items,function(dataIndex, dataItem){
-
-						var meetingSysmbol = lanTool.lanContent("1000001_最新的会议") || "new";
-						var className = '';
-
-						if(dataItem.CurrentStateNew != null && dataItem.CurrentStateNew != undefined && dataItem.CurrentStateNew.toString() != "38"){
-							className = 'closed'
-						}
-						vueObj.$set(dataItem, 'className', className);
-						vueObj.$set(dataItem, 'meetingSysmbol', meetingSysmbol);
-						})
-					}
-
-					//若是organizationsh或meeting,
-					//则清除对应分组内的联系人数据或会议记录数据
-					if(fromType == 'organizations' || fromType == 'meeting'){
-						$.each(item.items,function(index, companyData){
-							vueObj.$set(companyData, 'items', []);
-						});
-					}
-                  }
-              })
-              if (!tool.isNullOrEmptyObject(myCallBack) && typeof(myCallBack) == "function") {
-                  myCallBack();
-              }
-              return;
-          },
-          error: function (jqXHR, type, error) {
-              console.log(error);
-              tool.hideLoading(loadingIndexClassName);
-              return;
-          },
-          complete: function () {
-              // tool.hideLoading();
-              //隐藏虚拟键盘
-              document.activeElement.blur();
-          }
-      });
-  }
-
-  //获取会议记录字段值
-  tool.FormatMeetingFieldVal = function(fieldName,fieldVal){
-    if(tool.isNull(fieldName) || tool.isNullOrEmptyObject(fieldVal)){
-        return"";
+    var controlName = "";
+    switch (fromType) {
+      case "meeting":
+        controlName = tool.Api_MeetingHandle_GroupInnerData;
+        break;
+      case "trip":
+        //controlName = tool.Api_TripHandle_Group;
+        controlName = "";
+        break;
+      case "dealPipeline":
+        controlName = tool.Api_OpportunityHandle_GroupInnerData;
+        var queryCondictionObj = {
+          Field: "BusinessTypes",
+          Type: "string",
+          Format: "",
+          Relation: "and",
+          Value: "29",
+          Comparison: "="
+        };
+        queryCondiction.push(queryCondictionObj);
+        break;
+      case "opportunities":
+        controlName = tool.Api_OpportunityHandle_GroupInnerData;
+        var queryCondictionObj = {
+          Field: "BusinessTypes",
+          Type: "string",
+          Format: "",
+          Relation: "and",
+          Value: "30",
+          Comparison: "="
+        };
+        queryCondiction.push(queryCondictionObj);
+        break;
+      case "organizations":
+        controlName = tool.Api_OrganizationsHandle_GroupInnerData;
+        break;
+      case "contacts":
+        controlName = tool.Api_ContactsHandle_GroupInnerData;
+        break;
     }
 
-    if(fieldName == "BeginTime" || fieldName == "EndTime"){
+    //请求地址
+    var urlTemp = tool.AjaxBaseUrl();
+
+    //传入参数
+    var jsonDatasTemp = {
+      CurrentLanguageVersion: lanTool.currentLanguageVersion,
+      UserName: tool.UserName(),
+      _ControlName: controlName,
+      GroupID: groupID,
+      _RegisterCode: tool.RegisterCode(),
+      QueryCondiction: JSON.stringify(queryCondiction),
+      PageType: pageType == undefined || pageType == null ? 0 : pageType
+    };
+
+    if (pageSource != undefined && pageSource == "index") {
+      jsonDatasTemp.RecentDay = 7;
+    } else {
+      jsonDatasTemp.GroupBy = groupBy || "";
+    }
+
+    var loadingIndexClassName = tool.showLoading();
+    $.ajax({
+      async: true,
+      type: "post",
+      url: urlTemp,
+      data: jsonDatasTemp,
+      success: function(data) {
+        data = tool.jObject(data);
+        tool.hideLoading(loadingIndexClassName);
+        if (data._ReturnStatus == false) {
+          tool.showText(tool.getMessage(data));
+          return;
+        }
+        data = data._OnlyOneData.Rows || [];
+        //无数据
+        if (data.length <= 0) {
+          return;
+        }
+        $.each(vueObj.groupData, function(index, item) {
+          if (item.GroupID == groupID) {
+            //console.log(item);
+            //item.items = data;
+            vueObj.$set(item, "items", data);
+
+            //若是dealPipeline
+            if (fromType == "dealPipeline" || fromType == "opportunities") {
+              $.each(item.items, function(dataIndex, dataItem) {
+                var meetingSysmbol =
+                  lanTool.lanContent("1000001_最新的会议") || "new";
+                var className = "";
+
+                if (
+                  dataItem.CurrentStateNew != null &&
+                  dataItem.CurrentStateNew != undefined &&
+                  dataItem.CurrentStateNew.toString() != "38"
+                ) {
+                  className = "closed";
+                }
+                vueObj.$set(dataItem, "className", className);
+                vueObj.$set(dataItem, "meetingSysmbol", meetingSysmbol);
+              });
+            }
+
+            //若是organizationsh或meeting,
+            //则清除对应分组内的联系人数据或会议记录数据
+            if (fromType == "organizations" || fromType == "meeting") {
+              $.each(item.items, function(index, companyData) {
+                vueObj.$set(companyData, "items", []);
+              });
+            }
+          }
+        });
+        if (
+          !tool.isNullOrEmptyObject(myCallBack) &&
+          typeof myCallBack == "function"
+        ) {
+          myCallBack();
+        }
+        return;
+      },
+      error: function(jqXHR, type, error) {
+        console.log(error);
+        tool.hideLoading(loadingIndexClassName);
+        return;
+      },
+      complete: function() {
+        // tool.hideLoading();
+        //隐藏虚拟键盘
+        document.activeElement.blur();
+      }
+    });
+  };
+
+  //获取会议记录字段值
+  tool.FormatMeetingFieldVal = function(fieldName, fieldVal) {
+    if (tool.isNull(fieldName) || tool.isNullOrEmptyObject(fieldVal)) {
+      return "";
+    }
+
+    if (fieldName == "BeginTime" || fieldName == "EndTime") {
       var format = "d/MMM/yyyy HH:mm";
       fieldVal = fieldVal.ReplaceAll("T", " ");
       fieldVal = tool.ChangeTimeFormat(fieldVal, format);
-    }else if(fieldName == "ContactsID"){
+    } else if (fieldName == "ContactsID") {
       fieldVal = fieldVal + " ";
-    }else if(fieldName == "Title"){
+    } else if (fieldName == "Title") {
       fieldVal = "(" + fieldVal + ")";
-    }
-    else{
+    } else {
       return fieldVal || "";
     }
 
     return fieldVal;
   };
 
-	/*
-	* 清空控件数据
-	*/
-	tool.ClearControlData = function (myCallBack) {
-		$("[data-fieldControlType='textareaInput']").val("");
-		$("[data-fieldControlType='picker']").val("").attr("data-fieldVal", "").trigger('change');
-		$("[data-fieldControlType='picketTile']").find(".item-div.active").removeClass("active");
-		$("[data-fieldControlType='dateTimePicker']").val("").trigger('change');
-		$("[data-fieldControlType='selectList']").text("").attr("data-fieldVal", "").val("");
-		$("[data-fieldControlType='groupSelectList']").text("").attr("data-fieldVal", "").val("");
-		$("[data-fieldControlType='linkSelectList']").text("").attr("data-fieldVal", "").val("");
-		$("[data-fieldControlType='linkedPage']").text("").attr("data-fieldVal", "").val("");
-		$("[data-fieldControlType='divText']").text("");
-		$("[data-fieldControlType='icon']").each(function(index,curObj){
-			var _curObj = $(this);
-			if (tool.isNullOrEmptyObject(_curObj)) {
-				return true;
-			}
-			//icon类型对象
-			var dataValObj = _curObj.attr("data-fieldVal") || "{}";
-			dataValObj = tool.jObject(dataValObj);
+  /*
+   * 清空控件数据
+   */
+  tool.ClearControlData = function(myCallBack) {
+    $("[data-fieldControlType='textareaInput']").val("");
+    $("[data-fieldControlType='picker']")
+      .val("")
+      .attr("data-fieldVal", "")
+      .trigger("change");
+    $("[data-fieldControlType='picketTile']")
+      .find(".item-div.active")
+      .removeClass("active");
+    $("[data-fieldControlType='dateTimePicker']")
+      .val("")
+      .trigger("change");
+    $("[data-fieldControlType='selectList']")
+      .text("")
+      .attr("data-fieldVal", "")
+      .val("");
+    $("[data-fieldControlType='groupSelectList']")
+      .text("")
+      .attr("data-fieldVal", "")
+      .val("");
+    $("[data-fieldControlType='linkSelectList']")
+      .text("")
+      .attr("data-fieldVal", "")
+      .val("");
+    $("[data-fieldControlType='linkedPage']")
+      .text("")
+      .attr("data-fieldVal", "")
+      .val("");
+    $("[data-fieldControlType='divText']").text("");
+    $("[data-fieldControlType='icon']").each(function(index, curObj) {
+      var _curObj = $(this);
+      if (tool.isNullOrEmptyObject(_curObj)) {
+        return true;
+      }
+      //icon类型对象
+      var dataValObj = _curObj.attr("data-fieldVal") || "{}";
+      dataValObj = tool.jObject(dataValObj);
 
-			//获取应该显示的icon
-			var fieldVal = _curObj.attr["data-defaultVal"] || "";
-			fieldVal = fieldVal.toLowerCase();
-			var iconClass = dataValObj[fieldVal] || "";
-			if (tool.isNullOrEmptyObject(iconClass)) {
-				return true;
-			}
+      //获取应该显示的icon
+      var fieldVal = _curObj.attr["data-defaultVal"] || "";
+      fieldVal = fieldVal.toLowerCase();
+      var iconClass = dataValObj[fieldVal] || "";
+      if (tool.isNullOrEmptyObject(iconClass)) {
+        return true;
+      }
 
-			//移除其他class
-			for (var key in dataValObj) {
-				if (key == fieldVal) {
-					continue;
-				}
+      //移除其他class
+      for (var key in dataValObj) {
+        if (key == fieldVal) {
+          continue;
+        }
 
-				var classNameTemp = dataValObj[key] || "";
-				_curObj.removeClass(classNameTemp);
-			}
+        var classNameTemp = dataValObj[key] || "";
+        _curObj.removeClass(classNameTemp);
+      }
 
-			//添加class
-			_curObj.addClass(iconClass);
-		});
-		if (!tool.isNullOrEmptyObject(myCallBack)) {
-			myCallBack();
-		}
-	};
-	/*
-	*渲染控件
-	*/
-	tool.InitiateInfoPageControl = function (self,id,myCallBack) {
+      //添加class
+      _curObj.addClass(iconClass);
+    });
+    if (!tool.isNullOrEmptyObject(myCallBack)) {
+      myCallBack();
+    }
+  };
+  /*
+   *渲染控件
+   */
+  tool.InitiateInfoPageControl = function(self, id, myCallBack) {
+    //1>渲染picker
+    $("[data-fieldControlType='picker']").each(function(index, obj) {
+      var _curObj = $(this);
 
-		//1>渲染picker
-		$("[data-fieldControlType='picker']").each(function (index, obj) {
-			var _curObj = $(this);
+      var fromId = _curObj.attr("data-field") || "";
+      if (tool.isNullOrEmptyObject(fromId)) {
+        return true;
+      }
 
-			var fromId = _curObj.attr("data-field") || "";
-			if (tool.isNullOrEmptyObject(fromId)) {
-				return true;
-			}
+      var urlTemp = tool.AjaxBaseUrl();
+      var controlName = tool.CommonDataServiceHandle_Query;
+      var code = _curObj.attr("Code") || "";
+      var typeValue = _curObj.attr("TypeValue") || "";
+      var filter = _curObj.attr("Filter") || "";
+      if (tool.isNullOrEmptyObject(code)) {
+        return true;
+      }
 
-			var urlTemp = tool.AjaxBaseUrl();
-			var controlName = tool.CommonDataServiceHandle_Query;
-			var code = _curObj.attr("Code") || "";
-			var typeValue = _curObj.attr("TypeValue") || "";
-			var filter = _curObj.attr("Filter") || "";
-			if (tool.isNullOrEmptyObject(code)) {
-				return true;
-			}
+      //传入参数
+      var jsonDatasTemp = {
+        CurrentLanguageVersion: lanTool.currentLanguageVersion,
+        UserName: tool.UserName(),
+        _ControlName: controlName,
+        _RegisterCode: tool.RegisterCode(),
+        Code: code,
+        TypeValue: typeValue,
+        Filter: filter
+      };
+      var loadingIndexClassName = tool.showLoading();
 
-			//传入参数
-			var jsonDatasTemp = {
-				CurrentLanguageVersion: lanTool.currentLanguageVersion,
-				UserName: tool.UserName(),
-				_ControlName: controlName,
-				_RegisterCode: tool.RegisterCode(),
-				Code: code,
-				TypeValue: typeValue,
-				Filter:filter
-			};
-			var loadingIndexClassName = tool.showLoading();
+      $.ajax({
+        async: true,
+        type: "post",
+        url: urlTemp,
+        data: jsonDatasTemp,
+        success: function(data) {
+          tool.hideLoading(loadingIndexClassName);
 
-			$.ajax({
-				async: true,
-				type: "post",
-				url: urlTemp,
-				data: jsonDatasTemp,
-				success: function (data) {
-					tool.hideLoading(loadingIndexClassName);
-
-					data = tool.jObject(data);
-					if (data._ReturnStatus == false) {
-						tool.showText(tool.getMessage(data));
-						console.log(tool.getMessage(data));
-						return true;
-					}
-
-					data = data._OnlyOneData || [];
-					var pickerDisplays = [];
-					for (var i = 0; i < data.length; i++) {
-						if (tool.isNullOrEmptyObject(data[i])) {
-							continue;
-						}
-						pickerDisplays.push(data[i]["text"]);
-					}
-
-					setTimeout(() => {
-						//写入标题
-						var titleVal = lanTool.lanContent(_curObj.attr("data-lanid") ||"");
-
-						//渲染下拉数据
-						_curObj.picker({
-							sourceDataObj: data,
-							fromId: fromId,
-							jqueryObj: _curObj,
-							title: titleVal,//标题
-							toolbarCloseText: lanTool.lanContent('569_确认'),//确认
-							toolbarCancleText: lanTool.lanContent('570_取消'),//取消
-							cols: [{
-									textAlign: 'center',
-									values: pickerDisplays
-								}],
-							onOpen: function (data) {
-								//收起键盘
-								document.activeElement.blur();
-								var displayTemp = _curObj.val() || "";
-								_curObj.picker("setValue", [displayTemp]);
-							},
-							onChange: function (data, valueTemp, displayTemp) {
-
-								var valueTemp = "";
-								var displayTemp = data.displayValue[0] || "";
-								for (var i = 0; i < data.params.sourceDataObj.length; i++) {
-									if (displayTemp == data.params.sourceDataObj[i]["text"]) {
-										valueTemp = data.params.sourceDataObj[i]["id"];
-										break;
-									}
-								}
-
-								_curObj.val(displayTemp);
-								_curObj.attr('data-fieldVal', valueTemp);
-							}
-						});
-
-					}, 300);
-
-				},
-				error: function (jqXHR, type, error) {
-					console.log(error);
-					tool.hideLoading(loadingIndexClassName);
-					return true;
-				},
-				complete: function () {
-					//tool.hideLoading();
-					//隐藏虚拟键盘
-					document.activeElement.blur();
-				}
-			});
-
-		});
-
-		//2>渲染selectList
-		//2-1>同一行的selectList
-		$("[data-fieldControlType='selectList']").attr("readonly","readonly").off('click').on('click',function(){
-      		var _curObj = $(this);
-			if(typeof(_curObj.attr("data-clickObj")) != "undefined"){
-				return;
-			}
-			// console.log(_curObj);
-			var dataField = _curObj.attr("data-field") ||"";
-			var code = _curObj.attr("Code") ||"";
-			var filter = _curObj.attr("Filter") ||"";
-			var typeValue = _curObj.attr("TypeValue") ||"";
-			var value = _curObj.attr("data-fieldVal") ||"";
-			var selectType = _curObj.attr("data-selectType") ||"";
-			var title = lanTool.lanContent(_curObj.attr("data-lanid") ||"");
-			var addUrl = _curObj.attr("data-addUrl") ||"";
-			var linkIDField = _curObj.attr("data-linkIDField") ||"";//为了在弹出页面的新增上，带出id和name，如新增联系人，需要带上当前公司信息
-			var linkNameField = _curObj.attr("data-linkNameField") ||"";
-			var fromType = _curObj.attr("data-fromType") ||"";
-
-			var parameter = {
-				'field':dataField,
-				'code':code,
-				"typeValue":typeValue,
-				'title':title,
-				'value':value,//已经选择的值
-				'selectType':selectType,
-				"filter":filter,
-				"addUrl":addUrl,
-				"linkIDField":linkIDField,
-				"linkNameField":linkNameField,
-				"fromType":fromType
-			};
-			self.$router.push({
-				path: '/selectlist',
-				query: parameter
-			});
-		});
-		//2-2>不同一行的selectList
-		$("[data-fieldControlType='selectList'][data-clickObj]").each(function(index, obj){
-
-			$("#"+$(obj).attr("data-clickObj")).off('click').on('click',function(){
-
-				//查找子类
-				var _curObjTextdataFieldName = ($(this).attr('id') || "").ReplaceAll("ClickObj","");
-				var _curObj = $("[data-field='"+ _curObjTextdataFieldName +"']:first");
-				if(tool.isNullOrEmptyObject(_curObj)){
-				return;
-				}
-				// console.log(_curObj);
-				var dataField = _curObj.attr("data-field") ||"";
-				var code = _curObj.attr("Code") ||"";
-				var filter = _curObj.attr("Filter") ||"";
-				var typeValue = _curObj.attr("TypeValue") ||"";
-				var value = _curObj.attr("data-fieldVal") ||"";
-				var selectType = _curObj.attr("data-selectType") ||"";
-				var title = lanTool.lanContent(_curObj.attr("data-lanid") ||"");
-				var addUrl = _curObj.attr("data-addUrl") ||"";
-				var linkIDField = _curObj.attr("data-linkIDField") ||"";//为了在弹出页面的新增上，带出id和name，如新增联系人，需要带上当前公司信息
-				var linkNameField = _curObj.attr("data-linkNameField") ||"";
-				var fromType = _curObj.attr("data-fromType") ||"";
-
-				var parameter = {
-				'field':dataField,
-				'code':code,
-				"typeValue":typeValue,
-				'title':title,
-				'value':value,//已经选择的值
-				'selectType':selectType,
-				"filter":filter,
-				"addUrl":addUrl,
-				"linkIDField":linkIDField,
-				"linkNameField":linkNameField,
-				"fromType":fromType
-				};
-				self.$router.push({
-				path: '/selectlist',
-				query: parameter
-				});
-			});
-		});
-
-		//4>渲染groupSelectList
-		//4-1>同一行的groupSelectList
-		$("[data-fieldControlType='groupSelectList']").attr("readonly","readonly").off('click').on('click',function(){
-			var _curObj = $(this);
-			if(typeof(_curObj.attr("data-clickObj")) != "undefined"){
-				return;
-			}
-			// console.log(_curObj);
-			var dataField = _curObj.attr("data-field") ||"";
-			var code = _curObj.attr("Code") ||"";
-			var filter = _curObj.attr("Filter") ||"";
-			var typeValue = _curObj.attr("TypeValue") ||"";
-			var value = _curObj.attr("data-fieldVal") ||"";
-			var selectType = _curObj.attr("data-selectType") ||"";
-			var title = lanTool.lanContent(_curObj.attr("data-lanid") ||"");
-			var fromType = _curObj.attr("data-fromType") ||"";
-
-			console.log("fromType:"+fromType);
-
-			var parameter = {
-				'field':dataField,
-				'code':code,
-				"typeValue":typeValue,
-				'title':title,
-				'value':value,//已经选择的值
-				'selectType':selectType,
-				'fromType':fromType,
-				'fromID':id,
-				"filter":filter
-			};
-			self.$router.push({
-				path: '/groupselectlist',
-				query: parameter
-			});
-		});
-		//4-2>不同一行的groupSelectList
-		$("[data-fieldControlType='groupSelectList'][data-clickObj]").each(function(index, obj){
-			$("#"+$(obj).attr("data-clickObj")).off('click').on('click',function(){
-				//查找子类
-				var _curObjTextdataFieldName = ($(this).attr('id') || "").ReplaceAll("ClickObj","");
-				var _curObj = $("[data-field='"+ _curObjTextdataFieldName +"']:first");
-				if(tool.isNullOrEmptyObject(_curObj)){
-				return;
-				}
-				var dataField = _curObj.attr("data-field") ||"";
-				var code = _curObj.attr("Code") ||"";
-				var filter = _curObj.attr("Filter") ||"";
-				var typeValue = _curObj.attr("TypeValue") ||"";
-				var value = _curObj.attr("data-fieldVal") ||"";
-				var selectType = _curObj.attr("data-selectType") ||"";
-				var title = lanTool.lanContent(_curObj.attr("data-lanid") ||"");
-				var fromType = _curObj.attr("data-fromType") ||"";
-
-				var parameter = {
-				'field':dataField,
-				'code':code,
-				"typeValue":typeValue,
-				'title':title,
-				'value':value,//已经选择的值
-				'selectType':selectType,
-				'fromType':fromType,
-				'fromID':id,
-				"filter":filter
-				};
-				self.$router.push({
-				path: '/groupselectlist',
-				query: parameter
-				});
-			})
-		})
-
-		//5>渲染linkedPage
-		//5-1>同一行的linkedPage
-		$("[data-fieldControlType='linkedPage']").attr("readonly","readonly").off('click').on('click',function(){
-			var _curObj = $(this);
-			if(typeof(_curObj.attr("data-clickObj")) != "undefined"){
-				return;
-			}
-			// console.log(_curObj);
-			var dataField = _curObj.attr("data-field") ||"";
-			var code = _curObj.attr("Code") ||"";
-			var filter = _curObj.attr("Filter") ||"";
-			var typeValue = _curObj.attr("TypeValue") ||"";
-			var value = _curObj.attr("data-fieldVal") ||"";
-			var selectType = _curObj.attr("data-selectType") ||"";
-			var title = lanTool.lanContent(_curObj.attr("data-lanid") ||"");
-			var isShowAdd = _curObj.attr("data-isShowAdd") ||"false";
-			var fromType = _curObj.attr("data-fromType") ||"";
-
-			var parameter = {
-				'field':dataField,
-				'code':code,
-				"typeValue":typeValue,
-				'title':title,
-				'value':value,//已经选择的值
-				'selectType':selectType,
-				"filter":filter,
-				"isShowAdd":isShowAdd,
-				"fromType":fromType
-			};
-			self.$router.push({
-				path: '/linkedpage',
-				query: parameter
-			});
-		});
-		//5-2>不同一行的linkedPage
-		$("#"+$("[data-fieldControlType='linkedPage'][data-clickObj]").attr("data-clickObj")).off('click').on('click',function(){
-			//查找子类
-			var _curObjTextdataFieldName = ($(this).attr('id') || "").ReplaceAll("ClickObj","");
-			// console.log(_curObjTextdataFieldName);
-			var _curObj = $("[data-field='"+ _curObjTextdataFieldName +"']:first");
-			if(tool.isNullOrEmptyObject(_curObj)){
-				return;
-			}
-			// console.log(_curObj);
-
-			var dataField = _curObj.attr("data-field") ||"";
-			var code = _curObj.attr("Code") ||"";
-			var filter = _curObj.attr("Filter") ||"";
-			var typeValue = _curObj.attr("TypeValue") ||"";
-			var value = _curObj.attr("data-fieldVal") ||"";
-			var selectType = _curObj.attr("data-selectType") ||"";
-			var title = lanTool.lanContent(_curObj.attr("data-lanid") ||"");
-			var isShowAdd = _curObj.attr("data-isShowAdd") ||"false";
-			var fromType = _curObj.attr("data-fromType") ||"";
-
-			var parameter = {
-				'field':dataField,
-				'code':code,
-				"typeValue":typeValue,
-				'title':title,
-				'value':value,//已经选择的值
-				'selectType':selectType,
-				"filter":filter,
-				"isShowAdd":isShowAdd,
-				"fromType":fromType
-			};
-			// console.log(parameter);
-			self.$router.push({
-				path: '/linkedpage',
-				query: parameter
-			});
-		});
-
-		//6>渲染dateTimePicker
-		$("[data-fieldControlType='dateTimePicker']").each(function (index, obj) {
-			var _curObj = $(this);
-			var fromId = _curObj.attr("data-field") || "";
-			if (tool.isNullOrEmptyObject(fromId)) {
-				return true;
-			}
-			var titleVal = lanTool.lanContent(_curObj.attr("data-lanid") ||"");
-			var timeType = _curObj.attr("data-TimeType") ||"date";
-
-			//配置年数据
-			var yearConfigArr = [];
-			//默认前后50年可选
-			var unitYear = 50;
-			var currentYear = new Date().getFullYear();
-			var starIndex = currentYear - unitYear;
-			var endIndex = currentYear + unitYear;
-			for(var i = starIndex;i <= endIndex;i++){
-				yearConfigArr.push(i);
-			}
-
-			//若是时间类型，则需要配置时间
-			var timeConfigArr = function () {
-				return [];
-			};
-			if(timeType == "dateTime"){
-				timeConfigArr = function(){
-					return [  // 自定义的时间
-						{
-							values: (function () {
-								var hours = [];
-								for (var i = 0; i < 24; i++) {
-									hours.push(initial.formatNumber(i));
-								}
-								return hours;
-							})()
-						},
-						{
-							divider: true, //分隔符
-							content: ':'
-						},
-						{
-							values: (function () {
-								//var minutes = [];
-                //for (var i = 0; i < 60; i++) minutes.push(initial.formatNumber(i));
-                var minutes = ['00','15','30','45'];
-								return minutes;
-							})()
-						}
-					];
-				};
-			}
-			self.$nextTick(function(){
-				_curObj.datetimePicker({
-            fromId: fromId,
-            jqueryObj: _curObj,
-            yearSplit:'/',
-            monthSplit: '/',
-            title: titleVal,//标题
-            toolbarCloseText: lanTool.lanContent('569_确认'),//确认
-            toolbarCancleText: lanTool.lanContent('570_取消'),//取消
-            times:timeConfigArr,//HH:mm
-            years:yearConfigArr,//年
-            onOpen: function (pickerTemp,val1,val2) {
-              //隐藏虚拟键盘
-              document.activeElement.blur();
-              if(tool.isNullOrEmptyObject(pickerTemp) || tool.isNullOrEmptyObject(pickerTemp.value) || pickerTemp.value.length<=0){
-                return;
-              }
-              var valNew = "";
-              if(pickerTemp.value.length == 5){
-
-                valNew = pickerTemp.value[0] + "/" + pickerTemp.value[1] + "/" + pickerTemp.value[2] + " " + pickerTemp.value[3] + ":" +  pickerTemp.value[4];
-              }else{
-
-                valNew = pickerTemp.value[0] + "/" + pickerTemp.value[1] + "/" + pickerTemp.value[2];
-              }
-              _curObj.val(valNew);
-            },
-
-				});
-			});
-
-		});
-
-		//7>渲染hideDivText
-		$("[data-fieldControlType='hideDivText']").each(function (index, obj) {
-			var _curObj = $(this);
-			_curObj.hide();
-		});
-
-		//执行回调函数
-		if (!tool.isNullOrEmptyObject(myCallBack) && typeof(myCallBack) == "function") {
-			myCallBack();
-		}
-	};
-
-	/*
-	* 渲染数据
-	*/
-	tool.IniInfoData = function (fromType, autoID, myCallBack) {
-
-		if (tool.isNullOrEmptyObject(fromType) || tool.isNullOrEmptyObject(autoID)) {
-			return;
-		}
-		//新增的情况下id=-1
-		if (Number(autoID) <= 0) {
-			return;
-		}
-
-		var urlTemp = tool.AjaxBaseUrl();
-		var controlName = "";
-		if (fromType == "Organizationsinfo") {
-			controlName = tool.Api_OrganizationsHandle_QuerySingle;
-		} else if (fromType == "Contactsinfo") {
-			controlName = tool.Api_ContactsHandle_QuerySingle;
-		} else if (fromType == "Meetinginfo") {
-			controlName = tool.Api_MeetingHandle_QuerySingle;
-		} else if (fromType == "Tripinfo") {
-			controlName = "";
-		} else if (fromType == "MeetingNoteinfo") {
-			controlName = tool.Api_MeetingNoticeHandle_QuerySingle;
-		} else if (fromType == "Opportunitiesinfo") {
-			controlName = tool.Api_OpportunityHandle_QuerySingle;
-		} else {
-			return;
-		}
-
-		//传入参数
-		var jsonDatasTemp = {
-			CurrentLanguageVersion: lanTool.currentLanguageVersion,
-			UserName: tool.UserName(),
-			_ControlName: controlName,
-			_RegisterCode: tool.RegisterCode(),
-			AutoID: autoID
-		};
-		var loadingIndexClassName = tool.showLoading();
-		$.ajax({
-			async: true,
-			type: "post",
-			url: urlTemp,
-			data: jsonDatasTemp,
-			success: function (data) {
-				data = tool.jObject(data);
-				// console.log(data);
-				if (data._ReturnStatus == false) {
-            tool.hideLoading(loadingIndexClassName);
+          data = tool.jObject(data);
+          if (data._ReturnStatus == false) {
             tool.showText(tool.getMessage(data));
             console.log(tool.getMessage(data));
             return true;
-				}
+          }
 
-				data = data._OnlyOneData || [];
+          data = data._OnlyOneData || [];
+          var pickerDisplays = [];
+          for (var i = 0; i < data.length; i++) {
+            if (tool.isNullOrEmptyObject(data[i])) {
+              continue;
+            }
+            pickerDisplays.push(data[i]["text"]);
+          }
 
-				try {
-					//控件赋值操作
-					//1>picker
-					$("[data-fieldControlType='picker']").each(function (index, obj) {
-						var _curObj = $(this);
-						if (tool.isNullOrEmptyObject(_curObj)) {
-							return true;
-						}
-						var dataField = _curObj.attr("data-field") || "";
-						if (tool.isNullOrEmptyObject(dataField)) {
-							return true;
-						}
+          setTimeout(() => {
+            //写入标题
+            var titleVal = lanTool.lanContent(_curObj.attr("data-lanid") || "");
 
-						var fieldVal = data[dataField] || "";
-						var fieldDisplay = data[dataField + "_Name"] || "";
+            //渲染下拉数据
+            _curObj.picker({
+              sourceDataObj: data,
+              fromId: fromId,
+              jqueryObj: _curObj,
+              title: titleVal, //标题
+              toolbarCloseText: lanTool.lanContent("569_确认"), //确认
+              toolbarCancleText: lanTool.lanContent("570_取消"), //取消
+              cols: [
+                {
+                  textAlign: "center",
+                  values: pickerDisplays
+                }
+              ],
+              onOpen: function(data) {
+                //收起键盘
+                document.activeElement.blur();
+                var displayTemp = _curObj.val() || "";
+                _curObj.picker("setValue", [displayTemp]);
+              },
+              onChange: function(data, valueTemp, displayTemp) {
+                var valueTemp = "";
+                var displayTemp = data.displayValue[0] || "";
+                for (var i = 0; i < data.params.sourceDataObj.length; i++) {
+                  if (displayTemp == data.params.sourceDataObj[i]["text"]) {
+                    valueTemp = data.params.sourceDataObj[i]["id"];
+                    break;
+                  }
+                }
 
-						_curObj.val(fieldDisplay);
-						_curObj.attr("data-fieldVal", fieldVal);
-						_curObj.trigger('change');
-					});
-					//2>selectList
-					$("[data-fieldControlType='selectList']").each(function (index, obj) {
-						var _curObj = $(this);
-						if (tool.isNullOrEmptyObject(_curObj)) {
-							return true;
-						}
-						var dataField = _curObj.attr("data-field") || "";
-						if (tool.isNullOrEmptyObject(dataField)) {
-							return true;
-						}
+                _curObj.val(displayTemp);
+                _curObj.attr("data-fieldVal", valueTemp);
+              }
+            });
+          }, 300);
+        },
+        error: function(jqXHR, type, error) {
+          console.log(error);
+          tool.hideLoading(loadingIndexClassName);
+          return true;
+        },
+        complete: function() {
+          //tool.hideLoading();
+          //隐藏虚拟键盘
+          document.activeElement.blur();
+        }
+      });
+    });
 
-						var fieldVal = data[dataField] || "";
-						var fieldDisplay = data[dataField + "_Name"] || "";
+    //2>渲染selectList
+    //2-1>同一行的selectList
+    $("[data-fieldControlType='selectList']")
+      .attr("readonly", "readonly")
+      .off("click")
+      .on("click", function() {
+        var _curObj = $(this);
+        if (typeof _curObj.attr("data-clickObj") != "undefined") {
+          return;
+        }
+        // console.log(_curObj);
+        var dataField = _curObj.attr("data-field") || "";
+        var code = _curObj.attr("Code") || "";
+        var filter = _curObj.attr("Filter") || "";
+        var typeValue = _curObj.attr("TypeValue") || "";
+        var value = _curObj.attr("data-fieldVal") || "";
+        var selectType = _curObj.attr("data-selectType") || "";
+        var title = lanTool.lanContent(_curObj.attr("data-lanid") || "");
+        var addUrl = _curObj.attr("data-addUrl") || "";
+        var linkIDField = _curObj.attr("data-linkIDField") || ""; //为了在弹出页面的新增上，带出id和name，如新增联系人，需要带上当前公司信息
+        var linkNameField = _curObj.attr("data-linkNameField") || "";
+        var fromType = _curObj.attr("data-fromType") || "";
 
-						_curObj.text(fieldDisplay);
-						_curObj.attr("data-fieldVal", fieldVal);
-					});
-					//3>groupSelectList
-					$("[data-fieldControlType='groupSelectList']").each(function (index, obj) {
-						var _curObj = $(this);
-						if (tool.isNullOrEmptyObject(_curObj)) {
-							return true;
-						}
-						var dataField = _curObj.attr("data-field") || "";
-						if (tool.isNullOrEmptyObject(dataField)) {
-							return true;
-						}
+        var parameter = {
+          field: dataField,
+          code: code,
+          typeValue: typeValue,
+          title: title,
+          value: value, //已经选择的值
+          selectType: selectType,
+          filter: filter,
+          addUrl: addUrl,
+          linkIDField: linkIDField,
+          linkNameField: linkNameField,
+          fromType: fromType
+        };
+        self.$router.push({
+          path: "/selectlist",
+          query: parameter
+        });
+      });
+    //2-2>不同一行的selectList
+    $("[data-fieldControlType='selectList'][data-clickObj]").each(function(
+      index,
+      obj
+    ) {
+      $("#" + $(obj).attr("data-clickObj"))
+        .off("click")
+        .on("click", function() {
+          //查找子类
+          var _curObjTextdataFieldName = ($(this).attr("id") || "").ReplaceAll(
+            "ClickObj",
+            ""
+          );
+          var _curObj = $(
+            "[data-field='" + _curObjTextdataFieldName + "']:first"
+          );
+          if (tool.isNullOrEmptyObject(_curObj)) {
+            return;
+          }
+          // console.log(_curObj);
+          var dataField = _curObj.attr("data-field") || "";
+          var code = _curObj.attr("Code") || "";
+          var filter = _curObj.attr("Filter") || "";
+          var typeValue = _curObj.attr("TypeValue") || "";
+          var value = _curObj.attr("data-fieldVal") || "";
+          var selectType = _curObj.attr("data-selectType") || "";
+          var title = lanTool.lanContent(_curObj.attr("data-lanid") || "");
+          var addUrl = _curObj.attr("data-addUrl") || "";
+          var linkIDField = _curObj.attr("data-linkIDField") || ""; //为了在弹出页面的新增上，带出id和name，如新增联系人，需要带上当前公司信息
+          var linkNameField = _curObj.attr("data-linkNameField") || "";
+          var fromType = _curObj.attr("data-fromType") || "";
 
-						var fieldVal = data[dataField] || "";
-						var fieldDisplay = data[dataField + "_Name"] || "";
+          var parameter = {
+            field: dataField,
+            code: code,
+            typeValue: typeValue,
+            title: title,
+            value: value, //已经选择的值
+            selectType: selectType,
+            filter: filter,
+            addUrl: addUrl,
+            linkIDField: linkIDField,
+            linkNameField: linkNameField,
+            fromType: fromType
+          };
+          self.$router.push({
+            path: "/selectlist",
+            query: parameter
+          });
+        });
+    });
 
-						_curObj.text(fieldDisplay);
-						_curObj.attr("data-fieldVal", fieldVal);
-					});
-					//4>linkSelectList
-					$("[data-fieldControlType='linkSelectList']").each(function (index, obj) {
-						var _curObj = $(this);
-						if (tool.isNullOrEmptyObject(_curObj)) {
-							return true;
-						}
-						var dataField = _curObj.attr("data-field") || "";
-						if (tool.isNullOrEmptyObject(dataField)) {
-							return true;
-						}
+    //4>渲染groupSelectList
+    //4-1>同一行的groupSelectList
+    $("[data-fieldControlType='groupSelectList']")
+      .attr("readonly", "readonly")
+      .off("click")
+      .on("click", function() {
+        var _curObj = $(this);
+        if (typeof _curObj.attr("data-clickObj") != "undefined") {
+          return;
+        }
+        // console.log(_curObj);
+        var dataField = _curObj.attr("data-field") || "";
+        var code = _curObj.attr("Code") || "";
+        var filter = _curObj.attr("Filter") || "";
+        var typeValue = _curObj.attr("TypeValue") || "";
+        var value = _curObj.attr("data-fieldVal") || "";
+        var selectType = _curObj.attr("data-selectType") || "";
+        var title = lanTool.lanContent(_curObj.attr("data-lanid") || "");
+        var fromType = _curObj.attr("data-fromType") || "";
 
-						var fieldVal = data[dataField] || "";
-						var fieldDisplay = data[dataField + "_Name"] || "";
+        console.log("fromType:" + fromType);
 
-						_curObj.text(fieldDisplay);
-						_curObj.attr("data-fieldVal", fieldVal);
-					});
-					//5>linkedPage
-					$("[data-fieldControlType='linkedPage']").each(function (index, obj) {
-						var _curObj = $(this);
-						if (tool.isNullOrEmptyObject(_curObj)) {
-							return true;
-						}
-						var dataField = _curObj.attr("data-field") || "";
-						if (tool.isNullOrEmptyObject(dataField)) {
-							return true;
-						}
+        var parameter = {
+          field: dataField,
+          code: code,
+          typeValue: typeValue,
+          title: title,
+          value: value, //已经选择的值
+          selectType: selectType,
+          fromType: fromType,
+          fromID: id,
+          filter: filter
+        };
+        self.$router.push({
+          path: "/groupselectlist",
+          query: parameter
+        });
+      });
+    //4-2>不同一行的groupSelectList
+    $("[data-fieldControlType='groupSelectList'][data-clickObj]").each(function(
+      index,
+      obj
+    ) {
+      $("#" + $(obj).attr("data-clickObj"))
+        .off("click")
+        .on("click", function() {
+          //查找子类
+          var _curObjTextdataFieldName = ($(this).attr("id") || "").ReplaceAll(
+            "ClickObj",
+            ""
+          );
+          var _curObj = $(
+            "[data-field='" + _curObjTextdataFieldName + "']:first"
+          );
+          if (tool.isNullOrEmptyObject(_curObj)) {
+            return;
+          }
+          var dataField = _curObj.attr("data-field") || "";
+          var code = _curObj.attr("Code") || "";
+          var filter = _curObj.attr("Filter") || "";
+          var typeValue = _curObj.attr("TypeValue") || "";
+          var value = _curObj.attr("data-fieldVal") || "";
+          var selectType = _curObj.attr("data-selectType") || "";
+          var title = lanTool.lanContent(_curObj.attr("data-lanid") || "");
+          var fromType = _curObj.attr("data-fromType") || "";
 
-						var fieldVal = data[dataField] || "";
-						var fieldDisplay = data[dataField + "_Name"] || "";
+          var parameter = {
+            field: dataField,
+            code: code,
+            typeValue: typeValue,
+            title: title,
+            value: value, //已经选择的值
+            selectType: selectType,
+            fromType: fromType,
+            fromID: id,
+            filter: filter
+          };
+          self.$router.push({
+            path: "/groupselectlist",
+            query: parameter
+          });
+        });
+    });
 
-						_curObj.text(fieldDisplay);
-						_curObj.attr("data-fieldVal", fieldVal);
-					});
-					//6>textareaInput
-					$("[data-fieldControlType='textareaInput']").each(function (index, obj) {
-						var _curObj = $(this);
-						if (tool.isNullOrEmptyObject(_curObj)) {
-							return true;
-						}
-						var dataField = _curObj.attr("data-field") || "";
-						if (tool.isNullOrEmptyObject(dataField)) {
-							return true;
-						}
-						var fieldVal = data[dataField] || "";
-						_curObj.val(fieldVal);
-					});
-					//7>divText
-					$("[data-fieldControlType='divText']").each(function (index, obj) {
-						var _curObj = $(this);
-						if (tool.isNullOrEmptyObject(_curObj)) {
-							return true;
-						}
-						var dataField = _curObj.attr("data-field") || "";
-						if (tool.isNullOrEmptyObject(dataField)) {
-							return true;
-						}
+    //5>渲染linkedPage
+    //5-1>同一行的linkedPage
+    $("[data-fieldControlType='linkedPage']")
+      .attr("readonly", "readonly")
+      .off("click")
+      .on("click", function() {
+        var _curObj = $(this);
+        if (typeof _curObj.attr("data-clickObj") != "undefined") {
+          return;
+        }
+        // console.log(_curObj);
+        var dataField = _curObj.attr("data-field") || "";
+        var code = _curObj.attr("Code") || "";
+        var filter = _curObj.attr("Filter") || "";
+        var typeValue = _curObj.attr("TypeValue") || "";
+        var value = _curObj.attr("data-fieldVal") || "";
+        var selectType = _curObj.attr("data-selectType") || "";
+        var title = lanTool.lanContent(_curObj.attr("data-lanid") || "");
+        var isShowAdd = _curObj.attr("data-isShowAdd") || "false";
+        var fromType = _curObj.attr("data-fromType") || "";
 
-						var fieldVal = data[dataField] || "";
+        var parameter = {
+          field: dataField,
+          code: code,
+          typeValue: typeValue,
+          title: title,
+          value: value, //已经选择的值
+          selectType: selectType,
+          filter: filter,
+          isShowAdd: isShowAdd,
+          fromType: fromType
+        };
+        self.$router.push({
+          path: "/linkedpage",
+          query: parameter
+        });
+      });
+    //5-2>不同一行的linkedPage
+    $(
+      "#" +
+        $("[data-fieldControlType='linkedPage'][data-clickObj]").attr(
+          "data-clickObj"
+        )
+    )
+      .off("click")
+      .on("click", function() {
+        //查找子类
+        var _curObjTextdataFieldName = ($(this).attr("id") || "").ReplaceAll(
+          "ClickObj",
+          ""
+        );
+        // console.log(_curObjTextdataFieldName);
+        var _curObj = $(
+          "[data-field='" + _curObjTextdataFieldName + "']:first"
+        );
+        if (tool.isNullOrEmptyObject(_curObj)) {
+          return;
+        }
+        // console.log(_curObj);
 
-						//数据格式化
-						var formatType = _curObj.attr("data-formatType") || "";
-						var format = _curObj.attr("data-format") || "";
-						// console.log("formatType");
-						if(!tool.isNullOrEmptyObject(format) && !tool.isNullOrEmptyObject(fieldVal)){
-							//时间格式化
-							if(formatType.toLowerCase() == "datetime" || formatType.toLowerCase() == "date"){
-								fieldVal = fieldVal.ReplaceAll("T"," ");
-								fieldVal = tool.ChangeTimeFormat(fieldVal,format);
-							}else{
-								//数字格式化
-							}
-						}
+        var dataField = _curObj.attr("data-field") || "";
+        var code = _curObj.attr("Code") || "";
+        var filter = _curObj.attr("Filter") || "";
+        var typeValue = _curObj.attr("TypeValue") || "";
+        var value = _curObj.attr("data-fieldVal") || "";
+        var selectType = _curObj.attr("data-selectType") || "";
+        var title = lanTool.lanContent(_curObj.attr("data-lanid") || "");
+        var isShowAdd = _curObj.attr("data-isShowAdd") || "false";
+        var fromType = _curObj.attr("data-fromType") || "";
 
-						_curObj.text(fieldVal);
-					});
-					//8>icon
-					$("[data-fieldControlType='icon']").each(function (index, obj) {
-						var _curObj = $(this);
-						if (tool.isNullOrEmptyObject(_curObj)) {
-							return true;
-						}
-						var dataField = _curObj.attr("data-field") || "";
-						if (tool.isNullOrEmptyObject(dataField)) {
-							return true;
-						}
-						//icon对象
-						var dataValObj = _curObj.attr("data-fieldVal") || "{}";
-						dataValObj = tool.jObject(dataValObj);
+        var parameter = {
+          field: dataField,
+          code: code,
+          typeValue: typeValue,
+          title: title,
+          value: value, //已经选择的值
+          selectType: selectType,
+          filter: filter,
+          isShowAdd: isShowAdd,
+          fromType: fromType
+        };
+        // console.log(parameter);
+        self.$router.push({
+          path: "/linkedpage",
+          query: parameter
+        });
+      });
 
-						//获取应该显示的icon
-						var fieldVal = data[dataField] || "";
-						fieldVal = fieldVal.toLowerCase();
-						var iconClass = dataValObj[fieldVal] || "";
-						if (tool.isNullOrEmptyObject(iconClass)) {
-							return true;
-						}
+    //6>渲染dateTimePicker
+    $("[data-fieldControlType='dateTimePicker']").each(function(index, obj) {
+      var _curObj = $(this);
+      var fromId = _curObj.attr("data-field") || "";
+      if (tool.isNullOrEmptyObject(fromId)) {
+        return true;
+      }
+      var titleVal = lanTool.lanContent(_curObj.attr("data-lanid") || "");
+      var timeType = _curObj.attr("data-TimeType") || "date";
 
-						//移除其他class
-						for (var key in dataValObj) {
-							if (key == fieldVal) {
-								continue;
-							}
+      //配置年数据
+      var yearConfigArr = [];
+      //默认前后50年可选
+      var unitYear = 50;
+      var currentYear = new Date().getFullYear();
+      var starIndex = currentYear - unitYear;
+      var endIndex = currentYear + unitYear;
+      for (var i = starIndex; i <= endIndex; i++) {
+        yearConfigArr.push(i);
+      }
 
-							var classNameTemp = dataValObj[key] || "";
-							_curObj.removeClass(classNameTemp);
-						}
-						//添加class
-						_curObj.addClass(iconClass);
+      //若是时间类型，则需要配置时间
+      var timeConfigArr = function() {
+        return [];
+      };
+      if (timeType == "dateTime") {
+        timeConfigArr = function() {
+          return [
+            // 自定义的时间
+            {
+              values: (function() {
+                var hours = [];
+                for (var i = 0; i < 24; i++) {
+                  hours.push(initial.formatNumber(i));
+                }
+                return hours;
+              })()
+            },
+            {
+              divider: true, //分隔符
+              content: ":"
+            },
+            {
+              values: (function() {
+                //var minutes = [];
+                //for (var i = 0; i < 60; i++) minutes.push(initial.formatNumber(i));
+                var minutes = ["00", "15", "30", "45"];
+                return minutes;
+              })()
+            }
+          ];
+        };
+      }
+      self.$nextTick(function() {
+        _curObj.datetimePicker({
+          fromId: fromId,
+          jqueryObj: _curObj,
+          yearSplit: "/",
+          monthSplit: "/",
+          title: titleVal, //标题
+          toolbarCloseText: lanTool.lanContent("569_确认"), //确认
+          toolbarCancleText: lanTool.lanContent("570_取消"), //取消
+          times: timeConfigArr, //HH:mm
+          years: yearConfigArr, //年
+          onOpen: function(pickerTemp, val1, val2) {
+            //隐藏虚拟键盘
+            document.activeElement.blur();
+            if (
+              tool.isNullOrEmptyObject(pickerTemp) ||
+              tool.isNullOrEmptyObject(pickerTemp.value) ||
+              pickerTemp.value.length <= 0
+            ) {
+              return;
+            }
+            var valNew = "";
+            if (pickerTemp.value.length == 5) {
+              valNew =
+                pickerTemp.value[0] +
+                "/" +
+                pickerTemp.value[1] +
+                "/" +
+                pickerTemp.value[2] +
+                " " +
+                pickerTemp.value[3] +
+                ":" +
+                pickerTemp.value[4];
+            } else {
+              valNew =
+                pickerTemp.value[0] +
+                "/" +
+                pickerTemp.value[1] +
+                "/" +
+                pickerTemp.value[2];
+            }
+            _curObj.val(valNew);
+          }
+        });
+      });
+    });
 
-					});
-					//9>dateTimePicker
-					$("[data-fieldControlType='dateTimePicker']").each(function (index, obj) {
-						var _curObj = $(this);
-						if (tool.isNullOrEmptyObject(_curObj)) {
-							return true;
-						}
-						var dataField = _curObj.attr("data-field") || "";
-						if (tool.isNullOrEmptyObject(dataField)) {
-							return true;
-						}
+    //7>渲染hideDivText
+    $("[data-fieldControlType='hideDivText']").each(function(index, obj) {
+      var _curObj = $(this);
+      _curObj.hide();
+    });
 
-						var fieldVal = data[dataField] || "";
-						var format = _curObj.attr("data-format") || "";
-						if(!tool.isNullOrEmptyObject(format) && !tool.isNullOrEmptyObject(fieldVal)){
-							fieldVal = fieldVal.ReplaceAll("T"," ");
-							fieldVal = tool.ChangeTimeFormat(fieldVal,format);
-						}
+    //执行回调函数
+    if (
+      !tool.isNullOrEmptyObject(myCallBack) &&
+      typeof myCallBack == "function"
+    ) {
+      myCallBack();
+    }
+  };
 
-						_curObj.val(fieldVal);
-						_curObj.trigger('change');
-					});
-					if (!tool.isNullOrEmptyObject(myCallBack)) {
-						myCallBack(data);
-					}
-				} catch (err) {
-					console.log(err);
-				} finally {
-					tool.hideLoading(loadingIndexClassName);
-				}
-			},
-			error: function (jqXHR, type, error) {
-				console.log(error);
-				tool.hideLoading(loadingIndexClassName);
-				return true;
-			},
-			complete: function () {
-				//tool.hideLoading();
-				//隐藏虚拟键盘
-				document.activeElement.blur();
-			}
-		});
-	};
+  /*
+   * 渲染数据
+   */
+  tool.IniInfoData = function(fromType, autoID, myCallBack) {
+    if (
+      tool.isNullOrEmptyObject(fromType) ||
+      tool.isNullOrEmptyObject(autoID)
+    ) {
+      return;
+    }
+    //新增的情况下id=-1
+    if (Number(autoID) <= 0) {
+      return;
+    }
 
-	/*
-	* 保存/修改详情页数据
-	*/
-	tool.SaveOrUpdateData = function (fromType, autoID, _self, myCallBack, isGoBack) {
-		// console.log("fromType:" + fromType);
-		// console.log("autoID:" + autoID);
-		if (tool.isNullOrEmptyObject(fromType) || tool.isNullOrEmptyObject(autoID)) {
-			return;
-		}
-		//新增的情况下id=-1
-		if (Number(autoID) <= 0) {
-			autoID = "";
-		}
+    var urlTemp = tool.AjaxBaseUrl();
+    var controlName = "";
+    if (fromType == "Organizationsinfo") {
+      controlName = tool.Api_OrganizationsHandle_QuerySingle;
+    } else if (fromType == "Contactsinfo") {
+      controlName = tool.Api_ContactsHandle_QuerySingle;
+    } else if (fromType == "Meetinginfo") {
+      controlName = tool.Api_MeetingHandle_QuerySingle;
+    } else if (fromType == "Tripinfo") {
+      controlName = "";
+    } else if (fromType == "MeetingNoteinfo") {
+      controlName = tool.Api_MeetingNoticeHandle_QuerySingle;
+    } else if (fromType == "Opportunitiesinfo") {
+      controlName = tool.Api_OpportunityHandle_QuerySingle;
+    } else {
+      return;
+    }
 
-		var urlTemp = tool.AjaxBaseUrl();
-		var controlName = "";
-		if (fromType == "Organizationsinfo") {
-			controlName = tool.Api_OrganizationsHandle_SaveOrUpdate;
-		} else if (fromType == "Contactsinfo") {
-			controlName = tool.Api_ContactsHandle_SaveOrUpdate;
-		} else if (fromType == "Meetinginfo") {
-			controlName = tool.Api_MeetingHandle_SaveOrUpdate;
-		} else if (fromType == "Tripinfo") {
-			controlName = "";
-		} else if (fromType == "MeetingNoteinfo") {
-			controlName = tool.Api_MeetingNoticeHandle_SaveOrUpdate;
-		} else if (fromType == "Opportunitiesinfo") {
-			controlName = tool.Api_OpportunityHandle_SaveOrUpdate;
-		} else {
-			return;
-		}
-		// console.log("controlName:" + controlName);
-		//获取控件字段值
-		var jObject = {};
-		//1>picker
-		$("[data-fieldControlType='picker']").each(function (index, obj) {
-			var _curObj = $(this);
-			if (tool.isNullOrEmptyObject(_curObj)) {
-				return true;
-			}
-			var dataField = _curObj.attr("data-field") || "";
-			if (tool.isNullOrEmptyObject(dataField)) {
-				return true;
-			}
+    //传入参数
+    var jsonDatasTemp = {
+      CurrentLanguageVersion: lanTool.currentLanguageVersion,
+      UserName: tool.UserName(),
+      _ControlName: controlName,
+      _RegisterCode: tool.RegisterCode(),
+      AutoID: autoID
+    };
+    var loadingIndexClassName = tool.showLoading();
+    $.ajax({
+      async: true,
+      type: "post",
+      url: urlTemp,
+      data: jsonDatasTemp,
+      success: function(data) {
+        data = tool.jObject(data);
+        // console.log(data);
+        if (data._ReturnStatus == false) {
+          tool.hideLoading(loadingIndexClassName);
+          tool.showText(tool.getMessage(data));
+          console.log(tool.getMessage(data));
+          return true;
+        }
 
-			var fieldVal = _curObj.attr("data-fieldVal") || "";
-			jObject[dataField] = fieldVal;
-		});
-		//2>selectList
-		$("[data-fieldControlType='selectList']").each(function (index, obj){
-			var _curObj = $(this);
-			if (tool.isNullOrEmptyObject(_curObj)) {
-				return true;
-			}
-			var dataField = _curObj.attr("data-field") || "";
-			if (tool.isNullOrEmptyObject(dataField)) {
-				return true;
-			}
+        data = data._OnlyOneData || [];
 
-			var fieldVal = _curObj.attr("data-fieldVal") || "";
-			jObject[dataField] = fieldVal;
-		});
-		//3>groupSelectList
-		$("[data-fieldControlType='groupSelectList']").each(function (index, obj){
-			var _curObj = $(this);
-			if (tool.isNullOrEmptyObject(_curObj)) {
-				return true;
-			}
-			var dataField = _curObj.attr("data-field") || "";
-			if (tool.isNullOrEmptyObject(dataField)) {
-				return true;
-			}
+        try {
+          //控件赋值操作
+          //1>picker
+          $("[data-fieldControlType='picker']").each(function(index, obj) {
+            var _curObj = $(this);
+            if (tool.isNullOrEmptyObject(_curObj)) {
+              return true;
+            }
+            var dataField = _curObj.attr("data-field") || "";
+            if (tool.isNullOrEmptyObject(dataField)) {
+              return true;
+            }
 
-			var fieldVal = _curObj.attr("data-fieldVal") || "";
-			jObject[dataField] = fieldVal;
-		});
-		//4>linkSelectList
-		$("[data-fieldControlType='linkSelectList']").each(function (index, obj){
-			var _curObj = $(this);
-			if (tool.isNullOrEmptyObject(_curObj)) {
-				return true;
-			}
-			var dataField = _curObj.attr("data-field") || "";
-			if (tool.isNullOrEmptyObject(dataField)) {
-				return true;
-			}
+            var fieldVal = data[dataField] || "";
+            var fieldDisplay = data[dataField + "_Name"] || "";
 
-			var fieldVal = _curObj.attr("data-fieldVal") || "";
-			jObject[dataField] = fieldVal;
-		});
-		//5>linkedPage
-		$("[data-fieldControlType='linkedPage']").each(function (index, obj){
-			var _curObj = $(this);
-			if (tool.isNullOrEmptyObject(_curObj)) {
-				return true;
-			}
-			var dataField = _curObj.attr("data-field") || "";
-			if (tool.isNullOrEmptyObject(dataField)) {
-				return true;
-			}
+            _curObj.val(fieldDisplay);
+            _curObj.attr("data-fieldVal", fieldVal);
+            _curObj.trigger("change");
+          });
+          //2>selectList
+          $("[data-fieldControlType='selectList']").each(function(index, obj) {
+            var _curObj = $(this);
+            if (tool.isNullOrEmptyObject(_curObj)) {
+              return true;
+            }
+            var dataField = _curObj.attr("data-field") || "";
+            if (tool.isNullOrEmptyObject(dataField)) {
+              return true;
+            }
 
-			var fieldVal = _curObj.attr("data-fieldVal") || "";
-			jObject[dataField] = fieldVal;
-		});
-		//5>textareaInput
-		$("[data-fieldControlType='textareaInput']").each(function (index, obj) {
-			var _curObj = $(this);
-			if (tool.isNullOrEmptyObject(_curObj)) {
-				return true;
-			}
-			var dataField = _curObj.attr("data-field") || "";
-			if (tool.isNullOrEmptyObject(dataField)) {
-				return true;
-			}
-			var fieldVal = _curObj.val() || "";
-			jObject[dataField] = fieldVal;
-		});
-		//6>dateTimePicker
-		$("[data-fieldControlType='dateTimePicker']").each(function (index, obj) {
-			var _curObj = $(this);
-			if (tool.isNullOrEmptyObject(_curObj)) {
-				return true;
-			}
-			var dataField = _curObj.attr("data-field") || "";
-			if (tool.isNullOrEmptyObject(dataField)) {
-				return true;
-			}
+            var fieldVal = data[dataField] || "";
+            var fieldDisplay = data[dataField + "_Name"] || "";
 
-			var fieldVal = _curObj.val() || "";
-			jObject[dataField] = fieldVal;
-		});
-		//7>hideDivText
-		$("[data-fieldControlType='hideDivText']").each(function (index, obj) {
-			var _curObj = $(this);
-			if (tool.isNullOrEmptyObject(_curObj)) {
-				return true;
-			}
-			var dataField = _curObj.attr("data-field") || "";
-			if (tool.isNullOrEmptyObject(dataField)) {
-				return true;
-			}
-			var fieldVal = _curObj.text() || "";
-			jObject[dataField] = fieldVal;
-		});
-		//传入参数
-		var jsonDatasTemp = {
-			CurrentLanguageVersion: lanTool.currentLanguageVersion,
-			UserName: tool.UserName(),
-			_ControlName: controlName,
-			_RegisterCode: tool.RegisterCode(),
-			AutoID: autoID
-		};
-		//合并数据
-		jsonDatasTemp = tool.combineJObject(jsonDatasTemp,jObject);
-		// console.log(jsonDatasTemp);
-		var loadingIndexClassName = tool.showLoading();
-		$.ajax({
-			async: true,
-			type: "post",
-			url: urlTemp,
-			data: jsonDatasTemp,
-			success: function (data) {
-				tool.hideLoading(loadingIndexClassName);
-				data = tool.jObject(data);
-				// console.log(data);
-				if (data._ReturnStatus == false) {
-					tool.showText(tool.getMessage(data));
-					console.log(tool.getMessage(data));
-					return true;
+            _curObj.text(fieldDisplay);
+            _curObj.attr("data-fieldVal", fieldVal);
+          });
+          //3>groupSelectList
+          $("[data-fieldControlType='groupSelectList']").each(function(
+            index,
+            obj
+          ) {
+            var _curObj = $(this);
+            if (tool.isNullOrEmptyObject(_curObj)) {
+              return true;
+            }
+            var dataField = _curObj.attr("data-field") || "";
+            if (tool.isNullOrEmptyObject(dataField)) {
+              return true;
+            }
+
+            var fieldVal = data[dataField] || "";
+            var fieldDisplay = data[dataField + "_Name"] || "";
+
+            _curObj.text(fieldDisplay);
+            _curObj.attr("data-fieldVal", fieldVal);
+          });
+          //4>linkSelectList
+          $("[data-fieldControlType='linkSelectList']").each(function(
+            index,
+            obj
+          ) {
+            var _curObj = $(this);
+            if (tool.isNullOrEmptyObject(_curObj)) {
+              return true;
+            }
+            var dataField = _curObj.attr("data-field") || "";
+            if (tool.isNullOrEmptyObject(dataField)) {
+              return true;
+            }
+
+            var fieldVal = data[dataField] || "";
+            var fieldDisplay = data[dataField + "_Name"] || "";
+
+            _curObj.text(fieldDisplay);
+            _curObj.attr("data-fieldVal", fieldVal);
+          });
+          //5>linkedPage
+          $("[data-fieldControlType='linkedPage']").each(function(index, obj) {
+            var _curObj = $(this);
+            if (tool.isNullOrEmptyObject(_curObj)) {
+              return true;
+            }
+            var dataField = _curObj.attr("data-field") || "";
+            if (tool.isNullOrEmptyObject(dataField)) {
+              return true;
+            }
+
+            var fieldVal = data[dataField] || "";
+            var fieldDisplay = data[dataField + "_Name"] || "";
+
+            _curObj.text(fieldDisplay);
+            _curObj.attr("data-fieldVal", fieldVal);
+          });
+          //6>textareaInput
+          $("[data-fieldControlType='textareaInput']").each(function(
+            index,
+            obj
+          ) {
+            var _curObj = $(this);
+            if (tool.isNullOrEmptyObject(_curObj)) {
+              return true;
+            }
+            var dataField = _curObj.attr("data-field") || "";
+            if (tool.isNullOrEmptyObject(dataField)) {
+              return true;
+            }
+            var fieldVal = data[dataField] || "";
+            _curObj.val(fieldVal);
+          });
+          //7>divText
+          $("[data-fieldControlType='divText']").each(function(index, obj) {
+            var _curObj = $(this);
+            if (tool.isNullOrEmptyObject(_curObj)) {
+              return true;
+            }
+            var dataField = _curObj.attr("data-field") || "";
+            if (tool.isNullOrEmptyObject(dataField)) {
+              return true;
+            }
+
+            var fieldVal = data[dataField] || "";
+
+            //数据格式化
+            var formatType = _curObj.attr("data-formatType") || "";
+            var format = _curObj.attr("data-format") || "";
+            // console.log("formatType");
+            if (
+              !tool.isNullOrEmptyObject(format) &&
+              !tool.isNullOrEmptyObject(fieldVal)
+            ) {
+              //时间格式化
+              if (
+                formatType.toLowerCase() == "datetime" ||
+                formatType.toLowerCase() == "date"
+              ) {
+                fieldVal = fieldVal.ReplaceAll("T", " ");
+                fieldVal = tool.ChangeTimeFormat(fieldVal, format);
+              } else {
+                //数字格式化
+              }
+            }
+
+            _curObj.text(fieldVal);
+          });
+          //8>icon
+          $("[data-fieldControlType='icon']").each(function(index, obj) {
+            var _curObj = $(this);
+            if (tool.isNullOrEmptyObject(_curObj)) {
+              return true;
+            }
+            var dataField = _curObj.attr("data-field") || "";
+            if (tool.isNullOrEmptyObject(dataField)) {
+              return true;
+            }
+            //icon对象
+            var dataValObj = _curObj.attr("data-fieldVal") || "{}";
+            dataValObj = tool.jObject(dataValObj);
+
+            //获取应该显示的icon
+            var fieldVal = data[dataField] || "";
+            fieldVal = fieldVal.toLowerCase();
+            var iconClass = dataValObj[fieldVal] || "";
+            if (tool.isNullOrEmptyObject(iconClass)) {
+              return true;
+            }
+
+            //移除其他class
+            for (var key in dataValObj) {
+              if (key == fieldVal) {
+                continue;
+              }
+
+              var classNameTemp = dataValObj[key] || "";
+              _curObj.removeClass(classNameTemp);
+            }
+            //添加class
+            _curObj.addClass(iconClass);
+          });
+          //9>dateTimePicker
+          $("[data-fieldControlType='dateTimePicker']").each(function(
+            index,
+            obj
+          ) {
+            var _curObj = $(this);
+            if (tool.isNullOrEmptyObject(_curObj)) {
+              return true;
+            }
+            var dataField = _curObj.attr("data-field") || "";
+            if (tool.isNullOrEmptyObject(dataField)) {
+              return true;
+            }
+
+            var fieldVal = data[dataField] || "";
+            var format = _curObj.attr("data-format") || "";
+            if (
+              !tool.isNullOrEmptyObject(format) &&
+              !tool.isNullOrEmptyObject(fieldVal)
+            ) {
+              fieldVal = fieldVal.ReplaceAll("T", " ");
+              fieldVal = tool.ChangeTimeFormat(fieldVal, format);
+            }
+
+            _curObj.val(fieldVal);
+            _curObj.trigger("change");
+          });
+          if (!tool.isNullOrEmptyObject(myCallBack)) {
+            myCallBack(data);
+          }
+        } catch (err) {
+          console.log(err);
+        } finally {
+          tool.hideLoading(loadingIndexClassName);
+        }
+      },
+      error: function(jqXHR, type, error) {
+        console.log(error);
+        tool.hideLoading(loadingIndexClassName);
+        return true;
+      },
+      complete: function() {
+        //tool.hideLoading();
+        //隐藏虚拟键盘
+        document.activeElement.blur();
+      }
+    });
+  };
+
+  /*
+   * 保存/修改详情页数据
+   */
+  tool.SaveOrUpdateData = function(
+    fromType,
+    autoID,
+    _self,
+    myCallBack,
+    isGoBack
+  ) {
+    // console.log("fromType:" + fromType);
+    // console.log("autoID:" + autoID);
+    if (
+      tool.isNullOrEmptyObject(fromType) ||
+      tool.isNullOrEmptyObject(autoID)
+    ) {
+      return;
+    }
+    //新增的情况下id=-1
+    if (Number(autoID) <= 0) {
+      autoID = "";
+    }
+
+    var urlTemp = tool.AjaxBaseUrl();
+    var controlName = "";
+    if (fromType == "Organizationsinfo") {
+      controlName = tool.Api_OrganizationsHandle_SaveOrUpdate;
+    } else if (fromType == "Contactsinfo") {
+      controlName = tool.Api_ContactsHandle_SaveOrUpdate;
+    } else if (fromType == "Meetinginfo") {
+      controlName = tool.Api_MeetingHandle_SaveOrUpdate;
+    } else if (fromType == "Tripinfo") {
+      controlName = "";
+    } else if (fromType == "MeetingNoteinfo") {
+      controlName = tool.Api_MeetingNoticeHandle_SaveOrUpdate;
+    } else if (fromType == "Opportunitiesinfo") {
+      controlName = tool.Api_OpportunityHandle_SaveOrUpdate;
+    } else {
+      return;
+    }
+    // console.log("controlName:" + controlName);
+    //获取控件字段值
+    var jObject = {};
+    //1>picker
+    $("[data-fieldControlType='picker']").each(function(index, obj) {
+      var _curObj = $(this);
+      if (tool.isNullOrEmptyObject(_curObj)) {
+        return true;
+      }
+      var dataField = _curObj.attr("data-field") || "";
+      if (tool.isNullOrEmptyObject(dataField)) {
+        return true;
+      }
+
+      var fieldVal = _curObj.attr("data-fieldVal") || "";
+      jObject[dataField] = fieldVal;
+    });
+    //2>selectList
+    $("[data-fieldControlType='selectList']").each(function(index, obj) {
+      var _curObj = $(this);
+      if (tool.isNullOrEmptyObject(_curObj)) {
+        return true;
+      }
+      var dataField = _curObj.attr("data-field") || "";
+      if (tool.isNullOrEmptyObject(dataField)) {
+        return true;
+      }
+
+      var fieldVal = _curObj.attr("data-fieldVal") || "";
+      jObject[dataField] = fieldVal;
+    });
+    //3>groupSelectList
+    $("[data-fieldControlType='groupSelectList']").each(function(index, obj) {
+      var _curObj = $(this);
+      if (tool.isNullOrEmptyObject(_curObj)) {
+        return true;
+      }
+      var dataField = _curObj.attr("data-field") || "";
+      if (tool.isNullOrEmptyObject(dataField)) {
+        return true;
+      }
+
+      var fieldVal = _curObj.attr("data-fieldVal") || "";
+      jObject[dataField] = fieldVal;
+    });
+    //4>linkSelectList
+    $("[data-fieldControlType='linkSelectList']").each(function(index, obj) {
+      var _curObj = $(this);
+      if (tool.isNullOrEmptyObject(_curObj)) {
+        return true;
+      }
+      var dataField = _curObj.attr("data-field") || "";
+      if (tool.isNullOrEmptyObject(dataField)) {
+        return true;
+      }
+
+      var fieldVal = _curObj.attr("data-fieldVal") || "";
+      jObject[dataField] = fieldVal;
+    });
+    //5>linkedPage
+    $("[data-fieldControlType='linkedPage']").each(function(index, obj) {
+      var _curObj = $(this);
+      if (tool.isNullOrEmptyObject(_curObj)) {
+        return true;
+      }
+      var dataField = _curObj.attr("data-field") || "";
+      if (tool.isNullOrEmptyObject(dataField)) {
+        return true;
+      }
+
+      var fieldVal = _curObj.attr("data-fieldVal") || "";
+      jObject[dataField] = fieldVal;
+    });
+    //5>textareaInput
+    $("[data-fieldControlType='textareaInput']").each(function(index, obj) {
+      var _curObj = $(this);
+      if (tool.isNullOrEmptyObject(_curObj)) {
+        return true;
+      }
+      var dataField = _curObj.attr("data-field") || "";
+      if (tool.isNullOrEmptyObject(dataField)) {
+        return true;
+      }
+      var fieldVal = _curObj.val() || "";
+      jObject[dataField] = fieldVal;
+    });
+    //6>dateTimePicker
+    $("[data-fieldControlType='dateTimePicker']").each(function(index, obj) {
+      var _curObj = $(this);
+      if (tool.isNullOrEmptyObject(_curObj)) {
+        return true;
+      }
+      var dataField = _curObj.attr("data-field") || "";
+      if (tool.isNullOrEmptyObject(dataField)) {
+        return true;
+      }
+
+      var fieldVal = _curObj.val() || "";
+      jObject[dataField] = fieldVal;
+    });
+    //7>hideDivText
+    $("[data-fieldControlType='hideDivText']").each(function(index, obj) {
+      var _curObj = $(this);
+      if (tool.isNullOrEmptyObject(_curObj)) {
+        return true;
+      }
+      var dataField = _curObj.attr("data-field") || "";
+      if (tool.isNullOrEmptyObject(dataField)) {
+        return true;
+      }
+      var fieldVal = _curObj.text() || "";
+      jObject[dataField] = fieldVal;
+    });
+    //传入参数
+    var jsonDatasTemp = {
+      CurrentLanguageVersion: lanTool.currentLanguageVersion,
+      UserName: tool.UserName(),
+      _ControlName: controlName,
+      _RegisterCode: tool.RegisterCode(),
+      AutoID: autoID
+    };
+    //合并数据
+    jsonDatasTemp = tool.combineJObject(jsonDatasTemp, jObject);
+    // console.log(jsonDatasTemp);
+    var loadingIndexClassName = tool.showLoading();
+    $.ajax({
+      async: true,
+      type: "post",
+      url: urlTemp,
+      data: jsonDatasTemp,
+      success: function(data) {
+        tool.hideLoading(loadingIndexClassName);
+        data = tool.jObject(data);
+        // console.log(data);
+        if (data._ReturnStatus == false) {
+          tool.showText(tool.getMessage(data));
+          console.log(tool.getMessage(data));
+          return true;
         }
 
         //根据页面来源判断是否需要把新增的记录id保存到store中
-        let source = _self.$route.query.source || '';
-        if(!tool.isNullOrEmptyObject(source)){
-          _self.$store.commit('SET_ADD_ID', data._OnlyOneData);
+        let source = _self.$route.query.source || "";
+        if (!tool.isNullOrEmptyObject(source)) {
+          _self.$store.commit("SET_ADD_ID", data._OnlyOneData);
         }
 
-				if (!tool.isNullOrEmptyObject(myCallBack)) {
-					myCallBack(data);
+        if (!tool.isNullOrEmptyObject(myCallBack)) {
+          myCallBack(data);
         }
+      },
+      error: function(jqXHR, type, error) {
+        tool.hideLoading(loadingIndexClassName);
+        console.log(error);
+        return true;
+      },
+      complete: function() {
+        //隐藏虚拟键盘
+        document.activeElement.blur();
+      }
+    });
+  };
 
-			},
-			error: function (jqXHR, type, error) {
-				tool.hideLoading(loadingIndexClassName);
-				console.log(error);
-				return true;
-			},
-			complete: function () {
-				//隐藏虚拟键盘
-				document.activeElement.blur();
-			}
-		});
-	};
+  /*
+   * 删除数据
+   */
+  tool.DeleteData = function(fromType, autoID, _self, myCallBack) {
+    if (
+      tool.isNullOrEmptyObject(fromType) ||
+      tool.isNullOrEmptyObject(autoID)
+    ) {
+      return;
+    }
+    //新增的情况下id=-1
+    if (Number(autoID) <= 0) {
+      return;
+    }
 
-	/*
-	* 删除数据
-	*/
-	tool.DeleteData = function(fromType, autoID, _self,myCallBack){
+    var urlTemp = tool.AjaxBaseUrl();
+    var controlName = "";
+    if (fromType == "Organizationsinfo") {
+      controlName = tool.Api_OrganizationsHandle_Delete;
+    } else if (fromType == "Contactsinfo") {
+      controlName = tool.Api_ContactsHandle_Delete;
+    } else if (fromType == "Meetinginfo") {
+      controlName = tool.Api_MeetingHandle_Delete;
+    } else if (fromType == "Tripinfo") {
+      controlName = "";
+    } else if (fromType == "MeetingNoteinfo") {
+      controlName = "";
+    } else if (fromType == "Opportunitiesinfo") {
+      controlName = tool.Api_OpportunityHandle_Delete;
+    } else {
+      return;
+    }
 
-		if (tool.isNullOrEmptyObject(fromType) || tool.isNullOrEmptyObject(autoID)) {
-			return;
-		}
-		//新增的情况下id=-1
-		if (Number(autoID) <= 0) {
-			return;
-		}
+    var idArr = [];
+    idArr.push(autoID);
 
-		var urlTemp = tool.AjaxBaseUrl();
-		var controlName = "";
-		if (fromType == "Organizationsinfo") {
-			controlName = tool.Api_OrganizationsHandle_Delete;
-		} else if (fromType == "Contactsinfo") {
-			controlName = tool.Api_ContactsHandle_Delete;
-		} else if (fromType == "Meetinginfo") {
-			controlName = tool.Api_MeetingHandle_Delete;
-		} else if (fromType == "Tripinfo") {
-			controlName = "";
-		} else if (fromType == "MeetingNoteinfo") {
-			controlName = "";
-		} else if (fromType == "Opportunitiesinfo") {
-			controlName = tool.Api_OpportunityHandle_Delete;
-		} else {
-			return;
-		}
+    //传入参数
+    var jsonDatasTemp = {
+      CurrentLanguageVersion: lanTool.currentLanguageVersion,
+      UserName: tool.UserName(),
+      _ControlName: controlName,
+      _RegisterCode: tool.RegisterCode(),
+      AutoID: JSON.stringify(idArr)
+    };
 
-		var idArr = [];
-		idArr.push(autoID);
+    tool.showConfirm(
+      lanTool.lanContent("593_您确定要删除数据吗？"),
+      function() {
+        var loadingIndexClassName = tool.showLoading();
 
-		//传入参数
-		var jsonDatasTemp = {
-			CurrentLanguageVersion: lanTool.currentLanguageVersion,
-			UserName: tool.UserName(),
-			_ControlName: controlName,
-			_RegisterCode: tool.RegisterCode(),
-			AutoID: JSON.stringify(idArr)
-		};
-
-		tool.showConfirm(
-			lanTool.lanContent("593_您确定要删除数据吗？"),
-			function() {
-				var loadingIndexClassName = tool.showLoading();
-
-				$.ajax({
-					async: true,
-					type: "post",
-					url: urlTemp,
-					data: jsonDatasTemp,
-					success: function (data) {
-						tool.hideLoading(loadingIndexClassName);
-						data = tool.jObject(data);
-						// console.log(data);
-						if (data._ReturnStatus == false) {
-							tool.showText(tool.getMessage(data));
-							console.log(tool.getMessage(data));
-							return true;
-						}
+        $.ajax({
+          async: true,
+          type: "post",
+          url: urlTemp,
+          data: jsonDatasTemp,
+          success: function(data) {
+            tool.hideLoading(loadingIndexClassName);
+            data = tool.jObject(data);
+            // console.log(data);
+            if (data._ReturnStatus == false) {
+              tool.showText(tool.getMessage(data));
+              console.log(tool.getMessage(data));
+              return true;
+            }
 
             //data = data._OnlyOneData || [];
             /*
@@ -3119,484 +3538,488 @@ import config from '../../configfile/config.js'
 						}
             */
 
+            if (!tool.isNullOrEmptyObject(myCallBack)) {
+              myCallBack();
+            }
 
+            //返回到上一页
+            _self.$router.back(-1);
+          },
+          error: function(jqXHR, type, error) {
+            console.log(error);
+            tool.hideLoading(loadingIndexClassName);
+            return true;
+          },
+          complete: function() {
+            //tool.hideLoading();
+            //隐藏虚拟键盘
+            document.activeElement.blur();
+          }
+        });
+      },
+      function() {}
+    );
+  };
 
-						if (!tool.isNullOrEmptyObject(myCallBack)) {
-							myCallBack();
-						}
+  /*
+   * 添加/取消关注
+   */
+  tool.UserFollow = function(fromType, autoID, actionType, myCallBack) {
+    console.log("fromType:" + fromType);
+    console.log("autoID:" + autoID);
+    console.log("actionType:" + actionType);
 
-						//返回到上一页
-						_self.$router.back(-1);
-					},
-					error: function (jqXHR, type, error) {
-						console.log(error);
-						tool.hideLoading(loadingIndexClassName);
-						return true;
-					},
-					complete: function () {
-						//tool.hideLoading();
-						//隐藏虚拟键盘
-						document.activeElement.blur();
-					}
-				});
+    if (
+      tool.isNullOrEmptyObject(fromType) ||
+      tool.isNullOrEmptyObject(autoID) ||
+      tool.isNullOrEmptyObject(actionType)
+    ) {
+      return;
+    }
 
-			},
-			function() {}
-		  );
-	};
+    var urlTemp = tool.AjaxBaseUrl();
+    var controlName = "";
+    if (fromType == "Organizationsinfo") {
+      controlName = tool.Api_OrganizationsHandle_UserFollow;
+    } else if (fromType == "Contactsinfo") {
+      controlName = "";
+    } else if (fromType == "Meetinginfo") {
+      controlName = "";
+    } else if (fromType == "Tripinfo") {
+      controlName = "";
+    } else if (fromType == "MeetingNoteinfo") {
+      controlName = "";
+    } else if (fromType == "dealPipeline" || fromType == "opportunities") {
+      controlName = tool.Api_OpportunityHandle_UserFollow;
+    } else {
+      return;
+    }
 
-	/*
-	* 添加/取消关注
-	*/
-	tool.UserFollow = function(fromType,autoID,actionType,myCallBack){
-		console.log("fromType:" + fromType);
-		console.log("autoID:" + autoID);
-		console.log("actionType:" + actionType);
+    //传入参数
+    var jsonDatasTemp = {
+      CurrentLanguageVersion: lanTool.currentLanguageVersion,
+      UserName: tool.UserName(),
+      _ControlName: controlName,
+      _RegisterCode: tool.RegisterCode(),
+      AutoID: autoID,
+      ActionType: actionType
+    };
+    var loadingIndexClassName = tool.showLoading();
 
-		if (tool.isNullOrEmptyObject(fromType) || tool.isNullOrEmptyObject(autoID) || tool.isNullOrEmptyObject(actionType)) {
-			return;
-		}
+    $.ajax({
+      async: true,
+      type: "post",
+      url: urlTemp,
+      data: jsonDatasTemp,
+      success: function(data) {
+        tool.hideLoading(loadingIndexClassName);
+        data = tool.jObject(data);
+        // console.log(data);
+        if (data._ReturnStatus == false) {
+          tool.showText(tool.getMessage(data));
+          console.log(tool.getMessage(data));
+          return true;
+        }
 
-		var urlTemp = tool.AjaxBaseUrl();
-		var controlName = "";
-		if (fromType == "Organizationsinfo") {
-			controlName = tool.Api_OrganizationsHandle_UserFollow;
-		} else if (fromType == "Contactsinfo") {
-			controlName = "";
-		} else if (fromType == "Meetinginfo") {
-			controlName = "";
-		} else if (fromType == "Tripinfo") {
-			controlName = "";
-		} else if (fromType == "MeetingNoteinfo") {
-			controlName = "";
-		} else if (fromType == "dealPipeline" || fromType == "opportunities") {
-			controlName = tool.Api_OpportunityHandle_UserFollow;
-		} else {
-			return;
-		}
+        if (!tool.isNullOrEmptyObject(myCallBack)) {
+          myCallBack();
+        }
+      },
+      error: function(jqXHR, type, error) {
+        tool.hideLoading(loadingIndexClassName);
+        console.log(error);
+        return true;
+      },
+      complete: function() {
+        //tool.hideLoading();
+        //隐藏虚拟键盘
+        document.activeElement.blur();
+      }
+    });
+  };
 
-		//传入参数
-		var jsonDatasTemp = {
-			CurrentLanguageVersion: lanTool.currentLanguageVersion,
-			UserName: tool.UserName(),
-			_ControlName: controlName,
-			_RegisterCode: tool.RegisterCode(),
-			AutoID: autoID,
-			ActionType:actionType
-		};
-		var loadingIndexClassName = tool.showLoading();
+  /*
+   * 构造综合查询条件
+   */
+  tool.ConstructQueryCondiction = function(_self, myCallBack) {
+    var queryCondiction = [];
+    //构造查询条件
+    //1>picker
+    $("[data-fieldControlType='picker']").each(function(index, obj) {
+      var _curObj = $(this);
+      if (tool.isNullOrEmptyObject(_curObj)) {
+        return true;
+      }
+      var value = _curObj.attr("data-fieldval") || "";
+      if (tool.isNullOrEmptyObject(value)) {
+        return true;
+      }
+      var queryCondictionObj = {
+        Field: _curObj.attr("data-field") || "",
+        Type: _curObj.attr("data-querytype") || "",
+        Format: _curObj.attr("data-queryformat") || "",
+        Relation: _curObj.attr("data-queryrelation") || "",
+        Value: value,
+        Comparison: _curObj.attr("data-querycomparison") || "",
+        DisplayValue: _curObj.val() || ""
+      };
+      queryCondiction.push(queryCondictionObj);
+    });
+    //2>pickerTile
+    $("[data-fieldControlType='picketTile']").each(function(index, obj) {
+      var _curObj = $(this);
+      if (tool.isNullOrEmptyObject(_curObj)) {
+        return true;
+      }
+      var $itemObj = _curObj.find(".item-div.active").eq(0);
+      if (tool.isNullOrEmptyObject($itemObj) || $itemObj.length <= 0) {
+        return true;
+      }
+      var value = $itemObj.attr("data-id") || "";
+      if (tool.isNullOrEmptyObject(value)) {
+        return true;
+      }
+      var queryCondictionObj = {
+        Field: _curObj.attr("data-field") || "",
+        Type: _curObj.attr("data-querytype") || "",
+        Format: _curObj.attr("data-queryformat") || "",
+        Relation: _curObj.attr("data-queryrelation") || "",
+        Value: value,
+        Comparison: _curObj.attr("data-querycomparison") || "",
+        DisplayValue: _curObj.val() || ""
+      };
+      queryCondiction.push(queryCondictionObj);
+    });
+    //3>selectList
+    $("[data-fieldControlType='selectList']").each(function(index, obj) {
+      var _curObj = $(this);
+      if (tool.isNullOrEmptyObject(_curObj)) {
+        return true;
+      }
+      var value = _curObj.attr("data-fieldval") || "";
+      if (tool.isNullOrEmptyObject(value)) {
+        return true;
+      }
+      var queryCondictionObj = {
+        Field: _curObj.attr("data-field") || "",
+        Type: _curObj.attr("data-querytype") || "",
+        Format: _curObj.attr("data-queryformat") || "",
+        Relation: _curObj.attr("data-queryrelation") || "",
+        Value: value,
+        Comparison: _curObj.attr("data-querycomparison") || "",
+        DisplayValue: _curObj.text() || ""
+      };
+      queryCondiction.push(queryCondictionObj);
+    });
+    //4>groupSelectList
+    $("[data-fieldControlType='groupSelectList']").each(function(index, obj) {
+      var _curObj = $(this);
+      if (tool.isNullOrEmptyObject(_curObj)) {
+        return true;
+      }
+      var value = _curObj.attr("data-fieldval") || "";
+      if (tool.isNullOrEmptyObject(value)) {
+        return true;
+      }
+      var queryCondictionObj = {
+        Field: _curObj.attr("data-field") || "",
+        Type: _curObj.attr("data-querytype") || "",
+        Format: _curObj.attr("data-queryformat") || "",
+        Relation: _curObj.attr("data-queryrelation") || "",
+        Value: value,
+        Comparison: _curObj.attr("data-querycomparison") || "",
+        DisplayValue: _curObj.text() || ""
+      };
+      queryCondiction.push(queryCondictionObj);
+    });
+    //5>linkSelectList
+    $("[data-fieldControlType='linkSelectList']").each(function(index, obj) {
+      var _curObj = $(this);
+      if (tool.isNullOrEmptyObject(_curObj)) {
+        return true;
+      }
+      var value = _curObj.attr("data-fieldval") || "";
+      if (tool.isNullOrEmptyObject(value)) {
+        return true;
+      }
+      var queryCondictionObj = {
+        Field: _curObj.attr("data-field") || "",
+        Type: _curObj.attr("data-querytype") || "",
+        Format: _curObj.attr("data-queryformat") || "",
+        Relation: _curObj.attr("data-queryrelation") || "",
+        Value: value,
+        Comparison: _curObj.attr("data-querycomparison") || "",
+        DisplayValue: _curObj.text() || ""
+      };
+      queryCondiction.push(queryCondictionObj);
+    });
+    //6>textareaInput
+    $("[data-fieldControlType='textareaInput']").each(function(index, obj) {
+      var _curObj = $(this);
+      if (tool.isNullOrEmptyObject(_curObj)) {
+        return true;
+      }
+      var value = _curObj.val() || "";
+      if (tool.isNullOrEmptyObject(value)) {
+        return true;
+      }
+      var queryCondictionObj = {
+        Field: _curObj.attr("data-field") || "",
+        Type: _curObj.attr("data-querytype") || "",
+        Format: _curObj.attr("data-queryformat") || "",
+        Relation: _curObj.attr("data-queryrelation") || "",
+        Value: value,
+        Comparison: _curObj.attr("data-querycomparison") || ""
+      };
+      queryCondiction.push(queryCondictionObj);
+    });
+    //7>dateTimePicker
+    $("[data-fieldControlType='dateTimePicker']").each(function(index, obj) {
+      var _curObj = $(this);
+      if (tool.isNullOrEmptyObject(_curObj)) {
+        return true;
+      }
 
-		$.ajax({
-			async: true,
-			type: "post",
-			url: urlTemp,
-			data: jsonDatasTemp,
-			success: function (data) {
-				tool.hideLoading(loadingIndexClassName);
-				data = tool.jObject(data);
-				// console.log(data);
-				if (data._ReturnStatus == false) {
-					tool.showText(tool.getMessage(data));
-					console.log(tool.getMessage(data));
-					return true;
-				}
+      if (_curObj.parent(".endDate").length >= 1) {
+        return true;
+      }
 
-				if (!tool.isNullOrEmptyObject(myCallBack)) {
-					myCallBack();
-				}
-			},
-			error: function (jqXHR, type, error) {
-				tool.hideLoading(loadingIndexClassName);
-				console.log(error);
-				return true;
-			},
-			complete: function () {
-				//tool.hideLoading();
-				//隐藏虚拟键盘
-				document.activeElement.blur();
-			}
-		});
-	};
+      //若含有startDate,则说明是Range
+      if (_curObj.parent(".startDate").length >= 1) {
+        var fieldTemp = _curObj.attr("data-field") || "";
 
-	/*
-	* 构造综合查询条件
-	*/
-	tool.ConstructQueryCondiction = function(_self,myCallBack){
-		var queryCondiction = [];
-		//构造查询条件
-		//1>picker
-		$("[data-fieldControlType='picker']").each(function (index, obj) {
-			var _curObj = $(this);
-			if(tool.isNullOrEmptyObject(_curObj)){
-				return true;
-			}
-			var value = _curObj.attr("data-fieldval") || "";
-			if(tool.isNullOrEmptyObject(value)){
-				return true;
-			}
-			var queryCondictionObj = {
-				Field:_curObj.attr("data-field") || "",
-				Type:_curObj.attr("data-querytype") || "",
-				Format:_curObj.attr("data-queryformat") || "",
-				Relation:_curObj.attr("data-queryrelation") || "",
-				Value:value,
-				Comparison:_curObj.attr("data-querycomparison") || "",
-				DisplayValue:_curObj.val()||""
-			};
-			queryCondiction.push(queryCondictionObj);
-		});
-		//2>pickerTile
-		$("[data-fieldControlType='picketTile']").each(function (index, obj) {
-			var _curObj = $(this);
-			if(tool.isNullOrEmptyObject(_curObj)){
-				return true;
-			}
-			var $itemObj = _curObj.find(".item-div.active").eq(0);
-			if(tool.isNullOrEmptyObject($itemObj) || $itemObj.length<=0){
-				return true;
-			}
-			var value = $itemObj.attr("data-id")||"";
-			if(tool.isNullOrEmptyObject(value)){
-				return true;
-			}
-			var queryCondictionObj = {
-				Field:_curObj.attr("data-field") || "",
-				Type:_curObj.attr("data-querytype") || "",
-				Format:_curObj.attr("data-queryformat") || "",
-				Relation:_curObj.attr("data-queryrelation") || "",
-				Value:value,
-				Comparison:_curObj.attr("data-querycomparison") || "",
-				DisplayValue:_curObj.val()||""
-			};
-			queryCondiction.push(queryCondictionObj);
-		});
-		//3>selectList
-		$("[data-fieldControlType='selectList']").each(function (index, obj){
-			var _curObj = $(this);
-			if(tool.isNullOrEmptyObject(_curObj)){
-				return true;
-			}
-			var value = _curObj.attr("data-fieldval") || "";
-			if(tool.isNullOrEmptyObject(value)){
-				return true;
-			}
-			var queryCondictionObj ={
-				Field:_curObj.attr("data-field") || "",
-				Type:_curObj.attr("data-querytype") || "",
-				Format:_curObj.attr("data-queryformat") || "",
-				Relation:_curObj.attr("data-queryrelation") || "",
-				Value:value,
-				Comparison:_curObj.attr("data-querycomparison") || "",
-				DisplayValue:_curObj.text()||""
-			};
-			queryCondiction.push(queryCondictionObj);
-		});
-		//4>groupSelectList
-		$("[data-fieldControlType='groupSelectList']").each(function (index, obj){
-			var _curObj = $(this);
-			if(tool.isNullOrEmptyObject(_curObj)){
-				return true;
-			}
-			var value = _curObj.attr("data-fieldval") || "";
-			if(tool.isNullOrEmptyObject(value)){
-				return true;
-			}
-			var queryCondictionObj = {
-				Field:_curObj.attr("data-field") || "",
-				Type:_curObj.attr("data-querytype") || "",
-				Format:_curObj.attr("data-queryformat") || "",
-				Relation:_curObj.attr("data-queryrelation") || "",
-				Value:value,
-				Comparison:_curObj.attr("data-querycomparison") || "",
-				DisplayValue:_curObj.text()||""
-			};
-			queryCondiction.push(queryCondictionObj);
-		});
-		//5>linkSelectList
-		$("[data-fieldControlType='linkSelectList']").each(function (index, obj){
-			var _curObj = $(this);
-			if(tool.isNullOrEmptyObject(_curObj)){
-				return true;
-			}
-			var value = _curObj.attr("data-fieldval") || "";
-			if(tool.isNullOrEmptyObject(value)){
-				return true;
-			}
-			var queryCondictionObj = {
-				Field:_curObj.attr("data-field") || "",
-				Type:_curObj.attr("data-querytype") || "",
-				Format:_curObj.attr("data-queryformat") || "",
-				Relation:_curObj.attr("data-queryrelation") || "",
-				Value:value,
-				Comparison:_curObj.attr("data-querycomparison") || "",
-				DisplayValue:_curObj.text()||""
-			};
-			queryCondiction.push(queryCondictionObj);
-		});
-		//6>textareaInput
-		$("[data-fieldControlType='textareaInput']").each(function (index, obj) {
-			var _curObj = $(this);
-			if(tool.isNullOrEmptyObject(_curObj)){
-				return true;
-			}
-			var value = _curObj.val()||"";
-			if(tool.isNullOrEmptyObject(value)){
-				return true;
-			}
-			var queryCondictionObj = {
-				Field:_curObj.attr("data-field") || "",
-				Type:_curObj.attr("data-querytype") || "",
-				Format:_curObj.attr("data-queryformat") || "",
-				Relation:_curObj.attr("data-queryrelation") || "",
-				Value:value,
-				Comparison:_curObj.attr("data-querycomparison") || ""
-			};
-			queryCondiction.push(queryCondictionObj);
-		});
-		//7>dateTimePicker
-		$("[data-fieldControlType='dateTimePicker']").each(function (index, obj) {
-			var _curObj = $(this);
-			if(tool.isNullOrEmptyObject(_curObj)){
-				return true;
-			}
+        var valArray = [];
+        _curObj = $("[data-field='" + fieldTemp + "']:eq(0)");
+        if (tool.isNullOrEmptyObject(_curObj)) {
+          return true;
+        }
 
-			if(_curObj.parent('.endDate').length>=1){
-				return true;
-			}
+        var value = _curObj.val() || "";
+        if (!tool.isNullOrEmptyObject(value)) {
+          valArray.push(value);
+        }
+        _curObj = $("[data-field='" + fieldTemp + "_0']:eq(0)");
+        if (tool.isNullOrEmptyObject(_curObj)) {
+          return true;
+        }
+        value = _curObj.val() || "";
+        if (!tool.isNullOrEmptyObject(value)) {
+          valArray.push(value);
+        }
 
-			//若含有startDate,则说明是Range
-			if(_curObj.parent('.startDate').length>=1){
-				var fieldTemp = _curObj.attr("data-field") || "";
+        if (tool.isNullOrEmptyObject(valArray) || valArray.length <= 0) {
+          return true;
+        }
 
-				var valArray = [];
-				_curObj = $("[data-field='"+ fieldTemp +"']:eq(0)");
-				if(tool.isNullOrEmptyObject(_curObj)){
-					return true;
-				}
+        //若数组的长度不是2，说明用户只填写了其中一个值
+        if (valArray.length != 2) {
+          var msgTemp = lanTool.lanContent("1000166_开始值和结束值必须填写！");
+          msgTemp = msgTemp.replace(
+            "{0}",
+            _curObj.attr("data-fieldName") || ""
+          );
+          throw new Error(msgTemp);
+        }
+        value = valArray.join(",");
+        var queryCondictionObj = {
+          Field: fieldTemp,
+          Type: _curObj.attr("data-querytype") || "",
+          Format: _curObj.attr("data-queryformat") || "",
+          Relation: _curObj.attr("data-queryrelation") || "",
+          Value: value,
+          Comparison: _curObj.attr("data-querycomparison") || "",
+          DisplayValue: value,
+          IsChangeBetween: _curObj.attr("data-queryIsChangeBetween") || "false"
+        };
+        queryCondiction.push(queryCondictionObj);
+      } else {
+        var value = _curObj.val() || "";
+        if (tool.isNullOrEmptyObject(value)) {
+          return true;
+        }
+        var queryCondictionObj = {
+          Field: _curObj.attr("data-field") || "",
+          Type: _curObj.attr("data-querytype") || "",
+          Format: _curObj.attr("data-queryformat") || "",
+          Relation: _curObj.attr("data-queryrelation") || "",
+          Value: value,
+          Comparison: _curObj.attr("data-querycomparison") || "",
+          DisplayValue: _curObj.val() || ""
+        };
+        queryCondiction.push(queryCondictionObj);
+      }
+    });
 
-				var value = _curObj.val()||"";
-				if(!tool.isNullOrEmptyObject(value)){
-					valArray.push(value);
-				}
-				_curObj = $("[data-field='"+ fieldTemp +"_0']:eq(0)");
-				if(tool.isNullOrEmptyObject(_curObj)){
-					return true;
-				}
-				value = _curObj.val()||"";
-				if(!tool.isNullOrEmptyObject(value)){
-					valArray.push(value);
-				}
+    //执行回调函数
+    if (!tool.isNullOrEmptyObject(myCallBack)) {
+      myCallBack(queryCondiction);
+    }
 
-				if(tool.isNullOrEmptyObject(valArray) || valArray.length<=0){
-					return true;
-				}
+    return queryCondiction;
+  };
 
-				//若数组的长度不是2，说明用户只填写了其中一个值
-				if(valArray.length!=2){
-					var msgTemp = lanTool.lanContent("1000166_开始值和结束值必须填写！");
-					msgTemp = msgTemp.replace("{0}",(_curObj.attr("data-fieldName") || ""));
-					throw new Error(msgTemp);
-				}
-				value = valArray.join(",");
-				var queryCondictionObj = {
-					Field:fieldTemp,
-					Type:_curObj.attr("data-querytype") || "",
-					Format:_curObj.attr("data-queryformat") || "",
-					Relation:_curObj.attr("data-queryrelation") || "",
-					Value:value,
-					Comparison:_curObj.attr("data-querycomparison") || "",
-					DisplayValue:value,
-					IsChangeBetween:_curObj.attr("data-queryIsChangeBetween") || "false",
-				};
-				queryCondiction.push(queryCondictionObj);
-			} else{
-				var value = _curObj.val()||"";
-				if(tool.isNullOrEmptyObject(value)){
-					return true;
-				}
-				var queryCondictionObj = {
-					Field:_curObj.attr("data-field") || "",
-					Type:_curObj.attr("data-querytype") || "",
-					Format:_curObj.attr("data-queryformat") || "",
-					Relation:_curObj.attr("data-queryrelation") || "",
-					Value:value,
-					Comparison:_curObj.attr("data-querycomparison") || "",
-					DisplayValue:_curObj.val()||""
-				};
-				queryCondiction.push(queryCondictionObj);
-			}
-		});
+  //获取Public对象
+  tool.GetPublicObj = function() {
+    var curLV = lanTool.currentLanguageVersion;
+    var textTemp = lanTool.lanContent("811_公开的");
+    var idTemp = 23;
+    var obj = {
+      id: idTemp,
+      text: textTemp
+    };
 
+    return obj;
+  };
 
-		//执行回调函数
-		if(!tool.isNullOrEmptyObject(myCallBack)){
-			myCallBack(queryCondiction);
-		}
+  //获取Private对象
+  tool.GetPrivateObj = function() {
+    var curLV = lanTool.currentLanguageVersion;
+    var textTemp = lanTool.lanContent("812_私有的");
+    var idTemp = 24;
+    var obj = {
+      id: idTemp,
+      text: textTemp
+    };
 
-		return queryCondiction;
-	};
+    return obj;
+  };
 
-	//获取Public对象
-	tool.GetPublicObj = function(){
-		var curLV = lanTool.currentLanguageVersion;
-		var textTemp =  lanTool.lanContent("811_公开的");
-		var idTemp = 23;
-		var obj = {
-			id : idTemp,
-			text : textTemp
-		};
+  //获取InProgress对象
+  tool.GetInProgressObj = function() {
+    var curLV = lanTool.currentLanguageVersion;
+    var textTemp = lanTool.lanContent("954_进行中");
+    var idTemp = 38;
+    var obj = {
+      id: idTemp,
+      text: textTemp
+    };
 
-		return obj;
-	};
+    return obj;
+  };
 
-	//获取Private对象
-	tool.GetPrivateObj = function(){
-		var curLV = lanTool.currentLanguageVersion;
-		var textTemp =  lanTool.lanContent("812_私有的");
-		var idTemp = 24;
-		var obj = {
-			id : idTemp,
-			text : textTemp
-		};
+  /*
+   * 是否指定记录的负责人
+   */
+  tool.IsHasInitiator = function(fromType, fromID, myCallBack) {
+    if (
+      tool.isNullOrEmptyObject(fromType) ||
+      tool.isNullOrEmptyObject(fromID)
+    ) {
+      return;
+    }
 
-		return obj;
-	};
+    var urlTemp = tool.AjaxBaseUrl();
+    var controlName = tool.Api_DataShareInfHandle_HasInitiator;
 
-	//获取InProgress对象
-	tool.GetInProgressObj = function(){
-		var curLV = lanTool.currentLanguageVersion;
-		var textTemp =  lanTool.lanContent("954_进行中");
-		var idTemp = 38;
-		var obj = {
-			id : idTemp,
-			text : textTemp
-		};
+    //传入参数
+    var jsonDatasTemp = {
+      CurrentLanguageVersion: lanTool.currentLanguageVersion,
+      UserName: tool.UserName(),
+      _ControlName: controlName,
+      _RegisterCode: tool.RegisterCode(),
+      FromType: fromType,
+      FromID: fromID
+    };
 
-		return obj;
-	};
+    $.ajax({
+      async: true,
+      type: "post",
+      url: urlTemp,
+      data: jsonDatasTemp,
+      success: function(data) {
+        data = tool.jObject(data);
+        if (data._ReturnStatus == false) {
+          tool.showText(tool.getMessage(data));
+          console.log(tool.getMessage(data));
+          return true;
+        }
 
-	/*
-	* 是否指定记录的负责人
-	*/
-	tool.IsHasInitiator = function(fromType,fromID,myCallBack){
-		if(tool.isNullOrEmptyObject(fromType) || tool.isNullOrEmptyObject(fromID) ){
-			return;
-		}
-
-		var urlTemp = tool.AjaxBaseUrl();
-		var controlName = tool.Api_DataShareInfHandle_HasInitiator;
-
-		//传入参数
-		var jsonDatasTemp = {
-			CurrentLanguageVersion: lanTool.currentLanguageVersion,
-			UserName: tool.UserName(),
-			_ControlName: controlName,
-			_RegisterCode: tool.RegisterCode(),
-			FromType: fromType,
-			FromID: fromID
-		};
-
-		$.ajax({
-			async: true,
-			type: "post",
-			url: urlTemp,
-			data: jsonDatasTemp,
-			success: function (data) {
-				data = tool.jObject(data);
-				if (data._ReturnStatus == false) {
-					tool.showText(tool.getMessage(data));
-					console.log(tool.getMessage(data));
-					return true;
-				}
-
-				data = data._OnlyOneData || false;
-				if (!tool.isNullOrEmptyObject(myCallBack)) {
-					myCallBack(data);
-				}
-			},
-			error: function (jqXHR, type, error) {
-				console.log(error);
-				return true;
-			},
-			complete: function () {
-				//隐藏虚拟键盘
-				document.activeElement.blur();
-			}
-		});
+        data = data._OnlyOneData || false;
+        if (!tool.isNullOrEmptyObject(myCallBack)) {
+          myCallBack(data);
+        }
+      },
+      error: function(jqXHR, type, error) {
+        console.log(error);
+        return true;
+      },
+      complete: function() {
+        //隐藏虚拟键盘
+        document.activeElement.blur();
+      }
+    });
   };
 
   /*
    * 辅助方法（给数字前面补0，n为返回的长度）
    */
-  tool.PrefixInteger = function(num, n){
-    n = (n==undefined) ? 2 : n;
+  tool.PrefixInteger = function(num, n) {
+    n = n == undefined ? 2 : n;
     return (Array(n).join(0) + num).slice(-n);
   };
 
   /*
-  * 获取当前时间
-  * special特殊处理分钟，输出分钟值只有['00','15','30','45']
-  * 返回时间数组，如['年'，'月','日','时','分','秒']
-  */
-  tool.GetTimeArray = function(special){
-      var date = new Date();
-      var value = [];
-      value.push(date.getFullYear().toString());
-      value.push(tool.PrefixInteger(date.getMonth()+1).toString());
-      value.push(tool.PrefixInteger(date.getDate()).toString());
-      value.push(tool.PrefixInteger(date.getHours()).toString());
-      //特殊处理分钟的展示
-      if(!tool.isNullOrEmptyObject(special)){
-        var minutes = date.getMinutes();
-        if(minutes == 0 ){
-            minutes = '00';
-        }else if(minutes > 0 && minutes <= 15){
-            minutes = '15';
-        }else if(minutes >15 && minutes <= 30){
-            minutes = '30';
-        }else if(minutes >30 && minutes <= 45){
-            minutes = '45';
-        }else if(minutes >45 && minutes < 60){
-            minutes = '00';
-        }
-        value.push(minutes);
-      }else{
-        value.push(tool.PrefixInteger(date.getMinutes()).toString());
+   * 获取当前时间
+   * special特殊处理分钟，输出分钟值只有['00','15','30','45']
+   * 返回时间数组，如['年'，'月','日','时','分','秒']
+   */
+  tool.GetTimeArray = function(special) {
+    var date = new Date();
+    var value = [];
+    value.push(date.getFullYear().toString());
+    value.push(tool.PrefixInteger(date.getMonth() + 1).toString());
+    value.push(tool.PrefixInteger(date.getDate()).toString());
+    value.push(tool.PrefixInteger(date.getHours()).toString());
+    //特殊处理分钟的展示
+    if (!tool.isNullOrEmptyObject(special)) {
+      var minutes = date.getMinutes();
+      if (minutes == 0) {
+        minutes = "00";
+      } else if (minutes > 0 && minutes <= 15) {
+        minutes = "15";
+      } else if (minutes > 15 && minutes <= 30) {
+        minutes = "30";
+      } else if (minutes > 30 && minutes <= 45) {
+        minutes = "45";
+      } else if (minutes > 45 && minutes < 60) {
+        minutes = "00";
       }
-      value.push(tool.PrefixInteger(date.getSeconds()).toString());
+      value.push(minutes);
+    } else {
+      value.push(tool.PrefixInteger(date.getMinutes()).toString());
+    }
+    value.push(tool.PrefixInteger(date.getSeconds()).toString());
 
-      return value;
+    return value;
   };
 
   /**
    *  详情页面从Selectlist/Groupselectlist返回时更新数据
    */
-  tool.UpdateFieldValueFromBack = function(eventBus, callback){
+  tool.UpdateFieldValueFromBack = function(eventBus, callback) {
+    if (tool.isNullOrEmptyObject(eventBus.selectListData)) {
+      return;
+    }
+    var curObj = $("[data-field='" + eventBus.selectListData.field + "']");
+    if (tool.isNullOrEmptyObject(curObj)) {
+      return;
+    }
+    curObj.attr("data-fieldval", eventBus.selectListData.value.id);
+    //判断元素是否是input，是的话用val来赋值
+    if (curObj.is("input") || curObj.is("textarea")) {
+      curObj.val(eventBus.selectListData.value.text);
+      //为了解决用js赋input控件值，input控件不会触发change事件，因此添加了_value属性，然后通过属性的set来达到监听change的效果
+      if (curObj[0].hasOwnProperty("_value")) {
+        curObj[0]._value = eventBus.selectListData.value.text;
+      }
+    } else {
+      curObj.text(eventBus.selectListData.value.text);
+    }
 
-	if(tool.isNullOrEmptyObject(eventBus.selectListData)){
-		return;
-	}
-	var curObj = $("[data-field='" + eventBus.selectListData.field + "']");
-	if (tool.isNullOrEmptyObject(curObj)) {
-		return;
-	}
-	curObj.attr("data-fieldval", eventBus.selectListData.value.id);
-	//判断元素是否是input，是的话用val来赋值
-	if(curObj.is('input') || curObj.is('textarea')){
-		curObj.val(eventBus.selectListData.value.text);
-		//为了解决用js赋input控件值，input控件不会触发change事件，因此添加了_value属性，然后通过属性的set来达到监听change的效果
-		if(curObj[0].hasOwnProperty("_value")){
-			curObj[0]._value = eventBus.selectListData.value.text;
-		}
-	}
-	else{
-		curObj.text(eventBus.selectListData.value.text);
-	}
-
-	if (!tool.isNullOrEmptyObject(callback) && typeof(callback) == "function") {
-		callback(curObj);
-	}
-  }
+    if (!tool.isNullOrEmptyObject(callback) && typeof callback == "function") {
+      callback(curObj);
+    }
+  };
 
   /**
    * 两个联动字段逻辑处理
@@ -3604,228 +4027,258 @@ import config from '../../configfile/config.js'
    * relyonField : 联动的依赖字段
    * chField : 根据依赖改变的字段
    */
-  tool.linkageField = function(vueObj, relyonField, chField){
-      var _self = vueObj;
-      if(relyonField == undefined || relyonField == '' || chField == undefined || chField == ''){
-        return ;
-      }
+  tool.linkageField = function(vueObj, relyonField, chField) {
+    var _self = vueObj;
+    if (
+      relyonField == undefined ||
+      relyonField == "" ||
+      chField == undefined ||
+      chField == ""
+    ) {
+      return;
+    }
 
-      //给chField字段添加点击事件
-	  var filterTemp = $("[data-field='" + relyonField + "']").attr("data-fieldval") || "";
-      if (!tool.isNullOrEmptyObject(filterTemp)) {
-          $("[data-field='" + chField + "']").attr("Filter", filterTemp);
-          $("[data-field='" + chField + "']").off('click').on('click', function () {
-              var _curObj = $(this);
-              var dataField = _curObj.attr("data-field") || "";
-              var code = _curObj.attr("Code") || "";
-              var filter = _curObj.attr("Filter") || "";
-              var typeValue = _curObj.attr("TypeValue") || "";
-              var value = _curObj.attr("data-fieldVal") || "";
-              var selectType = _curObj.attr("data-selectType") || "";
-              var title = lanTool.lanContent(_curObj.attr("data-lanid") || "");
-              var addUrl = _curObj.attr("data-addUrl") ||"";
-              var linkIDField = filterTemp;//为了在弹出页面的新增上，带出id和name，如新增联系人，需要带上当前公司信息
-              var linkNameField = $("[data-field='" + relyonField + "']").text()||"";
-              var fromType = _curObj.attr("data-fromType") ||"";
+    //给chField字段添加点击事件
+    var filterTemp =
+      $("[data-field='" + relyonField + "']").attr("data-fieldval") || "";
+    if (!tool.isNullOrEmptyObject(filterTemp)) {
+      $("[data-field='" + chField + "']").attr("Filter", filterTemp);
+      $("[data-field='" + chField + "']")
+        .off("click")
+        .on("click", function() {
+          var _curObj = $(this);
+          var dataField = _curObj.attr("data-field") || "";
+          var code = _curObj.attr("Code") || "";
+          var filter = _curObj.attr("Filter") || "";
+          var typeValue = _curObj.attr("TypeValue") || "";
+          var value = _curObj.attr("data-fieldVal") || "";
+          var selectType = _curObj.attr("data-selectType") || "";
+          var title = lanTool.lanContent(_curObj.attr("data-lanid") || "");
+          var addUrl = _curObj.attr("data-addUrl") || "";
+          var linkIDField = filterTemp; //为了在弹出页面的新增上，带出id和name，如新增联系人，需要带上当前公司信息
+          var linkNameField =
+            $("[data-field='" + relyonField + "']").text() || "";
+          var fromType = _curObj.attr("data-fromType") || "";
 
-              var parameter = {
-                  'field': dataField,
-                  'code': code,
-                  "typeValue": typeValue,
-                  'title': title,
-                  'value': value, //已经选择的值
-                  'selectType': selectType,
-                  "filter": filter,
-                  "addUrl":addUrl,
-                  "linkIDField":linkIDField,
-                  "linkNameField":linkNameField,
-                  "fromType":fromType
-              };
-              _self.$router.push({
-                  path: '/selectlist',
-                  query: parameter
-              });
+          var parameter = {
+            field: dataField,
+            code: code,
+            typeValue: typeValue,
+            title: title,
+            value: value, //已经选择的值
+            selectType: selectType,
+            filter: filter,
+            addUrl: addUrl,
+            linkIDField: linkIDField,
+            linkNameField: linkNameField,
+            fromType: fromType
+          };
+          _self.$router.push({
+            path: "/selectlist",
+            query: parameter
           });
-	  }
+        });
+    }
 
-	//   console.log(eventBus.selectListData);
-      if(tool.isNullOrEmptyObject(eventBus.selectListData)){
-          return;
+    //   console.log(eventBus.selectListData);
+    if (tool.isNullOrEmptyObject(eventBus.selectListData)) {
+      return;
+    }
+    if (eventBus.selectListData.field == relyonField) {
+      //清空数据,移除点击事件
+      $("[data-field='" + chField + "']")
+        .val("")
+        .attr("data-fieldVal", "")
+        .attr("Filter", "")
+        .off("click");
+      //添加事件
+      if (
+        eventBus.selectListData.value.id == "" ||
+        eventBus.selectListData.value.id == undefined
+      ) {
+        return false;
       }
-      if (eventBus.selectListData.field == relyonField) {
-          //清空数据,移除点击事件
-          $("[data-field='" + chField + "']").val("").attr("data-fieldVal", "").attr('Filter','').off('click');
-          //添加事件
-          if(eventBus.selectListData.value.id=='' || eventBus.selectListData.value.id==undefined){
-              return false;
-          }
-          $("[data-field='" + chField + "']").attr("Filter", eventBus.selectListData.value.id);
-          $("[data-field='" + chField + "']").off('click').on('click', function () {
-              var _curObj = $(this);
-              var dataField = _curObj.attr("data-field") || "";
-              var code = _curObj.attr("Code") || "";
-              var filter = _curObj.attr("Filter") || "";
-              var typeValue = _curObj.attr("TypeValue") || "";
-              var value = _curObj.attr("data-fieldVal") || "";
-              var selectType = _curObj.attr("data-selectType") || "";
-              var title = lanTool.lanContent(_curObj.attr("data-lanid") || "");
-              var addUrl = _curObj.attr("data-addUrl") ||"";
-              var linkIDField = $("[data-field='" + relyonField + "']").attr("data-fieldval") || "";//为了在弹出页面的新增上，带出id和name，如新增联系人，需要带上当前公司信息
-              var linkNameField = $("[data-field='" + relyonField + "']").text()||"";
-              var fromType = _curObj.attr("data-fromType") ||"";
-              var parameter = {
-                  'field': dataField,
-                  'code': code,
-                  "typeValue": typeValue,
-                  'title': title,
-                  'value': value, //已经选择的值
-                  'selectType': selectType,
-                  "filter": filter,
-                  "addUrl":addUrl,
-                  "linkIDField":linkIDField,
-                  "linkNameField":linkNameField,
-                  "fromType":fromType
-              };
-              _self.$router.push({
-                  path: '/selectlist',
-                  query: parameter
-              });
+      $("[data-field='" + chField + "']").attr(
+        "Filter",
+        eventBus.selectListData.value.id
+      );
+      $("[data-field='" + chField + "']")
+        .off("click")
+        .on("click", function() {
+          var _curObj = $(this);
+          var dataField = _curObj.attr("data-field") || "";
+          var code = _curObj.attr("Code") || "";
+          var filter = _curObj.attr("Filter") || "";
+          var typeValue = _curObj.attr("TypeValue") || "";
+          var value = _curObj.attr("data-fieldVal") || "";
+          var selectType = _curObj.attr("data-selectType") || "";
+          var title = lanTool.lanContent(_curObj.attr("data-lanid") || "");
+          var addUrl = _curObj.attr("data-addUrl") || "";
+          var linkIDField =
+            $("[data-field='" + relyonField + "']").attr("data-fieldval") || ""; //为了在弹出页面的新增上，带出id和name，如新增联系人，需要带上当前公司信息
+          var linkNameField =
+            $("[data-field='" + relyonField + "']").text() || "";
+          var fromType = _curObj.attr("data-fromType") || "";
+          var parameter = {
+            field: dataField,
+            code: code,
+            typeValue: typeValue,
+            title: title,
+            value: value, //已经选择的值
+            selectType: selectType,
+            filter: filter,
+            addUrl: addUrl,
+            linkIDField: linkIDField,
+            linkNameField: linkNameField,
+            fromType: fromType
+          };
+          _self.$router.push({
+            path: "/selectlist",
+            query: parameter
           });
-      }
-  }
+        });
+    }
+  };
 
-	/*
-	* 设置输入域(input/textarea)光标的位置
-	* @param {HTMLInputElement/HTMLTextAreaElement} elem
-	* @param {Number} index
-	*/
-  tool.setCursorPosition = function(elem, index){
-	var val = elem.value
-    var len = val.length
- 
+  /*
+   * 设置输入域(input/textarea)光标的位置
+   * @param {HTMLInputElement/HTMLTextAreaElement} elem
+   * @param {Number} index
+   */
+  tool.setCursorPosition = function(elem, index) {
+    var val = elem.value;
+    var len = val.length;
+
     // 超过文本长度直接返回
-    if (len < index) return
+    if (len < index) return;
     setTimeout(function() {
-        elem.focus()
-        if (elem.setSelectionRange) { // 标准浏览器
-            elem.setSelectionRange(index, index)   
-        } else { // IE9-
-            var range = elem.createTextRange()
-            range.moveStart("character", -len)
-            range.moveEnd("character", -len)
-            range.moveStart("character", index)
-            range.moveEnd("character", 0)
-            range.select()
-        }
-    }, 10)
-  }
-
-}(top.window.tool = {}, jQuery));
-
+      elem.focus();
+      if (elem.setSelectionRange) {
+        // 标准浏览器
+        elem.setSelectionRange(index, index);
+      } else {
+        // IE9-
+        var range = elem.createTextRange();
+        range.moveStart("character", -len);
+        range.moveEnd("character", -len);
+        range.moveStart("character", index);
+        range.moveEnd("character", 0);
+        range.select();
+      }
+    }, 10);
+  };
+})((top.window.tool = {}), jQuery);
 
 /*
  * 多语言
  */
-;
-(function (win, lan, $) {
+(function(win, lan, $) {
+  //当前多语言本
+  lan.currentLanguageVersion =
+    tool.getConfigValue(tool.config_currentLanguageVersion) || 1;
 
-	//当前多语言本
-	lan.currentLanguageVersion = tool.getConfigValue(tool.config_currentLanguageVersion) || 1;
+  //多语言数据
+  lan.Data = tool.getConfigValue(tool.config_lanData) || [];
 
-	//多语言数据
-	lan.Data = tool.getConfigValue(tool.config_lanData) || [];
+  //多语言加载完成对象
+  lan.ready = $.Deferred();
 
-	//多语言加载完成对象
-	lan.ready = $.Deferred();
+  //获取多语言数据
+  lan.waitExcute = function(isFromCache, isRefreshCache, myCallBack) {
+    var def = lan.ready;
 
-	//获取多语言数据
-	lan.waitExcute = function (isFromCache, isRefreshCache, myCallBack) {
-		var def = lan.ready;
+    isFromCache =
+      isFromCache == undefined || isFromCache == null ? false : isFromCache;
+    isRefreshCache =
+      isRefreshCache == undefined || isRefreshCache == null
+        ? true
+        : isRefreshCache;
 
-		isFromCache = ((isFromCache == undefined || isFromCache == null) ? false : isFromCache);
-		isRefreshCache = ((isRefreshCache == undefined || isRefreshCache == null) ? true : isRefreshCache);
+    //构造传入参数
+    var jsonTemp = {
+      CurrentLanguageVersion: lan.currentLanguageVersion || 1,
+      IsFromCache: isFromCache,
+      IsRefreshCache: isRefreshCache,
+      _ControlName: tool.LanguageVersionsHandle_Query
+    };
 
-		//构造传入参数
-		var jsonTemp = {
-			CurrentLanguageVersion: (lan.currentLanguageVersion || 1),
-			IsFromCache: isFromCache,
-			IsRefreshCache: isRefreshCache,
-			_ControlName: tool.LanguageVersionsHandle_Query
-		};
+    //请求地址
+    var urlTemp = tool.AjaxBaseUrl();
 
-		//请求地址
-		var urlTemp = tool.AjaxBaseUrl();
+    if (
+      lan.Data == undefined ||
+      lan.Data == null ||
+      lan.Data.length <= 0 ||
+      !isFromCache ||
+      isRefreshCache
+    ) {
+      //var loadingIndexClassName = tool.showLoading();
 
-		if (lan.Data == undefined || lan.Data == null || lan.Data.length <= 0 || !isFromCache || isRefreshCache) {
-			//var loadingIndexClassName = tool.showLoading();
+      $.ajax({
+        url: urlTemp,
+        async: true,
+        type: "post",
+        cache: false,
+        data: jsonTemp,
+        success: function(data) {
+          //tool.hideLoading(loadingIndexClassName);
 
-			$.ajax({
-				url: urlTemp,
-				async: true,
-				type: "post",
-				cache: false,
-				data: jsonTemp,
-				success: function (data) {
-					//tool.hideLoading(loadingIndexClassName);
+          data = tool.jObject(data);
+          if (data._ReturnStatus == false) {
+            lan.Data = [];
+            return;
+          } else {
+            lan.Data = data._OnlyOneData;
+            var configJSONTemp = tool.getConfigJSON();
+            configJSONTemp[tool.config_currentLanguageVersion] =
+              lan.currentLanguageVersion;
+            configJSONTemp[tool.config_lanData] = lan.Data;
+            tool.setConfig(configJSONTemp);
 
-					data = tool.jObject(data);
-					if (data._ReturnStatus == false) {
-						lan.Data = [];
-						return;
-					} else {
-						lan.Data = data._OnlyOneData;
-						var configJSONTemp = tool.getConfigJSON();
-						configJSONTemp[tool.config_currentLanguageVersion] = lan.currentLanguageVersion;
-						configJSONTemp[tool.config_lanData] = lan.Data;
-						tool.setConfig(configJSONTemp);
+            //console.log(lan.Data);
+          }
 
-						//console.log(lan.Data);
-					}
+          //执行回调函数
+          if (!tool.isNullOrEmptyObject(myCallBack)) {
+            myCallBack();
+          }
 
-					//执行回调函数
-					if (!tool.isNullOrEmptyObject(myCallBack)) {
-						myCallBack();
-					}
+          def.resolve();
+        },
+        error: function(jqXHR, type, error) {
+          //tool.hideLoading(loadingIndexClassName);
+          console.log(jqXHR.responseText);
+          console.log(jqXHR.status);
+          console.log(jqXHR.readyState);
+          console.log(jqXHR.statusText);
+          console.log("type:" + type);
+          console.log("error:" + error);
+        },
+        complete: function() {}
+      });
+    } else {
+      setTimeout(function() {
+        def.resolve();
+      });
+    }
 
-					def.resolve();
-				},
-				error: function (jqXHR, type, error) {
-					//tool.hideLoading(loadingIndexClassName);
-					console.log(jqXHR.responseText);
-					console.log(jqXHR.status);
-					console.log(jqXHR.readyState);
-					console.log(jqXHR.statusText);
-					console.log('type:' + type);
-					console.log('error:' + error);
-				},
-				complete: function () {
+    return def;
+  };
 
-				}
-			});
-		} else {
-			setTimeout(function () {
-				def.resolve();
-			});
-		}
+  //根据多语言自动别名获取当前语言内容
+  win.lanContent = lan.lanContent = function(id) {
+    // console.log(id);
+    //console.log(lan.Data);
 
-		return def;
-	};
+    if (tool.isNullOrEmptyObject(id)) {
+      return "";
+    }
 
-	//根据多语言自动别名获取当前语言内容
-	win.lanContent = lan.lanContent = function (id) {
-
-		// console.log(id);
-		//console.log(lan.Data);
-
-		if (tool.isNullOrEmptyObject(id)) {
-			return '';
-		}
-
-		//是否整数
-		var isNum = tool.isPositiveInteger(id);
+    //是否整数
+    var isNum = tool.isPositiveInteger(id);
     // console.log(isNum);
 
-    if(!isNum){
+    if (!isNum) {
       //解析出多语言ID，如772_请输入密码
       id = $.trim(id);
       var idArray = id.split("_");
@@ -3833,394 +4286,406 @@ import config from '../../configfile/config.js'
       // console.log(id);
     }
 
-		for (var i = 0, dataLen = lan.Data.length; i < dataLen; i++) {
-			// if (tool.isPositiveInteger(id)) {
-			// 	if (lan.Data[i].id !== id) {
-			// 		continue;
-			// 	}
-			// } else {
-        	// 	id = $.trim(id);
-			// 	if (("_" + lan.Data[i].AliasNameAuto).indexOf("_" + id) < 0) {
-			// 		continue;
-			// 	}
-			// }
+    for (var i = 0, dataLen = lan.Data.length; i < dataLen; i++) {
+      // if (tool.isPositiveInteger(id)) {
+      // 	if (lan.Data[i].id !== id) {
+      // 		continue;
+      // 	}
+      // } else {
+      // 	id = $.trim(id);
+      // 	if (("_" + lan.Data[i].AliasNameAuto).indexOf("_" + id) < 0) {
+      // 		continue;
+      // 	}
+      // }
 
-			if (lan.Data[i].AutoID != id) {
-				  continue;
+      if (lan.Data[i].AutoID != id) {
+        continue;
       }
 
-			switch (parseInt(lan.currentLanguageVersion)) {
-				case 2:
-					return lan.Data[i].SimplifiedChinese;
-				case 3:
-					return lan.Data[i].TraditionalChinese;
-				case 1:
-				default:
-					return lan.Data[i].English;
-			}
-		}
-		return "";
-	};
+      switch (parseInt(lan.currentLanguageVersion)) {
+        case 2:
+          return lan.Data[i].SimplifiedChinese;
+        case 3:
+          return lan.Data[i].TraditionalChinese;
+        case 1:
+        default:
+          return lan.Data[i].English;
+      }
+    }
+    return "";
+  };
 
-	//切换多语言
-	lan.setLan = function (curVersion, myCallBack) {
-		if (lan.currentLanguageVersion == curVersion) {
-			return;
-		}
+  //切换多语言
+  lan.setLan = function(curVersion, myCallBack) {
+    if (lan.currentLanguageVersion == curVersion) {
+      return;
+    }
 
-		//设置当前语言版本
-		lan.currentLanguageVersion = curVersion;
-		tool.setConfigValue(tool.config_currentLanguageVersion, lan.currentLanguageVersion);
+    //设置当前语言版本
+    lan.currentLanguageVersion = curVersion;
+    tool.setConfigValue(
+      tool.config_currentLanguageVersion,
+      lan.currentLanguageVersion
+    );
 
-		//执行回调函数
-		if (!tool.isNullOrEmptyObject(myCallBack)) {
-			myCallBack();
-		}
-	};
+    //执行回调函数
+    if (!tool.isNullOrEmptyObject(myCallBack)) {
+      myCallBack();
+    }
+  };
 
-	//更新当前语言版本
-	lan.updateLanVersion = function ($parent) {
-		//console.log("lan.updateLanVersion");
-		//console.log("lan.currentLanguageVersion:"+lan.currentLanguageVersion);
-		if (!lan.currentLanguageVersion) {
-			return;
-		}
+  //更新当前语言版本
+  lan.updateLanVersion = function($parent) {
+    //console.log("lan.updateLanVersion");
+    //console.log("lan.currentLanguageVersion:"+lan.currentLanguageVersion);
+    if (!lan.currentLanguageVersion) {
+      return;
+    }
 
-		if (lan.currentLanguageVersion) {
-			//text
-			$(".lanText", $parent || $('body')).each(function () {
-				$(this).text(
-					lan.lanContent($(this).attr("data-lanid"))
-				);
-			});
-			//placeholder
-			$(".lanInputPlaceHolder").each(function () {
-				$(this).attr('placeholder', lan.lanContent($(this).attr("data-lanid")));
-			});
-			//title
-			$(".lanTitle").each(function () {
-				$(this).attr('title', lan.lanContent($(this).attr("data-lanid")));
-			});
-		}
-	};
+    if (lan.currentLanguageVersion) {
+      //text
+      $(".lanText", $parent || $("body")).each(function() {
+        $(this).text(lan.lanContent($(this).attr("data-lanid")));
+      });
+      //placeholder
+      $(".lanInputPlaceHolder").each(function() {
+        $(this).attr("placeholder", lan.lanContent($(this).attr("data-lanid")));
+      });
+      //title
+      $(".lanTitle").each(function() {
+        $(this).attr("title", lan.lanContent($(this).attr("data-lanid")));
+      });
+    }
+  };
 
-	//多语言读取完毕后再更新页面显示的多语言
-	lan.ready.done(lan.updateLanVersion);
+  //多语言读取完毕后再更新页面显示的多语言
+  lan.ready.done(lan.updateLanVersion);
 
-	//获取和设置当前APP配置
-	// var curLV = tool.getConfigValue(tool.config_currentLanguageVersion);
-	// if (!curLV) {
-	// 	lan.waitExcute(false, true);
-	// } else {
-	// 	lan.currentLanguageVersion = curLV;
-	// 	lan.Data = tool.getConfigValue(tool.config_lanData);
-	// 	//手动改变deferred对象的运行状态为"已完成"，从而立即触发done()方法。
-	// 	lan.ready.resolve();
-	// };
+  //获取和设置当前APP配置
+  // var curLV = tool.getConfigValue(tool.config_currentLanguageVersion);
+  // if (!curLV) {
+  // 	lan.waitExcute(false, true);
+  // } else {
+  // 	lan.currentLanguageVersion = curLV;
+  // 	lan.Data = tool.getConfigValue(tool.config_lanData);
+  // 	//手动改变deferred对象的运行状态为"已完成"，从而立即触发done()方法。
+  // 	lan.ready.resolve();
+  // };
 
-	if (lan.Data == undefined || lan.Data == null || lan.Data.length <= 0) {
-		console.log("lan.Data is null");
-		$.when(lan.waitExcute(false, true));
-	} else {
-		//手动改变deferred对象的运行状态为"已完成"，从而立即触发done()方法。
-		console.log("lan.Data is not null");
-		lan.ready.resolve();
-	};
-}(window, window.lanTool = {}, jQuery));
-
+  if (lan.Data == undefined || lan.Data == null || lan.Data.length <= 0) {
+    console.log("lan.Data is null");
+    $.when(lan.waitExcute(false, true));
+  } else {
+    //手动改变deferred对象的运行状态为"已完成"，从而立即触发done()方法。
+    console.log("lan.Data is not null");
+    lan.ready.resolve();
+  }
+})(window, (window.lanTool = {}), jQuery);
 
 /*
  * 下拉数据
  */
-;
-(function (allTypeList) {
-	//tool.clearStoragItem();
-	//所有类型数据
-	allTypeList.Data = [];
+(function(allTypeList) {
+  //tool.clearStoragItem();
+  //所有类型数据
+  allTypeList.Data = [];
 
-	//查询下拉数据
-	allTypeList.Query = function (isFromCache, isRefreshCache) {
-		return [];
+  //查询下拉数据
+  allTypeList.Query = function(isFromCache, isRefreshCache) {
+    return [];
 
-		//若缓存有数据，则返回缓存的数据
-		var cacheDataStr = tool.getSessionStorageItem(tool.config_allTypesData);
-		if (!tool.isNullOrEmptyObject(cacheDataStr)) {
-			allTypeList.Data = tool.jObject(cacheDataStr);
-			return true;
-		}
+    //若缓存有数据，则返回缓存的数据
+    var cacheDataStr = tool.getSessionStorageItem(tool.config_allTypesData);
+    if (!tool.isNullOrEmptyObject(cacheDataStr)) {
+      allTypeList.Data = tool.jObject(cacheDataStr);
+      return true;
+    }
 
-		isFromCache = ((isFromCache == undefined || isFromCache == null) ? false : isFromCache);
-		isRefreshCache = ((isRefreshCache == undefined || isRefreshCache == null) ? true : isRefreshCache);
-		//构造传入参数
-		var jsonTemp = {
-			CurrentLanguageVersion: (lanTool.currentLanguageVersion || 1),
-			IsFromCache: isFromCache,
-			IsRefreshCache: isRefreshCache
-		};
+    isFromCache =
+      isFromCache == undefined || isFromCache == null ? false : isFromCache;
+    isRefreshCache =
+      isRefreshCache == undefined || isRefreshCache == null
+        ? true
+        : isRefreshCache;
+    //构造传入参数
+    var jsonTemp = {
+      CurrentLanguageVersion: lanTool.currentLanguageVersion || 1,
+      IsFromCache: isFromCache,
+      IsRefreshCache: isRefreshCache
+    };
 
-		//请求地址
-		var urlTemp =
-			tool.combineRequestUrl(
-				tool.getConfigValue(tool.config_ajaxUrl),
-				tool.getConfigValue(tool.ajaxUrl_AllTypes_Query)
-			);
+    //请求地址
+    var urlTemp = tool.combineRequestUrl(
+      tool.getConfigValue(tool.config_ajaxUrl),
+      tool.getConfigValue(tool.ajaxUrl_AllTypes_Query)
+    );
 
-		if (allTypeList.Data.length <= 0) {
-			setTimeout(function () {
-				$.ajax({
-					async: true,
-					type: "post",
-					url: urlTemp,
-					data: {
-						jsonDatas: JSON.stringify(jsonTemp)
-					},
-					dataType: 'json',
-					success: function (funResult) {
-						allTypeList.Data = [];
+    if (allTypeList.Data.length <= 0) {
+      setTimeout(function() {
+        $.ajax({
+          async: true,
+          type: "post",
+          url: urlTemp,
+          data: {
+            jsonDatas: JSON.stringify(jsonTemp)
+          },
+          dataType: "json",
+          success: function(funResult) {
+            allTypeList.Data = [];
 
-						funResult = tool.jObject(funResult);
-						if (funResult.Result != 1) {
-							allTypeList.Data = [];
-							return false;
-						}
+            funResult = tool.jObject(funResult);
+            if (funResult.Result != 1) {
+              allTypeList.Data = [];
+              return false;
+            }
 
-						allTypeList.Data = funResult.Data;
+            allTypeList.Data = funResult.Data;
 
-						//写入缓存
-						tool.setSessionStorageItem(tool.config_allTypesData, JSON.stringify(allTypeList.Data));
-						return true;
-					},
-					error: function (jqXHR, type, error) {
-						console.log(jqXHR.responseText);
-						console.log(jqXHR.status);
-						console.log(jqXHR.readyState);
-						console.log(jqXHR.statusText);
-						console.log('type:' + type);
-						console.log('error:' + error);
-						return false;
-					}
-				});
-			}, 10);
-		}
-	};
-	//执行查询动作
-	allTypeList.Query(false, true);
+            //写入缓存
+            tool.setSessionStorageItem(
+              tool.config_allTypesData,
+              JSON.stringify(allTypeList.Data)
+            );
+            return true;
+          },
+          error: function(jqXHR, type, error) {
+            console.log(jqXHR.responseText);
+            console.log(jqXHR.status);
+            console.log(jqXHR.readyState);
+            console.log(jqXHR.statusText);
+            console.log("type:" + type);
+            console.log("error:" + error);
+            return false;
+          }
+        });
+      }, 10);
+    }
+  };
+  //执行查询动作
+  allTypeList.Query(false, true);
 
-	//根据父级的TypeValue查询子项的数据(父级的TypeValue一般就是字段名)
-	allTypeList.QueryChildItemsByPTypeValue = function (typeValue) {
-		return [];
+  //根据父级的TypeValue查询子项的数据(父级的TypeValue一般就是字段名)
+  allTypeList.QueryChildItemsByPTypeValue = function(typeValue) {
+    return [];
 
-		var childItems = [];
-		if (tool.isNullOrEmptyObject(typeValue) || allTypeList.Data.length <= 0) {
-			return childItems;
-		}
-		var parentItem = {};
-		for (var i = 0, len = allTypeList.Data.length; i < len; i++) {
-			if (typeValue == allTypeList.Data[i]["TypeValue"]) {
-				parentItem = allTypeList.Data[i];
-				break;
-			}
-		}
-		if (parentItem["AutoID"] == undefined || parentItem["AutoID"] == null || parentItem["AutoID"] == "") {
-			return childItems;
-		}
+    var childItems = [];
+    if (tool.isNullOrEmptyObject(typeValue) || allTypeList.Data.length <= 0) {
+      return childItems;
+    }
+    var parentItem = {};
+    for (var i = 0, len = allTypeList.Data.length; i < len; i++) {
+      if (typeValue == allTypeList.Data[i]["TypeValue"]) {
+        parentItem = allTypeList.Data[i];
+        break;
+      }
+    }
+    if (
+      parentItem["AutoID"] == undefined ||
+      parentItem["AutoID"] == null ||
+      parentItem["AutoID"] == ""
+    ) {
+      return childItems;
+    }
 
-		for (var i = 0, len = allTypeList.Data.length; i < len; i++) {
-			if (allTypeList.Data[i]["ParentID"] != undefined && parentItem["AutoID"] == allTypeList.Data[i]["ParentID"]) {
-				childItems.push(allTypeList.Data[i]);
-				continue;
-			}
-		}
+    for (var i = 0, len = allTypeList.Data.length; i < len; i++) {
+      if (
+        allTypeList.Data[i]["ParentID"] != undefined &&
+        parentItem["AutoID"] == allTypeList.Data[i]["ParentID"]
+      ) {
+        childItems.push(allTypeList.Data[i]);
+        continue;
+      }
+    }
 
-		//统一处理成mui.PopPicker需要的数据格式
-		var showDataArray = [];
-		for (var i = 0, len = childItems.length; i < len; i++) {
-			var textTemp = "";
+    //统一处理成mui.PopPicker需要的数据格式
+    var showDataArray = [];
+    for (var i = 0, len = childItems.length; i < len; i++) {
+      var textTemp = "";
 
-			switch (parseInt(lanTool.currentLanguageVersion)) {
-				case 2:
-					textTemp = childItems[i]["SimplifiedNameChinese"] || "";
-					break;
+      switch (parseInt(lanTool.currentLanguageVersion)) {
+        case 2:
+          textTemp = childItems[i]["SimplifiedNameChinese"] || "";
+          break;
 
-				case 3:
-					textTemp = childItems[i]["TraditionalNameChinese"] || "";
-					break;
+        case 3:
+          textTemp = childItems[i]["TraditionalNameChinese"] || "";
+          break;
 
-				case 1:
-				default:
-					textTemp = childItems[i]["TypeNameEnglish"] || "";
-					break;
-			}
-			var objNew = {
-				"value": childItems[i]["TypeValue"] || "",
-				"text": textTemp,
-			};
-			showDataArray.push(objNew);
-		}
+        case 1:
+        default:
+          textTemp = childItems[i]["TypeNameEnglish"] || "";
+          break;
+      }
+      var objNew = {
+        value: childItems[i]["TypeValue"] || "",
+        text: textTemp
+      };
+      showDataArray.push(objNew);
+    }
 
-		return showDataArray;
-	}
-}(window.allTypeList = {}));
+    return showDataArray;
+  };
+})((window.allTypeList = {}));
 
 /*
-* 控件初始化
-*/
-; (function (initial, $) {
+ * 控件初始化
+ */
+(function(initial, $) {
+  //初始化picker组件
+  (initial.initPicker = function() {
+    $(".picker").each(function() {
+      var _self = $(this);
+      var filedName = _self.attr("data-field");
 
-	//初始化picker组件
-	initial.initPicker = function () {
+      //根据字段名查询数据
+      var dataArray = allTypeList.QueryChildItemsByPTypeValue(filedName);
+      var items = [];
+      $.each(dataArray, function(index, item) {
+        items.push(item.text);
+      });
 
-		$('.picker').each(function () {
-			var _self = $(this);
-			var filedName = _self.attr("data-field");
+      _self.picker({
+        fromId: _self.attr("id") || "",
+        jqueryObj: _self,
+        toolbarCloseText: lanTool.lanContent("191_确认"),
+        toolbarCancleText: lanTool.lanContent("199_取消"),
+        cols: [
+          {
+            textAlign: "center",
+            values: items
+          }
+        ],
+        onOpen: function(data) {
+          var valueTemp = _self.attr("data-val") || "";
+          if (valueTemp == "") {
+            if (
+              data.params != undefined &&
+              data.params.cols != undefined &&
+              data.params.cols.length >= 1 &&
+              data.params.cols[0].values != undefined &&
+              data.params.cols[0].values.length >= 1
+            ) {
+              valueTemp = data.params.cols[0].values[0];
+            }
+          }
 
-			//根据字段名查询数据
-			var dataArray = allTypeList.QueryChildItemsByPTypeValue(filedName);
-			var items = [];
-			$.each(dataArray, function (index, item) {
-				items.push(item.text);
-			});
+          _self.text(valueTemp);
+          _self.attr("data-val", valueTemp);
+          _self.picker("setValue", [valueTemp]);
+        },
+        onChange: function(data, value) {
+          _self.text(data.value[0] || "");
+          _self.attr("data-val", data.value[0] || "");
+          _self.picker("setValue", data.value);
+        }
+      });
+    });
+  }),
+    //根据text值在一个数组对象中找出value
+    (initial.findValueByText = function(arr, text) {
+      if (isNullOrEmptyObject(arr)) return "";
+      $.each(arr, function(index, item) {
+        if (item.text === text) {
+          return item.value;
+        }
+      });
+      return "";
+    }),
+    //初始化datePicker组件
+    (initial.initDatePicker = function() {
+      $(".datepicker").each(function(index, cur) {
+        var _self = $(this);
 
-			_self.picker({
-				fromId: _self.attr("id") || "",
-				jqueryObj: _self,
-				toolbarCloseText: lanTool.lanContent('191_确认'),
-				toolbarCancleText: lanTool.lanContent('199_取消'),
-				cols: [
-					{
-						textAlign: 'center',
-						values: items
-					},
-				],
-				onOpen: function (data) {
-					var valueTemp = _self.attr("data-val") || "";
-					if (valueTemp == "") {
-						if (data.params != undefined && data.params.cols != undefined && data.params.cols.length >= 1 && data.params.cols[0].values != undefined && data.params.cols[0].values.length >= 1) {
-							valueTemp = data.params.cols[0].values[0];
-						}
-					}
-
-					_self.text(valueTemp);
-					_self.attr('data-val', valueTemp);
-					_self.picker("setValue", [valueTemp]);
-				},
-				onChange: function (data, value) {
-					_self.text(data.value[0] || "");
-					_self.attr('data-val', data.value[0] || "");
-					_self.picker("setValue", data.value);
-				}
-			});
-		});
-	},
-
-		//根据text值在一个数组对象中找出value
-		initial.findValueByText = function (arr, text) {
-			if (isNullOrEmptyObject(arr)) return '';
-			$.each(arr, function (index, item) {
-				if (item.text === text) {
-					return item.value;
-				}
-			})
-			return '';
-		},
-
-
-		//初始化datePicker组件
-		initial.initDatePicker = function () {
-
-			$('.datepicker').each(function (index, cur) {
-				var _self = $(this);
-
-				// var filedName = _self.attr("data-field");
-				var showMinute = _self.attr("data-minute");
-				var times = function () {
-					return [];
-				};
-				if (showMinute === 'true') {
-					times = function () {
-						return [  // 自定义的时间
-							{
-								values: (function () {
-									var hours = [];
-									for (var i = 0; i < 24; i++) hours.push(initial.formatNumber(i));
-									return hours;
-								})()
-							},
-							{
-								divider: true,  // 这是一个分隔符
-								content: ':'
-							},
-							{
-								values: (function () {
-									var minutes = [];
-                  for (var i = 0; i < 60; i++) minutes.push(initial.formatNumber(i));
+        // var filedName = _self.attr("data-field");
+        var showMinute = _self.attr("data-minute");
+        var times = function() {
+          return [];
+        };
+        if (showMinute === "true") {
+          times = function() {
+            return [
+              // 自定义的时间
+              {
+                values: (function() {
+                  var hours = [];
+                  for (var i = 0; i < 24; i++)
+                    hours.push(initial.formatNumber(i));
+                  return hours;
+                })()
+              },
+              {
+                divider: true, // 这是一个分隔符
+                content: ":"
+              },
+              {
+                values: (function() {
+                  var minutes = [];
+                  for (var i = 0; i < 60; i++)
+                    minutes.push(initial.formatNumber(i));
                   //var minutes = [0,15,30,45];
-									return minutes;
-								})()
-							}
-						];
-					};
-				}
-				_self.datetimePicker({
-					fromId: _self.attr("id") || "",
-					jqueryObj: _self,
-					toolbarCloseText: lanTool.lanContent('191_确认'),
-					toolbarCancleText: lanTool.lanContent('199_取消'),
-					years: initial.yearArray(50),
-					// value:valueTemp,
-					times: times,
-					onOpen: function (data) {
+                  return minutes;
+                })()
+              }
+            ];
+          };
+        }
+        _self.datetimePicker({
+          fromId: _self.attr("id") || "",
+          jqueryObj: _self,
+          toolbarCloseText: lanTool.lanContent("191_确认"),
+          toolbarCancleText: lanTool.lanContent("199_取消"),
+          years: initial.yearArray(50),
+          // value:valueTemp,
+          times: times,
+          onOpen: function(data) {
+            //写入当前选中的记录
+            var valueTemp = _self.attr("data-val") || "";
+            if (valueTemp == "") {
+              var arr = [];
+              var date = new Date();
 
-						//写入当前选中的记录
-						var valueTemp = _self.attr("data-val") || "";
-						if (valueTemp == "") {
-							var arr = [];
-							var date = new Date;
+              arr.push(date.getFullYear());
+              arr.push(date.getMonth());
+              arr.push(date.getDate());
+              if (showMinute === "true") {
+                arr.push(date.getHours());
+                arr.push(date.getMinutes());
+                // arr.push(getSeconds());
+              }
+              _self.picker("setValue", arr);
+            }
+          },
+          onChange: function(picker, values, displayValues) {
+            var value = initial.returndateString(picker.value);
+            _self.text(value);
+            _self.attr("data-val", value);
+            _self.picker("setValue", picker.value);
+          }
+        });
+      });
+    }),
+    (initial.formatNumber = function(n) {
+      return n < 10 ? "0" + n : n;
+    }),
+    (initial.returndateString = function(arr) {
+      if (arr.length <= 0) return;
+      if (arr.length == 3) {
+        return arr[0] + "-" + arr[1] + "-" + arr[2];
+      } else if (arr.length == 5) {
+        return (
+          arr[0] + "-" + arr[1] + "-" + arr[2] + " " + arr[3] + ":" + arr[4]
+        );
+      }
+    }),
+    //返回 从当前年份一直往后的 n 年的年份数组 n默认为10
+    (initial.yearArray = function(n) {
+      if (n == undefined || n == null) n = 10;
 
-							arr.push(date.getFullYear());
-							arr.push(date.getMonth());
-							arr.push(date.getDate());
-							if (showMinute === 'true') {
-								arr.push(date.getHours());
-								arr.push(date.getMinutes());
-								// arr.push(getSeconds());
-							}
-							_self.picker("setValue", arr);
-
-						}
-
-					},
-					onChange: function (picker, values, displayValues) {
-						var value = initial.returndateString(picker.value);
-						_self.text(value);
-						_self.attr('data-val', value);
-						_self.picker("setValue", picker.value);
-					}
-				})
-			})
-		},
-
-		initial.formatNumber = function (n) {
-			return n < 10 ? "0" + n : n;
-		},
-		initial.returndateString = function (arr) {
-			if (arr.length <= 0) return;
-			if (arr.length == 3) {
-				return arr[0] + '-' + arr[1] + '-' + arr[2];
-			} else if (arr.length == 5) {
-				return arr[0] + '-' + arr[1] + '-' + arr[2] + ' ' + arr[3] + ':' + arr[4];
-			}
-		},
-		//返回 从当前年份一直往后的 n 年的年份数组 n默认为10
-		initial.yearArray = function (n) {
-			if (n == undefined || n == null) n = 10;
-
-			var currentYear = new Date().getFullYear();
-			var arr = [];
-			for (var i = 0; i < n; i++) {
-				arr.push(currentYear + i);
-			}
-			return arr;
-		}
-
-}(window.initial = {}, jQuery));
+      var currentYear = new Date().getFullYear();
+      var arr = [];
+      for (var i = 0; i < n; i++) {
+        arr.push(currentYear + i);
+      }
+      return arr;
+    });
+})((window.initial = {}), jQuery);

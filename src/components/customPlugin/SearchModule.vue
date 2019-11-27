@@ -3,7 +3,7 @@
 <!-- 模块中的搜索组件 -->
 <div>
     <header class="header" id="searchHeader">
-        <search-input ref="searchInput" class="search" :placeholder=lanSearchModuleInputPlaceHolder></search-input>
+        <search-input ref="searchInput" class="search"  :isShowClearIcon="true" :placeholder=lanSearchModuleInputPlaceHolder></search-input>
         <span @click="cancelEvent" class="cancel-btn f14">{{lanCancel}}</span>
         <i class="calcfont calc-shanchu delete-icon f18" @click="refreshList"></i>
     </header>
@@ -154,6 +154,8 @@ export default {
         _self.inputValue = autoValue;
         //若模糊查询值为空，则不执行查询动作
         if(tool.isNullOrEmptyObject(autoValue)){
+            //若查询值为空，则清空查询结果
+            _self.resultData = [];
             return;
         }
 
@@ -269,31 +271,35 @@ export default {
     excuteSeach(autoValue){
         let _self = this;
         autoValue = (autoValue||"").trim();
-        if( tool.isNullOrEmptyObject(autoValue)){
-            return false;
-        }
+        //del by Dylan 20191127 允许空值回车情况
+        // if( tool.isNullOrEmptyObject(autoValue)){
+        //     return false;
+        // }
+        //end del
 
         //1>调用列表父组件方法搜索
         if(_self.$parent.refreshListBySearchValue != null && _self.$parent.refreshListBySearchValue != undefined){
             _self.$parent.refreshListBySearchValue(autoValue,function(){
                 //2>查询成功后，把查询值存到缓存
                 if(tool.isNullOrEmptyObject(autoValue)){
-                    return true;
-                }
-                var dataArr = tool.jObject((tool.getStorageItem(_self.localStorageKeyName) || "[]"));
-                //若历史记录中已经存在查询值，则移除
-                dataArr.remove(autoValue);
-                //加入历史记录
-                dataArr.unshift(autoValue);
-                //若历史记录数超过最大允许数，移除超过的记录
-                if(dataArr.length>_self.maxHistoricalCount){
-                    dataArr.splice(_self.maxHistoricalCount-1,dataArr.length-_self.maxHistoricalCount);
-                }
+                    //3>把查询值，赋到父组件的input组件
+                    _self.$parent.$refs.searchInput.searchValue = autoValue;
+                }else{
+                    var dataArr = tool.jObject((tool.getStorageItem(_self.localStorageKeyName) || "[]"));
+                    //若历史记录中已经存在查询值，则移除
+                    dataArr.remove(autoValue);
+                    //加入历史记录
+                    dataArr.unshift(autoValue);
+                    //若历史记录数超过最大允许数，移除超过的记录
+                    if(dataArr.length>_self.maxHistoricalCount){
+                        dataArr.splice(_self.maxHistoricalCount-1,dataArr.length-_self.maxHistoricalCount);
+                    }
 
-                //数据写入缓存
-                tool.setStoragItem(_self.localStorageKeyName, JSON.stringify(dataArr));
-                //3>把查询值，赋到父组件的input组件
-                _self.$parent.$refs.searchInput.searchValue = autoValue;
+                    //数据写入缓存
+                    tool.setStoragItem(_self.localStorageKeyName, JSON.stringify(dataArr));
+                    //3>把查询值，赋到父组件的input组件
+                    _self.$parent.$refs.searchInput.searchValue = autoValue;
+                }
             });
         }
     },

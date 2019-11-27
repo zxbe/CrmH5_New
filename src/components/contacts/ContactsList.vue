@@ -709,9 +709,22 @@ export default {
         callBack();
       }
     },
-    //点击头部输入框中的XX
+    //点击头部输入框中的X按钮
     clearSearchValue(){
-        console.log('清除');
+        let _self = this;
+        var autoVal = "";
+        //1>清除input控件的值
+        _self.$refs.searchInput.searchValue = autoVal;
+        //2>清除searchModule的input组件的值
+        _self.$refs.searchModule.$refs.searchInput.searchValue = autoVal;
+        //3>清除searchModule的inputValue
+        _self.$refs.searchModule.inputValue = autoVal;
+        //4>清除searchModule的模糊查询结果
+        _self.$refs.searchModule.resultData = [];
+        //5>触发searchModule的查询动作
+        _self.$nextTick(function(){
+            _self.$refs.searchModule.excuteSeach(autoVal);
+        });
     }
   },
   beforeRouteLeave: function (to, from, next) {

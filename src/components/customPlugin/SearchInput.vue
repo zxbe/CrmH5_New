@@ -77,10 +77,12 @@ export default {
       if(code != "13"){
         return false;
       }
+      //del by Dylan 20191127 允许空值回车情况
       //若为空值，则pass
-      if (tool.isNullOrEmptyObject(_self.searchValue.trim())) {
-          return false;
-      }
+      // if (tool.isNullOrEmptyObject(_self.searchValue.trim())) {
+      //     return false;
+      // }
+      //end del
       if (!tool.isNullOrEmptyObject(_self.$parent.excuteSeach)) {
         _self.$parent.excuteSeach(_self.searchValue.trim());
       }
