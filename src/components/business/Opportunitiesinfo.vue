@@ -694,7 +694,7 @@ export default {
             $(this).parents(".DetailRow").removeClass("DeepColor");
         });
         $(".textareaP:not(.wrap) textarea").focus(function () {
-            $(this).parents(".DetailRow").addClass("DeepColor");
+            $(this).parents(".DetailRow").addClass("DeepColor").siblings().removeClass("DeepColor");
         });
         _self.seeMore = lanTool.lanContent("900_查看详细");
         var fromType = "Opportunitiesinfo";
