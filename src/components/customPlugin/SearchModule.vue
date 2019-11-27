@@ -15,9 +15,9 @@
             <i class="calcfont calc-shanchu delete-icon f18" @click="deleteAllHistoricalSearchRecord"></i>
         </div>
         <div class="panel-con" v-if="historyData.length > 0">
-               <div v-for="(item,index) in historyData" :key=index class="history-item left" @click="searchByHistotyItem(item)">
+               <div v-for="(item,index) in historyData" :key=index class="history-item left" @click="searchByHistotyItem(item)" @touchstart="gotouchstart($event)" @touchmove="gotouchmove" @touchend="gotouchend">
                   <span>{{item}}</span>
-                  <i class="calcfont calc-guanbi1 item-delete-icon" @click="deleteOneHistory(item)"></i>
+                  <i class="calcfont calc-guanbi1 item-delete-icon" @click.stop="deleteOneHistory(item)"></i>
                </div>
         </div>
     </div>
@@ -72,7 +72,8 @@ export default {
         //查询结果
         resultData:[
             //{AutoID:15, Name:'test'}
-        ]
+        ],
+        timeOutEvent:0, //定时器
     }
   },
   computed:{
@@ -100,11 +101,13 @@ export default {
         let _self = this;
         console.log("localStorageKeyName:"+_self.localStorageKeyName);
         let dataString = tool.getStorageItem(_self.localStorageKeyName);
+        console.log(dataString);
         if(tool.isNullOrEmptyObject(dataString)){
          _self.historyData = [];
         }else{
             _self.historyData = tool.jObject(dataString);
         }
+        console.log(_self.historyData);
     },
     //删除所有历史记录
     deleteAllHistoricalSearchRecord(){
@@ -121,6 +124,7 @@ export default {
     },
     //删除指定的历史记录
     deleteOneHistory(data){
+        let _self = this;
         if(tool.isNullOrEmptyObject(data)){
             return false;
         }
@@ -329,7 +333,37 @@ export default {
         _self.inputValue = "";
         //3>清除模糊查询结果
         _self.resultData = [];
-    }
+    },
+
+    //处理长按删除
+    gotouchstart(e){
+      let _self = this;
+      clearTimeout(_self.timeOutEvent);//清除定时器
+      _self.timeOutEvent = setTimeout(function(){
+            //执行长按要执行的内容
+            let target = $(e.target);
+            if (!target.hasClass('history-item')) {
+                target = target.parents("div.history-item:first");
+                if (tool.isNullOrEmptyObject(target)) {
+                    return;
+                }
+            }
+            target.siblings('.history-item').find('i.item-delete-icon').hide(100);
+            target.find('i.item-delete-icon').show(100);
+
+        },600);
+    },
+    //手释放，如果在600毫秒内就释放，则取消长按事件
+    gotouchend(){
+        let _self = this;
+        clearTimeout(_self.timeOutEvent);
+    },
+    //如果手指有移动，则取消所有事件，此时说明用户只是要移动而不是长按
+    gotouchmove(){
+        let _self = this;
+        clearTimeout(_self.timeOutEvent);//清除定时器
+        _self.timeOutEvent = 0;
+    },
   }
 }
 </script>
