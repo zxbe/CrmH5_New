@@ -53,14 +53,14 @@ const router =  new Router({
     { path: '/notification',name:'notification', component:Notification },
     { path: '/searchmodule/:paramStr',name:'searchmodule',component: Searchmodule},
 
-    { path: '/meetinglist',name:'meetinglist', component: Meetinglist},
+    // { path: '/meetinglist',name:'meetinglist', component: Meetinglist},
     { path: '/meetinglistforrelation',name:'meetinglistforrelation', component: MeetingListForRelation},
     { path: '/businesslist',name:'businesslist', component: Businesslist},
 
 
     //会议&出差
-    { path: '/tripmeeting',
-      name:'tripmeeting',
+    { path: '/meetinglist',
+      name:'meetinglist',
       component: (resolve) => require(['@/components/tripmeeting/MeetingList'], resolve)
     },
     { path: '/meetinginfo/:id',
