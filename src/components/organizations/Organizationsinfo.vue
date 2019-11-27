@@ -42,7 +42,7 @@
                     <div class="DetailRowUp">
                          <p class="textareaP wrap">
                             <textarea readonly="readonly" class="lanInputPlaceHolder" data-field="CountryID" data-fieldControlType="selectList" data-lanid="1000526_请选择" data-fieldVal="" Code="DropDowList_ViewBaseCountryInf" data-selectType="radio"></textarea>
-                        </p>        
+                        </p>
                         <div class="LeftIconBlock"><span class="LeftIcon calcfont calc-you"></span></div>
                     </div>
                 </div>
@@ -358,7 +358,7 @@ export default {
                     UserName: tool.UserName(),
                     CompanyID: _self.id
                 };
-               
+
                 $.ajax({
                     async: true,
                     type: "POST",
@@ -490,7 +490,7 @@ export default {
             var id = _self.$route.params.id;
             var fromType = "Organizationsinfo";
             tool.SaveOrUpdateData(fromType, id, _self, function () {
-                _self.$store.commit('REMOVE_ITEM', 'contacts');
+                _self.$store.commit('REMOVE_ITEM', 'organizationslist');
                 _self.$store.commit('REMOVE_ITEM', 'organizationsinfo');
                 _self.$router.back(-1);
             });
@@ -501,7 +501,7 @@ export default {
             var id = _self.$route.params.id;
             var fromType = "Organizationsinfo";
             tool.DeleteData(fromType, id, _self, function () {
-                _self.$store.commit('REMOVE_ITEM', 'contacts');
+                _self.$store.commit('REMOVE_ITEM', 'organizationslist');
             });
         },
 

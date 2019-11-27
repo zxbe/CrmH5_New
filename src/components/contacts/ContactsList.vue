@@ -15,9 +15,7 @@
         <vue-scroll v-show="!noData" :showToTop="false" :options="{ pullup: true, pulldown: true }" :scrollbar="false" ref="scroll" @pulldown="pulldown" @pullup="pullup">
 
               <div v-if="listData.length > 0" class="contacts-list data-list">
-                    <div v-for="item in listData" :key="item.AutoID"
-                      :data-url="'/contactsinfo/' + item.AutoID"
-                      class="group-item data-events-item f14">
+                    <div v-for="item in listData" :key="item.AutoID" @click="goInfo(item)" class="group-item data-events-item f14">
                           <div class="item-user-icon"><img src="../../assets/images/default_user_img.png" alt=""></div>
                           <div class="item-block contacts-item-block">
                                   <div class="item-div item-first-div"><span>{{item.EnglishName}}</span></div>
@@ -68,9 +66,7 @@
                               <div class="occupy-div"></div>
 
                               <div v-if="companys.items.length > 0" class="contact_list data-list">
-                                    <div v-for="company in companys.items" :key="company.AutoID"
-                                      :data-url="'/contactsinfo/' + company.AutoID"
-                                      class="group-item data-events-item f14">
+                                    <div v-for="company in companys.items" :key="company.AutoID" @click="goInfo(item)" class="group-item data-events-item f14">
                                           <div class="item-user-icon"><img src="../../assets/images/default_user_img.png" alt=""></div>
                                           <div class="item-block contacts-item-block">
                                                   <div class="item-div item-first-div"><span>{{company.EnglishName}}</span></div>
@@ -597,6 +593,21 @@ export default {
                     });
                 }
           });
+    },
+    //点击跳转到详情页
+    goInfo(data){
+      let _self = this;
+      if(tool.isNullOrEmptyObject(data) || tool.isNullOrEmptyObject(data.AutoID)){
+          return;
+      }
+      var parameter = {
+          // showPage: _self.showPage,
+          infoName:data.ShortName
+      };
+      _self.$router.push({
+          path: '/contactsinfo/' + data.AutoID,
+          query: parameter
+      });
     },
     //获取二级分组的内部列表
     getsubList:function(firstGroupID, subGroupID, callBack){
