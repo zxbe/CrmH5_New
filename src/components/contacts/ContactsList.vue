@@ -530,7 +530,7 @@ export default {
                                 .slideDown(500);
 
                               //联系人二级展开收起
-                              if(!tool.isNullOrEmptyObject(_self.subGroupToggle)){
+                              if(!tool.isNullOrEmptyObject(_self.subGroupToggle)&& typeof(_self.subGroupToggle) == "function"){
                                 _self.subGroupToggle();
                               }
                         })
@@ -540,6 +540,7 @@ export default {
         );
     },
     //联系人展开收起
+    //二级展开收起
     subGroupToggle:function(){
         let _self = this;
         $('#contactsList').off('click','.company_item_tit').on(

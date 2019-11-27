@@ -385,7 +385,6 @@ export default {
     //查询委托
     delegateQuery:function(){
       let _self = this;
-      console.log(_self.queryObj);
       _self.$nextTick(function(){
         //执行查询
         if(tool.isNullOrEmptyObject(_self.queryObj.groupByMode) || tool.isNullOrEmptyObject(_self.queryObj.viewMode)){
@@ -400,7 +399,10 @@ export default {
               _self.queryList('pushRefresh', function () {
               });
           }else{
-            //查询分组数据
+            //1>先清空分组的模型数据(防止两种分组数据出现渲染上的问题)
+            _self.groupData = [];
+		        _self.noData = false;
+            //2>查询分组数据
             _self.queryGroup();
           }
         }else{
@@ -476,7 +478,7 @@ export default {
             success: function (data) {
                 tool.hideLoading(loadingIndexClassName);
                 data = tool.jObject(data);
-                console.log(data);
+                // console.log(data);
 
                 if (data._ReturnStatus == false) {
                     tool.showText(tool.getMessage(data));
@@ -542,7 +544,7 @@ export default {
     queryGroup:function(callback){
       let _self = this;
       var urlTemp = tool.AjaxBaseUrl();
-      var controlName = tool.Api_OrganizationsHandle_Group;
+      var controlName = tool.Api_MeetingHandle_Group;
 
       var jsonDatasTemp = {
           CurrentLanguageVersion: lanTool.currentLanguageVersion,
@@ -562,7 +564,7 @@ export default {
           success: function (data) {
               tool.hideLoading(loadingIndexClassName);
               data = tool.jObject(data);
-              console.log(data);
+              // console.log(data);
 
               if (data._ReturnStatus == false) {
                   tool.showText(tool.getMessage(data));
@@ -604,7 +606,6 @@ export default {
           return;
       }
       var parameter = {
-          // showPage: _self.showPage,
           infoName:data.MeetingTitle
       };
       _self.$router.push({
@@ -662,34 +663,28 @@ export default {
                         });
                 } else {
                     //若是收起
-                    var allQueryData = tool.combineArray(_self.queryCondictionData, _self.queryCondiction, "Field");
+                    let groupBy = _self.queryObj.groupByMode ||"";
+                    let queryCondictionArr = _self.constructQueryCondiction() || [];
 
-                    //BusinessCategories模块需要用到
-                    if(allQueryData && !tool.isNullOrEmptyObject(_self.dateRangeJObject)){
-                        allQueryData.push(_self.dateRangeJObject);
-                    }
-
-                    let groupBy = _self.groupBy == undefined ? '' : _self.groupBy;
-
-                    tool.InitInnerDataList(_self, fromType, groupID, allQueryData, function(){
+                    tool.InitInnerDataList(_self, fromType, groupID, queryCondictionArr, function(){
                         _self.$nextTick(function () {
                             target.addClass("open")
                                 .siblings(".group-item-list")
                                 .slideDown(500);
 
                             //分组模式会议 二级展开收起
-                            if(!tool.isNullOrEmptyObject(_self.meetingToggle)){
-                              _self.meetingToggle();
+                            if(!tool.isNullOrEmptyObject(_self.subGroupToggle) && typeof(_self.subGroupToggle) == "function"){
+                              _self.subGroupToggle();
                             }
                         })
-                    }, '', groupBy, _self.showPage);
+                    }, '', groupBy, _self.pageType);
                 }
             }
         );
-
     },
-    //分组模式会议 二级展开收起
-    meetingToggle:function(){
+    //分组模式会议
+    //二级展开收起
+    subGroupToggle:function(){
         let _self = this;
         $('#meetingListOfGroup').off('click','.company_item_tit').on(
           'click',
@@ -707,8 +702,8 @@ export default {
                               .siblings('div.date-div')
                               .find("span[data-groupid]:first")
                               .attr("data-groupid") || "";
-              var companyID = target.find("div[data-groupid]:first").attr("data-groupid") || "";
-              if (tool.isNullOrEmptyObject(categoryID) || tool.isNullOrEmptyObject(companyID)) {
+              var subGroupID = target.find("div[data-groupid]:first").attr("data-groupid") || "";
+              if (tool.isNullOrEmptyObject(categoryID) || tool.isNullOrEmptyObject(subGroupID)) {
                     return;
               }
               //若是展开
@@ -721,7 +716,8 @@ export default {
                           $.each(_self.groupData, function (index, item) {
                               if (item.GroupID == categoryID) {
                                   $.each(item.items, function(i, companyData){
-                                      if(companyData.AutoID == companyID){
+                                    //清空当前二级分组内部的列表数据
+                                      if(companyData.AutoID == subGroupID){
                                           companyData.items = [];
                                       }
                                   })
@@ -730,7 +726,7 @@ export default {
                       });
               }else{
                   //若是收起
-                  _self.getMeetings(categoryID, companyID, function(){
+                  _self.getsubList(categoryID, subGroupID, function(){
                       _self.$nextTick(function () {
                           target.addClass("open")
                               .siblings(".meeting-list")
@@ -738,9 +734,88 @@ export default {
                       })
                   });
               }
+          });
+    },
+    //根据日期获取会议
+    //获取二级分组的内部列表
+    getsubList:function(firstGroupID, subGroupID, callBack){
+        let _self = this;
+        if(tool.isNullOrEmptyObject(firstGroupID)||tool.isNullOrEmptyObject(subGroupID)){
+          return;
+        }
+          //请求地址
+        var urlTemp = tool.AjaxBaseUrl();
+        var controlName = tool.Api_MeetingHandle_GroupInnerData;
+        //传入参数
+        var jsonDatasTemp = {
+            // CurrentLanguageVersion: lanTool.currentLanguageVersion,
+            // UserName: tool.UserName(),
+            // _ControlName: controlName,
+            // _RegisterCode: tool.RegisterCode(),
+            // QueryCondiction: JSON.stringify(_self.constructQueryCondiction() || []),
+            // GroupBy:_self.queryObj.groupByMode||"",
+            // PageType:_self.pageType,
+            // TeamID:firstGroupID,
+            // GroupID: subGroupID
 
+            CurrentLanguageVersion: lanTool.currentLanguageVersion,
+            UserName: tool.UserName(),
+            _ControlName: controlName,
+            _RegisterCode: tool.RegisterCode(),
+            QueryCondiction: JSON.stringify(_self.constructQueryCondiction() || []),
+            PageType: "1",//后端写死了，所以直接写成1
+            TeamID:firstGroupID,
+            GroupID: subGroupID,
+            GroupBy:"Date"//后端写死了，所以直接写成Date
+        };
+        var loadingIndexClassName = tool.showLoading();
+        $.ajax({
+            async: true,
+            type: "post",
+            url: urlTemp,
+            data: jsonDatasTemp,
+            success: function (data) {
+                tool.hideLoading(loadingIndexClassName);
+                data = tool.jObject(data);
+                if (data._ReturnStatus == false) {
+                    tool.showText(tool.getMessage(data));
+                    console.log(tool.getMessage(data));
+                    _self.noData = true;
+                    return;
+                }
+                data = data._OnlyOneData.Rows || [];
 
-          })
+                //无数据
+                if (data.length <= 0) {
+                    return;
+                }
+
+                //找到对应的二级分组，往二级分组内塞列表数据
+                $.each(_self.groupData, function (index, item) {
+                    if (item.GroupID == firstGroupID) {
+                        $.each(item.items, function(i, subItem){
+                            if(subItem.GroupID == subGroupID){
+                                subItem.items = data;
+                            }
+                        })
+                    }
+                });
+
+                if (!tool.isNullOrEmptyObject(callBack) && typeof(callBack) == "function") {
+                    callBack();
+                }
+            },
+            error: function (jqXHR, type, error) {
+                console.log(error);
+                tool.hideLoading(loadingIndexClassName);
+                return;
+            },
+            complete: function () {
+                //隐藏虚拟键盘
+                document.activeElement.blur();
+            }
+        });
+
     },
     //处理右侧字段联动
     rightPanelLinkageField(vueObj){
