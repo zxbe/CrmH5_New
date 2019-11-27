@@ -1,10 +1,8 @@
 <template>
 <div class="page">
-  <header class="header sticky">
+  <header class="header sticky" id="searchHeader">
       <a @click="back" class="calcfont calc-fanhui back-icon" id="back"></a>
-      <!-- <div class="search" @click="showSearch"> -->
-          <search-input class="search" :placeholder=lanSearchModuleInputPlaceHolder ref="searchInput"></search-input>
-      <!-- </div> -->
+      <search-input class="search" :placeholder=lanSearchModuleInputPlaceHolder ref="searchInput"></search-input>
       <i class="seize-a-seat"></i>
   </header>
 
@@ -34,13 +32,13 @@
             </div>
             <div class="row-div">
                 <div class="column-div">
-                    <div class="module-item" data-id="9"  @click="switchModule($event)">
+                    <div class="module-item" data-id="9" businessType="30" @click="switchModule($event)">
                         <i class="calcfont calc-yewujihui" ></i>
                         <div class="f14 lanText" data-lanid="644_商业机会"></div>
                     </div>
                 </div>
                 <div class="column-div">
-                    <div class="module-item" data-id="9"  @click="switchModule($event)">
+                    <div class="module-item" data-id="9" businessType="29" @click="switchModule($event)">
                         <i class="calcfont calc-jiaoyi-shijian"></i>
                         <div class="f14 lanText" data-lanid="817_交易"></div>
                     </div>
@@ -53,13 +51,13 @@
         <div class="history-div">
             <div class="history-title">
                 <div class="text lanText f16" data-lanid="1000531_历史搜索"></div>
-                <div class="text-btn lanText f14" data-lanid="1000535_清除"></div>
+                <div class="text-btn lanText f14" data-lanid="1000535_清除" @click="deleteAllHistoricalSearchRecord"></div>
             </div>
             <div class="history-content">
-                <div class="history-item" v-for="(item,index) in historyData" :key="index" :data-id="item.AutoID" >
+                <div class="history-item" v-for="(item,index) in historyData" :key="index" @click="searchByHistotyItem(item)" >
                     <i class="calcfont calc-shijian l-icon f18"></i>
                     <div class="item-text f14">{{item}}</div>
-                    <i class="calcfont calc-guanbi1 delete-icon f18"></i>
+                    <i class="calcfont calc-guanbi1 f18" @click.stop="deleteOneHistory(item)"></i>
                 </div>
             </div>
         </div>
@@ -89,13 +87,19 @@ export default {
   data(){
     return{
         //联系人:6;公司:7;会议:8;商机&交易:9; 用户管理：11；
-        historyData:['AlanAlanAlanAla','kity'],
+        searchModuleFromType:'',
+        businessType:'', //商机：30；交易：29，其他模块不用
+
         inputValue:'', //搜索框中的值
         lanSearchModuleInputPlaceHolder:lanTool.lanContent("1000202_会议名称"),
         //查询结果
         resultData:[
             {AutoID:15, Name:'test'}
         ],
+        localStorageKeyName:'',  //存储historyData的key值
+        historyData:[],//历史查询记录
+        maxHistoricalCount:10,//允许的最大的历史查询记录数
+        isGetDropListByAutoValDone:false,//模糊查询下拉框值的动作是否执行完毕
     }
   },
   computed:{
@@ -104,6 +108,10 @@ export default {
         let _self = this;
         return tool.isNullOrEmptyObject(_self.inputValue) ? true : false;
       }
+  },
+  created(){
+      let _self = this;
+      _self.$store.commit('SET_ITEM', 'homesearch');
   },
   mounted(){
       lanTool.updateLanVersion();
@@ -125,21 +133,118 @@ export default {
             }
         }
 
+        _self.searchModuleFromType = target.attr('data-id') || '';
+        if(tool.isNullOrEmptyObject(_self.searchModuleFromType)){ return false;}
+        if(_self.searchModuleFromType == 9){
+            _self.businessType = target.attr('businessType') || '';
+            if(tool.isNullOrEmptyObject(_self.businessType)){ return false;}
+        }
+        //->1.组装存储historyData的key值
+        _self.localStorageKeyName = "HistorySearchRecords_" + _self.searchModuleFromType + (tool.isNullOrEmptyObject(_self.businessType)? "" :"_" + _self.businessType);
+
+        //->2.获取搜索历史记录
+        _self.getHistoricalSearchRecord();
+
+        //->切换页面高亮模块
         $('.module-item').removeClass('active');
         if(!target.hasClass('active')){
            target.addClass('active');
         }
 
+    },
+    //获取搜索历史记录
+    getHistoricalSearchRecord(){
+        let _self = this;
+        let dataString = tool.getStorageItem(_self.localStorageKeyName);
+        if(tool.isNullOrEmptyObject(dataString)){
+         _self.historyData = [];
+        }else{
+            _self.historyData = tool.jObject(dataString);
+        }
+    },
+    //删除所有历史记录
+    deleteAllHistoricalSearchRecord(){
+        let _self = this;
+        tool.showConfirm(
+            lanTool.lanContent("1000532_您确定要删除整个历史搜索记录吗？"),
+            function () {
+               //删除所有历史查询记录
+               _self.historyData = [];
+               tool.setStoragItem(_self.localStorageKeyName, _self.historyData);
+            },
+            function () {}
+        );
+    },
+    //删除指定的历史记录
+    deleteOneHistory(data){
+        let _self = this;
+        if(tool.isNullOrEmptyObject(data)){
+            return false;
+        }
 
+        if(tool.isNullOrEmptyObject(_self.historyData)){
+            _self.historyData = [];
+        }else{
+            _self.historyData.remove(data);
+        }
+
+        //设置缓存历史查询记录
+        tool.setStoragItem(_self.localStorageKeyName,_self.historyData);
+    },
+    //搜索事件(在input组件点击键盘上的搜索/回车键)
+    excuteSeach(autoValue){
+        let _self = this;
+        autoValue = (autoValue||"").trim();
+
+        console.log(autoValue);
+        /*
+        //1>调用列表父组件方法搜索
+        if(_self.$parent.refreshListBySearchValue != null && _self.$parent.refreshListBySearchValue != undefined){
+            _self.$parent.refreshListBySearchValue(autoValue,function(){
+                //2>查询成功后，把查询值存到缓存
+                if(tool.isNullOrEmptyObject(autoValue)){
+                    //3>把查询值，赋到父组件的input组件
+                    _self.$parent.$refs.searchInput.searchValue = autoValue;
+                }else{
+                    var dataArr = tool.jObject((tool.getStorageItem(_self.localStorageKeyName) || "[]"));
+                    //若历史记录中已经存在查询值，则移除
+                    dataArr.remove(autoValue);
+                    //加入历史记录
+                    dataArr.unshift(autoValue);
+                    //若历史记录数超过最大允许数，移除超过的记录
+                    if(dataArr.length>_self.maxHistoricalCount){
+                        dataArr.splice(_self.maxHistoricalCount-1,dataArr.length-_self.maxHistoricalCount);
+                    }
+
+                    //数据写入缓存
+                    tool.setStoragItem(_self.localStorageKeyName, JSON.stringify(dataArr));
+                    //3>把查询值，赋到父组件的input组件
+                    _self.$parent.$refs.searchInput.searchValue = autoValue;
+                }
+            });
+        }
+        */
     },
 
+    //点击历史查询记录，查询匹配数据
+    searchByHistotyItem:function(data){
+        let _self = this;
+
+        if(tool.isNullOrEmptyObject(data)){
+            return false;
+        }
+        //1>设置input组件的值
+        _self.$refs.searchInput.searchValue = data;
+        //2>执行模糊查询，查询匹配的前N条记录
+        _self.$refs.searchInput.inputChange();
+    },
     //搜索框内容改变事件,显示匹配模糊查询值的下拉数据结果(子组件调用)
     getDropListByAutoVal(autoValue,callback){
         let _self = this;
         autoValue = autoValue.trim();
         //1>记录当前输入值
         _self.inputValue = autoValue;
-        /*
+
         //若模糊查询值为空，则不执行查询动作
         if(tool.isNullOrEmptyObject(autoValue)){
             //若查询值为空，则清空查询结果
@@ -210,7 +315,51 @@ export default {
                 document.activeElement.blur();
             }
         });
-        */
+
+    },
+    //点击模糊查询结果,跳到详情页
+    goInfoPage(data){
+        let _self = this;
+        if(tool.isNullOrEmptyObject(data)){
+          return false;
+        }
+        var autoIDTemp = data.AutoID || "";
+        if(tool.isNullOrEmptyObject(autoIDTemp)){
+            return false;
+        }
+
+        var infoNameTemp = data.Name || "";
+        var parameter = {
+            infoName:infoNameTemp
+        };//传入参数
+        var infoUrl = "";//详情页地址
+        //联系人:6;公司:7;会议:8;商机&交易:9; 用户管理：11;
+        switch(_self.searchModuleFromType){
+            case "6":
+                infoUrl = "/contactsinfo/";
+                break;
+
+            case "7":
+                infoUrl = "/organizationsinfo/";
+                break;
+
+            case "8":
+                infoUrl = "/meetinginfo/";
+                break;
+
+            case "9":
+                infoUrl = "/opportunitiesinfo/";
+                break;
+
+            default:
+                return false;
+        }
+
+        //根据不同模块，跳到具体的详情页
+        _self.$router.push({
+            path: infoUrl + data.AutoID,
+            query: parameter
+        });
     },
     //清除搜索框的值
     clearSearchValue(){
@@ -221,6 +370,12 @@ export default {
         // _self.resultData = [];
     },
 
+  },
+  beforeRouteLeave: function (to, from, next) {
+      if (to.name == 'index') {
+          this.$store.commit('REMOVE_ITEM', 'meetinglist');
+      }
+      next();
   }
 
 }
@@ -253,8 +408,6 @@ export default {
 .history-title{display: flex;align-items: center;padding:0.3rem 0;}
 .history-title .text{flex:1;}
 .history-title .text-btn{color: #989898;}
-
-/* .history-item{display: flex;align-items: center;} */
 .history-item{display: flex;align-items:center;border-bottom: 1px solid #f4f4f4;}
 .history-item .l-icon{color: #cccccc;margin-right: 3px;}
 .history-item .item-text{flex:1;padding:13px 0;max-width: 90%;overflow: hidden;text-overflow:ellipsis;

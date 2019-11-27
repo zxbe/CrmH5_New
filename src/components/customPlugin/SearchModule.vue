@@ -11,7 +11,7 @@
     <div v-show="showHistoricalSearchRecord" class="history-panel">
         <div class="panel-title">
             <div class="title-text f16">{{lanHistoricalSearch}}</div>
-            <i class="calcfont calc-shanchu delete-icon f18" @click="deleteAllHistoricalSearchRecord"></i>
+            <div class="text-btn lanText f14" data-lanid="1000535_清除" @click="deleteAllHistoricalSearchRecord"></div>
         </div>
         <div class="panel-con" v-if="historyData.length > 0">
                <div class="history-item" v-for="(item,index) in historyData" :key="index" @click="searchByHistotyItem(item)">
@@ -91,6 +91,7 @@ export default {
   created:function(){
   },
   mounted:function(){
+      lanTool.updateLanVersion();
   },
   methods:{
     //取消搜索事件
@@ -338,9 +339,10 @@ export default {
 
 /* 搜索历史面板 */
 .history-panel{ min-height: calc(100vh - 0.88rem); padding:0 15px;}
-.panel-title{display: flex;align-items: center;margin-top: 10px;}
+.panel-title{display: flex;align-items: center;padding:0.3rem 0;}
 .title-text{flex:1;}
-.delete-icon{color:#353535;padding:5px;margin-left: 10px;}
+.text-btn{color:#989898;}
+.delete-icon{margin-left: 10px;}
 .panel-con{}
 .history-item{display: flex;align-items:center;border-bottom: 1px solid #f4f4f4;}
 .history-item .l-icon{color: #cccccc;margin-right: 3px;}
