@@ -103,7 +103,9 @@ export default {
         if(tool.isNullOrEmptyObject(dataString)){
          _self.historyData = [];
         }else{
+            console.log("dataString:"+dataString);
             _self.historyData = tool.jObject(dataString);
+            console.log(_self.historyData);
         }
     },
     //删除所有历史记录

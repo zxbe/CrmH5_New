@@ -5,12 +5,12 @@
           <header class="header sticky">
               <a @click="back" class="calcfont calc-fanhui back-icon" id="back"></a>
               <div class="search" @click="showSearch">
-                  <search-input :enableInput="false" placeholder="搜索会议" :searchValue="searchValue"></search-input>
+                  <search-input :enableInput="false" :isShowClearIcon="true" :placeholder=lanSearchModuleInputPlaceHolder ref="searchInput"></search-input>
               </div>
               <a class="calcfont calc-tianjia add-icon" @click="addMeeting" ></a>
           </header>
 
-          <sort :sortData="sortData" :sortObj="sortObj"></sort>
+          <sort :sortData="sortData" :sortObj="sortObj" ref="sort"></sort>
 
           <!-- 列表视图 -->
           <div v-show="queryObj.viewMode == 'listView'">
@@ -130,7 +130,7 @@
           </div>
 
           <!-- 侧滑筛选 -->
-          <screen :screenData="RightPanelModel" :queryObj="queryObj"></screen>
+          <screen :screenData="RightPanelModel" :queryObj="queryObj" ref="screen"></screen>
     </div>
 
     <!-- 页面处于搜索状态 -->
@@ -161,38 +161,43 @@ export default {
   },
   data(){
     return{
-        pageState: 1, //页面显示状态：1为显示列表；2为显示搜索
-        searchValue:'', //搜索框的值
         //排序模型
         sortData:[{
-            sortName:"ShortName",
+            sortName:"MeetingTitle",
+            sortText:lanTool.lanContent("1000533_按会议名称按正序排序"),
+            sortOrder:'asc',
+            sort:10,
+            isActive:true
+          },
+          {
+            sortName:"MeetingTitle",
+            sortText:lanTool.lanContent("1000534_按会议名称倒序排序"),
+            sortOrder:'desc',
+            sort:20
+          },
+          {
+            sortName:"CompanyID",
             sortText:lanTool.lanContent("1000518_按公司名称按正序排序"),
-            sortOrder:'asc'
+            sortOrder:'asc',
+            sort:30
           },
           {
-            sortName:"ShortName",
+            sortName:"CompanyID",
             sortText:lanTool.lanContent("1000519_按公司名称倒序排序"),
-            sortOrder:'desc'
+            sortOrder:'desc',
+            sort:40
           },
           {
-            sortName:"BusinessType",
-            sortText:lanTool.lanContent("1000520_按业务分类正序排序"),
-            sortOrder:'asc'
+            sortName:"ContactsID",
+            sortText:lanTool.lanContent("1000528_按联系人名称正序排序"),
+            sortOrder:'asc',
+            sort:50
           },
           {
-            sortName:"BusinessType",
-            sortText:lanTool.lanContent("1000521_按业务分类倒序排序"),
-            sortOrder:'desc'
-          },
-          {
-            sortName:"CountryName",
-            sortText:lanTool.lanContent("1000522_按国家正序排序"),
-            sortOrder:'asc'
-          },
-          {
-            sortName:"CountryName",
-            sortText:lanTool.lanContent("1000523_按国家倒序排序"),
-            sortOrder:'desc'
+            sortName:"ContactsID",
+            sortText:lanTool.lanContent("1000529_按联系人名称倒序排序"),
+            sortOrder:'desc',
+            sort:60
         }],
         //右侧侧滑数据模型
         RightPanelModel:{
@@ -207,8 +212,7 @@ export default {
                     },{
                       id:"calendarView",
                       text:lanTool.lanContent("928_日历视图"),
-                      sort:20,
-                      //isActive:true
+                      sort:20
                     }
                 ]
             },
@@ -223,13 +227,11 @@ export default {
                     },{
                       id:"myData",
                       text:lanTool.lanContent("930_我的日程"),
-                      sort:20,
-                      //isActive:true
+                      sort:20
                     },{
                       id:"otherData",
                       text:lanTool.lanContent("942_其他同事的日程"),
-                      sort:20,
-                      //isActive:true
+                      sort:30
                     }
                 ]
             },
@@ -244,8 +246,7 @@ export default {
                     },{
                       id:"Date",
                       text:lanTool.lanContent("907_日期"),
-                      sort:20,
-                      // isActive:true
+                      sort:20
                     },{
                       id:"PopedomTeamInf",
                       text:lanTool.lanContent("769_业务组"),
@@ -307,6 +308,7 @@ export default {
                 iconClass:'calc-kehulianxiren'
               }]
         },
+        pageState: 1, //页面显示状态：1为显示列表；2为显示搜索
         noData: false, //没数据
         pageSize: tool.PageSize, //一页显示多少记录
         pageNum: 1, //当前页码
@@ -320,8 +322,9 @@ export default {
           groupByMode:"",//分组模式,
           viewMode:"",//视图模式
           queryCondictionArr:[],//自定义查询条件
+          autoValue:""//模糊查询值
         },
-        pageType:0,
+        pageType:0,//meeting
         //列表数据(分组模式为List)
         listData:[{
             "AutoID": 996,
@@ -332,24 +335,6 @@ export default {
             "ContactsID": "豆海东",
             "Title": "副总经理",
             "Realname": "Qing Fang"
-          }, {
-            "AutoID": 964,
-            "MeetingTitle": "工作进度报告",
-            "BeginTime": "2019-11-20T16:00:00",
-            "EndTime": "2019-11-20T17:30:00",
-            "CompanyID": "中国飞机租赁集团(spv)",
-            "ContactsID": "阮毅文",
-            "Title": "前端开发工程师",
-            "Realname": "Alan Cheng"
-          }, {
-            "AutoID": 962,
-            "MeetingTitle": "Norwegian/Joy Air delivery",
-            "BeginTime": "2019-11-20T20:47:00",
-            "EndTime": "2019-11-20T20:47:00",
-            "CompanyID": "Norwegian",
-            "ContactsID": "Arvid Jensen",
-            "Title": "Aircraft Transition Coordinator",
-            "Realname": "Richard Luo"
           }],
         //分组数据(分组模式为非List)
         groupData:[{
@@ -360,127 +345,9 @@ export default {
               "GroupName": "2019-12-05",
               "GroupID": "2019-12-05",
               "GroupRowCount": 1
-            }, {
-              "GroupName": "2019-12-04",
-              "GroupID": "2019-12-04",
-              "GroupRowCount": 1
-            }, {
-              "GroupName": "2019-12-03",
-              "GroupID": "2019-12-03",
-              "GroupRowCount": 1
-            }, {
-              "GroupName": "2019-11-25",
-              "GroupID": "2019-11-25",
-              "GroupRowCount": 2
-            }, {
-              "GroupName": "2019-11-22",
-              "GroupID": "2019-11-22",
-              "GroupRowCount": 2
-            }, {
-              "GroupName": "2019-11-21",
-              "GroupID": "2019-11-21",
-              "GroupRowCount": 5
-            }, {
-              "GroupName": "2019-11-20",
-              "GroupID": "2019-11-20",
-              "GroupRowCount": 3
-            }, {
-              "GroupName": "2019-11-19",
-              "GroupID": "2019-11-19",
-              "GroupRowCount": 4
-            }, {
-              "GroupName": "2019-11-18",
-              "GroupID": "2019-11-18",
-              "GroupRowCount": 1
-            }, {
-              "GroupName": "2019-11-16",
-              "GroupID": "2019-11-16",
-              "GroupRowCount": 1
-            }, {
-              "GroupName": "2019-11-15",
-              "GroupID": "2019-11-15",
-              "GroupRowCount": 6
-            }, {
-              "GroupName": "2019-11-14",
-              "GroupID": "2019-11-14",
-              "GroupRowCount": 5
-            }, {
-              "GroupName": "2019-11-13",
-              "GroupID": "2019-11-13",
-              "GroupRowCount": 4
-            }, {
-              "GroupName": "2019-11-12",
-              "GroupID": "2019-11-12",
-              "GroupRowCount": 6
-            }, {
-              "GroupName": "2019-11-11",
-              "GroupID": "2019-11-11",
-              "GroupRowCount": 11
-            }, {
-              "GroupName": "2019-11-08",
-              "GroupID": "2019-11-08",
-              "GroupRowCount": 6
-            }, {
-              "GroupName": "2019-11-07",
-              "GroupID": "2019-11-07",
-              "GroupRowCount": 5
-            }, {
-              "GroupName": "2019-11-06",
-              "GroupID": "2019-11-06",
-              "GroupRowCount": 4
-            }, {
-              "GroupName": "2019-11-05",
-              "GroupID": "2019-11-05",
-              "GroupRowCount": 5
-            }, {
-              "GroupName": "2019-11-04",
-              "GroupID": "2019-11-04",
-              "GroupRowCount": 7
-            }, {
-              "GroupName": "2019-11-03",
-              "GroupID": "2019-11-03",
-              "GroupRowCount": 3
-            }, {
-              "GroupName": "2019-11-01",
-              "GroupID": "2019-11-01",
-              "GroupRowCount": 3
-            }, {
-              "GroupName": "2019-10-31",
-              "GroupID": "2019-10-31",
-              "GroupRowCount": 5
-            }, {
-              "GroupName": "2019-10-30",
-              "GroupID": "2019-10-30",
-              "GroupRowCount": 7
-            }, {
-              "GroupName": "2019-10-29",
-              "GroupID": "2019-10-29",
-              "GroupRowCount": 8
-            }, {
-              "GroupName": "2019-10-28",
-              "GroupID": "2019-10-28",
-              "GroupRowCount": 6
-            }, {
-              "GroupName": "2019-10-27",
-              "GroupID": "2019-10-27",
-              "GroupRowCount": 1
-            }, {
-              "GroupName": "2019-10-26",
-              "GroupID": "2019-10-26",
-              "GroupRowCount": 2
-            }, {
-              "GroupName": "2019-10-25",
-              "GroupID": "2019-10-25",
-              "GroupRowCount": 8
-            }, {
-              "GroupName": "2019-10-24",
-              "GroupID": "2019-10-24",
-              "GroupRowCount": 6
-            }, {
-              "GroupName": "2019-10-23",
-              "GroupID": "2019-10-23",
-              "GroupRowCount": 6
-            }]
+            }],
+        lanSearchModuleInputPlaceHolder:lanTool.lanContent("1000202_会议名称"),
+        searchModuleFromType:"8" //联系人:6;公司:7;会议:8;商机&交易:9; 用户管理：11；
     }
   },
   created: function () {
@@ -508,7 +375,7 @@ export default {
     //查询委托
     delegateQuery:function(){
       let _self = this;
-/*
+      /*
       _self.$nextTick(function(){
 
         //执行查询
@@ -525,7 +392,7 @@ export default {
           _self.queryGroup();
         }
       });
-*/
+      */
     },
     //合并查询条件
     constructQueryCondiction:function(){
@@ -709,49 +576,6 @@ export default {
           }
       });
     },
-
-    //点击头部搜索
-    showSearch(){
-        let _self = this;
-        _self.pageState = 2;
-        //给搜索框获取焦点
-        $('#searchHeader').find('input.search-input').focus();
-        // console.log($('#searchHeader').find('input.search-input'));
-
-
-        //设置搜索输入框值
-        // _self.$set(_self.$refs.searchModule, 'inputValue', _self.searchValue);
-
-        //获取搜索历史数据
-        _self.$refs.searchModule.getHistory();
-    },
-
-    //添加/取消关注
-    followToggle: function (e) {
-        var _curObj = $(e.target);
-        var fromType = "Organizationsinfo";
-        var autoID = _curObj.attr("data-autoid") || "";
-
-        var actionType;
-        if (_curObj.hasClass("calc-shoucang")) {
-            //取消关注
-            actionType = 0;
-        } else {
-            //添加关注
-            actionType = 1;
-        }
-
-        tool.UserFollow(fromType, autoID, actionType, function () {
-            if (_curObj.hasClass("calc-shoucang")) {
-                //取消关注
-                _curObj.removeClass("calc-shoucang").addClass("calc-noshoucang");
-            } else {
-                //添加关注
-                _curObj.removeClass("calc-noshoucang").addClass("calc-shoucang");
-            }
-        });
-    },
-
     //点击跳转到详情页
     goInfo(data){
       let _self = this;
@@ -767,7 +591,6 @@ export default {
           query: parameter
       });
     },
-
     //监听滚动
     watchScroll:function(){
         var _self = this;
@@ -776,7 +599,6 @@ export default {
 
         _self.watchScrollHandle( headerH + navH );
     },
-
     //列表展开收起(一级)
     /*
       * 列表展开收起
@@ -845,7 +667,6 @@ export default {
         );
 
     },
-
     //分组模式会议 二级展开收起
     meetingToggle:function(){
         let _self = this;
@@ -900,22 +721,71 @@ export default {
 
           })
     },
-
-    //接收搜索的值并刷新列表,str有可能为空  (专门处理搜索)
-    refreshListBySearchValue(str){
-        let _self = this;
-        _self.pageState = 1;
-        if( !tool.isNullOrEmptyObject(str)){
-            _self.searchValue = str;
-        }
-        console.log(_self.searchValue);
-    },
-
     //处理右侧字段联动
     rightPanelLinkageField(vueObj){
         tool.linkageField(vueObj, 'CompanyID', 'ContactsID');
+    },
+    //点击头部搜索
+    showSearch(){
+        let _self = this;
+        //1>隐藏排序的下拉
+        _self.$refs.sort.closeDownToggle();
+        //2>构造历史查询记录
+        _self.$refs.searchModule.getHistoricalSearchRecord();
+        //3>若当前组件的input组件有值，则将该值赋予SearchModule的input组件
+        var curAutoVal = _self.$refs.searchInput.searchValue || "";
+        _self.$refs.searchModule.$refs.searchInput.searchValue = curAutoVal;
+        //4>执行模糊查询，查询匹配的前N条记录
+        _self.$refs.searchModule.$refs.searchInput.inputChange();
+        //5>切换到模糊查询页面
+        _self.pageState = 2;
+        //6>获取搜索框焦点
+        _self.$nextTick(function(){
+          var $inputObj = $('#searchHeader').find('input.search-input');
+          if($inputObj.length>=1){
+              //获取焦点并设置光标位置
+              //console.log(($inputObj[0].value||"").length);
+              tool.setCursorPosition($inputObj[0],($inputObj[0].value||"").length);
+          }
+        });
+    },
+    //input查询框,点击搜索/回车键执行的查询
+    //接收搜索的值并刷新列表
+    //str有可能为空(专门处理搜索)
+    refreshListBySearchValue(str,callBack){
+      let _self = this;
+      str = (str ||"").trim();
+      _self.pageState = 1;
+      //1>初始化排序
+      _self.$refs.sort.initDefultSortItem(false);
+      //2>初始化筛选条件
+      _self.$refs.screen.resetEvent(true);
+      //3>设置模糊查询的值
+      _self.queryObj.autoValue = str;
+      //4>执行查询
+      _self.queryList('pushRefresh');
+      //5>执行回调函数(这里不把callback放在queryList执行，是因为queryList里的callBack,只有执行查询成功，并且有数据的情况下，才会执行callBack)
+      if(!tool.isNullOrEmptyObject(callBack) && typeof(callBack) == "function"){
+        callBack();
+      }
+    },
+    //点击头部输入框中的X按钮
+    clearSearchValue(){
+        let _self = this;
+        var autoVal = "";
+        //1>清除input控件的值
+        _self.$refs.searchInput.searchValue = autoVal;
+        //2>清除searchModule的input组件的值
+        _self.$refs.searchModule.$refs.searchInput.searchValue = autoVal;
+        //3>清除searchModule的inputValue
+        _self.$refs.searchModule.inputValue = autoVal;
+        //4>清除searchModule的模糊查询结果
+        _self.$refs.searchModule.resultData = [];
+        //5>触发searchModule的查询动作
+        _self.$nextTick(function(){
+            _self.$refs.searchModule.excuteSeach(autoVal);
+        });
     }
-
   },
   beforeRouteLeave: function (to, from, next) {
       if (to.name == 'index') {

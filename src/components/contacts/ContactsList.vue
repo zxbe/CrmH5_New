@@ -132,7 +132,7 @@ export default {
     return{
         sortData:[{
             sortName:"EnglishName",
-            sortText:lanTool.lanContent("1000528_按联系人名称按正序排序"),
+            sortText:lanTool.lanContent("1000528_按联系人名称正序排序"),
             sortOrder:'asc',
             sort:10,
             isActive:true
