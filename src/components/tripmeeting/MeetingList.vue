@@ -130,12 +130,13 @@
           </div>
 
           <!-- 侧滑筛选 -->
-          <screen :screenData="RightPanelModel" :queryObj="queryObj" ref="screen"></screen>
+          <screen :screenData="RightPanelModel" :queryObj="queryObj" ref="screen"></screen>    
+      
     </div>
 
     <!-- 页面处于搜索状态 -->
     <div v-show="pageState == 2">
-        <search-module module="meeting" ref="searchModule"></search-module>
+        <search-module :searchModuleFromType=searchModuleFromType :lanSearchModuleInputPlaceHolder=lanSearchModuleInputPlaceHolder :queryObj=queryObj ref="searchModule"></search-module>
     </div>
 
 </div>
@@ -257,7 +258,7 @@ export default {
             "FieldModel":[{
                   queryfield: "timeField",
                   text: lanTool.lanContent("1000024_时间范围"),
-                  fieldControlType: "timeRang",
+                  fieldControlType: "dateRange",
                   queryType: "string",
                   queryFormat: "",
                   queryRelation: "and",
@@ -281,13 +282,6 @@ export default {
                         text:lanTool.lanContent("1000008_自定义"),
                       }
                   ]
-
-                  // Code: "DropDowList_ViewBaseCompanyBaseInfHasContact",
-                  // TypeValue: "",
-                  // selectType: "radio",
-                  // datalanid: "1000526_请选择",
-                  // resulteRow: true,
-                  // iconClass:'calc-gongsixinxi'
                 },
                 {
                   queryfield: "CompanyID",
@@ -301,9 +295,7 @@ export default {
                   Code: "DropDowList_ViewBaseCompanyBaseInfHasContact",
                   TypeValue: "",
                   selectType: "radio",
-                  // clickObj: "CountryIDClickObj",
                   datalanid: "1000526_请选择",
-                  resulteRow: true,
                   iconClass:'calc-gongsixinxi'
               },
               {
@@ -340,16 +332,18 @@ export default {
         },
         pageType:0,//meeting
         //列表数据(分组模式为List)
-        listData:[{
-            "AutoID": 996,
-            "MeetingTitle": "Hongtu Airlines A320 Placement",
-            "BeginTime": "2019-11-20T17:27:00",
-            "EndTime": "2019-11-22T17:27:00",
-            "CompanyID": "红土航空有限公司",
-            "ContactsID": "豆海东",
-            "Title": "副总经理",
-            "Realname": "Qing Fang"
-          }],
+        listData:[
+          // {
+          //   "AutoID": 996,
+          //   "MeetingTitle": "Hongtu Airlines A320 Placement",
+          //   "BeginTime": "2019-11-20T17:27:00",
+          //   "EndTime": "2019-11-22T17:27:00",
+          //   "CompanyID": "红土航空有限公司",
+          //   "ContactsID": "豆海东",
+          //   "Title": "副总经理",
+          //   "Realname": "Qing Fang"
+          // }
+          ],
         //分组数据(分组模式为非List)
         groupData:[{
               "GroupName": "2019-12-06",
@@ -361,7 +355,7 @@ export default {
               "GroupRowCount": 1
             }],
         lanSearchModuleInputPlaceHolder:lanTool.lanContent("1000202_会议名称"),
-        searchModuleFromType:"8" //联系人:6;公司:7;会议:8;商机&交易:9; 用户管理：11；
+        searchModuleFromType:"8" //联系人:6;公司:7;会议:8;商机&交易:9;用户管理：11；
     }
   },
   created: function () {
@@ -389,24 +383,30 @@ export default {
     //查询委托
     delegateQuery:function(){
       let _self = this;
-      /*
+      console.log(_self.queryObj);
       _self.$nextTick(function(){
-
         //执行查询
-        if(tool.isNullOrEmptyObject(_self.queryObj.groupByMode)){
+        if(tool.isNullOrEmptyObject(_self.queryObj.groupByMode) || tool.isNullOrEmptyObject(_self.queryObj.viewMode)){
           return;
         }
 
-        if(_self.queryObj.groupByMode.toLowerCase() == "list"){
-          //查询列表
-          _self.queryList('pushRefresh', function () {
-          });
+        //若是列表视图
+        if(_self.queryObj.viewMode.toLowerCase() == "listview"){
+            //若是列表分组模式
+            if(_self.queryObj.groupByMode.toLowerCase() == "list"){
+              //查询列表
+              _self.queryList('pushRefresh', function () {
+              });
+          }else{
+            //查询分组数据
+            _self.queryGroup();
+          }
         }else{
-          //查询分组数据
-          _self.queryGroup();
+          //非列表视图，即日历视图
+          //执行日历视图的相关查询动作
         }
+
       });
-      */
     },
     //合并查询条件
     constructQueryCondiction:function(){
@@ -442,7 +442,7 @@ export default {
         }
         //api接口地址
         var urlTemp = tool.AjaxBaseUrl();
-        var controlName = tool.Api_OrganizationsHandle_GroupInnerData;
+        var controlName = tool.Api_MeetingHandle_GroupInnerData;
 
         var jsonDatasTemp = {
             CurrentLanguageVersion: lanTool.currentLanguageVersion,
@@ -456,7 +456,8 @@ export default {
             SortOrder:_self.sortObj.sortOrder||"",
             QueryCondiction: JSON.stringify(_self.constructQueryCondiction() || []),
             GroupBy:_self.queryObj.groupByMode||"",
-            PageType:_self.pageType
+            PageType:_self.pageType,
+            AutoValue:_self.queryObj.autoValue||""
         };
         //console.log(jsonDatasTemp);
 

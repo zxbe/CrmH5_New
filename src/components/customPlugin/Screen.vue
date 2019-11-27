@@ -96,8 +96,8 @@
                           </div>
                       </div>
 
-                      <!-- 类型为timeRang -->
-                      <div class="type-div" v-if="item.fieldControlType == 'timeRang'"
+                      <!-- 类型为dateRange -->
+                      <div class="type-div" v-if="item.fieldControlType == 'dateRange'"
                         :data-field="item.queryfield"
                         :data-fieldControlType=item.fieldControlType
                         :data-queryType="item.queryType"
@@ -210,7 +210,6 @@ export default {
         GroupByModel:{},
         FieldModel:[],
 
-
         lanReset: lanTool.lanContent("1000527_重置"),
         lanConfirm: lanTool.lanContent("545_确定")
     }
@@ -219,18 +218,15 @@ export default {
       screenData:{
           type: Object,
           default:function(){
-            return {
-
-            }
+            return {}
           }
       },
       queryObj:{
           type: Object,
-          default:function(){
-            return {
-
-            }
-          }
+        //   default:function(){
+        //     return {};
+        //   }
+        default:() => ({})
       },
   },
   computed:{
@@ -333,6 +329,7 @@ export default {
        //_self.bindFieldChangeEvent();
   },
   methods:{
+
     //绑定控件字段的值改变事件
     //isOnlyRemoveEvent:是否仅移除监听事件
     bindFieldChangeEvent:function(isOnlyRemoveEvent){
@@ -438,8 +435,6 @@ export default {
             // console.log(($groupByMode.attr("data-id")||""));
         }
 
-
-
         //4>queryCondictionArr
         var queryCondictionArrTemp = _self.constructConditionField() || [];
         _self.$set(_self.queryObj,"queryCondictionArr",queryCondictionArrTemp);
@@ -498,81 +493,7 @@ export default {
 
         //日期选择器控件初始化
         tool.InitiateInfoPageControl(_self, "", function () { });
-  /*
-        //1>渲染selectList
-        //1-1>同一行的selectList
-        $("[data-fieldControlType='selectList']").attr("readonly","readonly").off('click').on('click',function(){
-            var _curObj = $(this);
-            if(typeof(_curObj.attr("data-clickObj")) != "undefined"){
-                return;
-            }
-            // console.log(_curObj);
-            var dataField = _curObj.attr("data-field") ||"";
-            var code = _curObj.attr("Code") ||"";
-            var filter = _curObj.attr("Filter") ||"";
-            var typeValue = _curObj.attr("TypeValue") ||"";
-            var value = _curObj.attr("data-fieldVal") ||"";
-            var selectType = _curObj.attr("data-selectType") ||"";
-            var title = lanTool.lanContent(_curObj.attr("data-lanid") ||"");
-            var addUrl = _curObj.attr("data-addUrl") ||"";
-            var linkIDField = _curObj.attr("data-linkIDField") ||"";//为了在弹出页面的新增上，带出id和name，如新增联系人，需要带上当前公司信息
-            var linkNameField = _curObj.attr("data-linkNameField") ||"";
-            var fromType = _curObj.attr("data-fromType") ||"";
-
-            var parameter = {
-                'field':dataField,
-                'code':code,
-                "typeValue":typeValue,
-                'title':title,
-                'value':value,//已经选择的值
-                'selectType':selectType,
-                "filter":filter,
-                "addUrl":addUrl,
-                "linkIDField":linkIDField,
-                "linkNameField":linkNameField,
-                "fromType":fromType
-            };
-            _self.$router.push({
-                path: '/selectlist',
-                query: parameter
-            });
-        });
-
-        //5>渲染linkedPage
-        //5-1>同一行的linkedPage
-        $("[data-fieldControlType='linkedPage']").attr("readonly","readonly").off('click').on('click',function(){
-          var _curObj = $(this);
-          if(typeof(_curObj.attr("data-clickObj")) != "undefined"){
-            return;
-          }
-          // console.log(_curObj);
-          var dataField = _curObj.attr("data-field") ||"";
-          var code = _curObj.attr("Code") ||"";
-          var filter = _curObj.attr("Filter") ||"";
-          var typeValue = _curObj.attr("TypeValue") ||"";
-          var value = _curObj.attr("data-fieldVal") ||"";
-          var selectType = _curObj.attr("data-selectType") ||"";
-          var title = lanTool.lanContent(_curObj.attr("data-lanid") ||"");
-          var isShowAdd = _curObj.attr("data-isShowAdd") ||"false";
-          var fromType = _curObj.attr("data-fromType") ||"";
-
-          var parameter = {
-            'field':dataField,
-            'code':code,
-            "typeValue":typeValue,
-            'title':title,
-            'value':value,//已经选择的值
-            'selectType':selectType,
-            "filter":filter,
-            "isShowAdd":isShowAdd,
-            "fromType":fromType
-          };
-          self.$router.push({
-            path: '/linkedpage',
-            query: parameter
-          });
-        });
-*/
+  
         //执行回调函数
         if (!tool.isNullOrEmptyObject(myCallBack) && typeof(myCallBack) == "function") {
             myCallBack();
@@ -624,7 +545,6 @@ export default {
 
     //点击显示更多选项
     showMore(e){
-        // console.log(e);
         let _self = this;
         let currElent = $(e.target);
         let currElentP = $(e.target).closest('.block-more');
@@ -844,7 +764,6 @@ export default {
             _self.panelToggle();
         });
     },
-
 
   },
   beforeDestroy:function(){

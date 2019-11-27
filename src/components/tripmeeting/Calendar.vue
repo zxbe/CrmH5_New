@@ -11,13 +11,6 @@
                 <div class="date-text"></div>
             </div>
 
-            <!-- tab切换 -->
-            <!-- <div class="calendar-nav">
-                <div @click="switchPage(0,$event)" class="nav-item f16 active-item lanText" data-lanid="818_会议"></div>
-                <div style="color:#ccc;" class="nav-item f16 lanText" data-lanid="819_出差"></div>
-                <div class="calendar-nav-border"></div>
-            </div> -->
-
             <div>
                 <div v-show="showPage==0" class="pageList">
                     <!-- 增加meeting按钮 -->
@@ -139,24 +132,20 @@ export default {
             _self.setQuerycondition(data);
         });
 
-        _self.initCalendar();
-        if (!tool.isNullOrEmptyObject(_self.calendarObjGlobal)) {
-            _self.setCalendarEvent(_self.calendarObjGlobal);
-        }
+        //todo
+        // _self.initCalendar();
+        // if (!tool.isNullOrEmptyObject(_self.calendarObjGlobal)) {
+        //     _self.setCalendarEvent(_self.calendarObjGlobal);
+        // }
     },
     activated: function () {
-        // lanTool.updateLanVersion();
         var _self = this;
-
-        //_self.queryCondictionData = eventBus.queryCondictionData || [];
-        // eventBus.queryCondictionData = null; //在calendar组件中不能清空，不然父组件接收不到数据
         if (eventBus.queryCondictionData != null && eventBus.queryCondictionData != undefined) {
             if (this.$route.meta.fromSave) {
                 _self.queryCondictionData = [];
             } else {
                 _self.queryCondictionData = eventBus.queryCondictionData;
             }
-            //eventBus.queryCondictionData = null;
         }
 
         //获取是否是从搜索页面点击确定按钮返回来的标志
@@ -164,27 +153,6 @@ export default {
         if (fromSearchBtn) {
             _self.setCalendarEvent(_self.calendarObjGlobal);
         }
-        // eventBus.fromSearchBtn = false; //在calendar组件中不能清空，不然父组件接收不到数据
-
-        // if (!this.$route.meta.isBack || this.isFirstEnter || this.$route.meta.fromSave) {
-        //     if (this.isFirstEnter) {
-        //         this.initCalendar();
-        //     }
-        //     if (!tool.isNullOrEmptyObject(_self.calendarObjGlobal)) {
-        //         _self.setCalendarEvent(_self.calendarObjGlobal);
-        //     }
-        // } else {
-            // 若从搜索页面点击确定搜索按钮返回则从新请求当前月数据
-            // if (fromSearchBtn) {
-            //     _self.setCalendarEvent(_self.calendarObjGlobal);
-            // }
-        // }
-
-
-
-        // this.$route.meta.isBack = false;
-        // this.$route.meta.fromSave = false;
-        // setTimeout(function(){this.isFirstEnter = false;},100);
     },
     methods: {
         //点击去详情页
@@ -207,26 +175,6 @@ export default {
             var defaultDateTime = "";
             //新增
             if(tool.isNullOrEmptyObject(autoID) ||autoID <= -1){
-
-                // var selectedDayObj = $("div.picker-calendar-day-selected:first");
-                // if (!selectedDayObj) {
-                //     return;
-                // }
-
-                // var year = selectedDayObj.attr("data-year") || "";
-                // var month = selectedDayObj.attr("data-month") || "";
-                // var day = tool.PrefixInteger(selectedDayObj.attr("data-day")) || "";
-                // // console.log('year:'+year);
-                // // console.log('month:'+month);
-                // // console.log('day:'+day);
-
-                // if (tool.isNullOrEmptyObject(year) || tool.isNullOrEmptyObject(month) || tool.isNullOrEmptyObject(day)) {
-                //     return;
-                // }
-
-                // month = tool.PrefixInteger(parseInt(month) + 1);
-                // defaultDateTime = year + "-" + month + "-" + day;
-
                 var defaultDateTime = _self.clickDateStr;
                 var timeArray = tool.GetTimeArray('special');
                 defaultDateTime += " " + timeArray[3] +":" + timeArray[4];
@@ -241,7 +189,6 @@ export default {
                 }
             });
         },
-
         //tab切换页面
         switchPage: function (num, e) {
             var _self = this;
@@ -251,18 +198,6 @@ export default {
             // _self.changePos();
             _self.showPage = num;
         },
-
-        //table底部横条过渡效果
-        // changePos: function () {
-        //     this.$nextTick(function () {
-        //         var activePos = $('.calendar-nav .active-item').position();
-        //         $('.calendar-nav-border').stop().css({
-        //             left: activePos.left,
-                    // width: $('.calendar-nav .active-item').width()
-        //         });
-        //     })
-        // },
-
         //初始化日历
         initCalendar: function () {
             var _self = this;
@@ -408,12 +343,8 @@ export default {
                         var yearTemp = dateTemp.getFullYear();
                         var monthTemp = dateTemp.getMonth();
                         var dayTemp = dateTemp.getDate();
-                        // console.log('yearTemp:'+yearTemp);
-                        // console.log('monthTemp:'+monthTemp);
-                        // console.log('dayTemp:'+dayTemp);
 
                         $('.picker-calendar-row div[data-year="' + yearTemp + '"][data-month="' + monthTemp + '"][data-day="' + dayTemp + '"]').addClass('calendar-event');
-
                     }
 
                     if (!tool.isNullOrEmptyObject(myCallBack)) {
@@ -500,25 +431,8 @@ export default {
                         return true;
                     }
 
-                    //modify by Dylan 改用v-model绑定数据
-                    //因为子控件的渲染不能用jq,否则会append不进去
-                    // var htmlStr = "";
-                    // for(var i =0;i<data.length;i++){
-                    //     var teplateTemp = _self.meetingInnerTemplate;
-                    //     for(var key in data[i]){
-                    //         teplateTemp = teplateTemp.ReplaceAll("{" + key + "}", (data[i][key] || ""));
-                    //     }
-                    //     htmlStr += teplateTemp;
-                    // }
-                    //                console.log(htmlStr);
-
-                    // containerObj.append(htmlStr);
-                    // _self.notMeeting = false;
-                    // console.log(containerObj.html());
-
                     _self.meetingDatas = data;
                     _self.notMeeting = false;
-                    //end modify
 
                     if (!tool.isNullOrEmptyObject(myCallBack)) {
                         myCallBack();
@@ -531,7 +445,6 @@ export default {
                     return true;
                 },
                 complete: function () {
-                    //tool.hideLoading();
                     //隐藏虚拟键盘
                     document.activeElement.blur();
                 }
