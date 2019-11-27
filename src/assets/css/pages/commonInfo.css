@@ -435,12 +435,12 @@ textarea::placeholder
 
 
 /* 改版后的详情页样式 */
-.OrganizationsList,.MeetingList,.ContactList,.accessList{
+.OrganizationsList,.MeetingList,.ContactList,.accessList,.OppList{
     /* padding-bottom:0.4rem; */
     background-color:#fff;
 }
 .OrganizationsList .DetailRow, .MeetingList .DetailRow,.ContactList .DetailRow,
-.accessList .DetailRow {
+.accessList .DetailRow,.OppList .DetailRow{
     position: relative;
     background-color: #ffffff;
     /* min-height: 1.34rem; */
@@ -484,7 +484,7 @@ span.XingHao {
     vertical-align: middle;
     font-size: 0.3rem;
     padding-left: 3px;
-    height:0.3rem;
+    /* height:0.3rem; */
     color: red;
     /* box-sizing: border-box; */
 }

@@ -4,6 +4,7 @@
 
     <div class="scroll-div">
         <div class="box">
+            <div class="OppList">
             <div data-field="BusinessTypes" data-fieldControlType="hideDivText">{{businessType}}</div>
 
             <!-- <div v-show="showTips" class="tipBox">
@@ -601,7 +602,7 @@
                 <a href="javascript:;" class="mybtn btn-ok lanText" data-lanid="545_确定"></a>
                 <a href="javascript:;" class="mybtn btn-cancel lanText" data-lanid="570_取消"></a>
             </div>
-
+        </div>
         </div>
     </div>
 
@@ -626,8 +627,8 @@ export default {
         return {
             ptitle: 'Opportunities detail',
 
-            showPage: '', //记录列表页是从哪个模块进来的 0：交易；1：商业机会
-            isAddNew: false, //是否添加新纪录
+            showPage: '1', //记录列表页是从哪个模块进来的 0：交易；1：商业机会
+            isAddNew: true, //是否添加新纪录
             operation: true, //控制详情页header按钮，ture:显示可操作，false:隐藏
             onlyView: false, //控制页面头部icon,true:不显示头部icon,false:显示
 
@@ -1479,19 +1480,9 @@ export default {
 @import "../../assets/css/pages/commonInfo.css";
 @import "../../assets/css/pages/Opportunitiesinfo.css";
 
-.box {
-    padding-bottom: 0.4rem;
+.OppList {
+    /* padding-bottom: 0.4rem; */
     background-color: rgb(242, 242, 242);
 }
 
-.box .DetailRow {
-    position: relative;
-    background-color: #ffffff;
-    /* min-height: 1.34rem; */
-    padding-left: 0.16rem;
-    padding-top: 0.2rem;
-    padding-right: 0.18rem;
-    /* padding-bottom: 0.2rem; */
-    box-sizing: border-box;
-}
 </style>
