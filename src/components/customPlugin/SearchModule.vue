@@ -5,7 +5,6 @@
     <header class="header" id="searchHeader">
         <search-input ref="searchInput" class="search"  :isShowClearIcon="true" :placeholder=lanSearchModuleInputPlaceHolder></search-input>
         <span @click="cancelEvent" class="cancel-btn f14">{{lanCancel}}</span>
-        <!-- <i class="calcfont calc-shanchu delete-icon f18" @click="refreshList"></i> -->
     </header>
 
     <!-- 显示历史搜索状态 -->
@@ -15,10 +14,11 @@
             <i class="calcfont calc-shanchu delete-icon f18" @click="deleteAllHistoricalSearchRecord"></i>
         </div>
         <div class="panel-con" v-if="historyData.length > 0">
-               <div v-for="(item,index) in historyData" :key=index class="history-item left" @click="searchByHistotyItem(item)" @touchstart="gotouchstart($event)" @touchmove="gotouchmove" @touchend="gotouchend">
-                  <span>{{item}}</span>
-                  <i class="calcfont calc-guanbi1 item-delete-icon" @click.stop="deleteOneHistory(item)"></i>
-               </div>
+               <div class="history-item" v-for="(item,index) in historyData" :key="index" @click="searchByHistotyItem(item)">
+                    <i class="calcfont calc-shijian l-icon f18"></i>
+                    <div class="item-text f14">{{item}}</div>
+                    <i class="calcfont calc-guanbi1 delete-icon f18" @click.stop="deleteOneHistory(item)"></i>
+                </div>
         </div>
     </div>
 
@@ -56,6 +56,11 @@ export default {
     searchModuleFromType:{
         type: String,
         default:''
+    },
+    //商机：30；交易：29，其他模块不用传
+    businessType:{
+        type: String,
+        default:''
     }
   },
   data(){
@@ -63,7 +68,7 @@ export default {
         lanHistoricalSearch:lanTool.lanContent("1000531_历史搜索"),
         lanCancel:lanTool.lanContent("570_取消"),
 
-        localStorageKeyName: "HistorySearchRecords_" + this.searchModuleFromType, //存储historyData的key值
+        localStorageKeyName: "HistorySearchRecords_" + this.searchModuleFromType + (tool.isNullOrEmptyObject(this.businessType)? "" :"_" +this.businessType), //存储historyData的key值
         historyData:[],//历史查询记录
         inputValue:'', //搜索框中的值
         maxHistoricalCount:10,//允许的最大的历史查询记录数
@@ -99,17 +104,12 @@ export default {
     //获取搜索历史记录
     getHistoricalSearchRecord(){
         let _self = this;
-        console.log("localStorageKeyName:"+_self.localStorageKeyName);
         let dataString = tool.getStorageItem(_self.localStorageKeyName);
-        console.log(dataString);
         if(tool.isNullOrEmptyObject(dataString)){
          _self.historyData = [];
         }else{
-            console.log("dataString:"+dataString);
             _self.historyData = tool.jObject(dataString);
-            console.log(_self.historyData);
         }
-        console.log(_self.historyData);
     },
     //删除所有历史记录
     deleteAllHistoricalSearchRecord(){
@@ -309,23 +309,7 @@ export default {
             });
         }
     },
-    /*
-    //清除模糊查询记录，并执行父组件的刷新页面动作
-    refreshList(){
-        let _self = this;
-        //1>清除搜索框的值
-        _self.clearSearchValue();
-        //2>执行父组件的查询
-        var autoValue = "";
-        //2-1>调用列表父组件方法搜索
-        if(_self.$parent.refreshListBySearchValue != null && _self.$parent.refreshListBySearchValue != undefined){
-            _self.$parent.refreshListBySearchValue(autoValue,function(){
-                //2-2>把查询值，赋到父组件的input组件
-                _self.$parent.$refs.searchInput.searchValue = autoValue;
-            });
-        }
-    },
-    */
+
     //清除搜索框的值
     clearSearchValue(){
         let _self = this;
@@ -335,36 +319,6 @@ export default {
         _self.inputValue = "";
         //3>清除模糊查询结果
         _self.resultData = [];
-    },
-
-    //处理长按删除
-    gotouchstart(e){
-      let _self = this;
-      clearTimeout(_self.timeOutEvent);//清除定时器
-      _self.timeOutEvent = setTimeout(function(){
-            //执行长按要执行的内容
-            let target = $(e.target);
-            if (!target.hasClass('history-item')) {
-                target = target.parents("div.history-item:first");
-                if (tool.isNullOrEmptyObject(target)) {
-                    return;
-                }
-            }
-            target.siblings('.history-item').find('i.item-delete-icon').hide(100);
-            target.find('i.item-delete-icon').show(100);
-
-        },600);
-    },
-    //手释放，如果在600毫秒内就释放，则取消长按事件
-    gotouchend(){
-        let _self = this;
-        clearTimeout(_self.timeOutEvent);
-    },
-    //如果手指有移动，则取消所有事件，此时说明用户只是要移动而不是长按
-    gotouchmove(){
-        let _self = this;
-        clearTimeout(_self.timeOutEvent);//清除定时器
-        _self.timeOutEvent = 0;
     },
   }
 }
@@ -388,13 +342,11 @@ export default {
 .title-text{flex:1;}
 .delete-icon{color:#353535;padding:5px;margin-left: 10px;}
 .panel-con{}
-.history-item{ position: relative;padding:6px 10px;background: #f4f4f4;margin: 12px 12px 0 0;border-radius: 5px;}
-.item-delete-icon{
-  display: flex;align-items: center;justify-content: center;border-radius: 50%;
-  position: absolute;top:-10px;right:-10px;background: #ccc;color:#ffffff;
-  width:15px;height: 15px;text-align: center;
-  font-size: 12px;display: none;
-}
+.history-item{display: flex;align-items:center;border-bottom: 1px solid #f4f4f4;}
+.history-item .l-icon{color: #cccccc;margin-right: 3px;}
+.history-item .item-text{flex:1;padding:13px 0;max-width: 90%;overflow: hidden;text-overflow:ellipsis;
+white-space: nowrap;}
+
 
 .matching-panel{min-height: calc(100vh - 0.88rem); padding:0 15px;}
 .result-list{}
