@@ -5,7 +5,7 @@
           <a @click="back" class="calcfont calc-fanhui back-icon" id="back"></a>
           <!-- <search-input class="search" placeholder="搜索公司"></search-input> -->
           <div class="search" @click="showSearch">
-              <search-input :enableInput="false" :placeholder=lanSearchModuleInputPlaceHolder ref="searchInput"></search-input>
+              <search-input :enableInput="false" :isShowClearIcon="true" :placeholder=lanSearchModuleInputPlaceHolder ref="searchInput"></search-input>
           </div>
           <a class="calcfont calc-tianjia add-icon" @click="addOrganization" ></a>
       </header>
@@ -654,6 +654,23 @@ export default {
         callBack();
       }
     },
+    //点击头部输入框中的X按钮
+    clearSearchValue(){
+        let _self = this;
+        var autoVal = "";
+        //1>清除input控件的值
+        _self.$refs.searchInput.searchValue = autoVal;
+        //2>清除searchModule的input组件的值
+        _self.$refs.searchModule.$refs.searchInput.searchValue = autoVal;
+        //3>清除searchModule的inputValue
+        _self.$refs.searchModule.inputValue = autoVal;
+        //4>清除searchModule的模糊查询结果
+        _self.$refs.searchModule.resultData = [];
+        //5>触发searchModule的查询动作
+        _self.$nextTick(function(){
+            _self.$refs.searchModule.excuteSeach(autoVal);
+        });
+    }
   },
   beforeRouteLeave: function (to, from, next) {
         if (to.name == 'index') {
