@@ -59,36 +59,6 @@
                       </div>
                   </div>
               </div>
-              <!-- TimeRangeModel 时间范围 -->
-              <div class="block-div groupByMode" v-if="!TimeRangeModelIsNull">
-                  <div class="type-div">
-                      <div class="block-tile f14">
-                          <div class="title-text">{{TimeRangeModel.text}}</div>
-                      </div>
-                      <div class="block-con" v-if="TimeRangeModel.option.length > 0 ">
-                            <div class="item-div fl"
-                                v-for="(item,index) in TimeRangeModel.option"
-                                :key="index"
-                                @click="choose($event)"
-                                :class="{'active': ((item.isActive == null||item.isActive == undefined) ? false :item.isActive)}"
-                                :data-id="item.id"
-                                ><span>{{item.text}}</span>
-                                <i class="calcfont calc-guanbi1 delect-icon"></i></div>
-                            <div class="time-range-customize-div">
-                                <div class="box">
-                                  <div class="inputRow">
-                                      <input id="startdate" class="selectdate lanInputPlaceHolder" type="text" readonly="readonly" placeholder="" data-lanid="878_开始日期" data-field="BeginTime" data-fieldControlType="dateTimePicker" data-TimeType="date" data-format="yyyy-MM-dd"/>
-                                  </div>
-                                  <div class="line"></div>
-                                  <div  class="inputRow">
-                                      <input id="enddate" class="selectdate lanInputPlaceHolder" type="text" readonly="readonly" placeholder=""  data-lanid="879_结束日期" data-field="EndTime" data-fieldControlType="dateTimePicker" data-TimeType="date" data-format="yyyy-MM-dd">
-                                  </div>
-                                </div>
-                            </div>
-                      </div>
-                  </div>
-              </div>
-
 
               <!-- FieldModel -->
               <div class="fieldModel" v-if="FieldModel.length > 0">
@@ -125,6 +95,42 @@
                                   ><span>{{o.text}}</span><i class="calcfont calc-guanbi1 delect-icon"></i></div>
                           </div>
                       </div>
+
+                      <!-- 类型为timeRang -->
+                      <div class="type-div" v-if="item.fieldControlType == 'timeRang'"
+                        :data-field="item.queryfield"
+                        :data-fieldControlType=item.fieldControlType
+                        :data-queryType="item.queryType"
+                        :data-queryFormat="item.queryFormat"
+                        :data-queryRelation="item.queryRelation"
+                        :data-queryComparison="item.queryComparison"
+                        data-fieldVal="">
+                          <div class="block-tile f14">
+                              <div class="title-text">{{item.text}}</div>
+                          </div>
+                          <div class="block-con" v-if="item.option != null && item.option != undefined && item.option.length > 0 ">
+                              <div class="item-div fl"
+                                  v-for="(i,index) in item.option"
+                                  :key="index"
+                                  @click="choose($event)"
+                                  :class="{'active': ((i.isActive == null||i.isActive == undefined) ? false :i.isActive)}"
+                                  :data-id="i.id"
+                                  ><span>{{i.text}}</span>
+                                  <i class="calcfont calc-guanbi1 delect-icon"></i></div>
+                              <div class="time-range-customize-div">
+                                  <div class="box">
+                                    <div class="inputRow">
+                                        <input id="startdate" class="selectdate lanInputPlaceHolder" type="text" readonly="readonly" placeholder="" data-lanid="878_开始日期" data-field="BeginTime" data-fieldControlType="dateTimePicker" data-TimeType="date" data-format="yyyy-MM-dd"/>
+                                    </div>
+                                    <div class="line"></div>
+                                    <div  class="inputRow">
+                                        <input id="enddate" class="selectdate lanInputPlaceHolder" type="text" readonly="readonly" placeholder=""  data-lanid="879_结束日期" data-field="EndTime" data-fieldControlType="dateTimePicker" data-TimeType="date" data-format="yyyy-MM-dd">
+                                    </div>
+                                  </div>
+                              </div>
+                        </div>
+                      </div>
+
 
                       <!--类型为Input-->
                       <div class="type-div no-border" v-if="item.fieldControlType == 'textareaInput'">
@@ -202,7 +208,6 @@ export default {
         ViewModel:{},
         DataFilterModel:{},
         GroupByModel:{},
-        TimeRangeModel:{},
         FieldModel:[],
 
 
@@ -240,10 +245,6 @@ export default {
       GroupByModelIsNull(){
           let _self = this;
           return  tool.isNullOrEmptyObject(_self.GroupByModel) ? true : false;
-      },
-      TimeRangeModelIsNull(){
-          let _self = this;
-          return  tool.isNullOrEmptyObject(_self.TimeRangeModel) ? true : false;
       }
 
   },
@@ -276,11 +277,6 @@ export default {
         _self.$set(_self.GroupByModel, 'option', groupByOption);
     }
     _self.FieldModel = _self.screenData["FieldModel"];
-
-
-    if(!tool.isNullOrEmptyObject(_self.screenData["TimeRangeModel"])){
-        _self.TimeRangeModel = _self.screenData["TimeRangeModel"];
-    }
 
     //2>获取picker选项值
     _self.FieldModel.forEach(function(item, index){
@@ -643,8 +639,8 @@ export default {
 
     //选择
     //是否可以关闭当前的选中状态
-    choose(e,canCloseOther){
-        canCloseOther = (canCloseOther == null || canCloseOther == undefined) ?  true : canCloseOther;
+    choose(e,canCloseCurrent){
+        canCloseCurrent = (canCloseCurrent == null || canCloseCurrent == undefined) ?  true : canCloseCurrent;
         let _self = this;
         let target = $(e.target);
         if (!target.hasClass('item-div')) {
@@ -655,7 +651,7 @@ export default {
         }
 
         //若能移除自己的状态
-        if(canCloseOther){
+        if(canCloseCurrent){
             if(!target.hasClass('active')){
                 //选择
                 target.addClass('active').siblings('.item-div').removeClass('active');
