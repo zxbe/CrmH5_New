@@ -5,8 +5,8 @@ header {
 }
 
 header.mui-bar {
-    /* background: #f8f2dc; */
-    background-color: #ffffff;
+    background: #f8f2dc;
+    /* background-color: #ffffff; */
     overflow: hidden;
 }
 
@@ -14,7 +14,7 @@ header.mui-bar {
     top: 0.12rem;
     display: inline-block;
     height: 0.88rem;
-    padding-top: 0.12rem;
+    padding-top: 0.14rem;
     overflow: hidden;
     width: calc(100% - 2.74rem);
     font-size: .34rem;
@@ -25,7 +25,7 @@ header.mui-bar {
 
 input {
     display: inline-block;
-    height: 0.6rem;
+    height: 0.56rem;
     overflow: hidden;
     width: 100%;
     font-size: .34rem;
@@ -34,7 +34,8 @@ input {
     border-bottom-right-radius: 0;
     border-top-right-radius: 0;
     text-indent: 5px;
-    background-color: #f1f0f6;
+    /* background-color: #f1f0f6; */
+    background-color: #ffffff;
     outline-color: invert;
     outline-style: none;
     outline-width: 0px;

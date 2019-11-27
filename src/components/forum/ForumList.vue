@@ -4,8 +4,8 @@
         <a @click="back" class="mycalcfont calcfont calc-fanhui left" id="back"></a>
         <div class="search">
             <div class="search-div f14" @click="goToSearch">
-                <i class="calcfont calc-sousuo search-icon"></i>
-                <span class="lanText" data-lanid="1000306_你想知道什么？"></span>
+                <i class="calcfont calc-shaixuan2 search-icon" style="color:#CCCCCC; font-size:0.36rem"></i>
+                <span class="lanText" data-lanid="1000306_你想知道什么？" style="color:#757575"></span>
             </div>
         </div>
     </div>
