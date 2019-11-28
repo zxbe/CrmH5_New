@@ -3,6 +3,7 @@
     <div id="mask" class="mask" @click="panelToggle" v-show="showPanel"></div>
     <div id="right-content" class="right-content">
        <div class="screen-con">
+          <!-- <vue-scroll :showToTop="false" :options="{ pullup: false, pulldown: false }" :scrollbar="false" > -->
               <!-- ViewModel -->
               <div class="block-div viewMode" v-if="!ViewModelIsNull">
                   <div class="type-div">
@@ -185,7 +186,7 @@
 
                   </div>
               </div>
-
+          <!-- </vue-scroll> -->
        </div>
 
        <div class="btn-div f14">
@@ -488,9 +489,9 @@ export default {
                         '-webkit-transition':'left 0.2s ease-out',
                         '-o-transition': 'left 0.2s ease-out'
                     })
-                    $('#mask,#right-content').off('touchmove').on("touchmove", function(e) {
-                    e.stopPropagation();
-                    e.preventDefault();
+                    $('#mask').off('touchmove').on("touchmove", function(e) {
+                        e.stopPropagation();
+                        e.preventDefault();
                     });
                 })
 
@@ -911,7 +912,10 @@ export default {
 .mask{position:fixed;top:0;left:0;bottom:0;right:0;background: rgba(0, 0, 0, 0.1);z-index:102;}
 .right-content{position:fixed;left:100%; width:6rem;background: #FFFFFF;top: 0;bottom: 0; z-index: 103; padding-top:0px;}
 
-.screen-con{height: calc(100vh - 1.3rem);overflow-y: scroll;}
+.screen-con{height: calc(100% - 1.3rem);overflow-y: scroll;
+            -webkit-overflow-scrolling: touch;
+            -webkit-overflow-scrolling: auto;
+            }
 .block-div{}
 .type-div{border-bottom: 1px solid #e6e8ea;}
 .no-border{border-bottom:none;}
