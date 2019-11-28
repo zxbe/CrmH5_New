@@ -1,7 +1,8 @@
 <template>
 <div class="page">
   <header class="header sticky" id="searchHeader">
-      <a @click="back" class="calcfont calc-fanhui back-icon" id="back"></a>
+      <a v-show="showHistoricalSearchRecord" @click="back" class="calcfont calc-fanhui back-icon" id="back"></a>
+      <i v-show="!showHistoricalSearchRecord" class="seize-a-seat"></i>
       <search-input class="search" :placeholder=lanSearchModuleInputPlaceHolder ref="searchInput"></search-input>
       <i class="seize-a-seat"></i>
   </header>
@@ -147,12 +148,12 @@ export default {
         }
 
         _self.searchModuleFromType = target.attr('data-id') || '';
-        if(tool.isNullOrEmptyObject(_self.searchModuleFromType)){ 
+        if(tool.isNullOrEmptyObject(_self.searchModuleFromType)){
             return false;
         }
         if(_self.searchModuleFromType == 9){
             _self.businessType = target.attr('businessType') || '';
-            if(tool.isNullOrEmptyObject(_self.businessType)){ 
+            if(tool.isNullOrEmptyObject(_self.businessType)){
                 return false;
             }
         }else{
