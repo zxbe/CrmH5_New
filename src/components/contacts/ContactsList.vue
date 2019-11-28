@@ -254,18 +254,12 @@ export default {
       _self.$store.commit('SET_ITEM', 'contactslist');
 
       //接收从HomeSearch页面传过来的值
-      let homeSearchValue = _self.$route.query.autoValue || '';
-      if(!tool.isNullOrEmptyObject(homeSearchValue)){
-          _self.$nextTick(function(){
-            //把值填写到searchInput中
-            _self.$refs.searchInput.searchValue = homeSearchValue;
-            //设置模糊查询的值
-            _self.queryObj.autoValue = homeSearchValue;
-            //执行查询
-            _self.queryList('pushRefresh');
-        });
-      }
-
+      //设置模糊查询的值
+      var autoVal = _self.$route.query.autoValue || '';
+      _self.$nextTick(function(){
+        _self.queryObj.autoValue = autoVal;
+        _self.$refs.searchInput.searchValue = autoVal;
+      });
   },
   mounted(){
       let _self = this;

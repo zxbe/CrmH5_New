@@ -261,6 +261,12 @@ export default {
                 break;
 
             case "9":
+                //showPage:记录列表页是从哪个模块进来的 0：交易；1：商业机会
+                if(_self.businessType == "29"){
+                    parameter.showPage = 0;
+                }else{
+                    parameter.showPage = 1;
+                }
                 infoUrl = "/opportunitiesinfo/";
                 break;
 

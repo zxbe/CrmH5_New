@@ -91,11 +91,12 @@ export default {
         businessType:'', //商机：30；交易：29，其他模块不用
 
         inputValue:'', //搜索框中的值
-        lanSearchModuleInputPlaceHolder:lanTool.lanContent("1000202_会议名称"),
+        lanSearchModuleInputPlaceHolder:"",
         //查询结果
         resultData:[
-            {AutoID:15, Name:'test'}
+            //{AutoID:15, Name:'test'}
         ],
+
         localStorageKeyName:'',  //存储historyData的key值
         historyData:[],//历史查询记录
         maxHistoricalCount:10,//允许的最大的历史查询记录数
@@ -146,11 +147,18 @@ export default {
         }
 
         _self.searchModuleFromType = target.attr('data-id') || '';
-        if(tool.isNullOrEmptyObject(_self.searchModuleFromType)){ return false;}
+        if(tool.isNullOrEmptyObject(_self.searchModuleFromType)){ 
+            return false;
+        }
         if(_self.searchModuleFromType == 9){
             _self.businessType = target.attr('businessType') || '';
-            if(tool.isNullOrEmptyObject(_self.businessType)){ return false;}
+            if(tool.isNullOrEmptyObject(_self.businessType)){ 
+                return false;
+            }
+        }else{
+            _self.businessType = "";
         }
+
         //->1.组装存储historyData的key值
         _self.localStorageKeyName = "HistorySearchRecords_" + _self.searchModuleFromType + (tool.isNullOrEmptyObject(_self.businessType)? "" :"_" + _self.businessType);
 
@@ -163,6 +171,37 @@ export default {
            target.addClass('active');
         }
 
+        //4>更改input控件的placeholder
+        _self.getSearchModulePlaceholder();
+    },
+    //更改input控件的placeholder
+    getSearchModulePlaceholder:function(){
+        let _self = this;
+        //联系人:6;公司:7;会议:8;商机&交易:9; 用户管理：11；
+        switch(_self.searchModuleFromType){
+            case "6":
+                _self.lanSearchModuleInputPlaceHolder = lanTool.lanContent("1149_我的会议");
+                break;
+            case "7":
+                _self.lanSearchModuleInputPlaceHolder = lanTool.lanContent("685_公司");
+                break;
+            case "8":
+                _self.lanSearchModuleInputPlaceHolder = lanTool.lanContent("630_联系人");
+                break;
+            case "9":
+                if(_self.businessType == "29"){
+                    _self.lanSearchModuleInputPlaceHolder = lanTool.lanContent("817_交易");
+                }else{
+                    _self.lanSearchModuleInputPlaceHolder = lanTool.lanContent("644_商业机会");
+                }
+                break;
+            case "11":
+                _self.lanSearchModuleInputPlaceHolder = lanTool.lanContent("1000304_用户活动");
+                break;
+            default:
+                _self.lanSearchModuleInputPlaceHolder = "";
+                break;
+        }
     },
     //获取搜索历史记录
     getHistoricalSearchRecord(){
@@ -247,10 +286,10 @@ export default {
                 break;
 
             case "9":
-                if(_self.businessType == '30'){
-                    infoUrl = "/pitches";
-                }else{
+                if(_self.businessType == '29'){
                     infoUrl = "/pipeline";
+                }else{
+                    infoUrl = "/pitches";
                 }
                 break;
 
@@ -264,7 +303,6 @@ export default {
             query: parameter
         });
     },
-
     //点击历史查询记录，查询匹配数据
     searchByHistotyItem:function(data){
         let _self = this;
@@ -387,6 +425,12 @@ export default {
                 break;
 
             case "9":
+                //showPage:记录列表页是从哪个模块进来的 0：交易；1：商业机会
+                if(_self.businessType == "29"){
+                    parameter.showPage = 0;
+                }else{
+                    parameter.showPage = 1;
+                }
                 infoUrl = "/opportunitiesinfo/";
                 break;
 
@@ -419,10 +463,8 @@ export default {
       }
       next();
   }
-
 }
 </script>
-
 
 <style scoped>
 .page{}

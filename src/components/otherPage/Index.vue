@@ -4,7 +4,9 @@
 
     <div id="page-content" class="page-content">
         <div class="search-box-div">
-          <div @click="goSearchPage"><search-input :enableInput="false" :isShowClearIcon="false" class="search disable" placeholder="搜索"></search-input></div>
+            <div @click="goSearchPage">
+                <search-input :enableInput="false" :isShowClearIcon="false" class="search disable" :placeholder=lanSearchModuleInputPlaceHolder ref="searchInput"></search-input>
+            </div>
         </div>
 
         <div class="block-title f14">业务</div>
@@ -179,7 +181,9 @@ export default {
             // recentDealAndPitchDay:30,//查询最近30天的Deal和Pitch记录
             pageArray: [
             ],
-            mySwiper:null
+            mySwiper:null,
+
+            lanSearchModuleInputPlaceHolder:lanTool.lanContent("780_搜索"),
         };
     },
     created: function () {
