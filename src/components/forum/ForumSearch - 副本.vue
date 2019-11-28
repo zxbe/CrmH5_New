@@ -8,7 +8,6 @@
             <a @click="search" class="searchBtn calcfont calc-shaixuan2"></a>
         </div>
     </header>
-
     <div v-show="isShowdropDown" class="dropDownList">
         <a @click="selectTitleOrTag($event)" data-type="Other" class="selected"><i class="zen-visualization calcfont calc-gou"></i><span class="lanText" data-lanid="1000303_标题和内容"></span></a>
         <a @click="selectTitleOrTag($event)" data-type="Tag"><i class="zen-visualization calcfont calc-gou"></i><span class="lanText" data-lanid="1000302_标签"></span></a>
@@ -159,6 +158,41 @@ export default {
             var val = obj.find("span").text();
             _self.isShowdropDown = false;
         },
+        //筛选选择
+        // selectFiltertype: function (e) {
+        //     var _self = this;
+        //     var el = e.target;
+        //     var obj;
+        //     if (e.target === e.currentTarget) {
+        //         obj = $(el);
+        //     } else {
+        //         obj = $(el).parent("a");
+        //     }
+        //     obj.addClass("selected");
+        //     var parent = obj.parent("li");
+        //     parent.siblings().find("a").removeClass("selected");
+        //     var val = obj.find("span").text();
+        //     $(".filterText").eq(0).text(val);
+        //     _self.isShowFilter = false;
+
+        // },
+        //排序选择
+        // selectSorttype: function (e) {
+        //     var _self = this;
+        //     var el = e.target;
+        //     var obj;
+        //     if (e.target === e.currentTarget) {
+        //         obj = $(el);
+        //     } else {
+        //         obj = $(el).parent("a");
+        //     }
+        //     obj.addClass("selected");
+        //     var parent = obj.parent("li");
+        //     parent.siblings().find("a").removeClass("selected");
+        //     var val = obj.find("span").text();
+        //     $(".sortText").eq(0).text(val);
+        //     _self.isShowSort = false;
+        // },
         //标题和标签下拉的展示和隐藏
         selectDropDownType: function () {
             var _self = this;
@@ -166,7 +200,25 @@ export default {
             // _self.isShowFilter = false;
             _self.isShowdropDown = !_self.isShowdropDown;
         },
+        //筛选下拉展示隐藏
+        // filterDropDown: function (e) {
+        //     window.event ? window.event.cancelBubble = true : e.stopPropagation();
+        //     var _self = this;
+        //     _self.isShowSort = false;
+        //     _self.isShowdropDown = false;
+        //     _self.isShowFilter = !_self.isShowFilter;
+
+        // },
+        //排序下拉列表展示和隐藏
+        // sortDropDown: function () {
+        //     window.event ? window.event.cancelBubble = true : e.stopPropagation();
+        //     var _self = this;
+        //     _self.isShowFilter = false;
+        //     _self.isShowdropDown = false;
+        //     _self.isShowSort = !_self.isShowSort;
+        // },
         goToInfo: function (num) {
+            //console.log("跳转到详情" + num);
             var _self = this;
             if (tool.isNullOrEmptyObject(num)) {
                 return;
@@ -176,10 +228,44 @@ export default {
                 path: url
             });
         },
+        // switchPage: function (num, e) {
+        //     var _self = this;
+        //     var el = e.target;
+        //     if (num === undefined) return;
+        //     $(el).addClass('active').siblings().removeClass('active');
+        // },
         //返回上一步
         back: function () {
             this.$router.back(-1);
         },
+        //清空搜索历史
+        // clearAllSearchHistory: function () {
+        //     console.log("清空历史");
+        //     var _self = this;
+        //     _self.historyData = [];
+        // },
+        //删除单条搜索历史
+        // deleteHistoryClick: function (e) {
+        //     console.log("删除历史记录");
+        //     var _self = this;
+        //     var el = e.target;
+        //     var obj = $(el);
+        //     if (!tool.isNullOrEmptyObject(obj)) {
+        //         console.log("autoID:"+obj.attr("data-AutoID"));
+        //         var id = obj.attr("data-AutoID");
+        //         for (let index = 0; index < _self.historyData.length; index++) {
+        //             const element = _self.historyData[index];
+        //             console.log("id:"+element.AutoID);
+
+        //             if (element.AutoID == id) {
+        //                   _self.historyData.remove(element);
+        //                  return;
+        //             }
+
+        //         }
+        //     }
+
+        // },
         //搜索事件
         search: function () {
             var _self = this;
