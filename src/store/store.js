@@ -20,8 +20,21 @@ const store = new Vuex.Store({
         // fromType:"",//联系人:6;公司:7;会议:8;商机&交易:9;
         // businessType:"",//交易:29;商机:30
         // fromID:""  //每条记录的id
+
+        //homesearch页面用，把searchModuleFromType，businessType记录下来
+        searchModuleFromType:'8',
+        businessType:''
     },
     mutations: {
+        //设置homesearch页面用到的searchModuleFromType，businessType
+        setValueFromHomeSearch(state, data){
+            if(tool.isNullOrEmptyObject(data)){
+              return ;
+            }
+            state.searchModuleFromType = data.searchModuleFromType || '';
+            state.businessType = data.businessType || '';
+        },
+
         //记录发帖时选择的标签 val为空时表示清空
         SET_SELECT_TAGS(state, val){
             if(val == '' || val == undefined){

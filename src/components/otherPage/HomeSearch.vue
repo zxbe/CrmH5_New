@@ -111,24 +111,20 @@ export default {
         return tool.isNullOrEmptyObject(_self.inputValue) ? true : false;
       }
   },
-  created(){
-      let _self = this;
-      _self.$store.commit('SET_ITEM', 'homesearch');
-
-      //处理从列表返回来的情况
-      eventBus.$on('BackHomeSearchEvent',function(data){
-          _self.inputValue = data.autoValue || '';
-          //把值赋值到SearchInput组件
-          _self.$refs.searchInput.searchValue = data.autoValue || '';
-          //执行模糊查询，查询匹配的前N条记录
-          _self.$refs.searchInput.inputChange();
-      });
-
-  },
+  created(){},
   mounted(){
+      let _self = this;
       lanTool.updateLanVersion();
-      //模拟点击第一个模块
-      $('.module-item').eq(0).trigger("click");
+
+      //从store中取出 searchModuleFromType，businessType
+      _self.searchModuleFromType = _self.$store.state.searchModuleFromType || '';
+      _self.businessType = _self.$store.state.businessType || '';
+      //模拟点击
+      if( !tool.isNullOrEmptyObject(_self.businessType)){
+          $('[businessType="'+ _self.businessType +'"]').eq(0).trigger("click");
+      }else{
+          $('[data-id="'+ _self.searchModuleFromType +'"]').eq(0).trigger("click");
+      }
   },
   methods:{
     //返回上一页
@@ -159,6 +155,13 @@ export default {
         }else{
             _self.businessType = "";
         }
+
+        //记录searchModuleFromType，businessType
+        let  st = {
+          searchModuleFromType:_self.searchModuleFromType,
+          businessType:_self.businessType
+        }
+        _self.$store.commit('setValueFromHomeSearch',st)
 
         //->1.组装存储historyData的key值
         _self.localStorageKeyName = "HistorySearchRecords_" + _self.searchModuleFromType + (tool.isNullOrEmptyObject(_self.businessType)? "" :"_" + _self.businessType);
@@ -456,11 +459,15 @@ export default {
 
   },
   beforeDestroy(){
-      eventBus.$off('BackHomeSearchEvent');
   },
   beforeRouteLeave: function (to, from, next) {
       if (to.name == 'index') {
-          this.$store.commit('REMOVE_ITEM', 'homesearch');
+          //设置searchModuleFromType，businessType为默认值
+          let  st = {
+            searchModuleFromType:'8',
+            businessType:''
+          }
+          this.$store.commit('setValueFromHomeSearch',st)
       }
       next();
   }
