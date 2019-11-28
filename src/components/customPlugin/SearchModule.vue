@@ -120,7 +120,7 @@ export default {
             function () {
                //删除所有历史查询记录
                _self.historyData = [];
-               tool.setStoragItem(_self.localStorageKeyName, _self.historyData);
+               tool.setStoragItem(_self.localStorageKeyName, JSON.stringify(_self.historyData));
             },
             function () {}
         );
@@ -139,7 +139,7 @@ export default {
         }
 
         //设置缓存历史查询记录
-        tool.setStoragItem(_self.localStorageKeyName,_self.historyData);
+        tool.setStoragItem(_self.localStorageKeyName,JSON.stringify(_self.historyData));
     },
     //点击历史查询记录，查询匹配数据
     searchByHistotyItem:function(data){

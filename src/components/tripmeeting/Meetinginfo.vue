@@ -561,10 +561,11 @@ export default {
             _self.isAddNew = false;
             _self.operation = true;
         }
-        
+        //失去焦点，移除分割线颜色加深
         $(".textareaP:not(.wrap) textarea").blur(function(){
               $(this).parents(".DetailRow").removeClass("DeepColor");
          });
+         //聚焦，添加分割线颜色加深
          $(".textareaP:not(.wrap) textarea").focus(function(){
               $(this).parents(".DetailRow").addClass("DeepColor").siblings().removeClass("DeepColor");
          });
@@ -754,7 +755,7 @@ export default {
             var id = _self.$route.params.id;
             var fromType = "Meetinginfo";
             tool.DeleteData(fromType, id, _self, function () {
-                _self.$store.commit('REMOVE_ITEM', 'meetinglist');
+                _self.$store.commit('REMOVE_ITEM', 'meeting');
             });
         },
         //保存数据
@@ -785,7 +786,7 @@ export default {
                     var id = _self.$route.params.id;
                     var fromType = "Meetinginfo";
                     tool.SaveOrUpdateData(fromType, id, _self, function () {
-                        _self.$store.commit('REMOVE_ITEM', 'meetinglist');
+                        _self.$store.commit('REMOVE_ITEM', 'meeting');
                         _self.$store.commit('REMOVE_ITEM', 'meetinginfo');
                         _self.$router.back(-1);
                     });
