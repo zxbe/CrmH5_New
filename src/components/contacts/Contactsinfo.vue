@@ -4,7 +4,7 @@
     <Infoheader class="sticky infoheader" :isAddNew="isAddNew" :onlyView="onlyView" :operation="operation" :title="ptitle"></Infoheader>
 
     <div class="scroll-div">
-        <div class="box">
+        <div class="box detailBox">
             <div class="ContactList">
 
                 <!-- <div class="ListCell visible">
@@ -401,7 +401,8 @@ export default {
         });
         //聚焦，添加分割线颜色加深
         $(".textareaP:not(.wrap) textarea").focus(function () {
-            $(this).parents(".DetailRow").addClass("DeepColor").siblings().removeClass("DeepColor");
+            $(".detailBox").find(".DetailRow").removeClass("DeepColor");
+            $(this).parents(".DetailRow").addClass("DeepColor");
         });
         //如果是只查看，控制元素不可以更改
         _self.controlEdit();

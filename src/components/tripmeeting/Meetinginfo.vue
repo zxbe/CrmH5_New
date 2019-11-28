@@ -8,7 +8,7 @@
       :title="ptitle"></Infoheader>
 
     <div class="scroll-div">
-        <div class="box">
+        <div class="box detailBox">
             <div class="MeetingList">
                 <!-- 会议标题 -->
                 <!-- <div class="ListCell visible controlEdit">
