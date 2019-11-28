@@ -4,7 +4,7 @@
     <Infoheader class="sticky infoheader" :isAddNew="isAddNew" :onlyView="onlyView" :operation="operation" :title="ptitle"></Infoheader>
 
     <div class="scroll-div">
-        <div class="box">
+        <div class="box detailBox">
             <div class="OrganizationsList">
                 <div class="DetailRow">
                     <div class="DetailRowOn"><span class="calcfont calc-en ChangeIconColor"></span><span class="FileName lanText" data-lanid="733_英文名称"></span><span class="XingHao">*</span></div>

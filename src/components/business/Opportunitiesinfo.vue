@@ -3,7 +3,7 @@
     <Infoheader class="sticky infoheader" :isAddNew="isAddNew" :onlyView="onlyView" :operation="operation" :title="ptitle"></Infoheader>
 
     <div class="scroll-div">
-        <div class="box">
+        <div class="box detailBox">
             <div class="OppList">
             <div data-field="BusinessTypes" data-fieldControlType="hideDivText">{{businessType}}</div>
 
@@ -626,7 +626,7 @@ export default {
         return {
             ptitle: 'Opportunities detail',
 
-            showPage: '0', //记录列表页是从哪个模块进来的 0：交易；1：商业机会
+            showPage: '1', //记录列表页是从哪个模块进来的 0：交易；1：商业机会
             isAddNew: true, //是否添加新纪录
             operation: true, //控制详情页header按钮，ture:显示可操作，false:隐藏
             onlyView: false, //控制页面头部icon,true:不显示头部icon,false:显示
