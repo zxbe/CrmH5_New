@@ -24,7 +24,7 @@
                     </div>
                 </div>
                 <div class="column-div">
-                    <div class="module-item" data-id="6"  @click="switchModule($event)">
+                    <div class="module-item item6" data-id="6"  @click="switchModule($event)">
                         <i class="calcfont calc-kehulianxiren"></i>
                         <div class="f14 lanText" data-lanid="630_联系人"></div>
                     </div>
@@ -112,6 +112,16 @@ export default {
   created(){
       let _self = this;
       _self.$store.commit('SET_ITEM', 'homesearch');
+
+      //处理从列表返回来的情况
+      eventBus.$on('BackHomeSearchEvent',function(data){
+          _self.inputValue = data.autoValue || '';
+          //把值赋值到SearchInput组件
+          _self.$refs.searchInput.searchValue = data.autoValue || '';
+          //执行模糊查询，查询匹配的前N条记录
+          _self.$refs.searchInput.inputChange();
+      });
+
   },
   mounted(){
       lanTool.updateLanVersion();
@@ -201,7 +211,6 @@ export default {
         // if( tool.isNullOrEmptyObject(autoValue)){
         //     return false;
         // }
-        console.log(autoValue);
         if(!tool.isNullOrEmptyObject(autoValue)){
             //把值存到缓存
             var dataArr = tool.jObject((tool.getStorageItem(_self.localStorageKeyName) || "[]"));
@@ -400,6 +409,9 @@ export default {
         // _self.resultData = [];
     },
 
+  },
+  beforeDestroy(){
+      eventBus.$off('BackHomeSearchEvent');
   },
   beforeRouteLeave: function (to, from, next) {
       if (to.name == 'index') {

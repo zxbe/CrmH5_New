@@ -252,6 +252,20 @@ export default {
   created: function () {
       let _self = this;
       _self.$store.commit('SET_ITEM', 'contactslist');
+
+      //接收从HomeSearch页面传过来的值
+      let homeSearchValue = _self.$route.query.autoValue || '';
+      if(!tool.isNullOrEmptyObject(homeSearchValue)){
+          _self.$nextTick(function(){
+            //把值填写到searchInput中
+            _self.$refs.searchInput.searchValue = homeSearchValue;
+            //设置模糊查询的值
+            _self.queryObj.autoValue = homeSearchValue;
+            //执行查询
+            _self.queryList('pushRefresh');
+        });
+      }
+
   },
   mounted(){
       let _self = this;
@@ -264,8 +278,13 @@ export default {
   methods:{
     //返回上一页
     back(){
-        var $this = this;
-        $this.$router.back(-1);
+        var _self = this;
+        //返回上一页时把autoValue传回到HomeSearch页面
+        let parameter = {
+            autoValue:_self.queryObj.autoValue || ''
+        }
+        eventBus.$emit('BackHomeSearchEvent',parameter);
+        _self.$router.back(-1);
     },
     //添加联系人
     addContacts(){
@@ -740,7 +759,7 @@ export default {
     }
   },
   beforeRouteLeave: function (to, from, next) {
-      if (to.name == 'index') {
+      if (to.name == 'index' || to.name == 'homesearch') {
           this.$store.commit('REMOVE_ITEM', 'contactslist');
       }
       next();
