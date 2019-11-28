@@ -104,9 +104,9 @@ export default {
         isTriggerDropDownToggle == undefined || isTriggerDropDownToggle == null
           ? true
           : isTriggerDropDownToggle;
-        
-        isExeQuery = (isExeQuery == null || isExeQuery == undefined) 
-          ? true 
+
+        isExeQuery = (isExeQuery == null || isExeQuery == undefined)
+          ? true
           : isExeQuery;
 
       if (tool.isNullOrEmptyObject(data) || tool.isNullOrEmptyObject(index)) {
@@ -132,7 +132,10 @@ export default {
 
       _self.$nextTick(function() {
         //调用父组件的查询方法
-        _self.$parent.delegateQuery();
+        if(!tool.isNullOrEmptyObject(_self.$parent.delegateQuery)){
+            _self.$parent.delegateQuery();
+        }
+
       });
     },
     //初始化默认的排序项,并执行查询动作

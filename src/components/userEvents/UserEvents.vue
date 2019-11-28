@@ -1,144 +1,213 @@
 <template>
-<div>
-    <!-- <Header class="header sticky" :title="title"></Header> -->
-    <header class="mui-bar mui-bar-nav">
-        <a @click="back" class="calcfont calc-fanhui left" id="back"></a>
-        <h1 class="mui-title f18">{{title}}</h1>
-        <a @click="search" class="calcfont calc-shaixuan2 right"></a>
-    </header>
-    <div class="pageContent">
-        <vue-scroll v-show="!noData" :showToTop="false" :options="{ pullup: true, pulldown: true }" :scrollbar="false" ref="scroll" @pulldown="pulldown" @pullup="pullup">
-            <ul class="dataList" :key="item.AutoID" v-for="item in userDataList">
-                <li>
-                    <a class="userMessage" @click="goUserInfoPage(item)">
-                        <div class="headImg"><img src="../../assets/images/default_user_img.png" alt=""></div>
-                        <h4>
-                            <div class="userName">{{item.Realname}}</div>
-                        </h4>
-                        <div class="position" ><span class="positionIcon calcfont" :class="[item.PositionID !='' ? 'calc-zhiwei' : '']"></span>{{item.PositionID}}</div>
-                        <div class="department" ><span class="departmentIcon calcfont" :class="[item.DepartmentID !='' ? 'calc-zuzhibumen' : '']"></span>{{item.DepartmentID}}</div>
-                        <div>
-                            <span :class="[item.Email !='' ? 'calc-youxiang' : '']" class="userEmail pullLeft calcfont">{{item.Email}}</span>
-                        </div>
-                        <div>
-                            <span :class="[item.Phone !='' ? 'calc-phone' : '']" class="userPhone pullRight calcfont">{{item.Phone}}</span>
-                        </div>
-                    </a>
-                </li>
-            </ul>
-        </vue-scroll>
-        <nothing v-show="noData" style="padding-top:0.8rem;"></nothing>
-    </div>
-    <!--  右侧侧滑 -->
-    <list-right-panel ref="rightPanel" :searchData="searchData"></list-right-panel>
+<div class="page">
+  <div v-show="pageState == 1">
+      <header class="header sticky">
+          <a @click="back" class="calcfont calc-fanhui back-icon" id="back"></a>
+          <div class="search" @click="showSearch">
+              <search-input :enableInput="false" :isShowClearIcon="true" :placeholder=lanSearchModuleInputPlaceHolder ref="searchInput"></search-input>
+          </div>
+          <a class="add-icon"></a>
+      </header>
+
+      <sort :sortData="sortData" :sortObj="sortObj" ref="sort"></sort>
+
+      <!-- 列表模式   -->
+      <div class="pageContent">
+          <vue-scroll v-show="!noData" :showToTop="false" :options="{ pullup: true, pulldown: true }" :scrollbar="false" ref="scroll" @pulldown="pulldown" @pullup="pullup">
+              <ul class="dataList" :key="item.AutoID" v-for="item in userDataList">
+                  <li>
+                      <a class="userMessage" @click="goUserInfoPage(item)">
+                          <div class="headImg"><img src="../../assets/images/default_user_img.png" alt=""></div>
+                          <h4>
+                              <div class="userName">{{item.Realname}}</div>
+                          </h4>
+                          <div class="position" ><span class="positionIcon calcfont" :class="[item.PositionID !='' ? 'calc-zhiwei' : '']"></span>{{item.PositionID}}</div>
+                          <div class="department" ><span class="departmentIcon calcfont" :class="[item.DepartmentID !='' ? 'calc-zuzhibumen' : '']"></span>{{item.DepartmentID}}</div>
+                          <div>
+                              <span :class="[item.Email !='' ? 'calc-youxiang' : '']" class="userEmail pullLeft calcfont">{{item.Email}}</span>
+                          </div>
+                          <div>
+                              <span :class="[item.Phone !='' ? 'calc-phone' : '']" class="userPhone pullRight calcfont">{{item.Phone}}</span>
+                          </div>
+                      </a>
+                  </li>
+              </ul>
+          </vue-scroll>
+          <nothing v-show="noData" style="padding-top:0.8rem;"></nothing>
+      </div>
+
+      <!-- 侧滑筛选 -->
+      <screen :screenData="RightPanelModel" :queryObj="queryObj" ref="screen"></screen>
+  </div>
+
+  <!-- 页面处于搜索状态 -->
+  <div v-show="pageState == 2">
+      <search-module :searchModuleFromType=searchModuleFromType :lanSearchModuleInputPlaceHolder=lanSearchModuleInputPlaceHolder :queryObj=queryObj ref="searchModule"></search-module>
+  </div>
 </div>
 </template>
 
 <script>
-// import Header from "@/components/customPlugin/Listheader";
+import SearchInput from "@/components/customPlugin/SearchInput";
+import Sort from "@/components/customPlugin/Sort"
+import Screen from "@/components/customPlugin/Screen"
 import Scroll from '@/components/customPlugin/scroll/Scroll';
-import Listrightpanel from "@/components/customPlugin/Listrightpanel";
+
 import Nothing from "@/components/customPlugin/Nothing";
+import SearchModule from '@/components/customplugin/SearchModule'
+
+// import Listrightpanel from "@/components/customPlugin/Listrightpanel";
+// import Nothing from "@/components/customPlugin/Nothing";
 export default {
     name: 'userEvents',
     components: {
-        // Header: Header,
-        "list-right-panel": Listrightpanel,
-        nothing: Nothing,
+        SearchInput,Sort,Screen,SearchModule,
         'vue-scroll': Scroll,
+        nothing: Nothing
     },
     data() {
         return {
-            title: lanTool.lanContent("1000304_用户活动"),
-            queryCondictionData: [], //综合查询条件
+            pageState: 1, //页面显示状态：1为显示列表；2为显示搜索
+            searchValue:'', //搜索框的值
+            //排序模型
+            sortData:[{
+                sortName:"ShortName",
+                sortText:lanTool.lanContent("1000518_按公司名称按正序排序"),
+                sortOrder:'asc',
+                sort:10,
+                isActive:true
+              },{
+                sortName:"ShortName",
+                sortText:lanTool.lanContent("1000519_按公司名称倒序排序"),
+                sortOrder:'desc',
+                sort:20
+              },
+              {
+                sortName:"BusinessType",
+                sortText:lanTool.lanContent("1000520_按业务分类正序排序"),
+                sortOrder:'asc',
+                sort:30
+              },{
+                sortName:"BusinessType",
+                sortText:lanTool.lanContent("1000521_按业务分类倒序排序"),
+                sortOrder:'desc',
+                sort:40
+              },{
+                sortName:"CountryName",
+                sortText:lanTool.lanContent("1000522_按国家正序排序"),
+                sortOrder:'asc',
+                sort:50
+              },{
+                sortName:"CountryName",
+                sortText:lanTool.lanContent("1000523_按国家倒序排序"),
+                sortOrder:'desc',
+                sort:60
+              }],
+            //右侧侧滑数据模型
+            RightPanelModel:{
+                "DataFilterModel":{
+                    text:lanTool.lanContent("794_数据筛选"),
+                    option:[
+                        {
+                          id:"allData",
+                          text:lanTool.lanContent("795_全部"),
+                          sort:10,
+                          isActive:true
+                        },{
+                          id:"MyFollowData",
+                          text:lanTool.lanContent("796_关注的公司"),
+                          sort:20,
+                          //isActive:true
+                        }
+                    ]
+                },
+                "GroupByModel":{
+                    text:lanTool.lanContent("1000004_分组模式"),
+                    option:[
+                        {
+                          id:"List",
+                          text:lanTool.lanContent("1000524_列表"),
+                          sort:10,
+                          isActive:true
+                        },{
+                          id:"BusinessType",
+                          text:lanTool.lanContent("1007_业务分类"),
+                          sort:20
+                        }
+                    ]
+                },
+                "FieldModel":[{
+                    queryfield: "BusinessType",
+                    text: lanTool.lanContent("1007_业务分类"),
+                    fieldControlType: "picketTile",//下拉选项以磁贴的方式展示的控件
+                    queryType: "string",
+                    queryFormat: "",
+                    queryRelation: "and",
+                    queryComparison: "=",
+                    Code: "DropDowList_ViewBaseAllTypes",
+                    TypeValue: "Companybusinesstype",
+                    datalanid: "1007_业务分类",
+                    option:[],
+                    more:true  //picker中是否提供显示更多功能
+                },
+                {
+                    queryfield: "CountryID",
+                    text: lanTool.lanContent("701_国家"),
+                    fieldControlType: "selectList",
+                    queryType: "string",
+                    queryFormat: "",
+                    queryRelation: "and",
+                    queryValue: "",
+                    queryComparison: "=",
+                    Code: "DropDowList_ViewBaseCountryInf",
+                    TypeValue: "",
+                    selectType: "radio",
+                    datalanid: "1000526_请选择",
+                    resulteRow: true,
+                    iconClass:'calc-nationaarea'
+                  },
+                  {
+                    queryfield: "CityID",
+                    text: lanTool.lanContent("702_城市"),
+                    fieldControlType: "linkSelectList",
+                    queryType: "string",
+                    queryFormat: "",
+                    queryRelation: "and",
+                    queryValue: "",
+                    queryComparison: "=",
+                    Code: "DropDowList_ViewBaseCountryCity",
+                    TypeValue: "",
+                    selectType: "radio",
+                    datalanid: "1000526_请选择",
+                    iconClass:'calc-diqiuquanqiu'
+                  }]
+            },
             noData: false, //没数据
-            pageSize: 10, //一页显示多少记录
+            pageSize: tool.PageSize, //一页显示多少记录
             pageNum: 1, //当前页码
-            userDataList: [
-            // {
-            //     AutoID: 52,
-            //     UserName: "abeyeung",
-            //     Realname: "abeyeung楊舒雅",
-            //     DepartmentID: "人力资源与管理",
-            //     PositionID: "Human Resources and Administration Manager",
-            //     Phone: "852 6210 8352",
-            //     Email: "abeyeung@calc.com.hk"
-            // }, {
-            //     "AutoID": 11,
-            //     "UserName": "alancheng",
-            //     "Realname": "alancheng鄭兆麟",
-            //     "DepartmentID": "秘书团队",
-            //     "PositionID": "Driver",
-            //     "Phone": "852 9198 6115",
-            //     "Email": "alancheng@fpigp.com"
-            // }, 
-            ],
-            searchData: [{
-                    queryfield: "UserName",
-                    text: lanTool.lanContent("1000307_用户帐号"),
-                    fieldControlType: "textareaInput",
-                    queryType: "string",
-                    queryFormat: "",
-                    queryRelation: "and",
-                    queryValue: "",
-                    queryComparison: "like"
-                },
-                {
-                    queryfield: "Realname",
-                    text: lanTool.lanContent("848_姓名"),
-                    fieldControlType: "textareaInput",
-                    queryType: "string",
-                    queryFormat: "",
-                    queryRelation: "and",
-                    queryValue: "",
-                    queryComparison: "like"
-                },
-                {
-                    queryfield: "DepartmentID",
-                    text: lanTool.lanContent("567_部门"),
-                    fieldControlType: "textareaInput",
-                    queryType: "string",
-                    queryFormat: "",
-                    queryRelation: "and",
-                    queryValue: "",
-                    queryComparison: "like"
-                },
-                {
-                    queryfield: "PositionID",
-                    text: lanTool.lanContent("1000259_职务"),
-                    fieldControlType: "textareaInput",
-                    queryType: "string",
-                    queryFormat: "",
-                    queryRelation: "and",
-                    queryValue: "",
-                    queryComparison: "like"
-                },
-                {
-                    queryfield: "Phone",
-                    text: lanTool.lanContent("698_电话"),
-                    fieldControlType: "textareaInput",
-                    queryType: "string",
-                    queryFormat: "",
-                    queryRelation: "and",
-                    queryValue: "",
-                    queryComparison: "like"
-                },
-                {
-                    queryfield: "Email",
-                    text: lanTool.lanContent("697_邮箱"),
-                    fieldControlType: "textareaInput",
-                    queryType: "string",
-                    queryFormat: "",
-                    queryRelation: "and",
-                    queryValue: "",
-                    queryComparison: "like"
-                },
+            sortObj:{
+              sortName:"",//排序名称
+              sortOrder:""//排序方向
+            },
+            //查询对象
+            queryObj:{
+              dataFilter:"",//数据筛选模式,
+              groupByMode:"",//分组模式,
+              viewMode:"",//视图模式
+              queryCondictionArr:[],//自定义查询条件
+              autoValue:""//模糊查询值
+            },
+            pageType:0,//0:Organizations;1:Contacts
+            //列表数据(分组模式为List)
+            listData:[],
 
-            ],
+            title: lanTool.lanContent("1000304_用户活动"),
+            // queryCondictionData: [], //综合查询条件
+            userDataList: [],
+            lanSearchModuleInputPlaceHolder:lanTool.lanContent("1000304_用户活动"),
+            searchModuleFromType:"11" //联系人:6;公司:7;会议:8;商机&交易:9; 用户管理：11；
+
         }
-    },
-    beforeRouteEnter: function (to, from, next) {
-        next();
     },
     created: function () {
         var _self = this;
@@ -164,20 +233,51 @@ export default {
         back: function () {
             this.$router.back(-1);
         },
-        //点击跳转到查询页面
-        search: function () {
-            var _self = this;
-            var parameter = {
-                'dataModule': _self.searchData,
-                'queryCondictionData': _self.queryCondictionData
-            };
-            _self.$nextTick(function () {
-                _self.$router.push({
-                    name: "searchmodule",
-                    params: {
-                        paramStr: JSON.stringify(parameter)
-                    }
-                });
+
+        //查询委托
+        delegateQuery:function(){
+          let _self = this;
+
+          _self.$nextTick(function(){
+
+            //执行查询
+            if(tool.isNullOrEmptyObject(_self.queryObj.groupByMode)){
+              return;
+            }
+
+            if(_self.queryObj.groupByMode.toLowerCase() == "list"){
+              //查询列表
+              _self.queryList('pushRefresh', function () {
+              });
+            }else{
+              //查询分组数据
+              _self.queryGroup();
+            }
+          });
+
+        },
+
+        //点击头部搜索
+        showSearch(){
+            let _self = this;
+            //1>隐藏排序的下拉
+            _self.$refs.sort.closeDownToggle();
+            //2>构造历史查询记录
+            _self.$refs.searchModule.getHistoricalSearchRecord();
+            //3>若当前组件的input组件有值，则将该值赋予SearchModule的input组件
+            var curAutoVal = _self.$refs.searchInput.searchValue || "";
+            _self.$refs.searchModule.$refs.searchInput.searchValue = curAutoVal;
+            //4>执行模糊查询，查询匹配的前N条记录
+            _self.$refs.searchModule.$refs.searchInput.inputChange();
+            //5>切换到模糊查询页面
+            _self.pageState = 2;
+            //6>获取搜索框焦点
+            _self.$nextTick(function(){
+              var $inputObj = $('#searchHeader').find('input.search-input');
+              if($inputObj.length>=1){
+                  //获取焦点并设置光标位置
+                  tool.setCursorPosition($inputObj[0],($inputObj[0].value||"").length);
+              }
             });
         },
         //跳转到用户详情
@@ -304,52 +404,24 @@ export default {
 </script>
 
 <style scoped>
-header {
-    position: fixed;
-    z-index: 99;
-    width: 100%
+.page{}
+.header{
+  overflow: hidden;
+  background: #f8f2dc;
+  height: 0.88rem;
+  display: flex;align-items: center;
+  position:fixed;z-index: 99;
+  top:0;left:0;right:0;
 }
+.back-icon{font-size: 0.48rem;padding:0.1rem 10px;}
+.search{flex:1;}
+.add-icon{font-size: 0.4rem;padding:0.1rem 10px;}
 
-header.mui-bar {
-    background: #f8f2dc;
-    overflow: hidden;
-}
 
-.mui-title {
-    
-    display: inline-block;
-    overflow: hidden;
-    width: calc(100% - 1.76rem);
-    /* max-width: 50%; */
-    font-size: .34rem;
-    /* margin: 0 0 0 -10px; */
-    text-overflow: ellipsis;
-    padding: 0;
-    text-align: center;
-    white-space: nowrap;
-    line-height: .88rem;
-}
 
-.mui-bar .calcfont {
-    font-size: 0.48rem;
-    text-align: center;
-    padding: 0.2rem 0.2rem;
-    position: relative;
-    display: inline-block;
-    text-decoration: none;
-    line-height: 1;
-}
-
-.calc-fanhui {
-    margin-left: 0;
-}
-/* .calc-shaixuan2{
-    width: 0.88rem;
-    float:right;
-} */
 .pageContent {
     position: fixed;
-    top: 0.88rem;
+    top:calc(0.88rem + 0.7rem);
     bottom: 0px;
     left: 0;
     right: 0;
