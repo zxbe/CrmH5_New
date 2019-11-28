@@ -183,6 +183,7 @@ export default {
             _RegisterCode: tool.RegisterCode(),
             FromType:_self.searchModuleFromType ||"",
             AutoValue:autoValue,
+            BusinessTypes:_self.businessType || "",
             Top:10//查询匹配的前N条记录
         };
 

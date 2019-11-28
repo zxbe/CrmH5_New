@@ -618,7 +618,7 @@ export default {
           return;
       }
       var parameter = {
-          infoName:data.MeetingTitle
+          infoName:data.MeetingTitle||""
       };
       _self.$router.push({
           path: '/meetinginfo/' + data.AutoID,

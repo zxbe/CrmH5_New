@@ -611,8 +611,7 @@ export default {
           return;
       }
       var parameter = {
-          // showPage: _self.showPage,
-          infoName:data.ShortName
+          infoName:data.EnglishName||""
       };
       _self.$router.push({
           path: '/contactsinfo/' + data.AutoID,

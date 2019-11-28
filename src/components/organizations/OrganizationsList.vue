@@ -3,7 +3,6 @@
   <div v-show="pageState == 1">
       <header class="header sticky">
           <a @click="back" class="calcfont calc-fanhui back-icon" id="back"></a>
-          <!-- <search-input class="search" placeholder="搜索公司"></search-input> -->
           <div class="search" @click="showSearch">
               <search-input :enableInput="false" :isShowClearIcon="true" :placeholder=lanSearchModuleInputPlaceHolder ref="searchInput"></search-input>
           </div>
@@ -123,7 +122,6 @@ export default {
   data(){
     return{
         pageState: 1, //页面显示状态：1为显示列表；2为显示搜索
-        searchValue:'', //搜索框的值
         //排序模型
         sortData:[{
             sortName:"ShortName",
@@ -170,7 +168,7 @@ export default {
                       isActive:true
                     },{
                       id:"MyFollowData",
-                      text:lanTool.lanContent("796_关注的公司"),
+                      text:lanTool.lanContent("981_我关注的数据"),
                       sort:20,
                       //isActive:true
                     }
@@ -205,18 +203,6 @@ export default {
                 option:[],
                 more:true  //picker中是否提供显示更多功能
             },
-            // {
-            //     queryField:'CompanyID',
-            //     text:lanTool.lanContent("1025_公司"),
-            //     fieldControlType:'textareaInput',
-            //     queryType: "string",
-            //     queryFormat: "",
-            //     queryRelation: "and",
-            //     queryValue: "",
-            //     queryComparison: "like",
-            //     datalanid: "1025_公司",
-            //     iconClass:'calc-gongsixinxi'
-            // },
             {
                 queryfield: "CountryID",
                 text: lanTool.lanContent("701_国家"),
