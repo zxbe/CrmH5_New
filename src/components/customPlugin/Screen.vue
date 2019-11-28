@@ -293,13 +293,17 @@ export default {
     //   lanTool.updateLanVersion();
       document.activeElement.blur();
 
-      //字段控件获取焦点和失去焦点的样式
-      $(".inputcontrol").blur(function(){
-          $(this).parents(".DetailRow").removeClass("DeepColor");
-      });
-      $(".inputcontrol").focus(function(){
-          $(this).parents(".DetailRow").addClass("DeepColor");
-      });
+      //单独处理控件类型为textareaInput的控件获取焦点和失去焦点的样式
+      // selectList，linkSelectList在common.js初始时处理
+      $("[data-fieldControlType='textareaInput']").each(function(ele,index){
+          $(this).blur(function(){
+              $(this).parents(".DetailRow").removeClass("DeepColor");
+          });
+          $(this).focus(function(){
+              $(this).parents(".DetailRow").addClass("DeepColor");
+          });
+
+      })
 
       //监听是否展开侧滑
       eventBus.$on('showScreenEvent',_self.panelToggle);
@@ -337,9 +341,9 @@ export default {
     InitControl(myCallBack){
         let _self = this;
 
-        //日期选择器控件初始化
+        //控件初始化
         tool.InitiateInfoPageControl(_self, "", function () { });
-  
+
         //执行回调函数
         if (!tool.isNullOrEmptyObject(myCallBack) && typeof(myCallBack) == "function") {
             myCallBack();
@@ -563,6 +567,11 @@ export default {
     choose(e,canCloseCurrent){
         canCloseCurrent = (canCloseCurrent == null || canCloseCurrent == undefined) ?  true : canCloseCurrent;
         let _self = this;
+        //去除selectList，linkSelectList控件下边高亮线
+        $("[data-fieldControlType='selectList'],[data-fieldControlType='linkSelectList']").each(function(ele,index){
+            $(this).parents(".DetailRow").removeClass("DeepColor");
+        })
+
         let target = $(e.target);
         if (!target.hasClass('item-div')) {
             target = target.parents("div.item-div:first");

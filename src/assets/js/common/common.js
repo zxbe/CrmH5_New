@@ -2550,7 +2550,7 @@ import config from "../../configfile/config.js";
                   //选中时分割线颜色加深
                   _curObj.parents(".DetailRow").addClass("DeepColor").siblings().removeClass("DeepColor");
                 }
-                
+
                 var displayTemp = _curObj.val() || "";
                 _curObj.picker("setValue", [displayTemp]);
               },
@@ -2602,6 +2602,8 @@ import config from "../../configfile/config.js";
           } else {
             //选中时分割线颜色加深
             _curObj.parents(".DetailRow").addClass("DeepColor").siblings().removeClass("DeepColor");
+            //处理列表页面侧滑控件
+            _curObj.closest('div.block-div').siblings('.block-div').find('div.DetailRow').removeClass('DeepColor');
           }
         // console.log(_curObj);
         var dataField = _curObj.attr("data-field") || "";
@@ -3934,7 +3936,7 @@ import config from "../../configfile/config.js";
     });
     //8>dateRange(参考右侧侧滑的时间范围控件)
     $("[data-fieldControlType='dateRange']").each(function(index, obj) {
-      
+
       var _curObj = $(this);
       if (tool.isNullOrEmptyObject(_curObj)) {
         return true;
@@ -4204,6 +4206,9 @@ import config from "../../configfile/config.js";
             } else {
               //选中时分割线颜色加深
               _curObj.parents(".DetailRow").addClass("DeepColor").siblings().removeClass("DeepColor");
+              //处理列表页面侧滑控件
+              _curObj.closest('div.block-div').siblings('.block-div').find('div.DetailRow').removeClass('DeepColor');
+
             }
           var dataField = _curObj.attr("data-field") || "";
           var code = _curObj.attr("Code") || "";
@@ -4273,6 +4278,8 @@ import config from "../../configfile/config.js";
             } else {
               //选中时分割线颜色加深
               _curObj.parents(".DetailRow").addClass("DeepColor").siblings().removeClass("DeepColor");
+              //处理列表页面侧滑控件
+              _curObj.closest('div.block-div').siblings('.block-div').find('div.DetailRow').removeClass('DeepColor');
             }
           var dataField = _curObj.attr("data-field") || "";
           var code = _curObj.attr("Code") || "";
