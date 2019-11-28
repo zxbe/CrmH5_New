@@ -263,7 +263,7 @@ export default {
                   queryFormat: "dd/MM/yyyy HH:mm:ss",
                   queryRelation: "and",
                   queryValue: "",
-                  queryComparison: "",
+                  queryComparison: "between",
                   option:[
                       {
                         id:"all",
@@ -491,6 +491,7 @@ export default {
 
                 //没有数据
                 if((tool.isNullOrEmptyObject(data) || data.length <= 0) && _self.pageNum == 1){
+                    _self.listData = [];
                     _self.noData = true;
                     return ;
                 }
