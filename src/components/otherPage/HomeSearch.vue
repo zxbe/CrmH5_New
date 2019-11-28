@@ -234,7 +234,7 @@ export default {
                 break;
 
             case "8":
-                infoUrl = "/meetinglist";
+                infoUrl = "/meeting";
                 break;
 
             case "9":

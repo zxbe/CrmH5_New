@@ -561,7 +561,7 @@ export default {
             _self.isAddNew = false;
             _self.operation = true;
         }
-        
+
         $(".textareaP:not(.wrap) textarea").blur(function(){
               $(this).parents(".DetailRow").removeClass("DeepColor");
          });
@@ -754,7 +754,7 @@ export default {
             var id = _self.$route.params.id;
             var fromType = "Meetinginfo";
             tool.DeleteData(fromType, id, _self, function () {
-                _self.$store.commit('REMOVE_ITEM', 'meetinglist');
+                _self.$store.commit('REMOVE_ITEM', 'meeting');
             });
         },
         //保存数据
@@ -785,7 +785,7 @@ export default {
                     var id = _self.$route.params.id;
                     var fromType = "Meetinginfo";
                     tool.SaveOrUpdateData(fromType, id, _self, function () {
-                        _self.$store.commit('REMOVE_ITEM', 'meetinglist');
+                        _self.$store.commit('REMOVE_ITEM', 'meeting');
                         _self.$store.commit('REMOVE_ITEM', 'meetinginfo');
                         _self.$router.back(-1);
                     });

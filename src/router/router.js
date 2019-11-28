@@ -62,8 +62,8 @@ const router =  new Router({
 
 
     //会议&出差
-    { path: '/meetinglist',
-      name:'meetinglist',
+    { path: '/meeting',
+      name:'meeting',
       component: (resolve) => require(['@/components/tripmeeting/MeetingList'], resolve)
     },
     { path: '/meetinginfo/:id',
