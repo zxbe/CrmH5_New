@@ -115,6 +115,8 @@ export default {
   },
   mounted(){
       lanTool.updateLanVersion();
+      //模拟点击第一个模块
+      $('.module-item').eq(0).trigger("click");
   },
   methods:{
     //返回上一页
@@ -145,7 +147,7 @@ export default {
         //->2.获取搜索历史记录
         _self.getHistoricalSearchRecord();
 
-        //->切换页面高亮模块
+        //->3.切换页面高亮模块
         $('.module-item').removeClass('active');
         if(!target.hasClass('active')){
            target.addClass('active');
@@ -170,7 +172,7 @@ export default {
             function () {
                //删除所有历史查询记录
                _self.historyData = [];
-               tool.setStoragItem(_self.localStorageKeyName, _self.historyData);
+               tool.setStoragItem(_self.localStorageKeyName, JSON.stringify(_self.historyData));
             },
             function () {}
         );
@@ -189,41 +191,69 @@ export default {
         }
 
         //设置缓存历史查询记录
-        tool.setStoragItem(_self.localStorageKeyName,_self.historyData);
+        tool.setStoragItem(_self.localStorageKeyName,JSON.stringify(_self.historyData));
     },
     //搜索事件(在input组件点击键盘上的搜索/回车键)
     excuteSeach(autoValue){
         let _self = this;
         autoValue = (autoValue||"").trim();
-
+        // 允许空值回车情况
+        // if( tool.isNullOrEmptyObject(autoValue)){
+        //     return false;
+        // }
         console.log(autoValue);
-        /*
-        //1>调用列表父组件方法搜索
-        if(_self.$parent.refreshListBySearchValue != null && _self.$parent.refreshListBySearchValue != undefined){
-            _self.$parent.refreshListBySearchValue(autoValue,function(){
-                //2>查询成功后，把查询值存到缓存
-                if(tool.isNullOrEmptyObject(autoValue)){
-                    //3>把查询值，赋到父组件的input组件
-                    _self.$parent.$refs.searchInput.searchValue = autoValue;
-                }else{
-                    var dataArr = tool.jObject((tool.getStorageItem(_self.localStorageKeyName) || "[]"));
-                    //若历史记录中已经存在查询值，则移除
-                    dataArr.remove(autoValue);
-                    //加入历史记录
-                    dataArr.unshift(autoValue);
-                    //若历史记录数超过最大允许数，移除超过的记录
-                    if(dataArr.length>_self.maxHistoricalCount){
-                        dataArr.splice(_self.maxHistoricalCount-1,dataArr.length-_self.maxHistoricalCount);
-                    }
+        if(!tool.isNullOrEmptyObject(autoValue)){
+            //把值存到缓存
+            var dataArr = tool.jObject((tool.getStorageItem(_self.localStorageKeyName) || "[]"));
+            //若历史记录中已经存在查询值，则移除
+            dataArr.remove(autoValue);
+            //加入历史记录
+            dataArr.unshift(autoValue);
+            //若历史记录数超过最大允许数，移除超过的记录
+            if(dataArr.length>_self.maxHistoricalCount){
+                dataArr.splice(_self.maxHistoricalCount-1,dataArr.length - _self.maxHistoricalCount);
+            }
 
-                    //数据写入缓存
-                    tool.setStoragItem(_self.localStorageKeyName, JSON.stringify(dataArr));
-                    //3>把查询值，赋到父组件的input组件
-                    _self.$parent.$refs.searchInput.searchValue = autoValue;
-                }
-            });
+            //数据写入缓存
+            tool.setStoragItem(_self.localStorageKeyName, JSON.stringify(dataArr));
         }
-        */
+
+        var parameter = {
+            autoValue:autoValue
+        };//传入参数
+        var infoUrl = "";//详情页地址
+        //联系人:6;公司:7;会议:8;商机&交易:9; 用户管理：11;
+        //商机：30；交易：29，其他模块不用
+        switch(_self.searchModuleFromType){
+            case "6":
+                infoUrl = "/contacts";
+                break;
+
+            case "7":
+                infoUrl = "/organizations";
+                break;
+
+            case "8":
+                infoUrl = "/meetinglist";
+                break;
+
+            case "9":
+                if(_self.businessType == '30'){
+                    infoUrl = "/pitches";
+                }else{
+                    infoUrl = "/pipeline";
+                }
+                break;
+
+            default:
+                return false;
+        }
+
+        //根据不同模块，跳到具体的详情页
+        _self.$router.push({
+            path: infoUrl,
+            query: parameter
+        });
     },
 
     //点击历史查询记录，查询匹配数据
@@ -373,7 +403,7 @@ export default {
   },
   beforeRouteLeave: function (to, from, next) {
       if (to.name == 'index') {
-          this.$store.commit('REMOVE_ITEM', 'meetinglist');
+          this.$store.commit('REMOVE_ITEM', 'homesearch');
       }
       next();
   }
@@ -397,7 +427,7 @@ export default {
 .seize-a-seat{width:15px;}
 
 .module-div{padding:1rem 0 .5rem;}
-.row-div{display: flex;align-items: center;justify-content: center;margin-right:-1px;overflow: hidden; position: relative;background:#ffffff;}
+.row-div{width:100%;overflow: hidden; display: flex;align-items: center;justify-content: center;margin-right:-1px;overflow: hidden; position: relative;background:#ffffff;}
 .column-div{flex: 1;display: flex;align-items: center;justify-content: center;position: relative;}
 .module-item{display: flex;align-items: center;justify-content: center;flex-direction: column; width: 100%;height: 100%;padding:0.2rem 0 0.3rem;box-sizing: border-box;color:#787878;}
 .module-item.active{color:#FF9900;}

@@ -3,7 +3,7 @@
     <Header class="header" :title="title" :messageCount="messageCount" :forumMessageCount="forumMessageCount"></Header>
 
     <div id="page-content" class="page-content">
-        <div class="search-box">
+        <div class="search-box-div">
           <div @click="goSearchPage"><search-input :enableInput="false" :isShowClearIcon="false" class="search disable" placeholder="搜索"></search-input></div>
         </div>
 
