@@ -2540,16 +2540,12 @@ import config from "../../configfile/config.js";
                 //收起键盘
                 document.activeElement.blur();
 
-                //判断是否是商业机会或者交易详情页
-                var parentObj = _curObj.parents(".OppList")[0] || "";
+               //设置详情表单选中时的状态
+                var parentObj = _curObj.parents(".detailBox")[0] || "";
                 if (!tool.isNullOrEmptyObject(parentObj)) {
-                  //商业机会或者交易详情页表单选中时分割线颜色加深移除和显示
                   $(parentObj).find(".DetailRow").removeClass("DeepColor");
                   _curObj.parents(".DetailRow").addClass("DeepColor")
-                } else {
-                  //选中时分割线颜色加深
-                  _curObj.parents(".DetailRow").addClass("DeepColor").siblings().removeClass("DeepColor");
-                }
+                } 
 
                 var displayTemp = _curObj.val() || "";
                 _curObj.picker("setValue", [displayTemp]);
@@ -2593,15 +2589,12 @@ import config from "../../configfile/config.js";
         if (typeof _curObj.attr("data-clickObj") != "undefined") {
           return;
         }
-          //判断是否是商业机会或者交易详情页
-          var parentObj = _curObj.parents(".OppList")[0] || "";
+          //设置详情表单选中时的状态
+          var parentObj = _curObj.parents(".detailBox")[0] || "";
           if (!tool.isNullOrEmptyObject(parentObj)) {
-            //商业机会或者交易详情页表单选中时分割线颜色加深移除和显示
             $(parentObj).find(".DetailRow").removeClass("DeepColor");
             _curObj.parents(".DetailRow").addClass("DeepColor")
           } else {
-            //选中时分割线颜色加深
-            _curObj.parents(".DetailRow").addClass("DeepColor").siblings().removeClass("DeepColor");
             //处理列表页面侧滑控件
             _curObj.closest('div.block-div').siblings('.block-div').find('div.DetailRow').removeClass('DeepColor');
           }
@@ -2655,16 +2648,12 @@ import config from "../../configfile/config.js";
           if (tool.isNullOrEmptyObject(_curObj)) {
             return;
           }
-            //判断是否是商业机会或者交易详情页
-            var parentObj = _curObj.parents(".OppList")[0] || "";
+            //设置详情表单选中时的状态
+            var parentObj = _curObj.parents(".detailBox")[0] || "";
             if (!tool.isNullOrEmptyObject(parentObj)) {
-              //商业机会或者交易详情页表单选中时分割线颜色加深移除和显示
               $(parentObj).find(".DetailRow").removeClass("DeepColor");
               _curObj.parents(".DetailRow").addClass("DeepColor")
-            } else {
-              //选中时分割线颜色加深
-              _curObj.parents(".DetailRow").addClass("DeepColor").siblings().removeClass("DeepColor");
-            }
+            } 
           // console.log(_curObj);
           var dataField = _curObj.attr("data-field") || "";
           var code = _curObj.attr("Code") || "";
@@ -2708,16 +2697,13 @@ import config from "../../configfile/config.js";
         if (typeof _curObj.attr("data-clickObj") != "undefined") {
           return;
         }
-          //判断是否是商业机会或者交易详情页
-          var parentObj = _curObj.parents(".OppList")[0] || "";
+          //设置详情表单选中时的状态
+          var parentObj = _curObj.parents(".detailBox")[0] || "";
           if (!tool.isNullOrEmptyObject(parentObj)) {
-            //商业机会或者交易详情页表单选中时分割线颜色加深移除和显示
             $(parentObj).find(".DetailRow").removeClass("DeepColor");
             _curObj.parents(".DetailRow").addClass("DeepColor")
-          } else {
-            //选中时分割线颜色加深
-            _curObj.parents(".DetailRow").addClass("DeepColor").siblings().removeClass("DeepColor");
-          }
+          } 
+
         // console.log(_curObj);
         var dataField = _curObj.attr("data-field") || "";
         var code = _curObj.attr("Code") || "";
@@ -2765,16 +2751,13 @@ import config from "../../configfile/config.js";
           if (tool.isNullOrEmptyObject(_curObj)) {
             return;
           }
-            //判断是否是商业机会或者交易详情页
-            var parentObj = _curObj.parents(".OppList")[0] || "";
-            if (!tool.isNullOrEmptyObject(parentObj)) {
-              //商业机会或者交易详情页表单选中时分割线颜色加深移除和显示
-              $(parentObj).find(".DetailRow").removeClass("DeepColor");
-              _curObj.parents(".DetailRow").addClass("DeepColor")
-            } else {
-              //选中时分割线颜色加深
-              _curObj.parents(".DetailRow").addClass("DeepColor").siblings().removeClass("DeepColor");
-            }
+             //设置详情表单选中时的状态
+          var parentObj = _curObj.parents(".detailBox")[0] || "";
+          if (!tool.isNullOrEmptyObject(parentObj)) {
+            $(parentObj).find(".DetailRow").removeClass("DeepColor");
+            _curObj.parents(".DetailRow").addClass("DeepColor")
+          } 
+
           var dataField = _curObj.attr("data-field") || "";
           var code = _curObj.attr("Code") || "";
           var filter = _curObj.attr("Filter") || "";
@@ -2812,16 +2795,13 @@ import config from "../../configfile/config.js";
         if (typeof _curObj.attr("data-clickObj") != "undefined") {
           return;
         }
-          //判断是否是商业机会或者交易详情页
-          var parentObj = _curObj.parents(".OppList")[0] || "";
+           //设置详情表单选中时的状态
+          var parentObj = _curObj.parents(".detailBox")[0] || "";
           if (!tool.isNullOrEmptyObject(parentObj)) {
-            //商业机会或者交易详情页表单选中时分割线颜色加深移除和显示
             $(parentObj).find(".DetailRow").removeClass("DeepColor");
             _curObj.parents(".DetailRow").addClass("DeepColor")
-          } else {
-            //选中时分割线颜色加深
-            _curObj.parents(".DetailRow").addClass("DeepColor").siblings().removeClass("DeepColor");
-          }
+          } 
+
         // console.log(_curObj);
         var dataField = _curObj.attr("data-field") || "";
         var code = _curObj.attr("Code") || "";
@@ -2870,16 +2850,13 @@ import config from "../../configfile/config.js";
         if (tool.isNullOrEmptyObject(_curObj)) {
           return;
         }
-          //判断是否是商业机会或者交易详情页
-          var parentObj = _curObj.parents(".OppList")[0] || "";
+           //设置详情表单选中时的状态
+          var parentObj = _curObj.parents(".detailBox")[0] || "";
           if (!tool.isNullOrEmptyObject(parentObj)) {
-            //商业机会或者交易详情页表单选中时分割线颜色加深移除和显示
             $(parentObj).find(".DetailRow").removeClass("DeepColor");
             _curObj.parents(".DetailRow").addClass("DeepColor")
-          } else {
-            //选中时分割线颜色加深
-            _curObj.parents(".DetailRow").addClass("DeepColor").siblings().removeClass("DeepColor");
-          }
+          } 
+
         // console.log(_curObj);
 
         var dataField = _curObj.attr("data-field") || "";
@@ -2978,16 +2955,14 @@ import config from "../../configfile/config.js";
           onOpen: function(pickerTemp, val1, val2) {
             //隐藏虚拟键盘
             document.activeElement.blur();
-              //判断是否是商业机会或者交易详情页
-              var parentObj = _curObj.parents(".OppList")[0] || "";
-              if (!tool.isNullOrEmptyObject(parentObj)) {
-                //商业机会或者交易详情页表单选中时分割线颜色加深移除和显示
-                $(parentObj).find(".DetailRow").removeClass("DeepColor");
-                _curObj.parents(".DetailRow").addClass("DeepColor")
-              } else {
-                //选中时分割线颜色加深
-                _curObj.parents(".DetailRow").addClass("DeepColor").siblings().removeClass("DeepColor");
-              }
+            
+          //设置详情表单选中时的状态
+          var parentObj = _curObj.parents(".detailBox")[0] || "";
+          if (!tool.isNullOrEmptyObject(parentObj)) {
+            $(parentObj).find(".DetailRow").removeClass("DeepColor");
+            _curObj.parents(".DetailRow").addClass("DeepColor")
+          } 
+
             if (
               tool.isNullOrEmptyObject(pickerTemp) ||
               tool.isNullOrEmptyObject(pickerTemp.value) ||
@@ -4197,15 +4172,13 @@ import config from "../../configfile/config.js";
         .off("click")
         .on("click", function() {
           var _curObj = $(this);
-            //判断是否是商业机会或者交易详情页
-            var parentObj = _curObj.parents(".OppList")[0] || "";
-            if (!tool.isNullOrEmptyObject(parentObj)) {
-              //商业机会或者交易详情页表单选中时分割线颜色加深移除和显示
-              $(parentObj).find(".DetailRow").removeClass("DeepColor");
-              _curObj.parents(".DetailRow").addClass("DeepColor")
-            } else {
-              //选中时分割线颜色加深
-              _curObj.parents(".DetailRow").addClass("DeepColor").siblings().removeClass("DeepColor");
+           //设置详情表单选中时的状态
+          var parentObj = _curObj.parents(".detailBox")[0] || "";
+          if (!tool.isNullOrEmptyObject(parentObj)) {
+            $(parentObj).find(".DetailRow").removeClass("DeepColor");
+            _curObj.parents(".DetailRow").addClass("DeepColor")
+          } 
+           else {
               //处理列表页面侧滑控件
               _curObj.closest('div.block-div').siblings('.block-div').find('div.DetailRow').removeClass('DeepColor');
 
@@ -4269,15 +4242,13 @@ import config from "../../configfile/config.js";
         .off("click")
         .on("click", function() {
           var _curObj = $(this);
-            //判断是否是商业机会或者交易详情页
-            var parentObj = _curObj.parents(".OppList")[0] || "";
-            if (!tool.isNullOrEmptyObject(parentObj)) {
-              //商业机会或者交易详情页表单选中时分割线颜色加深移除和显示
-              $(parentObj).find(".DetailRow").removeClass("DeepColor");
-              _curObj.parents(".DetailRow").addClass("DeepColor")
-            } else {
-              //选中时分割线颜色加深
-              _curObj.parents(".DetailRow").addClass("DeepColor").siblings().removeClass("DeepColor");
+            //设置详情表单选中时的状态
+          var parentObj = _curObj.parents(".detailBox")[0] || "";
+          if (!tool.isNullOrEmptyObject(parentObj)) {
+            $(parentObj).find(".DetailRow").removeClass("DeepColor");
+            _curObj.parents(".DetailRow").addClass("DeepColor")
+          } 
+          else {
               //处理列表页面侧滑控件
               _curObj.closest('div.block-div').siblings('.block-div').find('div.DetailRow').removeClass('DeepColor');
             }

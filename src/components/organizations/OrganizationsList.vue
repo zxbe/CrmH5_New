@@ -277,6 +277,14 @@ export default {
   created: function () {
       let _self = this;
       _self.$store.commit('SET_ITEM', 'organizationslist');
+
+      //接收从HomeSearch页面传过来的值
+      //设置模糊查询的值
+      var autoVal = _self.$route.query.autoValue || '';
+      _self.$nextTick(function(){
+        _self.queryObj.autoValue = autoVal;
+        _self.$refs.searchInput.searchValue = autoVal;
+      });
   },
   mounted(){
       let _self = this;

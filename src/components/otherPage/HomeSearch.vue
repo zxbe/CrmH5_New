@@ -184,13 +184,13 @@ export default {
         //联系人:6;公司:7;会议:8;商机&交易:9; 用户管理：11；
         switch(_self.searchModuleFromType){
             case "6":
-                _self.lanSearchModuleInputPlaceHolder = lanTool.lanContent("1149_我的会议");
+                _self.lanSearchModuleInputPlaceHolder = lanTool.lanContent("630_联系人");
                 break;
             case "7":
                 _self.lanSearchModuleInputPlaceHolder = lanTool.lanContent("685_公司");
                 break;
             case "8":
-                _self.lanSearchModuleInputPlaceHolder = lanTool.lanContent("630_联系人");
+                _self.lanSearchModuleInputPlaceHolder = lanTool.lanContent("1149_我的会议");
                 break;
             case "9":
                 if(_self.businessType == "29"){

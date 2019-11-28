@@ -273,11 +273,6 @@ export default {
     //返回上一页
     back(){
         var _self = this;
-        //返回上一页时把autoValue传回到HomeSearch页面
-        let parameter = {
-            autoValue:_self.queryObj.autoValue || ''
-        }
-        eventBus.$emit('BackHomeSearchEvent',parameter);
         _self.$router.back(-1);
     },
     //添加联系人
