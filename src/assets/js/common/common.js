@@ -2539,7 +2539,18 @@ import config from "../../configfile/config.js";
               onOpen: function(data) {
                 //收起键盘
                 document.activeElement.blur();
-                _curObj.parents(".DetailRow").addClass("DeepColor").siblings().removeClass("DeepColor");
+
+                //判断是否是商业机会或者交易详情页
+                var parentObj = _curObj.parents(".OppList") || "";
+                if (!tool.isNullOrEmptyObject(parentObj)) {
+                  //商业机会或者交易详情页表单选中时分割线颜色加深移除和显示
+                  $(parentObj).find(".DetailRow").removeClass("DeepColor");
+                  _curObj.parents(".DetailRow").addClass("DeepColor")
+                } else {
+                  //选中时分割线颜色加深
+                  _curObj.parents(".DetailRow").addClass("DeepColor").siblings().removeClass("DeepColor");
+                }
+                
                 var displayTemp = _curObj.val() || "";
                 _curObj.picker("setValue", [displayTemp]);
               },
@@ -2582,7 +2593,16 @@ import config from "../../configfile/config.js";
         if (typeof _curObj.attr("data-clickObj") != "undefined") {
           return;
         }
-        _curObj.parents(".DetailRow").addClass("DeepColor").siblings().removeClass("DeepColor");
+          //判断是否是商业机会或者交易详情页
+          var parentObj = _curObj.parents(".OppList") || "";
+          if (!tool.isNullOrEmptyObject(parentObj)) {
+            //商业机会或者交易详情页表单选中时分割线颜色加深移除和显示
+            $(parentObj).find(".DetailRow").removeClass("DeepColor");
+            _curObj.parents(".DetailRow").addClass("DeepColor")
+          } else {
+            //选中时分割线颜色加深
+            _curObj.parents(".DetailRow").addClass("DeepColor").siblings().removeClass("DeepColor");
+          }
         // console.log(_curObj);
         var dataField = _curObj.attr("data-field") || "";
         var code = _curObj.attr("Code") || "";
@@ -2633,7 +2653,16 @@ import config from "../../configfile/config.js";
           if (tool.isNullOrEmptyObject(_curObj)) {
             return;
           }
-          _curObj.parents(".DetailRow").addClass("DeepColor").siblings().removeClass("DeepColor");
+            //判断是否是商业机会或者交易详情页
+            var parentObj = _curObj.parents(".OppList") || "";
+            if (!tool.isNullOrEmptyObject(parentObj)) {
+              //商业机会或者交易详情页表单选中时分割线颜色加深移除和显示
+              $(parentObj).find(".DetailRow").removeClass("DeepColor");
+              _curObj.parents(".DetailRow").addClass("DeepColor")
+            } else {
+              //选中时分割线颜色加深
+              _curObj.parents(".DetailRow").addClass("DeepColor").siblings().removeClass("DeepColor");
+            }
           // console.log(_curObj);
           var dataField = _curObj.attr("data-field") || "";
           var code = _curObj.attr("Code") || "";
@@ -2677,7 +2706,16 @@ import config from "../../configfile/config.js";
         if (typeof _curObj.attr("data-clickObj") != "undefined") {
           return;
         }
-        _curObj.parents(".DetailRow").addClass("DeepColor").siblings().removeClass("DeepColor");
+          //判断是否是商业机会或者交易详情页
+          var parentObj = _curObj.parents(".OppList") || "";
+          if (!tool.isNullOrEmptyObject(parentObj)) {
+            //商业机会或者交易详情页表单选中时分割线颜色加深移除和显示
+            $(parentObj).find(".DetailRow").removeClass("DeepColor");
+            _curObj.parents(".DetailRow").addClass("DeepColor")
+          } else {
+            //选中时分割线颜色加深
+            _curObj.parents(".DetailRow").addClass("DeepColor").siblings().removeClass("DeepColor");
+          }
         // console.log(_curObj);
         var dataField = _curObj.attr("data-field") || "";
         var code = _curObj.attr("Code") || "";
@@ -2725,7 +2763,16 @@ import config from "../../configfile/config.js";
           if (tool.isNullOrEmptyObject(_curObj)) {
             return;
           }
-          _curObj.parents(".DetailRow").addClass("DeepColor").siblings().removeClass("DeepColor");
+            //判断是否是商业机会或者交易详情页
+            var parentObj = _curObj.parents(".OppList") || "";
+            if (!tool.isNullOrEmptyObject(parentObj)) {
+              //商业机会或者交易详情页表单选中时分割线颜色加深移除和显示
+              $(parentObj).find(".DetailRow").removeClass("DeepColor");
+              _curObj.parents(".DetailRow").addClass("DeepColor")
+            } else {
+              //选中时分割线颜色加深
+              _curObj.parents(".DetailRow").addClass("DeepColor").siblings().removeClass("DeepColor");
+            }
           var dataField = _curObj.attr("data-field") || "";
           var code = _curObj.attr("Code") || "";
           var filter = _curObj.attr("Filter") || "";
@@ -2763,7 +2810,16 @@ import config from "../../configfile/config.js";
         if (typeof _curObj.attr("data-clickObj") != "undefined") {
           return;
         }
-        _curObj.parents(".DetailRow").addClass("DeepColor").siblings().removeClass("DeepColor");
+          //判断是否是商业机会或者交易详情页
+          var parentObj = _curObj.parents(".OppList") || "";
+          if (!tool.isNullOrEmptyObject(parentObj)) {
+            //商业机会或者交易详情页表单选中时分割线颜色加深移除和显示
+            $(parentObj).find(".DetailRow").removeClass("DeepColor");
+            _curObj.parents(".DetailRow").addClass("DeepColor")
+          } else {
+            //选中时分割线颜色加深
+            _curObj.parents(".DetailRow").addClass("DeepColor").siblings().removeClass("DeepColor");
+          }
         // console.log(_curObj);
         var dataField = _curObj.attr("data-field") || "";
         var code = _curObj.attr("Code") || "";
@@ -2812,7 +2868,16 @@ import config from "../../configfile/config.js";
         if (tool.isNullOrEmptyObject(_curObj)) {
           return;
         }
-        _curObj.parents(".DetailRow").addClass("DeepColor").siblings().removeClass("DeepColor");
+          //判断是否是商业机会或者交易详情页
+          var parentObj = _curObj.parents(".OppList") || "";
+          if (!tool.isNullOrEmptyObject(parentObj)) {
+            //商业机会或者交易详情页表单选中时分割线颜色加深移除和显示
+            $(parentObj).find(".DetailRow").removeClass("DeepColor");
+            _curObj.parents(".DetailRow").addClass("DeepColor")
+          } else {
+            //选中时分割线颜色加深
+            _curObj.parents(".DetailRow").addClass("DeepColor").siblings().removeClass("DeepColor");
+          }
         // console.log(_curObj);
 
         var dataField = _curObj.attr("data-field") || "";
@@ -2844,7 +2909,8 @@ import config from "../../configfile/config.js";
       });
 
     //6>渲染dateTimePicker
-    $("[data-fieldControlType='dateTimePicker']").each(function(index, obj) {
+    //[data-fieldControlType='dateRange_subitem']在右侧侧滑时间范围控件里用到
+    $("[data-fieldControlType='dateTimePicker'],[data-fieldControlType='dateRange_subitem']").each(function(index, obj) {
       var _curObj = $(this);
       var fromId = _curObj.attr("data-field") || "";
       if (tool.isNullOrEmptyObject(fromId)) {
@@ -2910,7 +2976,16 @@ import config from "../../configfile/config.js";
           onOpen: function(pickerTemp, val1, val2) {
             //隐藏虚拟键盘
             document.activeElement.blur();
-            _curObj.parents(".DetailRow").addClass("DeepColor").siblings().removeClass("DeepColor");
+              //判断是否是商业机会或者交易详情页
+              var parentObj = _curObj.parents(".OppList") || "";
+              if (!tool.isNullOrEmptyObject(parentObj)) {
+                //商业机会或者交易详情页表单选中时分割线颜色加深移除和显示
+                $(parentObj).find(".DetailRow").removeClass("DeepColor");
+                _curObj.parents(".DetailRow").addClass("DeepColor")
+              } else {
+                //选中时分割线颜色加深
+                _curObj.parents(".DetailRow").addClass("DeepColor").siblings().removeClass("DeepColor");
+              }
             if (
               tool.isNullOrEmptyObject(pickerTemp) ||
               tool.isNullOrEmptyObject(pickerTemp.value) ||
@@ -3857,6 +3932,52 @@ import config from "../../configfile/config.js";
         queryCondiction.push(queryCondictionObj);
       }
     });
+    //8>dateRange(参考右侧侧滑的时间范围控件)
+    $("[data-fieldControlType='dateRange']").each(function(index, obj) {
+      
+      var _curObj = $(this);
+      if (tool.isNullOrEmptyObject(_curObj)) {
+        return true;
+      }
+      var $itemObj = _curObj.find(".item-div.active").eq(0);
+      if (tool.isNullOrEmptyObject($itemObj) || $itemObj.length <= 0) {
+        return true;
+      }
+      var dateRangeType = $itemObj.attr("data-id")||"";
+      if(tool.isNullOrEmptyObject(dateRangeType)){
+        return true;
+      }
+      dateRangeType = dateRangeType.toLowerCase().trim();
+
+      var value = "";
+      if(dateRangeType == "week") {
+        value = tool.ConstructDateRangeVal(0, -6);
+      } else if(dateRangeType == "month") {
+        value = tool.ConstructDateRangeVal(0, -30);
+      } else if(dateRangeType == "halfyear") {
+        value = tool.ConstructDateRangeVal(-6, 0);
+      } else if(dateRangeType == "all") {
+        value = tool.ConstructDateRangeVal(0, 0);
+      } else if(dateRangeType == "customize") {
+          return true;
+      } else {
+          return true;
+      }
+
+      if (tool.isNullOrEmptyObject(value)) {
+        return true;
+      }
+
+      var queryCondictionObj = {
+        Field: _curObj.attr("data-field") || "",
+        Type: _curObj.attr("data-querytype") || "",
+        Format: _curObj.attr("data-queryformat") || "",
+        Relation: _curObj.attr("data-queryrelation") || "",
+        Value: value,
+        Comparison: _curObj.attr("data-querycomparison") || ""
+      };
+      queryCondiction.push(queryCondictionObj);
+    });
 
     //执行回调函数
     if (!tool.isNullOrEmptyObject(myCallBack)) {
@@ -3865,6 +3986,25 @@ import config from "../../configfile/config.js";
 
     return queryCondiction;
   };
+  //返回拼装后的时间范围字符串,如yyyy-MM-dd,yyyy-MM-dd
+  tool.ConstructDateRangeVal = function(month,day){
+    var isFormat = true;
+    var dateTimeFormatStr = "dd/MM/yyyy";
+    var startDate = new Date();
+    var endDateStr = new Date().FormatNew(dateTimeFormatStr);
+    month = month || 0;
+    day = day || 0;
+    //选择全部
+    if(month == 0 && day == 0) {
+      return "";
+    }
+
+    var startDateStr = tool.SetDate(startDate, 0, month, day, isFormat, dateTimeFormatStr);
+    startDateStr = startDateStr + " 00:00:00";
+    endDateStr = endDateStr + " 23:59:59";
+    var dateRangeStr = startDateStr + "," + endDateStr;
+    return dateRangeStr;
+  }
 
   //获取Public对象
   tool.GetPublicObj = function() {
@@ -4055,7 +4195,16 @@ import config from "../../configfile/config.js";
         .off("click")
         .on("click", function() {
           var _curObj = $(this);
-          _curObj.parents(".DetailRow").addClass("DeepColor").siblings().removeClass("DeepColor");
+            //判断是否是商业机会或者交易详情页
+            var parentObj = _curObj.parents(".OppList") || "";
+            if (!tool.isNullOrEmptyObject(parentObj)) {
+              //商业机会或者交易详情页表单选中时分割线颜色加深移除和显示
+              $(parentObj).find(".DetailRow").removeClass("DeepColor");
+              _curObj.parents(".DetailRow").addClass("DeepColor")
+            } else {
+              //选中时分割线颜色加深
+              _curObj.parents(".DetailRow").addClass("DeepColor").siblings().removeClass("DeepColor");
+            }
           var dataField = _curObj.attr("data-field") || "";
           var code = _curObj.attr("Code") || "";
           var filter = _curObj.attr("Filter") || "";
@@ -4114,8 +4263,17 @@ import config from "../../configfile/config.js";
       $("[data-field='" + chField + "']")
         .off("click")
         .on("click", function() {
-          _curObj.parents(".DetailRow").addClass("DeepColor").siblings().removeClass("DeepColor");
           var _curObj = $(this);
+            //判断是否是商业机会或者交易详情页
+            var parentObj = _curObj.parents(".OppList") || "";
+            if (!tool.isNullOrEmptyObject(parentObj)) {
+              //商业机会或者交易详情页表单选中时分割线颜色加深移除和显示
+              $(parentObj).find(".DetailRow").removeClass("DeepColor");
+              _curObj.parents(".DetailRow").addClass("DeepColor")
+            } else {
+              //选中时分割线颜色加深
+              _curObj.parents(".DetailRow").addClass("DeepColor").siblings().removeClass("DeepColor");
+            }
           var dataField = _curObj.attr("data-field") || "";
           var code = _curObj.attr("Code") || "";
           var filter = _curObj.attr("Filter") || "";

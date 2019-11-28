@@ -120,13 +120,14 @@
                               <div class="time-range-customize-div">
                                   <div class="box">
                                     <div class="inputRow">
-                                        <input id="startdate" class="selectdate lanInputPlaceHolder" type="text" readonly="readonly" placeholder="" data-lanid="878_开始日期" data-field="BeginTime" data-fieldControlType="dateTimePicker" data-TimeType="date" data-format="yyyy-MM-dd"/>
+                                        <input class="startdate selectdate" type="text" readonly="readonly" :placeholder=lanStartdate data-field="BeginTime" data-fieldControlType="dateRange_subitem" data-TimeType="date" data-format="yyyy-MM-dd"/>
                                     </div>
                                     <div class="line"></div>
                                     <div  class="inputRow">
-                                        <input id="enddate" class="selectdate lanInputPlaceHolder" type="text" readonly="readonly" placeholder=""  data-lanid="879_结束日期" data-field="EndTime" data-fieldControlType="dateTimePicker" data-TimeType="date" data-format="yyyy-MM-dd">
+                                        <input class="enddate selectdate" type="text" readonly="readonly" :placeholder=lanEnddate data-field="EndTime" data-fieldControlType="dateRange_subitem" data-TimeType="date" data-format="yyyy-MM-dd">
                                     </div>
                                   </div>
+                                  <div class="dateRangeConfirm" @click="dateRangeConfirmEvent($event)">{{lanDateRangeConfirm}}</div>
                               </div>
                         </div>
                       </div>
@@ -211,7 +212,10 @@ export default {
         FieldModel:[],
 
         lanReset: lanTool.lanContent("1000527_重置"),
-        lanConfirm: lanTool.lanContent("545_确定")
+        lanConfirm: lanTool.lanContent("545_确定"),
+        lanStartdate:lanTool.lanContent("878_开始日期"),
+        lanEnddate:lanTool.lanContent("879_结束日期"),
+        lanDateRangeConfirm: lanTool.lanContent("545_确定")
     }
   },
   props:{
@@ -286,9 +290,10 @@ export default {
   },
   mounted(){
       let _self = this;
-      lanTool.updateLanVersion();
+    //   lanTool.updateLanVersion();
       document.activeElement.blur();
 
+      //字段控件获取焦点和失去焦点的样式
       $(".inputcontrol").blur(function(){
           $(this).parents(".DetailRow").removeClass("DeepColor");
       });
@@ -309,7 +314,6 @@ export default {
 
       //绑定控件字段的值改变事件
       _self.bindFieldChangeEvent();
-
   },
   activated: function () {
         let _self = this;
@@ -329,7 +333,18 @@ export default {
        //_self.bindFieldChangeEvent();
   },
   methods:{
+    //渲染控件
+    InitControl(myCallBack){
+        let _self = this;
 
+        //日期选择器控件初始化
+        tool.InitiateInfoPageControl(_self, "", function () { });
+  
+        //执行回调函数
+        if (!tool.isNullOrEmptyObject(myCallBack) && typeof(myCallBack) == "function") {
+            myCallBack();
+        }
+    },
     //绑定控件字段的值改变事件
     //isOnlyRemoveEvent:是否仅移除监听事件
     bindFieldChangeEvent:function(isOnlyRemoveEvent){
@@ -352,6 +367,8 @@ export default {
                     }
                 }else if(_curObj.attr("data-fieldcontroltype") == "textareaInput"){
                     _curObj.off("keyup");
+                }else if(_curObj.attr("data-fieldcontroltype") == "dateRange_subitem"){
+                    //不需要移除事件，这种控件不绑事件
                 }else {
                     _curObj.off("change");
                 }
@@ -391,6 +408,8 @@ export default {
                             });
                          }
                     });
+                }else if(_curObj.attr("data-fieldcontroltype") == "dateRange_subitem"){
+                    //不需要添加事件，这种控件不绑事件
                 }else{
                     _curObj.off("change").on("change",function(){
                         _self.$nextTick(function(){
@@ -439,16 +458,13 @@ export default {
         var queryCondictionArrTemp = _self.constructConditionField() || [];
         _self.$set(_self.queryObj,"queryCondictionArr",queryCondictionArrTemp);
     },
-
     //初始化父页面参数
     initParentParam:function(){
         let _self = this;
-
         _self.$nextTick(function(){
             _self.setParentQueryObj();
         });
     },
-
     //侧滑
     //isClose值如果为false，表示刚进页面收起侧滑；
     //如果没传isClose值showPanel就取反，表示正常的展开收起
@@ -486,20 +502,6 @@ export default {
                 })
             }
     },
-
-    //渲染控件
-    InitControl(myCallBack){
-        let _self = this;
-
-        //日期选择器控件初始化
-        tool.InitiateInfoPageControl(_self, "", function () { });
-  
-        //执行回调函数
-        if (!tool.isNullOrEmptyObject(myCallBack) && typeof(myCallBack) == "function") {
-            myCallBack();
-        }
-    },
-
     //请求BusinessSectorOptions
     getPickerOptions(item){
         let _self = this;
@@ -542,7 +544,6 @@ export default {
 
 
     },
-
     //点击显示更多选项
     showMore(e){
         let _self = this;
@@ -582,6 +583,8 @@ export default {
                     return;
                 }else{
                     target.siblings('.time-range-customize-div').slideUp(400);
+                    //收起自定义查询时间后，清除开始日期和结束日期的值
+                    target.siblings('.time-range-customize-div').find(".startdate,.enddate").val("");
                 }
             }else{
                 //取消选择
@@ -590,7 +593,15 @@ export default {
                 var curId = target.attr("data-id")||"";
                 if( curId == 'customize' ){
                     target.siblings('.time-range-customize-div').slideUp(400);
-                    return;
+                    //收起自定义查询时间后，清除开始日期和结束日期的值
+                    target.siblings('.time-range-customize-div').find(".startdate,.enddate").val("");
+                    _self.$nextTick(function(){
+                        //设置父组件查询参数
+                        _self.setParentQueryObj();
+                        //调用父组件的查询方法
+                        _self.$parent.delegateQuery();
+                        return;
+                    });
                 }
             }
         }else{
@@ -627,6 +638,7 @@ export default {
         }
 
         _self.$nextTick(function(){
+            //设置父组件查询参数
             _self.setParentQueryObj();
             //调用父组件的查询方法
             _self.$parent.delegateQuery();
@@ -801,7 +813,84 @@ export default {
             _self.panelToggle();
         });
     },
+    //日期范围控件的自定义时间查询事件
+    dateRangeConfirmEvent:function(e){
+        let _self = this;
+        var $confirmObj = $(e.target);
+        if(tool.isNullOrEmptyObject($confirmObj)){
+            return false;
+        }
 
+        //1>设置父组件的查询对象
+        _self.setParentQueryObj();
+
+        //2查找构造查询参数用的父节点
+        var $parentFieldObj = $confirmObj.closest("[data-fieldcontroltype='dateRange']");
+        if(tool.isNullOrEmptyObject($parentFieldObj) || $parentFieldObj.length<=0){
+            return false;
+        }
+
+        //3>查询开始日期和结束日期
+        var $startDateObj = $confirmObj.siblings(".box").find(".inputRow .startdate").eq(0);
+        var $endDateObj = $confirmObj.siblings(".box").find(".inputRow .enddate").eq(0);
+        if(
+            tool.isNullOrEmptyObject($startDateObj) || $startDateObj.length<=0 ||
+            tool.isNullOrEmptyObject($endDateObj) || $endDateObj.length<=0
+        ){
+            return false;
+        }
+        var startdate = $startDateObj.val();
+        var enddate = $endDateObj.val();
+
+        //4>将时间格式转成通用格式
+        var oldFormat = "dd/MM/yyyy";
+        var newFormat = "yyyy/MM/dd";
+        startdate = tool.ChangeTimeFormat(startdate,newFormat,oldFormat);
+        enddate = tool.ChangeTimeFormat(enddate,newFormat,oldFormat);
+
+        var d1 = new Date(startdate);
+        var d2 = new Date(enddate);
+
+        //开始日期或者结束日期其中一个为空，一个不为空
+        var errorMsg = "";
+        if (tool.isNullOrEmptyObject(startdate) || tool.isNullOrEmptyObject(enddate)) {
+            errorMsg = lanTool.lanContent("935_开始日期或者结束日期不能为空") || "";
+        } else if (d1 > d2) {
+            errorMsg = lanTool.lanContent("934_开始日期不能大于或等于结束日期") || "";
+        }
+        if(!tool.isNullOrEmptyObject(errorMsg)){
+            tool.alert(errorMsg);
+            return false;
+        }
+
+        //5>转成字段需要的时间格式
+        var fieldFormat = $parentFieldObj.attr("data-queryformat") || oldFormat;
+        fieldFormat = fieldFormat.split(" ")[0]||"dd/MM/yyyy";
+        startdate = tool.ChangeTimeFormat(startdate,fieldFormat,newFormat);
+        enddate = tool.ChangeTimeFormat(enddate,fieldFormat,newFormat);
+
+        startdate = startdate + " 00:00:00";
+        enddate = enddate + " 23:59:59";
+        var value = startdate + "," + enddate;
+
+        var queryCondictionObj = {
+            Field: $parentFieldObj.attr("data-field") || "",
+            Type: $parentFieldObj.attr("data-querytype") || "",
+            Format: $parentFieldObj.attr("data-queryformat") || "",
+            Relation: $parentFieldObj.attr("data-queryrelation") || "",
+            Value: value,
+            Comparison: $parentFieldObj.attr("data-querycomparison") || ""
+        };
+
+        //6>获取父组件的字段查询条件
+        var queryCondictionArrTemp = _self.queryObj.queryCondictionArr || "";
+        queryCondictionArrTemp.push(queryCondictionObj);
+        //写入查询条件
+        _self.$set(_self.queryObj,"queryCondictionArr",queryCondictionArrTemp);
+
+        //7>调用父组件的查询方法
+        _self.$parent.delegateQuery();
+    },
   },
   beforeDestroy:function(){
       eventBus.$off('showScreenEvent');
@@ -936,5 +1025,16 @@ p.textareaP.wrap{
     border:none;
     line-height: 20px;}
 .line{flex:1; height:1px;background:#ccc;margin:0 10px;}
-
+.dateRangeConfirm{
+    height: .6rem;
+    line-height: .6rem;
+    width: 2rem;
+    background-color: #f90;
+    text-align: center;
+    color: #fff;
+    margin: auto;
+    margin-top: .2rem;
+    margin-bottom: .2rem;
+    border-radius: 4px;
+}
 </style>

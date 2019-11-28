@@ -561,10 +561,11 @@ export default {
             _self.isAddNew = false;
             _self.operation = true;
         }
-
+        //失去焦点，移除分割线颜色加深
         $(".textareaP:not(.wrap) textarea").blur(function(){
               $(this).parents(".DetailRow").removeClass("DeepColor");
          });
+         //聚焦，添加分割线颜色加深
          $(".textareaP:not(.wrap) textarea").focus(function(){
               $(this).parents(".DetailRow").addClass("DeepColor").siblings().removeClass("DeepColor");
          });

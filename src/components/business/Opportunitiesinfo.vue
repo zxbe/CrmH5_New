@@ -173,7 +173,6 @@
             <div class="DetailRow controlEdit">
                 <div class="DetailRowOn"><span class="calcfont calc-kehulianxiren ChangeIconColor"></span><span class="FileName lanText" data-lanid="630_联系人"></span><span class="XingHao">*</span></div>
                 <div class="DetailRowUp">
-                    <!-- <input class="content lanInputPlaceHolder" readonly="readonly" data-field="ContactsID" data-fieldControlType="linkSelectList" data-lanid="1000526_选择" data-fieldVal="" Code="DropDowList_ViewBaseCompanyContactsByCompany" Filter="" data-selectType="radio"  data-addUrl="/contactsinfo" data-linkIDField="" data-linkNameField="" data-fromType="6" /> -->
                     <p class="textareaP wrap">
                         <textarea readonly="readonly" class="lanInputPlaceHolder" data-field="ContactsID" data-fieldControlType="linkSelectList" data-lanid="1000526_选择" data-fieldVal="" Code="DropDowList_ViewBaseCompanyContactsByCompany" Filter="" data-selectType="radio" data-addUrl="/contactsinfo" data-linkIDField="" data-linkNameField="" data-fromType="6"></textarea>
                     </p>
@@ -627,7 +626,7 @@ export default {
         return {
             ptitle: 'Opportunities detail',
 
-            showPage: '1', //记录列表页是从哪个模块进来的 0：交易；1：商业机会
+            showPage: '0', //记录列表页是从哪个模块进来的 0：交易；1：商业机会
             isAddNew: true, //是否添加新纪录
             operation: true, //控制详情页header按钮，ture:显示可操作，false:隐藏
             onlyView: false, //控制页面头部icon,true:不显示头部icon,false:显示
@@ -690,11 +689,15 @@ export default {
         lanTool.updateLanVersion();
         document.activeElement.blur();
         $(window).scrollTop(0);
+        //失去焦点，移除分割线颜色加深
         $(".textareaP:not(.wrap) textarea").blur(function () {
             $(this).parents(".DetailRow").removeClass("DeepColor");
         });
+        //聚焦，添加分割线颜色加深
         $(".textareaP:not(.wrap) textarea").focus(function () {
-            $(this).parents(".DetailRow").addClass("DeepColor").siblings().removeClass("DeepColor");
+            
+            $(".OppList").find(".DetailRow").removeClass("DeepColor");
+            $(this).parents(".DetailRow").addClass("DeepColor");
         });
         _self.seeMore = lanTool.lanContent("900_查看详细");
         var fromType = "Opportunitiesinfo";
