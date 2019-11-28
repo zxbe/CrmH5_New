@@ -174,7 +174,7 @@
                 <div class="DetailRowOn"><span class="calcfont calc-kehulianxiren ChangeIconColor"></span><span class="FileName lanText" data-lanid="630_联系人"></span><span class="XingHao">*</span></div>
                 <div class="DetailRowUp">
                     <p class="textareaP wrap">
-                        <textarea readonly="readonly" class="lanInputPlaceHolder" data-field="ContactsID" data-fieldControlType="linkSelectList" data-lanid="1000526_选择" data-fieldVal="" Code="DropDowList_ViewBaseCompanyContactsByCompany" Filter="" data-selectType="radio" data-addUrl="/contactsinfo" data-linkIDField="" data-linkNameField="" data-fromType="6"></textarea>
+                        <textarea readonly="readonly" class="lanInputPlaceHolder" data-field="ContactID" data-fieldControlType="linkSelectList" data-lanid="1000526_选择" data-fieldVal="" Code="DropDowList_ViewBaseCompanyContactsByCompany" Filter="" data-selectType="radio" data-addUrl="/contactsinfo" data-linkIDField="" data-linkNameField="" data-fromType="6"></textarea>
                     </p>
                     <div class="LeftIconBlock"><span class="LeftIcon calcfont calc-you"></span></div>
                 </div>
