@@ -651,7 +651,7 @@ export default {
               if (data._ReturnStatus == false) {
                   tool.showText(tool.getMessage(data));
                   console.log(tool.getMessage(data));
-                  _self.noData = true;
+                  // _self.noData = true;  //二级没数据不能设置noData,不然整个列表都没，显示机器人图标
                   return;
               }
               data = data._OnlyOneData.Rows || [];

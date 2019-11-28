@@ -16,7 +16,7 @@
           <div v-show="queryObj.viewMode == 'listView'">
               <!-- 列表模式 List -->
               <div v-show="queryObj.groupByMode == 'List'" class="list-mode-div">
-                  <vue-scroll :showToTop="false" :options="{ pullup: true, pulldown: true }" :scrollbar="false" ref="scroll" @pulldown="pulldown" @pullup="pullup">
+                  <vue-scroll v-show="!noData" :showToTop="false" :options="{ pullup: true, pulldown: true }" :scrollbar="false" ref="scroll" @pulldown="pulldown" @pullup="pullup">
                         <div v-if="listData !=null && listData != undefined && listData.length > 0" class="group-item-list meeting-list">
                             <div v-for="item in listData" :key="item.AutoID"
                             class="data-events-item f14" @click="goInfo(item)">
@@ -39,11 +39,12 @@
                             </div>
                         </div>
                   </vue-scroll>
+                  <nothing v-show="noData" style="padding-top:0.8rem;"></nothing>
               </div>
 
               <!-- Date模式 -->
               <div v-show="queryObj.groupByMode == 'Date'" class="date-mode-div" id="meetingList" data-fromtype="meeting">
-                    <div v-for="group in groupData" :key="group.GroupID"
+                    <div v-show="!noData" v-for="group in groupData" :key="group.GroupID"
                       class="list-group-div group-div">
                         <div class="date-div">
                           <span class="calcfont calc-rili1"></span>
@@ -74,11 +75,12 @@
                             </div>
                         </div>
                     </div>
+                    <nothing v-show="noData" style="padding-top:0.8rem;"></nothing>
               </div>
 
               <!-- 业务分组 模式 -->
               <div v-show="queryObj.groupByMode == 'PopedomTeamInf'" class="department-mode-div" id="meetingListOfGroup" data-fromtype="meeting">
-                    <div v-for="group in groupData" :key="group.GroupID" class="list-group-div group-div">
+                    <div v-show="!noData" v-for="group in groupData" :key="group.GroupID" class="list-group-div group-div">
                         <div class="date-div">
                             <span class="calcfont calc-business"></span>
                             <span class="group-name" :data-groupid="group.GroupID">{{group.GroupName}}</span>
@@ -121,6 +123,7 @@
                         </div>
 
                     </div>
+                    <nothing v-show="noData" style="padding-top:0.8rem;"></nothing>
               </div>
           </div>
 
@@ -130,8 +133,8 @@
           </div>
 
           <!-- 侧滑筛选 -->
-          <screen :screenData="RightPanelModel" :queryObj="queryObj" ref="screen"></screen>    
-      
+          <screen :screenData="RightPanelModel" :queryObj="queryObj" ref="screen"></screen>
+
     </div>
 
     <!-- 页面处于搜索状态 -->
@@ -789,10 +792,10 @@ export default {
             success: function (data) {
                 tool.hideLoading(loadingIndexClassName);
                 data = tool.jObject(data);
+                data._ReturnStatus = false;
                 if (data._ReturnStatus == false) {
                     tool.showText(tool.getMessage(data));
                     console.log(tool.getMessage(data));
-                    _self.noData = true;
                     return;
                 }
                 data = data._OnlyOneData.Rows || [];

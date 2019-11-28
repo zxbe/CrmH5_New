@@ -49,7 +49,7 @@
 
       <!-- 分组模式   -->
       <div class="group-mode-div" v-show="queryObj.groupByMode != 'List'">
-            <div v-show="!noData" id="organizationsList" data-fromtype="organizations">
+          <div v-show="!noData" id="organizationsList" data-fromtype="organizations">
                 <div v-for="group in groupData" :key="group.GroupID" class="list-group-div group-div">
                     <div class="date-div">
                         <span class="calcfont calc-business"></span>
@@ -205,18 +205,6 @@ export default {
                 option:[],
                 more:true  //picker中是否提供显示更多功能
             },
-            // {
-            //     queryField:'CompanyID',
-            //     text:lanTool.lanContent("1025_公司"),
-            //     fieldControlType:'textareaInput',
-            //     queryType: "string",
-            //     queryFormat: "",
-            //     queryRelation: "and",
-            //     queryValue: "",
-            //     queryComparison: "like",
-            //     datalanid: "1025_公司",
-            //     iconClass:'calc-gongsixinxi'
-            // },
             {
                 queryfield: "CountryID",
                 text: lanTool.lanContent("701_国家"),
@@ -480,7 +468,6 @@ export default {
               tool.hideLoading(loadingIndexClassName);
               data = tool.jObject(data);
               // console.log(data);
-
               if (data._ReturnStatus == false) {
                   tool.showText(tool.getMessage(data));
                   console.log(tool.getMessage(data));
