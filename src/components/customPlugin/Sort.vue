@@ -1,19 +1,22 @@
 <template>
   <div class="sort sticky">
-    <div class="sort-left">
-      <div clsss="sort-t" @click="dropDownToggle">
-        <span class="sort-text">{{ activeSortItemText }}</span>
-        <i
-          class="calcfont calc-sanjiaoxing sort-sjx f12"
-          :class="sortSjxClass"
-        ></i>
-      </div>
-    </div>
-    <div @click="showRightPanel">
-      <span>{{ lanFilter }}</span>
-      <i class="calcfont calc-shaixuan3"></i>
+    <div class="sort-box">
+        <div class="sort-left">
+          <div clsss="sort-t" @click="dropDownToggle">
+            <span class="sort-text">{{ activeSortItemText }}</span>
+            <i
+              class="calcfont calc-sanjiaoxing sort-sjx f12"
+              :class="sortSjxClass"
+            ></i>
+          </div>
+        </div>
+        <div @click="showRightPanel">
+          <span>{{ lanFilter }}</span>
+          <i class="calcfont calc-shaixuan3"></i>
+        </div>
     </div>
 
+    <div class="mask" v-show="showDropDown" @click="clickMask()"></div>
     <div class="drop-down" v-show="showDropDown">
       <div
         v-for="(item, index) in sortData"
@@ -84,6 +87,11 @@ export default {
       } else {
         _self.sortSjxClass = "calc-sanjiaoxing";
       }
+    },
+    //点击遮住层
+    clickMask(){
+        let _self = this;
+        _self.dropDownToggle();
     },
     //隐藏下拉(供外部使用的方法)
     closeDownToggle:function(){
@@ -188,10 +196,9 @@ export default {
   z-index: 99;
   height: 0.7rem;
   display: flex;
-  align-items: center;
-  padding: 0 10px 0 15px;
   background: #ffffff;
 }
+.sort-box{display: flex;align-items: center;width: 100%;height: 100%;position: relative;z-index: 9;padding: 0 10px 0 15px;background: #ffffff;}
 .sort-left {
   flex: 1;
   display: flex;
@@ -206,9 +213,11 @@ export default {
   color: #ff9900;
 }
 
+.mask{position:fixed;top:0.88rem;left: 0;right: 0;bottom: 0;background: rgba(0, 0, 0, 0.3);z-index: 8;}
+
 .drop-down {
   background: #ffffff;
-  position: absolute;
+  position: absolute;z-index: 9;
   left: 0;
   right: 0;
   top: 0.7rem;
