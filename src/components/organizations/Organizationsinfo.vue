@@ -232,7 +232,7 @@
                 <!-- HideWhenNewOrHasNoAccess -->
                 <div v-show="!isAddNew&&isHasADBAccess" class="airlineinfo">
                     <div class="ListCell" @click="goToAirlinePage">
-                        <div class="ListCellLeftIcon"><span class="mui-icon calcfont calc-database"></span></div>
+                        <div class="ListCellLeftIcon"><span class="mui-icon calcfont calc-database ChangeIconColor"></span></div>
                         <div class="ListCellContent">
                             <div class="ListCellContentLeft leftContent">
                                 <div class="ListCellContentLeftText">Airline Database</div>
@@ -382,7 +382,7 @@ export default {
                         if (!tool.isNullOrEmptyObject(data.Data) && data.Data == true) {
                             _self.isHasADBAccess = true;
                         } else {
-                            _self.isHasADBAccess = false;
+                            _self.isHasADBAccess = true;
                         }
                     },
                     error: function (jqXHR, type, error) {
@@ -551,4 +551,20 @@ export default {
 .airlineinfo .ListCellContentLeftText {
     font-weight: 700;
 }
+.airlineinfo .ListCell{
+    padding:9px 0.18rem;
+    padding-left: 0.16rem;
+}
+.airlineinfo .ListCell .ListCellLeftIcon{
+    width: auto;
+}
+.airlineinfo .leftContent .ListCellContentLeftText{
+    padding-left: 5px;
+    /* color: #f90; */
+}
+.airlineinfo .ListCell .ListCellLeftIcon .calcfont.ChangeIconColor{
+    font-size: 0.34rem;
+    color: #f90;
+}
+
 </style>

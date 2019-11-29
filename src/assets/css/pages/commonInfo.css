@@ -514,7 +514,7 @@ p.textareaP.wrap{
     position:absolute;
     display: inline-block;
     top:0;
-    width: 20px;
+    /* width: 20px; */
     right: 0;
 }
 

@@ -5,34 +5,34 @@
         <div class="Container">
             <div class="divContent">
                 <div class="divContentBox">
-                    <div class="field"><span class="calcfont calc-yonghu1"></span><label class="lanText" data-lanid="1000307_用户帐号"></label></div>
+                    <div class="field"><span class="calcfont calc-yonghu1 ChangeIconColor"></span><label class="lanText" data-lanid="1000307_用户帐号"></label></div>
                     <div class="content" data-bid="UserName">{{userDetailData.UserName}}</div>
                 </div>
                 <div class="divContentBox">
-                    <div class="field"><span class="calcfont calc-zuzhibumen"></span><label class="lanText" data-lanid="567_部门"></label></div>
+                    <div class="field"><span class="calcfont calc-zuzhibumen ChangeIconColor"></span><label class="lanText" data-lanid="567_部门"></label></div>
                     <div class="content" data-bid="DepartmentID">{{userDetailData.DepartmentID}}</div>
                 </div>
                 <div class="divContentBox">
-                    <div class="field"><span class="calcfont calc-zhiwei"></span><label class="lanText" data-lanid="566_职位"></label></div>
+                    <div class="field"><span class="calcfont calc-zhiwei ChangeIconColor"></span><label class="lanText" data-lanid="566_职位"></label></div>
                     <div class="content" data-bid="PositionID">{{userDetailData.PositionID}}</div>
                 </div>
                 <div class="divContentBox">
-                    <div class="field"><span class="calcfont calc-phone"></span><label class="lanText" data-lanid="705_移动电话"></label></div>
+                    <div class="field"><span class="calcfont calc-phone ChangeIconColor"></span><label class="lanText" data-lanid="705_移动电话"></label></div>
                     <div class="content" data-bid="Phone">{{userDetailData.Phone}}</div>
                 </div>
                 <div class="divContentBox">
-                    <div class="field"><span class="calcfont calc-youxiang"></span><label class="lanText" data-lanid="697_邮箱"></label></div>
+                    <div class="field"><span class="calcfont calc-youxiang ChangeIconColor"></span><label class="lanText" data-lanid="697_邮箱"></label></div>
                     <div class="content" data-bid="Email">{{userDetailData.Email}}</div>
                 </div>
             </div>
             <div class="systemMessage">
                <div class="divContentBox">
-                    <div class="field"><span class="calcfont calc-_chuangjianzhe"></span><label class="lanText" data-lanid="833_创建者"></label></div>
+                    <div class="field"><span class="calcfont calc-_chuangjianzhe ChangeIconColor"></span><label class="lanText" data-lanid="833_创建者"></label></div>
                     <div class="content"><span data-bid="AddUserName">{{userDetailData.AddUserName|formatUserName(userDetailData.AddTime)}}</span><span data-bid="AddTime">{{userDetailData.AddTime|MeetingTimeFormat}}</span></div>
                 </div>
                 <div class="divContentBox">
                     <div class="field">
-                        <span class="calcfont calc-dq-user">
+                        <span class="calcfont calc-dq-user ChangeIconColor">
                             </span><label class="lanText" data-lanid="805_更新者"></label></div>
                     <div class="content" >
                         <span data-bid="LastUpdateUserName">{{userDetailData.LastUpdateUserName|formatUserName(userDetailData.LastUpdateTime)}}</span>
@@ -192,7 +192,7 @@ export default {
 
 .divContentBox {
     width: 100%;
-    padding: 9px 0.3rem;
+    padding: 9px 0.18rem;
     padding-bottom: 5px;
     border-bottom: solid 1px beige;
     box-sizing: border-box;
@@ -203,7 +203,7 @@ export default {
     color: rgb(138, 138, 138);
 }
 .divContentBox .field label{
-   padding-left: 5px;
+   padding-left: 0.1rem;
    font-size: 0.22rem;
    color: #929292;
 }
@@ -211,10 +211,15 @@ export default {
     width: 100%;
     padding-top: 5px;
     font-size: 0.28rem;
+    padding-left: 0.44rem;
 }
 .systemMessage{
    border-top: solid 20px rgb(242, 242, 242);
    position: relative;
+}
+.calcfont.ChangeIconColor {
+    font-size: .32rem;
+    color: #f90;
 }
 /* .systemMessage .divContentBox{
    
