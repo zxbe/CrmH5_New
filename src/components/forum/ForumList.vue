@@ -1,6 +1,6 @@
 <template>
 <div>
-    <div class="header">
+    <!-- <div class="header">
         <a @click="back" class="mycalcfont calcfont calc-fanhui left" id="back"></a>
         <div class="search">
             <div class="search-div f14" @click="goToSearch">
@@ -8,7 +8,14 @@
                 <span class="lanText" data-lanid="1000306_你想知道什么？" style="color:#757575"></span>
             </div>
         </div>
-    </div>
+    </div> -->
+    <header class="header sticky" id="searchHeader">
+        <a @click="back" class="calcfont calc-fanhui back-icon" id="back"></a>
+        <div class="search-box" @click="goToSearch">
+            <search-input class="search" :enableInput="false" :isShowClearIcon="false" :placeholder="lanSearchModuleInputPlaceHolder" ></search-input>
+        </div>
+        <i class="seize-a-seat"></i>
+    </header>
 
     <div class="tag">
         <!-- <div class="tag-scroll-box"> -->
@@ -26,7 +33,8 @@
         <div class="selectFilter">
             <a @click.stop="filterDropDown($event)" class="filterBlock">
                 <span class="filterText lanText" data-lanid="1000213_所有问题"></span>
-                <span class="zen-selectArrow"></span>
+                <span class="calcfont calc-sanjiaoxing select-arrow f14" :class="{'calc-sanjiaoxingshang':isShowFilter}"></span>
+
             </a>
             <ul v-show="isShowFilter" class="feedFilterby">
                 <li><a @click="selectFiltertype($event)" data-fieldval="AllQuestions" data-group="FileterGroup" href="javascript:void(0);" class="cxfeedtype cxRECENT selected"><i class="zen-visualization calcfont calc-gou" style="font-size:14px"></i><span class="lanText" data-lanid="1000213_所有问题"></span></a></li>
@@ -41,7 +49,7 @@
         <div class="selectSort">
             <a @click.stop="sortDropDown($event)" class="sortBlock">
                 <span class="sortText lanText" data-lanid="1000222_发布日期"></span>
-                <span class="zen-selectArrow"></span>
+                <span class="calcfont calc-sanjiaoxing select-arrow f14" :class="{'calc-sanjiaoxingshang':isShowSort}"></span>
             </a>
             <ul v-show="isShowSort" class="feedsortby">
                 <li class="zen-checked"><a @click="selectSorttype($event)" data-fieldval="DatePosted" data-group="SortGroup" href="javascript:void(0);" class="cxfeedtype cxRECENT selected"><i class="zen-visualization calcfont calc-gou"></i><span class="lanText" data-lanid="1000222_发布日期"></span></a></li>
@@ -108,6 +116,7 @@
 </template>
 
 <script>
+import SearchInput from "@/components/customPlugin/SearchInput";
 import BScroll from "better-scroll";
 import Scroll from '@/components/customPlugin/scroll/Scroll';
 import Nothing from "@/components/customPlugin/Nothing"
@@ -115,7 +124,8 @@ export default {
     name: 'forumlist',
     components: {
         'vue-scroll': Scroll,
-        'nothing': Nothing
+        'nothing': Nothing,
+        SearchInput
     },
     data() {
         return {
@@ -128,7 +138,12 @@ export default {
             repliesText: lanTool.lanContent("1000350_答复"), //在列表通过属性配置不显示
             isShowFilter: false, //隐藏筛选的下拉列表
             isShowSort: false, //隐藏排序的下拉列表
+
+            lanSearchModuleInputPlaceHolder:lanTool.lanContent("1000306_你想知道什么？"),
         }
+    },
+    computed:{
+
     },
     created: function () {
         var _self = this;

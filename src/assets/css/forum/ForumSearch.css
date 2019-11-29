@@ -124,7 +124,7 @@ white-space: nowrap;}
    position: fixed;
    z-index: 100;
    transform: translateZ(101px);
-   top: 0.76rem;
+   top: 0.88rem;
    right: 0.1rem;
    width: 2.9rem;
    height: 1.6rem;
@@ -132,13 +132,13 @@ white-space: nowrap;}
    border: 1px solid #e2e2e2;
    border-radius: 4px;
 }
-.dropDownList a{
-    display: block;
+.dropDownList a.dropDownList-item{
+    display: flex;width: 100%;
     height: 0.8rem;
     line-height: 0.8rem;
     text-align:left;
     font-size: 0.24rem;
-    padding-left: 0.46rem;
+    padding-left: 0.2rem;
     /* border-bottom: solid 1px rgb(217,217,217); */
 }
 .calc-fanhui {
@@ -252,7 +252,7 @@ li {
 }
 i.zen-visualization{
     position: absolute;
-    left: 0.1rem;
+    right: 0.1rem;
     /* top: 0.26rem; */
     font-size: 0.28rem;
     display: none;
@@ -262,8 +262,7 @@ i.zen-visualization{
 }
 /* 下拉列表a标签选中的背景颜色*/
 .selected{
-    /* background-color: #f1f0f6; */
-    color:#7ebbff !important;
+    color:#f90 !important;
 }
 
 /*发帖按钮*/
