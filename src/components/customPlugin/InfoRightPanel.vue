@@ -361,6 +361,7 @@ export default {
 .right-content-list .calcfont::before {
     font-size: 0.36rem;
     margin-right: 5px;
+    color:#f90;
 }
 
 .right-content-list-cell {
