@@ -23,11 +23,19 @@
                     </p>
                 </div>
             </div> -->
-            <div class="DetailRow controlEdit">
-                <div class="DetailRowOn"><span class="calcfont calc-yewujihui ChangeIconColor"></span><span class="FileName lanText" data-lanid="710_标题"></span></div>
+            <div v-show="showPage == 1" class="DetailRow controlEdit">
+                <div class="DetailRowOn"><span class="calcfont calc-yewujihui ChangeIconColor"></span><span class="FileName lanText" data-lanid="710_标题"></span><span class="XingHao">*</span></div>
                 <div class="DetailRowUp">
                     <p class="textareaP">
                         <textarea data-field="TheName" data-fieldControlType="textareaInput" class="lanInputPlaceHolder" data-lanid="1000525_请输入"></textarea>
+                    </p>
+                </div>
+            </div>
+            <div v-show="showPage == 0" class="DetailRow controlEdit" style="background: rgb(252, 252, 252);">
+                <div class="DetailRowOn"><span class="calcfont calc-yewujihui ChangeIconColor"></span><span class="FileName lanText" data-lanid="710_标题"></span></div>
+                <div class="DetailRowUp">
+                    <p class="textareaP">
+                        <textarea data-field="TheName" data-fieldControlType="textareaInput" class="lanInputPlaceHolder" data-lanid=""></textarea>
                     </p>
                 </div>
             </div>
@@ -53,7 +61,7 @@
                             data-addUrl=""></div>
                     </div> -->
                 <div class="DetailRow">
-                    <div class="DetailRowOn"><span class="calcfont calc-profile ChangeIconColor"></span><span class="FileName lanText" data-lanid="1000227_LOI单号"></span></div>
+                    <div class="DetailRowOn"><span class="calcfont calc-profile ChangeIconColor"></span><span class="FileName lanText" data-lanid="1000227_LOI单号"></span><span v-show="showPage == '0'" class="XingHao">*</span></div>
                     <div class="DetailRowUp">
                         <p class="textareaP wrap" id="LOIIDClickObj">
                             <textarea readonly="readonly" class="lanInputPlaceHolder" data-field="LOIID" data-fieldControlType="selectList" data-lanid="1000526_请选择" data-fieldVal="" Code="DropDowList_LOI" data-selectType="radio" data-clickObj="LOIIDClickObj"></textarea>
