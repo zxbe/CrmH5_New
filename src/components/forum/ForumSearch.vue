@@ -10,7 +10,7 @@
             <div class="module-item-text f14" data-type="title" @click="switchModule($event)">标题</div>
         </div>
         <div class="module-item">
-            <div class="module-item-text f14" data-type="content" @click="switchModule($event)">内容</div>
+            <div class="module-item-text f14" data-type="Content" @click="switchModule($event)">内容</div>
         </div>
         <div class="module-item">
             <div class="module-item-text f14" data-type="Tag" @click="switchModule($event)">标签</div>
@@ -86,7 +86,7 @@
 
     <!-- 根据输入模糊匹配 -->
     <div v-show="!showHistoricalSearchRecord" class="matching-panel">
-        <div class="result-list" v-if="resultData.length > 0">
+        <div class="result-list" v-if="resultData != null && resultData != undefined && resultData.length > 0">
               <div class="result-list-item" v-for="(item,index) in resultData" :key="index" :data-id="item.AutoID" @click="goInfoPage(item)">
                   <i class="calcfont calc-shijian l-icon f18"></i>
                   <div class="item-text f14">{{item.Name}}</div>
@@ -126,15 +126,18 @@ export default {
 
             lanSearchModuleInputPlaceHolder:lanTool.lanContent("1000306_你想知道什么？"),
             inputValue:'', //输入的值
-            resultData:[{
-              AutoID:11,
-              Name:'这是一个测试'
-            }], //查询结果
+            resultData:[
+            //     {
+            //   AutoID:11,
+            //   Name:'这是一个测试'
+            // }
+            ], //查询结果
             localStorageKeyName:'HistorySearchRecords_forum',  //存储historyData的key值
             historyData:[],//历史查询记录
             maxHistoricalCount:10,//允许的最大的历史查询记录数
             isGetDropListByAutoValDone:false,//模糊查询下拉框值的动作是否执行完毕
             searchType:'',  //搜索类型
+            searchModuleFromType:"96",
         }
     },
     computed:{
@@ -155,16 +158,21 @@ export default {
         //获取搜索历史数据
         _self.getHistoricalSearchRecord();
     },
-    mounted: function () {
-        lanTool.updateLanVersion();
-        // this.hideDropdownList();
-    },
     beforeRouteLeave: function (to, from, next) {
         if (to.name == 'forumlist') {
             this.$store.commit('REMOVE_ITEM', 'forumsearch');
         }
         next();
     },
+    mounted: function () {
+        let _self = this;
+        lanTool.updateLanVersion();
+
+        //初始化动作
+        _self.initAction();
+        // this.hideDropdownList();
+    },
+
     methods: {
         //切换搜索模块
         switchModule(e){
@@ -185,15 +193,33 @@ export default {
             }
 
             //调搜索方法
+            _self.getDropListByAutoVal((_self.inputValue||""));
+        },
+        //初始化动作
+        initAction:function(){
+            //1>初始化查询类型
+            var $defaultObj = $(".search-module .module-item .module-item-text[data-type]").eq(0);
+            if(tool.isNullOrEmptyObject($defaultObj) || $defaultObj.length <=0){
+                return false;
+            }
+
+            $defaultObj.trigger("click");
+
+            //2>设置光标位置
+            var $inputObj = $('#searchHeader').find('input.search-input');
+            if($inputObj.length>=1){
+                //获取焦点并设置光标位置
+                tool.setCursorPosition($inputObj[0],($inputObj[0].value||"").length);
+            }
         },
         //搜索框内容改变事件,显示匹配模糊查询值的下拉数据结果(子组件调用)
         getDropListByAutoVal(autoValue,callback){
             let _self = this;
             autoValue = autoValue.trim();
-            console.log(autoValue);
+            //console.log(autoValue);
             //1>记录当前输入值
             _self.inputValue = autoValue;
-/*
+
             //若模糊查询值为空，则不执行查询动作
             if(tool.isNullOrEmptyObject(autoValue)){
                 //若查询值为空，则清空查询结果
@@ -218,7 +244,8 @@ export default {
                 _RegisterCode: tool.RegisterCode(),
                 FromType:_self.searchModuleFromType ||"",
                 AutoValue:autoValue,
-                Top:10//查询匹配的前N条记录
+                Top:10,//查询匹配的前N条记录
+                SearchType:_self.searchType || ""
             };
 
             //var loadingIndexClassName = tool.showLoading();
@@ -264,17 +291,14 @@ export default {
                     document.activeElement.blur();
                 }
             });
-*/
         },
         //搜索事件(在input组件点击键盘上的搜索/回车键)
         excuteSeach(autoValue){
             let _self = this;
             autoValue = (autoValue||"").trim();
 
-            // 允许空值回车情况
-            // if( tool.isNullOrEmptyObject(autoValue)){
-            //     return false;
-            // }
+            _self.search();
+            
             if(!tool.isNullOrEmptyObject(autoValue)){
                 //把值存到缓存
                 var dataArr = tool.jObject((tool.getStorageItem(_self.localStorageKeyName) || "[]"));
@@ -290,16 +314,6 @@ export default {
                 //数据写入缓存
                 tool.setStoragItem(_self.localStorageKeyName, JSON.stringify(dataArr));
             }
-
-            // var parameter = {
-            //     autoValue:autoValue
-            // };//传入参数
-            var infoUrl = "";//详情页地址
-            //根据不同模块，跳到具体的详情页
-            _self.$router.push({
-                path: infoUrl,
-                // query: parameter
-            });
         },
 
         //获取搜索历史记录
@@ -383,20 +397,23 @@ export default {
         //搜索事件
         search: function () {
             var _self = this;
-            var searchVal = $.trim($('#searchAskInput').val() || "");
-            if (tool.isNullOrEmptyObject(searchVal)) {
-                document.activeElement.blur();
-                var tips = lanTool.lanContent('933_温馨提示');
-                var sure = lanTool.lanContent("545_确定");
-                var alertContent = lanTool.lanContent("1000254_搜索条件不能为空");
-                $.alert(alertContent, tips, "", sure);
-                return false;
-            } else {
-                //下拉刷新
-                _self.queryList('', function () {
-                    // _self.isFocus = false;
-                });
-            }
+            // var searchVal = $.trim($('#searchAskInput').val() || "");
+            // if (tool.isNullOrEmptyObject(searchVal)) {
+            //     document.activeElement.blur();
+            //     var tips = lanTool.lanContent('933_温馨提示');
+            //     var sure = lanTool.lanContent("545_确定");
+            //     var alertContent = lanTool.lanContent("1000254_搜索条件不能为空");
+            //     $.alert(alertContent, tips, "", sure);
+            //     return false;
+            // } else {
+            //     //下拉刷新
+            //     _self.queryList('', function () {
+            //         // _self.isFocus = false;
+            //     });
+            // }
+            _self.queryList('pushRefresh', function () {
+                // _self.isFocus = false;
+            });
         },
         //查询列表数据
         queryList: function (queryType, callback) {
@@ -417,8 +434,8 @@ export default {
             var sortName = "DatePosted";
             var sortOrder = "desc";
             //构造查询类型
-            var searchType = $(".dropDownList>a.selected").eq(0).attr("data-type") || "Other";
-            searchType = $.trim(searchType);
+            // var searchType = $(".dropDownList>a.selected").eq(0).attr("data-type") || "Other";
+            // searchType = $.trim(searchType);
             var autoValue = $("#searchAskInput").val() || "";
 
             var jsonDatasTemp = {
@@ -432,7 +449,7 @@ export default {
                 SortName: sortName,
                 SortOrder: sortOrder,
                 QueryCondiction: JSON.stringify(queryCondictionDataArray),
-                SearchType: searchType,
+                SearchType: _self.searchType||"",
                 AutoValue: autoValue
             };
             var loadingIndexClassName = tool.showLoading();
@@ -455,6 +472,7 @@ export default {
 
                     //没有数据
                     if ((tool.isNullOrEmptyObject(data) || data.length <= 0) && _self.pageNum == 1) {
+                        _self.listData= [];
                         _self.noData = true;
                         return;
                     }
