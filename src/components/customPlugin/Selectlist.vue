@@ -258,9 +258,9 @@ export default {
                     text: text.join(",")
                 };
             }
-            console.log(returnObj);
+            // console.log(returnObj);
             eventBus.$emit('updataSelectList', returnObj);
-            // $this.$router.back(-1);
+            $this.$router.back(-1);
         },
         //清除
         clearHandler: function () {
