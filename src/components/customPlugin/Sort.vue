@@ -2,7 +2,7 @@
   <div class="sort sticky">
     <div class="sort-box">
         <div class="sort-left">
-          <div clsss="sort-t" @click="dropDownToggle">
+          <div class="sort-t" @click="dropDownToggle">
             <span class="sort-text">{{ activeSortItemText }}</span>
             <i
               class="calcfont calc-sanjiaoxing sort-sjx f12"
@@ -198,14 +198,17 @@ export default {
   display: flex;
   background: #ffffff;
 }
-.sort-box{display: flex;align-items: center;width: 100%;height: 100%;position: relative;z-index: 9;padding: 0 10px 0 15px;background: #ffffff;}
+.sort-box{display: flex;align-items: center;width: 100%;height: 100%;position: relative;z-index: 9;padding: 0 10px 0 15px;background: #ffffff;
+box-shadow: 0px -5px 3px -5px #989898 inset;}
 .sort-left {
   flex: 1;
   display: flex;
+
 }
-.sort-t {
+.sort-t{
   display: flex;
   align-items: center;
+  padding:5px 0;
 }
 .sort-text,
 .sort-sjx,
