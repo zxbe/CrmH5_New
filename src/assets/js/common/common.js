@@ -4193,7 +4193,7 @@ import config from "../../configfile/config.js";
           var addUrl = _curObj.attr("data-addUrl") || "";
           var linkIDField = filterTemp; //为了在弹出页面的新增上，带出id和name，如新增联系人，需要带上当前公司信息
           var linkNameField =
-            $("[data-field='" + relyonField + "']").text() || "";
+            $("[data-field='" + relyonField + "']").val() || "";
           var fromType = _curObj.attr("data-fromType") || "";
 
           var parameter = {
@@ -4263,7 +4263,7 @@ import config from "../../configfile/config.js";
           var linkIDField =
             $("[data-field='" + relyonField + "']").attr("data-fieldval") || ""; //为了在弹出页面的新增上，带出id和name，如新增联系人，需要带上当前公司信息
           var linkNameField =
-            $("[data-field='" + relyonField + "']").text() || "";
+            $("[data-field='" + relyonField + "']").val() || "";
           var fromType = _curObj.attr("data-fromType") || "";
           var parameter = {
             field: dataField,
