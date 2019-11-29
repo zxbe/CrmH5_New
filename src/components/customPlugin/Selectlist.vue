@@ -105,7 +105,7 @@ export default {
         //清空输入框
         $("#searchInput").val("").trigger("change");
         //根据是否多选来设置列表滚动的区域高度
-        if (this.selectType === 'checkbox') {
+        if (this.selectType == 'checkbox') {
             $(".selectList-scroll").css("padding-bottom", "50px");
         }
 
@@ -146,7 +146,7 @@ export default {
             self.$nextTick(function () {
                 var toTopH = [];
                 for (var i = 0; i < valArrTemp.length; i++) {
-                    if (self.selectType === 'radio') {
+                    if (self.selectType == 'radio') {
                         //radio
                         self.radioValue = valArrTemp[i];
 
@@ -188,7 +188,7 @@ export default {
             _self.$nextTick(function () {
                 var headerH = $('header').height();
                 var scrollToH = 0;
-                if (_self.selectType === 'radio') {
+                if (_self.selectType == 'radio') {
                     scrollToH = arr[0];
                 } else {
                     //获取最小值
@@ -229,7 +229,7 @@ export default {
             };
 
             //radio
-            if ($this.selectType === 'radio') {
+            if ($this.selectType == 'radio') {
                 // if(tool.isNullOrEmptyObject($this.radioValue)){
                 //     tool.showText(lanTool.lanContent('592_请选择数据！'));
                 //     return;
@@ -258,14 +258,14 @@ export default {
                     text: text.join(",")
                 };
             }
-
+            console.log(returnObj);
             eventBus.$emit('updataSelectList', returnObj);
-            $this.$router.back(-1);
+            // $this.$router.back(-1);
         },
         //清除
         clearHandler: function () {
             var _self = this;
-            if (_self.selectType === 'radio') {
+            if (_self.selectType == 'radio') {
                 _self.radioValue = '';
             } else {
                 _self.checkboxValue = [];

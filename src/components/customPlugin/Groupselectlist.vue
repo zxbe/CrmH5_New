@@ -25,12 +25,27 @@
                               <div class="title-div">{{item.text}}</div>
                               <span class="f14 memCount">(0)</span>
                           </div>
-                          <div class="child-list">
+                          <!-- 多选 -->
+                          <div v-if="selectType == 'checkbox'" class="child-list">
                               <div v-for="member in item.nodes" class="child-list-item f14">
                                     <div class="margin10">
                                             <label class="user-checkbox checkbox-label" @click.stop>
                                                 <input type="checkbox" name="group" :data-pid="member.pid" :value="member.id" v-model="userCheckedValue"/>
                                                 <i class="checkbox"></i>
+                                                <span class="f14">{{member.text}}</span>
+                                                <!-- <span class="power f12 right">Responsible by</span> -->
+                                            </label>
+                                    </div>
+                              </div>
+                          </div>
+                          <!-- 单选 -->
+                          <div v-else class="child-list">
+                              <div v-for="member in item.nodes" class="child-list-item f14">
+                                    <div class="margin10">
+                                            <label class=" radios-label" @click.stop>
+                                                  <!--input中 data-value 属性为真正的value -->
+                                                <input type="radio" name="group" :data-pid="member.pid" :data-value="member.id" :value="member.id+'_'+member.pid" v-model="userSelectedValue"/>
+                                                <i class="radios"></i>
                                                 <span class="f14">{{member.text}}</span>
                                                 <!-- <span class="power f12 right">Responsible by</span> -->
                                             </label>
@@ -62,12 +77,13 @@ export default {
             userData: [
 
             ],
-            userCheckedValue:[],
+            userCheckedValue:[],  //多选选中
+            userSelectedValue:'', //单选选中
+            value: "", //传过来已选数据（默认值 id）
             field:"",//来源字段名
             code:"",//执行动作名
             typeValue:"",//具体动作
             title: "",//标题
-            value: "", //已选数据
             selectType:"", //判断是否多选
             fromType:"",//来源类型
             fromID:"",//来源记录Id
@@ -76,10 +92,8 @@ export default {
     },
     watch:{
         userCheckedValue:function(newValue){
-            // console.log(newValue);
             var _self = this;
             if(tool.isNullOrEmptyObject(newValue)){
-                //newValue
                 $("span.memCount").text("(0)");
                 return;
             }
@@ -95,6 +109,24 @@ export default {
                     pObj.find("span.memCount").text(memCount);
                 });
             });
+        },
+        userSelectedValue:function(newValue){
+            var _self = this;
+            if(tool.isNullOrEmptyObject(newValue)){
+                $("span.memCount").text("(0)");
+                return;
+            }
+            _self.$nextTick(function(){
+                $("div.item-div").each(function(){
+                    var pObj = $(this);
+                    if(tool.isNullOrEmptyObject(pObj)){
+                        return true;
+                    }
+
+                    var memCount = "(" + (pObj.siblings("div.child-list").find("input[type='radio']:checked").length || 0) + ")";
+                    pObj.find("span.memCount").text(memCount);
+                });
+            })
         }
     },
     created: function () {
@@ -195,16 +227,27 @@ export default {
             if(tool.isNullOrEmptyObject(_self.value)){
                 return;
             }
-             var valArrTemp = _self.value.split(",");
-             _self.$nextTick(function(){
-                 for(var i = 0;i< valArrTemp.length;i++){
-                     if(tool.isNullOrEmptyObject((valArrTemp[i]||""))){
-                         continue;
-                     }
 
-                     _self.userCheckedValue.push(valArrTemp[i]);
-                 }
-             });
+            //checkbox 赋初始值
+            if(_self.selectType == 'checkbox'){
+                var valArrTemp = _self.value.split(",");
+                _self.$nextTick(function(){
+                    for(var i = 0;i< valArrTemp.length;i++){
+                        if(tool.isNullOrEmptyObject((valArrTemp[i]||""))){
+                            continue;
+                        }
+                        _self.userCheckedValue.push(valArrTemp[i]);
+                    }
+                });
+            }else{
+                _self.$nextTick(function(){
+                  var pid = $('input[data-value="'+ _self.value +'"]:first').attr('data-pid') || '';
+                  if(!tool.isNullOrEmptyObject(pid)){
+                      _self.userSelectedValue = _self.value + '_' + pid;
+                  }
+                })
+            }
+
         },
         //点击分组收起展开
         groupToggle:function(e){
@@ -241,41 +284,50 @@ export default {
                 field: _self.field,
                 value: {}
             };
+            //radio
+            if (_self.selectType == 'radio') {
 
-            var valArr = _self.userCheckedValue || [];
-            var idArr = [];
-            var textArr = [];
-            for(var i = 0; i < valArr.length;i++){
-                var idTemp = valArr[i];
-                var textTemp = $.trim($("input[value='"+ idTemp +"']:first").siblings("span:first").text()) || "";
+                var id = _self.userSelectedValue || '';
+                var p_id= id.split('_')[0];
 
-                //若已经加过
-                if($.inArray(idTemp,idArr)>=0){
-                    continue;
+                var text = $.trim($("input[value='" + id + "']:first").siblings("span:first").text()) || "";
+                returnObj["value"] = {
+                    id: p_id,
+                    text: text
+                };
+            }else{
+                var valArr = _self.userCheckedValue || [];
+                var idArr = [];
+                var textArr = [];
+                for(var i = 0; i < valArr.length;i++){
+                    var idTemp = valArr[i];
+                    var textTemp = $.trim($("input[value='"+ idTemp +"']:first").siblings("span:first").text()) || "";
+
+                    //若已经加过
+                    if($.inArray(idTemp,idArr)>=0){
+                        continue;
+                    }
+
+                    idArr.push(idTemp);
+                    textArr.push(textTemp);
                 }
 
-                idArr.push(idTemp);
-                textArr.push(textTemp);
+                returnObj["value"] = {
+                    id : idArr.join(","),
+                    text : textArr.join(",")
+                };
             }
-
-            // console.log(idArr);
-            // console.log(textArr);
-
-            returnObj["value"] = {
-                id : idArr.join(","),
-                text : textArr.join(",")
-            };
-
-            console.log(returnObj);
-
-            //console.log(returnObj);
             eventBus.$emit('updataSelectList', returnObj);
             _self.$router.back(-1);
         },
         //清楚
         clearHandler:function(){
             var _self = this;
-            _self.userCheckedValue = [];
+            if(_self.selectType == 'checkbox'){
+                _self.userCheckedValue = [];
+            }else{
+                _self.userSelectedValue = '';
+            }
         },
         //筛选
         search: function () {
