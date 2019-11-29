@@ -271,6 +271,10 @@ export default {
                 infoUrl = "/opportunitiesinfo/";
                 break;
 
+            case "11":
+                infoUrl = "/userEventsInfo/";
+                break;
+
             default:
                 return false;
         }

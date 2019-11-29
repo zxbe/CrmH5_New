@@ -323,7 +323,6 @@ export default {
       _self.watchScroll();
       //分组模式事件绑定
       _self.groupToggleHandle('opportunitiesList');
-      _self.groupToggleHandle('organizationsList');
   },
   methods:{
       //返回上一页
