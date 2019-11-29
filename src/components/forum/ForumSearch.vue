@@ -1,79 +1,117 @@
 <template>
 <div>
-    <header class="mui-bar mui-bar-nav">
+    <!-- <header class="mui-bar mui-bar-nav">
         <a @click="back" class="calcfont calc-fanhui left" id="back"></a>
         <div class="searchDiv"><input @keyup.enter="submit" @focus="searchFocus" id="searchAskInput" class="searchText f14" type="search" value=""></div>
         <div class="headLeftIconDiv">
             <a @click.stop="selectDropDownType" class="dropDownBtn calcfont calc-xiala"></a>
             <a @click="search" class="searchBtn calcfont calc-shaixuan2"></a>
         </div>
-    </header>
+    </header> -->
 
+    <header class="header sticky" id="searchHeader">
+        <a @click="back" class="calcfont calc-fanhui back-icon" id="back"></a>
+        <search-input class="search" :placeholder=lanSearchModuleInputPlaceHolder ref="searchInput"></search-input>
+        <i class="dropDownBtn calcfont calc-xiala"></i>
+    </header>
     <div v-show="isShowdropDown" class="dropDownList">
         <a @click="selectTitleOrTag($event)" data-type="Other" class="selected"><i class="zen-visualization calcfont calc-gou"></i><span class="lanText" data-lanid="1000303_标题和内容"></span></a>
         <a @click="selectTitleOrTag($event)" data-type="Tag"><i class="zen-visualization calcfont calc-gou"></i><span class="lanText" data-lanid="1000302_标签"></span></a>
     </div>
-    <div v-show="!isFocus" class="list">
 
-        <vue-scroll v-show="!noData" :showToTop="true" :options="{ pullup: true, pulldown: true }" :scrollbar="false" ref="scroll" @pulldown="pulldown" @pullup="pullup">
 
-            <div v-for="item in listData" @click="goToInfo(item.AutoID)" :key="item.AutoID" class="list-item">
-                <div class="title f16">{{item.Theme}}</div>
-                <div class="content f14">{{item.Content}}</div>
-                <div class="feeditemtag f12">
-                    <span v-for="i in item.TagName" :key="i">{{i}}</span>
-                </div>
-                <div class="info f12">
-                    <!-- "Status": "已关闭", "Status_ID": 71,
-                        "Status": "进行中", "Status_ID": 70, -->
-                    <span class="info-state" :class="{'result73':item.Result_ID == 73,'result74':item.Result_ID == 74}">{{item.Result}}</span>
-                    <!-- "Result": "已解决", "Result_ID": 73,
-                        "Result": "未解决","Result_ID": 74, -->
-                    <span class="info-state" :class="{'status71':item.Status_ID == 71,'status70':item.Status_ID == 70}">{{item.Status}}</span>
-                </div>
-                <div class="info f12">
-                    <div class="replies">
-                        <span>{{repliesText}}</span>
-                        <span>{{item.ReplyCount}}</span>
-                    </div>
-                    <div>
-                        <i class="calcfont calc-ziyuan1"></i>
-                        <span>{{item.AttachmentCount}}</span>
-                    </div>
-                    <div class="hand">
-                        <!-- 没赞：calc-zan1  赞：calc-zan -->
-                        <span class="calcfont" :class="[parseInt(item.IsCurrentUserLike)>=1 ? 'calc-zan' : 'calc-zan1']" :data-statusid="item.Status_ID" :data-autoid="item.AutoID" data-even="fabulous" @click.stop="fabulousEvent($event)"></span><span class="ActionCount">{{item.LikeCount}}</span>
-                    </div>
-                    <div class="hand">
-                        <!-- 没踩：calc-cai  踩：calc-caishixin- -->
-                        <span class="calcfont" :class="[parseInt(item.IsCurrentUserDislike)>=1 ? 'calc-caishixin-' : 'calc-cai']" :data-statusid="item.Status_ID" :data-autoid="item.AutoID" data-even="unfabulous" @click.stop="fabulousEvent($event)"></span><span class="ActionCount">{{item.DislikeCount}}</span>
-                    </div>
-                </div>
-                <div class="info f12">
-                    <img class="img" src="../../assets/images/forum/default_user_img.png" />
-                    <span class="name">{{item.UserName}}</span>
+    <!-- 显示搜索结果 -->
+    <div v-show="false">
+        <div v-show="!isFocus" class="list">
+            <vue-scroll v-show="!noData" :showToTop="true" :options="{ pullup: true, pulldown: true }" :scrollbar="false" ref="scroll" @pulldown="pulldown" @pullup="pullup">
 
-                    <span class="time">{{item.PostTime|MeetingTimeFormat}}</span>
-                </div>
+                <div v-for="item in listData" @click="goToInfo(item.AutoID)" :key="item.AutoID" class="list-item">
+                    <div class="title f16">{{item.Theme}}</div>
+                    <div class="content f14">{{item.Content}}</div>
+                    <div class="feeditemtag f12">
+                        <span v-for="i in item.TagName" :key="i">{{i}}</span>
+                    </div>
+                    <div class="info f12">
+                        <!-- "Status": "已关闭", "Status_ID": 71,
+                            "Status": "进行中", "Status_ID": 70, -->
+                        <span class="info-state" :class="{'result73':item.Result_ID == 73,'result74':item.Result_ID == 74}">{{item.Result}}</span>
+                        <!-- "Result": "已解决", "Result_ID": 73,
+                            "Result": "未解决","Result_ID": 74, -->
+                        <span class="info-state" :class="{'status71':item.Status_ID == 71,'status70':item.Status_ID == 70}">{{item.Status}}</span>
+                    </div>
+                    <div class="info f12">
+                        <div class="replies">
+                            <span>{{repliesText}}</span>
+                            <span>{{item.ReplyCount}}</span>
+                        </div>
+                        <div>
+                            <i class="calcfont calc-ziyuan1"></i>
+                            <span>{{item.AttachmentCount}}</span>
+                        </div>
+                        <div class="hand">
+                            <!-- 没赞：calc-zan1  赞：calc-zan -->
+                            <span class="calcfont" :class="[parseInt(item.IsCurrentUserLike)>=1 ? 'calc-zan' : 'calc-zan1']" :data-statusid="item.Status_ID" :data-autoid="item.AutoID" data-even="fabulous" @click.stop="fabulousEvent($event)"></span><span class="ActionCount">{{item.LikeCount}}</span>
+                        </div>
+                        <div class="hand">
+                            <!-- 没踩：calc-cai  踩：calc-caishixin- -->
+                            <span class="calcfont" :class="[parseInt(item.IsCurrentUserDislike)>=1 ? 'calc-caishixin-' : 'calc-cai']" :data-statusid="item.Status_ID" :data-autoid="item.AutoID" data-even="unfabulous" @click.stop="fabulousEvent($event)"></span><span class="ActionCount">{{item.DislikeCount}}</span>
+                        </div>
+                    </div>
+                    <div class="info f12">
+                        <img class="img" src="../../assets/images/forum/default_user_img.png" />
+                        <span class="name">{{item.UserName}}</span>
 
+                        <span class="time">{{item.PostTime|MeetingTimeFormat}}</span>
+                    </div>
+
+                </div>
+            </vue-scroll>
+            <nothing v-show="noData" style="padding-top:0.8rem;"></nothing>
+        </div>
+        <div v-show="!isFocus" class="buttom-div">
+            <a @click="goToPosting" class="f18 calcfont calc-combinedshapecopy2"></a>
+        </div>
+    </div>
+
+    <!-- 显示搜索历史记录 -->
+    <div v-show="showHistoricalSearchRecord" class="history-div">
+        <div class="history-title">
+            <div class="text lanText f16" data-lanid="1000531_历史搜索"></div>
+            <div class="text-btn lanText f14" data-lanid="1000535_清除" @click="deleteAllHistoricalSearchRecord"></div>
+        </div>
+        <div class="history-content">
+            <div class="history-item" v-for="(item,index) in historyData" :key="index" @click="searchByHistotyItem(item)" >
+                <i class="calcfont calc-shijian l-icon f18"></i>
+                <div class="item-text f14">{{item}}</div>
+                <i class="calcfont calc-guanbi1 f18" @click.stop="deleteOneHistory(item)"></i>
             </div>
-        </vue-scroll>
-        <nothing v-show="noData" style="padding-top:0.8rem;"></nothing>
+        </div>
     </div>
-    <div v-show="!isFocus" class="buttom-div">
-        <a @click="goToPosting" class="f18 calcfont calc-combinedshapecopy2"></a>
+
+    <!-- 根据输入模糊匹配 -->
+    <div v-show="!showHistoricalSearchRecord" class="matching-panel">
+        <div class="result-list" v-if="resultData.length > 0">
+              <div class="result-list-item" v-for="(item,index) in resultData" :key="index" :data-id="item.AutoID" @click="goInfoPage(item)">
+                  <i class="calcfont calc-shijian l-icon f18"></i>
+                  <div class="item-text f14">{{item.Name}}</div>
+              </div>
+        </div>
     </div>
+
+
 </div>
 </template>
 
 <script>
+import SearchInput from "@/components/customPlugin/SearchInput";
 import Scroll from '@/components/customPlugin/scroll/Scroll';
 import Nothing from "@/components/customPlugin/Nothing"
 export default {
     name: 'forumsearch',
     components: {
         'vue-scroll': Scroll,
-        'nothing': Nothing
+        'nothing': Nothing,
+        SearchInput
     },
     data() {
         return {
@@ -92,6 +130,24 @@ export default {
               // }
             ],
             listData: [],
+
+            lanSearchModuleInputPlaceHolder:lanTool.lanContent("1000306_你想知道什么？"),
+            inputValue:'', //输入的值
+            resultData:[{
+              AutoID:11,
+              Name:'这是一个测试'
+            }], //查询结果
+            localStorageKeyName:'HistorySearchRecords_forum',  //存储historyData的key值
+            historyData:[],//历史查询记录
+            maxHistoricalCount:10,//允许的最大的历史查询记录数
+            isGetDropListByAutoValDone:false,//模糊查询下拉框值的动作是否执行完毕
+        }
+    },
+    computed:{
+        //是否显示历史查询记录
+        showHistoricalSearchRecord(){
+          let _self = this;
+          return tool.isNullOrEmptyObject(_self.inputValue) ? true : false;
         }
     },
     beforeRouteEnter: function (to, from, next) {
@@ -101,6 +157,9 @@ export default {
         var _self = this;
         //设置为Keep-Alive页面
         _self.$store.commit('SET_ITEM', 'forumsearch');
+
+        //获取搜索历史数据
+        _self.getHistoricalSearchRecord();
     },
     mounted: function () {
         lanTool.updateLanVersion();
@@ -113,6 +172,162 @@ export default {
         next();
     },
     methods: {
+        //搜索框内容改变事件,显示匹配模糊查询值的下拉数据结果(子组件调用)
+        getDropListByAutoVal(autoValue,callback){
+            let _self = this;
+            autoValue = autoValue.trim();
+            console.log(autoValue);
+            //1>记录当前输入值
+            _self.inputValue = autoValue;
+/*
+            //若模糊查询值为空，则不执行查询动作
+            if(tool.isNullOrEmptyObject(autoValue)){
+                //若查询值为空，则清空查询结果
+                _self.resultData = [];
+                return;
+            }
+
+            //判断上一次查询是否执行完毕
+            if(_self.isGetDropListByAutoValDone){
+                _self.isGetDropListByAutoValDone = false;
+            }
+
+            //3>执行查询动作
+            //api接口地址
+            var urlTemp = tool.AjaxBaseUrl();
+            var controlName = tool.Api_DataSearchHandle_AutoQuery;
+
+            var jsonDatasTemp = {
+                CurrentLanguageVersion: lanTool.currentLanguageVersion,
+                UserName: tool.UserName(),
+                _ControlName: controlName,
+                _RegisterCode: tool.RegisterCode(),
+                FromType:_self.searchModuleFromType ||"",
+                AutoValue:autoValue,
+                Top:10//查询匹配的前N条记录
+            };
+
+            //var loadingIndexClassName = tool.showLoading();
+            $.ajax({
+                async: true,
+                type: "post",
+                url: urlTemp,
+                data: jsonDatasTemp,
+                success: function (data) {
+                    //tool.hideLoading(loadingIndexClassName);
+                    data = tool.jObject(data);
+                    //console.log(data);
+
+                    if (data._ReturnStatus == false) {
+                        tool.showText(tool.getMessage(data));
+                        console.log(tool.getMessage(data));
+                        _self.resultData = [];
+                        return;
+                    }
+                    _self.resultData = data._OnlyOneData.Rows || [];
+
+                    if(!tool.isNullOrEmptyObject(callback) && typeof(callback) == "function"){
+                        callback(_self.resultData);
+                    }
+                },
+                error: function (jqXHR, type, error) {
+                    //tool.hideLoading(loadingIndexClassName);
+                    console.log(error);
+                    return true;
+                },
+                complete: function () {
+                    //设置光标位置
+                    var $inputObj = $('#searchHeader').find('input.search-input');
+                    if($inputObj.length>=1){
+                        //获取焦点并设置光标位置
+                        //console.log($inputObj[0].value.length);
+                        tool.setCursorPosition($inputObj[0],($inputObj[0].value||"").length);
+                    }
+
+                    //设置查询完成
+                    _self.isGetDropListByAutoValDone = true;
+                    //隐藏虚拟键盘
+                    document.activeElement.blur();
+                }
+            });
+*/
+        },
+        //搜索事件(在input组件点击键盘上的搜索/回车键)
+        excuteSeach(autoValue){
+            let _self = this;
+            autoValue = (autoValue||"").trim();
+            // 允许空值回车情况
+            // if( tool.isNullOrEmptyObject(autoValue)){
+            //     return false;
+            // }
+            if(!tool.isNullOrEmptyObject(autoValue)){
+                //把值存到缓存
+                var dataArr = tool.jObject((tool.getStorageItem(_self.localStorageKeyName) || "[]"));
+                //若历史记录中已经存在查询值，则移除
+                dataArr.remove(autoValue);
+                //加入历史记录
+                dataArr.unshift(autoValue);
+                //若历史记录数超过最大允许数，移除超过的记录
+                if(dataArr.length>_self.maxHistoricalCount){
+                    dataArr.splice(_self.maxHistoricalCount-1,dataArr.length - _self.maxHistoricalCount);
+                }
+
+                //数据写入缓存
+                tool.setStoragItem(_self.localStorageKeyName, JSON.stringify(dataArr));
+            }
+
+            // var parameter = {
+            //     autoValue:autoValue
+            // };//传入参数
+            var infoUrl = "";//详情页地址
+            //根据不同模块，跳到具体的详情页
+            _self.$router.push({
+                path: infoUrl,
+                // query: parameter
+            });
+        },
+
+        //获取搜索历史记录
+        getHistoricalSearchRecord(){
+            let _self = this;
+            let dataString = tool.getStorageItem(_self.localStorageKeyName);
+            if(tool.isNullOrEmptyObject(dataString)){
+            _self.historyData = [];
+            }else{
+                _self.historyData = tool.jObject(dataString);
+            }
+        },
+        //删除所有历史记录
+        deleteAllHistoricalSearchRecord(){
+            let _self = this;
+            tool.showConfirm(
+                lanTool.lanContent("1000532_您确定要删除整个历史搜索记录吗？"),
+                function () {
+                  //删除所有历史查询记录
+                  _self.historyData = [];
+                  tool.setStoragItem(_self.localStorageKeyName, JSON.stringify(_self.historyData));
+                },
+                function () {}
+            );
+        },
+        //删除指定的历史记录
+        deleteOneHistory(data){
+            let _self = this;
+            if(tool.isNullOrEmptyObject(data)){
+                return false;
+            }
+
+            if(tool.isNullOrEmptyObject(_self.historyData)){
+                _self.historyData = [];
+            }else{
+                _self.historyData.remove(data);
+            }
+
+            //设置缓存历史查询记录
+            tool.setStoragItem(_self.localStorageKeyName,JSON.stringify(_self.historyData));
+        },
+
+
         //点击空白处隐藏下拉列表
         hideDropdownList: function () {
             var _self = this;
