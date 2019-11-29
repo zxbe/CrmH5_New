@@ -1,62 +1,3 @@
-/*
-header {
-    position: fixed;
-    z-index: 100;
-    width: 100%
-}
-
-header.mui-bar {
-    background: #f8f2dc;
-    overflow: hidden;
-}
-
-.searchDiv {
-    top: 0.12rem;
-    display: inline-block;
-    height: 0.88rem;
-    padding-top: 0.14rem;
-    overflow: hidden;
-    width: calc(100% - 2.74rem);
-    font-size: .34rem;
-    text-overflow: ellipsis;
-    text-align: center;
-    white-space: nowrap;
-}
-
-input {
-    display: inline-block;
-    height: 0.56rem;
-    overflow: hidden;
-    width: 100%;
-    font-size: .34rem;
-    box-sizing: border-box;
-    border-radius: 5px;
-    border-bottom-right-radius: 0;
-    border-top-right-radius: 0;
-    text-indent: 5px;
-    background-color: #ffffff;
-    outline-color: invert;
-    outline-style: none;
-    outline-width: 0px;
-    border: none;
-    border-style: none;
-    text-shadow: none;
-    -webkit-appearance: none;
-    -webkit-user-select: text;
-    outline-color: transparent;
-    box-shadow: none;
-}
-
-.calcfont.calc-fanhui {
-    font-size: 0.48rem;
-    text-align: center;
-    padding: 0.2rem 0.2rem;
-    position: relative;
-    display: inline-block;
-    text-decoration: none;
-    line-height: 1;
-}
-*/
 
 /*头部样式*/
 .header{
@@ -69,10 +10,24 @@ input {
 }
 .back-icon{font-size: 0.48rem;padding:0.1rem 10px;}
 .search{flex:1;}
+.seize-a-seat{width:15px;}
 /*-------end------*/
 
+/*模块选择*/
+.search-module{display:flex;position: fixed;z-index: 99;top:0.88rem;left: 0;right: 0;
+  /* border-top:1px solid #ccc;border-bottom: 1px solid #ccc; */
+  /* box-shadow: 0px 1px 1px 1px #ccc; */
+  height: 0.8rem;
+}
+.search-module::before{content: "";position: absolute;left:0;right:0;top:0;height: 1px;background: #ccc;}
+.search-module::after{content: "";position: absolute;left:0;right:0;bottom:0;height: 1px;background: #ccc;}
+.module-item{flex:1;display: flex;align-items: center;justify-content: center;}
+.module-item-text{line-height: 0.4rem;padding:0.2rem 5px;position: relative;}
+.module-item-text.active{color:#f90;}
+.module-item-text.active::after{content: "";position: absolute;left:0;right:0;bottom:1px;height:1px;background: #f90;}
+
 /*历史记录*/
-.history-div{padding:0.88rem 15px 0;position: relative;}
+.history-div{padding:1.68rem 15px 0;position: relative;}
 .history-div::after{content:'';height: 1px;background: #f1f1f1;position: absolute;left:15px;right:15px;top:0;}
 .history-title{display: flex;align-items: center;padding:0.3rem 0;}
 .history-title .text{flex:1;}
@@ -85,7 +40,7 @@ white-space: nowrap;}
 
 
 /*模糊查询匹配 */
-.matching-panel{background: #fff;position: fixed;top:0.88rem;left:0;right:0;bottom:0;padding:0 15px;}
+.matching-panel{background: #fff;position: fixed;top:1.68rem;left:0;right:0;bottom:0;padding:0 15px;}
 .result-list-item{display: flex;align-items:center;border-bottom: 1px solid #f4f4f4;}
 .result-list-item .l-icon{color: #cccccc;margin-right: 3px;}
 .result-list-item .item-text{flex:1;padding:13px 0;max-width: 90%;overflow: hidden;text-overflow:ellipsis;
@@ -120,6 +75,7 @@ white-space: nowrap;}
 /* .headLeftIconDiv .dropDownBtn{
     border-left: none;
 } */
+/*
 .dropDownList{
    position: fixed;
    z-index: 100;
@@ -139,16 +95,12 @@ white-space: nowrap;}
     text-align:left;
     font-size: 0.24rem;
     padding-left: 0.2rem;
-    /* border-bottom: solid 1px rgb(217,217,217); */
-}
-.calc-fanhui {
-    margin-left: 0;
-}
+}*/
 
 .list {
     position: fixed;
-    /* top: 1.76rem; */
-    top:0.88rem;
+    top:1.68rem;
+    left:0;right: 0;bottom:0;
 }
 
 .searchSelectDiv {
@@ -250,20 +202,18 @@ li {
     box-sizing: border-box;
     padding-left: 20px;
 }
-i.zen-visualization{
+/* i.zen-visualization{
     position: absolute;
     right: 0.1rem;
-    /* top: 0.26rem; */
     font-size: 0.28rem;
     display: none;
 }
 .selected i.zen-visualization{
     display: inline;
 }
-/* 下拉列表a标签选中的背景颜色*/
 .selected{
     color:#f90 !important;
-}
+} */
 
 /*发帖按钮*/
 .buttom-div{

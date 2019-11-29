@@ -1,34 +1,26 @@
 <template>
 <div>
-    <!-- <header class="mui-bar mui-bar-nav">
-        <a @click="back" class="calcfont calc-fanhui left" id="back"></a>
-        <div class="searchDiv"><input @keyup.enter="submit" @focus="searchFocus" id="searchAskInput" class="searchText f14" type="search" value=""></div>
-        <div class="headLeftIconDiv">
-            <a @click.stop="selectDropDownType" class="dropDownBtn calcfont calc-xiala"></a>
-            <a @click="search" class="searchBtn calcfont calc-shaixuan2"></a>
-        </div>
-    </header> -->
-
     <header class="header sticky" id="searchHeader">
         <a @click="back" class="calcfont calc-fanhui back-icon" id="back"></a>
         <search-input class="search" :placeholder=lanSearchModuleInputPlaceHolder ref="searchInput"></search-input>
-        <i class="dropDownBtn calcfont calc-sanjiaoxing" :class="{'calc-sanjiaoxingshang':isShowdropDown}" @click.stop="selectDropDownType"></i>
+        <i class="seize-a-seat"></i>
     </header>
-    <div v-show="isShowdropDown" class="dropDownList">
-        <a @click="selectTitleOrTag($event)" data-type="Other" class="dropDownList-item selected">
-            <span class="lanText" data-lanid="1000303_标题和内容"></span><i class="zen-visualization calcfont calc-gou"></i>
-        </a>
-        <a @click="selectTitleOrTag($event)" data-type="Tag" class="dropDownList-item">
-            <span class="lanText" data-lanid="1000302_标签"></span><i class="zen-visualization calcfont calc-gou"></i>
-        </a>
+    <div class="search-module">
+        <div class="module-item" >
+            <div class="module-item-text f14" data-type="title" @click="switchModule($event)">标题</div>
+        </div>
+        <div class="module-item">
+            <div class="module-item-text f14" data-type="content" @click="switchModule($event)">内容</div>
+        </div>
+        <div class="module-item">
+            <div class="module-item-text f14" data-type="Tag" @click="switchModule($event)">标签</div>
+        </div>
     </div>
 
-
     <!-- 显示搜索结果 -->
-    <div v-show="false">
-        <div v-show="!isFocus" class="list">
+    <div v-show="listData != null && listData != undefined && listData.length > 0">
+        <div class="list">
             <vue-scroll v-show="!noData" :showToTop="true" :options="{ pullup: true, pulldown: true }" :scrollbar="false" ref="scroll" @pulldown="pulldown" @pullup="pullup">
-
                 <div v-for="item in listData" @click="goToInfo(item.AutoID)" :key="item.AutoID" class="list-item">
                     <div class="title f16">{{item.Theme}}</div>
                     <div class="content f14">{{item.Content}}</div>
@@ -72,7 +64,7 @@
             </vue-scroll>
             <nothing v-show="noData" style="padding-top:0.8rem;"></nothing>
         </div>
-        <div v-show="!isFocus" class="buttom-div">
+        <div class="buttom-div">
             <a @click="goToPosting" class="f18 calcfont calc-combinedshapecopy2"></a>
         </div>
     </div>
@@ -122,17 +114,14 @@ export default {
             noData: false, //没数据
             pageSize: 10, //一页显示多少记录
             pageNum: 1, //当前页码
-            isShowdropDown: false, //隐藏内容和标签的下拉列表
             repliesText: lanTool.lanContent("1000350_答复"), //在列表通过属性配置不显示
-            // isShowFilter: false, //隐藏筛选的下拉列表
-            // isShowSort: false, //隐藏排序的下拉列表
-            isFocus: true,
-            hotSearchData: [
-              // {
-              //       AutoID: "0",
-              //       TagName: "人工智能"
-              // }
-            ],
+            // isFocus: true,
+            // hotSearchData: [
+            //   // {
+            //   //       AutoID: "0",
+            //   //       TagName: "人工智能"
+            //   // }
+            // ],
             listData: [],
 
             lanSearchModuleInputPlaceHolder:lanTool.lanContent("1000306_你想知道什么？"),
@@ -145,6 +134,7 @@ export default {
             historyData:[],//历史查询记录
             maxHistoricalCount:10,//允许的最大的历史查询记录数
             isGetDropListByAutoValDone:false,//模糊查询下拉框值的动作是否执行完毕
+            searchType:'',  //搜索类型
         }
     },
     computed:{
@@ -167,7 +157,7 @@ export default {
     },
     mounted: function () {
         lanTool.updateLanVersion();
-        this.hideDropdownList();
+        // this.hideDropdownList();
     },
     beforeRouteLeave: function (to, from, next) {
         if (to.name == 'forumlist') {
@@ -176,6 +166,26 @@ export default {
         next();
     },
     methods: {
+        //切换搜索模块
+        switchModule(e){
+            let _self = this;
+            let target = $(e.target);
+            // if (!target.hasClass('module-item-text')) {
+            //     target = target.closest('div.module-item-text');
+            //     if (target == undefined) {
+            //         return;
+            //     }
+            // }
+            _self.searchType = target.attr('data-type') || '';
+            if(tool.isNullOrEmptyObject(_self.searchType)){
+                return ;
+            }
+            if(!target.hasClass('active')){
+                target.addClass('active').closest('div.module-item').siblings('.module-item').find('.module-item-text').removeClass('active');
+            }
+
+            //调搜索方法
+        },
         //搜索框内容改变事件,显示匹配模糊查询值的下拉数据结果(子组件调用)
         getDropListByAutoVal(autoValue,callback){
             let _self = this;
@@ -333,18 +343,10 @@ export default {
         },
 
 
-        //点击空白处隐藏下拉列表
-        hideDropdownList: function () {
-            var _self = this;
-            $(document).on('click', function (e) {
-                _self.isShowdropDown = false;
-
-            });
-        },
         //搜索聚焦事件
-        searchFocus: function () {
-            this.isFocus = true;
-        },
+        // searchFocus: function () {
+        //     this.isFocus = true;
+        // },
         //热门搜索按钮点击事件
         hotSearchClick: function (num, e) {
             var _self = this;
@@ -363,28 +365,6 @@ export default {
         submit: function () {
             var _self = this;
             _self.search();
-        },
-        //选择标题或者标签
-        selectTitleOrTag: function (e) {
-            var _self = this;
-            var el = e.target;
-            var obj;
-            if (e.target === e.currentTarget) {
-                obj = $(el);
-            } else {
-                obj = $(el).parent("a");
-            }
-            obj.addClass("selected");
-            obj.siblings().removeClass("selected");
-            var val = obj.find("span").text();
-            _self.isShowdropDown = false;
-        },
-        //标题和标签下拉的展示和隐藏
-        selectDropDownType: function () {
-            var _self = this;
-            // _self.isShowSort = false;
-            // _self.isShowFilter = false;
-            _self.isShowdropDown = !_self.isShowdropDown;
         },
         goToInfo: function (num) {
             var _self = this;
@@ -414,7 +394,7 @@ export default {
             } else {
                 //下拉刷新
                 _self.queryList('', function () {
-                    _self.isFocus = false;
+                    // _self.isFocus = false;
                 });
             }
         },
