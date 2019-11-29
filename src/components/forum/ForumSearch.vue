@@ -12,11 +12,15 @@
     <header class="header sticky" id="searchHeader">
         <a @click="back" class="calcfont calc-fanhui back-icon" id="back"></a>
         <search-input class="search" :placeholder=lanSearchModuleInputPlaceHolder ref="searchInput"></search-input>
-        <i class="dropDownBtn calcfont calc-xiala"></i>
+        <i class="dropDownBtn calcfont calc-sanjiaoxing" :class="{'calc-sanjiaoxingshang':isShowdropDown}" @click.stop="selectDropDownType"></i>
     </header>
     <div v-show="isShowdropDown" class="dropDownList">
-        <a @click="selectTitleOrTag($event)" data-type="Other" class="selected"><i class="zen-visualization calcfont calc-gou"></i><span class="lanText" data-lanid="1000303_标题和内容"></span></a>
-        <a @click="selectTitleOrTag($event)" data-type="Tag"><i class="zen-visualization calcfont calc-gou"></i><span class="lanText" data-lanid="1000302_标签"></span></a>
+        <a @click="selectTitleOrTag($event)" data-type="Other" class="dropDownList-item selected">
+            <span class="lanText" data-lanid="1000303_标题和内容"></span><i class="zen-visualization calcfont calc-gou"></i>
+        </a>
+        <a @click="selectTitleOrTag($event)" data-type="Tag" class="dropDownList-item">
+            <span class="lanText" data-lanid="1000302_标签"></span><i class="zen-visualization calcfont calc-gou"></i>
+        </a>
     </div>
 
 
@@ -256,6 +260,7 @@ export default {
         excuteSeach(autoValue){
             let _self = this;
             autoValue = (autoValue||"").trim();
+
             // 允许空值回车情况
             // if( tool.isNullOrEmptyObject(autoValue)){
             //     return false;
