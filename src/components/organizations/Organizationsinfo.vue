@@ -382,7 +382,7 @@ export default {
                         if (!tool.isNullOrEmptyObject(data.Data) && data.Data == true) {
                             _self.isHasADBAccess = true;
                         } else {
-                            _self.isHasADBAccess = true;
+                            _self.isHasADBAccess = false;
                         }
                     },
                     error: function (jqXHR, type, error) {
