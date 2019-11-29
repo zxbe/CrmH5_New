@@ -66,7 +66,7 @@
                               <div class="occupy-div"></div>
 
                               <div v-if="companys.items.length > 0" class="contact_list data-list">
-                                    <div v-for="company in companys.items" :key="company.AutoID" @click="goInfo(item)" class="group-item data-events-item f14">
+                                    <div v-for="company in companys.items" :key="company.AutoID" @click="goInfo(company)" class="group-item data-events-item f14">
                                           <div class="item-user-icon"><img src="../../assets/images/default_user_img.png" alt=""></div>
                                           <div class="item-block contacts-item-block">
                                                   <div class="item-div item-first-div"><span>{{company.EnglishName}}</span></div>
