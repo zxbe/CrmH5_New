@@ -2714,7 +2714,7 @@ import config from "../../configfile/config.js";
         var title = lanTool.lanContent(_curObj.attr("data-lanid") || "");
         var fromType = _curObj.attr("data-fromType") || "";
 
-        console.log("fromType:" + fromType);
+        //console.log("fromType:" + fromType);
 
         var parameter = {
           field: dataField,

@@ -158,7 +158,7 @@
                       </div>
 
                       <!-- 类型为selectList || linkSelectList-->
-                      <div class="type-div no-border" v-if="item.fieldControlType == 'selectList' || item.fieldControlType == 'linkSelectList'">
+                      <div class="type-div no-border" v-if="item.fieldControlType == 'selectList' || item.fieldControlType == 'linkSelectList' || item.fieldControlType == 'groupSelectList'">
                           <div class="DetailRow">
                               <div class="DetailRowOn">
                                   <span class="calcfont ChangeIconColor" :class="item.iconClass"></span>
@@ -291,7 +291,6 @@ export default {
   },
   mounted(){
       let _self = this;
-    //   lanTool.updateLanVersion();
       document.activeElement.blur();
 
       //单独处理控件类型为textareaInput的控件获取焦点和失去焦点的样式
@@ -333,9 +332,6 @@ export default {
             //清空全局变量
             eventBus.selectListData = null;
         });
-
-        //绑定控件字段的值改变事件
-       //_self.bindFieldChangeEvent();
   },
   methods:{
     //渲染控件
@@ -366,7 +362,7 @@ export default {
             if(isOnlyRemoveEvent){
                 if(_curObj.is("div")){
                     _curObj.off("DOMNodeInserted DOMNodeRemoved");
-                }else if(_curObj.attr("data-fieldcontroltype") == "selectList" || _curObj.attr("data-fieldcontroltype") == "linkSelectList"){
+                }else if(_curObj.attr("data-fieldcontroltype") == "selectList" || _curObj.attr("data-fieldcontroltype") == "linkSelectList" || _curObj.attr("data-fieldcontroltype") == "groupSelectList"){
                     if(_curObj[0].hasOwnProperty("_value")){
                         delete _curObj[0]._value;
                     }
@@ -386,7 +382,7 @@ export default {
                             _self.$parent.delegateQuery();
                         });
                     });
-                }else if(_curObj.attr("data-fieldcontroltype") == "selectList" || _curObj.attr("data-fieldcontroltype") == "linkSelectList"){
+                }else if(_curObj.attr("data-fieldcontroltype") == "selectList" || _curObj.attr("data-fieldcontroltype") == "linkSelectList" || _curObj.attr("data-fieldcontroltype") == "groupSelectList"){
                     //为了解决用js赋input控件值，input控件不会触发change事件，因此添加了_value属性，然后通过属性的set来达到监听change的效果
                     Object.defineProperty(_curObj[0],"_value",{
                         configurable:true,

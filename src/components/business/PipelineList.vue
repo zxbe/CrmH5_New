@@ -241,24 +241,21 @@ export default {
                         text:lanTool.lanContent("1000008_自定义"),
                       }
                   ]
-                }
-              //   ,
-              //   {
-              //     queryfield: "CompanyID",
-              //     text: lanTool.lanContent("790_公司"),
-              //     fieldControlType: "selectList",
-              //     queryType: "string",
-              //     queryFormat: "",
-              //     queryRelation: "and",
-              //     queryValue: "",
-              //     queryComparison: "=",
-              //     Code: "DropDowList_PopedomTeamVsUser",
-              //     TypeValue: "",
-              //     selectType: "radio",
-              //     datalanid: "1000526_请选择",
-              //     iconClass:'calc-gongsixinxi'
-              // }
-              ]
+                },{
+                  queryfield: "Initiator",
+                  text: lanTool.lanContent("825_负责人"),
+                  fieldControlType: "groupSelectList",
+                  queryType: "string",
+                  queryFormat: "",
+                  queryRelation: "and",
+                  queryValue: "",
+                  queryComparison: "=",
+                  Code: "DropDowList_PopedomTeamVsUser",
+                  TypeValue: "",
+                  selectType: "radio",
+                  datalanid: "825_负责人",
+                  iconClass:'calc-fuzerenicon'
+              }]
         },
         noData: false, //没数据
         pageSize: tool.PageSize, //一页显示多少记录
