@@ -682,14 +682,9 @@ export default {
                obj.height(tool.TextareaDefaultHeight);
                 tool.autoTextarea(obj[0]);
             }
-            //渲染会议记录模块
-            //_self.initMeetingNote();
-
-            //清空全局变量
-            //eventBus.selectListData = null;
 
             var fieldTemp = eventBus.selectListData["field"] ||"";
-            if(tool.isNullOrEmptyObject(fieldTemp) && fieldTemp != "CompanyID"){
+            if( !tool.isNullOrEmptyObject(fieldTemp) && fieldTemp != "CompanyID"){
                 //清空全局变量
                 eventBus.selectListData = null;
             }else{
