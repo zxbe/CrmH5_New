@@ -21,7 +21,7 @@
                     <div class="content" data-bid="Phone">{{userDetailData.Phone}}</div>
                 </div>
                 <div class="divContentBox">
-                    <div class="field"><span class="calcfont calc-youxiang ChangeIconColor"></span><label class="lanText" data-lanid="697_邮箱"></label></div>
+                    <div class="field"><span class="calcfont calc-mailbox ChangeIconColor"></span><label class="lanText" data-lanid="697_邮箱"></label></div>
                     <div class="content" data-bid="Email">{{userDetailData.Email}}</div>
                 </div>
             </div>
@@ -212,6 +212,8 @@ export default {
     padding-top: 5px;
     font-size: 0.28rem;
     padding-left: 0.44rem;
+    min-height: 0.46rem;
+    box-sizing: border-box;
 }
 .systemMessage{
    border-top: solid 20px rgb(242, 242, 242);
