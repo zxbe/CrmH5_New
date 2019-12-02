@@ -43,7 +43,7 @@
                   </div>
               </div>
               <!-- GroupByModel -->
-              <div class="block-div groupByMode" v-if="!GroupByModelIsNull">
+              <div v-show="isShowGroupByModel" class="block-div groupByMode" v-if="!GroupByModelIsNull">
                   <div class="type-div">
                       <div class="block-tile f14">
                           <div class="title-text">{{GroupByModel.text}}</div>
@@ -211,6 +211,8 @@ export default {
         DataFilterModel:{},
         GroupByModel:{},
         FieldModel:[],
+
+        isShowGroupByModel:true,//是否显示分组模块
 
         lanReset: lanTool.lanContent("1000527_重置"),
         lanConfirm: lanTool.lanContent("545_确定"),
