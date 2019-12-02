@@ -189,7 +189,7 @@ export default {
                 queryValue: "",
                 queryComparison: "like",
                 datalanid: "567_部门",
-                iconClass:'calc-gongsixinxi'
+                iconClass:'calc-zuzhibumen'
             },{
                 queryfield: "PositionID",
                 text: lanTool.lanContent("1000259_职务"),
@@ -200,7 +200,7 @@ export default {
                 queryValue: "",
                 queryComparison: "like",
                 datalanid: "1000259_职务",
-                iconClass:'calc-gongsixinxi'
+                iconClass:'calc-zhiwei'
             },{
                 queryfield: "Phone",
                 text: lanTool.lanContent("698_电话"),
@@ -211,7 +211,7 @@ export default {
                 queryValue: "",
                 queryComparison: "like",
                 datalanid: "698_电话",
-                iconClass:'calc-gongsixinxi'
+                iconClass:'calc-phone'
             },{
                 queryfield: "Email",
                 text: lanTool.lanContent("697_邮箱"),
@@ -222,7 +222,7 @@ export default {
                 queryValue: "",
                 queryComparison: "like",
                 datalanid: "697_邮箱",
-                iconClass:'calc-gongsixinxi'
+                iconClass:'calc-youxiang'
             },
         ]
       },
