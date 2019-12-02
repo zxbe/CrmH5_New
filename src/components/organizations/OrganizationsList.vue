@@ -308,6 +308,10 @@ export default {
         if(_self.queryObj.groupByMode.toLowerCase() == "list"){
           //查询列表
           _self.queryList('pushRefresh', function () {
+
+
+              //列表回到顶部
+              _self.$refs.scroll.goTopping();
           });
         }else{
 
@@ -701,13 +705,13 @@ export default {
 .list-mode-div{
   position: fixed;
   left:0;right:0;bottom:0;
-  top:calc(0.88rem + 0.7rem);
+  top:calc(0.88rem + 0.88rem);
 }
 
 
 /*分组模式*/
 .group-mode-div{
-  padding-top:calc(0.88rem + 0.7rem);
+  padding-top:calc(0.88rem + 0.88rem);
 }
 
 </style>

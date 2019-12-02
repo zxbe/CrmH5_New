@@ -932,13 +932,13 @@ export default {
 .list-mode-div{
   position: fixed;
   left:0;right:0;bottom:0;
-  top:calc(0.88rem + 0.7rem);
+  top:calc(0.88rem + 0.88rem);
 }
 
 
 /*分组模式*/
 .date-mode-div,.department-mode-div,.calendar-div{
-  padding-top:calc(0.88rem + 0.7rem);
+  padding-top:calc(0.88rem + 0.88rem);
 }
 </style>
 
