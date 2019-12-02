@@ -1,7 +1,7 @@
 <template>
 <div>
     <div id="mask" class="mask" @click="panelToggle" v-show="showPanel"></div>
-    <div id="right-content" class="right-content">
+    <div id="right-content" class="right-content" @touchmove.stop>
        <div class="screen-con">
           <!-- <vue-scroll :showToTop="false" :options="{ pullup: false, pulldown: false }" :scrollbar="false" > -->
               <!-- ViewModel -->
@@ -199,10 +199,10 @@
 </template>
 
 <script>
-import Scroll from '@/components/customPlugin/scroll/Scroll';
+// import Scroll from '@/components/customPlugin/scroll/Scroll';
 export default {
   components: {
-        'vue-scroll': Scroll,
+        // 'vue-scroll': Scroll,
   },
   data(){
     return{
@@ -1045,5 +1045,9 @@ p.textareaP.wrap{
     margin-top: .2rem;
     margin-bottom: .2rem;
     border-radius: 4px;
+}
+.calcfont.ChangeIconColor{
+    font-size: .32rem;
+    color: #f90;
 }
 </style>
