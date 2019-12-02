@@ -510,7 +510,7 @@ export default {
             QueryCondiction: JSON.stringify(_self.constructQueryCondiction() || []),
             GroupBy:_self.queryObj.groupByMode||"",
             PageType:_self.pageType,
-            // BusinessTypes:_self.businessType || ""
+            BusinessTypes:_self.businessType || ""
         };
         var loadingIndexClassName = tool.showLoading();
         $.ajax({
@@ -521,7 +521,7 @@ export default {
             success: function (data) {
                 tool.hideLoading(loadingIndexClassName);
                 data = tool.jObject(data);
-                console.log(data);
+                // console.log(data);
 
                 if (data._ReturnStatus == false) {
                     tool.showText(tool.getMessage(data));
