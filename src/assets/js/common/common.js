@@ -2250,27 +2250,27 @@ import config from "../../configfile/config.js";
         break;
       case "dealPipeline":
         controlName = tool.Api_OpportunityHandle_GroupInnerData;
-        var queryCondictionObj = {
-          Field: "BusinessTypes",
-          Type: "string",
-          Format: "",
-          Relation: "and",
-          Value: "29",
-          Comparison: "="
-        };
-        queryCondiction.push(queryCondictionObj);
+        // var queryCondictionObj = {
+        //   Field: "BusinessTypes",
+        //   Type: "string",
+        //   Format: "",
+        //   Relation: "and",
+        //   Value: "29",
+        //   Comparison: "="
+        // };
+        // queryCondiction.push(queryCondictionObj);
         break;
       case "opportunities":
         controlName = tool.Api_OpportunityHandle_GroupInnerData;
-        var queryCondictionObj = {
-          Field: "BusinessTypes",
-          Type: "string",
-          Format: "",
-          Relation: "and",
-          Value: "30",
-          Comparison: "="
-        };
-        queryCondiction.push(queryCondictionObj);
+        // var queryCondictionObj = {
+        //   Field: "BusinessTypes",
+        //   Type: "string",
+        //   Format: "",
+        //   Relation: "and",
+        //   Value: "30",
+        //   Comparison: "="
+        // };
+        // queryCondiction.push(queryCondictionObj);
         break;
       case "organizations":
         controlName = tool.Api_OrganizationsHandle_GroupInnerData;
