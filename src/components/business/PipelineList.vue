@@ -118,7 +118,7 @@ import Nothing from "@/components/customPlugin/Nothing";
 import SearchModule from '@/components/customplugin/SearchModule'
 import Mixins from '@/mixins/commonlist.js'
 export default {
-    name:'pitcheslist',
+    name:'pipelinelist',
     mixins:[Mixins],
     components: {
           SearchInput,Sort,Screen,SearchModule,

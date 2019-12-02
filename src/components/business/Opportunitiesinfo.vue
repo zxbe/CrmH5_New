@@ -703,7 +703,7 @@ export default {
         });
         //聚焦，添加分割线颜色加深
         $(".textareaP:not(.wrap) textarea").focus(function () {
-            
+
             $(".OppList").find(".DetailRow").removeClass("DeepColor");
             $(this).parents(".DetailRow").addClass("DeepColor");
         });
@@ -837,7 +837,7 @@ export default {
 
         //返回时更新selectlist控件的结果
         tool.UpdateFieldValueFromBack(eventBus, function (curObj) {
-           
+
             //选择回填后根据回填的内容自适应高度
             if(curObj.is("textarea")){
                 curObj.height(tool.TextareaDefaultHeight);
@@ -974,7 +974,11 @@ export default {
             var id = _self.$route.params.id;
             var fromType = "Opportunitiesinfo";
             tool.SaveOrUpdateData(fromType, id, _self, function () {
-                _self.$store.commit('REMOVE_ITEM', 'businessCategories');
+                if(_self.showPage == '1'){
+                    _self.$store.commit('REMOVE_ITEM', 'pitcheslist');
+                }else{
+                    _self.$store.commit('REMOVE_ITEM', 'pipelinelist');
+                }
                 _self.$store.commit('REMOVE_ITEM', 'opportunitiesinfo');
                 _self.$router.back(-1);
             });
@@ -987,7 +991,11 @@ export default {
             var id = _self.$route.params.id;
             var fromType = "Opportunitiesinfo";
             tool.DeleteData(fromType, id, _self, function () {
-                _self.$store.commit('REMOVE_ITEM', 'businessCategories');
+                if(_self.showPage == '1'){
+                    _self.$store.commit('REMOVE_ITEM', 'pitcheslist');
+                }else{
+                    _self.$store.commit('REMOVE_ITEM', 'pipelinelist');
+                }
             });
         },
 
@@ -1074,7 +1082,11 @@ export default {
                             //将当前详情页设置为非keep-alive
                             _self.$store.commit('REMOVE_ITEM', 'opportunitiesinfo');
                             //将列表页设置为非keep-alive
-                            _self.$store.commit('REMOVE_ITEM', 'businessCategories');
+                            if(_self.showPage == '1'){
+                                _self.$store.commit('REMOVE_ITEM', 'pitcheslist');
+                            }else{
+                                _self.$store.commit('REMOVE_ITEM', 'pipelinelist');
+                            }
                             //返回到上一页
                             _self.$router.back(-1);
                         } catch (err) {
@@ -1169,7 +1181,11 @@ export default {
                             //将当前详情页设置为非keep-alive
                             _self.$store.commit('REMOVE_ITEM', 'opportunitiesinfo');
                             //将列表页设置为非keep-alive
-                            _self.$store.commit('REMOVE_ITEM', 'businessCategories');
+                            if(_self.showPage == '1'){
+                                _self.$store.commit('REMOVE_ITEM', 'pitcheslist');
+                            }else{
+                                _self.$store.commit('REMOVE_ITEM', 'pipelinelist');
+                            }
 
                             //隐藏弹窗
                             $('#transformTo').hide();
@@ -1479,7 +1495,7 @@ export default {
         }
     },
     beforeRouteLeave: function (to, from, next) {
-        if (to.name == 'businessCategories') {
+        if (to.name == 'pitches' || to.name == 'pipeline') {
             this.$store.commit('REMOVE_ITEM', 'opportunitiesinfo');
         }
         next();
