@@ -239,10 +239,12 @@ export default {
     scrollToElement() {
       this.scroll && this.scroll.scrollToElement.apply(this.scroll, arguments);
     },
+    //上拉没有更多数据
     pullupEnd() {
       this.isPullingUpEnd = true;
       this.refresh();
     },
+    //列表回到顶部
     goTopping:function(){
         let _self = this;
         _self.scrollTo(0, 0, 800, 'easing ');

@@ -359,6 +359,8 @@ export default {
           if(_self.queryObj.groupByMode.toLowerCase() == "list"){
             //查询列表
             _self.queryList('pushRefresh', function () {
+                //列表回到顶部
+                _self.$refs.scroll.goTopping();
             });
           }else{
             //非列表模式下把头部输入框清空

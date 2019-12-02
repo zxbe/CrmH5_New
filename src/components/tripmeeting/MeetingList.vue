@@ -411,6 +411,9 @@ export default {
           if(_self.queryObj.groupByMode.toLowerCase() == "list"){
               //查询列表
               _self.queryList('pushRefresh', function () {
+
+                  //列表回到顶部
+                  _self.$refs.scroll.goTopping();
               });
           }else{
             //1>先清空分组的模型数据(防止两种分组数据出现渲染上的问题)
