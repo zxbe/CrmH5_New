@@ -404,7 +404,7 @@ export default {
                 //设置查询完成
                 _self.isGetDropListByAutoValDone = true;
                 //隐藏虚拟键盘
-                document.activeElement.blur();
+                // document.activeElement.blur();
             }
         });
 
