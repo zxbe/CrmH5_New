@@ -369,6 +369,8 @@ export default {
             _self.resultData = [];
             //4>清空列表数据
             _self.listData = [];
+            //隐藏列表
+            _self.showList = false;
         },
         //点击历史查询记录，查询匹配数据
         searchByHistotyItem:function(data){
