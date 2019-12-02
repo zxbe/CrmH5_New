@@ -47,11 +47,12 @@
 
                   </div>
               </vue-scroll>
+              <nothing v-show="noData" style="padding-top:0.8rem;"></nothing>
           </div>
 
           <!-- 分组模式   -->
           <div class="group-mode-div" v-show="queryObj.groupByMode != 'List'">
-              <div v-show="groupData !=null && groupData != undefined && groupData.length > 0" id="opportunitiesList" data-fromtype="opportunities">
+              <div v-show="!noData" id="opportunitiesList" data-fromtype="opportunities">
                 <div v-for="group in groupData" :key="group.GroupID" class="list-group-div group-div">
                         <div class="date-div " >
                             <span class="calcfont calc-lianxiren1"></span>
@@ -93,6 +94,7 @@
                         </div>
                 </div>
               </div>
+              <nothing v-show="noData" style="padding-top:0.8rem;"></nothing>
           </div>
 
           <!-- 侧滑筛选 -->
@@ -507,7 +509,8 @@ export default {
             _RegisterCode: tool.RegisterCode(),
             QueryCondiction: JSON.stringify(_self.constructQueryCondiction() || []),
             GroupBy:_self.queryObj.groupByMode||"",
-            PageType:_self.pageType
+            PageType:_self.pageType,
+            // BusinessTypes:_self.businessType || ""
         };
         var loadingIndexClassName = tool.showLoading();
         $.ajax({
@@ -518,7 +521,7 @@ export default {
             success: function (data) {
                 tool.hideLoading(loadingIndexClassName);
                 data = tool.jObject(data);
-                // console.log(data);
+                console.log(data);
 
                 if (data._ReturnStatus == false) {
                     tool.showText(tool.getMessage(data));
