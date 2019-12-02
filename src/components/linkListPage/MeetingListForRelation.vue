@@ -29,7 +29,7 @@
                       <div>
                           <!-- <div class="item-title">{{item.MeetingTitle}}</div> -->
                           <div class="flex">
-                            <i style="margin-right: 3px;" class="calcfont calc-T icon"></i>
+                            <i style="margin-right: 3px;" class="calcfont calc-biaoti icon"></i>
                             <div class="item-title">{{item.MeetingTitle}}</div>
                           </div>
                           <!-- <div class="item-time f12">

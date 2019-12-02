@@ -26,7 +26,7 @@
                         <div v-for="item in meetingDatas" :key="item.AutoID"
                         class="data-events-item f14" @click.stop="goInfoPage(item.AutoID,$event)" >
                                 <div class="flex">
-                                  <i style="margin-right: 3px;" class="calcfont calc-T icon"></i><div class="item-title">{{item.MeetingTitle}}</div>
+                                  <i style="margin-right: 3px;" class="calcfont calc-biaoti icon"></i><div class="item-title">{{item.MeetingTitle}}</div>
                                 </div>
                                 <div class="item-time f12">
                                       <span class="calcfont calc-gengxinshijian"></span>
