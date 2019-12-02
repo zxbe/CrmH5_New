@@ -299,7 +299,7 @@ export default {
         //   "GroupRowCount": 1
         // }
         ],
-        
+
         lanSearchModuleInputPlaceHolder:lanTool.lanContent("644_商业机会"),
         searchModuleFromType:"9", //联系人:6;公司:7;会议:8;商机&交易:9; 用户管理：11；
         businessType:"30", //商机=>30;交易=>29
@@ -359,6 +359,9 @@ export default {
             _self.queryList('pushRefresh', function () {
             });
           }else{
+            //非列表模式下把头部输入框清空
+            _self.$refs.searchInput.searchValue = "";
+            _self.$refs.searchModule.$refs.searchInput.searchValue = '';
             //查询分组数据
             _self.queryGroup();
           }

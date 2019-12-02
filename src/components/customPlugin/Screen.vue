@@ -599,6 +599,7 @@ export default {
                 target.removeClass('active');
 
                 var curId = target.attr("data-id")||"";
+                //自定义事件筛选
                 if( curId == 'customize' ){
                     target.siblings('.time-range-customize-div').slideUp(400);
                     //收起自定义查询时间后，清除开始日期和结束日期的值
@@ -642,6 +643,13 @@ export default {
                     //取消选择
                     target.removeClass('active');
                 }
+            }
+
+            //若切换为日历模式，隐藏分组模块（meeting模块中）
+            if( curId == 'calendarView' ){
+                _self.isShowGroupByModel = false;
+            }else{
+                _self.isShowGroupByModel = true;
             }
         }
 

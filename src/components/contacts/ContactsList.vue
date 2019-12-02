@@ -296,6 +296,9 @@ export default {
           _self.queryList('pushRefresh', function () {
           });
         }else{
+          //非列表模式下把头部输入框清空
+          _self.$refs.searchInput.searchValue = "";
+          _self.$refs.searchModule.$refs.searchInput.searchValue = '';
           //查询分组数据
           _self.queryGroup();
         }

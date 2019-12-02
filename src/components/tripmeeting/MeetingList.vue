@@ -408,14 +408,19 @@ export default {
         //若是列表视图
         if(_self.queryObj.viewMode.toLowerCase() == "listview"){
             //若是列表分组模式
-            if(_self.queryObj.groupByMode.toLowerCase() == "list"){
+          if(_self.queryObj.groupByMode.toLowerCase() == "list"){
               //查询列表
               _self.queryList('pushRefresh', function () {
               });
           }else{
             //1>先清空分组的模型数据(防止两种分组数据出现渲染上的问题)
             _self.groupData = [];
-		        _self.noData = false;
+            _self.noData = false;
+
+            //非列表模式下把头部输入框清空
+            _self.$refs.searchInput.searchValue = "";
+            _self.$refs.searchModule.$refs.searchInput.searchValue = '';
+
             //2>查询分组数据
             _self.queryGroup();
           }
