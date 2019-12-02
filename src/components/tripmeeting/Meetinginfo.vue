@@ -308,10 +308,11 @@
             <div class="elastic-layer-items">
 
                 <div class="elastic-layer-item f14">
-                    <span class="calcfont calc-zhuangtai icon-left"></span>
+                    <span class="calcfont calc-zhuangtai icon-left ChangeIconColor"></span>
                     <div class="item-right">
                         <div class="item-row">
-                            <div class="lanText label-text" data-lanid="1000353_商机名称"></div>
+                            <!-- <div class="lanText label-text" data-lanid="1000353_商机名称"></div> -->
+                            <div class="item-row-field"><span class="lanText label-text" data-lanid="1000353_商机名称"></span><span class="xinghao">*</span></div>
                         </div>
                         <div class="item-row border-bottom">
                             <div class="ListCellContentRight">
@@ -322,10 +323,11 @@
                 </div>
 
                 <div id="SourceFrom-div" class="elastic-layer-item f14">
-                    <span class="calcfont calc-laiyuanqingkuang icon-left"></span>
+                    <span class="calcfont calc-laiyuanqingkuang icon-left ChangeIconColor"></span>
                     <div class="item-right">
                         <div class="item-row">
-                            <div class="lanText label-text" data-lanid="1000230_机会来源"></div>
+                            <!-- <div class="lanText label-text" data-lanid="1000230_机会来源"></div> -->
+                            <div class="item-row-field"><span class="lanText label-text" data-lanid="1000230_机会来源"></span><span class="xinghao">*</span></div>
                         </div>
                         <div class="item-row border-bottom">
                             <div class="ListCellContentRight">
@@ -338,7 +340,7 @@
 
                 <div id="SourceFromOther-div">
                     <div class="elastic-layer-item f14">
-                        <span class="calcfont calc-qita1 icon-left"></span>
+                        <span class="calcfont calc-qita1 icon-left ChangeIconColor"></span>
                         <div class="item-right">
                             <div class="item-row border-bottom" style="margin-top:5px;">
                                 <textarea data-field="SourceFromOther" data-fieldControlType="textareaInput" class="lanInputPlaceHolder" data-lanid="1000312_其他原因"></textarea>
@@ -347,10 +349,11 @@
                     </div>
                 </div>
                 <div id="IsPublic-div" class="elastic-layer-item f14">
-                    <span class="calcfont calc-yidu icon-left"></span>
+                    <span class="calcfont calc-yidu icon-left ChangeIconColor"></span>
                     <div class="item-right">
                         <div class="item-row">
-                            <div class="lanText label-text" data-lanid="803_可访问"></div>
+                            <!-- <div class="lanText label-text" data-lanid="803_可访问"></div> -->
+                            <div class="item-row-field"><span class="lanText label-text" data-lanid="803_可访问"></span><span class="xinghao">*</span></div>
                         </div>
                         <div class="item-row border-bottom">
                             <div class="ListCellContentRight">
@@ -361,10 +364,11 @@
                     </div>
                 </div>
                 <div id="InitiatorClickObj" class="elastic-layer-item  f14" style="display:none">
-                    <span class="calcfont calc-fuzerenicon icon-left"></span>
+                    <span class="calcfont calc-fuzerenicon icon-left ChangeIconColor"></span>
                     <div class="item-right">
                         <div class="item-row">
-                            <div class="lanText label-text" data-lanid="825_负责人"></div>
+                            <!-- <div class="lanText label-text" data-lanid="825_负责人"></div> -->
+                            <div class="item-row-field"><span class="lanText label-text" data-lanid="825_负责人"></span><span class="xinghao">*</span></div>
                         </div>
                         <div class="item-row border-bottom">
                             <div class="ListCellContentRight">
@@ -375,10 +379,11 @@
                     </div>
                 </div>
                 <div class="elastic-layer-item f14">
-                    <span class="calcfont calc-beiwanglu icon-left"></span>
+                    <span class="calcfont calc-beiwanglu icon-left ChangeIconColor"></span>
                     <div class="item-right">
                         <div class="item-row">
-                            <div class="lanText label-text" data-lanid="719_备忘"></div>
+                            <!-- <div class="lanText label-text" data-lanid="719_备忘"></div> -->
+                            <div class="item-row-field"><span class="lanText label-text" data-lanid="719_备忘"></span><span class="xinghao">*</span></div>
                         </div>
                         <div class="item-row border-bottom">
                             <div class="ListCellContentRight">
@@ -404,10 +409,11 @@
             <div class="elastic-layer-items">
 
                 <div class="elastic-layer-item f14">
-                    <span class="calcfont calc-feiji2 icon-left"></span>
+                    <span class="calcfont calc-feiji2 icon-left ChangeIconColor"></span>
                     <div class="item-right">
                         <div class="item-row">
-                            <div class="lanText label-text" data-lanid="956_MSN"></div>
+                            <!-- <div class="lanText label-text" data-lanid="956_MSN"></div> -->
+                            <div class="item-row-field"><span class="lanText label-text" data-lanid="956_MSN"></span></div>
                         </div>
                         <div class="item-row border-bottom not-required">
                             <div class="ListCellContentRight">
@@ -418,10 +424,11 @@
                 </div>
 
                 <div id="SourceFrom-div" class="elastic-layer-item f14">
-                    <span class="calcfont calc-shixiang icon-left"></span>
+                    <span class="calcfont calc-shixiang icon-left ChangeIconColor"></span>
                     <div class="item-right">
                         <div class="item-row">
-                            <div class="lanText label-text" data-lanid="947_商业事项"></div>
+                            <!-- <div class="lanText label-text" data-lanid="947_商业事项"></div> -->
+                            <div class="item-row-field"><span class="lanText label-text" data-lanid="947_商业事项"></span><span class="xinghao">*</span></div>
                         </div>
                         <div class="item-row border-bottom">
                             <div class="ListCellContentRight">
@@ -434,7 +441,7 @@
 
                 <div id="MatterOther-div">
                     <div class="elastic-layer-item f14">
-                        <span class="calcfont calc-qita1 icon-left"></span>
+                        <span class="calcfont calc-qita1 icon-left ChangeIconColor"></span>
                         <div class="item-right">
                             <div class="item-row border-bottom" style="margin-top:5px;">
                                 <textarea data-field="MatterOther" data-fieldControlType="textareaInput" class="lanInputPlaceHolder" data-lanid="1155_其他"></textarea>
@@ -443,10 +450,11 @@
                     </div>
                 </div>
                 <div id="IsPublic-divT" class="elastic-layer-item f14">
-                    <span class="calcfont calc-yidu icon-left"></span>
+                    <span class="calcfont calc-yidu icon-left ChangeIconColor"></span>
                     <div class="item-right">
                         <div class="item-row">
-                            <div class="lanText label-text" data-lanid="803_可访问"></div>
+                            <!-- <div class="lanText label-text" data-lanid="803_可访问"></div> -->
+                            <div class="item-row-field"><span class="lanText label-text" data-lanid="803_可访问"></span><span class="xinghao">*</span></div>
                         </div>
                         <div class="item-row border-bottom">
                             <div class="ListCellContentRight">
@@ -457,10 +465,11 @@
                     </div>
                 </div>
                 <div id="dealInitiatorClickObj" class="elastic-layer-item  f14" style="display:none">
-                    <span class="calcfont calc-fuzerenicon icon-left"></span>
+                    <span class="calcfont calc-fuzerenicon icon-left ChangeIconColor"></span>
                     <div class="item-right">
                         <div class="item-row">
-                            <div class="lanText label-text" data-lanid="825_负责人"></div>
+                            <!-- <div class="lanText label-text" data-lanid="825_负责人"></div> -->
+                            <div class="item-row-field"><span class="lanText label-text" data-lanid="825_负责人"></span><span class="xinghao">*</span></div>
                         </div>
                         <div class="item-row border-bottom">
                             <div class="ListCellContentRight">
@@ -471,10 +480,11 @@
                     </div>
                 </div>
                 <div class="elastic-layer-item f14">
-                    <span class="calcfont calc-beiwanglu icon-left"></span>
+                    <span class="calcfont calc-beiwanglu icon-left ChangeIconColor"></span>
                     <div class="item-right">
                         <div class="item-row">
-                            <div class="lanText label-text" data-lanid="719_备忘"></div>
+                            <!-- <div class="lanText label-text" data-lanid="719_备忘"></div> -->
+                            <div class="item-row-field"><span class="lanText label-text" data-lanid="719_备忘"></span><span class="xinghao">*</span></div>
                         </div>
                         <div class="item-row border-bottom">
                             <div class="ListCellContentRight">
@@ -1425,7 +1435,13 @@ export default {
     align-items: center;
     position: relative;
 }
-
+.elastic-layer-item .item-row .item-row-field{
+    padding-top: 5px;
+    height: 0.3rem;
+}
+.item-row-field .xinghao{
+    color: red;
+}
 .border-bottom::after {
     position: absolute;
     content: "";
@@ -1433,7 +1449,8 @@ export default {
     right: 0rem;
     bottom: 0;
     height: 1px;
-    background-color: #f6e78b;
+    /* background-color: #f6e78b; */
+    background-color: #ddddde;
 }
 
 .border-bottom.not-required::after {

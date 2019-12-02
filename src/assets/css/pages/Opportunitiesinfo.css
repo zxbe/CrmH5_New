@@ -337,12 +337,19 @@ span.calcfont.calc-shoucang {
   padding:9px 0;
   position: relative;
 }
-.elastic-layer-item .icon-left{font-size:.44rem!important;margin-right: 5px;}
+.elastic-layer-item .icon-left{font-size:.44rem!important;margin-right: 5px;padding-top: 5px;}
 .elastic-layer-item .item-right{flex:1;}
 .elastic-layer-item .item-row{
   display: flex;
   align-items: center;
   position: relative;
+}
+.elastic-layer-item .item-row .item-row-field{
+    padding-top: 5px;
+    height: 0.3rem;
+}
+.item-row-field .xinghao{
+    color: red;
 }
 .border-bottom::after{
   position: absolute;
@@ -351,7 +358,8 @@ span.calcfont.calc-shoucang {
   right: 0rem;
   bottom: 0;
   height: 1px;
-  background-color: #f6e78b;
+  /* background-color: #f6e78b; */
+  background-color: #ddddde;
 }
 .border-bottom.not-required::after{
   background-color: #ddddde;
