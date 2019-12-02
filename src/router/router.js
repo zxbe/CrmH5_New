@@ -23,10 +23,6 @@ import Contactsof from '@/components/linkListPage/Contactsof'
 
 import MeetingNoteinfo from '@/components/tripmeeting/MeetingNoteinfo'
 
-import Contacts from '@/components/contacts/Contacts'
-import Contactsinfo from '@/components/contacts/Contactsinfo'
-
-import BusinessCategories from '@/components/business/BusinessCategories'
 import Opportunitiesinfo from '@/components/business/Opportunitiesinfo'
 //dba
 import AirlineDatabase from '@/components/business/AirlineDatabase'
@@ -58,10 +54,10 @@ const router =  new Router({
     { path: '/searchmodule/:paramStr',name:'searchmodule',component: Searchmodule},
 
     { path: '/meetinglistforrelation',name:'meetinglistforrelation', component: MeetingListForRelation},
-    { path: '/businesslist',name:'businesslist', component: Businesslist},
 
 
-    //会议&出差
+
+    //会议
     { path: '/meeting',
       name:'meeting',
       component: (resolve) => require(['@/components/tripmeeting/MeetingList'], resolve)
@@ -70,6 +66,7 @@ const router =  new Router({
       name:'meetinginfo',
       component: (resolve) => require(['@/components/tripmeeting/Meetinginfo'], resolve)
     },
+
     //会议记录
     { path: '/meetingNoteinfo/:id',name:'meetingNoteinfo', component:MeetingNoteinfo,},
     //上传文件
@@ -83,8 +80,18 @@ const router =  new Router({
       name:'contacts',
       component: (resolve) => require(['@/components/contacts/ContactsList'], resolve)
     },
-    { path:'/contactsinfo/:id',name:'contactsinfo',component:Contactsinfo},
+    { path:'/contactsinfo/:id',
+      name:'contactsinfo',
+      component: (resolve) => require(['@/components/contacts/Contactsinfo'], resolve)
+    },
+
+    //中间链接页面
+    { path: '/meetingof',
+      name:'meetingof',
+      component: (resolve) => require(['@/components/linkListPage/Meetinglist'], resolve)
+    },
     { path:'/contactsof',name:'contactsof',component:Contactsof},
+    { path: '/businesslist',name:'businesslist', component: Businesslist},
 
     //公司
     { path:'/organizations',
@@ -105,7 +112,6 @@ const router =  new Router({
       name:'pipeline',
       component: (resolve) => require(['@/components/business/PipelineList'], resolve)
     },
-    { path: '/businessCategories',name:'businessCategories', component:BusinessCategories},
     { path:'/opportunitiesinfo/:id',name:'opportunitiesinfo',component:Opportunitiesinfo},
 
     //LOI单详情

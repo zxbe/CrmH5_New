@@ -190,7 +190,7 @@ export default {
             _self.panelToggle();
             _self.$nextTick(function () {
                 _self.$router.push({
-                    path: "/meeting",
+                    path: "/meetingof",
                     query: parameter
                 });
             })

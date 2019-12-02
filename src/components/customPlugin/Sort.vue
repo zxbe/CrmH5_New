@@ -10,7 +10,7 @@
             ></i>
           </div>
         </div>
-        <div @click="showRightPanel">
+        <div class="sort-right" @click="showRightPanel">
           <span>{{ lanFilter }}</span>
           <i class="calcfont calc-shaixuan3"></i>
         </div>
@@ -215,6 +215,7 @@ box-shadow: 0px -5px 3px -5px #989898 inset;}
 .gou-icon {
   color: #ff9900;
 }
+.sort-right{padding:5px 0;}
 
 .mask{position:fixed;top:0.88rem;left: 0;right: 0;bottom: 0;background: rgba(0, 0, 0, 0.3);z-index: 8;}
 
