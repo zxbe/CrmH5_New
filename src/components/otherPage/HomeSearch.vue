@@ -44,7 +44,12 @@
                         <div class="f14 lanText" data-lanid="817_交易"></div>
                     </div>
                 </div>
-                <div class="column-div"></div>
+                <div class="column-div">
+                    <div class="module-item item6" data-id="11"  @click="switchModule($event)">
+                        <i class="calcfont calc-yonghuqun"></i>
+                        <div class="f14 lanText" data-lanid="1134_用户活动"></div>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -296,7 +301,9 @@ export default {
                     infoUrl = "/pitches";
                 }
                 break;
-
+            case "11":
+                infoUrl = "/userEvents";
+                break;
             default:
                 return false;
         }
@@ -352,6 +359,10 @@ export default {
             AutoValue:autoValue,
             Top:10//查询匹配的前N条记录
         };
+
+        if( !tool.isNullOrEmptyObject(_self.businessType)){
+            jsonDatasTemp['BusinessTypes'] = _self.businessType;
+        }
 
         //var loadingIndexClassName = tool.showLoading();
         $.ajax({
@@ -436,6 +447,9 @@ export default {
                     parameter.showPage = 1;
                 }
                 infoUrl = "/opportunitiesinfo/";
+                break;
+            case "11":
+                infoUrl = "/userEventsInfo/";
                 break;
 
             default:
