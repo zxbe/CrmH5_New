@@ -1,6 +1,6 @@
 <template>
 <div>
-    <div id="mask" class="mask" @click="panelToggle" v-show="showPanel"></div>
+    <div id="mask" class="mask" @click="panelToggle" v-show="showPanel" @touchmove.stop></div>
     <div id="right-content" class="right-content" @touchmove.stop>
        <div class="screen-con">
           <!-- <vue-scroll :showToTop="false" :options="{ pullup: false, pulldown: false }" :scrollbar="false" > -->
@@ -487,10 +487,13 @@ export default {
                         '-webkit-transition':'left 0.2s ease-out',
                         '-o-transition': 'left 0.2s ease-out'
                     })
-                    $('#mask').off('touchmove').on("touchmove", function(e) {
-                        e.stopPropagation();
-                        e.preventDefault();
-                    });
+                    // $('#mask').off('touchmove').on("touchmove", function(e) {
+                    //     e.stopPropagation();
+                    //     e.preventDefault();
+                    // });
+
+                    //给body固定高度来禁止它的滚动条滚动
+                    $('body').addClass('h');
                 })
 
             }else{
@@ -502,6 +505,8 @@ export default {
                         '-webkit-transition':'left 0.3s ease-out',
                         '-o-transition': 'left 0.3s ease-out'
                     });
+
+                    $('body').removeClass('h');
                 })
             }
     },
