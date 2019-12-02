@@ -229,7 +229,7 @@
                     </div>
                 </div> -->
                 <div class="DetailRow controlEdit SourceFromObj">
-                    <div class="DetailRowOn"><span class="calcfont calc-qita1 ChangeIconColor"></span><span class="FileName lanText" data-lanid="952_其他"></span><span class="XingHao">*</span></div>
+                    <div class="DetailRowOn"><span class="calcfont calc-qita1 ChangeIconColor"></span><span class="FileName lanText" data-lanid="1151_其它"></span><span class="XingHao">*</span></div>
                     <div class="DetailRowUp">
                         <p class="textareaP">
                             <textarea data-field="SourceFromOther" data-fieldControlType="textareaInput" class="lanInputPlaceHolder" data-lanid="1000525_请输入"></textarea>

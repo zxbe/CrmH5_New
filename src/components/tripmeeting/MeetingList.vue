@@ -792,7 +792,7 @@ export default {
             success: function (data) {
                 tool.hideLoading(loadingIndexClassName);
                 data = tool.jObject(data);
-                data._ReturnStatus = false;
+                // data._ReturnStatus = false;
                 if (data._ReturnStatus == false) {
                     tool.showText(tool.getMessage(data));
                     console.log(tool.getMessage(data));

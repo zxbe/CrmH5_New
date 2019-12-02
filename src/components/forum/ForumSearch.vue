@@ -1,24 +1,14 @@
 <template>
 <div>
     <header class="header sticky" id="searchHeader">
-        <a @click="back" class="calcfont calc-fanhui back-icon" id="back"></a>
+        <a v-show="showHistoricalSearchRecord" @click="back" class="calcfont calc-fanhui back-icon" id="back"></a>
+        <i v-show="!showHistoricalSearchRecord" class="seize-a-seat"></i>
         <search-input class="search" :placeholder=lanSearchModuleInputPlaceHolder ref="searchInput"></search-input>
         <i class="seize-a-seat"></i>
     </header>
-    <div class="search-module">
-        <div class="module-item" >
-            <div class="module-item-text f14" data-type="title" @click="switchModule($event)">标题</div>
-        </div>
-        <div class="module-item">
-            <div class="module-item-text f14" data-type="Content" @click="switchModule($event)">内容</div>
-        </div>
-        <div class="module-item">
-            <div class="module-item-text f14" data-type="Tag" @click="switchModule($event)">标签</div>
-        </div>
-    </div>
 
     <!-- 显示搜索结果 -->
-    <div v-show="listData != null && listData != undefined && listData.length > 0">
+    <div v-show="showList">
         <div class="list">
             <vue-scroll v-show="!noData" :showToTop="true" :options="{ pullup: true, pulldown: true }" :scrollbar="false" ref="scroll" @pulldown="pulldown" @pullup="pullup">
                 <div v-for="item in listData" @click="goToInfo(item.AutoID)" :key="item.AutoID" class="list-item">
@@ -69,29 +59,42 @@
         </div>
     </div>
 
-    <!-- 显示搜索历史记录 -->
-    <div v-show="showHistoricalSearchRecord" class="history-div">
-        <div class="history-title">
-            <div class="text lanText f16" data-lanid="1000531_历史搜索"></div>
-            <div class="text-btn lanText f14" data-lanid="1000535_清除" @click="deleteAllHistoricalSearchRecord"></div>
-        </div>
-        <div class="history-content">
-            <div class="history-item" v-for="(item,index) in historyData" :key="index" @click="searchByHistotyItem(item)" >
-                <i class="calcfont calc-shijian l-icon f18"></i>
-                <div class="item-text f14">{{item}}</div>
-                <i class="calcfont calc-guanbi1 f18" @click.stop="deleteOneHistory(item)"></i>
-            </div>
-        </div>
-    </div>
-
-    <!-- 根据输入模糊匹配 -->
-    <div v-show="!showHistoricalSearchRecord" class="matching-panel">
-        <div class="result-list" v-if="resultData != null && resultData != undefined && resultData.length > 0">
-              <div class="result-list-item" v-for="(item,index) in resultData" :key="index" :data-id="item.AutoID" @click="goInfoPage(item)">
-                  <i class="calcfont calc-shijian l-icon f18"></i>
-                  <div class="item-text f14">{{item.Name}}</div>
+    <div v-show="!showList">
+          <div class="search-module">
+              <div class="module-item" >
+                  <div class="module-item-text f14" data-type="title" @click="switchModule($event)">标题</div>
               </div>
-        </div>
+              <div class="module-item">
+                  <div class="module-item-text f14" data-type="Content" @click="switchModule($event)">内容</div>
+              </div>
+              <div class="module-item">
+                  <div class="module-item-text f14" data-type="Tag" @click="switchModule($event)">标签</div>
+              </div>
+          </div>
+          <!-- 显示搜索历史记录 -->
+          <div v-show="showHistoricalSearchRecord" class="history-div">
+              <div class="history-title">
+                  <div class="text lanText f16" data-lanid="1000531_历史搜索"></div>
+                  <div class="text-btn lanText f14" data-lanid="1000535_清除" @click="deleteAllHistoricalSearchRecord"></div>
+              </div>
+              <div class="history-content">
+                  <div class="history-item" v-for="(item,index) in historyData" :key="index" @click="searchByHistotyItem(item)" >
+                      <i class="calcfont calc-shijian l-icon f18"></i>
+                      <div class="item-text f14">{{item}}</div>
+                      <i class="calcfont calc-guanbi1 f18" @click.stop="deleteOneHistory(item)"></i>
+                  </div>
+              </div>
+          </div>
+
+          <!-- 根据输入模糊匹配 -->
+          <div v-show="!showHistoricalSearchRecord" class="matching-panel">
+              <div class="result-list" v-if="resultData != null && resultData != undefined && resultData.length > 0">
+                    <div class="result-list-item" v-for="(item,index) in resultData" :key="index" :data-id="item.AutoID" @click="goToInfo(item.AutoID)">
+                        <i class="calcfont calc-shijian l-icon f18"></i>
+                        <div class="item-text f14">{{item.Name}}</div>
+                    </div>
+              </div>
+          </div>
     </div>
 
 
@@ -115,29 +118,18 @@ export default {
             pageSize: 10, //一页显示多少记录
             pageNum: 1, //当前页码
             repliesText: lanTool.lanContent("1000350_答复"), //在列表通过属性配置不显示
-            // isFocus: true,
-            // hotSearchData: [
-            //   // {
-            //   //       AutoID: "0",
-            //   //       TagName: "人工智能"
-            //   // }
-            // ],
             listData: [],
 
             lanSearchModuleInputPlaceHolder:lanTool.lanContent("1000306_你想知道什么？"),
             inputValue:'', //输入的值
-            resultData:[
-            //     {
-            //   AutoID:11,
-            //   Name:'这是一个测试'
-            // }
-            ], //查询结果
+            resultData:[], //查询结果
             localStorageKeyName:'HistorySearchRecords_forum',  //存储historyData的key值
             historyData:[],//历史查询记录
             maxHistoricalCount:10,//允许的最大的历史查询记录数
             isGetDropListByAutoValDone:false,//模糊查询下拉框值的动作是否执行完毕
             searchType:'',  //搜索类型
             searchModuleFromType:"96",
+            showList:false,  //显示列表
         }
     },
     computed:{
@@ -158,21 +150,27 @@ export default {
         //获取搜索历史数据
         _self.getHistoricalSearchRecord();
     },
-    beforeRouteLeave: function (to, from, next) {
-        if (to.name == 'forumlist') {
-            this.$store.commit('REMOVE_ITEM', 'forumsearch');
-        }
-        next();
-    },
     mounted: function () {
         let _self = this;
         lanTool.updateLanVersion();
-
         //初始化动作
         _self.initAction();
-        // this.hideDropdownList();
-    },
 
+        //监听input是否获取到焦点
+        $('#searchHeader input.search-input').on('focus',function(){
+            _self.showList = false;
+        })
+    },
+    activated(){
+        let _self = this;
+        //返回来如果是列表的就不变
+        if(!tool.isNullOrEmptyObject(_self.listData)){
+            return false;
+        }else{
+        //否则回到初始状态
+            _self.clearSearchValue();
+        }
+    },
     methods: {
         //切换搜索模块
         switchModule(e){
@@ -216,9 +214,11 @@ export default {
         getDropListByAutoVal(autoValue,callback){
             let _self = this;
             autoValue = autoValue.trim();
-            //console.log(autoValue);
             //1>记录当前输入值
             _self.inputValue = autoValue;
+
+            //清空列表数据
+            _self.listData = [];
 
             //若模糊查询值为空，则不执行查询动作
             if(tool.isNullOrEmptyObject(autoValue)){
@@ -298,8 +298,10 @@ export default {
             autoValue = (autoValue||"").trim();
 
             _self.search();
-            
+
             if(!tool.isNullOrEmptyObject(autoValue)){
+                _self.showList = true;
+
                 //把值存到缓存
                 var dataArr = tool.jObject((tool.getStorageItem(_self.localStorageKeyName) || "[]"));
                 //若历史记录中已经存在查询值，则移除
@@ -356,6 +358,33 @@ export default {
             tool.setStoragItem(_self.localStorageKeyName,JSON.stringify(_self.historyData));
         },
 
+        //清除搜索框的值
+        clearSearchValue(){
+            let _self = this;
+            //1>清除input控件的值
+            _self.$refs.searchInput.searchValue = "";
+            //2>清除当前组件的inputValue值
+            _self.inputValue = "";
+            //3>清除模糊查询结果
+            _self.resultData = [];
+            //4>清空列表数据
+            _self.listData = [];
+            //隐藏列表
+            _self.showList = false;
+        },
+        //点击历史查询记录，查询匹配数据
+        searchByHistotyItem:function(data){
+            let _self = this;
+
+            if(tool.isNullOrEmptyObject(data)){
+                return false;
+            }
+            //1>设置input组件的值
+            _self.$refs.searchInput.searchValue = data;
+            //2>执行模糊查询，查询匹配的前N条记录
+            _self.$refs.searchInput.inputChange();
+        },
+
 
         //搜索聚焦事件
         // searchFocus: function () {
@@ -380,6 +409,7 @@ export default {
             var _self = this;
             _self.search();
         },
+        //点击去详情页面
         goToInfo: function (num) {
             var _self = this;
             if (tool.isNullOrEmptyObject(num)) {
@@ -436,7 +466,7 @@ export default {
             //构造查询类型
             // var searchType = $(".dropDownList>a.selected").eq(0).attr("data-type") || "Other";
             // searchType = $.trim(searchType);
-            var autoValue = $("#searchAskInput").val() || "";
+            // var autoValue = $("#searchAskInput").val() || "";
 
             var jsonDatasTemp = {
                 CurrentLanguageVersion: lanTool.currentLanguageVersion,
@@ -450,7 +480,7 @@ export default {
                 SortOrder: sortOrder,
                 QueryCondiction: JSON.stringify(queryCondictionDataArray),
                 SearchType: _self.searchType||"",
-                AutoValue: autoValue
+                AutoValue: _self.inputValue||""
             };
             var loadingIndexClassName = tool.showLoading();
             $.ajax({
@@ -651,7 +681,13 @@ export default {
                 }
             });
         }
-    }
+    },
+    beforeRouteLeave: function (to, from, next) {
+        if (to.name == 'forumlist') {
+            this.$store.commit('REMOVE_ITEM', 'forumsearch');
+        }
+        next();
+    },
 }
 </script>
 
