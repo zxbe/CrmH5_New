@@ -609,7 +609,6 @@ export default {
 
       //分组模式下展开收起
     groupToggleHandle:function(idName){
-        console.log(0);
         var _self = this;
         $("#"+ idName ).off("click", "div.date-div").on(
             "click",
@@ -623,8 +622,6 @@ export default {
                         return;
                     }
                 }
-
-                console.log(1);
 
                 var fromType = target.parents("div[data-fromtype]").attr("data-fromtype") || "";
                 var groupID = target.find("span[data-groupid]:first").attr("data-groupid") || "";
@@ -649,7 +646,6 @@ export default {
                         });
                 } else {
                     //若是收起
-                    console.log(2);
                     let groupBy = _self.queryObj.groupByMode ||"";
                     let queryCondictionArr = _self.constructQueryCondiction() || [];
                     tool.InitInnerDataList(_self, fromType, groupID, queryCondictionArr, function(){

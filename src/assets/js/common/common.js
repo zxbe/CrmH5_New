@@ -2291,7 +2291,8 @@ import config from "../../configfile/config.js";
       GroupID: groupID,
       _RegisterCode: tool.RegisterCode(),
       QueryCondiction: JSON.stringify(queryCondiction),
-      PageType: pageType == undefined || pageType == null ? 0 : pageType
+      PageType: pageType == undefined || pageType == null ? 0 : pageType,
+      BusinessTypes:vueObj.businessType || ""
     };
 
     if (pageSource != undefined && pageSource == "index") {
@@ -2545,7 +2546,7 @@ import config from "../../configfile/config.js";
                 if (!tool.isNullOrEmptyObject(parentObj)) {
                   $(parentObj).find(".DetailRow").removeClass("DeepColor");
                   _curObj.parents(".DetailRow").addClass("DeepColor")
-                } 
+                }
 
                 var displayTemp = _curObj.val() || "";
                 _curObj.picker("setValue", [displayTemp]);
@@ -2653,7 +2654,7 @@ import config from "../../configfile/config.js";
             if (!tool.isNullOrEmptyObject(parentObj)) {
               $(parentObj).find(".DetailRow").removeClass("DeepColor");
               _curObj.parents(".DetailRow").addClass("DeepColor")
-            } 
+            }
           // console.log(_curObj);
           var dataField = _curObj.attr("data-field") || "";
           var code = _curObj.attr("Code") || "";
@@ -2702,7 +2703,7 @@ import config from "../../configfile/config.js";
           if (!tool.isNullOrEmptyObject(parentObj)) {
             $(parentObj).find(".DetailRow").removeClass("DeepColor");
             _curObj.parents(".DetailRow").addClass("DeepColor")
-          } 
+          }
 
         // console.log(_curObj);
         var dataField = _curObj.attr("data-field") || "";
@@ -2756,7 +2757,7 @@ import config from "../../configfile/config.js";
           if (!tool.isNullOrEmptyObject(parentObj)) {
             $(parentObj).find(".DetailRow").removeClass("DeepColor");
             _curObj.parents(".DetailRow").addClass("DeepColor")
-          } 
+          }
 
           var dataField = _curObj.attr("data-field") || "";
           var code = _curObj.attr("Code") || "";
@@ -2800,7 +2801,7 @@ import config from "../../configfile/config.js";
           if (!tool.isNullOrEmptyObject(parentObj)) {
             $(parentObj).find(".DetailRow").removeClass("DeepColor");
             _curObj.parents(".DetailRow").addClass("DeepColor")
-          } 
+          }
 
         // console.log(_curObj);
         var dataField = _curObj.attr("data-field") || "";
@@ -2855,7 +2856,7 @@ import config from "../../configfile/config.js";
           if (!tool.isNullOrEmptyObject(parentObj)) {
             $(parentObj).find(".DetailRow").removeClass("DeepColor");
             _curObj.parents(".DetailRow").addClass("DeepColor")
-          } 
+          }
 
         // console.log(_curObj);
 
@@ -2955,13 +2956,13 @@ import config from "../../configfile/config.js";
           onOpen: function(pickerTemp, val1, val2) {
             //隐藏虚拟键盘
             document.activeElement.blur();
-            
+
           //设置详情表单选中时的状态
           var parentObj = _curObj.parents(".detailBox")[0] || "";
           if (!tool.isNullOrEmptyObject(parentObj)) {
             $(parentObj).find(".DetailRow").removeClass("DeepColor");
             _curObj.parents(".DetailRow").addClass("DeepColor")
-          } 
+          }
 
             if (
               tool.isNullOrEmptyObject(pickerTemp) ||
@@ -4177,7 +4178,7 @@ import config from "../../configfile/config.js";
           if (!tool.isNullOrEmptyObject(parentObj)) {
             $(parentObj).find(".DetailRow").removeClass("DeepColor");
             _curObj.parents(".DetailRow").addClass("DeepColor")
-          } 
+          }
            else {
               //处理列表页面侧滑控件
               _curObj.closest('div.block-div').siblings('.block-div').find('div.DetailRow').removeClass('DeepColor');
@@ -4247,7 +4248,7 @@ import config from "../../configfile/config.js";
           if (!tool.isNullOrEmptyObject(parentObj)) {
             $(parentObj).find(".DetailRow").removeClass("DeepColor");
             _curObj.parents(".DetailRow").addClass("DeepColor")
-          } 
+          }
           else {
               //处理列表页面侧滑控件
               _curObj.closest('div.block-div').siblings('.block-div').find('div.DetailRow').removeClass('DeepColor');
