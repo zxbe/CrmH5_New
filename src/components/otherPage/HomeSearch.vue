@@ -131,7 +131,7 @@ export default {
         $('[data-id="'+ _self.searchModuleFromType +'"]').eq(0).trigger("click");
     }
 
-    //定位光标位置
+    //定位光标位置(这种方式对IOS无效，以后解决)
     var $inputObj = $('#searchHeader').find('input.search-input');
     tool.setCursorPosition($inputObj[0],($inputObj[0].value||"").length,function(){
         _self.$refs.searchInput.$refs.triggerBtn.click();

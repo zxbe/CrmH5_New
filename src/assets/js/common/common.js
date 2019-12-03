@@ -4370,7 +4370,7 @@ import config from "../../configfile/config.js";
 
     // 超过文本长度直接返回
     if (len < index) return;
-    setTimeout(function() {
+    // setTimeout(function() {
       //elem.focus();
       if (elem.setSelectionRange) {
         // 标准浏览器
@@ -4384,7 +4384,7 @@ import config from "../../configfile/config.js";
         range.moveEnd("character", 0);
         range.select();
       }
-    }, 10);
+    // }, 10);
   };
 })((top.window.tool = {}), jQuery);
 
