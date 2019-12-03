@@ -14,7 +14,7 @@
           <spinner width="42px" height="42px" color="#8f8f8f" :options="{ itemWidth: 4 }"/>
           <p>{{pullDownTips.start}}</p>
         </template>
-        <p v-else-if="isPullDownSucess">{{pullDownTips.beforeDeactive}}</p>
+        <p v-else-if="isPullingDownSucess">{{pullDownTips.beforeDeactive}}</p>
         <template v-else>
           <arrow
             class="arrow"
@@ -33,8 +33,7 @@
           <spinner width="42px" height="42px" color="#8f8f8f" :options="{ itemWidth: 4 }"/>
           <p>{{pullUpTips.start}}</p>
         </template>
-        <!-- 没有更多数据了 -->
-        <p v-else-if="!hasNext">{{pullUpTips.noMoreData}}</p>
+        <p v-else-if="isPullingUpEnd">{{pullUpTips.noMoreData}}</p>
       </div>
     </div>
 
@@ -84,13 +83,10 @@ const PULLING_EVENT_AWAIT = 500;
 export default {
   data() {
     return {
-      scroll:{}, //better-scroll实例对象
-
-      isPullingUp: false, //正在上拉
-      hasNext:true, //有下一页数据
-
-      isPullingDown: false, //正在下拉
-      isPullDownSucess: false,  //下拉完成
+      isPullingUp: false,
+      isPullingUpEnd: false,
+      isPullingDown: false,
+      isPullingDownSucess: false,
       canPullingDown: false,
 
       pullUpTips:{
@@ -159,9 +155,9 @@ export default {
   },
 
   watch: {
-    // data() {
-    //   this.$nextTick(this.refresh);
-    // }
+    data() {
+      this.$nextTick(this.refresh);
+    }
   },
   methods: {
     initBScroll() {
@@ -171,23 +167,19 @@ export default {
         click: this.optionsValue.click,
         scrollX: this.directionValue,
         scrollY: !this.directionValue,
-        bounce: this.bounceValue,  //回弹效果
+        bounce: this.bounceValue,
         pullDownRefresh: this.pullDownRefresh,
         pullUpLoad: this.pullUpLoad,
-        scrollbar: this.scrollbar ? { fade: true } : undefined,
+        scrollbar: this.scrollbar ? { fade: true } : undefined
       });
 
       //底部上拉事件监听
       if (this.optionsValue.pullup) {
         this.scroll.on("pullingUp", () => {
-            //有下一页数据
-          if (this.hasNext) {
-              this.isPullingUp = true;
-              setTimeout(() => this.$emit("pullup"), PULLING_EVENT_AWAIT);
-          } else{
-              this.scroll.finishPullUp();
-          }
-
+          if (!this.isPullingUpEnd) {
+            this.isPullingUp = true;
+            setTimeout(() => this.$emit("pullup"), PULLING_EVENT_AWAIT);
+          } else this.scroll.finishPullUp();
         });
       }
 
@@ -195,7 +187,7 @@ export default {
       if (this.optionsValue.pulldown) {
         this.scroll.on("pullingDown", () => {
           this.isPullingDown = true;
-          this.hasNext = true;
+          this.isPullingUpEnd = false;
           setTimeout(() => this.$emit("pulldown"), PULLING_EVENT_AWAIT);
         });
 
@@ -216,7 +208,6 @@ export default {
     disable() {
       this.scroll && this.scroll.disable();
     },
-
     refresh() {
       if (!this.scroll) return;
 
@@ -225,16 +216,14 @@ export default {
         this.scroll.finishPullUp();
         this.scroll.refresh();
       } else if (this.isPullingDown) {
-
         this.isPullingDown = false;
-        this.isPullDownSucess = true;
+        this.isPullingDownSucess = true;
         setTimeout(() => {
           this.scroll.finishPullDown();
           this.scroll.refresh();
-          this.isPullDownSucess = false;
+          this.isPullingDownSucess = false;
         }, PULLING_DOWN_AWAIT);
-
-      }else{
+      } else if (!this.isPullingDownSucess) {
         //非任意刷新状态下, 则直接刷新
         this.scroll.refresh();
       }
@@ -250,16 +239,9 @@ export default {
     scrollToElement() {
       this.scroll && this.scroll.scrollToElement.apply(this.scroll, arguments);
     },
-    //重置上拉加载
-    resetPullUp(){
-      //console.log('resetPullUp->hasNext:'+ this.hasNext);
-        this.hasNext = true;
-        this.refresh();
-    },
     //上拉没有更多数据
     pullupEnd() {
-      this.hasNext = false;
-      this.isPullingUp = true;
+      this.isPullingUpEnd = true;
       this.refresh();
     },
     //列表回到顶部

@@ -418,6 +418,8 @@ export default {
 
                   //列表回到顶部
                   _self.$refs.scroll.goTopping();
+                  //重置上拉加载
+                  _self.$refs.scroll.resetPullUp();
               });
           }else{
             //1>先清空分组的模型数据(防止两种分组数据出现渲染上的问题)

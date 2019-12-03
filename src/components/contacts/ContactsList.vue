@@ -298,6 +298,8 @@ export default {
           _self.queryList('pushRefresh', function () {
               //列表回到顶部
               _self.$refs.scroll.goTopping();
+              //重置上拉加载
+              _self.$refs.scroll.resetPullUp();
           });
         }else{
           //非列表模式下把头部输入框清空
@@ -427,7 +429,7 @@ export default {
     pullup: function () {
         let _self = this;
         _self.queryList('pushLoad', function (data, pageSize) {
-            if (data.length < pageSize) {
+            if (data.length <= pageSize) {
                 _self.$refs.scroll.pullupEnd();
             }
         });
