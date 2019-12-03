@@ -31,7 +31,6 @@
       @click.stop="triggerInputFocus"
       style="display:none"
       ref="triggerBtn" 
-      id="triggerBtn"
     />
   </div>
 </template>

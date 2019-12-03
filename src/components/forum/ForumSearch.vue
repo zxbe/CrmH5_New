@@ -8,7 +8,8 @@
     </header>
 
     <!-- 显示搜索结果 -->
-    <div v-show="showList">
+    <!-- <div v-show="showList"> -->
+    <div class="mainModule">
         <div class="list">
             <vue-scroll v-show="!noData" :showToTop="true" :options="{ pullup: true, pulldown: true }" :scrollbar="false" ref="scroll" @pulldown="pulldown" @pullup="pullup">
                 <div v-for="item in listData" @click="goToInfo(item.AutoID)" :key="item.AutoID" class="list-item">
@@ -59,23 +60,24 @@
         </div>
     </div>
 
-    <div v-show="!showList">
+    <!-- <div v-show="!showList"> -->
+    <div class="otherModule">
           <div class="search-module">
               <div class="module-item" >
-                  <div class="module-item-text f14" data-type="title" @click="switchModule($event)">标题</div>
+                  <div class="module-item-text f14" data-type="title" @click="switchModule($event)">{{lanTitle}}</div>
               </div>
               <div class="module-item">
-                  <div class="module-item-text f14" data-type="Content" @click="switchModule($event)">内容</div>
+                  <div class="module-item-text f14" data-type="Content" @click="switchModule($event)">{{lanContent}}</div>
               </div>
               <div class="module-item">
-                  <div class="module-item-text f14" data-type="Tag" @click="switchModule($event)">标签</div>
+                  <div class="module-item-text f14" data-type="Tag" @click="switchModule($event)">{{lanTag}}</div>
               </div>
           </div>
           <!-- 显示搜索历史记录 -->
           <div v-show="showHistoricalSearchRecord" class="history-div">
               <div class="history-title">
-                  <div class="text lanText f16" data-lanid="1000531_历史搜索"></div>
-                  <div class="text-btn lanText f14" data-lanid="1000535_清除" @click="deleteAllHistoricalSearchRecord"></div>
+                  <div class="text f16">{{lanHistoricalSearch}}</div>
+                  <div class="text-btn f14" @click="deleteAllHistoricalSearchRecord">{{lanClearAll}}</div>
               </div>
               <div class="history-content">
                   <div class="history-item" v-for="(item,index) in historyData" :key="index" @click="searchByHistotyItem(item)" >
@@ -96,7 +98,6 @@
               </div>
           </div>
     </div>
-
 
 </div>
 </template>
@@ -121,6 +122,12 @@ export default {
             listData: [],
 
             lanSearchModuleInputPlaceHolder:lanTool.lanContent("1000306_你想知道什么？"),
+            lanHistoricalSearch:lanTool.lanContent("1000531_历史搜索"),
+            lanClearAll:lanTool.lanContent("1000535_清除"),
+            lanTitle:lanTool.lanContent("710_标题"),
+            lanContent:lanTool.lanContent("1000546_内容"),
+            lanTag:lanTool.lanContent("1000437_标签"),
+
             inputValue:'', //输入的值
             resultData:[], //查询结果
             localStorageKeyName:'HistorySearchRecords_forum',  //存储historyData的key值
@@ -146,23 +153,29 @@ export default {
         var _self = this;
         //设置为Keep-Alive页面
         _self.$store.commit('SET_ITEM', 'forumsearch');
-
         //获取搜索历史数据
         _self.getHistoricalSearchRecord();
     },
     mounted: function () {
         let _self = this;
-        lanTool.updateLanVersion();
+
         //初始化动作
         _self.initAction();
 
         //监听input是否获取到焦点
         $('#searchHeader input.search-input').on('focus',function(){
-            _self.showList = false;
-        })
+            _self.ModuleDsiplayAction(false);
+        });
     },
     activated(){
         let _self = this;
+
+        //定位光标位置(这种方式对IOS无效，以后解决)
+        var $inputObj = $('#searchHeader').find('input.search-input');
+        tool.setCursorPosition($inputObj[0],($inputObj[0].value||"").length,function(){
+            _self.$refs.searchInput.$refs.triggerBtn.click();
+        });
+
         //返回来如果是列表的就不变
         if(!tool.isNullOrEmptyObject(_self.listData)){
             return false;
@@ -172,16 +185,21 @@ export default {
         }
     },
     methods: {
+        //是否显示主模块
+        ModuleDsiplayAction:function(isShowMainModule){
+            isShowMainModule = (isShowMainModule == null || isShowMainModule == undefined)?true:isShowMainModule;
+            if(isShowMainModule){
+                $(".mainModule").removeClass("hide").addClass("show");
+                $(".otherModule").removeClass("show").addClass("hide");
+            }else{
+                $(".mainModule").removeClass("show").addClass("hide");
+                $(".otherModule").removeClass("hide").addClass("show");
+            }
+        },
         //切换搜索模块
         switchModule(e){
             let _self = this;
             let target = $(e.target);
-            // if (!target.hasClass('module-item-text')) {
-            //     target = target.closest('div.module-item-text');
-            //     if (target == undefined) {
-            //         return;
-            //     }
-            // }
             _self.searchType = target.attr('data-type') || '';
             if(tool.isNullOrEmptyObject(_self.searchType)){
                 return ;
@@ -195,20 +213,19 @@ export default {
         },
         //初始化动作
         initAction:function(){
+            let _self = this;
             //1>初始化查询类型
             var $defaultObj = $(".search-module .module-item .module-item-text[data-type]").eq(0);
             if(tool.isNullOrEmptyObject($defaultObj) || $defaultObj.length <=0){
                 return false;
             }
-
             $defaultObj.trigger("click");
 
-            //2>设置光标位置
+            //2>定位光标位置(这种方式对IOS无效，以后解决)
             var $inputObj = $('#searchHeader').find('input.search-input');
-            if($inputObj.length>=1){
-                //获取焦点并设置光标位置
-                tool.setCursorPosition($inputObj[0],($inputObj[0].value||"").length);
-            }
+            tool.setCursorPosition($inputObj[0],($inputObj[0].value||"").length,function(){
+                _self.$refs.searchInput.$refs.triggerBtn.click();
+            });
         },
         //搜索框内容改变事件,显示匹配模糊查询值的下拉数据结果(子组件调用)
         getDropListByAutoVal(autoValue,callback){
@@ -277,18 +294,21 @@ export default {
                     return true;
                 },
                 complete: function () {
-                    //设置光标位置
-                    var $inputObj = $('#searchHeader').find('input.search-input');
-                    if($inputObj.length>=1){
-                        //获取焦点并设置光标位置
-                        //console.log($inputObj[0].value.length);
-                        tool.setCursorPosition($inputObj[0],($inputObj[0].value||"").length);
-                    }
+                    //del by Dylan 20191203 因为移除了document.activeElement.blur()，所以不需要定位光标位置
+                    // //设置光标位置
+                    // var $inputObj = $('#searchHeader').find('input.search-input');
+                    // if($inputObj.length>=1){
+                    //     //获取焦点并设置光标位置
+                    //     //console.log($inputObj[0].value.length);
+                    //     tool.setCursorPosition($inputObj[0],($inputObj[0].value||"").length);
+                    // }
+                    //end del
 
                     //设置查询完成
                     _self.isGetDropListByAutoValDone = true;
+
                     //隐藏虚拟键盘
-                    document.activeElement.blur();
+                    //document.activeElement.blur();
                 }
             });
         },
@@ -301,6 +321,7 @@ export default {
 
             if(!tool.isNullOrEmptyObject(autoValue)){
                 _self.showList = true;
+                _self.ModuleDsiplayAction(true);
 
                 //把值存到缓存
                 var dataArr = tool.jObject((tool.getStorageItem(_self.localStorageKeyName) || "[]"));
@@ -317,7 +338,6 @@ export default {
                 tool.setStoragItem(_self.localStorageKeyName, JSON.stringify(dataArr));
             }
         },
-
         //获取搜索历史记录
         getHistoricalSearchRecord(){
             let _self = this;
@@ -357,7 +377,6 @@ export default {
             //设置缓存历史查询记录
             tool.setStoragItem(_self.localStorageKeyName,JSON.stringify(_self.historyData));
         },
-
         //清除搜索框的值
         clearSearchValue(){
             let _self = this;
@@ -371,6 +390,7 @@ export default {
             _self.listData = [];
             //隐藏列表
             _self.showList = false;
+            _self.ModuleDsiplayAction(false);
         },
         //点击历史查询记录，查询匹配数据
         searchByHistotyItem:function(data){
@@ -384,8 +404,6 @@ export default {
             //2>执行模糊查询，查询匹配的前N条记录
             _self.$refs.searchInput.inputChange();
         },
-
-
         //搜索聚焦事件
         // searchFocus: function () {
         //     this.isFocus = true;
@@ -683,9 +701,9 @@ export default {
         }
     },
     beforeRouteLeave: function (to, from, next) {
-        if (to.name == 'forumlist') {
-            this.$store.commit('REMOVE_ITEM', 'forumsearch');
-        }
+        // if (to.name == 'forumlist') {
+        //     this.$store.commit('REMOVE_ITEM', 'forumsearch');
+        // }
         next();
     },
 }
