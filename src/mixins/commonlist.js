@@ -323,5 +323,4 @@ export default{
         */
 
     }
-
-  };
+};

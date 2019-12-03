@@ -61,7 +61,7 @@
                             data-addUrl=""></div>
                     </div> -->
                     <div class="DetailRow">
-                        <div class="DetailRowOn"><span class="calcfont calc-profile ChangeIconColor"></span><span class="FileName lanText" data-lanid="1000227_LOI单号"></span><span v-show="showPage == '0'" class="XingHao">*</span></div>
+                        <div class="DetailRowOn"><span class="calcfont calc-profile ChangeIconColor"></span><span class="FileName lanText" data-lanid="1000227_LOI单号"></span></div>
                         <div class="DetailRowUp">
                             <p class="textareaP wrap" id="LOIIDClickObj">
                                 <textarea readonly="readonly" class="lanInputPlaceHolder" data-field="LOIID" data-fieldControlType="selectList" data-lanid="1000526_请选择" data-fieldVal="" Code="DropDowList_LOI" data-selectType="radio" data-clickObj="LOIIDClickObj"></textarea>
@@ -585,11 +585,24 @@
                         <div class="elastic-layer-item f14">
                             <span class="calcfont calc-qita1 icon-left ChangeIconColor"></span>
                             <div class="item-right">
+                                <div class="item-row">
+                                    <div class="item-row-field"><span class="lanText label-text" data-lanid="1000312_其他原因"></span></div>
+                                </div>
+                                <div class="item-row border-bottom not-required">
+                                    <div class="ListCellContentRight">
+                                        <textarea data-field="MatterOtherNew" data-fieldControlType="textareaInput" class="lanInputPlaceHolder" data-lanid="1000312_其他原因"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <div class="elastic-layer-item f14">
+                            <span class="calcfont calc-qita1 icon-left ChangeIconColor"></span>
+                            <div class="item-right">
                                 <div class="item-row border-bottom" style="margin-top:5px;">
                                     <textarea data-field="MatterOtherNew" data-fieldControlType="textareaInput" class="lanInputPlaceHolder" data-lanid="1000312_其他原因"></textarea>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
 
                     <div class="elastic-layer-item f14">
@@ -699,6 +712,7 @@ export default {
         lanTool.updateLanVersion();
         document.activeElement.blur();
         $(window).scrollTop(0);
+
         //失去焦点，移除分割线颜色加深
         $(".textareaP:not(.wrap) textarea").blur(function () {
             $(this).parents(".DetailRow").removeClass("DeepColor");
@@ -708,6 +722,17 @@ export default {
 
             $(".OppList").find(".DetailRow").removeClass("DeepColor");
             $(this).parents(".DetailRow").addClass("DeepColor");
+        });
+         //转为交易的弹框
+        //失去焦点，移除分割线颜色加深
+        $(".item-row.border-bottom textarea").blur(function () {
+            $(this).closest(".item-row.border-bottom").removeClass("DeepColor");
+        });
+        //聚焦，添加分割线颜色加深
+        $(".item-row.border-bottom textarea").focus(function () {
+
+            $(".item-row.border-bottom").removeClass("DeepColor");
+            $(this).closest(".item-row.border-bottom").addClass("DeepColor");
         });
         _self.seeMore = lanTool.lanContent("900_查看详细");
         var fromType = "Opportunitiesinfo";
@@ -1512,5 +1537,17 @@ export default {
 .OppList {
     /* padding-bottom: 0.4rem; */
     background-color: rgb(242, 242, 242);
+}
+.item-row.border-bottom::after {
+    position: absolute;
+    content: "";
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 1px;
+    background-color: beige;
+}
+.border-bottom.DeepColor::after {
+    background-color: #ffc125;
 }
 </style>

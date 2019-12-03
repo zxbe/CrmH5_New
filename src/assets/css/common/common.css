@@ -555,3 +555,12 @@ top:0px;position:absolute;}
   /* height: 0.4rem; */
   height: 20px;
 }
+
+
+
+.hide{
+  display: none;
+}
+.show{
+  display: block;
+}

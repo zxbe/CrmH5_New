@@ -2547,6 +2547,13 @@ import config from "../../configfile/config.js";
                   $(parentObj).find(".DetailRow").removeClass("DeepColor");
                   _curObj.parents(".DetailRow").addClass("DeepColor")
                 }
+               
+                //选中详情转为交易或者机会的需要填选的弹框中的表单
+                var pObj = _curObj.parent("ListCellContentRight") || "";
+                if (!tool.isNullOrEmptyObject(pObj)) {
+                  $(".item-row.border-bottom").removeClass("DeepColor");
+                  _curObj.closest(".item-row.border-bottom").addClass("DeepColor")
+                }
 
                 var displayTemp = _curObj.val() || "";
                 _curObj.picker("setValue", [displayTemp]);
@@ -2599,6 +2606,13 @@ import config from "../../configfile/config.js";
             //处理列表页面侧滑控件
             _curObj.closest('div.block-div').siblings('.block-div').find('div.DetailRow').removeClass('DeepColor');
           }
+
+           //选中详情转为交易或者机会的需要填选的弹框中的表单
+           var pObj = _curObj.parent("ListCellContentRight") || "";
+           if (!tool.isNullOrEmptyObject(pObj)) {
+             $(".item-row.border-bottom").removeClass("DeepColor");
+             _curObj.closest(".item-row.border-bottom").addClass("DeepColor")
+           }
         // console.log(_curObj);
         var dataField = _curObj.attr("data-field") || "";
         var code = _curObj.attr("Code") || "";
@@ -2655,6 +2669,12 @@ import config from "../../configfile/config.js";
               $(parentObj).find(".DetailRow").removeClass("DeepColor");
               _curObj.parents(".DetailRow").addClass("DeepColor")
             }
+             //选中详情转为交易或者机会的需要填选的弹框中的表单
+             var pObj = _curObj.parent("ListCellContentRight") || "";
+             if (!tool.isNullOrEmptyObject(pObj)) {
+               $(".item-row.border-bottom").removeClass("DeepColor");
+               _curObj.closest(".item-row.border-bottom").addClass("DeepColor")
+             }
           // console.log(_curObj);
           var dataField = _curObj.attr("data-field") || "";
           var code = _curObj.attr("Code") || "";
@@ -2704,7 +2724,12 @@ import config from "../../configfile/config.js";
             $(parentObj).find(".DetailRow").removeClass("DeepColor");
             _curObj.parents(".DetailRow").addClass("DeepColor")
           }
-
+          //选中详情转为交易或者机会的需要填选的弹框中的表单
+          var pObj = _curObj.parent("ListCellContentRight") || "";
+          if (!tool.isNullOrEmptyObject(pObj)) {
+            $(".item-row.border-bottom").removeClass("DeepColor");
+            _curObj.closest(".item-row.border-bottom").addClass("DeepColor")
+          }
         // console.log(_curObj);
         var dataField = _curObj.attr("data-field") || "";
         var code = _curObj.attr("Code") || "";
@@ -2758,6 +2783,12 @@ import config from "../../configfile/config.js";
             $(parentObj).find(".DetailRow").removeClass("DeepColor");
             _curObj.parents(".DetailRow").addClass("DeepColor")
           }
+          //选中详情转为交易或者机会的需要填选的弹框中的表单
+          var pObj = _curObj.parent("ListCellContentRight") || "";
+          if (!tool.isNullOrEmptyObject(pObj)) {
+            $(".item-row.border-bottom").removeClass("DeepColor");
+            _curObj.closest(".item-row.border-bottom").addClass("DeepColor")
+          }
 
           var dataField = _curObj.attr("data-field") || "";
           var code = _curObj.attr("Code") || "";
@@ -2803,6 +2834,12 @@ import config from "../../configfile/config.js";
             _curObj.parents(".DetailRow").addClass("DeepColor")
           }
 
+           //选中详情转为交易或者机会的需要填选的弹框中的表单
+           var pObj = _curObj.parent("ListCellContentRight") || "";
+           if (!tool.isNullOrEmptyObject(pObj)) {
+             $(".item-row.border-bottom").removeClass("DeepColor");
+             _curObj.closest(".item-row.border-bottom").addClass("DeepColor")
+           }
         // console.log(_curObj);
         var dataField = _curObj.attr("data-field") || "";
         var code = _curObj.attr("Code") || "";
@@ -2857,7 +2894,12 @@ import config from "../../configfile/config.js";
             $(parentObj).find(".DetailRow").removeClass("DeepColor");
             _curObj.parents(".DetailRow").addClass("DeepColor")
           }
-
+          //选中详情转为交易或者机会的需要填选的弹框中的表单
+          var pObj = _curObj.parent("ListCellContentRight") || "";
+          if (!tool.isNullOrEmptyObject(pObj)) {
+            $(".item-row.border-bottom").removeClass("DeepColor");
+            _curObj.closest(".item-row.border-bottom").addClass("DeepColor")
+          }
         // console.log(_curObj);
 
         var dataField = _curObj.attr("data-field") || "";
@@ -2963,6 +3005,12 @@ import config from "../../configfile/config.js";
             $(parentObj).find(".DetailRow").removeClass("DeepColor");
             _curObj.parents(".DetailRow").addClass("DeepColor")
           }
+           //选中详情转为交易或者机会的需要填选的弹框中的表单
+           var pObj = _curObj.parent("ListCellContentRight") || "";
+           if (!tool.isNullOrEmptyObject(pObj)) {
+             $(".item-row.border-bottom").removeClass("DeepColor");
+             _curObj.closest(".item-row.border-bottom").addClass("DeepColor")
+           }
 
             if (
               tool.isNullOrEmptyObject(pickerTemp) ||
@@ -4184,6 +4232,14 @@ import config from "../../configfile/config.js";
               _curObj.closest('div.block-div').siblings('.block-div').find('div.DetailRow').removeClass('DeepColor');
 
             }
+
+          //选中详情转为交易或者机会的需要填选的弹框中的表单
+          var pObj = _curObj.parent("ListCellContentRight") || "";
+          if (!tool.isNullOrEmptyObject(pObj)) {
+            $(".item-row.border-bottom").removeClass("DeepColor");
+            _curObj.closest(".item-row.border-bottom").addClass("DeepColor")
+          }
+
           var dataField = _curObj.attr("data-field") || "";
           var code = _curObj.attr("Code") || "";
           var filter = _curObj.attr("Filter") || "";
@@ -4253,6 +4309,13 @@ import config from "../../configfile/config.js";
               //处理列表页面侧滑控件
               _curObj.closest('div.block-div').siblings('.block-div').find('div.DetailRow').removeClass('DeepColor');
             }
+           //选中详情转为交易或者机会的需要填选的弹框中的表单
+           var pObj = _curObj.parent("ListCellContentRight") || "";
+           if (!tool.isNullOrEmptyObject(pObj)) {
+             $(".item-row.border-bottom").removeClass("DeepColor");
+             _curObj.closest(".item-row.border-bottom").addClass("DeepColor")
+           }
+
           var dataField = _curObj.attr("data-field") || "";
           var code = _curObj.attr("Code") || "";
           var filter = _curObj.attr("Filter") || "";
@@ -4291,15 +4354,24 @@ import config from "../../configfile/config.js";
    * 设置输入域(input/textarea)光标的位置
    * @param {HTMLInputElement/HTMLTextAreaElement} elem
    * @param {Number} index
+   * @param {Fnction} focusFun
    */
-  tool.setCursorPosition = function(elem, index) {
+  tool.setCursorPosition = function(elem, index,focusFun) {
     var val = elem.value;
     var len = val.length;
+
+    if(!tool.isNullOrEmptyObject(focusFun) && typeof(focusFun) == "function"){
+      // console.log("focusFun()");
+      focusFun();
+    }else{
+      // console.log("elem.focus()");
+      elem.focus();
+    }
 
     // 超过文本长度直接返回
     if (len < index) return;
     setTimeout(function() {
-      elem.focus();
+      //elem.focus();
       if (elem.setSelectionRange) {
         // 标准浏览器
         elem.setSelectionRange(index, index);

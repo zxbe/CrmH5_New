@@ -118,18 +118,24 @@ export default {
   },
   created(){},
   mounted(){
-      let _self = this;
-      lanTool.updateLanVersion();
+    let _self = this;
+    lanTool.updateLanVersion();
 
-      //从store中取出 searchModuleFromType，businessType
-      _self.searchModuleFromType = _self.$store.state.searchModuleFromType || '';
-      _self.businessType = _self.$store.state.businessType || '';
-      //模拟点击
-      if( !tool.isNullOrEmptyObject(_self.businessType)){
-          $('[businessType="'+ _self.businessType +'"]').eq(0).trigger("click");
-      }else{
-          $('[data-id="'+ _self.searchModuleFromType +'"]').eq(0).trigger("click");
-      }
+    //从store中取出 searchModuleFromType，businessType
+    _self.searchModuleFromType = _self.$store.state.searchModuleFromType || '';
+    _self.businessType = _self.$store.state.businessType || '';
+    //模拟点击
+    if( !tool.isNullOrEmptyObject(_self.businessType)){
+        $('[businessType="'+ _self.businessType +'"]').eq(0).trigger("click");
+    }else{
+        $('[data-id="'+ _self.searchModuleFromType +'"]').eq(0).trigger("click");
+    }
+
+    //定位光标位置
+    var $inputObj = $('#searchHeader').find('input.search-input');
+    tool.setCursorPosition($inputObj[0],($inputObj[0].value||"").length,function(){
+        _self.$refs.searchInput.$refs.triggerBtn.click();
+    });
   },
   methods:{
     //返回上一页
@@ -393,18 +399,21 @@ export default {
                 return true;
             },
             complete: function () {
+
+                //del by Dylan 20191203 因为移除了document.activeElement.blur()，所以不需要定位光标位置
                 //设置光标位置
-                var $inputObj = $('#searchHeader').find('input.search-input');
-                if($inputObj.length>=1){
-                    //获取焦点并设置光标位置
-                    //console.log($inputObj[0].value.length);
-                    tool.setCursorPosition($inputObj[0],($inputObj[0].value||"").length);
-                }
+                // var $inputObj = $('#searchHeader').find('input.search-input');
+                // if($inputObj.length>=1){
+                //     //获取焦点并设置光标位置
+                //     //console.log($inputObj[0].value.length);
+                //     tool.setCursorPosition($inputObj[0],($inputObj[0].value||"").length);
+                // }
+                //end del
 
                 //设置查询完成
                 _self.isGetDropListByAutoValDone = true;
                 //隐藏虚拟键盘
-                // document.activeElement.blur();
+                //document.activeElement.blur();
             }
         });
 
