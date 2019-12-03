@@ -220,7 +220,9 @@ export default {
         lanConfirm: lanTool.lanContent("545_确定"),
         lanStartdate:lanTool.lanContent("878_开始日期"),
         lanEnddate:lanTool.lanContent("879_结束日期"),
-        lanDateRangeConfirm: lanTool.lanContent("545_确定")
+        lanDateRangeConfirm: lanTool.lanContent("545_确定"),
+        //记录滚动条位置
+        scrollBarPosition:'0'
     }
   },
   props:{
@@ -322,6 +324,13 @@ export default {
 
       //绑定控件字段的值改变事件
       _self.bindFieldChangeEvent();
+
+
+       //记录滚动条位置
+       $('.screen-con').unbind('scroll').bind('scroll',function(){
+             var scrollTop = $(this).scrollTop() || 0;
+             _self.scrollBarPosition = scrollTop;
+       })
   },
   activated: function () {
         let _self = this;
@@ -336,6 +345,9 @@ export default {
             //清空全局变量
             eventBus.selectListData = null;
         });
+
+        //设置滚动条位置
+        $('.screen-con').scrollTop(_self.scrollBarPosition);
   },
   methods:{
     //渲染控件
