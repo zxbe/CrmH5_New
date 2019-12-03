@@ -285,7 +285,10 @@ export default {
         }
         if (_self.queryObj.groupByMode.toLowerCase() == "list") {
           //查询列表
-          _self.queryList("pushRefresh", function() {});
+          _self.queryList("pushRefresh", function() {
+              //列表回到顶部
+              _self.$refs.scroll.goTopping();
+          });
         } else {
           //查询分组数据
           _self.queryGroup();

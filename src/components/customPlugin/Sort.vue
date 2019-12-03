@@ -194,7 +194,7 @@ export default {
   left: 0;
   right: 0;
   z-index: 99;
-  height: 0.7rem;
+  height: 0.88rem;
   display: flex;
   background: #ffffff;
 }
