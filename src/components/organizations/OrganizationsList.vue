@@ -1,6 +1,7 @@
 <template>
 <div class="page">
-  <div v-show="pageState == 1">
+  <!-- <div v-show="pageState == 1"> -->
+  <div class="mainModule show">
       <header class="header sticky">
           <a @click="back" class="calcfont calc-fanhui back-icon" id="back"></a>
           <div class="search" @click="showSearch">
@@ -94,7 +95,8 @@
   </div>
 
   <!-- 页面处于搜索状态 -->
-  <div v-show="pageState == 2">
+  <!-- <div v-show="pageState == 2"> -->
+  <div class="otherModule hide">
       <search-module :searchModuleFromType=searchModuleFromType :lanSearchModuleInputPlaceHolder=lanSearchModuleInputPlaceHolder :queryObj=queryObj ref="searchModule"></search-module>
   </div>
 
@@ -625,15 +627,30 @@ export default {
         _self.$refs.searchModule.$refs.searchInput.inputChange();
         //5>切换到模糊查询页面
         _self.pageState = 2;
-        //6>获取搜索框焦点
-        _self.$nextTick(function(){
+        //6>隐藏主模块
+        _self.ModuleDsiplayAction(false);
+        //  _self.$nextTick(function(){
           var $inputObj = $('#searchHeader').find('input.search-input');
-          if($inputObj.length>=1){
+          //  if($inputObj.length>=1){
               //获取焦点并设置光标位置
-              //console.log(($inputObj[0].value||"").length);
-              tool.setCursorPosition($inputObj[0],($inputObj[0].value||"").length);
-          }
-        });
+              //setTimeout(function(){
+                tool.setCursorPosition($inputObj[0],($inputObj[0].value||"").length,function(){
+                  _self.$refs.searchModule.$refs.searchInput.$refs.triggerBtn.click();
+                });
+              //},20);
+          //  }
+        //  });
+    },
+    //是否显示主模块
+    ModuleDsiplayAction:function(isShowMainModule){
+      isShowMainModule = (isShowMainModule == null || isShowMainModule == undefined)?true:isShowMainModule;
+      if(isShowMainModule){
+        $(".mainModule").removeClass("hide").addClass("show");
+        $(".otherModule").removeClass("show").addClass("hide");
+      }else{
+        $(".mainModule").removeClass("show").addClass("hide");
+        $(".otherModule").removeClass("hide").addClass("show");
+      }
     },
     //input查询框,点击搜索/回车键执行的查询
     //接收搜索的值并刷新列表
@@ -642,6 +659,7 @@ export default {
       let _self = this;
       str = (str ||"").trim();
       _self.pageState = 1;
+      _self.ModuleDsiplayAction(true);
       //1>初始化排序
       _self.$refs.sort.initDefultSortItem(false);
       //2>初始化筛选条件
