@@ -712,6 +712,7 @@ export default {
         lanTool.updateLanVersion();
         document.activeElement.blur();
         $(window).scrollTop(0);
+
         //失去焦点，移除分割线颜色加深
         $(".textareaP:not(.wrap) textarea").blur(function () {
             $(this).parents(".DetailRow").removeClass("DeepColor");
@@ -721,6 +722,17 @@ export default {
 
             $(".OppList").find(".DetailRow").removeClass("DeepColor");
             $(this).parents(".DetailRow").addClass("DeepColor");
+        });
+         //转为交易的弹框
+        //失去焦点，移除分割线颜色加深
+        $(".item-row.border-bottom textarea").blur(function () {
+            $(this).closest(".item-row.border-bottom").removeClass("DeepColor");
+        });
+        //聚焦，添加分割线颜色加深
+        $(".item-row.border-bottom textarea").focus(function () {
+
+            $(".item-row.border-bottom").removeClass("DeepColor");
+            $(this).closest(".item-row.border-bottom").addClass("DeepColor");
         });
         _self.seeMore = lanTool.lanContent("900_查看详细");
         var fromType = "Opportunitiesinfo";
@@ -1526,7 +1538,15 @@ export default {
     /* padding-bottom: 0.4rem; */
     background-color: rgb(242, 242, 242);
 }
-
+.item-row.border-bottom::after {
+    position: absolute;
+    content: "";
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 1px;
+    background-color: beige;
+}
 .border-bottom.DeepColor::after {
     background-color: #ffc125;
 }

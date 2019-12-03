@@ -595,6 +595,17 @@ export default {
             $(this).parents(".DetailRow").addClass("DeepColor").siblings().removeClass("DeepColor");
         });
 
+         //转为交易的弹框
+        //失去焦点，移除分割线颜色加深
+        $(".item-row.border-bottom textarea").blur(function () {
+            $(this).closest(".item-row.border-bottom").removeClass("DeepColor");
+        });
+        //聚焦，添加分割线颜色加深
+        $(".item-row.border-bottom textarea").focus(function () {
+
+            $(".item-row.border-bottom").removeClass("DeepColor");
+            $(this).closest(".item-row.border-bottom").addClass("DeepColor");
+        });
         //清空联系人
         $("[data-field='ContactsID']").text("").attr("data-fieldVal", "").off('click');
         //渲染控件
@@ -1466,7 +1477,7 @@ export default {
     bottom: 0;
     height: 1px;
     /* background-color: #f6e78b; */
-    background-color: #ddddde;
+    background-color: beige;
 }
 
 .border-bottom.DeepColor::after {
