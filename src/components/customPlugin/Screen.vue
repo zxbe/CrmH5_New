@@ -1,8 +1,9 @@
 <template>
 <div>
-    <div id="mask" class="mask" @click="panelToggle" v-show="showPanel" @touchmove.stop></div>
+    <div id="mask" class="mask" @click="panelToggle" v-show="showPanel" @touchmove.stop.prevent></div>
     <div id="right-content" class="right-content" @touchmove.stop>
        <div class="screen-con">
+          <div class="screen-con-box">
           <!-- <vue-scroll :showToTop="false" :options="{ pullup: false, pulldown: false }" :scrollbar="false" > -->
               <!-- ViewModel -->
               <div class="block-div viewMode" v-if="!ViewModelIsNull">
@@ -187,6 +188,7 @@
                   </div>
               </div>
           <!-- </vue-scroll> -->
+        </div>
        </div>
 
        <div class="btn-div f14">
@@ -492,8 +494,6 @@ export default {
                     //     e.preventDefault();
                     // });
 
-                    //给body固定高度来禁止它的滚动条滚动
-                    $('body').addClass('h');
                 })
 
             }else{
@@ -506,7 +506,6 @@ export default {
                         '-o-transition': 'left 0.3s ease-out'
                     });
 
-                    $('body').removeClass('h');
                 })
             }
     },
@@ -927,6 +926,7 @@ export default {
             -webkit-overflow-scrolling: touch;
             -webkit-overflow-scrolling: auto;
             }
+.screen-con-box{min-height: calc(100% + 1px);}
 .block-div{}
 .type-div{border-bottom: 1px solid #e6e8ea;}
 .no-border{border-bottom:none;}
