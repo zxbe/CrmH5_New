@@ -4291,15 +4291,24 @@ import config from "../../configfile/config.js";
    * 设置输入域(input/textarea)光标的位置
    * @param {HTMLInputElement/HTMLTextAreaElement} elem
    * @param {Number} index
+   * @param {Fnction} focusFun
    */
-  tool.setCursorPosition = function(elem, index) {
+  tool.setCursorPosition = function(elem, index,focusFun) {
     var val = elem.value;
     var len = val.length;
+
+    if(!tool.isNullOrEmptyObject(focusFun) && typeof(focusFun) == "function"){
+      // console.log("focusFun()");
+      focusFun();
+    }else{
+      // console.log("elem.focus()");
+      elem.focus();
+    }
 
     // 超过文本长度直接返回
     if (len < index) return;
     setTimeout(function() {
-      elem.focus();
+      //elem.focus();
       if (elem.setSelectionRange) {
         // 标准浏览器
         elem.setSelectionRange(index, index);

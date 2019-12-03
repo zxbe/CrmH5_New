@@ -9,6 +9,7 @@
       type="text"
       @input="inputChange"
       @keyup="onkeyUp($event)"
+      ref="curInput"
     />
     <input
       v-else
@@ -23,6 +24,15 @@
       class="calcfont calc-guanbi1 delete-icon f14"
       @click.stop="clearEvent"
     ></i>
+    <input 
+      type="button" 
+      class="hideBtn" 
+      value="focusInput" 
+      @click.stop="triggerInputFocus"
+      style="display:none"
+      ref="triggerBtn" 
+      id="triggerBtn"
+    />
   </div>
 </template>
 
@@ -62,6 +72,12 @@ export default {
     _self.searchValue = "";
   },
   methods: {
+    //触发input控件获取焦点
+    triggerInputFocus:function(){
+      let _self = this;
+      _self.$refs.curInput.focus();
+      //$('#searchHeader .search-input').focus();
+    },
     //输入内容改变事件
     inputChange() {
       let _self = this;

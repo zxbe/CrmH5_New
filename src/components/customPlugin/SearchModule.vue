@@ -4,6 +4,7 @@
 <div>
     <header class="header" id="searchHeader">
         <search-input ref="searchInput" class="search"  :isShowClearIcon="true" :placeholder=lanSearchModuleInputPlaceHolder></search-input>
+        <!-- <input type="text" class="search-input2" style="width: 30px;"/> -->
         <span @click="cancelEvent" class="cancel-btn f14">{{lanCancel}}</span>
     </header>
 
@@ -101,6 +102,7 @@ export default {
         _self.resultData = [];
         //切换页面到父组件
         _self.$parent.pageState = 1;
+        _self.$parent.ModuleDsiplayAction(true);
     },
     //获取搜索历史记录
     getHistoricalSearchRecord(){
@@ -216,18 +218,18 @@ export default {
                 return true;
             },
             complete: function () {
+                //del by Dylan 20191203 不晓得为什么光标又能自动定位了
                 //设置光标位置
-                var $inputObj = $('#searchHeader').find('input.search-input');
-                if($inputObj.length>=1){
-                    //获取焦点并设置光标位置
-                    //console.log($inputObj[0].value.length);
-                    tool.setCursorPosition($inputObj[0],($inputObj[0].value||"").length);
-                }
+                // var $inputObj = $('#searchHeader').find('input.search-input');
+                // if($inputObj.length>=1){
+                //     //获取焦点并设置光标位置
+                //     console.log($inputObj[0].value.length);
+                //     tool.setCursorPosition($inputObj[0],($inputObj[0].value||"").length);
+                // }
+                //end del
 
                 //设置查询完成
                 _self.isGetDropListByAutoValDone = true;
-                //隐藏虚拟键盘
-                // document.activeElement.blur();
             }
         });
     },
