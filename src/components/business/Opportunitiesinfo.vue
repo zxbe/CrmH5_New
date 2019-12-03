@@ -61,7 +61,7 @@
                             data-addUrl=""></div>
                     </div> -->
                     <div class="DetailRow">
-                        <div class="DetailRowOn"><span class="calcfont calc-profile ChangeIconColor"></span><span class="FileName lanText" data-lanid="1000227_LOI单号"></span><span v-show="showPage == '0'" class="XingHao">*</span></div>
+                        <div class="DetailRowOn"><span class="calcfont calc-profile ChangeIconColor"></span><span class="FileName lanText" data-lanid="1000227_LOI单号"></span></div>
                         <div class="DetailRowUp">
                             <p class="textareaP wrap" id="LOIIDClickObj">
                                 <textarea readonly="readonly" class="lanInputPlaceHolder" data-field="LOIID" data-fieldControlType="selectList" data-lanid="1000526_请选择" data-fieldVal="" Code="DropDowList_LOI" data-selectType="radio" data-clickObj="LOIIDClickObj"></textarea>
@@ -585,11 +585,24 @@
                         <div class="elastic-layer-item f14">
                             <span class="calcfont calc-qita1 icon-left ChangeIconColor"></span>
                             <div class="item-right">
+                                <div class="item-row">
+                                    <div class="item-row-field"><span class="lanText label-text" data-lanid="1000312_其他原因"></span></div>
+                                </div>
+                                <div class="item-row border-bottom not-required">
+                                    <div class="ListCellContentRight">
+                                        <textarea data-field="MatterOtherNew" data-fieldControlType="textareaInput" class="lanInputPlaceHolder" data-lanid="1000312_其他原因"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <div class="elastic-layer-item f14">
+                            <span class="calcfont calc-qita1 icon-left ChangeIconColor"></span>
+                            <div class="item-right">
                                 <div class="item-row border-bottom" style="margin-top:5px;">
                                     <textarea data-field="MatterOtherNew" data-fieldControlType="textareaInput" class="lanInputPlaceHolder" data-lanid="1000312_其他原因"></textarea>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
 
                     <div class="elastic-layer-item f14">
@@ -1512,5 +1525,9 @@ export default {
 .OppList {
     /* padding-bottom: 0.4rem; */
     background-color: rgb(242, 242, 242);
+}
+
+.border-bottom.DeepColor::after {
+    background-color: #ffc125;
 }
 </style>
