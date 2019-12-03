@@ -14,8 +14,8 @@
 
       <!-- 列表模式   -->
       <div class="list-mode-div" v-show="queryObj.groupByMode == 'List'">
-        <vue-scroll v-show="!noData" :showToTop="false" :options="{ pullup: true, pulldown: true }" :scrollbar="false" ref="scroll" @pulldown="pulldown" @pullup="pullup">
-            <div v-if="listData !=null && listData != undefined && listData.length > 0" class=" organizations-list">
+        <vue-scroll v-show="!noData" :showToTop="false" :options="{ pullup: true, pulldown: true }" :scrollbar="true" ref="scroll" @pulldown="pulldown" @pullup="pullup">
+            <div v-if="listData !=null && listData != undefined && listData.length > 0" class="organizations-list">
               <div v-for="item in listData" :key="item.AutoID"
               class="group-item data-events-item"  @click="goInfo(item)">
                     <div class="item-stars-icon calcfont" :class="item.IsFollow" :data-autoid="item.AutoID" @click.stop="followToggle($event)"></div>
@@ -414,11 +414,7 @@ export default {
                     _self.listData = data;
                 }
 
-                if(queryType == undefined || queryType == ''){
-                    _self.$refs.scroll.isPullingDown = true;
-                    _self.$refs.scroll.isPullingUpEnd = false;
-                    _self.$refs.scroll.scrollTo(0, 0, 200, 'easing');
-                }
+                //重新计算 better-scroll,当 DOM 结构发生变化的时候务必要调用确保滚动的效果正常
                 _self.$refs.scroll.refresh();
 
                 if(!tool.isNullOrEmptyObject(callback) && typeof(callback) == "function"){

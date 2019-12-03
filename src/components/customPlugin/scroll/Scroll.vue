@@ -2,41 +2,45 @@
   <div class="better-scroll" ref="wrapper">
 
     <div class="better-scroll-content" ref="content">
+        <slot>
+          <!-- <div class="scroll-wrapper scroll-default-wrapper">
+            <p>列表无数据</p>
+          </div> -->
+        </slot>
 
-      <slot>
-        <!-- <div class="scroll-wrapper scroll-default-wrapper">
-          <p>列表无数据</p>
-        </div> -->
-      </slot>
+        <div class="scroll-wrapper scroll-pulldown-wrapper" v-if="optionsValue.pulldown">
+            <template v-if="isPullingDown">
+              <spinner width="42px" height="42px" color="#8f8f8f" :options="{ itemWidth: 4 }"/>
+              <p>{{pullDownTips.start}}</p>
+            </template>
+            <p v-else-if="isPullDownSucess">{{pullDownTips.beforeDeactive}}</p>
+            <template v-else>
+              <arrow
+                class="arrow"
+                width="32px"
+                height="32px"
+                color="#8f8f8f"
+                :class="{'rotate-180': canPullingDown}"
+              />
+              <p v-if="canPullingDown">{{pullDownTips.active}}</p>
+              <p v-else>{{pullDownTips.deactive}}</p>
+            </template>
+        </div>
 
-      <div class="scroll-wrapper scroll-pulldown-wrapper" v-if="optionsValue.pulldown">
-        <template v-if="isPullingDown">
-          <spinner width="42px" height="42px" color="#8f8f8f" :options="{ itemWidth: 4 }"/>
-          <p>{{pullDownTips.start}}</p>
-        </template>
-        <p v-else-if="isPullDownSucess">{{pullDownTips.beforeDeactive}}</p>
-        <template v-else>
-          <arrow
-            class="arrow"
-            width="32px"
-            height="32px"
-            color="#8f8f8f"
-            :class="{'rotate-180': canPullingDown}"
-          />
-          <p v-if="canPullingDown">{{pullDownTips.active}}</p>
-          <p v-else>{{pullDownTips.deactive}}</p>
-        </template>
-      </div>
-
-      <div class="scroll-wrapper scroll-pullup-wrapper" v-if="optionsValue.pullup">
-        <template v-if="isPullingUp">
-          <spinner width="42px" height="42px" color="#8f8f8f" :options="{ itemWidth: 4 }"/>
-          <p>{{pullUpTips.start}}</p>
-        </template>
-        <!-- 没有更多数据了 -->
-        <p v-else-if="!hasNext">{{pullUpTips.noMoreData}}</p>
-      </div>
+        <div class="scroll-wrapper scroll-pullup-wrapper" v-if="optionsValue.pullup">
+          <!-- 上拉加载 -->
+          <!-- <div>{{pullUpTips.deactive}}</div> -->
+          <!-- 加载中 -->
+          <template v-if="isPullingUp">
+            <spinner width="42px" height="42px" color="#8f8f8f" :options="{ itemWidth: 4 }"/>
+            <p>{{pullUpTips.start}}</p>
+          </template>
+          <!-- 没有更多数据了 -->
+          <p v-else-if="!hasNext">{{pullUpTips.noMoreData}}</p>
+        </div>
     </div>
+
+
 
     <div v-if="showToTop" class="topping">
         <a @click="goTopping" class="f18 calcfont calc-tubiao102"></a>
@@ -68,12 +72,12 @@ const OPTINGS_DEFAULT = {
 
 //上拉加载默认配置
 const PULL_UP_DEFAULT = {
-  threshold: 72
+  threshold: 40
 };
 
 //下拉刷新默认配置
 const PULL_DOWN_DEFAULT = {
-  threshold: 72,
+  threshold: 50,
   stop: 54
 };
 
@@ -94,7 +98,7 @@ export default {
       canPullingDown: false,
 
       pullUpTips:{
-          // deactive: lanTool.lanContent('1000168_上拉加载'),
+          deactive: lanTool.lanContent('1000168_上拉加载'),
           // active: lanTool.lanContent('1000172_释放加载'),
           start: lanTool.lanContent('1000173_正在加载......'),
           // beforeDeactive: lanTool.lanContent('1000174_加载成功'),
@@ -159,9 +163,9 @@ export default {
   },
 
   watch: {
-    // data() {
-    //   this.$nextTick(this.refresh);
-    // }
+    data() {
+      this.$nextTick(this.refresh);
+    }
   },
   methods: {
     initBScroll() {
@@ -224,6 +228,7 @@ export default {
         this.isPullingUp = false;
         this.scroll.finishPullUp();
         this.scroll.refresh();
+
       } else if (this.isPullingDown) {
 
         this.isPullingDown = false;
@@ -265,7 +270,10 @@ export default {
     //列表回到顶部
     goTopping:function(){
         let _self = this;
-        _self.scrollTo(0, 0, 800, 'easing ');
+        _self.scrollTo(0, 1, 800, 'easing');
+
+        // _self.scroll.scrollTo(0, 1, 800, 'easing');
+        //第二个参数设置为0时，会导致组件触发一次上拉加载
     }
   },
   mounted() {

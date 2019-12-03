@@ -300,6 +300,7 @@ export default {
               _self.$refs.scroll.goTopping();
               //重置上拉加载
               _self.$refs.scroll.resetPullUp();
+
           });
         }else{
           //非列表模式下把头部输入框清空
@@ -396,11 +397,7 @@ export default {
                     _self.listData = data;
                 }
 
-                if(queryType == undefined || queryType == ''){
-                    _self.$refs.scroll.isPullingDown = true;
-                    _self.$refs.scroll.isPullingUpEnd = false;
-                    _self.$refs.scroll.scrollTo(0, 0, 200, 'easing');
-                }
+                //重新计算 better-scroll,当 DOM 结构发生变化的时候务必要调用确保滚动的效果正常
                 _self.$refs.scroll.refresh();
 
                 if(!tool.isNullOrEmptyObject(callback) && typeof(callback) == "function"){
@@ -431,6 +428,7 @@ export default {
         _self.queryList('pushLoad', function (data, pageSize) {
             if (data.length <= pageSize) {
                 _self.$refs.scroll.pullupEnd();
+                // _self.$refs.scroll.refresh();
             }
         });
     },
