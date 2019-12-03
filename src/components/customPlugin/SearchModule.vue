@@ -218,7 +218,7 @@ export default {
                 return true;
             },
             complete: function () {
-                //del by Dylan 20191203 不晓得为什么光标又能自动定位了
+                //del by Dylan 20191203 因为移除了document.activeElement.blur()，所以不需要定位光标位置
                 //设置光标位置
                 // var $inputObj = $('#searchHeader').find('input.search-input');
                 // if($inputObj.length>=1){
