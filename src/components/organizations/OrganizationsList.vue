@@ -690,11 +690,12 @@ export default {
     }
   },
   beforeRouteLeave: function (to, from, next) {
-        if (to.name == 'index') {
+        if (to.name == 'index' || to.name == 'homesearch') {
             this.$store.commit('REMOVE_ITEM', 'organizationslist');
         }
         next();
     }
+    
 }
 </script>
 
