@@ -2605,6 +2605,7 @@ import config from "../../configfile/config.js";
           } else {
             //处理列表页面侧滑控件
             _curObj.closest('div.block-div').siblings('.block-div').find('div.DetailRow').removeClass('DeepColor');
+            _curObj.closest(".DetailRow").addClass("DeepColor");
           }
 
            //选中详情转为交易或者机会的需要填选的弹框中的表单
@@ -2723,6 +2724,11 @@ import config from "../../configfile/config.js";
           if (!tool.isNullOrEmptyObject(parentObj)) {
             $(parentObj).find(".DetailRow").removeClass("DeepColor");
             _curObj.parents(".DetailRow").addClass("DeepColor")
+          }
+          else {
+            //处理列表页面侧滑控件
+            _curObj.closest('div.block-div').siblings('.block-div').find('div.DetailRow').removeClass('DeepColor');
+            _curObj.closest(".DetailRow").addClass("DeepColor");
           }
           //选中详情转为交易或者机会的需要填选的弹框中的表单
           var pObj = _curObj.parent("ListCellContentRight") || "";
@@ -4230,6 +4236,7 @@ import config from "../../configfile/config.js";
            else {
               //处理列表页面侧滑控件
               _curObj.closest('div.block-div').siblings('.block-div').find('div.DetailRow').removeClass('DeepColor');
+              _curObj.closest(".DetailRow").addClass("DeepColor");
 
             }
 
@@ -4308,6 +4315,7 @@ import config from "../../configfile/config.js";
           else {
               //处理列表页面侧滑控件
               _curObj.closest('div.block-div').siblings('.block-div').find('div.DetailRow').removeClass('DeepColor');
+              _curObj.closest(".DetailRow").addClass("DeepColor");
             }
            //选中详情转为交易或者机会的需要填选的弹框中的表单
            var pObj = _curObj.parent("ListCellContentRight") || "";
