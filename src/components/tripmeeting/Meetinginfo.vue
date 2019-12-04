@@ -394,7 +394,7 @@
                     </div>
                 </div>
             </div>
-            <div class="btn-div">
+            <div class="btn-div-btn">
                 <a href="javascript:;" class="mybtn btn-ok lanText" data-lanid="545_确定"></a>
                 <a href="javascript:;" class="mybtn btn-cancel lanText" data-lanid="570_取消"></a>
             </div>
@@ -509,7 +509,7 @@
                     </div>
                 </div>
             </div>
-            <div class="btn-div">
+            <div class="btn-div-btn">
                 <a href="javascript:;" class="mybtn btn-ok lanText" data-lanid="545_确定"></a>
                 <a href="javascript:;" class="mybtn btn-cancel lanText" data-lanid="570_取消"></a>
             </div>
@@ -1541,7 +1541,7 @@ export default {
 } */
 
 /*按钮*/
-.btn-div {
+.btn-div-btn {
     position: relative;
     line-height: 48px;
     font-size: 18px;
@@ -1551,7 +1551,7 @@ export default {
     text-align: center;
 }
 
-.btn-div::after {
+.btn-div-btn::after {
     content: " ";
     position: absolute;
     left: 0;
@@ -1566,7 +1566,7 @@ export default {
     transform: scaleY(.5);
 }
 
-.btn-div .mybtn {
+.btn-div-btn .mybtn {
     display: block;
     -webkit-box-flex: 1;
     -ms-flex: 1;
@@ -1577,11 +1577,11 @@ export default {
     position: relative;
 }
 
-.btn-div .mybtn.btn-cancel {
+.btn-div-btn .mybtn.btn-cancel {
     color: #5f646e;
 }
 
-.btn-div .mybtn.btn-cancel::after {
+.btn-div-btn .mybtn.btn-cancel::after {
     content: " ";
     position: absolute;
     left: 0;
