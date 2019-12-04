@@ -14,7 +14,7 @@
 
       <!-- 列表模式   -->
       <div class="list-mode-div" v-show="queryObj.groupByMode == 'List'">
-        <vue-scroll v-show="!noData" :showToTop="false" :options="{ pullup: true, pulldown: true }" :scrollbar="true" ref="scroll" @pulldown="pulldown" @pullup="pullup">
+        <vue-scroll v-show="!noData" :showToTop="false" :options="{ pullup: true, pulldown: true }" :scrollbar="false" ref="scroll" @pulldown="pulldown" @pullup="pullup">
             <div v-if="listData !=null && listData != undefined && listData.length > 0" class="organizations-list">
               <div v-for="item in listData" :key="item.AutoID"
               class="group-item data-events-item"  @click="goInfo(item)">
@@ -282,8 +282,8 @@ export default {
   },
   activated(){
     let _self = this;
-    var isShowPanel = 
-    (_self.$refs.screen.showPanel == null || _self.$refs.screen.showPanel == undefined) 
+    var isShowPanel =
+    (_self.$refs.screen.showPanel == null || _self.$refs.screen.showPanel == undefined)
     ? false
     : _self.$refs.screen.showPanel;
 
@@ -702,7 +702,7 @@ export default {
 
         next();
     }
-    
+
 }
 </script>
 
