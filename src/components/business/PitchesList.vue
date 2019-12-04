@@ -324,8 +324,8 @@ export default {
   },
   activated(){
     let _self = this;
-    var isShowPanel = 
-    (_self.$refs.screen.showPanel == null || _self.$refs.screen.showPanel == undefined) 
+    var isShowPanel =
+    (_self.$refs.screen.showPanel == null || _self.$refs.screen.showPanel == undefined)
     ? false
     : _self.$refs.screen.showPanel;
 

@@ -215,10 +215,17 @@ export default {
       }
     },
     enable() {
-      this.scroll && this.scroll.enable();
+
+      if(this.scroll != undefined || this.scroll != null || this.scroll != ''){
+          this.scroll && this.scroll.enable();
+      }
+
     },
     disable() {
-      this.scroll && this.scroll.disable();
+
+      if(this.scroll != undefined || this.scroll != null || this.scroll != ''){
+          this.scroll && this.scroll.disable();
+      }
     },
 
     refresh() {
