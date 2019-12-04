@@ -487,39 +487,44 @@ export default {
     //如果没传isClose值showPanel就取反，表示正常的展开收起
     panelToggle:function(isClose){
         var _self = this;
-            if(isClose == false){
-                _self.showPanel = isClose;
-            }else{
-                _self.showPanel = !_self.showPanel;
-            }
-            if(_self.showPanel){
-                _self.$nextTick(function(){
-                    $('#right-content').css({
-                        'left':'1.5rem',
-                        'transition':'left 0.2s ease-out',
-                        '-moz-transition': 'left 0.2s ease-out',
-                        '-webkit-transition':'left 0.2s ease-out',
-                        '-o-transition': 'left 0.2s ease-out'
-                    })
-                    // $('#mask').off('touchmove').on("touchmove", function(e) {
-                    //     e.stopPropagation();
-                    //     e.preventDefault();
-                    // });
+        if(isClose == false){
+            _self.showPanel = isClose;
+        }else{
+            _self.showPanel = !_self.showPanel;
+        }
+        
+        //若已经收起,则展开
+        if(_self.showPanel){
+            //1>展开的同时，给body添加hideOverflow样式
+            $("body").addClass("hideOverflow");
 
-                })
+            //2>展开
+            _self.$nextTick(function(){
+                $('#right-content').css({
+                    'left':'1.5rem',
+                    'transition':'left 0.2s ease-out',
+                    '-moz-transition': 'left 0.2s ease-out',
+                    '-webkit-transition':'left 0.2s ease-out',
+                    '-o-transition': 'left 0.2s ease-out'
+                });
+            });
+        }else{
+            //若已经展开，则收起
+            //1>收起的同时，移除body的hideOverflow样式
+            $("body").removeClass("hideOverflow");
 
-            }else{
-                _self.$nextTick(function(){
-                    $('#right-content').css({
-                        'left':'100%',
-                        'transition':'left 0.3s ease-out',
-                        '-moz-transition': 'left 0.3s ease-out',
-                        '-webkit-transition':'left 0.3s ease-out',
-                        '-o-transition': 'left 0.3s ease-out'
-                    });
+            //2>收起
+            _self.$nextTick(function(){
+                $('#right-content').css({
+                    'left':'100%',
+                    'transition':'left 0.3s ease-out',
+                    '-moz-transition': 'left 0.3s ease-out',
+                    '-webkit-transition':'left 0.3s ease-out',
+                    '-o-transition': 'left 0.3s ease-out'
+                });
 
-                })
-            }
+            })
+        }
     },
     //请求BusinessSectorOptions
     getPickerOptions(item){
@@ -938,7 +943,7 @@ export default {
             -webkit-overflow-scrolling: touch;
             -webkit-overflow-scrolling: auto;
             }
-.screen-con-box{min-height: calc(100% + 1px);}
+/* .screen-con-box{min-height: calc(100%);} */
 .block-div{}
 .type-div{border-bottom: 1px solid #e6e8ea;}
 .no-border{border-bottom:none;}

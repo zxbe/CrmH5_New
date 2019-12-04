@@ -270,7 +270,21 @@ export default {
     let _self = this;
     _self.watchScroll();
   },
-  activated: function() {},
+  activated: function() {
+    let _self = this;
+    var isShowPanel = 
+    (_self.$refs.screen.showPanel == null || _self.$refs.screen.showPanel == undefined) 
+    ? false
+    : _self.$refs.screen.showPanel;
+
+    //若侧滑是展开的，则给body添加hideOverflow样式
+    if(isShowPanel){
+      $("body").addClass("hideOverflow");
+    }else{
+      //若侧滑是收起的，移除body的hideOverflow样式
+      $("body").removeClass("hideOverflow");
+    }
+  },
   methods: {
     //返回上一页
     back() {
@@ -548,6 +562,10 @@ export default {
     if (to.name == "index") {
       this.$store.commit("REMOVE_ITEM", "userEvents");
     }
+
+    //移除body的hideOverflow样式
+    $("body").removeClass("hideOverflow");
+
     next();
   }
 };

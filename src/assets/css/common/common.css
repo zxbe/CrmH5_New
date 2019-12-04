@@ -554,11 +554,13 @@ top:0px;position:absolute;}
   height: 20px;
 }
 
-
-
 .hide{
   display: none;
 }
 .show{
   display: block;
+}
+
+.hideOverflow{
+  overflow: hidden;
 }

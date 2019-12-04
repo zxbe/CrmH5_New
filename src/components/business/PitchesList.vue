@@ -322,6 +322,21 @@ export default {
         _self.$refs.searchInput.searchValue = autoVal;
       });
   },
+  activated(){
+    let _self = this;
+    var isShowPanel = 
+    (_self.$refs.screen.showPanel == null || _self.$refs.screen.showPanel == undefined) 
+    ? false
+    : _self.$refs.screen.showPanel;
+
+    //若侧滑是展开的，则给body添加hideOverflow样式
+    if(isShowPanel){
+      $("body").addClass("hideOverflow");
+    }else{
+      //若侧滑是收起的，移除body的hideOverflow样式
+      $("body").removeClass("hideOverflow");
+    }
+  },
   mounted(){
       let _self = this;
       _self.watchScroll();
@@ -747,9 +762,12 @@ export default {
       if (to.name == 'index') {
           this.$store.commit('REMOVE_ITEM', 'pitcheslist');
       }
+
+      //移除body的hideOverflow样式
+	    $("body").removeClass("hideOverflow");
+
       next();
   }
-
 }
 </script>
 
