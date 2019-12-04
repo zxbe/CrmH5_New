@@ -559,7 +559,7 @@ export default {
     }
   },
   beforeRouteLeave: function(to, from, next) {
-    if (to.name == "index") {
+    if (to.name == "index"  || to.name == 'homesearch') {
       this.$store.commit("REMOVE_ITEM", "userEvents");
     }
 
@@ -600,7 +600,7 @@ export default {
 
 .pageContent {
   position: fixed;
-  top: calc(0.88rem + 0.7rem);
+  top: calc(0.88rem + 0.88rem);
   bottom: 0px;
   left: 0;
   right: 0;

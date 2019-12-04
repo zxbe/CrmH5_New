@@ -758,8 +758,8 @@ export default {
       }
   },
   beforeRouteLeave: function (to, from, next) {
-      if (to.name == 'index') {
-          this.$store.commit('REMOVE_ITEM', 'pitcheslist');
+      if (to.name == 'index' || to.name == 'homesearch') {
+          this.$store.commit('REMOVE_ITEM', 'pipelinelist');
       }
 
       //移除body的hideOverflow样式
