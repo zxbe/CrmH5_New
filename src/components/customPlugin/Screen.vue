@@ -936,7 +936,7 @@ export default {
 </script>
 
 <style scoped>
-.mask{position:fixed;top:0;left:0;bottom:0;right:0;background: rgba(0, 0, 0, 0.1);z-index:102;}
+.mask{position:fixed;top:0;left:0;bottom:0;right:0;background: rgba(0, 0, 0, 0.3);z-index:102;}
 .right-content{position:fixed;left:100%; width:6rem;background: #FFFFFF;top: 0;bottom: 0; z-index: 103; padding-top:0px;}
 
 .screen-con{height: calc(100% - 1.3rem);overflow-y: scroll;
