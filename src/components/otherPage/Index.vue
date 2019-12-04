@@ -72,7 +72,7 @@
                       </router-link>
                   </div>
                   <div class="column-div">
-                      <router-link to="/bIShareMaterials" class="router-target">
+                      <router-link to="/bIShareMaterials" class="router-target nopadding">
                           <i class="calcfont calc-wj-gxwj" style="color:#9266f9"></i>
                           <div class="f14 lanText" data-lanid="1079_商业智能库"></div>
                       </router-link>

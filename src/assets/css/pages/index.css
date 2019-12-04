@@ -22,6 +22,7 @@
 .router-target:active{background: #ebeced;}
 .router-target .calcfont{font-size:0.8rem;}
 .router-target div{color: rgb(102, 102, 102);padding:0 3px;text-align: center;}
+.nopadding{padding:0;}
 
 
 
