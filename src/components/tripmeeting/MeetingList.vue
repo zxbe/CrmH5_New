@@ -1,9 +1,9 @@
 <template>
 <div class="page">
 
-    <!-- <div v-show="pageState == 1"> -->
+    <div v-show="pageState == 1">
       <!-- <div class="head1" :class="[pageState==1?'show':'hide']"> -->
-        <div class="mainModule show">
+        <!-- <div class="mainModule show"> -->
           <header class="header sticky">
               <a @click="back" class="calcfont calc-fanhui back-icon" id="back"></a>
               <div class="search" @click="showSearch">
@@ -140,9 +140,9 @@
     </div>
 
     <!-- 页面处于搜索状态 -->
-    <!-- <div v-show="pageState == 2"> -->
+    <div v-show="pageState == 2">
     <!-- <div class="head2" :class="[pageState==2?'show':'hide']"> -->
-      <div class="otherModule hide">
+      <!-- <div class="otherModule hide"> -->
         <search-module :searchModuleFromType=searchModuleFromType :lanSearchModuleInputPlaceHolder=lanSearchModuleInputPlaceHolder :queryObj=queryObj ref="searchModule"></search-module>
     </div>
 
@@ -339,30 +339,9 @@ export default {
         },
         pageType:0,//meeting
         //列表数据(分组模式为List)
-        listData:[
-          // {
-          //   "AutoID": 996,
-          //   "MeetingTitle": "Hongtu Airlines A320 Placement",
-          //   "BeginTime": "2019-11-20T17:27:00",
-          //   "EndTime": "2019-11-22T17:27:00",
-          //   "CompanyID": "红土航空有限公司",
-          //   "ContactsID": "豆海东",
-          //   "Title": "副总经理",
-          //   "Realname": "Qing Fang"
-          // }
-          ],
+        listData:[],
         //分组数据(分组模式为非List)
-        groupData:[
-          // {
-          //     "GroupName": "2019-12-06",
-          //     "GroupID": "2019-12-06",
-          //     "GroupRowCount": 1
-          //   }, {
-          //     "GroupName": "2019-12-05",
-          //     "GroupID": "2019-12-05",
-          //     "GroupRowCount": 1
-          //   }
-            ],
+        groupData:[],
         lanSearchModuleInputPlaceHolder:lanTool.lanContent("1000202_会议名称"),
         searchModuleFromType:"8" //联系人:6;公司:7;会议:8;商机&交易:9;用户管理：11；
     }
@@ -862,9 +841,13 @@ export default {
         //5>切换到模糊查询页面
         _self.pageState = 2;
         //6>隐藏主模块
-        _self.ModuleDsiplayAction(false);
+        // _self.ModuleDsiplayAction(false);
 
         //6>获取搜索框焦点
+         _self.$nextTick(function(){
+            _self.$refs.searchModule.$refs.searchInput.$refs.curInput.click();
+         })
+        /*
         //  _self.$nextTick(function(){
           var $inputObj = $('#searchHeader').find('input.search-input');
           //  if($inputObj.length>=1){
@@ -876,18 +859,19 @@ export default {
               //},20);
           //  }
         //  });
+        */
     },
     //是否显示主模块
-    ModuleDsiplayAction:function(isShowMainModule){
-      isShowMainModule = (isShowMainModule == null || isShowMainModule == undefined)?true:isShowMainModule;
-      if(isShowMainModule){
-        $(".mainModule").removeClass("hide").addClass("show");
-        $(".otherModule").removeClass("show").addClass("hide");
-      }else{
-        $(".mainModule").removeClass("show").addClass("hide");
-        $(".otherModule").removeClass("hide").addClass("show");
-      }
-    },
+    // ModuleDsiplayAction:function(isShowMainModule){
+    //   isShowMainModule = (isShowMainModule == null || isShowMainModule == undefined)?true:isShowMainModule;
+    //   if(isShowMainModule){
+    //     $(".mainModule").removeClass("hide").addClass("show");
+    //     $(".otherModule").removeClass("show").addClass("hide");
+    //   }else{
+    //     $(".mainModule").removeClass("show").addClass("hide");
+    //     $(".otherModule").removeClass("hide").addClass("show");
+    //   }
+    // },
     //input查询框,点击搜索/回车键执行的查询
     //接收搜索的值并刷新列表
     //str有可能为空(专门处理搜索)
@@ -895,7 +879,7 @@ export default {
       let _self = this;
       str = (str ||"").trim();
       _self.pageState = 1;
-      _self.ModuleDsiplayAction(true);
+      // _self.ModuleDsiplayAction(true);
       //1>初始化排序
       _self.$refs.sort.initDefultSortItem(false);
       //2>初始化筛选条件

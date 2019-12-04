@@ -8,8 +8,8 @@
     </header>
 
     <!-- 显示搜索结果 -->
-    <!-- <div v-show="showList"> -->
-    <div class="mainModule">
+    <div v-show="showList">
+    <!-- <div class="mainModule"> -->
         <div class="list">
             <vue-scroll v-show="!noData" :showToTop="true" :options="{ pullup: true, pulldown: true }" :scrollbar="false" ref="scroll" @pulldown="pulldown" @pullup="pullup">
                 <div v-for="item in listData" @click="goToInfo(item.AutoID)" :key="item.AutoID" class="list-item">
@@ -60,8 +60,8 @@
         </div>
     </div>
 
-    <!-- <div v-show="!showList"> -->
-    <div class="otherModule">
+    <div v-show="!showList">
+    <!-- <div class="otherModule"> -->
           <div class="search-module">
               <div class="module-item" >
                   <div class="module-item-text f14" data-type="title" @click="switchModule($event)">{{lanTitle}}</div>
@@ -164,7 +164,8 @@ export default {
 
         //监听input是否获取到焦点
         $('#searchHeader input.search-input').on('focus',function(){
-            _self.ModuleDsiplayAction(false);
+            _self.showList = false;
+            // _self.ModuleDsiplayAction(false);
         });
     },
     activated(){
@@ -186,16 +187,16 @@ export default {
     },
     methods: {
         //是否显示主模块
-        ModuleDsiplayAction:function(isShowMainModule){
-            isShowMainModule = (isShowMainModule == null || isShowMainModule == undefined)?true:isShowMainModule;
-            if(isShowMainModule){
-                $(".mainModule").removeClass("hide").addClass("show");
-                $(".otherModule").removeClass("show").addClass("hide");
-            }else{
-                $(".mainModule").removeClass("show").addClass("hide");
-                $(".otherModule").removeClass("hide").addClass("show");
-            }
-        },
+        // ModuleDsiplayAction:function(isShowMainModule){
+        //     isShowMainModule = (isShowMainModule == null || isShowMainModule == undefined)?true:isShowMainModule;
+        //     if(isShowMainModule){
+        //         $(".mainModule").removeClass("hide").addClass("show");
+        //         $(".otherModule").removeClass("show").addClass("hide");
+        //     }else{
+        //         $(".mainModule").removeClass("show").addClass("hide");
+        //         $(".otherModule").removeClass("hide").addClass("show");
+        //     }
+        // },
         //切换搜索模块
         switchModule(e){
             let _self = this;
@@ -222,10 +223,10 @@ export default {
             $defaultObj.trigger("click");
 
             //2>定位光标位置(这种方式对IOS无效，以后解决)
-            var $inputObj = $('#searchHeader').find('input.search-input');
-            tool.setCursorPosition($inputObj[0],($inputObj[0].value||"").length,function(){
-                _self.$refs.searchInput.$refs.triggerBtn.click();
-            });
+            // var $inputObj = $('#searchHeader').find('input.search-input');
+            // tool.setCursorPosition($inputObj[0],($inputObj[0].value||"").length,function(){
+            //     _self.$refs.searchInput.$refs.triggerBtn.click();
+            // });
         },
         //搜索框内容改变事件,显示匹配模糊查询值的下拉数据结果(子组件调用)
         getDropListByAutoVal(autoValue,callback){
@@ -321,7 +322,7 @@ export default {
 
             if(!tool.isNullOrEmptyObject(autoValue)){
                 _self.showList = true;
-                _self.ModuleDsiplayAction(true);
+                // _self.ModuleDsiplayAction(true);
 
                 //把值存到缓存
                 var dataArr = tool.jObject((tool.getStorageItem(_self.localStorageKeyName) || "[]"));
@@ -390,7 +391,7 @@ export default {
             _self.listData = [];
             //隐藏列表
             _self.showList = false;
-            _self.ModuleDsiplayAction(false);
+            // _self.ModuleDsiplayAction(false);
         },
         //点击历史查询记录，查询匹配数据
         searchByHistotyItem:function(data){

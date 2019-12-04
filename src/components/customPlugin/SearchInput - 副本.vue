@@ -10,8 +10,6 @@
       @input="inputChange"
       @keyup="onkeyUp($event)"
       ref="curInput"
-      v-click-focus
-      v-focus
     />
     <input
       v-else
@@ -26,56 +24,24 @@
       class="calcfont calc-guanbi1 delete-icon f14"
       @click.stop="clearEvent"
     ></i>
-    <!-- <input
-      type="button"
-      class="hideBtn"
-      value="focusInput"
+    <input 
+      type="button" 
+      class="hideBtn" 
+      value="focusInput" 
       @click.stop="triggerInputFocus"
       style="display:none"
-      ref="triggerBtn"
-    /> -->
+      ref="triggerBtn" 
+    />
   </div>
 </template>
 
 <script>
-const clickFocus = {
-  // 初始化指令
-  bind(el, binding, vnode) {
-    function clickHandler(e) {
-        el.focus();
-        //设置光标
-        tool.setCursorPosition(el,(el.value||"").length);
-    }
-    // 给当前元素绑定个私有变量，方便在unbind中可以解除事件监听
-    el.__vueClickOutside__ = clickHandler;
-    el.addEventListener('click', clickHandler);
-
-  },
-  update() {},
-  unbind(el, binding) {
-    // 解除事件监听
-    el.removeEventListener('click', el.__vueClickOutside__);
-    delete el.__vueClickOutside__;
-  },
-};
 export default {
   data() {
     return {
       searchValue: ""
     };
   },
-  directives: {
-      focus: {
-        // 指令的定义
-        inserted: function (el) {
-            el.focus();
-            //设置光标
-            tool.setCursorPosition(el,(el.value||"").length);
-        }
-      },
-      clickFocus
-  },
-
   computed: {
     showClearIcon() {
       return this.searchValue == "" ? false : true;
@@ -106,11 +72,11 @@ export default {
   },
   methods: {
     //触发input控件获取焦点
-    // triggerInputFocus:function(){
-    //   let _self = this;
-    //   _self.$refs.curInput.focus();
-    //   //$('#searchHeader .search-input').focus();
-    // },
+    triggerInputFocus:function(){
+      let _self = this;
+      _self.$refs.curInput.focus();
+      //$('#searchHeader .search-input').focus();
+    },
     //输入内容改变事件
     inputChange() {
       let _self = this;

@@ -132,10 +132,14 @@ export default {
     }
 
     //定位光标位置(这种方式对IOS无效，以后解决)
-    var $inputObj = $('#searchHeader').find('input.search-input');
-    tool.setCursorPosition($inputObj[0],($inputObj[0].value||"").length,function(){
-        _self.$refs.searchInput.$refs.triggerBtn.click();
-    });
+    // var $inputObj = $('#searchHeader').find('input.search-input');
+    // tool.setCursorPosition($inputObj[0],($inputObj[0].value||"").length,function(){
+    //     _self.$refs.searchInput.$refs.triggerBtn.click();
+    // });
+    //  _self.$nextTick(function(){
+    //         _self.$refs.searchInput.$refs.curInput.click();
+    // })
+
   },
   methods:{
     //返回上一页
