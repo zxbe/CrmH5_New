@@ -858,7 +858,7 @@ export default {
         //6>获取搜索框焦点
          _self.$nextTick(function(){
             _self.$refs.searchModule.$refs.searchInput.$refs.curInput.click();
-         })
+         });
         /*
         //  _self.$nextTick(function(){
           var $inputObj = $('#searchHeader').find('input.search-input');

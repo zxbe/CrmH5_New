@@ -102,7 +102,7 @@ export default {
         _self.resultData = [];
         //切换页面到父组件
         _self.$parent.pageState = 1;
-        _self.$parent.ModuleDsiplayAction(true);
+        // _self.$parent.ModuleDsiplayAction(true);
     },
     //获取搜索历史记录
     getHistoricalSearchRecord(){
