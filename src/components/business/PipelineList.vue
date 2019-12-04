@@ -328,6 +328,21 @@ export default {
       //分组模式事件绑定
       _self.groupToggleHandle('opportunitiesList');
   },
+  activated(){
+    let _self = this;
+    var isShowPanel = 
+    (_self.$refs.screen.showPanel == null || _self.$refs.screen.showPanel == undefined) 
+    ? false
+    : _self.$refs.screen.showPanel;
+
+    //若侧滑是展开的，则给body添加hideOverflow样式
+    if(isShowPanel){
+      $("body").addClass("hideOverflow");
+    }else{
+      //若侧滑是收起的，移除body的hideOverflow样式
+      $("body").removeClass("hideOverflow");
+    }
+  },
   methods:{
       //返回上一页
       back(){
@@ -743,9 +758,13 @@ export default {
       }
   },
   beforeRouteLeave: function (to, from, next) {
-      if (to.name == 'index') {
-          this.$store.commit('REMOVE_ITEM', 'pitcheslist');
+      if (to.name == 'index' || to.name == 'homesearch') {
+          this.$store.commit('REMOVE_ITEM', 'pipelinelist');
       }
+
+      //移除body的hideOverflow样式
+	    $("body").removeClass("hideOverflow");
+
       next();
   }
 

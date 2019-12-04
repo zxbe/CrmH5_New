@@ -281,7 +281,19 @@ export default {
       _self.groupToggleHandle('organizationsList');
   },
   activated(){
+    let _self = this;
+    var isShowPanel = 
+    (_self.$refs.screen.showPanel == null || _self.$refs.screen.showPanel == undefined) 
+    ? false
+    : _self.$refs.screen.showPanel;
 
+    //若侧滑是展开的，则给body添加hideOverflow样式
+    if(isShowPanel){
+      $("body").addClass("hideOverflow");
+    }else{
+      //若侧滑是收起的，移除body的hideOverflow样式
+      $("body").removeClass("hideOverflow");
+    }
   },
   methods:{
     //返回上一页
@@ -690,11 +702,16 @@ export default {
     }
   },
   beforeRouteLeave: function (to, from, next) {
-        if (to.name == 'index') {
+        if (to.name == 'index' || to.name == 'homesearch') {
             this.$store.commit('REMOVE_ITEM', 'organizationslist');
         }
+
+        //移除body的hideOverflow样式
+        $("body").removeClass("hideOverflow");
+
         next();
     }
+    
 }
 </script>
 

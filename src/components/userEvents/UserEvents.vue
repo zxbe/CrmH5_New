@@ -270,7 +270,21 @@ export default {
     let _self = this;
     _self.watchScroll();
   },
-  activated: function() {},
+  activated: function() {
+    let _self = this;
+    var isShowPanel = 
+    (_self.$refs.screen.showPanel == null || _self.$refs.screen.showPanel == undefined) 
+    ? false
+    : _self.$refs.screen.showPanel;
+
+    //若侧滑是展开的，则给body添加hideOverflow样式
+    if(isShowPanel){
+      $("body").addClass("hideOverflow");
+    }else{
+      //若侧滑是收起的，移除body的hideOverflow样式
+      $("body").removeClass("hideOverflow");
+    }
+  },
   methods: {
     //返回上一页
     back() {
@@ -545,9 +559,13 @@ export default {
     }
   },
   beforeRouteLeave: function(to, from, next) {
-    if (to.name == "index") {
+    if (to.name == "index"  || to.name == 'homesearch') {
       this.$store.commit("REMOVE_ITEM", "userEvents");
     }
+
+    //移除body的hideOverflow样式
+    $("body").removeClass("hideOverflow");
+
     next();
   }
 };
@@ -582,7 +600,7 @@ export default {
 
 .pageContent {
   position: fixed;
-  top: calc(0.88rem + 0.7rem);
+  top: calc(0.88rem + 0.88rem);
   bottom: 0px;
   left: 0;
   right: 0;
