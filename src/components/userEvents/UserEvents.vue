@@ -28,46 +28,48 @@
           @pulldown="pulldown"
           @pullup="pullup"
         >
-          <ul class="dataList" :key="item.AutoID" v-for="item in listData">
-            <li>
-              <a class="userMessage" @click="goUserInfoPage(item)">
-                <div class="headImg">
-                  <img src="../../assets/images/default_user_img.png" alt="" />
-                </div>
-                <h4>
-                  <div class="userName">{{ item.Realname }}</div>
-                </h4>
-                <div class="position">
-                  <span
-                    class="positionIcon calcfont"
-                    :class="[item.PositionID != '' ? 'calc-zhiwei' : '']"
-                  ></span
-                  >{{ item.PositionID }}
-                </div>
-                <div class="department">
-                  <span
-                    class="departmentIcon calcfont"
-                    :class="[item.DepartmentID != '' ? 'calc-zuzhibumen' : '']"
-                  ></span
-                  >{{ item.DepartmentID }}
-                </div>
-                <div>
-                  <span
-                    :class="[item.Email != '' ? 'calc-youxiang' : '']"
-                    class="userEmail pullLeft calcfont"
-                    >{{ item.Email }}</span
-                  >
-                </div>
-                <div>
-                  <span
-                    :class="[item.Phone != '' ? 'calc-phone' : '']"
-                    class="userPhone pullRight calcfont"
-                    >{{ item.Phone }}</span
-                  >
-                </div>
-              </a>
-            </li>
-          </ul>
+          <div class="list-div">
+            <ul class="dataList" :key="item.AutoID" v-for="item in listData">
+              <li>
+                <a class="userMessage" @click="goUserInfoPage(item)">
+                  <div class="headImg">
+                    <img src="../../assets/images/default_user_img.png" alt="" />
+                  </div>
+                  <h4>
+                    <div class="userName">{{ item.Realname }}</div>
+                  </h4>
+                  <div class="position">
+                    <span
+                      class="positionIcon calcfont"
+                      :class="[item.PositionID != '' ? 'calc-zhiwei' : '']"
+                    ></span
+                    >{{ item.PositionID }}
+                  </div>
+                  <div class="department">
+                    <span
+                      class="departmentIcon calcfont"
+                      :class="[item.DepartmentID != '' ? 'calc-zuzhibumen' : '']"
+                    ></span
+                    >{{ item.DepartmentID }}
+                  </div>
+                  <div>
+                    <span
+                      :class="[item.Email != '' ? 'calc-youxiang' : '']"
+                      class="userEmail pullLeft calcfont"
+                      >{{ item.Email }}</span
+                    >
+                  </div>
+                  <div>
+                    <span
+                      :class="[item.Phone != '' ? 'calc-phone' : '']"
+                      class="userPhone pullRight calcfont"
+                      >{{ item.Phone }}</span
+                    >
+                  </div>
+                </a>
+              </li>
+            </ul>
+          </div>
         </vue-scroll>
         <nothing v-show="noData" style="padding-top:0.8rem;"></nothing>
       </div>
@@ -272,8 +274,8 @@ export default {
   },
   activated: function() {
     let _self = this;
-    var isShowPanel = 
-    (_self.$refs.screen.showPanel == null || _self.$refs.screen.showPanel == undefined) 
+    var isShowPanel =
+    (_self.$refs.screen.showPanel == null || _self.$refs.screen.showPanel == undefined)
     ? false
     : _self.$refs.screen.showPanel;
 
@@ -584,7 +586,7 @@ export default {
   left: 0;
   right: 0;
 }
-
+.list-div{ min-height: calc(100vh - 1.76rem); }
 .pageContent .userMessage {
   position: relative;
   display: block;
