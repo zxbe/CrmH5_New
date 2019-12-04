@@ -172,10 +172,10 @@ export default {
         let _self = this;
 
         //定位光标位置(这种方式对IOS无效，以后解决)
-        var $inputObj = $('#searchHeader').find('input.search-input');
-        tool.setCursorPosition($inputObj[0],($inputObj[0].value||"").length,function(){
-            _self.$refs.searchInput.$refs.triggerBtn.click();
-        });
+        // var $inputObj = $('#searchHeader').find('input.search-input');
+        // tool.setCursorPosition($inputObj[0],($inputObj[0].value||"").length,function(){
+        //     _self.$refs.searchInput.$refs.triggerBtn.click();
+        // });
 
         //返回来如果是列表的就不变
         if(!tool.isNullOrEmptyObject(_self.listData)){
@@ -702,9 +702,9 @@ export default {
         }
     },
     beforeRouteLeave: function (to, from, next) {
-        // if (to.name == 'forumlist') {
-        //     this.$store.commit('REMOVE_ITEM', 'forumsearch');
-        // }
+        if (to.name == 'forumlist') {
+            this.$store.commit('REMOVE_ITEM', 'forumsearch');
+        }
         next();
     },
 }
