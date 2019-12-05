@@ -20,6 +20,7 @@
 .row-after::after{content: "";width:100%;height:1px;background:#e7e9e8;position: absolute;bottom: 0;left:0;right: 0;}
 .column-div{flex: 1;display: flex;align-items: center;justify-content: center;position: relative;}
 .column-div::after{content: "";width: 1px;height: 100%;background:#e7e9e8;position: absolute;right: 0;}
+.column-div.no-line::after{width: 0;}
 .router-target{display: flex;align-items: center;justify-content: center;flex-direction: column; width: 100%;height: 100%;padding:0.2rem 0 0.3rem;box-sizing: border-box;}
 .router-target:active{background: #ebeced;}
 .router-target .calcfont{font-size:0.8rem;}

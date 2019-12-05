@@ -44,7 +44,7 @@
                           <div class="f14 lanText" data-lanid="817_交易"></div>
                       </router-link>
                   </div>
-                  <div class="column-div"></div>
+                  <div class="column-div no-line"></div>
             </div>
         </div>
 
@@ -57,8 +57,8 @@
                           <div class="f14 lanText" data-lanid="1052_论坛"></div>
                       </router-link>
                   </div>
-                  <div class="column-div"></div>
-                  <div class="column-div"></div>
+                  <div class="column-div no-line"></div>
+                  <div class="column-div no-line"></div>
             </div>
         </div>
 
@@ -77,7 +77,7 @@
                           <div class="f14 lanText" data-lanid="1079_商业智能库"></div>
                       </router-link>
                   </div>
-                  <div class="column-div"></div>
+                  <div class="column-div no-line"></div>
             </div>
         </div>
     </div>
