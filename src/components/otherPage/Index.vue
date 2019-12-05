@@ -4,7 +4,7 @@
 
     <div id="page-content" class="page-content">
         <div class="search-box-div">
-            <div @click="goSearchPage">
+            <div class="search-bg-div" @click="goSearchPage">
                 <search-input :enableInput="false" :isShowClearIcon="false" class="search disable" :placeholder=lanSearchModuleInputPlaceHolder ref="searchInput"></search-input>
             </div>
         </div>

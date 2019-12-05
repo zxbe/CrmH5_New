@@ -28,7 +28,7 @@
           @pulldown="pulldown"
           @pullup="pullup"
         >
-          <div class="list-div">
+          <div class="list-div list-module-list">
             <ul class="dataList" :key="item.AutoID" v-for="item in listData">
               <li>
                 <a class="userMessage" @click="goUserInfoPage(item)">
@@ -586,7 +586,7 @@ export default {
   left: 0;
   right: 0;
 }
-.list-div{ min-height: calc(100vh - 1.76rem); }
+.list-div{}
 .pageContent .userMessage {
   position: relative;
   display: block;

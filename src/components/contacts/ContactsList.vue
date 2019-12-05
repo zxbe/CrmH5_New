@@ -15,7 +15,7 @@
       <div v-show="queryObj.groupByMode == 'List'" class="list-mode-div">
         <vue-scroll v-show="!noData" :showToTop="false" :options="{ pullup: true, pulldown: true }" :scrollbar="false" ref="scroll" @pulldown="pulldown" @pullup="pullup">
 
-              <div v-if="listData.length > 0" class="contacts-list data-list">
+              <div v-if="listData.length > 0" class="contacts-list data-list  list-module-list">
                     <div v-for="item in listData" :key="item.AutoID" @click="goInfo(item)" class="group-item data-events-item f14">
                           <div class="item-user-icon"><img src="../../assets/images/default_user_img.png" alt=""></div>
                           <div class="item-block contacts-item-block">
@@ -270,8 +270,8 @@ export default {
   },
   activated(){
     let _self = this;
-    var isShowPanel = 
-    (_self.$refs.screen.showPanel == null || _self.$refs.screen.showPanel == undefined) 
+    var isShowPanel =
+    (_self.$refs.screen.showPanel == null || _self.$refs.screen.showPanel == undefined)
     ? false
     : _self.$refs.screen.showPanel;
 
@@ -780,7 +780,7 @@ export default {
 
     //移除body的hideOverflow样式
     $("body").removeClass("hideOverflow");
-    
+
     next();
   }
 }
