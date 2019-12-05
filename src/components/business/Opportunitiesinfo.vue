@@ -290,10 +290,10 @@
                         data-clickObj="InitiatorClickObj"
                       ></div>
                 </div> -->
-                    <div class="DetailRow">
+                    <div class="DetailRow initiatorObj">
                         <div class="DetailRowOn"><span class="calcfont calc-fuzerenicon ChangeIconColor"></span><span class="FileName lanText" data-lanid="825_负责人"></span><span class="XingHao">*</span></div>
                         <div class="DetailRowUp">
-                            <p class="textareaP wrap initiatorObj" id="InitiatorClickObj">
+                            <p class="textareaP wrap" id="InitiatorClickObj">
                                 <textarea readonly="readonly" class="lanInputPlaceHolder" data-lanid="1000526_请选择" data-field="Initiator" data-fieldcontroltype="groupSelectList" data-fieldval="" data-selecttype="checkbox" code="DropDowList_PopedomTeamVsUser" typevalue="" data-fromType="6" data-clickObj="InitiatorClickObj"></textarea>
                             </p>
                             <div class="LeftIconBlock"><span class="LeftIcon calcfont calc-you"></span></div>
