@@ -57,7 +57,7 @@
                             <div class="canvasBox" v-show="isPdf">
                                 <canvas class="canvas" :id="'the-canvas' + currPage "></canvas>
                             </div>
-                            <div class="btn-div" v-show="isPdf">
+                            <div class="previewfile-btn-div" v-show="isPdf">
                                   <span class="canvas-btn pre-btn calcfont calc-shangyiye"></span>
                                   <span class="canvas-btn next-btn calcfont calc-xiayiye"></span>
                                   <span class="canvas-btn calc-zoom_out calcfont calc-zoom_out__eas"></span>
@@ -410,7 +410,7 @@ export default {
             }else {
                 controlName = tool.Api_DocumentsHandle_DownloadFileFromDMS;
             }
-            
+
             var jsonDatasTemp = {
                 CurrentLanguageVersion: lanTool.currentLanguageVersion,
                 UserName: tool.UserName(),
@@ -577,7 +577,7 @@ header a {
 
 /* .pre-btn{margin-right:20px;} */
 
-.btn-div{
+.previewfile-btn-div{
   position: absolute;left:0;right:0;
   bottom:0.4rem;z-index:3;
   display:flex;justify-content:center;
@@ -586,16 +586,16 @@ header a {
   transform: translateZ(0);
   -webkit-transform: translateZ(0);
 }
-.btn-div .btn-div-div{flex:1;}
-.btn-div .canvas-btn{
+.previewfile-btn-div .btn-div-div{flex:1;}
+.previewfile-btn-div .canvas-btn{
   color:#333;
   /* padding:0.2rem; */
   opacity: 0.5;
   margin:0 0.2rem;
   font-size:0.6rem;}
 
-/* .btn-div .pre-btn{margin-left:60%;}
-.btn-div .next-btn{margin-right:60%;} */
-.btn-div .opacity{opacity: 0.2;}
+/* .previewfile-btn-div .pre-btn{margin-left:60%;}
+.previewfile-btn-div .next-btn{margin-right:60%;} */
+.previewfile-btn-div .opacity{opacity: 0.2;}
 
 </style>
