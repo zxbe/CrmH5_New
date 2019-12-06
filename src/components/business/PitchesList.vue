@@ -278,31 +278,9 @@ export default {
         },
         pageType:1,//0:pipeline
         //列表数据(分组模式为List)
-        listData:[
-        //   {
-        //   "AutoID": 443,
-        //   "TheName": "ISTAT Latin America",
-        //   "Memo": "Meetings at the ISTAT Latin America Forum",
-        //   "CurrentState": "In Progress",
-        //   "CurrentStateNew": 38,
-        //   "IsFollow": "calc-noshoucang",
-        //   "IsMeetingExist": "true",
-        //   "MeetingTitle": "ISTAT Latin America ",
-        //   "BeginTime": "2019-11-11T08:00:00"
-        // }
-        ],
+        listData:[],
         //分组数据(分组模式为非List)
-        groupData:[
-        //   {
-        //   "GroupID": 6,
-        //   "GroupName": "Component Sales - Airframe & Component Solution",
-        //   "GroupRowCount": 51
-        // }, {
-        //   "GroupID": 8,
-        //   "GroupName": "Corporate Financing & Global Banking",
-        //   "GroupRowCount": 1
-        // }
-        ],
+        groupData:[],
 
         lanSearchModuleInputPlaceHolder:lanTool.lanContent("644_商业机会"),
         searchModuleFromType:"9", //联系人:6;公司:7;会议:8;商机&交易:9; 用户管理：11；
@@ -470,6 +448,24 @@ export default {
                   _self.noData = true;
                   return ;
                 }
+
+                //增加字段
+                $.each(data, function(dataIndex, dataItem) {
+                  var meetingSysmbol =
+                    lanTool.lanContent("1000001_最新的会议") || "new";
+                  var className = "";
+
+                  if (
+                    dataItem.CurrentStateNew != null &&
+                    dataItem.CurrentStateNew != undefined &&
+                    dataItem.CurrentStateNew.toString() != "38"
+                  ) {
+                    className = "closed";
+                  }
+                  _self.$set(dataItem, "className", className);
+                  _self.$set(dataItem, "meetingSysmbol", meetingSysmbol);
+                });
+
 
                 _self.noData = false;
                 if(queryType == 'pushLoad'){

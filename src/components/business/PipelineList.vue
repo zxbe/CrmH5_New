@@ -472,6 +472,23 @@ export default {
                   return ;
                 }
 
+                //增加字段
+                $.each(data, function(dataIndex, dataItem) {
+                  var meetingSysmbol =
+                    lanTool.lanContent("1000001_最新的会议") || "new";
+                  var className = "";
+
+                  if (
+                    dataItem.CurrentStateNew != null &&
+                    dataItem.CurrentStateNew != undefined &&
+                    dataItem.CurrentStateNew.toString() != "38"
+                  ) {
+                    className = "closed";
+                  }
+                  _self.$set(dataItem, "className", className);
+                  _self.$set(dataItem, "meetingSysmbol", meetingSysmbol);
+                });
+
                 _self.noData = false;
                 if(queryType == 'pushLoad'){
                     _self.listData = _self.listData.concat(data);
