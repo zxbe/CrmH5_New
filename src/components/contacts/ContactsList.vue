@@ -214,14 +214,14 @@ export default {
             },
             {
                 queryfield: "CompanyID",
-                text: lanTool.lanContent("1025_公司"),
+                text: lanTool.lanContent("726_公司名称"),
                 fieldControlType: "textareaInput",
                 queryType: "string",
                 queryFormat: "",
                 queryRelation: "and",
                 queryValue: "",
                 queryComparison: "like",
-                datalanid: "1025_公司",
+                datalanid: "726_公司名称",
                 iconClass:'calc-gongsixinxi'
               }]
         },
