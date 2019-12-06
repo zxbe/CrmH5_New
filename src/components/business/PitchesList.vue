@@ -451,7 +451,6 @@ export default {
 
                 //增加字段
                 $.each(data, function(dataIndex, dataItem) {
-                  console.log(dataItem);
                   var meetingSysmbol =
                     lanTool.lanContent("1000001_最新的会议") || "new";
                   var className = "";
