@@ -9,7 +9,7 @@
             </div>
         </div>
 
-        <div class="block-title f14">业务</div>
+        <div class="block-title f14 lanText" data-lanid="695_业务"></div>
         <div class="block-con">
             <div class="row-div row-after">
                   <div class="column-div">
@@ -48,7 +48,7 @@
             </div>
         </div>
 
-        <div class="block-title f14">讨论</div>
+        <div class="block-title f14 lanText" data-lanid="1000547_讨论"></div>
         <div class="block-con">
             <div class="row-div">
                   <div class="column-div">
@@ -62,7 +62,7 @@
             </div>
         </div>
 
-        <div class="block-title f14">其他</div>
+        <div class="block-title f14 lanText" data-lanid="847_其他"></div>
         <div class="block-con">
             <div class="row-div">
                   <div class="column-div">

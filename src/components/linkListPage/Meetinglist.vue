@@ -330,7 +330,17 @@ export default {
                 self.checkboxValue = [];
             }
         },
+    },
+     beforeRouteLeave: function (to, from, next) {
+    if (to.name == 'index' || to.name == 'homesearch') {
+        this.$store.commit('REMOVE_ITEM', 'meetinglist');
     }
+
+    //移除body的hideOverflow样式
+    $("body").removeClass("hideOverflow");
+
+    next();
+  }
 }
 </script>
 

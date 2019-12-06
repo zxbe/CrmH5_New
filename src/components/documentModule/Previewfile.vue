@@ -115,7 +115,7 @@ export default {
         if(tool.getSystem() == 'ios') {
             $this.isShowDownloadBtn = false;
         }else{
-            $this.isShowDownloadBtn = true;
+            $this.isShowDownloadBtn = false;
         }
 
         //传入参数
