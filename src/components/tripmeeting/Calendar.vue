@@ -14,12 +14,12 @@
             <div>
                 <div v-show="showPage==0" class="pageList">
                     <!-- 增加meeting按钮 -->
-                    <div class="add-btn-div">
+                    <!-- <div class="add-btn-div">
                         <div class="add-div" @click.stop="goInfoPage(-1,$event)">
                             <span class="calcfont calc-add"></span>
                             <span class="add-text lanText" data-lanid="886_新增会议"></span>
                         </div>
-                    </div>
+                    </div> -->
                     <!-- meeting list -->
                     <div v-show="!notMeeting" id="calendarMeetingList" class="list meeting-list">
 
