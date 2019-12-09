@@ -74,7 +74,7 @@ export default {
         inputValue:'', //搜索框中的值
         maxHistoricalCount:10,//允许的最大的历史查询记录数
 
-        isGetDropListByAutoValDone:false,//模糊查询下拉框值的动作是否执行完毕
+        isGetDropListByAutoValDone:true,//模糊查询下拉框值的动作是否执行完毕
         //查询结果
         resultData:[
             //{AutoID:15, Name:'test'}
@@ -171,6 +171,8 @@ export default {
         //判断上一次查询是否执行完毕
         if(_self.isGetDropListByAutoValDone){
             _self.isGetDropListByAutoValDone = false;
+        }else{
+          return;
         }
 
         //3>执行查询动作
