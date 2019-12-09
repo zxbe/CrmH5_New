@@ -199,8 +199,8 @@ export default {
 
         lanTool.updateLanVersion();
 
-        //引导页
-        _self.queryFunGuid(false);
+        //引导页 Todo 20191209 暂时取消功能引导页
+        // _self.queryFunGuid(false);
 
         // _self.recentDate();
         //侧滑
