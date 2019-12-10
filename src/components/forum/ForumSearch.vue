@@ -176,7 +176,6 @@ export default {
         // tool.setCursorPosition($inputObj[0],($inputObj[0].value||"").length,function(){
         //     _self.$refs.searchInput.$refs.triggerBtn.click();
         // });
-
         //返回来如果是列表的就不变
         if(!tool.isNullOrEmptyObject(_self.listData)){
             return false;
@@ -393,6 +392,9 @@ export default {
             _self.listData = [];
             //隐藏列表
             _self.showList = false;
+            //重新获取一次搜索历史数据
+            _self.getHistoricalSearchRecord();
+
             // _self.ModuleDsiplayAction(false);
         },
         //点击历史查询记录，查询匹配数据
