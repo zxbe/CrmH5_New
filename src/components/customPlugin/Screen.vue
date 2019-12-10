@@ -814,6 +814,8 @@ export default {
         //4>重置queryCondictionArr(清空控件值)
         //4-1>移除selectlist等控件的监听事件(避免重置字段值，重复触发查询动作)
         _self.bindFieldChangeEvent(true);
+        //移除selectlist等控件的分割线的显色显示
+        $(".DetailRow").removeClass("DeepColor");
         //4-2>清空查询对象
         _self.$set(_self.queryObj,"queryCondictionArr",[]);
         //4-3>清空字段控件值
