@@ -134,18 +134,18 @@ export default {
     return{
         sortData:[{
             sortName:"EnglishName",
-            sortText:lanTool.lanContent("1000528_按联系人名称正序排序"),
+            sortText:lanTool.lanContent("1000528_按联系人名称排序"),
             sortOrder:'',
             sort:10,
             isActive:true
           },{
             sortName:"CompanyID",
-            sortText:lanTool.lanContent("1000518_按公司名称按正序排序"),
+            sortText:lanTool.lanContent("1000518_按公司名称按排序"),
             sortOrder:'',
             sort:30
           },{
             sortName:"BusinessType",
-            sortText:lanTool.lanContent("1000520_按业务分类正序排序"),
+            sortText:lanTool.lanContent("1000520_按业务分类排序"),
             sortOrder:'',
             sort:50
           }],

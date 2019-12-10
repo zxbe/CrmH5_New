@@ -172,7 +172,7 @@ export default {
         //排序模型
         sortData:[{
             sortName:"MeetingTitle",
-            sortText:lanTool.lanContent("1000533_按会议名称按正序排序"),
+            sortText:lanTool.lanContent("1000533_按会议名称按排序"),
             sortOrder:'',
             sort:10,
             isActive:true
@@ -185,7 +185,7 @@ export default {
           // },
           {
             sortName:"CompanyID",
-            sortText:lanTool.lanContent("1000518_按公司名称按正序排序"),
+            sortText:lanTool.lanContent("1000518_按公司名称按排序"),
             sortOrder:'',
             sort:30
           },
@@ -197,7 +197,7 @@ export default {
           // },
           {
             sortName:"ContactsID",
-            sortText:lanTool.lanContent("1000528_按联系人名称正序排序"),
+            sortText:lanTool.lanContent("1000528_按联系人名称排序"),
             sortOrder:'',
             sort:50
           },

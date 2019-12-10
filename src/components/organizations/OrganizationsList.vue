@@ -127,19 +127,19 @@ export default {
         //排序模型
         sortData:[{
             sortName:"ShortName",
-            sortText:lanTool.lanContent("1000518_按公司名称按正序排序"),
+            sortText:lanTool.lanContent("1000518_按公司名称按排序"),
             sortOrder:'',
             sort:10,
             isActive:true
           },
           {
             sortName:"BusinessType",
-            sortText:lanTool.lanContent("1000520_按业务分类正序排序"),
+            sortText:lanTool.lanContent("1000520_按业务分类排序"),
             sortOrder:'',
             sort:30
           },{
             sortName:"CountryName",
-            sortText:lanTool.lanContent("1000522_按国家正序排序"),
+            sortText:lanTool.lanContent("1000522_按国家排序"),
             sortOrder:'',
             sort:50
           }],

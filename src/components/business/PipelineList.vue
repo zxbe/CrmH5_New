@@ -133,14 +133,14 @@ export default {
         //排序模型
         sortData:[{
             sortName:"AddTime",
-            sortText:lanTool.lanContent("1000536_按创建时间正序排序"),
+            sortText:lanTool.lanContent("1000536_按创建时间排序"),
             sortOrder:'',
             sort:10,
             isActive:true
           },
           {
             sortName:"TheName",
-            sortText:lanTool.lanContent("1000538_按标题正序排序"),
+            sortText:lanTool.lanContent("1000538_按标题排序"),
             sortOrder:'',
             sort:30
           }],

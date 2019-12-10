@@ -122,20 +122,20 @@ export default {
       sortData: [
         {
           sortName: "Realname",
-          sortText: lanTool.lanContent("1000540_按用户名正序排序"),
+          sortText: lanTool.lanContent("1000540_按用户名排序"),
           sortOrder: "",
           sort: 10,
           isActive: true
         },
         {
           sortName: "DepartmentID",
-          sortText: lanTool.lanContent("1000542_按部门正序排序"),
+          sortText: lanTool.lanContent("1000542_按部门排序"),
           sortOrder: "",
           sort: 30
         },
         {
           sortName: "Email",
-          sortText: lanTool.lanContent("1000544_按邮件正序排序"),
+          sortText: lanTool.lanContent("1000544_按邮件排序"),
           sortOrder: "",
           sort: 50
         }
