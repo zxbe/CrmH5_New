@@ -161,7 +161,7 @@ export default {
                       isActive:true
                     },{
                       id:"MyFollowData",
-                      text:lanTool.lanContent("796_关注的公司"),
+                      text:lanTool.lanContent("1000550_我关注的"),
                       sort:20,
                       //isActive:true
                     }

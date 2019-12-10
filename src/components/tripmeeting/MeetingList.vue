@@ -235,11 +235,11 @@ export default {
                       isActive:true
                     },{
                       id:"myData",
-                      text:lanTool.lanContent("930_我的日程"),
+                      text:lanTool.lanContent("1149_我的会议"),
                       sort:20
                     },{
                       id:"otherData",
-                      text:lanTool.lanContent("942_其他同事的日程"),
+                      text:lanTool.lanContent("1000549_我的团队会议"),
                       sort:30
                     }
                 ]
