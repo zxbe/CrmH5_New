@@ -4,10 +4,17 @@
         <div class="sort-left">
           <div class="sort-t" @click="dropDownToggle">
             <span class="sort-text">{{ activeSortItemText }}</span>
-            <i
-              class="calcfont calc-sanjiaoxing sort-sjx f12"
-              :class="sortSjxClass"
-            ></i>
+            <div class="sort-div">
+                <i
+                  :class="{'sort-gon':sortOrder=='asc'? true : false}"
+                  class="calcfont calc-singleAsc f14"
+                ></i>
+                <i
+                  :class="{'sort-gon':sortOrder=='desc'? true : false}"
+                  class="calcfont calc-singleDesc f14"
+                ></i>
+            </div>
+
           </div>
         </div>
         <div class="sort-right" @click="showRightPanel">
@@ -30,10 +37,22 @@
         >
           {{ item.sortText }}
         </div>
+
+        <div class="sort-div" v-if="index == highlightIndex">
+            <i
+              :class="{'sort-gon':sortOrder=='asc'? true : false}"
+              class="calcfont calc-singleAsc f14"
+            ></i>
+            <i
+              :class="{'sort-gon':sortOrder=='desc'? true : false}"
+              class="calcfont calc-singleDesc f14"
+            ></i>
+        </div>
         <i
           v-if="highlightIndex == index"
           class="calcfont calc-chenggong gou-icon f14"
         ></i>
+
       </div>
     </div>
   </div>
@@ -61,7 +80,8 @@ export default {
       showDropDown: false, //是否显示了下拉模块
       sortSjxClass: "calc-sanjiaoxing", //三角形类名：calc-sanjiaoxing：向下；calc-sanjiaoxingshang：向上
       highlightIndex: -1, //高亮项目索引，默认不选中
-      activeSortItemText: ""
+      activeSortItemText: "",
+      sortOrder:""  //排序方式：asc,desc
     };
   },
   created: function() {
@@ -106,6 +126,7 @@ export default {
     //isTriggerDropDownToggle:是否触发dropDownToggle事件,默认为true
     //isExeQueryisExeQuery:是否执行查询,默认执行
     tapItem: function(data, index, isTriggerDropDownToggle,isExeQuery) {
+      console.log("index:"+index);
       let _self = this;
 
       isTriggerDropDownToggle =
@@ -120,8 +141,24 @@ export default {
       if (tool.isNullOrEmptyObject(data) || tool.isNullOrEmptyObject(index)) {
         return;
       }
+      // console.log(data);
+      // console.log(index);
       _self.highlightIndex = index;
       _self.activeSortItemText = data.sortText || "";
+      //若排序为空则第一次排序给升序
+      if(data.sortOrder == 'asc'){
+          _self.sortOrder = 'desc'
+      }else{
+          _self.sortOrder = 'asc'
+      }
+
+      for(let i=0;i<_self.sortData.length; i++ ){
+          if(i == index){
+              _self.$set(_self.sortData[i], "sortOrder", _self.sortOrder || "");
+          }else{
+              _self.$set(_self.sortData[i], "sortOrder", "");
+          }
+      }
 
       if (isTriggerDropDownToggle) {
         _self.dropDownToggle();
@@ -129,7 +166,7 @@ export default {
 
       //设置父组件的属性(sortName和sortOrder是固定名称，每个列表页面都必须有)
       _self.$set(_self.sortObj, "sortName", data.sortName || "");
-      _self.$set(_self.sortObj, "sortOrder", data.sortOrder || "");
+      _self.$set(_self.sortObj, "sortOrder", _self.sortOrder || "");
       // console.log("子组件sortName:"+_self.sortObj.sortName);
       // console.log("子组件sortOrder:"+_self.sortObj.sortOrder);
 
@@ -210,9 +247,11 @@ box-shadow: 0px -5px 3px -5px #989898 inset;}
   align-items: center;
   padding:5px 0;
 }
+.sort-div{color:#ccc;flex: 1;}
 .sort-text,
 .sort-sjx,
-.gou-icon {
+.sort-gon,
+.gou-icon{
   color: #ff9900;
 }
 .sort-right{padding:5px 0;}
@@ -233,7 +272,7 @@ box-shadow: 0px -5px 3px -5px #989898 inset;}
   padding: 0 10px 0 15px;
 }
 .item-text {
-  flex: 1;
+  /* flex: 1; */
 }
 .item-text.active {
   color: #ff9900;

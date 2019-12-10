@@ -134,25 +134,15 @@ export default {
         sortData:[{
             sortName:"AddTime",
             sortText:lanTool.lanContent("1000536_按创建时间正序排序"),
-            sortOrder:'asc',
-            sort:10
-          },{
-            sortName:"AddTime",
-            sortText:lanTool.lanContent("1000537_按创建时间倒序排序"),
-            sortOrder:'desc',
-            sort:20,
+            sortOrder:'',
+            sort:10,
             isActive:true
           },
           {
             sortName:"TheName",
             sortText:lanTool.lanContent("1000538_按标题正序排序"),
-            sortOrder:'asc',
+            sortOrder:'',
             sort:30
-          },{
-            sortName:"TheName",
-            sortText:lanTool.lanContent("1000539_按标题倒序排序"),
-            sortOrder:'desc',
-            sort:40
           }],
         //右侧侧滑数据模型
         RightPanelModel:{

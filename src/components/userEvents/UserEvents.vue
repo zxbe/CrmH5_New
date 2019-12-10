@@ -123,39 +123,21 @@ export default {
         {
           sortName: "Realname",
           sortText: lanTool.lanContent("1000540_按用户名正序排序"),
-          sortOrder: "asc",
+          sortOrder: "",
           sort: 10,
           isActive: true
         },
         {
-          sortName: "Realname",
-          sortText: lanTool.lanContent("1000541_按用户名倒序排序"),
-          sortOrder: "desc",
-          sort: 20
-        },
-        {
           sortName: "DepartmentID",
           sortText: lanTool.lanContent("1000542_按部门正序排序"),
-          sortOrder: "asc",
+          sortOrder: "",
           sort: 30
-        },
-        {
-          sortName: "DepartmentID",
-          sortText: lanTool.lanContent("1000543_按部门倒序排序"),
-          sortOrder: "desc",
-          sort: 40
         },
         {
           sortName: "Email",
           sortText: lanTool.lanContent("1000544_按邮件正序排序"),
-          sortOrder: "asc",
+          sortOrder: "",
           sort: 50
-        },
-        {
-          sortName: "Email",
-          sortText: lanTool.lanContent("1000545_按邮箱倒序排序"),
-          sortOrder: "desc",
-          sort: 60
         }
       ],
       //右侧侧滑数据模型

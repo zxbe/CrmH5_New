@@ -173,10 +173,9 @@ export default {
         sortData:[{
             sortName:"MeetingTitle",
             sortText:lanTool.lanContent("1000533_按会议名称按正序排序"),
-            sortOrder:'asc',
+            sortOrder:'',
             sort:10,
             isActive:true
-            // isActive:true
           },
           // {
           //   sortName:"MeetingTitle",
