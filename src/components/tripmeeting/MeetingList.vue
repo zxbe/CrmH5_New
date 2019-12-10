@@ -176,37 +176,39 @@ export default {
             sortOrder:'asc',
             sort:10,
             isActive:true
+            // isActive:true
           },
-          {
-            sortName:"MeetingTitle",
-            sortText:lanTool.lanContent("1000534_按会议名称倒序排序"),
-            sortOrder:'desc',
-            sort:20
-          },
+          // {
+          //   sortName:"MeetingTitle",
+          //   sortText:lanTool.lanContent("1000534_按会议名称倒序排序"),
+          //   sortOrder:'desc',
+          //   sort:20
+          // },
           {
             sortName:"CompanyID",
             sortText:lanTool.lanContent("1000518_按公司名称按正序排序"),
-            sortOrder:'asc',
+            sortOrder:'',
             sort:30
           },
-          {
-            sortName:"CompanyID",
-            sortText:lanTool.lanContent("1000519_按公司名称倒序排序"),
-            sortOrder:'desc',
-            sort:40
-          },
+          // {
+          //   sortName:"CompanyID",
+          //   sortText:lanTool.lanContent("1000519_按公司名称倒序排序"),
+          //   sortOrder:'desc',
+          //   sort:40
+          // },
           {
             sortName:"ContactsID",
             sortText:lanTool.lanContent("1000528_按联系人名称正序排序"),
-            sortOrder:'asc',
+            sortOrder:'',
             sort:50
           },
-          {
-            sortName:"ContactsID",
-            sortText:lanTool.lanContent("1000529_按联系人名称倒序排序"),
-            sortOrder:'desc',
-            sort:60
-        }],
+        //   {
+        //     sortName:"ContactsID",
+        //     sortText:lanTool.lanContent("1000529_按联系人名称倒序排序"),
+        //     sortOrder:'desc',
+        //     sort:60
+        // }
+        ],
         //右侧侧滑数据模型
         RightPanelModel:{
             "ViewModel":{
