@@ -65,7 +65,7 @@
         <div class="block-title f14 lanText" data-lanid="847_其他"></div>
         <div class="block-con">
             <div class="row-div">
-                  <div class="column-div">
+                  <div class="column-div" style="display:none">
                       <router-link to="/userEvents" class="router-target">
                           <i class="calcfont calc-yonghuqun" style="color:#1296db;"></i>
                           <div class="f14 lanText" data-lanid="1134_用户活动"></div>
@@ -77,6 +77,7 @@
                           <div class="f14 lanText" data-lanid="1079_商业智能库"></div>
                       </router-link>
                   </div>
+                  <div class="column-div no-line"></div>
                   <div class="column-div no-line"></div>
             </div>
         </div>
