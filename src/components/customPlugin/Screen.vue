@@ -82,7 +82,7 @@
                               <div class="item-div fl"
                                   v-for="(o,i) in item.option"
                                   :key="i"
-                                  :class="{'hidden': i >= 6 ? true : false}"
+                                  :class="{'hidden': i > 6 ? true : false}"
                                   @click="choose($event)"
                                   :data-id="o.id"
                                   ><span>{{o.text}}</span><i class="calcfont calc-guanbi1 delect-icon"></i></div>
