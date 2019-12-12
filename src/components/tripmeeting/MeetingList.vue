@@ -170,12 +170,19 @@ export default {
   data(){
     return{
         //排序模型
-        sortData:[{
-            sortName:"MeetingTitle",
-            sortText:lanTool.lanContent("1000533_按会议名称按排序"),
-            sortOrder:'',
+        sortData:[
+          {
+            sortName:"BeginTime",
+            sortText:lanTool.lanContent("1000551_按会议时间排序"),
+            sortOrder:'desc',
             sort:10,
             isActive:true
+          },
+          {
+            sortName:"MeetingTitle",
+            sortText:lanTool.lanContent("1000533_按会议名称排序"),
+            sortOrder:'',
+            sort:20
           },
           // {
           //   sortName:"MeetingTitle",
@@ -185,7 +192,7 @@ export default {
           // },
           {
             sortName:"CompanyID",
-            sortText:lanTool.lanContent("1000518_按公司名称按排序"),
+            sortText:lanTool.lanContent("1000518_按公司名称排序"),
             sortOrder:'',
             sort:30
           },
@@ -207,6 +214,7 @@ export default {
         //     sortOrder:'desc',
         //     sort:60
         // }
+        
         ],
         //右侧侧滑数据模型
         RightPanelModel:{

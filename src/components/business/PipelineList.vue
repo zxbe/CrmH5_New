@@ -134,7 +134,7 @@ export default {
         sortData:[{
             sortName:"AddTime",
             sortText:lanTool.lanContent("1000536_按创建时间排序"),
-            sortOrder:'',
+            sortOrder:'desc',
             sort:10,
             isActive:true
           },

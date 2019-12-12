@@ -125,12 +125,19 @@ export default {
     return{
         pageState: 1, //页面显示状态：1为显示列表；2为显示搜索
         //排序模型
-        sortData:[{
-            sortName:"ShortName",
-            sortText:lanTool.lanContent("1000518_按公司名称按排序"),
-            sortOrder:'',
-            sort:10,
+        sortData:[
+          {
+            sortName:"AddTime",
+            sortText:lanTool.lanContent("1000536_按创建时间排序"),
+            sortOrder:'desc',
+            sort:5,
             isActive:true
+          },
+          {
+            sortName:"ShortName",
+            sortText:lanTool.lanContent("1000518_按公司名称排序"),
+            sortOrder:'',
+            sort:10
           },
           {
             sortName:"BusinessType",

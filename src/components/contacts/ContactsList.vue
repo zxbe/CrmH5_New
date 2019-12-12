@@ -133,11 +133,16 @@ export default {
   data(){
     return{
         sortData:[{
+            sortName:"AddTime",
+            sortText:lanTool.lanContent("1000536_按创建时间排序"),
+            sortOrder:'desc',
+            sort:5,
+            isActive:true
+          },{
             sortName:"EnglishName",
             sortText:lanTool.lanContent("1000528_按联系人名称排序"),
             sortOrder:'',
-            sort:10,
-            isActive:true
+            sort:10
           },{
             sortName:"CompanyID",
             sortText:lanTool.lanContent("1000518_按公司名称按排序"),
