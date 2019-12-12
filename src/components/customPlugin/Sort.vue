@@ -125,8 +125,9 @@ export default {
     //点击排序
     //isTriggerDropDownToggle:是否触发dropDownToggle事件,默认为true
     //isExeQueryisExeQuery:是否执行查询,默认执行
-    tapItem: function(data, index, isTriggerDropDownToggle,isExeQuery) {
-      console.log("index:"+index);
+    //isChangeOrder:是否要改变sortOrder的值,比如：页面默认按照创建时间的倒序排序，只需要当前函数将desc传入即可，不需要改变sortOrder的值
+    tapItem: function(data, index, isTriggerDropDownToggle,isExeQuery,isChangeOrder) {
+      //console.log("index:"+index);
       let _self = this;
 
       isTriggerDropDownToggle =
@@ -138,6 +139,10 @@ export default {
           ? true
           : isExeQuery;
 
+        isChangeOrder = (isChangeOrder == null || isChangeOrder == undefined)
+          ? true
+          : isChangeOrder;
+
       if (tool.isNullOrEmptyObject(data) || tool.isNullOrEmptyObject(index)) {
         return;
       }
@@ -146,10 +151,14 @@ export default {
       _self.highlightIndex = index;
       _self.activeSortItemText = data.sortText || "";
       //若排序为空则第一次排序给升序
-      if(data.sortOrder == 'asc'){
+      if(isChangeOrder){
+        if(data.sortOrder == 'asc'){
           _self.sortOrder = 'desc'
+        }else{
+            _self.sortOrder = 'asc'
+        }
       }else{
-          _self.sortOrder = 'asc'
+        _self.sortOrder = data.sortOrder;
       }
 
       for(let i=0;i<_self.sortData.length; i++ ){
@@ -210,7 +219,7 @@ export default {
         }
       }
 
-      _self.tapItem(_self.sortData[indexTemp], indexTemp, false,isExeQuery);
+      _self.tapItem(_self.sortData[indexTemp], indexTemp, false,isExeQuery,false);
     },
     //显示筛选
     showRightPanel: function() {
