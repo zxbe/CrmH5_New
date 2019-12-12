@@ -196,8 +196,8 @@ export default {
                 queryRelation: "and",
                 queryValue: "",
                 queryComparison: "=",
-                Code: "DropDowList_ViewBaseAllTypes",
-                TypeValue: "Companybusinesstype",
+                Code: "DropDowList_BusinessType",
+                TypeValue: "contact",
                 datalanid: "1007_业务分类",
                 option:[],
                 more:true  //picker中是否提供显示更多功能
