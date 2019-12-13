@@ -44,7 +44,7 @@
                         <div class="f14 lanText" data-lanid="817_交易"></div>
                     </div>
                 </div>
-                <div class="column-div">
+                <div class="column-div" style="visibility: hidden;">
                     <div class="module-item item6" data-id="11"  @click="switchModule($event)">
                         <i class="calcfont calc-yonghuqun"></i>
                         <div class="f14 lanText" data-lanid="1134_用户活动"></div>
