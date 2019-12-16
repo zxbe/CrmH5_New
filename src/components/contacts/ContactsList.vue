@@ -41,8 +41,8 @@
                                 <div class="left-text max60" v-show="(item.Email =='' || item.Email == null) ? false : true">
                                     <i class="calcfont icon calc-mailbox"></i><span>{{item.Email}}</span>
                                 </div>
-                                <div class="right-text max35" v-show="(item.TelPhone =='' || item.TelPhone == null) ? false : true">
-                                    <i class="calcfont icon calc-mobilephone"></i><span>{{item.TelPhone}}</span>
+                                <div class="right-text max35" v-show="(item.Phone =='' || item.Phone == null) ? false : true">
+                                    <i class="calcfont icon calc-mobilephone"></i><span>{{item.Phone}}</span>
                                 </div>
                             </div>
 
@@ -92,8 +92,8 @@
                                             <div class="left-text max60" v-show="(company.Email =='' || company.Email == null) ? false : true">
                                                 <i class="calcfont icon calc-mailbox"></i><span>{{company.Email}}</span>
                                             </div>
-                                            <div class="right-text max35" v-show="(company.TelPhone =='' || company.TelPhone == null) ? false : true">
-                                                <i class="calcfont icon calc-mobilephone"></i><span>{{company.TelPhone}}</span>
+                                            <div class="right-text max35" v-show="(company.Phone =='' || company.Phone == null) ? false : true">
+                                                <i class="calcfont icon calc-mobilephone"></i><span>{{company.Phone}}</span>
                                             </div>
                                         </div>
 
