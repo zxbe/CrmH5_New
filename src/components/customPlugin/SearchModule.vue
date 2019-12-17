@@ -198,6 +198,9 @@ export default {
             url: urlTemp,
             data: jsonDatasTemp,
             success: function (data) {
+                console.log("ajax查询值:"+autoValue);
+                console.log("input的查询值:"+_self.$refs.searchInput.searchValue);
+
                 //tool.hideLoading(loadingIndexClassName);
                 data = tool.jObject(data);
                 //console.log(data);
@@ -213,10 +216,20 @@ export default {
                 if(!tool.isNullOrEmptyObject(callback) && typeof(callback) == "function"){
                     callback(_self.resultData);
                 }
+
+                //设置查询完成
+                _self.isGetDropListByAutoValDone = true;
+
+                //若ajax查询的值和input的值不是同一个，则再执行一次查询
+                if(autoValue != _self.$refs.searchInput.searchValue){
+                    _self.getDropListByAutoVal(_self.$refs.searchInput.searchValue);
+                }
             },
             error: function (jqXHR, type, error) {
                 //tool.hideLoading(loadingIndexClassName);
                 console.log(error);
+                //设置查询完成
+                _self.isGetDropListByAutoValDone = true;
                 return true;
             },
             complete: function () {
@@ -231,7 +244,7 @@ export default {
                 //end del
 
                 //设置查询完成
-                _self.isGetDropListByAutoValDone = true;
+                //_self.isGetDropListByAutoValDone = true;
             }
         });
     },
