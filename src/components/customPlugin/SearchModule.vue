@@ -198,8 +198,8 @@ export default {
             url: urlTemp,
             data: jsonDatasTemp,
             success: function (data) {
-                console.log("ajax查询值:"+autoValue);
-                console.log("input的查询值:"+_self.$refs.searchInput.searchValue);
+                // console.log("ajax查询值:"+autoValue);
+                // console.log("input的查询值:"+_self.$refs.searchInput.searchValue);
 
                 //tool.hideLoading(loadingIndexClassName);
                 data = tool.jObject(data);
