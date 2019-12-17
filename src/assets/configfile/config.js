@@ -81,7 +81,7 @@ let json = {
 	"currentLanguageVersion":"",
 	"refreshSessionTime":1200000,
 	"ADBAjaxUrl":"http://197.7.50.186:777/ADB",
-	"ADBAppID":114,
+	"ADBAppID":106,
 	"ADBApi_AirlineDatabase_IsCurrentUserHasAccess":"/AirlineDatabase/IsCurrentUserHasAccess",
 	"ADBApi_AirlineDatabase_Query_InfoDetailByTab":"/AirlineDatabase/Query_InfoDetailByTab",
 	"ADBApi_AirlineDatabase_Query_ListByTab":"/AirlineDatabase/Query_ListByTab",
