@@ -2410,6 +2410,12 @@ import config from "../../configfile/config.js";
     $("[data-fieldControlType='dateTimePicker']")
       .val("")
       .trigger("change");
+
+    //收起自定义查询时间后，清除开始日期和结束日期的值
+    $("[data-fieldcontroltype='dateRange'] .time-range-customize-div").slideUp(400);
+    $("[data-fieldcontroltype='dateRange'] .time-range-customize-div").find(".startdate,.enddate").val("");
+    $("[data-fieldcontroltype='dateRange'] .item-div").removeClass("active");
+
     $("[data-fieldControlType='selectList']")
       .text("")
       .attr("data-fieldVal", "")
