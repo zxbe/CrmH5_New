@@ -810,9 +810,14 @@ export default {
         }else{
             _self.setDeaultItemActive(".viewMode");
         }
-
-        //4>重置queryCondictionArr(清空控件值)
-        //4-1>移除selectlist等控件的监听事件(避免重置字段值，重复触发查询动作)
+        //4>重置Date Range
+       $('.time-range-customize-div').slideUp(400);
+        //收起自定义查询时间后，清除开始日期和结束日期的值
+       $('.time-range-customize-div').find(".startdate,.enddate").val("");
+       $(".fieldModel .item-div").removeClass("active");
+       
+        //5>重置queryCondictionArr(清空控件值)
+        //5-1>移除selectlist等控件的监听事件(避免重置字段值，重复触发查询动作)
         _self.bindFieldChangeEvent(true);
         //移除selectlist等控件的分割线的显色显示
         $(".DetailRow").removeClass("DeepColor");
