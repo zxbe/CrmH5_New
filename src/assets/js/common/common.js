@@ -3999,7 +3999,49 @@ import config from "../../configfile/config.js";
       } else if(dateRangeType == "all") {
         value = tool.ConstructDateRangeVal(0, 0);
       } else if(dateRangeType == "customize") {
-          return true;
+          //判断开始时间和结束时间是否都有填写
+          var startdateTemp = _curObj.find(".startdate").val();
+          var enddateTemp = _curObj.find(".enddate").val();
+          if(tool.isNullOrEmptyObject(startdateTemp) || tool.isNullOrEmptyObject(enddateTemp)){
+            return true;
+          }
+          try{
+              //1>将时间格式转成通用格式
+              var oldFormat = "dd/MM/yyyy";
+              var newFormat = "yyyy/MM/dd";
+              startdateTemp = tool.ChangeTimeFormat(startdateTemp,newFormat,oldFormat);
+              enddateTemp = tool.ChangeTimeFormat(enddateTemp,newFormat,oldFormat);
+
+              var d1 = new Date(startdateTemp);
+              var d2 = new Date(enddateTemp);
+
+              //开始日期或者结束日期其中一个为空，一个不为空
+              var errorMsg = "";
+              if (tool.isNullOrEmptyObject(startdateTemp) || tool.isNullOrEmptyObject(enddateTemp)) {
+                  errorMsg = lanTool.lanContent("935_开始日期或者结束日期不能为空") || "";
+              } else if (d1 > d2) {
+                  errorMsg = lanTool.lanContent("934_开始日期不能大于或等于结束日期") || "";
+              }
+              if(!tool.isNullOrEmptyObject(errorMsg)){
+                  tool.alert(errorMsg);
+                  return true;
+              }
+
+              //2>转成字段需要的时间格式
+              var fieldFormat = _curObj.attr("data-queryformat") || oldFormat;
+              fieldFormat = fieldFormat.split(" ")[0]||"dd/MM/yyyy";
+              startdateTemp = tool.ChangeTimeFormat(startdateTemp,fieldFormat,newFormat);
+              enddateTemp = tool.ChangeTimeFormat(enddateTemp,fieldFormat,newFormat);
+
+              startdateTemp = startdateTemp + " 00:00:00";
+              enddateTemp = enddateTemp + " 23:59:59";
+              value = startdateTemp + "," + enddateTemp;
+              //console.log(value);
+          } catch (err) {
+            console.log(err);
+            return true;
+          }
+          //return true;
       } else {
           return true;
       }
