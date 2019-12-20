@@ -241,7 +241,7 @@ export default {
             pageType: 1, //0:Organizations;1:Contacts
             listData: [], //列表模式数据
             groupData: [], //分组模式数据
-            lanSearchModuleInputPlaceHolder: lanTool.lanContent("729_联系人名称"),
+            lanSearchModuleInputPlaceHolder: lanTool.lanContent("1000555_姓名/公司/邮箱/移动电话"),
             searchModuleFromType: "6" //联系人:6;公司:7;会议:8;商机&交易:9; 用户管理：11；
         }
     },
@@ -293,35 +293,71 @@ export default {
         clickOppCamcardApp() {
             let _self = this;
             _self.addDropDownToggle();
-            //名片全能王的URL Scheme
-            //这个是安卓操作系统
-            if (tool.getSystem() === 'android') {
-                //安卓app的scheme协议 
-                window.location.href = "camcardbiz://";
-                // setTimeout(function () {
-                //     let hidden = window.document.hidden || window.document.mozHidden || window.document.msHidden || window.document.webkitHidden
-                //     if (typeof hidden == "undefined" || hidden == false) {
-                //         //应用宝下载地址
-                //         window.location.href = "https://b.camcard.com/site/download";
-                //     }
-                // }, 1000);
-            }
-            //这个是ios操作系统
-            if (tool.getSystem() == 'ios') {
-                //ios的scheme协议
-                window.location.href = "camcardbiz://";
-                setTimeout(function () {
-                    let hidden = window.document.hidden || window.document.mozHidden || window.document.msHidden || window.document.webkitHidden
-                    if (typeof hidden == "undefined" || hidden == false) {
-                        //App store下载地址
-                        // window.location.href =
-                        // "https://itunes.apple.com/us/app/zhe-jiang-yi-dong-shou-ji/id914507252";
+
+            if(tool.getSystem() === 'android'){
+                var timeout, t = 4000, hasApp = true;  
+                var openScript = setTimeout(function () {  
+                    if (!hasApp) {
                         window.location.href =
                             "https://b.camcard.com/site/download";
                     }
-                }, 20);
-                return false;
+                    document.body.removeChild(ifr);  
+                }, 5000)  
+                
+                var t1 = Date.now();  
+                var ifr = document.createElement("iframe");  
+                ifr.setAttribute('src', "camcardbiz://");  
+                ifr.setAttribute('style', 'display:none');  
+                document.body.appendChild(ifr);  
+
+                timeout = setTimeout(function () { 
+                    var t2 = Date.now();  
+                    if (t2 - t1 < t + 100) {  
+                        hasApp = false;
+                    }
+                }, t);
             }
+
+            if(tool.getSystem() == 'ios'){
+                window.location.href = "camcardbiz://";
+                setTimeout(function() {   
+                    window.location.href =
+                            "https://b.camcard.com/site/download";
+                }, 250);
+                setTimeout(function() {
+                    window.location.reload();
+                }, 1000);
+            }  
+
+            //名片全能王的URL Scheme：camcardbiz
+            //这个是安卓操作系统
+            // if (tool.getSystem() === 'android') {
+                //安卓app的scheme协议 
+                // window.location.href = "camcardbiz://";
+                // setTimeout(function () {
+                //     let hidden = window.document.hidden || window.document.mozHidden || window.document.msHidden || window.document.webkitHidden
+                //     if (typeof hidden == "undefined" || hidden == false) {
+                //         //下载地址
+                //         window.location.href = "https://b.camcard.com/site/download";
+                //     }
+                // }, 1000);
+            // }
+            //这个是ios操作系统
+            // if (tool.getSystem() == 'ios') {
+            //     //ios的scheme协议
+            //     window.location.href = "camcardbiz://";
+            //     setTimeout(function () {
+            //         let hidden = window.document.hidden || window.document.mozHidden || window.document.msHidden || window.document.webkitHidden
+            //         if (typeof hidden == "undefined" || hidden == false) {
+            //             //App store下载地址
+            //             // window.location.href =
+            //             // "https://itunes.apple.com/us/app/zhe-jiang-yi-dong-shou-ji/id914507252";
+            //             window.location.href =
+            //                 "https://b.camcard.com/site/download";
+            //         }
+            //     }, 20);
+            //     return false;
+            // }
         },
         //遮盖层点击事件
         clickSelectListMask() {

@@ -250,7 +250,7 @@ export default {
         listData:[],
         //分组数据(分组模式为非List)
         groupData:[],
-        lanSearchModuleInputPlaceHolder:lanTool.lanContent("726_公司名称"),
+        lanSearchModuleInputPlaceHolder:lanTool.lanContent("1000556_名称/业务分类/国家/城市"),
         searchModuleFromType:"7" //联系人:6;公司:7;会议:8;商机&交易:9; 用户管理：11；
     }
   },

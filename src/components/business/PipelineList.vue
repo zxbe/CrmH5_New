@@ -294,7 +294,7 @@ export default {
         // }
         ],
 
-        lanSearchModuleInputPlaceHolder:lanTool.lanContent("817_交易"),
+        lanSearchModuleInputPlaceHolder:lanTool.lanContent("1000557_标题/LOI单号"),
         searchModuleFromType:"9", //联系人:6;公司:7;会议:8;商机&交易:9; 用户管理：11；
         businessType:"29", //商机=>30;交易=>29
         showPage:"0"//记录列表页是从哪个模块进来的 0：交易；1：商业机会

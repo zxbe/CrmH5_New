@@ -272,7 +272,7 @@ export default {
         //分组数据(分组模式为非List)
         groupData:[],
 
-        lanSearchModuleInputPlaceHolder:lanTool.lanContent("644_商业机会"),
+        lanSearchModuleInputPlaceHolder:lanTool.lanContent("1000554_标题/公司/联系人"),
         searchModuleFromType:"9", //联系人:6;公司:7;会议:8;商机&交易:9; 用户管理：11；
         businessType:"30", //商机=>30;交易=>29
         showPage:"1"//记录列表页是从哪个模块进来的 0：交易；1：商业机会
