@@ -25,7 +25,7 @@
                     <div v-for="item in listData" :key="item.AutoID" @click="goInfo(item)" class="group-item data-events-item f14">
                         <div class="item-user-icon"><img src="../../assets/images/default_user_img.png" alt=""></div>
                         <div class="item-block contacts-item-block">
-                            <div class="item-div item-first-div" @click.stop="showPopup"><span>{{item.EnglishName}}</span></div>
+                            <div class="item-div item-first-div"><span>{{item.EnglishName}}</span></div>
                             <div class="item-div" style="padding-top:5px;">
                                 <i :class="[(item.Title =='' || item.Title == null) ? '' : 'calc-zhiwei']" class="calcfont icon"></i><span>{{item.Title}}</span>
                             </div>
@@ -50,8 +50,8 @@
                             <div v-if="item.isHasAccess=='false' && item.InitiatorArr.length > 0 ">
                                 <div class="item-div responsible-by" v-for="(i,index) in item.InitiatorArr">
                                     <i class="calcfont calc-fuzerenicon icon"></i>
-                                    <span class="">{{i.Realname}}</span>
-                                    <i class="calcfont calc-xinxi4 info-icon"></i>
+                                    <span @click.stop="showPopup(i)" class="">{{i.Realname}}</span>
+                                    <i @click.stop="showPopup(i)" class="calcfont calc-xinxi4 info-icon"></i>
                                 </div>
                             </div>
 
@@ -258,6 +258,7 @@ export default {
             lanSearchModuleInputPlaceHolder: lanTool.lanContent("1000555_姓名/公司/邮箱/移动电话"),
             searchModuleFromType: "6", //联系人:6;公司:7;会议:8;商机&交易:9; 用户管理：11；
             // responsibleBy:lanTool.lanContent("825_负责人") || '', //负责人
+            popupData:{}, //传给底部弹出组件
 
         }
     },
@@ -298,9 +299,10 @@ export default {
     },
     methods: {
         //没有权限时，点击负责人弹出层
-        showPopup(){
+        showPopup(data){
           let _self = this;
-          _self.$refs['popup'].popupToggle();
+          // console.log(data);
+          _self.$refs['popup'].popupToggle(data);
         },
         //跳转到联系人编辑页面
         clickAddContactPoints() {
