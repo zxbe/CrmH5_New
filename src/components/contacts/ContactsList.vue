@@ -109,6 +109,9 @@
 
         <!-- 侧滑筛选 -->
         <screen :screenData="RightPanelModel" :queryObj="queryObj" ref="screen"></screen>
+
+        <!-- 底部弹出层   -->
+        <popup></popup>
     </div>
 
     <!-- 页面处于搜索状态 -->
@@ -128,6 +131,7 @@ import Scroll from '@/components/customPlugin/scroll/Scroll';
 import Nothing from "@/components/customPlugin/Nothing";
 import SearchModule from '@/components/customplugin/SearchModule'
 import Mixins from '@/mixins/commonlist.js'
+import Popup from "@/components/customPlugin/Popup"
 export default {
     name: 'contactslist',
     mixins: [Mixins],
@@ -136,6 +140,7 @@ export default {
         Sort,
         Screen,
         SearchModule,
+        Popup,
         'vue-scroll': Scroll,
         nothing: Nothing
     },
@@ -295,24 +300,24 @@ export default {
             _self.addDropDownToggle();
 
             if(tool.getSystem() === 'android'){
-                var timeout, t = 4000, hasApp = true;  
-                var openScript = setTimeout(function () {  
+                var timeout, t = 4000, hasApp = true;
+                var openScript = setTimeout(function () {
                     if (!hasApp) {
                         window.location.href =
                             "https://b.camcard.com/site/download";
                     }
-                    document.body.removeChild(ifr);  
-                }, 5000)  
-                
-                var t1 = Date.now();  
-                var ifr = document.createElement("iframe");  
-                ifr.setAttribute('src', "camcardbiz://");  
-                ifr.setAttribute('style', 'display:none');  
-                document.body.appendChild(ifr);  
+                    document.body.removeChild(ifr);
+                }, 5000)
 
-                timeout = setTimeout(function () { 
-                    var t2 = Date.now();  
-                    if (t2 - t1 < t + 100) {  
+                var t1 = Date.now();
+                var ifr = document.createElement("iframe");
+                ifr.setAttribute('src', "camcardbiz://");
+                ifr.setAttribute('style', 'display:none');
+                document.body.appendChild(ifr);
+
+                timeout = setTimeout(function () {
+                    var t2 = Date.now();
+                    if (t2 - t1 < t + 100) {
                         hasApp = false;
                     }
                 }, t);
@@ -320,19 +325,19 @@ export default {
 
             if(tool.getSystem() == 'ios'){
                 window.location.href = "camcardbiz://";
-                setTimeout(function() {   
+                setTimeout(function() {
                     window.location.href =
                             "https://b.camcard.com/site/download";
                 }, 250);
                 setTimeout(function() {
                     window.location.reload();
                 }, 1000);
-            }  
+            }
 
             //名片全能王的URL Scheme：camcardbiz
             //这个是安卓操作系统
             // if (tool.getSystem() === 'android') {
-                //安卓app的scheme协议 
+                //安卓app的scheme协议
                 // window.location.href = "camcardbiz://";
                 // setTimeout(function () {
                 //     let hidden = window.document.hidden || window.document.mozHidden || window.document.msHidden || window.document.webkitHidden
