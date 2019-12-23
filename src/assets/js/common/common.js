@@ -754,6 +754,14 @@ import config from "../../configfile/config.js";
    * 点击模糊查询记录跳转到详情页面
    */
   tool.Api_DataSearchHandle_QuerySingle = "Api_DataSearchHandle_QuerySingle";
+  /*
+   * 是否已经发送过消息
+   */
+  tool.Api_MessagesToUserHandle_HasSendDataAccessRequest = "Api_MessagesToUserHandle_HasSendDataAccessRequest";
+/*
+   * 发送请求数据访问权限的消息
+   */
+  tool.Api_MessagesToUserHandle_SendDataAccessRequest = "Api_MessagesToUserHandle_SendDataAccessRequest";
 
   /*
    * currentLanguageVersion:当前语言版本

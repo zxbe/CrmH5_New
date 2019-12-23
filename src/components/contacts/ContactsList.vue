@@ -50,8 +50,8 @@
                             <div v-if="item.isHasAccess=='false' && item.InitiatorArr.length > 0 ">
                                 <div class="item-div responsible-by" v-for="(i,index) in item.InitiatorArr">
                                     <i class="calcfont calc-fuzerenicon icon"></i>
-                                    <span @click.stop="showPopup(i)" class="">{{i.Realname}}</span>
-                                    <i @click.stop="showPopup(i)" class="calcfont calc-xinxi4 info-icon"></i>
+                                    <span @click.stop="showPopup(i,item.AutoID)" class="">{{i.Realname}}</span>
+                                    <i @click.stop="showPopup(i,item.AutoID)" class="calcfont calc-xinxi4 info-icon"></i>
                                 </div>
                             </div>
 
@@ -299,10 +299,18 @@ export default {
     },
     methods: {
         //没有权限时，点击负责人弹出层
-        showPopup(data){
-          let _self = this;
-          // console.log(data);
-          _self.$refs['popup'].popupToggle(data);
+        //autoID: 记录ID
+        showPopup(data,autoID){
+            if(tool.isNullOrEmptyObject(data) || tool.isNullOrEmptyObject(autoID)){
+                return false;
+            }
+            let _self = this;
+
+            data.FromType = _self.searchModuleFromType;
+            data.FromID = autoID;
+            data.UserName = tool.UserName()||"";
+            //console.log(data);
+            _self.$refs['popup'].popupToggle(data);
         },
         //跳转到联系人编辑页面
         clickAddContactPoints() {
@@ -513,7 +521,7 @@ export default {
                             if(!tool.isNullOrEmptyObject(initiatorArrTemp) && initiatorArrTemp.length > 0){
                                 $.each(initiatorArrTemp,function(j,initiatorTemp){
                                     var fieldArr = initiatorTemp.split("||@||");
-                                    if(fieldArr.length != 5){
+                                    if(fieldArr.length != 6){
                                         return true;
                                     }
 
@@ -522,7 +530,8 @@ export default {
                                         Realname : fieldArr[1],
                                         Email : fieldArr[2],
                                         Phone : fieldArr[3],
-                                        LocalPhone : fieldArr[4]
+                                        LocalPhone : fieldArr[4],
+                                        ToUserName : fieldArr[5]
                                     };
                                     initiatorArr.push(objTemp);;
                                 });

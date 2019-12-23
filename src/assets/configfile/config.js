@@ -87,6 +87,7 @@ let json = {
 	"ADBApi_AirlineDatabase_Query_ListByTab":"/AirlineDatabase/Query_ListByTab",
 	"Api_DataSearchHandle_AutoQuery":"Api_DataSearchHandle_AutoQuery",
 	"Api_DataSearchHandle_QuerySingle":"Api_DataSearchHandle_QuerySingle",
+	"Api_MessagesToUserHandle_HasSendDataAccessRequest":"Api_MessagesToUserHandle_HasSendDataAccessRequest",
 	"Api_MessagesToUserHandle_SendDataAccessRequest":"Api_MessagesToUserHandle_SendDataAccessRequest"
 }
 
