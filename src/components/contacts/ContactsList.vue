@@ -485,6 +485,7 @@ export default {
                         return;
                     }
 
+                    //分割负责人信息
                     $.each(data, function(i,dataObj){     
                         var initiatorArr = [];
                         var initiator = dataObj.Initiator||"";
@@ -494,7 +495,6 @@ export default {
                             if(!tool.isNullOrEmptyObject(initiatorArrTemp) && initiatorArrTemp.length > 0){
                                 $.each(initiatorArrTemp,function(j,initiatorTemp){
                                     var fieldArr = initiatorTemp.split("||@||");
-                                    console.log(fieldArr.length);
                                     if(fieldArr.length != 5){
                                         return true;
                                     }
