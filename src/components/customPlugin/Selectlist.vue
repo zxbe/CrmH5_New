@@ -368,6 +368,20 @@ export default {
                 }
             });
         },
+        //没有权限时，点击负责人弹出层
+        //autoID: 记录ID
+        showPopup(data,autoID){
+            if(tool.isNullOrEmptyObject(data) || tool.isNullOrEmptyObject(autoID)){
+                return false;
+            }
+            let _self = this;
+
+            data.FromType = _self.fromType;
+            data.FromID = autoID;
+            data.UserName = tool.UserName()||"";
+            //console.log(data);
+            _self.$refs['popup'].popupToggle(data);
+        },
         //筛选
         search: function () {
             this.$nextTick(function () {
