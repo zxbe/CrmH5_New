@@ -184,6 +184,25 @@ Vue.filter('formatFigureRange',function(val,dataFormat){
   }
 });
 
+//将指定内容的非空字符替换成指定字符
+//symbolStr:将要替换的标志
+//isNeedShow:是否需要显示
+Vue.filter('formatRelpaceWord2Symbol',function(val,symbolStr,isNeedShow){
+  console.log("isNeedShow:"+isNeedShow);
+    isNeedShow = (isNeedShow == null || isNeedShow == undefined) ? "true" : isNeedShow;
+    isNeedShow = isNeedShow.toString().toLowerCase();
+    if (tool.isNullOrEmptyObject(val) || tool.isNullOrEmptyObject(symbolStr) || isNeedShow == "true") {
+      return val;
+    }
+
+    // console.log("替换前:"+val);
+    // console.log(symbolStr);
+
+    val = val.replace(/./g, symbolStr);
+    //console.log("替换后:"+val);
+    return val;
+});
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
