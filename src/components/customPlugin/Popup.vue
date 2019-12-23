@@ -20,8 +20,8 @@
         </div>
 
         <div class="btn-div">
-            <div class="btn-item-div"><div class="btn-item lanText" @click="popupToggle" data-lanid="117_取消"></div></div>
-            <div class="btn-item-div"><div class="btn-item send-btn" @click="sendMsg" data-lanid="1000559_发送消息"></div></div>
+            <div class="btn-item lanText" @click="popupToggle" data-lanid="117_取消"></div>
+            <div class="btn-item lanText send-btn" @click="sendMsg" data-lanid="1000559_发送消息"></div>
         </div>
 
     </div>
@@ -122,7 +122,7 @@ export default {
 
 <style scoped>
 .mask{position:fixed;top:0;left:0;bottom:0;right:0;background: rgba(0, 0, 0, 0.3);z-index:102;}
-.popup-content{position:fixed;left: 0;right: 0;bottom:-100%;z-index: 103;background: #ffffff;padding:20px 10px;}
+.popup-content{position:fixed;left: 0;right: 0;bottom:-100%;z-index: 103;background: #ffffff;padding:20px 10px 0 10px;}
 
 .item-field{margin-bottom: 10px;}
 .item-field .row{display: flex;align-items: center;}
@@ -136,9 +136,8 @@ export default {
 }
 .can-operation{color:#1775cc;}
 
-.btn-div{display: flex;align-items: center;justify-content: center;padding: 20px 0;}
-.btn-item-div{flex:1;display:flex;justify-content: center;align-items: center;}
-.btn-item{padding:8px 20px;border:1px solid #cccccc;border-radius: 3px;}
-.send-btn{background:#f90;border-color: #f90;color: #ffffff;}
+.btn-div{display: flex;align-items: center;justify-content: center;margin: 0 -10px;border-top: 1px solid #cccccc;}
+.btn-item{padding:15px 0;flex: 1;display:flex;justify-content: center;align-items: center;}
+.send-btn{color:#f90;border-left: 1px solid #cccccc;}
 
 </style>
