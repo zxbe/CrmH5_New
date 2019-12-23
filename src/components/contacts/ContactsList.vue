@@ -46,6 +46,15 @@
                                 </div>
                             </div>
 
+                            <!-- 负责人 -->
+                            <div v-if="item.isHasAccess=='false' && item.InitiatorArr.length > 0 ">
+                                <div class="item-div responsible-by" v-for="(i,index) in item.InitiatorArr">
+                                    <i class="calcfont calc-fuzerenicon icon"></i>
+                                    <span class="">{{i.Realname}}</span>
+                                    <i class="calcfont calc-xinxi4 info-icon"></i>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
                 </div>
@@ -247,7 +256,9 @@ export default {
             listData: [], //列表模式数据
             groupData: [], //分组模式数据
             lanSearchModuleInputPlaceHolder: lanTool.lanContent("1000555_姓名/公司/邮箱/移动电话"),
-            searchModuleFromType: "6" //联系人:6;公司:7;会议:8;商机&交易:9; 用户管理：11；
+            searchModuleFromType: "6", //联系人:6;公司:7;会议:8;商机&交易:9; 用户管理：11；
+            // responsibleBy:lanTool.lanContent("825_负责人") || '', //负责人
+
         }
     },
     computed: {
@@ -490,7 +501,7 @@ export default {
                         return;
                     }
 
-                    $.each(data, function(i,dataObj){     
+                    $.each(data, function(i,dataObj){
                         var initiatorArr = [];
                         var initiator = dataObj.Initiator||"";
                         if(!tool.isNullOrEmptyObject(initiator)){
@@ -520,8 +531,8 @@ export default {
                             dataObj.InitiatorArr = initiatorArr;
                             return true;
                         }
-                    });  
-                    
+                    });
+
                     console.log(data);
                     _self.noData = false;
                     if (queryType == 'pushLoad') {

@@ -508,6 +508,7 @@ top:0px;position:absolute;}
   display: flex;
   align-items: center;
 }
+.contacts-list .responsible-by{padding-top: 5px;}
 .contacts-list .item-div .left-text{
   flex:1;
   overflow: hidden;
