@@ -490,6 +490,39 @@ export default {
                         return;
                     }
 
+                    $.each(data, function(i,dataObj){     
+                        var initiatorArr = [];
+                        var initiator = dataObj.Initiator||"";
+                        if(!tool.isNullOrEmptyObject(initiator)){
+                            //139||@||aoniruan阮毅文||@||test3@safll.cn||@||86 150 1842 7794||@||755 - 2592 9899 8509
+                            var initiatorArrTemp = initiator.split(",");
+                            if(!tool.isNullOrEmptyObject(initiatorArrTemp) && initiatorArrTemp.length > 0){
+                                $.each(initiatorArrTemp,function(j,initiatorTemp){
+                                    var fieldArr = initiatorTemp.split("||@||");
+                                    console.log(fieldArr.length);
+                                    if(fieldArr.length != 5){
+                                        return true;
+                                    }
+
+                                    var objTemp = {
+                                        AutoID : fieldArr[0],
+                                        Realname : fieldArr[1],
+                                        Email : fieldArr[2],
+                                        Phone : fieldArr[3],
+                                        LocalPhone : fieldArr[4]
+                                    };
+                                    initiatorArr.push(objTemp);;
+                                });
+                            }
+
+                            dataObj.InitiatorArr = initiatorArr;
+                        }else{
+                            dataObj.InitiatorArr = initiatorArr;
+                            return true;
+                        }
+                    });  
+                    
+                    console.log(data);
                     _self.noData = false;
                     if (queryType == 'pushLoad') {
                         _self.listData = _self.listData.concat(data);
