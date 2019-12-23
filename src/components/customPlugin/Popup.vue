@@ -21,7 +21,7 @@
 
         <div class="btn-div">
             <div class="btn-item lanText" @click="popupToggle" data-lanid="117_取消"></div>
-            <div class="btn-item lanText send-btn" @click="sendMsg" data-lanid="1000559_发送消息"></div>
+            <div class="btn-item lanText send-btn" :class="[isHasSendMsg=='true' ? 'has-send' : '']" @click="sendMsg" data-lanid="1000559_发送消息"></div>
         </div>
 
     </div>
@@ -41,9 +41,6 @@ export default {
     let _self = this;
     lanTool.updateLanVersion();
 
-    // console.log(_self.popupData);
-    //监听是否显示弹出层
-    // eventBus.$on('showScreenEvent',_self.popupToggle);
   },
   methods:{
     //拨打电话
@@ -241,4 +238,5 @@ export default {
     content: "";top:0rem;bottom: 0;left: 0; width: 1px;
     background-color: #E6E8EA;
 }
+.send-btn.has-send{color:#cccccc;}
 </style>
