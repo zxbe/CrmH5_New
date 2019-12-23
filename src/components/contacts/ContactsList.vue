@@ -25,7 +25,7 @@
                     <div v-for="item in listData" :key="item.AutoID" @click="goInfo(item)" class="group-item data-events-item f14">
                         <div class="item-user-icon"><img src="../../assets/images/default_user_img.png" alt=""></div>
                         <div class="item-block contacts-item-block">
-                            <div class="item-div item-first-div"><span>{{item.EnglishName}}</span></div>
+                            <div class="item-div item-first-div" @click.stop="showPopup"><span>{{item.EnglishName}}</span></div>
                             <div class="item-div" style="padding-top:5px;">
                                 <i :class="[(item.Title =='' || item.Title == null) ? '' : 'calc-zhiwei']" class="calcfont icon"></i><span>{{item.Title}}</span>
                             </div>
@@ -111,7 +111,7 @@
         <screen :screenData="RightPanelModel" :queryObj="queryObj" ref="screen"></screen>
 
         <!-- 底部弹出层   -->
-        <popup></popup>
+        <popup ref="popup"></popup>
     </div>
 
     <!-- 页面处于搜索状态 -->
@@ -286,6 +286,11 @@ export default {
         }
     },
     methods: {
+        //没有权限时，点击负责人弹出层
+        showPopup(){
+          let _self = this;
+          _self.$refs['popup'].popupToggle();
+        },
         //跳转到联系人编辑页面
         clickAddContactPoints() {
             let _self = this;
@@ -467,7 +472,7 @@ export default {
                 success: function (data) {
                     tool.hideLoading(loadingIndexClassName);
                     data = tool.jObject(data);
-                    //console.log(data);
+                    console.log(data);
 
                     if (data._ReturnStatus == false) {
                         tool.showText(tool.getMessage(data));
