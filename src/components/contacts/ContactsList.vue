@@ -31,18 +31,18 @@
                             </div>
                             <div class="item-div">
                                 <div class="left-text max60" v-show="(item.CompanyID =='' || item.CompanyID == null) ? false : true">
-                                    <i class="calcfont icon calc-gongsixinxi"></i><span>{{item.CompanyID}}</span>
+                                    <i class="calcfont icon calc-gongsixinxi"></i><span>{{(item.CompanyID||"") | formatRelpaceWord2Symbol("*",item.isHasAccess)}}</span>
                                 </div>
                                 <div class="right-text max35" v-show="(item.CountryName =='' || item.CountryName == null) ? false : true">
-                                    <i class="calcfont icon calc-nationaarea"></i><span>{{item.CountryName}}</span>
+                                    <i class="calcfont icon calc-nationaarea"></i><span>{{(item.CountryName||"") | formatRelpaceWord2Symbol("*",item.isHasAccess)}}</span>
                                 </div>
                             </div>
                             <div class="item-div">
                                 <div class="left-text max60" v-show="(item.Email =='' || item.Email == null) ? false : true">
-                                    <i class="calcfont icon calc-mailbox"></i><span>{{item.Email}}</span>
+                                    <i class="calcfont icon calc-mailbox"></i><span>{{(item.Email||"") | formatRelpaceWord2Symbol("*",item.isHasAccess)}}</span>
                                 </div>
                                 <div class="right-text max35" v-show="(item.Phone =='' || item.Phone == null) ? false : true">
-                                    <i class="calcfont icon calc-mobilephone"></i><span>{{item.Phone}}</span>
+                                    <i class="calcfont icon calc-mobilephone"></i><span>{{(item.Phone||"") | formatRelpaceWord2Symbol("*",item.isHasAccess)}}</span>
                                 </div>
                             </div>
 
