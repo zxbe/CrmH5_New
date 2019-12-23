@@ -143,6 +143,7 @@ export default {
     background-color: #E6E8EA;
 }
 .btn-item{padding:15px 0;flex: 1;display:flex;justify-content: center;align-items: center;}
+.btn-item:active{background: #DDDDDD;}
 .send-btn{color:#f90;position: relative;}
 .send-btn:after {
     position: absolute;

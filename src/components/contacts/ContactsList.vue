@@ -51,7 +51,7 @@
                                 <div class="item-div responsible-by" v-for="(i,index) in item.InitiatorArr">
                                     <i class="calcfont calc-fuzerenicon icon"></i>
                                     <span @click.stop="showPopup(i)" class="">{{i.Realname}}</span>
-                                    <i @click.stop="showPopup(i)" class="calcfont calc-xinxi4 info-icon"></i>
+                                    <i @click.stop="showPopup(i)" class="calcfont calc-tongzhi info-icon"></i>
                                 </div>
                             </div>
 
@@ -760,7 +760,7 @@ export default {
         //点击跳转到详情页
         goInfo(data) {
             let _self = this;
-            if (tool.isNullOrEmptyObject(data) || tool.isNullOrEmptyObject(data.AutoID)) {
+            if (tool.isNullOrEmptyObject(data) || tool.isNullOrEmptyObject(data.AutoID) || data.isHasAccess=='false') {
                 return;
             }
             var parameter = {

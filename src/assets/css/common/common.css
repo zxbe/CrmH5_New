@@ -181,12 +181,12 @@ label.checkbox-label  input:checked + .checkbox:after {
     clip-path: inset(3px 3px 0px 0px);
 }
 /*禁止状态的radios*/
-label.checkbox-label input:disabled + .checkbox {
+label.checkbox-label input:disabled+.checkbox {
     background-color: #e8e8e8;
-    border: solid 1px #979797;
+    border: solid 1px #e8e8e8;
 }
-label.checkbox-label input:disabled:checked + .checkbox:after {
-    color: #c1c1c1;
+label.checkbox-label input:disabled:checked+.checkbox:after {
+    color: #e8e8e8;
 }
 
 
@@ -237,10 +237,10 @@ label.radios-label input:checked + .radios:after {
 /*禁止状态的radios*/
 label.radios-label input:disabled + .radios {
     background-color: #e8e8e8;
-    border: solid 1px #979797;
+    border: solid 1px #e8e8e8;
 }
 label.radios-label input:disabled:checked + .radios:after {
-    background-color: #c1c1c1;
+    background-color: #e8e8e8;
 }
 
 
@@ -547,7 +547,7 @@ top:0px;position:absolute;}
 
 .contacts-list .contacts-item-block{padding:5px 10px 5px 1.2rem;}
 .contacts-list .icon{margin-right: 3px;}
-.contacts-list .info-icon{margin-left: 3px;}
+.contacts-list .info-icon{margin-left: 3px;color:#1775cc;}
 
 /*
 用于Textarea控件的默认高度

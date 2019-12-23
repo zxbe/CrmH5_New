@@ -10,26 +10,6 @@
 
     <div class="page-content">
 
-        <!-- <div id="list" class="notification-list">
-              <div class="item f14 ">
-                  <div class="alreadyRead">
-                      <div class="item-title">title</div>
-                      <div class="item-div">
-                          <span class="lanText" data-lanid="862_标题："></span><div class="item-div-text">mallTitle</div>
-                      </div>
-                      <div class="item-div">
-                          <span class="lanText" data-lanid="863_时间："></span><div class="item-div-text">time</div>
-                      </div>
-                      <div class="item-div">
-                          <span class="lanText" data-lanid="864_备忘："></span><span></span>
-                      </div>
-                      <div>
-                          <router-link class="a lanText" data-lanid="865_查看" to="" ></router-link>
-                      </div>
-                    </div>
-              </div>
-        </div> -->
-
         <div v-show="!notData" id="list" class="notification-list">
 
             <div v-for="item in listData" :key="item.AutoID" class="item f14">
@@ -63,27 +43,7 @@
                     </div>
                 </div>
 
-                <!-- <div v-else-if="item.IsOpen" class="alreadyRead">
-                        <div class="item-title">{{item.Theme}}</div>
-                        <div v-if="item.FromType!='6'" class="item-div">
-                            <span>{{titleLV}}</span><div class="item-div-text">{{item.Title}}</div>
-                        </div>
-                        <div v-else-if="item.FromType=='6'" class="item-div">
-                            <span>{{companyLV}}</span><div class="item-div-text">{{item.Title}}</div>
-                        </div>
-                        <div v-if="item.FromType=='8'" class="item-div">
-                            <span>{{timeLV}}</span><div class="item-div-text">{{item.AddTime |abdDateFormat('dd/MM/yyyy HH:mm')}}</div>
-                        </div>
-                        <div v-if="item.FromType!='6'" class="item-div">
-                            <span>{{remarkLV}}</span><span>{{item.Remark}}</span>
-                        </div>
-                        <div v-if="item.FromType=='6'" class="item-div">
-                            <span>{{contactLV}}</span><span>{{item.Remark}}</span>
-                        </div>
-                        <div>
-                            <div @click="goInfoPage(item)" class="a">{{viewLV}}</div>
-                        </div>
-                    </div> -->
+
 
             </div>
         </div>
