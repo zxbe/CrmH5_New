@@ -188,7 +188,7 @@ Vue.filter('formatFigureRange',function(val,dataFormat){
 //symbolStr:将要替换的标志
 //isNeedShow:是否需要显示
 Vue.filter('formatRelpaceWord2Symbol',function(val,symbolStr,isNeedShow){
-  console.log("isNeedShow:"+isNeedShow);
+  // console.log("isNeedShow:"+isNeedShow);
     isNeedShow = (isNeedShow == null || isNeedShow == undefined) ? "true" : isNeedShow;
     isNeedShow = isNeedShow.toString().toLowerCase();
     if (tool.isNullOrEmptyObject(val) || tool.isNullOrEmptyObject(symbolStr) || isNeedShow == "true") {
