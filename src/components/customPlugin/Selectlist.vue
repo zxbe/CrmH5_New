@@ -300,7 +300,7 @@ export default {
                 success: function (data) {
                     tool.hideLoading(loadingIndexClassName);
                     data = tool.jObject(data);
-                    // console.log(data);
+                    //console.log(data);
                     if (data._ReturnStatus == false) {
                         $this.notData = true;
                         tool.showText(tool.getMessage(data));
@@ -309,7 +309,42 @@ export default {
                     }
 
                     data = data._OnlyOneData || [];
+
+                    //分割负责人信息
+                    $.each(data, function(i,dataObj){
+                        var initiatorArr = [];
+                        var initiator = dataObj.Initiator||"";
+                        if(!tool.isNullOrEmptyObject(initiator)){
+                            //139||@||aoniruan阮毅文||@||test3@safll.cn||@||86 150 1842 7794||@||755 - 2592 9899 8509
+                            var initiatorArrTemp = initiator.split(",");
+                            if(!tool.isNullOrEmptyObject(initiatorArrTemp) && initiatorArrTemp.length > 0){
+                                $.each(initiatorArrTemp,function(j,initiatorTemp){
+                                    var fieldArr = initiatorTemp.split("||@||");
+                                    if(fieldArr.length != 6){
+                                        return true;
+                                    }
+
+                                    var objTemp = {
+                                        AutoID : fieldArr[0],
+                                        Realname : fieldArr[1],
+                                        Email : fieldArr[2],
+                                        Phone : fieldArr[3],
+                                        LocalPhone : fieldArr[4],
+                                        ToUserName : fieldArr[5]
+                                    };
+                                    initiatorArr.push(objTemp);;
+                                });
+                            }
+
+                            dataObj.InitiatorArr = initiatorArr;
+                        }else{
+                            dataObj.InitiatorArr = initiatorArr;
+                            return true;
+                        }
+                    });
+
                     $this.dataArray = data;
+                    console.log($this.dataArray);
                     if (data.length <= 0) {
                         $this.notData = true;
                     } else {
@@ -332,6 +367,20 @@ export default {
                     document.activeElement.blur();
                 }
             });
+        },
+        //没有权限时，点击负责人弹出层
+        //autoID: 记录ID
+        showPopup(data,autoID){
+            if(tool.isNullOrEmptyObject(data) || tool.isNullOrEmptyObject(autoID)){
+                return false;
+            }
+            let _self = this;
+
+            data.FromType = _self.fromType;
+            data.FromID = autoID;
+            data.UserName = tool.UserName()||"";
+            //console.log(data);
+            _self.$refs['popup'].popupToggle(data);
         },
         //筛选
         search: function () {

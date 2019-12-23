@@ -33,7 +33,8 @@ export default {
   data(){
     return{
         showPopup:false,
-        popupData:{},
+        popupData:{}, //弹出层数据模型
+        isHasSendMsg:"false" //是否已经发送过请求消息
     }
   },
   mounted(){
@@ -60,12 +61,51 @@ export default {
           return;
       }
       window.location.href = 'mailto:'+ _self.popupData.Email;
-
     },
     //发送站内信
     sendMsg(){
-      let _self = this;
+        let _self = this;
 
+        var urlTemp = tool.AjaxBaseUrl();
+        var controlName = tool.Api_MessagesToUserHandle_SendDataAccessRequest;
+        var jsonDatasTemp = {
+            CurrentLanguageVersion: lanTool.currentLanguageVersion,
+            UserName: _self.popupData.UserName ||"",
+            _ControlName: controlName,
+            _RegisterCode: tool.RegisterCode(),
+            FromType: _self.popupData.FromType ||"",
+            FromID: _self.popupData.FromID ||"",
+            ToUserName: _self.popupData.ToUserName ||"",
+        };
+        var loadingIndexClassName = tool.showLoading();
+        $.ajax({
+            async: true,
+            type: "post",
+            url: urlTemp,
+            data: jsonDatasTemp,
+            success: function (data) {
+                tool.hideLoading(loadingIndexClassName);
+                data = tool.jObject(data);
+                // console.log(data);
+
+                // if (data._ReturnStatus == false) {
+                //     tool.showText(tool.getMessage(data));
+                //     console.log(tool.getMessage(data));
+                //     return;
+                // }
+
+                tool.showText(tool.getMessage(data));
+            },
+            error: function (jqXHR, type, error) {
+                tool.hideLoading(loadingIndexClassName);
+                console.log(error);
+                return true;
+            },
+            complete: function () {
+                //隐藏虚拟键盘
+                document.activeElement.blur();
+            }
+        });
     },
     //底部弹出显示隐藏
     popupToggle:function(data, isClose){
@@ -73,8 +113,9 @@ export default {
 
         if(!tool.isNullOrEmptyObject(data)){
             _self.popupData = data;
-            console.log(_self.popupData);
+            //console.log(_self.popupData);
         }
+
         if(isClose == false){
             _self.showPopup = isClose;
         }else{
@@ -83,6 +124,8 @@ export default {
 
         //若已经收起,则展开
         if(_self.showPopup){
+            //判断消息是否已经发送过
+            _self.getIsHasSendMsg();
             //1>展开的同时，给body添加hideOverflow样式
             $("body").addClass("hideOverflow");
 
@@ -114,6 +157,54 @@ export default {
             })
         }
     },
+    //判断当前消息是否已经发送过
+    getIsHasSendMsg(){
+        var _self = this;
+        var urlTemp = tool.AjaxBaseUrl();
+        var controlName = tool.Api_MessagesToUserHandle_HasSendDataAccessRequest;
+        var jsonDatasTemp = {
+            CurrentLanguageVersion: lanTool.currentLanguageVersion,
+            UserName: _self.popupData.UserName ||"",
+            _ControlName: controlName,
+            _RegisterCode: tool.RegisterCode(),
+            FromType: _self.popupData.FromType ||"",
+            FromID: _self.popupData.FromID ||"",
+            ToUserName: _self.popupData.ToUserName ||"",
+        };
+        var loadingIndexClassName = tool.showLoading();
+        $.ajax({
+            async: true,
+            type: "post",
+            url: urlTemp,
+            data: jsonDatasTemp,
+            success: function (data) {
+                tool.hideLoading(loadingIndexClassName);
+                data = tool.jObject(data);
+                // console.log(data);
+
+                if (data._ReturnStatus == false) {
+                    tool.showText(tool.getMessage(data));
+                    console.log(tool.getMessage(data));
+                    _self.isHasSendMsg = "false";
+                    return;
+                }
+
+                //tool.showText(tool.getMessage(data));
+                _self.isHasSendMsg = data._OnlyOneData.toString() || "false";
+
+                console.log(_self.isHasSendMsg);
+            },
+            error: function (jqXHR, type, error) {
+                tool.hideLoading(loadingIndexClassName);
+                console.log(error);
+                return true;
+            },
+            complete: function () {
+                //隐藏虚拟键盘
+                document.activeElement.blur();
+            }
+        });
+    }
   }
 
 
