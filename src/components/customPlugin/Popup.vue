@@ -12,16 +12,16 @@
         </div>
         <div class="item-field">
             <div class="row"><i class="calcfont calc-mobilephone icon"></i> <span class="lanText field-key" data-lanid="705_移动电话"></span></div>
-            <div class="row"><div class="field-value" @click="callPhone">{{popupData.Phone}}</div></div>
+            <div class="row"><div class="field-value can-operation" @click="callPhone">{{popupData.Phone}}</div></div>
         </div>
         <div class="item-field">
             <div class="row"><i class="calcfont calc-mailbox icon"></i> <span class="lanText field-key" data-lanid="697_邮箱"></span></div>
-            <div class="row"><div class="field-value" @click="sendEmail">{{popupData.Email}}</div></div>
+            <div class="row"><div class="field-value can-operation" @click="sendEmail">{{popupData.Email}}</div></div>
         </div>
 
         <div class="btn-div">
-            <div class="btn-item-div"><div class="btn-item" @click="popupToggle">取消</div></div>
-            <div class="btn-item-div"><div class="btn-item send-btn" @click="sendMsg">发送消息</div></div>
+            <div class="btn-item-div"><div class="btn-item lanText" @click="popupToggle" data-lanid="117_取消"></div></div>
+            <div class="btn-item-div"><div class="btn-item send-btn" @click="sendMsg" data-lanid="1000559_发送消息"></div></div>
         </div>
 
     </div>
@@ -134,6 +134,7 @@ export default {
     content: "";left: .5rem;right: 0rem; bottom: 0; height: 1px;
     background-color: beige;
 }
+.can-operation{color:#1775cc;}
 
 .btn-div{display: flex;align-items: center;justify-content: center;padding: 20px 0;}
 .btn-item-div{flex:1;display:flex;justify-content: center;align-items: center;}
