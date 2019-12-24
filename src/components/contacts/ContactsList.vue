@@ -769,9 +769,19 @@ export default {
         //点击跳转到详情页
         goInfo(data) {
             let _self = this;
-            if (tool.isNullOrEmptyObject(data) || tool.isNullOrEmptyObject(data.AutoID) || data.IsHasAccess=='false') {
+            if (tool.isNullOrEmptyObject(data) || tool.isNullOrEmptyObject(data.AutoID)) {
                 return;
             }
+
+            var isNeedShow = (data["IsHasAccess"] || "false").toString().toLowerCase();
+            //console.log(isNeedShow);
+            if(isNeedShow == "false"){
+                var msg = lanTool.lanContent("1000572_您无权限访问该记录，请向记录的负责人申请数据共享。");
+                console.log(msg);
+                tool.showText(msg);
+                return;
+            }
+
             var parameter = {
                 infoName: data.EnglishName || ""
             };

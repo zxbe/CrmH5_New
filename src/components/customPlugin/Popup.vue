@@ -20,7 +20,7 @@
         </div>
 
         <div class="btn-div">
-            <div class="btn-item lanText" @click="popupToggle" data-lanid="117_取消"></div>
+            <div class="btn-item lanText" @click="popupToggle" data-lanid="570_取消"></div>
             <div class="btn-item lanText send-btn" :class="[isHasSendMsg=='true' ? 'has-send' : '']" @click="sendMsg" data-lanid="1000559_发送消息"></div>
         </div>
 
@@ -85,12 +85,13 @@ export default {
                 data = tool.jObject(data);
                 // console.log(data);
 
-                // if (data._ReturnStatus == false) {
-                //     tool.showText(tool.getMessage(data));
-                //     console.log(tool.getMessage(data));
-                //     return;
-                // }
-
+                if (data._ReturnStatus == false) {
+                    tool.showText(tool.getMessage(data));
+                    console.log(tool.getMessage(data));
+                    return;
+                }
+                //发送成功后，设置发送标志位为true
+                _self.isHasSendMsg = "true";
                 tool.showText(tool.getMessage(data));
             },
             error: function (jqXHR, type, error) {
@@ -188,6 +189,10 @@ export default {
 
                 //tool.showText(tool.getMessage(data));
                 _self.isHasSendMsg = (data._OnlyOneData.toString() || "false").toLowerCase();
+                //自己不能给自己发消息
+                if(_self.popupData.UserName == _self.popupData.ToUserName){
+                    _self.isHasSendMsg = "true";
+                }
 
                 console.log(_self.isHasSendMsg);
             },
@@ -238,5 +243,8 @@ export default {
     content: "";top:0rem;bottom: 0;left: 0; width: 1px;
     background-color: #E6E8EA;
 }
-.send-btn.has-send{color:#cccccc;}
+.send-btn.has-send{
+    color:#cccccc;
+    pointer-events:none;
+}
 </style>
