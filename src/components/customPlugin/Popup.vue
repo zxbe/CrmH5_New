@@ -187,7 +187,7 @@ export default {
                 }
 
                 //tool.showText(tool.getMessage(data));
-                _self.isHasSendMsg = data._OnlyOneData.toString() || "false";
+                _self.isHasSendMsg = (data._OnlyOneData.toString() || "false").toLowerCase();
 
                 console.log(_self.isHasSendMsg);
             },

@@ -23,15 +23,32 @@
             <div v-if="!notData && selectType=='checkbox'" class="dataList checkboxList">
                 <div v-for="item in dataArray" :key="item.id" class="item-div">
                     <label class="checkbox-label">
-                    <input type="checkbox" :name="field" :value="item.id" v-model="checkboxValue"/><i class="checkbox"></i><span class="radios f14">{{item.text}}</span>
-                </label>
+                        <input type="checkbox" :disabled="item.isHasAccess=='true' ? true : false" :name="field" :value="item.id" v-model="checkboxValue"/>
+                        <i class="checkbox"></i><span class="radios f14">{{item.text}}</span>
+                    </label>
+                    <div v-if="item.isHasAccess=='true' && item.InitiatorArr.length > 0 ">
+                        <div class="responsible-by" v-for="(i,index) in item.InitiatorArr">
+                            <i class="calcfont calc-fuzerenicon icon"></i>
+                            <div @click.stop="showPopup(i,item.id)" class="responsible-by-text">{{i.Realname}}</div>
+                            <i  @click.stop="showPopup(i,item.id)" class="calcfont calc-xinxi4 info-icon"></i>
+                        </div>
+                    </div>
+
                 </div>
             </div>
             <div v-else-if="!notData && selectType=='radio'" class="dataList">
                 <div v-for="item in dataArray" :key="item.id" class="item-div">
                     <label class="radios-label">
-                    <input type="radio" :name="field" :value="item.id" v-model="radioValue"/><i class="radios"></i><span class="f14">{{item.text}}</span>
-                </label>
+                      <input type="radio" :disabled="item.isHasAccess=='true' ? true : false" :name="field" :value="item.id" v-model="radioValue"/>
+                      <i class="radios"></i><span class="f14">{{item.text}}</span>
+                    </label>
+                    <div v-if="item.isHasAccess=='true' && item.InitiatorArr.length > 0 ">
+                        <div class="responsible-by" v-for="(i,index) in item.InitiatorArr">
+                            <i class="calcfont calc-fuzerenicon icon"></i>
+                            <div @click.stop="showPopup(i,item.id)" class="responsible-by-text">{{i.Realname}}</div>
+                            <i  @click.stop="showPopup(i,item.id)" class="calcfont calc-xinxi4 info-icon"></i>
+                        </div>
+                    </div>
                 </div>
             </div>
             <!-- 没数据 -->
@@ -45,14 +62,20 @@
             </label>
             </div>
         </div>
-    </div>
+
+      <!-- 底部弹出层   -->
+    <popup ref="popup"></popup>
+</div>
+
+
 </template>
 
 <script>
 import Nothing from "./Nothing"
+import Popup from "@/components/customPlugin/Popup"
 export default {
     components: {
-        'nothing': Nothing
+        Popup,'nothing': Nothing
     },
     data() {
         return {
@@ -371,6 +394,8 @@ export default {
         //没有权限时，点击负责人弹出层
         //autoID: 记录ID
         showPopup(data,autoID){
+// console.log(data);
+// console.log(autoID);
             if(tool.isNullOrEmptyObject(data) || tool.isNullOrEmptyObject(autoID)){
                 return false;
             }
@@ -379,6 +404,7 @@ export default {
             data.FromType = _self.fromType;
             data.FromID = autoID;
             data.UserName = tool.UserName()||"";
+            console.log(data);
             //console.log(data);
             _self.$refs['popup'].popupToggle(data);
         },
@@ -407,4 +433,9 @@ export default {
 
 <style scoped>
 @import "../../assets/css/pages/Selectlist.css";
+.dataList .item-div{display: flex;flex-direction: column;}
+.dataList .item-div .info-icon{font-size: 0.32rem;padding:0.1rem;color: #1775cc;}
+.dataList .item-div .responsible-by{display: flex;align-items: center;padding: 5px 0 0px 26px;}
+.dataList .item-div .responsible-by-text{padding:0 3px;}
+.dataList .item-div .calcfont{font-size: 16px;padding: 0;}
 </style>
