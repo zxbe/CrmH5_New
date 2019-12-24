@@ -1,6 +1,6 @@
 <template>
 <div>
-    <Header class="header" :title="title" :messageCount="messageCount" :forumMessageCount="forumMessageCount"></Header>
+    <Header class="header" :title="title" :messageCount="messageCount" :forumMessageCount="forumMessageCount" :dataAccessRequestMsgCount="dataAccessRequestMsgCount"></Header>
 
     <div id="page-content" class="page-content">
         <div class="search-box-div">
@@ -174,8 +174,9 @@ export default {
             // dealData:[],
             // pitchesData: [],
             meetingCount: 0, //未上传会议记录的会议数量
-            messageCount: 0, //消息数量
-            forumMessageCount: 0, //论坛消息的数量
+            messageCount: 0, //数据分享消息数量
+            forumMessageCount: 0, //帖子消息的数量
+            dataAccessRequestMsgCount:0, //数据访问请求消息数量
             // showPage: 0,
             isFromSingleSignOn: false, //是否来源于单点登陆
             // recentMeetingDay:6,
@@ -226,6 +227,8 @@ export default {
         _self.getMessageCount();
         //获取论坛消息数量
         _self.getForumMessageCount();
+        //获取数据访问请求消息数量
+        _self.getDataAccessRequestMsgCount();
 
         //收藏
         // _self.followToggle();
@@ -969,6 +972,46 @@ export default {
                     }
 
                     _self.forumMessageCount = data._OnlyOneData || 0;
+                },
+                error: function (jqXHR, type, error) {
+                    console.log(error);
+                    return;
+                },
+                complete: function () {
+                    //tool.hideLoading();
+                    //隐藏虚拟键盘
+                    document.activeElement.blur();
+                }
+            });
+        },
+        //获取数据访问请求消息数量
+        getDataAccessRequestMsgCount: function () {
+            var _self = this;
+            //请求地址
+            var urlTemp = tool.AjaxBaseUrl();
+            var controlName = tool.Api_MessagesToUserHandle_QueryDataAccessRequestCount;
+            //传入参数
+            var jsonDatasTemp = {
+                CurrentLanguageVersion: lanTool.currentLanguageVersion,
+                UserName: tool.UserName(),
+                _ControlName: controlName,
+                _RegisterCode: tool.RegisterCode()
+            };
+
+            $.ajax({
+                async: true,
+                type: "post",
+                url: urlTemp,
+                data: jsonDatasTemp,
+                success: function (data) {
+                    data = tool.jObject(data);
+                    if (data._ReturnStatus == false) {
+                        tool.showText(tool.getMessage(data));
+                        _self.noData = true;
+                        return;
+                    }
+
+                    _self.dataAccessRequestMsgCount = data._OnlyOneData || 0;
                 },
                 error: function (jqXHR, type, error) {
                     console.log(error);

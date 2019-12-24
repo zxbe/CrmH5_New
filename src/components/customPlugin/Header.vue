@@ -9,6 +9,9 @@
         <a v-if="isMain" @click="goForumMsgPage" class="calcfont calc-bell right">
             <span v-show="Number(forumMessageCount)>=1" class="count">{{forumMessageCount}}</span>
         </a>
+        <a v-if="isMain" @click="goDataAccessRequestMsgPage" class="calcfont calc-tongzhi right">
+            <span v-show="Number(dataAccessRequestMsgCount)>=1" class="count">{{dataAccessRequestMsgCount}}</span>
+        </a>
         <a v-else @click="back" class="calcfont calc-fanhui left" id="back"></a>
 
         <h1 class="mui-title f18">{{title}}</h1>
@@ -23,7 +26,7 @@ export default {
             isMain: false, //是否首页
         }
     },
-    props: ['title', "messageCount","forumMessageCount"],
+    props: ['title', "messageCount","forumMessageCount","dataAccessRequestMsgCount"],
     created: function () {
         var url = this.$route.path;
         if (url == '/Index' || url == '/index') {
@@ -49,6 +52,9 @@ export default {
         },
         goForumMsgPage:function () {
             this.$router.push('/forumNotification');
+        },
+        goDataAccessRequestMsgPage:function () {
+            this.$router.push('/notification');
         },
     }
 }
@@ -105,7 +111,7 @@ header.mui-bar {
     margin-right: -10px;
     z-index: 10;
 }
-.calc-bell{
+.calc-bell,.calc-tongzhi{
     margin-right: -10px;
 }
 /* .calc-mailbox::before{vertical-align:middle;} */
