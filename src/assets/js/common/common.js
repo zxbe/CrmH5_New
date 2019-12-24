@@ -758,11 +758,18 @@ import config from "../../configfile/config.js";
    * 是否已经发送过消息
    */
   tool.Api_MessagesToUserHandle_HasSendDataAccessRequest = "Api_MessagesToUserHandle_HasSendDataAccessRequest";
-/*
+  /*
    * 发送请求数据访问权限的消息
    */
   tool.Api_MessagesToUserHandle_SendDataAccessRequest = "Api_MessagesToUserHandle_SendDataAccessRequest";
-
+  /*
+   * 查询数据访问请求的消息数量
+   */
+  tool.Api_MessagesToUserHandle_QueryDataAccessRequestCount = "Api_MessagesToUserHandle_QueryDataAccessRequestCount";
+  /*
+   * 数据访问请求的消息列表查询
+   */
+  tool.Api_MessagesToUserHandle_QueryDataAccessRequest = "Api_MessagesToUserHandle_QueryDataAccessRequest";
   /*
    * currentLanguageVersion:当前语言版本
    */

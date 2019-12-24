@@ -88,7 +88,9 @@ let json = {
 	"Api_DataSearchHandle_AutoQuery":"Api_DataSearchHandle_AutoQuery",
 	"Api_DataSearchHandle_QuerySingle":"Api_DataSearchHandle_QuerySingle",
 	"Api_MessagesToUserHandle_HasSendDataAccessRequest":"Api_MessagesToUserHandle_HasSendDataAccessRequest",
-	"Api_MessagesToUserHandle_SendDataAccessRequest":"Api_MessagesToUserHandle_SendDataAccessRequest"
+	"Api_MessagesToUserHandle_SendDataAccessRequest":"Api_MessagesToUserHandle_SendDataAccessRequest",
+	"Api_MessagesToUserHandle_QueryDataAccessRequestCount":"Api_MessagesToUserHandle_QueryDataAccessRequestCount",
+	"Api_MessagesToUserHandle_QueryDataAccessRequest":"Api_MessagesToUserHandle_QueryDataAccessRequest",
 }
 
 export default json;

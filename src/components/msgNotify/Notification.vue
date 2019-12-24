@@ -105,7 +105,7 @@ export default {
             meetingLV:lanTool.lanContent("1000441_目标"),
             viewLV: lanTool.lanContent("865_查看"),
 
-            tipLV:lanTool.lanContent('1000562_{0}在{1}向您申请访问联系人的权限'),
+            tipLV:lanTool.lanContent('1000562_向您申请访问联系人的权限。'),
             agreeLV:lanTool.lanContent("1000560_同意"),
         }
     },
