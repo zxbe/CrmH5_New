@@ -59,7 +59,7 @@ export default {
     },
     data() {
         return {
-            title: lanTool.lanContent('866_通知'),
+            title: lanTool.lanContent('1000316_数据分享消息'),
             listData: [],
             notData: true, //没数据
 

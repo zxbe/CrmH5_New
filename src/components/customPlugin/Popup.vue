@@ -7,6 +7,14 @@
             <div class="row"><div class="field-value">{{popupData.Realname}}</div></div>
         </div>
         <div class="item-field">
+            <div class="row"><i class="calcfont calc-zuzhibumen icon"></i> <span class="lanText field-key" data-lanid="567_部门"></span></div>
+            <div class="row"><div class="field-value">{{popupData.DepartmentID}}</div></div>
+        </div>
+        <div class="item-field">
+            <div class="row"><i class="calcfont calc-zhiwei icon"></i> <span class="lanText field-key" data-lanid="696_职位"></span></div>
+            <div class="row"><div class="field-value">{{popupData.PositionID}}</div></div>
+        </div>
+        <div class="item-field">
             <div class="row"><i class="calcfont calc-phone icon"></i> <span class="lanText field-key" data-lanid="704_办公电话"></span></div>
             <div class="row"><div class="field-value">{{popupData.LocalPhone}}</div></div>
         </div>

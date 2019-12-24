@@ -23,7 +23,7 @@
             <div v-if="!notData && selectType=='checkbox'" class="dataList checkboxList">
                 <div v-for="item in dataArray" :key="item.id" class="item-div">
                     <label class="checkbox-label">
-                        <input type="checkbox" :disabled="item.IsHasAccess=='true' ? false : true" :name="field" :value="item.id" v-model="checkboxValue"/>
+                        <input type="checkbox" :disabled="(item.IsHasAccess=='true'||(item.IsHasAccess||'')=='') ? false : true" :name="field" :value="item.id" v-model="checkboxValue"/>
                         <i class="checkbox"></i><span class="radios f14">{{item.text}}</span>
                     </label>
                     <div v-if="item.IsHasAccess=='false' && item.InitiatorArr.length > 0 ">
@@ -39,7 +39,7 @@
             <div v-else-if="!notData && selectType=='radio'" class="dataList">
                 <div v-for="item in dataArray" :key="item.id" class="item-div">
                     <label class="radios-label">
-                      <input type="radio" :disabled="item.IsHasAccess=='true' ? false : true" :name="field" :value="item.id" v-model="radioValue"/>
+                      <input type="radio" :disabled="(item.IsHasAccess=='true' ||(item.IsHasAccess||'')=='') ? false : true" :name="field" :value="item.id" v-model="radioValue"/>
                       <i class="radios"></i><span class="f14">{{item.text}}</span>
                     </label>
                     <div v-if="item.IsHasAccess=='false' && item.InitiatorArr.length > 0 ">
@@ -343,7 +343,7 @@ export default {
                             if(!tool.isNullOrEmptyObject(initiatorArrTemp) && initiatorArrTemp.length > 0){
                                 $.each(initiatorArrTemp,function(j,initiatorTemp){
                                     var fieldArr = initiatorTemp.split("||@||");
-                                    if(fieldArr.length != 6){
+                                    if(fieldArr.length != 8){
                                         return true;
                                     }
 
@@ -353,9 +353,11 @@ export default {
                                         Email : fieldArr[2],
                                         Phone : fieldArr[3],
                                         LocalPhone : fieldArr[4],
-                                        ToUserName : fieldArr[5]
+                                        ToUserName : fieldArr[5],
+                                        DepartmentID:fieldArr[6],
+                                        PositionID:fieldArr[7]
                                     };
-                                    initiatorArr.push(objTemp);;
+                                    initiatorArr.push(objTemp);
                                 });
                             }
 

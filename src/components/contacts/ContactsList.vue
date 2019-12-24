@@ -521,7 +521,7 @@ export default {
                             if(!tool.isNullOrEmptyObject(initiatorArrTemp) && initiatorArrTemp.length > 0){
                                 $.each(initiatorArrTemp,function(j,initiatorTemp){
                                     var fieldArr = initiatorTemp.split("||@||");
-                                    if(fieldArr.length != 6){
+                                    if(fieldArr.length != 8){
                                         return true;
                                     }
 
@@ -531,9 +531,11 @@ export default {
                                         Email : fieldArr[2],
                                         Phone : fieldArr[3],
                                         LocalPhone : fieldArr[4],
-                                        ToUserName : fieldArr[5]
+                                        ToUserName : fieldArr[5],
+                                        DepartmentID:fieldArr[6],
+                                        PositionID:fieldArr[7]
                                     };
-                                    initiatorArr.push(objTemp);;
+                                    initiatorArr.push(objTemp);
                                 });
                             }
 
