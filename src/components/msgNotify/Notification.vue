@@ -14,7 +14,8 @@
 
             <div v-for="item in listData" :key="item.AutoID" class="item f14">
                 <!-- 申请联系人访问权限 -->
-                <div v-if="true">
+                <!-- <div v-if="true"> -->
+                <div v-if="item.IsDataAccessRequest == 'true'">
                     <div :class="{'alreadyRead':item.IsOpen==true}">
                         <div class="item-title">
                             <span></span>
