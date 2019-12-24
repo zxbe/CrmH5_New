@@ -54,7 +54,7 @@ export default {
             this.$router.push('/forumNotification');
         },
         goDataAccessRequestMsgPage:function () {
-            this.$router.push('/notification');
+            this.$router.push('/dataAccessRequestNotification');
         },
     }
 }

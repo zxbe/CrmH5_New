@@ -52,10 +52,14 @@ const router =  new Router({
 
     { path: '/notification',name:'notification', component:Notification },
     { path: '/searchmodule/:paramStr',name:'searchmodule',component: Searchmodule},
-
     { path: '/meetinglistforrelation',name:'meetinglistforrelation', component: MeetingListForRelation},
 
 
+    //请求数据访问消息列表页面
+    { path:'/dataAccessRequestNotification',
+      name:'dataAccessRequestNotification',
+      component: (resolve) => require(['@/components/msgNotify/DataAccessRequestNotification'], resolve)
+    },
 
     //会议
     { path: '/meeting',
