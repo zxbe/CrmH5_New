@@ -30,7 +30,7 @@
                         <div class="responsible-by" v-for="(i,index) in item.InitiatorArr">
                             <i class="calcfont calc-fuzerenicon icon"></i>
                             <div @click.stop="showPopup(i,item.id)" class="responsible-by-text">{{i.Realname}}</div>
-                            <i  @click.stop="showPopup(i,item.id)" class="calcfont calc-xinxi4 info-icon"></i>
+                            <i  @click.stop="showPopup(i,item.id)" class="calcfont calc-tongzhi info-icon"></i>
                         </div>
                     </div>
 
@@ -46,7 +46,7 @@
                         <div class="responsible-by" v-for="(i,index) in item.InitiatorArr">
                             <i class="calcfont calc-fuzerenicon icon"></i>
                             <div @click.stop="showPopup(i,item.id)" class="responsible-by-text">{{i.Realname}}</div>
-                            <i  @click.stop="showPopup(i,item.id)" class="calcfont calc-xinxi4 info-icon"></i>
+                            <i  @click.stop="showPopup(i,item.id)" class="calcfont calc-tongzhi info-icon"></i>
                         </div>
                     </div>
                 </div>

@@ -51,7 +51,7 @@
                                 <div class="item-div responsible-by" v-for="(i,index) in item.InitiatorArr">
                                     <i class="calcfont calc-fuzerenicon icon"></i>
                                     <span @click.stop="showPopup(i,item.AutoID)" class="">{{i.Realname}}</span>
-                                    <i @click.stop="showPopup(i,item.AutoID)" class="calcfont calc-xinxi4 info-icon"></i>
+                                    <i @click.stop="showPopup(i,item.AutoID)" class="calcfont calc-tongzhi info-icon"></i>
                                 </div>
                             </div>
 
