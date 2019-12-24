@@ -13,33 +13,67 @@
         <div v-show="!notData" id="list" class="notification-list">
 
             <div v-for="item in listData" :key="item.AutoID" class="item f14">
-
-                <!-- <div v-if="!item.IsOpen"> -->
-                <div :class="{'alreadyRead':item.IsOpen==true}">
-                    <div class="item-title">{{item.Theme}}</div>
-                    <div v-if="item.FromType!='6'" class="item-div">
-                        <span>{{titleLV}}</span>
-                        <div class="item-div-text">{{item.Title}}</div>
+                <!-- 申请联系人访问权限 -->
+                <div v-if="true">
+                    <div :class="{'alreadyRead':item.IsOpen==true}">
+                        <div class="item-title">
+                            <span></span>
+                            <span>{{item.Theme}}</span>
+                            <span></span>
+                        </div>
+                        <div v-if="item.FromType!='6'" class="item-div">
+                            <span>{{titleLV}}</span>
+                            <div class="item-div-text">{{item.Title}}</div>
+                        </div>
+                        <div v-else-if="item.FromType=='6'" class="item-div">
+                            <span>{{companyLV}}</span>
+                            <div class="item-div-text">{{item.Title}}</div>
+                        </div>
+                        <div v-if="item.FromType=='8'" class="item-div">
+                            <span>{{timeLV}}</span>
+                            <div class="item-div-text">{{item.AddTime |abdDateFormat('dd/MM/yyyy HH:mm')}}</div>
+                        </div>
+                        <div v-if="item.FromType=='9'" class="item-div">
+                            <span>{{remarkLV}}</span><span>{{item.Remark}}</span>
+                        </div>
+                        <div v-if="item.FromType=='6'" class="item-div">
+                            <span>{{contactLV}}</span><span>{{item.Remark}}</span>
+                        </div>
+                        <div v-if="item.FromType=='8'" class="item-div">
+                            <span>{{meetingLV}}</span><span>{{item.Remark}}</span>
+                        </div>
+                        <div>
+                            <div @click="agree(item)" class="a">{{agreeLV}}</div>
+                        </div>
                     </div>
-                    <div v-else-if="item.FromType=='6'" class="item-div">
-                        <span>{{companyLV}}</span>
-                        <div class="item-div-text">{{item.Title}}</div>
-                    </div>
-                    <div v-if="item.FromType=='8'" class="item-div">
-                        <span>{{timeLV}}</span>
-                        <div class="item-div-text">{{item.AddTime |abdDateFormat('dd/MM/yyyy HH:mm')}}</div>
-                    </div>
-                    <div v-if="item.FromType=='9'" class="item-div">
-                        <span>{{remarkLV}}</span><span>{{item.Remark}}</span>
-                    </div>
-                    <div v-if="item.FromType=='6'" class="item-div">
-                        <span>{{contactLV}}</span><span>{{item.Remark}}</span>
-                    </div>
-                    <div v-if="item.FromType=='8'" class="item-div">
-                        <span>{{meetingLV}}</span><span>{{item.Remark}}</span>
-                    </div>
-                    <div>
-                        <div @click="goInfoPage(item)" class="a">{{viewLV}}</div>
+                </div>
+                <div v-else>
+                    <div :class="{'alreadyRead':item.IsOpen==true}">
+                        <div class="item-title">{{item.Theme}}</div>
+                        <div v-if="item.FromType!='6'" class="item-div">
+                            <span>{{titleLV}}</span>
+                            <div class="item-div-text">{{item.Title}}</div>
+                        </div>
+                        <div v-else-if="item.FromType=='6'" class="item-div">
+                            <span>{{companyLV}}</span>
+                            <div class="item-div-text">{{item.Title}}</div>
+                        </div>
+                        <div v-if="item.FromType=='8'" class="item-div">
+                            <span>{{timeLV}}</span>
+                            <div class="item-div-text">{{item.AddTime |abdDateFormat('dd/MM/yyyy HH:mm')}}</div>
+                        </div>
+                        <div v-if="item.FromType=='9'" class="item-div">
+                            <span>{{remarkLV}}</span><span>{{item.Remark}}</span>
+                        </div>
+                        <div v-if="item.FromType=='6'" class="item-div">
+                            <span>{{contactLV}}</span><span>{{item.Remark}}</span>
+                        </div>
+                        <div v-if="item.FromType=='8'" class="item-div">
+                            <span>{{meetingLV}}</span><span>{{item.Remark}}</span>
+                        </div>
+                        <div>
+                            <div @click="goInfoPage(item)" class="a">{{viewLV}}</div>
+                        </div>
                     </div>
                 </div>
 
@@ -73,11 +107,12 @@ export default {
             contactLV: lanTool.lanContent("996_联系人"),
             meetingLV:lanTool.lanContent("1000441_目标"),
             viewLV: lanTool.lanContent("865_查看"),
+            agreeLV:lanTool.lanContent("1000560_同意"),
         }
     },
     created: function () {},
     mounted: function () {
-        lanTool.updateLanVersion();
+        // lanTool.updateLanVersion();
         //查询消息列表
         this.getMessageList();
     },
@@ -106,7 +141,7 @@ export default {
                 data: jsonDatasTemp,
                 success: function (data) {
                     data = tool.jObject(data);
-                    // console.log(data);
+                    console.log(data);
                     if (data._ReturnStatus == false) {
                         tool.showText(tool.getMessage(data));
                         console.log(tool.getMessage(data));
@@ -321,6 +356,67 @@ export default {
                     document.activeElement.blur();
                 }
             });
+        },
+        //同意分享
+        agree(data){
+          let _self = this;
+          console.log(data);
+          if(tool.isNullOrEmptyObject(data)){
+              return;
+          }
+          var urlTemp = tool.AjaxBaseUrl();
+          var controlName = tool.Api_DataShareInfHandle_SaveOrUpdate;
+          //传入参数
+          var jsonDatasTemp = {
+            CurrentLanguageVersion: lanTool.currentLanguageVersion,
+            UserName: tool.UserName(),
+            _ControlName: controlName,
+            _RegisterCode: tool.RegisterCode(),
+            FromType: data.FromType,
+            FromID: data.FromID,
+            ToTargetID : '',
+            IsGroup : false
+          };
+          console.log(jsonDatasTemp);
+          var loadingIndexClassName = tool.showLoading();
+          $.ajax({
+            async: true,
+            type: "post",
+            url: urlTemp,
+            data: jsonDatasTemp,
+            success: function(data) {
+              tool.hideLoading(loadingIndexClassName);
+              data = tool.jObject(data);
+              // console.log(data);
+              if (data._ReturnStatus == false) {
+                tool.showText(tool.getMessage(data));
+                console.log(tool.getMessage(data));
+                return true;
+              }
+
+              tool.showText('分享成功！');
+
+              //设置记录为已读
+              _self.setCurRead(data);
+
+            },
+            error: function(jqXHR, type, error) {
+              if (curPageNum == 0) {
+                _self.noUserData = true;
+              } else {
+                _self.noGroupData = true;
+              }
+              console.log(error);
+              tool.hideLoading(loadingIndexClassName);
+              return true;
+            },
+            complete: function() {
+              //tool.hideLoading();
+              //隐藏虚拟键盘
+              document.activeElement.blur();
+            }
+          });
+
         }
     }
 }
