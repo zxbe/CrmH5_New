@@ -493,7 +493,7 @@ export default {
                 success: function (data) {
                     tool.hideLoading(loadingIndexClassName);
                     data = tool.jObject(data);
-                    console.log(data);
+                    // console.log(data);
 
                     if (data._ReturnStatus == false) {
                         tool.showText(tool.getMessage(data));
@@ -544,7 +544,7 @@ export default {
                         }
                     });
 
-                    console.log(data);
+                    // console.log(data);
                     _self.noData = false;
                     if (queryType == 'pushLoad') {
                         _self.listData = _self.listData.concat(data);
