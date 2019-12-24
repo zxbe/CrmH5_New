@@ -105,7 +105,7 @@ export default {
             meetingLV:lanTool.lanContent("1000441_目标"),
             viewLV: lanTool.lanContent("865_查看"),
 
-            tipLV:lanTool.lanContent('1000562_{1}在{2}向您申请访问联系人的权限'),
+            tipLV:lanTool.lanContent('1000562_{0}在{1}向您申请访问联系人的权限'),
             agreeLV:lanTool.lanContent("1000560_同意"),
         }
     },
@@ -154,8 +154,8 @@ export default {
                         // if(item.IsDataAccessRequest == 'true' && item.FromType == '6'){
                             let time = new Date(item.AddTime).FormatNew('dd/MM/yyyy HH:mm');
                             let str = _self.tipLV;
-                            str = str.replace('\{1\}',item.Realname);
-                            str = str.replace('\{2\}',time);
+                            str = str.replace('\{0\}',item.Realname);
+                            str = str.replace('\{1\}',time);
                             item.Theme = str;
                         }
                     })
