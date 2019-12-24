@@ -14,14 +14,10 @@
 
             <div v-for="item in listData" :key="item.AutoID" class="item f14">
                 <!-- 申请联系人访问权限 -->
-                <!-- <div v-if="true"> -->
-                <div v-if="item.IsDataAccessRequest == 'true'">
+                <div v-if="true">
+                <!-- <div v-if="item.IsDataAccessRequest == 'true'"> -->
                     <div :class="{'alreadyRead':item.IsOpen==true}">
-                        <div class="item-title">
-                            <span></span>
-                            <span>{{item.Theme}}</span>
-                            <span></span>
-                        </div>
+                        <div class="item-title">{{item.Theme}}</div>
                         <div v-if="item.FromType!='6'" class="item-div">
                             <span>{{titleLV}}</span>
                             <div class="item-div-text">{{item.Title}}</div>
@@ -108,6 +104,8 @@ export default {
             contactLV: lanTool.lanContent("996_联系人"),
             meetingLV:lanTool.lanContent("1000441_目标"),
             viewLV: lanTool.lanContent("865_查看"),
+
+            tipLV:lanTool.lanContent('1000562_{1}在{2}向您申请访问联系人的权限'),
             agreeLV:lanTool.lanContent("1000560_同意"),
         }
     },
@@ -142,15 +140,26 @@ export default {
                 data: jsonDatasTemp,
                 success: function (data) {
                     data = tool.jObject(data);
-                    console.log(data);
+                    // console.log(data);
                     if (data._ReturnStatus == false) {
                         tool.showText(tool.getMessage(data));
                         console.log(tool.getMessage(data));
                         _self.notData = true;
                         return;
                     }
-
                     _self.listData = data._OnlyOneData.Rows || [];
+
+                    _self.listData.forEach(function(item,index){
+                        if(true && item.FromType == '6'){
+                        // if(item.IsDataAccessRequest == 'true' && item.FromType == '6'){
+                            let time = new Date(item.AddTime).FormatNew('dd/MM/yyyy HH:mm');
+                            let str = _self.tipLV;
+                            str = str.replace('\{1\}',item.Realname);
+                            str = str.replace('\{2\}',time);
+                            item.Theme = str;
+                        }
+                    })
+
                     if (tool.isNullOrEmptyObject(_self.listData) || _self.listData.length <= 0) {
                         _self.notData = true;
                     } else {
@@ -395,7 +404,7 @@ export default {
                 return true;
               }
 
-              tool.showText('分享成功！');
+              tool.showText(lanTool.lanContent("1000563_分享成功"));
 
               //设置记录为已读
               _self.setCurRead(data);
