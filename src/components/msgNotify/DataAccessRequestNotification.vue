@@ -14,8 +14,7 @@
 
             <div v-for="item in listData" :key="item.AutoID" class="item f14">
                 <!-- 申请联系人访问权限 -->
-                <div v-if="true">
-                <!-- <div v-if="item.IsDataAccessRequest == 'true'"> -->
+                <div v-if="item.IsDataAccessRequest == 'true'">
                     <div :class="{'alreadyRead':item.IsOpen==true}">
                         <div class="item-title">{{item.Theme}}</div>
                         <div v-if="item.FromType!='6'" class="item-div">
@@ -44,38 +43,6 @@
                         </div>
                     </div>
                 </div>
-                <div v-else>
-                    <div :class="{'alreadyRead':item.IsOpen==true}">
-                        <div class="item-title">{{item.Theme}}</div>
-                        <div v-if="item.FromType!='6'" class="item-div">
-                            <span>{{titleLV}}</span>
-                            <div class="item-div-text">{{item.Title}}</div>
-                        </div>
-                        <div v-else-if="item.FromType=='6'" class="item-div">
-                            <span>{{companyLV}}</span>
-                            <div class="item-div-text">{{item.Title}}</div>
-                        </div>
-                        <div v-if="item.FromType=='8'" class="item-div">
-                            <span>{{timeLV}}</span>
-                            <div class="item-div-text">{{item.AddTime |abdDateFormat('dd/MM/yyyy HH:mm')}}</div>
-                        </div>
-                        <div v-if="item.FromType=='9'" class="item-div">
-                            <span>{{remarkLV}}</span><span>{{item.Remark}}</span>
-                        </div>
-                        <div v-if="item.FromType=='6'" class="item-div">
-                            <span>{{contactLV}}</span><span>{{item.Remark}}</span>
-                        </div>
-                        <div v-if="item.FromType=='8'" class="item-div">
-                            <span>{{meetingLV}}</span><span>{{item.Remark}}</span>
-                        </div>
-                        <div>
-                            <div @click="goInfoPage(item)" class="a">{{viewLV}}</div>
-                        </div>
-                    </div>
-                </div>
-
-
-
             </div>
         </div>
         <nothing v-show="notData" style="padding-top:0.8rem;"></nothing>
