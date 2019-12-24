@@ -777,7 +777,7 @@ export default {
             //console.log(isNeedShow);
             if(isNeedShow == "false"){
                 var msg = lanTool.lanContent("1000572_您无权限访问该记录，请向记录的负责人申请数据共享。");
-                console.log(msg);
+                // console.log(msg);
                 tool.showText(msg);
                 return;
             }

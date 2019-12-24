@@ -367,7 +367,7 @@ export default {
                     });
 
                     $this.dataArray = data;
-                    console.log($this.dataArray);
+                    // console.log($this.dataArray);
                     if (data.length <= 0) {
                         $this.notData = true;
                     } else {
@@ -394,8 +394,8 @@ export default {
         //没有权限时，点击负责人弹出层
         //autoID: 记录ID
         showPopup(data,autoID){
-// console.log(data);
-// console.log(autoID);
+            // console.log(data);
+            // console.log(autoID);
             if(tool.isNullOrEmptyObject(data) || tool.isNullOrEmptyObject(autoID)){
                 return false;
             }
@@ -404,8 +404,7 @@ export default {
             data.FromType = _self.fromType;
             data.FromID = autoID;
             data.UserName = tool.UserName()||"";
-            console.log(data);
-            //console.log(data);
+            // console.log(data);
             _self.$refs['popup'].popupToggle(data);
         },
         //筛选

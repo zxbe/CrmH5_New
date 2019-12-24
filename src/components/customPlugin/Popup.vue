@@ -194,7 +194,7 @@ export default {
                     _self.isHasSendMsg = "true";
                 }
 
-                console.log(_self.isHasSendMsg);
+                // console.log(_self.isHasSendMsg);
             },
             error: function (jqXHR, type, error) {
                 tool.hideLoading(loadingIndexClassName);
