@@ -23,10 +23,10 @@
             <div v-if="!notData && selectType=='checkbox'" class="dataList checkboxList">
                 <div v-for="item in dataArray" :key="item.id" class="item-div">
                     <label class="checkbox-label">
-                        <input type="checkbox" :disabled="item.isHasAccess=='true' ? true : false" :name="field" :value="item.id" v-model="checkboxValue"/>
+                        <input type="checkbox" :disabled="item.IsHasAccess=='true' ? true : false" :name="field" :value="item.id" v-model="checkboxValue"/>
                         <i class="checkbox"></i><span class="radios f14">{{item.text}}</span>
                     </label>
-                    <div v-if="item.isHasAccess=='true' && item.InitiatorArr.length > 0 ">
+                    <div v-if="item.IsHasAccess=='true' && item.InitiatorArr.length > 0 ">
                         <div class="responsible-by" v-for="(i,index) in item.InitiatorArr">
                             <i class="calcfont calc-fuzerenicon icon"></i>
                             <div @click.stop="showPopup(i,item.id)" class="responsible-by-text">{{i.Realname}}</div>
@@ -39,10 +39,10 @@
             <div v-else-if="!notData && selectType=='radio'" class="dataList">
                 <div v-for="item in dataArray" :key="item.id" class="item-div">
                     <label class="radios-label">
-                      <input type="radio" :disabled="item.isHasAccess=='true' ? true : false" :name="field" :value="item.id" v-model="radioValue"/>
+                      <input type="radio" :disabled="item.IsHasAccess=='true' ? true : false" :name="field" :value="item.id" v-model="radioValue"/>
                       <i class="radios"></i><span class="f14">{{item.text}}</span>
                     </label>
-                    <div v-if="item.isHasAccess=='true' && item.InitiatorArr.length > 0 ">
+                    <div v-if="item.IsHasAccess=='true' && item.InitiatorArr.length > 0 ">
                         <div class="responsible-by" v-for="(i,index) in item.InitiatorArr">
                             <i class="calcfont calc-fuzerenicon icon"></i>
                             <div @click.stop="showPopup(i,item.id)" class="responsible-by-text">{{i.Realname}}</div>

@@ -31,23 +31,23 @@
                             </div>
                             <div class="item-div">
                                 <div class="left-text max60" v-show="(item.CompanyID =='' || item.CompanyID == null) ? false : true">
-                                    <i class="calcfont icon calc-gongsixinxi"></i><span>{{(item.CompanyID||"") | formatRelpaceWord2Symbol("*",item.isHasAccess)}}</span>
+                                    <i class="calcfont icon calc-gongsixinxi"></i><span>{{(item.CompanyID||"") | formatRelpaceWord2Symbol("*",item.IsHasAccess)}}</span>
                                 </div>
                                 <div class="right-text max35" v-show="(item.CountryName =='' || item.CountryName == null) ? false : true">
-                                    <i class="calcfont icon calc-nationaarea"></i><span>{{(item.CountryName||"") | formatRelpaceWord2Symbol("*",item.isHasAccess)}}</span>
+                                    <i class="calcfont icon calc-nationaarea"></i><span>{{(item.CountryName||"") | formatRelpaceWord2Symbol("*",item.IsHasAccess)}}</span>
                                 </div>
                             </div>
                             <div class="item-div">
                                 <div class="left-text max60" v-show="(item.Email =='' || item.Email == null) ? false : true">
-                                    <i class="calcfont icon calc-mailbox"></i><span>{{(item.Email||"") | formatRelpaceWord2Symbol("*",item.isHasAccess)}}</span>
+                                    <i class="calcfont icon calc-mailbox"></i><span>{{(item.Email||"") | formatRelpaceWord2Symbol("*",item.IsHasAccess)}}</span>
                                 </div>
                                 <div class="right-text max35" v-show="(item.Phone =='' || item.Phone == null) ? false : true">
-                                    <i class="calcfont icon calc-mobilephone"></i><span>{{(item.Phone||"") | formatRelpaceWord2Symbol("*",item.isHasAccess)}}</span>
+                                    <i class="calcfont icon calc-mobilephone"></i><span>{{(item.Phone||"") | formatRelpaceWord2Symbol("*",item.IsHasAccess)}}</span>
                                 </div>
                             </div>
 
                             <!-- 负责人 -->
-                            <div v-if="item.isHasAccess=='false' && item.InitiatorArr.length > 0 ">
+                            <div v-if="item.IsHasAccess=='false' && item.InitiatorArr.length > 0 ">
                                 <div class="item-div responsible-by" v-for="(i,index) in item.InitiatorArr">
                                     <i class="calcfont calc-fuzerenicon icon"></i>
                                     <span @click.stop="showPopup(i,item.AutoID)" class="">{{i.Realname}}</span>
@@ -769,7 +769,7 @@ export default {
         //点击跳转到详情页
         goInfo(data) {
             let _self = this;
-            if (tool.isNullOrEmptyObject(data) || tool.isNullOrEmptyObject(data.AutoID) || data.isHasAccess=='false') {
+            if (tool.isNullOrEmptyObject(data) || tool.isNullOrEmptyObject(data.AutoID) || data.IsHasAccess=='false') {
                 return;
             }
             var parameter = {
