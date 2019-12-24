@@ -13,7 +13,7 @@
         <div v-show="!notData" id="list" class="notification-list">
 
             <div v-for="item in listData" :key="item.AutoID" class="item f14">
-                <!-- 申请联系人访问权限 -->
+                    <!-- 申请联系人访问权限 -->
                     <div :class="{'alreadyRead':item.IsOpen==true}">
                         <div class="item-title">{{item.Theme}}</div>
                         <div v-if="item.FromType!='6'" class="item-div">
@@ -38,7 +38,7 @@
                             <span>{{meetingLV}}</span><span>{{item.Remark}}</span>
                         </div>
                         <div>
-                            <div @click="agree(item)" class="a">{{agreeLV}}</div>
+                            <div @click="shareData(item)" class="a">{{agreeLV}}</div>
                         </div>
                     </div>
          
@@ -256,10 +256,63 @@ export default {
             tool.showConfirm(
                 lanTool.lanContent("1000070_是否确定执行批量共享？"),
                 function () {
-                    _self.setReadExe(autoIDArr, true);
+                    _self.dataAccessRequestBatchShareAndSetRead(autoIDArr, true);
                 },
-                function () {}
+                function () {
+
+                }
             );
+        },
+        //批量分享数据并设置消息状态
+        //isRefresh:是否刷新列表
+        dataAccessRequestBatchShareAndSetRead:function(autoIDArray,isRefresh){
+            isRefresh = (isRefresh == null || isRefresh == undefined) ? true : isRefresh;
+            if (tool.isNullOrEmptyObject(autoIDArray) || autoIDArray.length<=0) {
+                return;
+            }
+
+            var _self = this;
+            var urlTemp = tool.AjaxBaseUrl();
+            var controlName = tool.Api_MessagesToUserHandle_DataAccessRequestBatchShareAndSetRead;
+            //传入参数
+            var jsonDatasTemp = {
+                CurrentLanguageVersion: lanTool.currentLanguageVersion,
+                UserName: tool.UserName(),
+                _ControlName: controlName,
+                _RegisterCode: tool.RegisterCode(),
+                AutoID: JSON.stringify(autoIDArray)
+            };
+
+            $.ajax({
+                async: true,
+                type: "post",
+                url: urlTemp,
+                data: jsonDatasTemp,
+                success: function (data) {
+                    data = tool.jObject(data);
+                    // console.log(data);
+                    if (data._ReturnStatus == false) {
+                        tool.showText(tool.getMessage(data));
+                        console.log(tool.getMessage(data));
+                        //_self.notData = true;
+                        //return;
+                    }
+
+                    //若需要刷新列表
+                    if (isRefresh) {
+                        _self.getMessageList();
+                    }
+                },
+                error: function (jqXHR, type, error) {
+                    console.log(error);
+                    return;
+                },
+                complete: function () {
+                    //tool.hideLoading();
+                    //隐藏虚拟键盘
+                    document.activeElement.blur();
+                }
+            });
         },
         //设置指定的记录为已读
         setCurRead: function (data) {
@@ -269,11 +322,11 @@ export default {
             _self.setReadExe(autoIDArray, true);
         },
         //执行记录设置为已读
+        //isRefresh:是否刷新列表
         setReadExe: function (autoIDArray, isRefresh) {
             if (tool.isNullOrEmptyObject(autoIDArray)) {
                 return;
             }
-
             var _self = this;
             //请求地址
             var urlTemp = tool.AjaxBaseUrl();
@@ -318,13 +371,17 @@ export default {
                 }
             });
         },
-        //同意分享
-        agree(data){
+        //同意分享数据
+        shareData(data){
           let _self = this;
-          console.log(data);
+          //console.log(data);
           if(tool.isNullOrEmptyObject(data)){
               return;
           }
+
+          //备份原对象
+          var dataPre = tool.DeepClone(data);
+
           var urlTemp = tool.AjaxBaseUrl();
           var controlName = tool.Api_DataShareInfHandle_SaveOrUpdate;
           //传入参数
@@ -333,12 +390,15 @@ export default {
             UserName: tool.UserName(),
             _ControlName: controlName,
             _RegisterCode: tool.RegisterCode(),
-            FromType: data.FromType,
-            FromID: data.FromID,
-            ToTargetID : '',
+            FromType: data.FromType||"",
+            FromID: data.FromID||"",
+            ToTargetID : data.ToTargetID || "",
             IsGroup : false
           };
-          console.log(jsonDatasTemp);
+
+        //   console.log(jsonDatasTemp);
+        //   return;
+
           var loadingIndexClassName = tool.showLoading();
           $.ajax({
             async: true,
@@ -358,8 +418,7 @@ export default {
               tool.showText(lanTool.lanContent("1000563_分享成功"));
 
               //设置记录为已读
-              _self.setCurRead(data);
-
+              _self.setCurRead(dataPre);
             },
             error: function(jqXHR, type, error) {
               if (curPageNum == 0) {

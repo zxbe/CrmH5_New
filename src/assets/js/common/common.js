@@ -770,6 +770,12 @@ import config from "../../configfile/config.js";
    * 数据访问请求的消息列表查询
    */
   tool.Api_MessagesToUserHandle_QueryDataAccessRequest = "Api_MessagesToUserHandle_QueryDataAccessRequest";
+    /*
+   * 数据访问请求的消息列表查询
+   */
+  tool.Api_MessagesToUserHandle_DataAccessRequestBatchShareAndSetRead = "Api_MessagesToUserHandle_DataAccessRequestBatchShareAndSetRead";
+
+
   /*
    * currentLanguageVersion:当前语言版本
    */
@@ -4459,6 +4465,36 @@ import config from "../../configfile/config.js";
       }
     // }, 10);
   };
+
+
+/*
+    * 深拷贝
+    * @param {object} obj object对象
+    * @param {string} removeFildStr 待移除的字段，多个字段用逗号隔开
+    */
+   tool.DeepClone = function (obj, removeFildStr) {
+    if (tool.isNull(obj)) {
+        return obj;
+    }
+
+    removeFildStr = removeFildStr || "";
+    var removeFildArray = removeFildStr.split(',');
+    if (removeFildArray.length <= 0) {
+        removeFildArray = [];
+    }
+    var objNew = {};
+    for (var keyName in obj) {
+        //若有需要移除的key
+        if (removeFildArray.indexOf(keyName) >= 0) {
+            continue;
+        }
+
+        objNew[keyName] = obj[keyName];
+    }
+
+    return objNew;
+}
+
 })((top.window.tool = {}), jQuery);
 
 /*

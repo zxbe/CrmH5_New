@@ -91,6 +91,7 @@ let json = {
 	"Api_MessagesToUserHandle_SendDataAccessRequest":"Api_MessagesToUserHandle_SendDataAccessRequest",
 	"Api_MessagesToUserHandle_QueryDataAccessRequestCount":"Api_MessagesToUserHandle_QueryDataAccessRequestCount",
 	"Api_MessagesToUserHandle_QueryDataAccessRequest":"Api_MessagesToUserHandle_QueryDataAccessRequest",
+	"Api_MessagesToUserHandle_DataAccessRequestBatchShareAndSetRead":"Api_MessagesToUserHandle_DataAccessRequestBatchShareAndSetRead"
 }
 
 export default json;
