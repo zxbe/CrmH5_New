@@ -1,7 +1,7 @@
 <template>
 <div>
     <header class="mui-bar mui-bar-nav">
-        <a @click="setAllRead()" class="calcfont calc-yidu right"></a>
+        <a @click="setAllRead()" class="calcfont calc-icon-share right"></a>
         <a @click="clearAll()" class="calcfont calc-qingkong right"></a>
 
         <a @click="back()" class="calcfont calc-fanhui left" id="back"></a>
@@ -14,7 +14,6 @@
 
             <div v-for="item in listData" :key="item.AutoID" class="item f14">
                 <!-- 申请联系人访问权限 -->
-                <div v-if="item.IsDataAccessRequest == 'true'">
                     <div :class="{'alreadyRead':item.IsOpen==true}">
                         <div class="item-title">{{item.Theme}}</div>
                         <div v-if="item.FromType!='6'" class="item-div">
@@ -42,7 +41,7 @@
                             <div @click="agree(item)" class="a">{{agreeLV}}</div>
                         </div>
                     </div>
-                </div>
+         
             </div>
         </div>
         <nothing v-show="notData" style="padding-top:0.8rem;"></nothing>
@@ -60,10 +59,9 @@ export default {
     },
     data() {
         return {
-            title: lanTool.lanContent('866_通知'),
+            title: lanTool.lanContent('1000558_数据访问请求'),
             listData: [],
             notData: true, //没数据
-
             titleLV: lanTool.lanContent("862_标题"),
             companyLV: lanTool.lanContent("995_公司"),
             timeLV: lanTool.lanContent("863_时间"),
@@ -71,9 +69,7 @@ export default {
             contactLV: lanTool.lanContent("996_联系人"),
             meetingLV:lanTool.lanContent("1000441_目标"),
             viewLV: lanTool.lanContent("865_查看"),
-
-            tipLV:lanTool.lanContent('1000562_向您申请访问联系人的权限。'),
-            agreeLV:lanTool.lanContent("1000560_同意"),
+            agreeLV:lanTool.lanContent("1000492_分享数据"),
         }
     },
     created: function () {},
@@ -91,7 +87,7 @@ export default {
             var _self = this;
             //请求地址
             var urlTemp = tool.AjaxBaseUrl();
-            var controlName = tool.Api_MessagesToUserHandle_Query;
+            var controlName = tool.Api_MessagesToUserHandle_QueryDataAccessRequest;
             //传入参数
             var jsonDatasTemp = {
                 CurrentLanguageVersion: lanTool.currentLanguageVersion,
@@ -116,23 +112,11 @@ export default {
                     }
                     _self.listData = data._OnlyOneData.Rows || [];
 
-                    _self.listData.forEach(function(item,index){
-                        if(true && item.FromType == '6'){
-                        // if(item.IsDataAccessRequest == 'true' && item.FromType == '6'){
-                            let time = new Date(item.AddTime).FormatNew('dd/MM/yyyy HH:mm');
-                            let str = _self.tipLV;
-                            str = str.replace('\{0\}',item.Realname);
-                            str = str.replace('\{1\}',time);
-                            item.Theme = str;
-                        }
-                    })
-
                     if (tool.isNullOrEmptyObject(_self.listData) || _self.listData.length <= 0) {
                         _self.notData = true;
                     } else {
                         _self.notData = false;
                     }
-
                 },
                 error: function (jqXHR, type, error) {
                     console.log(error);
@@ -270,7 +254,7 @@ export default {
             }
 
             tool.showConfirm(
-                lanTool.lanContent("997_您确定要将全部消息设置为已读吗？"),
+                lanTool.lanContent("1000070_是否确定执行批量共享？"),
                 function () {
                     _self.setReadExe(autoIDArr, true);
                 },

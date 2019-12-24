@@ -48,7 +48,7 @@
 
                             <!-- 负责人 -->
                             <div v-if="item.IsHasAccess=='false' && item.InitiatorArr.length > 0 ">
-                                <div class="item-div responsible-by" v-for="(i,index) in item.InitiatorArr">
+                                <div class="item-div responsible-by" :key=index v-for="(i,index) in item.InitiatorArr">
                                     <i class="calcfont calc-fuzerenicon icon"></i>
                                     <span @click.stop="showPopup(i,item.AutoID)" class="">{{i.Realname}}</span>
                                     <i @click.stop="showPopup(i,item.AutoID)" class="calcfont calc-tongzhi info-icon"></i>
