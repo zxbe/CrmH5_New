@@ -13,7 +13,7 @@
         <div v-show="!notData" id="list" class="notification-list">
 
             <div v-for="item in listData" :key="item.AutoID" class="item f14">
-                
+
                     <div :class="{'alreadyRead':item.IsOpen==true}">
                         <div class="item-title">{{item.Theme}}</div>
                         <div v-if="item.FromType!='6'" class="item-div">
@@ -37,11 +37,11 @@
                         <div v-if="item.FromType=='8'" class="item-div">
                             <span>{{meetingLV}}</span><span>{{item.Remark}}</span>
                         </div>
-                        <div>
-                            <div @click="goInfoPage(item)" class="a">{{viewLV}}</div>
+                        <div class="btn-box-div">
+                            <div @click="goInfoPage(item)" class="btn-div">{{viewLV}}</div>
                         </div>
                     </div>
-                    
+
             </div>
         </div>
         <nothing v-show="notData" style="padding-top:0.8rem;"></nothing>
@@ -452,7 +452,8 @@ header a {
 .page-content {
     padding-top: 0.88rem;
 }
-</style><style>
+
+
 /*列表*/
 .notification-list {}
 
@@ -465,6 +466,9 @@ header a {
 .notification-list .alreadyRead {
     opacity: 0.7;
 }
+
+.btn-div-box{padding:0.1rem 0;}
+.btn-div{display: inline-block;padding:0.1rem 0.2rem;background: #1775cc;color:#FFFFFF;border-radius: 0.05rem;}
 
 /*已读*/
 .notification-list .item-title {
@@ -479,4 +483,9 @@ header a {
 .notification-list .item-div-text {
     display: inline-block;
 }
+
+
+
+
+
 </style>

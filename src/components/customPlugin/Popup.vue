@@ -2,6 +2,12 @@
 <div>
     <div id="mask" class="mask" @click="popupToggle" v-show="showPopup" @touchmove.stop.prevent></div>
     <div id="popupContent" class="popup-content">
+        <div class="item-field" v-show="isHasSendMsg=='true'">
+            <div class="row tips-row">
+              <i class="icon tips-icon">*</i>
+              <span class="lanText field-key f12" data-lanid="1000573_消息发送成功，请耐心等待对方分享数据给您。"></span>
+            </div>
+        </div>
         <div class="item-field">
             <div class="row"><i class="calcfont calc-fuzerenicon icon"></i> <span class="lanText field-key" data-lanid="825_负责人"></span></div>
             <div class="row"><div class="field-value">{{popupData.Realname}}</div></div>
@@ -227,7 +233,9 @@ export default {
 
 .item-field{margin-bottom: 10px;}
 .item-field .row{display: flex;align-items: center;}
+.item-field .tips-row .field-key{color: red;}
 .item-field .icon{font-size: .32rem; color:#f90;width: .5rem;}
+.item-field .tips-icon{box-sizing: border-box;padding-left: 0.1rem;color:red;}
 .item-field .field-key{color:#333333;}
 .item-field .field-value{position: relative;flex: 1;padding: 5px 0 5px 0.5rem;}
 .item-field .field-value:after {

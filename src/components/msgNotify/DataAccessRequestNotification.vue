@@ -37,11 +37,13 @@
                         <div v-if="item.FromType=='8'" class="item-div">
                             <span>{{meetingLV}}</span><span>{{item.Remark}}</span>
                         </div>
-                        <div>
-                            <div @click="shareData(item)" class="a">{{agreeLV}}</div>
+                        <div class="btn-div-box">
+                            <div v-if="item.IsOpen==true" class="btn-div has-shear">{{alreadySharedLV}}</div>
+                            <div v-else  @click="shareData(item)" class="btn-div">{{agreeLV}}</div>
+
                         </div>
                     </div>
-         
+
             </div>
         </div>
         <nothing v-show="notData" style="padding-top:0.8rem;"></nothing>
@@ -70,6 +72,9 @@ export default {
             meetingLV:lanTool.lanContent("1000441_目标"),
             viewLV: lanTool.lanContent("865_查看"),
             agreeLV:lanTool.lanContent("1000492_分享数据"),
+            alreadySharedLV:lanTool.lanContent("1000569_已分享"),
+
+
         }
     },
     created: function () {},
@@ -496,7 +501,7 @@ header a {
 .page-content {
     padding-top: 0.88rem;
 }
-</style><style>
+
 /*列表*/
 .notification-list {}
 
@@ -509,6 +514,9 @@ header a {
 .notification-list .alreadyRead {
     opacity: 0.7;
 }
+.btn-div-box{padding:0.1rem 0;}
+.btn-div{display: inline-block;padding:0.1rem 0.2rem;background: #1775cc;color:#FFFFFF;border-radius: 0.05rem;}
+.has-shear{background: #cccccc;}
 
 /*已读*/
 .notification-list .item-title {
