@@ -1,7 +1,7 @@
 <template>
 <div>
     <header class="mui-bar mui-bar-nav">
-        <a @click="setAllRead()" class="calcfont calc-icon-share right"></a>
+        <a @click="setAllRead()" class="calcfont calc-Share right"></a>
         <a @click="clearAll()" class="calcfont calc-qingkong right"></a>
 
         <a @click="back()" class="calcfont calc-fanhui left" id="back"></a>
