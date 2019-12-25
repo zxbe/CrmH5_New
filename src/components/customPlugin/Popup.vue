@@ -14,12 +14,6 @@
                 <div class="field-value">{{popupData.Realname}}</div>
             </div>
         </div>
-        <div class="item-field" style="margin-bottom:20px;">
-            <div class="row"><i class="calcfont calc-mailbox icon"></i> <span class="lanText field-key" data-lanid="697_邮箱"></span></div>
-            <div class="row">
-                <div class="field-value can-operation email" @click="sendEmail">{{popupData.Email}}</div>
-            </div>
-        </div>
         <div class="item-field">
             <div class="row"><i class="calcfont calc-zuzhibumen icon"></i> <span class="lanText field-key" data-lanid="567_部门"></span></div>
             <div class="row">
@@ -36,6 +30,12 @@
             <div class="row"><i class="calcfont calc-phone icon"></i> <span class="lanText field-key" data-lanid="704_办公电话"></span></div>
             <div class="row">
                 <div class="field-value">{{popupData.LocalPhone}}</div>
+            </div>
+        </div>
+        <div class="item-field" style="margin-bottom:20px;">
+            <div class="row"><i class="calcfont calc-mailbox icon"></i> <span class="lanText field-key" data-lanid="697_邮箱"></span></div>
+            <div class="row">
+                <div class="field-value can-operation email" @click="sendEmail">{{popupData.Email}}</div>
             </div>
         </div>
         <div class="item-field">
