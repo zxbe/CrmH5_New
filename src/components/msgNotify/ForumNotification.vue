@@ -75,13 +75,14 @@ export default {
                 _ControlName: controlName,
                 _RegisterCode: tool.RegisterCode()
             };
-
+            var loadingIndexClassName = tool.showLoading();
             $.ajax({
                 async: true,
                 type: "post",
                 url: urlTemp,
                 data: jsonDatasTemp,
                 success: function (data) {
+                    tool.hideLoading(loadingIndexClassName);
                     data = tool.jObject(data);
                     // console.log(data);
                     if (data._ReturnStatus == false) {

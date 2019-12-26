@@ -63,7 +63,7 @@ export default {
         return {
             title: lanTool.lanContent('1000558_数据访问请求'),
             listData: [],
-            notData: true, //没数据
+            notData: false, //没数据
             titleLV: lanTool.lanContent("862_标题"),
             companyLV: lanTool.lanContent("995_公司"),
             timeLV: lanTool.lanContent("863_时间"),
@@ -100,13 +100,14 @@ export default {
                 _ControlName: controlName,
                 _RegisterCode: tool.RegisterCode()
             };
-
+           var loadingIndexClassName = tool.showLoading();
             $.ajax({
                 async: true,
                 type: "post",
                 url: urlTemp,
                 data: jsonDatasTemp,
                 success: function (data) {
+                    tool.hideLoading(loadingIndexClassName);
                     data = tool.jObject(data);
                     // console.log(data);
                     if (data._ReturnStatus == false) {
