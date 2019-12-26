@@ -26,20 +26,29 @@
                               </div>
                               <div class="item-div">
                                   <div class="left-text max60" v-show="(item.CompanyID =='' || item.CompanyID == null) ? false : true">
-                                      <i class="calcfont icon calc-gongsixinxi"></i><span >{{item.CompanyID}}</span>
+                                      <i class="calcfont icon calc-gongsixinxi"></i><span >{{(item.CompanyID||"") | formatRelpaceWord2Symbol("*",item.IsHasAccess)}}</span>
                                   </div>
                                   <div class="right-text max35" v-show="(item.CountryName =='' || item.CountryName == null) ? false : true">
-                                      <i class="calcfont icon calc-nationaarea"></i><span>{{item.CountryName}}</span>
+                                      <i class="calcfont icon calc-nationaarea"></i><span>{{(item.CountryName||"") | formatRelpaceWord2Symbol("*",item.IsHasAccess)}}</span>
                                   </div>
                               </div>
                               <div class="item-div">
                                   <div class="left-text max60" v-show="(item.Email =='' || item.Email == null) ? false : true">
-                                    <i class="calcfont icon calc-mailbox"></i><span>{{item.Email}}</span>
+                                    <i class="calcfont icon calc-mailbox"></i><span>{{(item.Email||"") | formatRelpaceWord2Symbol("*",item.IsHasAccess)}}</span>
                                   </div>
                                   <div class="right-text max35" v-show="(item.TelPhone =='' || item.TelPhone == null) ? false : true">
-                                    <i class="calcfont icon calc-mobilephone"></i><span>{{item.TelPhone}}</span>
+                                    <i class="calcfont icon calc-mobilephone"></i><span>{{(item.Phone||"") | formatRelpaceWord2Symbol("*",item.IsHasAccess)}}</span>
                                   </div>
                               </div>
+
+                              <!-- 负责人 -->
+                            <div v-if="item.IsHasAccess=='false' && item.InitiatorArr.length > 0 ">
+                                <div class="item-div responsible-by" :key=index v-for="(i,index) in item.InitiatorArr">
+                                    <i class="calcfont calc-fuzerenicon icon"></i>
+                                    <span @click.stop="showPopup(i,item.AutoID)" class="">{{i.Realname}}</span>
+                                    <i @click.stop="showPopup(i,item.AutoID)" class="calcfont calc-tongzhi info-icon"></i>
+                                </div>
+                            </div>
                       </div>
                 </div>
 
@@ -48,17 +57,20 @@
         <nothing v-show="noData" style="padding-top:0.8rem;"></nothing>
 
     </div>
-
+        <!-- 底部弹出层   -->
+        <popup ref="popup"></popup>
 </div>
 </template>
 
 <script>
 import Scroll from '@/components/customPlugin/scroll/Scroll';
 import Nothing from "@/components/customPlugin/Nothing";
+import Popup from "@/components/customPlugin/Popup"
 export default {
     components: {
         'vue-scroll': Scroll,
-        nothing: Nothing
+        nothing: Nothing,
+         Popup,
     },
     data() {
         return {
@@ -69,7 +81,7 @@ export default {
             listData: [],
             pageSize: 10, //一页显示多少记录
             pageNum: 1, //当前页码
-
+            searchModuleFromType: "6",
             fromType:'',  //标志是用那个模块过来的；联系人:6;公司:7;会议:8;商机&交易:9;
             fromId:''  //dealPipelineID或者pitchesID,用于新增会议自动选择关联于商业字段
         }
@@ -97,6 +109,20 @@ export default {
         document.activeElement.blur();
     },
     methods: {
+        //没有权限时，点击负责人弹出层
+        //autoID: 记录ID
+        showPopup(data,autoID){
+            if(tool.isNullOrEmptyObject(data) || tool.isNullOrEmptyObject(autoID)){
+                return false;
+            }
+            let _self = this;
+
+            data.FromType = _self.searchModuleFromType;
+            data.FromID = autoID;
+            data.UserName = tool.UserName()||"";
+            //console.log(data);
+            _self.$refs['popup'].popupToggle(data);
+        },
         //新增联系人
         addContacts: function (e) {
             var _self = this;
@@ -174,14 +200,47 @@ export default {
                         _self.noData = true;
                         return ;
                     }
+                 //分割负责人信息
+                    $.each(data, function(i,dataObj){
+                        var initiatorArr = [];
+                        var initiator = dataObj.Initiator||"";
+                        if(!tool.isNullOrEmptyObject(initiator)){
+                            //139||@||aoniruan阮毅文||@||test3@safll.cn||@||86 150 1842 7794||@||755 - 2592 9899 8509
+                            var initiatorArrTemp = initiator.split(",");
+                            if(!tool.isNullOrEmptyObject(initiatorArrTemp) && initiatorArrTemp.length > 0){
+                                $.each(initiatorArrTemp,function(j,initiatorTemp){
+                                    var fieldArr = initiatorTemp.split("||@||");
+                                    if(fieldArr.length != 8){
+                                        return true;
+                                    }
 
+                                    var objTemp = {
+                                        AutoID : fieldArr[0],
+                                        Realname : fieldArr[1],
+                                        Email : fieldArr[2],
+                                        Phone : fieldArr[3],
+                                        LocalPhone : fieldArr[4],
+                                        ToUserName : fieldArr[5],
+                                        DepartmentID:fieldArr[6],
+                                        PositionID:fieldArr[7]
+                                    };
+                                    initiatorArr.push(objTemp);
+                                });
+                            }
+
+                            dataObj.InitiatorArr = initiatorArr;
+                        }else{
+                            dataObj.InitiatorArr = initiatorArr;
+                            return true;
+                        }
+                    });
                     _self.noData = false;
                     if(queryType == 'pushLoad'){
                         _self.listData = _self.listData.concat(data);
                     }else{
                         _self.listData = data;
                     }
-
+                    // console.log("data:"+JSON.stringify(_self.listData));
                     if(queryType == undefined || queryType == ''){
                         _self.$refs.scroll.isPullingDown = true;
                         _self.$refs.scroll.isPullingUpEnd = false;
@@ -223,6 +282,14 @@ export default {
         goInfoPage:function(item,e){
             var _self = this;
             if(tool.isNullOrEmptyObject(item.AutoID)){
+                return;
+            }
+             var isNeedShow = (item["IsHasAccess"] || "false").toString().toLowerCase();
+            //console.log(isNeedShow);
+            if(isNeedShow == "false"){
+                var msg = lanTool.lanContent("1000572_您无权限访问该记录，请向记录的负责人申请数据共享。");
+                // console.log(msg);
+                tool.showText(msg);
                 return;
             }
             var url = "/contactsinfo/" + item.AutoID
