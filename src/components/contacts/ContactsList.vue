@@ -82,7 +82,7 @@
                             <div class="occupy-div"></div>
 
                             <div v-if="companys.items.length > 0" class="contact_list data-list">
-                                <div v-for="company in companys.items" :key="company.AutoID" @click="goInfo(company)" class="group-item data-events-item f14">
+                                <div v-for="company in companys.items" :key="company.AutoID" @click="goInfo(company,'group')" class="group-item data-events-item f14">
                                     <div class="item-user-icon"><img src="../../assets/images/default_user_img.png" alt=""></div>
                                     <div class="item-block contacts-item-block">
                                         <div class="item-div item-first-div"><span>{{company.EnglishName}}</span></div>
@@ -769,19 +769,26 @@ export default {
                 });
         },
         //点击跳转到详情页
-        goInfo(data) {
+        //data:行记录对象
+        //pageTypeTemp:页面类型:
+        goInfo(data,pageTypeTemp) {
             let _self = this;
             if (tool.isNullOrEmptyObject(data) || tool.isNullOrEmptyObject(data.AutoID)) {
                 return;
             }
+            
+            pageTypeTemp =  tool.isNullOrEmptyObject(pageTypeTemp) ? "list" : pageTypeTemp;
+            pageTypeTemp = pageTypeTemp.toLowerCase();
 
-            var isNeedShow = (data["IsHasAccess"] || "false").toString().toLowerCase();
-            //console.log(isNeedShow);
-            if(isNeedShow == "false"){
-                var msg = lanTool.lanContent("1000572_您无权限访问该记录，请向记录的负责人申请数据共享。");
-                // console.log(msg);
-                tool.showText(msg);
-                return;
+            if(pageTypeTemp == "list"){
+                var isNeedShow = (data["IsHasAccess"] || "false").toString().toLowerCase();
+                //console.log(isNeedShow);
+                if(isNeedShow == "false"){
+                    var msg = lanTool.lanContent("1000572_您无权限访问该记录，请向记录的负责人申请数据共享。");
+                    // console.log(msg);
+                    tool.showText(msg);
+                    return;
+                }
             }
 
             var parameter = {
