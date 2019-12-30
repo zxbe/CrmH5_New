@@ -17,7 +17,7 @@
           <!-- 列表视图 -->
           <div v-show="queryObj.viewMode == 'listView'">
               <!-- 列表模式 List -->
-              <div v-show="queryObj.groupByMode == 'List'" class="list-mode-div">
+              <div v-if="queryObj.groupByMode == 'List'" class="list-mode-div">
                   <vue-scroll v-show="!noData" :showToTop="false" :options="{ pullup: true, pulldown: true }" :scrollbar="false" ref="scroll" @pulldown="pulldown" @pullup="pullup">
                         <div v-if="listData !=null && listData != undefined && listData.length > 0" class="group-item-list meeting-list list-module-list">
                             <div v-for="item in listData" :key="item.AutoID"
@@ -45,7 +45,7 @@
               </div>
 
               <!-- Date模式 -->
-              <div v-show="queryObj.groupByMode == 'Date'" class="date-mode-div" id="meetingList" data-fromtype="meeting">
+              <div v-if="queryObj.groupByMode == 'Date'" class="date-mode-div" id="meetingList" data-fromtype="meeting">
                     <div v-show="!noData" v-for="group in groupData" :key="group.GroupID"
                       class="list-group-div group-div">
                         <div class="date-div">
@@ -81,7 +81,7 @@
               </div>
 
               <!-- 业务分组 模式 -->
-              <div v-show="queryObj.groupByMode == 'PopedomTeamInf'" class="department-mode-div" id="meetingListOfGroup" data-fromtype="meeting">
+              <div v-if="queryObj.groupByMode == 'PopedomTeamInf'" class="department-mode-div" id="meetingListOfGroup" data-fromtype="meeting">
                     <div v-show="!noData" v-for="group in groupData" :key="group.GroupID" class="list-group-div group-div">
                         <div class="date-div">
                             <span class="calcfont calc-business"></span>
@@ -355,6 +355,25 @@ export default {
         searchModuleFromType:"8" //联系人:6;公司:7;会议:8;商机&交易:9;用户管理：11；
     }
   },
+  watch:{
+      //监听分组模式和列表模式的变化
+     'queryObj.groupByMode':function(newValue,oldValue){
+        // console.log(oldValue);
+        // console.log(newValue);
+        if(tool.isNullOrEmptyObject(newValue)){
+          return;
+        }
+
+        let _self = this;
+        newValue = newValue.toLowerCase();
+        if(newValue != "list"){
+            //分组模式事件绑定
+            _self.$nextTick(function(){
+              _self.groupToggle('meetingList','meetingListOfGroup');
+            });
+        }
+     }
+  },
   created: function () {
       let _self = this;
       _self.$store.commit('SET_ITEM', 'meetinglist');
@@ -370,7 +389,7 @@ export default {
   mounted(){
       let _self = this;
       _self.watchScroll();
-      _self.groupToggle('meetingList','meetingListOfGroup');
+      //_self.groupToggle('meetingList','meetingListOfGroup');
   },
   activated(){
     let _self = this;
@@ -657,6 +676,7 @@ export default {
             "click",
             "div.date-div",
             function (event) {
+                console.log("click");
                 event.preventDefault();
                 var target = $(event.target);
                 if (!target.hasClass('date-div')) {

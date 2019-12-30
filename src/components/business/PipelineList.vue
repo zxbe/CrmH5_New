@@ -13,7 +13,7 @@
           <sort :sortData="sortData" :sortObj="sortObj" ref="sort"></sort>
 
           <!-- 列表模式   -->
-          <div class="list-mode-div" v-show="queryObj.groupByMode == 'List'">
+          <div class="list-mode-div" v-if="queryObj.groupByMode == 'List'">
               <vue-scroll v-show="!noData" :showToTop="false" :options="{ pullup: true, pulldown: true }" :scrollbar="false" ref="scroll" @pulldown="pulldown" @pullup="pullup">
                   <div v-if="listData !=null && listData != undefined && listData.length > 0" class="group-item-list dealPipeline-list list-module-list">
                       <div v-for="item in listData" :key="item.AutoID" class=" group-item f14" @click="goInfo(item)">
@@ -52,7 +52,7 @@
           </div>
 
           <!-- 分组模式   -->
-          <div class="group-mode-div" v-show="queryObj.groupByMode != 'List'">
+          <div class="group-mode-div" v-if="queryObj.groupByMode != 'List'">
               <div v-show="!noData" id="opportunitiesList" data-fromtype="opportunities">
                 <div v-for="group in groupData" :key="group.GroupID" class="list-group-div group-div">
                         <div class="date-div " >
@@ -300,6 +300,25 @@ export default {
         showPage:"0"//记录列表页是从哪个模块进来的 0：交易；1：商业机会
     }
   },
+  watch:{
+      //监听分组模式和列表模式的变化
+     'queryObj.groupByMode':function(newValue,oldValue){
+        // console.log(oldValue);
+        // console.log(newValue);
+        if(tool.isNullOrEmptyObject(newValue)){
+          return;
+        }
+
+        let _self = this;
+        newValue = newValue.toLowerCase();
+        if(newValue != "list"){
+            //分组模式事件绑定
+            _self.$nextTick(function(){
+              _self.groupToggleHandle('opportunitiesList');
+            });
+        }
+     }
+  },
   created: function () {
       let _self = this;
       _self.$store.commit('SET_ITEM', 'pipelinelist');
@@ -316,7 +335,7 @@ export default {
       let _self = this;
       _self.watchScroll();
       //分组模式事件绑定
-      _self.groupToggleHandle('opportunitiesList');
+      //_self.groupToggleHandle('opportunitiesList');
   },
   activated(){
     let _self = this;
@@ -638,6 +657,7 @@ export default {
             "click",
             "div.date-div",
             function (event) {
+              // console.log("click");
                 event.preventDefault();
                 var target = $(event.target);
                 if (!target.hasClass('date-div')) {

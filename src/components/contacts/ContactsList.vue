@@ -18,7 +18,7 @@
         </div>
         <sort :sortData="sortData" :sortObj="sortObj" ref="sort"></sort>
         <!-- 列表模式   -->
-        <div v-show="queryObj.groupByMode == 'List'" class="list-mode-div">
+        <div v-if="queryObj.groupByMode == 'List'" class="list-mode-div">
             <vue-scroll v-show="!noData" :showToTop="false" :options="{ pullup: true, pulldown: true }" :scrollbar="false" ref="scroll" @pulldown="pulldown" @pullup="pullup">
 
                 <div v-if="listData.length > 0" class="contacts-list data-list  list-module-list">
@@ -62,7 +62,7 @@
             <nothing v-show="noData" style="padding-top:0.8rem;"></nothing>
         </div>
         <!-- 分组模式   -->
-        <div v-show="queryObj.groupByMode != 'List'" class="group-mode-div" id="contactsList">
+        <div v-if="queryObj.groupByMode != 'List'" class="group-mode-div" id="contactsList">
             <div v-show="!noData" id="contactsList" data-fromtype="organizations">
                 <div v-for="group in groupData" :key="group.GroupID" class="list-group-div group-div">
                     <div class="date-div">
@@ -265,6 +265,25 @@ export default {
     computed: {
 
     },
+    watch:{
+      //监听分组模式和列表模式的变化
+     'queryObj.groupByMode':function(newValue,oldValue){
+        // console.log(oldValue);
+        // console.log(newValue);
+        if(tool.isNullOrEmptyObject(newValue)){
+          return;
+        }
+
+        let _self = this;
+        newValue = newValue.toLowerCase();
+        if(newValue != "list"){
+            //分组模式事件绑定
+            _self.$nextTick(function(){
+              _self.groupToggleHandle('contactsList');
+            });
+        }
+     }
+  },
     created: function () {
         let _self = this;
         _self.$store.commit('SET_ITEM', 'contactslist');
@@ -280,7 +299,7 @@ export default {
     mounted() {
         let _self = this;
         _self.watchScroll();
-        _self.groupToggleHandle('contactsList');
+        //_self.groupToggleHandle('contactsList');
     },
     activated() {
         let _self = this;
@@ -663,6 +682,7 @@ export default {
                 "click",
                 "div.date-div",
                 function (event) {
+                    console.log("click");
                     event.preventDefault();
                     var target = $(event.target);
                     if (!target.hasClass('date-div')) {

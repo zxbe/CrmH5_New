@@ -13,7 +13,7 @@
       <sort :sortData="sortData" :sortObj="sortObj" ref="sort"></sort>
 
       <!-- 列表模式   -->
-      <div class="list-mode-div" v-show="queryObj.groupByMode == 'List'">
+      <div class="list-mode-div" v-if="queryObj.groupByMode == 'List'">
         <vue-scroll v-show="!noData" :showToTop="false" :options="{ pullup: true, pulldown: true }" :scrollbar="false" ref="scroll" @pulldown="pulldown" @pullup="pullup">
             <div v-if="listData !=null && listData != undefined && listData.length > 0" class="organizations-list list-module-list">
               <div v-for="item in listData" :key="item.AutoID"
@@ -48,7 +48,7 @@
       </div>
 
       <!-- 分组模式   -->
-      <div class="group-mode-div" v-show="queryObj.groupByMode != 'List'">
+      <div class="group-mode-div" v-if="queryObj.groupByMode != 'List'">
           <div v-show="!noData" id="organizationsList" data-fromtype="organizations">
                 <div v-for="group in groupData" :key="group.GroupID" class="list-group-div group-div">
                     <div class="date-div">
@@ -254,6 +254,25 @@ export default {
         searchModuleFromType:"7" //联系人:6;公司:7;会议:8;商机&交易:9; 用户管理：11；
     }
   },
+  watch:{
+      //监听分组模式和列表模式的变化
+     'queryObj.groupByMode':function(newValue,oldValue){
+        // console.log(oldValue);
+        // console.log(newValue);
+        if(tool.isNullOrEmptyObject(newValue)){
+          return;
+        }
+
+        let _self = this;
+        newValue = newValue.toLowerCase();
+        if(newValue != "list"){
+            //分组模式事件绑定
+            _self.$nextTick(function(){
+              _self.groupToggleHandle('organizationsList');
+            });
+        }
+     }
+  },
   created: function () {
       let _self = this;
       _self.$store.commit('SET_ITEM', 'organizationslist');
@@ -269,8 +288,8 @@ export default {
   mounted(){
       let _self = this;
       _self.watchScroll();
-      //分组模式事件绑定
-      _self.groupToggleHandle('organizationsList');
+      ////分组模式事件绑定
+      //_self.groupToggleHandle('organizationsList');
   },
   activated(){
     let _self = this;
@@ -565,6 +584,7 @@ export default {
             "click",
             "div.date-div",
             function (event) {
+              console.log("click");
                 event.preventDefault();
                 var target = $(event.target);
                 if (!target.hasClass('date-div')) {
