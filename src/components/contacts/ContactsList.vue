@@ -583,7 +583,7 @@ export default {
         pullup: function () {
             let _self = this;
             _self.queryList('pushLoad', function (data, pageSize) {
-                if (data.length <= pageSize) {
+                if (data.length < pageSize) {
                     _self.$refs.scroll.pullupEnd();
                     // _self.$refs.scroll.refresh();
                 }
