@@ -36,7 +36,7 @@
                                   <div class="left-text max60" v-show="(item.Email =='' || item.Email == null) ? false : true">
                                     <i class="calcfont icon calc-mailbox"></i><span>{{(item.Email||"") | formatRelpaceWord2Symbol("*",item.IsHasAccess)}}</span>
                                   </div>
-                                  <div class="right-text max35" v-show="(item.TelPhone =='' || item.TelPhone == null) ? false : true">
+                                  <div class="right-text max35" v-show="(item.Phone =='' || item.Phone == null) ? false : true">
                                     <i class="calcfont icon calc-mobilephone"></i><span>{{(item.Phone||"") | formatRelpaceWord2Symbol("*",item.IsHasAccess)}}</span>
                                   </div>
                               </div>
