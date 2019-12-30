@@ -31,7 +31,7 @@
                             </div>
                             <div class="item-div">
                                 <div class="left-text max60" v-show="(item.CompanyID =='' || item.CompanyID == null) ? false : true">
-                                    <i class="calcfont icon calc-gongsixinxi"></i><span>{{(item.CompanyID||"") | formatRelpaceWord2Symbol("*",item.IsHasAccess)}}</span>
+                                    <i class="calcfont icon calc-gongsixinxi"></i><span>{{item.CompanyID||""}}</span>
                                 </div>
                                 <div class="right-text max35" v-show="(item.CountryName =='' || item.CountryName == null) ? false : true">
                                     <i class="calcfont icon calc-nationaarea"></i><span>{{(item.CountryName||"") | formatRelpaceWord2Symbol("*",item.IsHasAccess)}}</span>
