@@ -179,7 +179,7 @@ export default {
         //api接口地址
         var urlTemp = tool.AjaxBaseUrl();
         var controlName = tool.Api_DataSearchHandle_AutoQuery;
-
+        var top = 10;
         var jsonDatasTemp = {
             CurrentLanguageVersion: lanTool.currentLanguageVersion,
             UserName: tool.UserName(),
@@ -188,7 +188,7 @@ export default {
             FromType:_self.searchModuleFromType ||"",
             AutoValue:autoValue,
             BusinessTypes:_self.businessType || "",
-            Top:10//查询匹配的前N条记录
+            Top:top//查询匹配的前N条记录
         };
 
         //var loadingIndexClassName = tool.showLoading();
@@ -214,8 +214,8 @@ export default {
 
                 //若查出Top记录数，则截取Top记录
                 var dataArr = data._OnlyOneData.Rows || [];
-                if(dataArr.length>Top){
-                    dataArr = dataArr.slice(0,Top);
+                if(dataArr.length>top){
+                    dataArr = dataArr.slice(0,top);
                 }
                 _self.resultData = dataArr;
                 if(!tool.isNullOrEmptyObject(callback) && typeof(callback) == "function"){
