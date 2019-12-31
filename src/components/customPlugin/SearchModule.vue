@@ -211,8 +211,13 @@ export default {
                     _self.resultData = [];
                     return;
                 }
-                _self.resultData = data._OnlyOneData.Rows || [];
 
+                //若查出Top记录数，则截取Top记录
+                var dataArr = data._OnlyOneData.Rows || [];
+                if(dataArr.length>Top){
+                    dataArr = dataArr.slice(0,Top);
+                }
+                _self.resultData = dataArr;
                 if(!tool.isNullOrEmptyObject(callback) && typeof(callback) == "function"){
                     callback(_self.resultData);
                 }
