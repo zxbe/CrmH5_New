@@ -1023,6 +1023,7 @@ export default {
                 } else {
                     _self.$store.commit('REMOVE_ITEM', 'pipelinelist');
                 }
+                _self.$store.commit('REMOVE_ITEM', 'opportunitiesinfo');
             });
         },
 

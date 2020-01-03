@@ -671,6 +671,7 @@ export default {
             var fromType = "Contactsinfo";
             tool.DeleteData(fromType, id, _self, function () {
                 _self.$store.commit('REMOVE_ITEM', 'contactslist');
+                _self.$store.commit('REMOVE_ITEM', 'contactsinfo');
             });
         },
 

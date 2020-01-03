@@ -785,6 +785,7 @@ export default {
             var fromType = "Meetinginfo";
             tool.DeleteData(fromType, id, _self, function () {
                 _self.$store.commit('REMOVE_ITEM', 'meetinglist');
+                _self.$store.commit('REMOVE_ITEM', 'meetinginfo');
             });
         },
         //保存数据

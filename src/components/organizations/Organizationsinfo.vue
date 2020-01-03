@@ -504,6 +504,7 @@ export default {
             var fromType = "Organizationsinfo";
             tool.DeleteData(fromType, id, _self, function () {
                 _self.$store.commit('REMOVE_ITEM', 'organizationslist');
+                _self.$store.commit('REMOVE_ITEM', 'organizationsinfo');
             });
         },
 
