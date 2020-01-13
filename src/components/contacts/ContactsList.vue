@@ -421,8 +421,12 @@ export default {
         },
         //添加联系人
         addDropDownToggle() {
+            console.log("dddd");
             let _self = this;
-            _self.isShowDropDown = !_self.isShowDropDown;
+             _self.$router.push({
+                path: '/contactsinfo/-1'
+            });
+            // _self.isShowDropDown = !_self.isShowDropDown;
         },
         //查询委托
         delegateQuery: function () {
