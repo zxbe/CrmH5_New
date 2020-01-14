@@ -187,10 +187,15 @@ export default {
                         text: lanTool.lanContent("795_全部"),
                         sort: 10,
                         isActive: true
+                    },{
+                        id: "MyContactPoints",
+                        text: lanTool.lanContent("1000579_我的联系人"),
+                        sort: 20,
+                        //isActive:true
                     }, {
                         id: "MyFollowData",
                         text: lanTool.lanContent("1000550_我关注的"),
-                        sort: 20,
+                        sort: 30,
                         //isActive:true
                     }]
                 },
@@ -233,6 +238,18 @@ export default {
                         queryComparison: "like",
                         datalanid: "726_公司名称",
                         iconClass: 'calc-gongsixinxi'
+                    },
+                    {
+                        queryfield: "Phone",
+                        text: lanTool.lanContent("705_移动电话"),
+                        fieldControlType: "textareaInput",
+                        queryType: "string",
+                        queryFormat: "",
+                        queryRelation: "and",
+                        queryValue: "",
+                        queryComparison: "like",
+                        datalanid: "705_移动电话",
+                        iconClass: 'calc-mobilephone'
                     }
                 ]
             },

@@ -515,7 +515,7 @@ top:0px;position:absolute;}
   padding-top:5px;
   white-space: nowrap;
   text-overflow: ellipsis;}
-.contacts-list .item-div .max60{max-width: 60%;}
+.contacts-list .item-div .max60{max-width: 50%;}
 .contacts-list .item-div .right-text{
   flex:1;max-width:45%;margin-left: 5%;text-align:left;
   padding-top:5px;
@@ -523,7 +523,7 @@ top:0px;position:absolute;}
   white-space: nowrap;
   text-overflow: ellipsis;
 }
-.contacts-list .item-div .max35{max-width: 35%;}
+.contacts-list .item-div .max35{max-width: 50%;}
 
 
 .contacts-list .item-first-div{
