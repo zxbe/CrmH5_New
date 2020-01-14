@@ -263,7 +263,7 @@ export default {
         if(tool.isNullOrEmptyObject(autoIDTemp)){
             return false;
         }
-
+        
         var infoNameTemp = data.Name || "";
         var parameter = {
             infoName:infoNameTemp
@@ -272,6 +272,14 @@ export default {
         //联系人:6;公司:7;会议:8;商机&交易:9; 用户管理：11;
         switch(_self.searchModuleFromType){
             case "6":
+                console.log(data);
+                console.log(data.IsHasAccess);
+                var isHasAccess = data.IsHasAccess || "true";
+                //若没有权限,则直接返回，不允许跳转到详情页
+                if(isHasAccess == "false"){
+                    tool.showText(lanTool.lanContent("1000572_您无权限访问该记录，请向记录的负责人申请数据共享。"));
+                    return false;
+                }
                 infoUrl = "/contactsinfo/";
                 break;
 
