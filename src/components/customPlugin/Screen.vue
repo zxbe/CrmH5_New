@@ -67,7 +67,7 @@
                   <div class="block-div" v-for="(item, index) in FieldModel" :key="index">
 
                       <!-- 类型为picketTile -->
-                      <div class="type-div" v-if="item.fieldControlType == 'picketTile'"
+                      <div class="type-div" v-if="item.fieldControlType == 'picketTile'&&item.option.length > 0"
                         :data-field="item.queryfield"
                         :data-fieldControlType=item.fieldControlType
                         :data-queryType="item.queryType"

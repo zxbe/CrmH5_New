@@ -213,6 +213,20 @@ export default {
                     }]
                 },
                 "FieldModel": [{
+                        queryfield: "CamcardTag",
+                        text: lanTool.lanContent("1000437_标签"),
+                        fieldControlType: "picketTile",
+                        queryType: "string",
+                        queryFormat: "",
+                        queryRelation: "and",
+                        queryValue: "",
+                        queryComparison: "=",
+                        Code: "DropDowList_CamcardTag",
+                        TypeValue: "",
+                        datalanid: "1000437_标签",
+                        option: [],
+                        more: true //picker中是否提供显示更多功能
+                    },{
                         queryfield: "BusinessType",
                         text: lanTool.lanContent("1007_业务分类"),
                         fieldControlType: "picketTile",
