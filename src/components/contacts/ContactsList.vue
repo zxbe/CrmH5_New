@@ -55,6 +55,13 @@
                                 </div>
                             </div>
 
+                            <div class="item-div">
+                                <div class="left-text" v-show="(item.CamcardTag =='' || item.CamcardTag == null) ? false : true">
+                                    <i class="calcfont icon calc-biaoqian"></i><span>{{item.CamcardTag}}</span>
+                                </div>
+                            </div>
+
+
                         </div>
                     </div>
                 </div>
@@ -103,6 +110,12 @@
                                             </div>
                                             <div class="right-text max35" v-show="(company.Phone =='' || company.Phone == null) ? false : true">
                                                 <i class="calcfont icon calc-mobilephone"></i><span>{{company.Phone}}</span>
+                                            </div>
+                                        </div>
+
+                                        <div class="item-div">
+                                            <div class="left-text" v-show="(company.CamcardTag =='' || company.CamcardTag == null) ? false : true">
+                                                <i class="calcfont icon calc-biaoqian"></i><span>{{company.CamcardTag}}</span>
                                             </div>
                                         </div>
 
@@ -831,7 +844,7 @@ export default {
             if (tool.isNullOrEmptyObject(data) || tool.isNullOrEmptyObject(data.AutoID)) {
                 return;
             }
-            
+
             pageTypeTemp =  tool.isNullOrEmptyObject(pageTypeTemp) ? "list" : pageTypeTemp;
             pageTypeTemp = pageTypeTemp.toLowerCase();
 
