@@ -412,7 +412,7 @@ export default {
                 }, t);
             }
 
-            if(tool.getSystem() == 'ios'){
+            if(tool.getSystem() === 'ios'){
                 window.location.href = "camcardbiz://";
                 setTimeout(function() {
                     window.location.href =
@@ -437,7 +437,7 @@ export default {
                 // }, 1000);
             // }
             //这个是ios操作系统
-            // if (tool.getSystem() == 'ios') {
+            // if (tool.getSystem() === 'ios') {
             //     //ios的scheme协议
             //     window.location.href = "camcardbiz://";
             //     setTimeout(function () {
@@ -467,10 +467,10 @@ export default {
         addDropDownToggle() {
             // console.log("dddd");
             let _self = this;
-             _self.$router.push({
-                path: '/contactsinfo/-1'
-            });
-            // _self.isShowDropDown = !_self.isShowDropDown;
+            //  _self.$router.push({
+            //     path: '/contactsinfo/-1'
+            // });
+            _self.isShowDropDown = !_self.isShowDropDown;
         },
         //查询委托
         delegateQuery: function () {
