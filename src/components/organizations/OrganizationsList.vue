@@ -14,7 +14,7 @@
 
       <!-- 列表模式   -->
       <div class="list-mode-div" v-if="queryObj.groupByMode == 'List'">
-        <vue-scroll v-show="!noData" :showToTop="false" :options="{ pullup: true, pulldown: true }" :scrollbar="false" ref="scroll" @pulldown="pulldown" @pullup="pullup">
+        <vue-scroll v-show="!noData" :showToTop="true" :options="{ pullup: true, pulldown: true }" :scrollbar="false" ref="scroll" @pulldown="pulldown" @pullup="pullup">
             <div v-if="listData !=null && listData != undefined && listData.length > 0" class="organizations-list list-module-list">
               <div v-for="item in listData" :key="item.AutoID"
               class="group-item data-events-item"  @click="goInfo(item)">

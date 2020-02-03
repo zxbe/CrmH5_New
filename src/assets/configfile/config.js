@@ -1,5 +1,5 @@
 let json = {
-	"ajaxUrl":"http://197.7.50.186:8989/crm/ApiHome/ApiAction",
+	"ajaxUrl":"http://218.17.212.198:510/crm/ApiHome/ApiAction",
 	"AppID":114,
 	"LanguageVersionsHandle_Query":"LanguageVersionsHandle_Query",
 	"Api_UserLogin":"Api_UserLogin",

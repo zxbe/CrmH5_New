@@ -19,7 +19,7 @@
         <sort :sortData="sortData" :sortObj="sortObj" ref="sort"></sort>
         <!-- 列表模式   -->
         <div v-if="queryObj.groupByMode == 'List'" class="list-mode-div">
-            <vue-scroll v-show="!noData" :showToTop="false" :options="{ pullup: true, pulldown: true }" :scrollbar="false" ref="scroll" @pulldown="pulldown" @pullup="pullup">
+            <vue-scroll v-show="!noData" :showToTop="true" :options="{ pullup: true, pulldown: true }" :scrollbar="false" ref="scroll" @pulldown="pulldown" @pullup="pullup">
 
                 <div v-if="listData.length > 0" class="contacts-list data-list  list-module-list">
                     <div v-for="item in listData" :key="item.AutoID" @click="goInfo(item)" class="group-item data-events-item f14">
